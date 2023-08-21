@@ -227,12 +227,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		ComTable comTable;
 		RandomAccessFile raf;
-		File file = null;
-		
-		if (ifile instanceof LocalFile) {
-			// 本地文件
-			file = ((LocalFile)ifile).file();
-		}
+		File file = fo.getLocalFile().file();
 		
 		try {
 			raf = ifile.getRandomAccessFile();

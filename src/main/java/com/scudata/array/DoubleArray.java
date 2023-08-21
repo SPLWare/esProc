@@ -2042,7 +2042,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	DoubleArray memberAdd(IntArray array) {
+	public DoubleArray memberAdd(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2102,7 +2102,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 	
-	DoubleArray memberAdd(LongArray array) {
+	public DoubleArray memberAdd(LongArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2162,7 +2162,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	private DoubleArray memberAdd(DoubleArray array) {
+	public DoubleArray memberAdd(DoubleArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			if (array.isTemporary()) {
@@ -2725,7 +2725,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 
-	DoubleArray memberMultiply(IntArray array) {
+	public DoubleArray memberMultiply(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2780,7 +2780,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	DoubleArray memberMultiply(LongArray array) {
+	public DoubleArray memberMultiply(LongArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2835,7 +2835,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	private DoubleArray memberMultiply(DoubleArray array) {
+	public  DoubleArray memberMultiply(DoubleArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			if (array.isTemporary()) {
@@ -4623,7 +4623,7 @@ public class DoubleArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DateArray array, int relation) {
+	protected BoolArray calcRelation(DateArray array, int relation) {
 		boolean []s1 = this.signs;
 		Date []datas2 = array.getDatas();
 		
@@ -4664,7 +4664,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		boolean []s1 = this.signs;
 		String []datas2 = array.getDatas();
 		
@@ -4705,7 +4705,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		double []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6114,7 +6114,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		double []d1 = this.datas;
 		boolean []s1 = this.signs;

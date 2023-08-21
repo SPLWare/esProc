@@ -78,7 +78,7 @@ public class LongArray implements NumberArray {
 		return datas;
 	}
 	
-	boolean[] getSigns() {
+	public boolean[] getSigns() {
 		return signs;
 	}
 	
