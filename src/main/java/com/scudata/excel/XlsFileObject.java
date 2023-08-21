@@ -308,9 +308,15 @@ public abstract class XlsFileObject extends Table {
 			pos1 = new CellLocation(Math.min(row1, row2), Math.min(col1, col2));
 			pos2 = new CellLocation(Math.max(row1, row2), Math.max(col1, col2));
 		} else {
-			SheetInfo sheetInfo = sheetObject.sheetInfo;
-			pos2 = new CellLocation(sheetInfo.getRowCount(),
-					sheetInfo.getColCount());
+			if (content == null) {
+				// a:表示不限制，取到sheet的最后
+				pos2 = new CellLocation(sx.sheetInfo.getRowCount(),
+						sx.sheetInfo.getColCount());
+			} else {
+				// a:表示不限制，将content全部设置，或者设置到行列上限
+				pos2 = new CellLocation(sx.getMaxRowCount(),
+						sx.getMaxColCount());
+			}
 		}
 		if (content == null) {
 			return sx.getCells(pos1, pos2, isGraph, isW, isP, isN);

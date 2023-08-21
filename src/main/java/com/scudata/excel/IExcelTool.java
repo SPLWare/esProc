@@ -13,11 +13,14 @@ public interface IExcelTool {
 	 * Maximum number of lines in xls format file
 	 */
 	public static int MAX_XLS_LINECOUNT = 65536;
-	
-	public static String DEFAULT_SHEET_NAME = "Sheet1";
-	
-	public static String DEFAULT_SHEET_NAME_PRE = "Sheet";
 
+	public static int MAX_XLSX_COLCOUNT = 16384;
+
+	public static int MAX_XLS_COLCOUNT = 256;
+
+	public static String DEFAULT_SHEET_NAME = "Sheet1";
+
+	public static String DEFAULT_SHEET_NAME_PRE = "Sheet";
 
 	/**
 	 * Set the name of the sheet to be operated
