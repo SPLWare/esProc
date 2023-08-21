@@ -978,15 +978,16 @@ public class ExcelUtils {
 	 * Remove whitespace
 	 * 
 	 * @param data
+	 * @param isW @w ±ø’¥Æ∂¡≥…null
 	 * @return
 	 */
-	public static Object trim(Object data) {
+	public static Object trim(Object data, boolean isW) {
 		if (data == null)
 			return null;
 		if (data instanceof String) {
 			String str = (String) data;
 			str = str.trim();
-			if ("".equals(str)) {
+			if (isW && "".equals(str)) {
 				str = null;
 			}
 			data = str;

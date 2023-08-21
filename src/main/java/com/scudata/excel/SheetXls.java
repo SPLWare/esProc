@@ -809,7 +809,7 @@ public class SheetXls extends SheetObject {
 				if (startCol + c < line.length) {
 					cutLine[c] = line[startCol + c];
 					if (isN) {
-						cutLine[c] = ExcelUtils.trim(cutLine[c]);
+						cutLine[c] = ExcelUtils.trim(cutLine[c], false);
 					}
 				}
 			}
@@ -863,7 +863,7 @@ public class SheetXls extends SheetObject {
 				if (startCol + c < line.length) {
 					cutLine[c] = line[startCol + c];
 					if (isN) {
-						cutLine[c] = ExcelUtils.trim(cutLine[c]);
+						cutLine[c] = ExcelUtils.trim(cutLine[c], true);
 					}
 				}
 			}

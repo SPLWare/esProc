@@ -426,13 +426,13 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			return xlsImportS(0, Integer.MAX_VALUE, opt);
 		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
 		boolean isN = opt != null && opt.indexOf('n') != -1;
-		Object[] line = readLine(isN);
+		Object[] line = readLine(isN, false);
 		if (line == null)
 			return null;
 		if (removeBlank) {
 			/* Remove blank lines at the head */
 			while (ExcelUtils.isBlankRow(line)) {
-				line = readLine(isN);
+				line = readLine(isN, false);
 				/* Null means the end. The blank line is Object[0]. */
 				if (line == null)
 					return null;
@@ -461,7 +461,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		}
 
 		while (true) {
-			line = readLine(isN);
+			line = readLine(isN, false);
 			if (line == null)
 				break;
 
@@ -547,7 +547,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			return xlsImportS(startRow, endRow, opt);
 
 		boolean isN = opt != null && opt.indexOf('n') != -1;
-		line = readLine(isN);
+		line = readLine(isN, false);
 		if (line == null)
 			return null;
 
@@ -557,7 +557,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				startRow++;
 				if (startRow > endRow)
 					return null;
-				line = readLine(isN);
+				line = readLine(isN, false);
 				/* Null means the end. The blank line is Object[0]. */
 				if (line == null)
 					return null;
@@ -587,7 +587,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		if (fields == null || fields.length == 0) {
 			table = new Table(ds);
 			while (startRow <= endRow) {
-				line = readLine(isN);
+				line = readLine(isN, false);
 				if (line == null)
 					break;
 
@@ -628,7 +628,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			DataStruct newDs = new DataStruct(fields);
 			table = new Table(newDs);
 			while (startRow <= endRow) {
-				line = readLine(isN);
+				line = readLine(isN, false);
 				if (line == null)
 					break;
 
@@ -655,18 +655,18 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	/**
 	 * Read a row of data
 	 * 
-	 * @param isN
-	 *            Option @n
+	 * @param isN @n
+	 * @param isW @w
 	 * @return
 	 * @throws IOException
 	 */
-	private Object[] readLine(boolean isN) throws IOException {
+	private Object[] readLine(boolean isN, boolean isW) throws IOException {
 		Object[] line = readLine();
 		if (line == null)
 			return null;
 		if (isN) {
 			for (int i = 0; i < line.length; i++) {
-				line[i] = ExcelUtils.trim(line[i]);
+				line[i] = ExcelUtils.trim(line[i], isW);
 			}
 		}
 		return line;
@@ -691,7 +691,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		Sequence seq = new Sequence();
 		Object[] line;
 		while (startRow <= endRow) {
-			line = readLine(isN);
+			line = readLine(isN, true);
 			if (line == null)
 				break;
 			startRow++;
@@ -725,7 +725,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		Object[] line;
 		boolean firstLine = true;
 		while (startRow <= endRow) {
-			line = readLine(isN);
+			line = readLine(isN, false);
 			if (line == null)
 				break;
 			startRow++;

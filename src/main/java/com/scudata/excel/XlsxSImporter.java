@@ -327,7 +327,7 @@ public class XlsxSImporter implements ILineInput {
 			Object[] line = (Object[]) obj;
 			if (isN && line != null) {
 				for (int i = 0; i < line.length; i++) {
-					line[i] = ExcelUtils.trim(line[i]);
+					line[i] = ExcelUtils.trim(line[i], false);
 				}
 			}
 			return line;
