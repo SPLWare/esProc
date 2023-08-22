@@ -462,6 +462,10 @@ public class SPL extends AppFrame {
 	protected ToolBarPropertyBase newToolBarProperty() {
 		return GVSpl.getSplProperty();
 	}
+	
+	protected ToolBarSpl newToolBarSpl() {
+		return GVSpl.getSplTool();
+	}
 
 	/**
 	 * 查看参数值

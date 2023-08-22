@@ -3454,7 +3454,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					sheet.splControl.repaint();
 					GV.appFrame.changeMenuAndToolBar(
 							((SPL) GV.appFrame).newMenuSpl(),
-							GVSpl.getSplTool());
+							((SPL) GV.appFrame).newToolBarSpl());
 
 					GV.appMenu.addLiveMenu(sheet.getSheetTitle());
 					GV.appMenu.resetPrivilegeMenu();
