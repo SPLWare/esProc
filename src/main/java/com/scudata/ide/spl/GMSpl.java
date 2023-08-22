@@ -829,6 +829,21 @@ public class GMSpl extends GM {
 			Area toArea) {
 		CellRect fromRect = new CellRect(fromArea);
 		CellRect toRect = new CellRect(toArea);
+
+		int toEndRow = toRect.getEndRow();
+		int toEndCol = toRect.getEndCol();
+
+		int rowCount = cellSet.getRowCount();
+		int colCount = cellSet.getColCount();
+
+		if (toEndRow > rowCount) {
+			cellSet.addRow(toEndRow - rowCount);
+		}
+
+		if (toEndCol > colCount) {
+			cellSet.addCol(toEndCol - colCount);
+		}
+
 		Matrix fromData = GMSpl.getMatrixCells(cellSet, fromRect);
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
 		NormalCell nc;
