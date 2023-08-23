@@ -15,7 +15,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IFile;
-import com.scudata.dm.LocalFile;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;

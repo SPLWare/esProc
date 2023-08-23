@@ -1,7 +1,15 @@
 package com.scudata.dw;
 
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
+import com.scudata.expression.UnknownSymbol;
+import com.scudata.expression.operator.Equals;
+import com.scudata.expression.operator.Greater;
+import com.scudata.expression.operator.NotEquals;
+import com.scudata.expression.operator.NotGreater;
+import com.scudata.expression.operator.NotSmaller;
+import com.scudata.expression.operator.Smaller;
 import com.scudata.util.Variant;
 
 public class ColumnFilter extends IFilter {
@@ -96,5 +104,34 @@ public class ColumnFilter extends IFilter {
 
 	public void setOperator(int operator) {
 		this.operator = operator;
+	}
+	
+	public void initExp() {
+		if (exp == null) {
+			Node node;
+			switch (operator) {
+			case EQUAL:
+				node = new Equals();
+				break;
+			case GREATER:
+				node = new Greater();
+				break;
+			case GREATER_EQUAL:
+				node = new NotSmaller();
+				break;
+			case LESS:
+				node = new Smaller();
+				break;
+			case LESS_EQUAL:
+				node = new NotGreater();
+				break;
+			default: //NOT_EQUAL:
+				node = new NotEquals();
+			}
+			
+			node.setLeft(new UnknownSymbol(column.getColName()));
+			node.setRight(new Constant(rightValue));
+			exp = new Expression(node);
+		}
 	}
 }
