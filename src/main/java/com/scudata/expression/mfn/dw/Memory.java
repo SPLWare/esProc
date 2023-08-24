@@ -20,6 +20,10 @@ public class Memory extends PhyTableFunction {
 		PhyTable tmd = (PhyTable) table;
 		
 		ICursor cursor = CreateCursor.createCursor(tmd, param, option, ctx);
+		if (option != null && option.indexOf('x') != -1) {
+			CreateCursor.setOptionX(cursor, option);
+		}
+		
 		Sequence seq = cursor.fetch();
 		
 		Table table;
