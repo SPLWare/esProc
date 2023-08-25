@@ -100,6 +100,10 @@ public class ICount extends Gather {
 		}
 		
 		public void add(IArray array, int index) {
+			if (array.isNull(index)) {
+				return;
+			}
+			
 			IArray elementArray = this.elementArray;
 			int[] linkArray = this.linkArray.getDatas();
 			int[] entries = this.entries;
@@ -170,6 +174,10 @@ public class ICount extends Gather {
 			int count = this.count;
 			
 			for (int i = 1, len = array.size(); i <= len; i++) {
+				if (array.isNull(i)) {
+					continue;
+				}
+				
 				int hash = hashUtil.hashCode(array.hashCode(i));
 				int seq = entries[hash];
 				boolean find = false;
@@ -247,6 +255,10 @@ public class ICount extends Gather {
 		}
 		
 		public boolean add(IArray array, int index) {
+			if (array.isNull(index)) {
+				return false;
+			}
+			
 			int num = array.getInt(index);
 			int idx = (num / 64);
 			long bit = (1L << (num % 64));
