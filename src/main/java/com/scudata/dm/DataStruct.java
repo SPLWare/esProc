@@ -210,6 +210,14 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
+	 * 设置字段名称
+	 * @param fieldNames
+	 */
+	public void setFieldName(String[] fieldNames) {
+		this.fieldNames = fieldNames;
+	}
+	
+	/**
 	 * 返回字段数目
 	 * @return int
 	 */

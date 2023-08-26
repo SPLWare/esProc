@@ -4322,6 +4322,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
+	public void run(Expression[] assignExps, Expression[] exps, String option, Context ctx) {
+		if (option == null || option.indexOf('m') == -1) {
+			run(assignExps, exps, ctx);
+		} else {
+			MultithreadUtil.run(this, assignExps, exps, ctx);
+		}
+	}
+
 	/**
 	 * 循环序列元素，计算表达式并进行赋值
 	 * @param assignExps Expression[] 赋值表达式
@@ -4329,38 +4337,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
-		if (exps == null || exps.length == 0) {
-			return;
-		}
-
-		int colCount = exps.length;
-		if (assignExps == null) {
-			assignExps = new Expression[colCount];
-		} else if (assignExps.length != colCount) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("run" + mm.getMessage("function.invalidParam"));
-		}
-
-		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current(this);
-		stack.push(current);
-
-		try {
-			for (int i = 1, len = length(); i <= len; ++i) {
-				current.setCurrent(i);
-				for (int c = 0; c < colCount; ++c) {
-					if (assignExps[c] == null) {
-						exps[c].calculate(ctx);
-					} else {
-						assignExps[c].assign(exps[c].calculate(ctx), ctx);
-					}
-				}
-			}
-		} finally {
-			stack.pop();
-		}
+		
 	}
-
+	
 	private Object subPos(Sequence sub, String opt) {
 		IArray subMems = sub.getMems();
 		if (subMems.size() == 0) {
@@ -12177,5 +12156,98 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					sequences, options, keyExps, newExps, newNames, opt, ctx);
 			return hashTable.result();
 		}
+	}
+	
+	
+	/**
+	 * 区间归并连接
+	 * @param exp 关连键表达式
+	 * @param seq 关连表
+	 * @param name 新字段名
+	 * @param keyExp 关连表的键表达式
+	 * @param from 区间范围起始
+	 * @param to 区间范围结束
+	 * @param opt 选项，r：重复匹配，seq中已经匹配过的仍然继续匹配
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Sequence mjoin(Expression exp, Sequence seq, String name, Expression keyExp, 
+			Object from, Object to, String opt, Context ctx) {
+		if (length() == 0 || seq == null || seq.length() == 0) {
+			return this;
+		}
+		
+		if (to == null) {
+			to = from;
+		}
+		
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
+		BaseRecord rec = (BaseRecord)mems.get(1);
+		DataStruct newDs = rec.dataStruct().dup();
+		int fcount = newDs.getFieldCount();
+		String[] names = Arrays.copyOf(newDs.getFieldNames(), fcount + 1);
+		names[fcount] = name;
+		newDs.setFieldName(names);
+
+		int len = length();
+		int len2 = seq.length();
+		int cur = 1;
+		boolean hasR = opt != null && opt.indexOf("r") != -1;
+		
+		Table table = new Table(newDs, len);
+		IArray resultMems = table.getMems();
+		
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		Current current2 = new Current(seq);
+		stack.push(current);
+		stack.push(current2);
+		
+		try {
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object obj = exp.calculate(ctx);
+				Object a = Variant.subtract(obj, from);
+				Object b = Variant.add(obj, to);
+				
+				Sequence temp = new Sequence();
+				int tempCur = cur;
+				while(tempCur <= len2) {
+					current2.setCurrent(tempCur);
+					Object obj2 = keyExp.calculate(ctx);
+					if (Variant.compare(obj2, a) >= 0) {
+						if ( Variant.compare(obj2, b) <= 0) {
+							BaseRecord rec2 = (BaseRecord)mems2.get(tempCur);
+							temp.add(rec2);
+						} else {
+							break;
+						}
+					} else {
+						cur++;
+					}
+					tempCur++;
+				}
+				
+				Record r = new Record(newDs);
+				resultMems.add(r);
+				r.set((BaseRecord)mems.get(i));
+				if (temp.length() != 0) {
+					r.setNormalFieldValue(fcount, temp);
+				}
+				
+				if (!hasR) {
+					cur = tempCur;
+				}
+				
+				if (cur > len2) {
+					break;
+				}
+			}
+		} finally {
+			stack.pop();
+			stack.pop();
+		}
+		return table;
 	}
 }
