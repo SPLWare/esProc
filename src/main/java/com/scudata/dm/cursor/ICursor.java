@@ -1317,7 +1317,7 @@ abstract public class ICursor extends Operable implements IResource {
 	 * @param opt
 	 */
 	public void setSkipBlock(Expression []srcKeyExps, ICursor []cursors, String []options, Expression [][]keyExps, Expression [][]newExps, String option) {
-		int tableCount = srcKeyExps.length;
+		int tableCount = cursors.length;
 		String key = srcKeyExps[0].getFieldName();
 		if (option == null || option.indexOf('f') == -1) {
 			if ((option == null || option.indexOf('r') == -1) && canSkipBlock()) {
