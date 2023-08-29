@@ -4337,7 +4337,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
-		
+		if (exps == null || exps.length == 0) {
+			return;
+		}
+
+		int colCount = exps.length;
+		if (assignExps == null) {
+			assignExps = new Expression[colCount];
+		} else if (assignExps.length != colCount) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("run" + mm.getMessage("function.invalidParam"));
+		}
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = length(); i <= len; ++i) {
+				current.setCurrent(i);
+				for (int c = 0; c < colCount; ++c) {
+					if (assignExps[c] == null) {
+						exps[c].calculate(ctx);
+					} else {
+						assignExps[c].assign(exps[c].calculate(ctx), ctx);
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
 	}
 	
 	private Object subPos(Sequence sub, String opt) {
