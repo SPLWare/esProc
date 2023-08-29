@@ -4027,7 +4027,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	/**
 	 * 返回序列的计算列
 	 * @param exp Expression 计算表达式
-	 * @param opt String m：并行计算
+	 * @param opt String m：并行计算，z：从后往前算
 	 * @param ctx Context 计算上下文环境
 	 * @return Sequence
 	 */
@@ -4035,6 +4035,31 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
 				return MultithreadUtil.calc(this, exp, ctx);
+			} else if (opt.indexOf('z') != -1) {
+				int size = length();
+				Sequence result = new Sequence(size);
+				IArray array = result.getMems();
+				array.setSize(size);
+				
+				ComputeStack stack = ctx.getComputeStack();
+				Current current = new Current(this);
+				stack.push(current);
+
+				try {
+					for (int i = size; i > 0; --i) {
+						current.setCurrent(i);
+						array.set(i, exp.calculate(ctx));
+					}
+				} finally {
+					stack.pop();
+				}
+
+				if (opt.indexOf('v') != -1) {
+					array = array.toPureArray();
+					result.mems = array;
+				}
+				
+				return result;
 			} else if (opt.indexOf('v') != -1) {
 				Sequence result = calc(exp, ctx);
 				result.mems = result.mems.toPureArray();
@@ -4290,10 +4315,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	public void run(Expression exp, String opt, Context ctx) {
-		if (opt == null || opt.indexOf('m') == -1) {
+		if (opt == null) {
 			run(exp, ctx);
-		} else {
+		} else if (opt.indexOf('m') != -1) {
 			MultithreadUtil.run(this, exp, ctx);
+		} else if (opt.indexOf('z') != -1) {
+			ComputeStack stack = ctx.getComputeStack();
+			Current current = new Current(this);
+			stack.push(current);
+
+			try {
+				for (int i = length(); i > 0; --i) {
+					current.setCurrent(i);
+					exp.calculate(ctx);
+				}
+			} finally {
+				stack.pop();
+			}
+		} else {
+			run(exp, ctx);
 		}
 	}
 	
@@ -4322,8 +4362,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	public void run(Expression[] assignExps, Expression[] exps, String option, Context ctx) {
-		if (option == null || option.indexOf('m') == -1) {
+	public void run(Expression[] assignExps, Expression[] exps, String opt, Context ctx) {
+		if (opt == null || opt.indexOf('m') == -1) {
 			run(assignExps, exps, ctx);
 		} else {
 			MultithreadUtil.run(this, assignExps, exps, ctx);
@@ -4337,7 +4377,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
-		
+		if (exps == null || exps.length == 0) {
+			return;
+		}
+
+		int colCount = exps.length;
+		if (assignExps == null) {
+			assignExps = new Expression[colCount];
+		} else if (assignExps.length != colCount) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("run" + mm.getMessage("function.invalidParam"));
+		}
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = length(); i <= len; ++i) {
+				current.setCurrent(i);
+				for (int c = 0; c < colCount; ++c) {
+					if (assignExps[c] == null) {
+						exps[c].calculate(ctx);
+					} else {
+						assignExps[c].assign(exps[c].calculate(ctx), ctx);
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
 	}
 	
 	private Object subPos(Sequence sub, String opt) {
@@ -7495,7 +7564,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 由序列创建出一个新序表
 	 * @param ds 新序表的数据结构
 	 * @param exps 新序表的字段计算表达式数组
-	 * @param opt i：有表达式计算结果为空时不生成该行记录
+	 * @param opt i：有表达式计算结果为空时不生成该行记录，z：从后往前算
 	 * @param ctx 计算上下文
 	 * @return 新产生的序表
 	 */
@@ -7504,7 +7573,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int colCount = ds.getFieldCount();
 		Table table = new Table(ds, len);
 		IArray resultMems = table.getMems();
-
+		
+		boolean iopt = false, zopt = false;
+		if (opt != null) {
+			if (opt.indexOf('i') != -1) iopt = true;
+			if (opt.indexOf('z') != -1) zopt = true;
+		}
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current newCurrent = new Current(table);
 		stack.push(newCurrent);
@@ -7512,18 +7587,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (opt == null || opt.indexOf('i') == -1) {
-				for (int i = 1; i <= len; ++i) {
-					Record r = new Record(ds);
-					resultMems.add(r);
-					
-					newCurrent.setCurrent(i);
-					current.setCurrent(i);
-					for (int c = 0; c < colCount; ++c) {
-						r.setNormalFieldValue(c, exps[c].calculate(ctx));
+			if (zopt) {
+				table.getRecord(len);
+				
+				if (iopt) {
+					Next:
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							if (obj != null) {
+								r.setNormalFieldValue(c, obj);
+							} else {
+								// 计算表达式可能依赖于新产生的记录，所以要先产生记录，不满足条件再删除记录
+								resultMems.remove(i);
+								continue Next;
+							}
+						}
+					}
+				} else {
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						for (int c = 0; c < colCount; ++c) {
+							r.setNormalFieldValue(c, exps[c].calculate(ctx));
+						}
 					}
 				}
-			} else {
+			} else if (iopt) {
 				Next:
 				for (int i = 1, q = 1; i <= len; ++i) {
 					Record r = new Record(ds);
@@ -7543,6 +7637,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					++q;
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Record r = new Record(ds);
+					resultMems.add(r);
+					
+					newCurrent.setCurrent(i);
+					current.setCurrent(i);
+					for (int c = 0; c < colCount; ++c) {
+						r.setNormalFieldValue(c, exps[c].calculate(ctx));
+					}
 				}
 			}
 		} finally {
@@ -7914,12 +8019,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 为源排列添加列
 	 * @param names String[] 需要添加的列
 	 * @param exps Expression[] 需要添加的列的表达式
-	 * @param opt String m：多线程运算，i：表达式计算结果为null是不生成该条记录
+	 * @param opt String m：多线程运算，i：表达式计算结果为null是不生成该条记录，z：从后往前算
 	 * @param ctx Context
 	 */
 	public Table derive(String []names, Expression []exps, String opt, Context ctx) {
-		if (opt != null && opt.indexOf('m') != -1) {
-			return MultithreadUtil.derive(this, names, exps, opt, ctx);
+		boolean iopt = false, zopt = false;
+		if (opt != null) {
+			if (opt.indexOf('m') != -1) {
+				return MultithreadUtil.derive(this, names, exps, opt, ctx);
+			}
+			
+			if (opt.indexOf('i') != -1) iopt = true;
+			if (opt.indexOf('z') != -1) zopt = true;
 		}
 		
 		IArray mems = getMems();
@@ -7995,21 +8106,43 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (opt == null || opt.indexOf('i') == -1) {
-				for (int i = 1; i <= len; ++i) {
-					Record r = new Record(newDs);
-					resultMems.add(r);
-					r.set((BaseRecord)mems.get(i));
-					
-					newCurrent.setCurrent(i);
-					current.setCurrent(i);
+			if (zopt) {
+				table.getRecord(len);
+				
+				if (iopt) {
+					Next:
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							if (obj != null) {
+								r.setNormalFieldValue(c + oldColCount, obj);
+							} else {
+								resultMems.remove(i); // 计算exps可能依赖于新产生的记录
+								continue Next;
+							}
+						}
+						
+						r.set((BaseRecord)mems.get(i));
+					}
+				} else {
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						r.set((BaseRecord)mems.get(i));
+						
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
 
-					// 计算新字段
-					for (int c = 0; c < colCount; ++c) {
-						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+						// 计算新字段
+						for (int c = 0; c < colCount; ++c) {
+							r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+						}
 					}
 				}
-			} else {
+			} else if (iopt) {
 				Next:
 				for (int i = 1, q = 1; i <= len; ++i) {
 					Record r = new Record(newDs);
@@ -8031,6 +8164,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					++q;
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					
+					newCurrent.setCurrent(i);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < colCount; ++c) {
+						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+					}
 				}
 			}
 		} finally {
