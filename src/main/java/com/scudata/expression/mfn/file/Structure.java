@@ -149,7 +149,7 @@ public class Structure extends FileFunction {
 			for (ColumnMetaData column: columns ) {
 				Record rec = new Record(new DataStruct(COL_FIELD_FIELD_NAMES));
 				rec.setNormalFieldValue(0, column.getColName());
-				rec.setNormalFieldValue(1, column.isDim());
+				rec.setNormalFieldValue(1, column.isKey());
 				rec.setNormalFieldValue(2, DataBlockType.getTypeName(column.getDataType()));
 				rec.setNormalFieldValue(3, DataBlockType.getTypeLen(column.getDataType()));
 				Sequence dict = column.getDict();
