@@ -291,10 +291,13 @@ public class FileGroup implements Externalizable {
 		}
 
 		// 生成分段选项，是否按第一字段分段
-		String newOpt = null;
+		String newOpt = "";
 		String segmentCol = baseTable.getSegmentCol();
 		if (segmentCol != null) {
-			newOpt = "p";
+			newOpt += "p";
+		}
+		if (baseTable.getGroupTable().hasDeleteKey()) {
+			newOpt += "d";
 		}
 		
 		ComTable newGroupTable = null;
@@ -489,6 +492,11 @@ public class FileGroup implements Externalizable {
 			if (uncompress) {
 				newOpt += 'u';
 			}
+			
+			if (baseTable.getGroupTable().hasDeleteKey()) {
+				newOpt += "d";
+			}
+			
 			try {
 				//写基表
 				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, blockSize, ctx);

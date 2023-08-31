@@ -951,6 +951,11 @@ abstract public class ComTable implements IBlockStorage {
 		if (uncompress) {
 			newOpt += 'u';
 		}
+		
+		if (baseTable.groupTable.hasDeleteKey()) {
+			newOpt += "d";
+		}
+		
 		try {
 			//Ð´»ù±í
 			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
