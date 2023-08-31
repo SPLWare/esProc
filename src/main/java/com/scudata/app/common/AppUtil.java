@@ -49,6 +49,7 @@ import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CellSetUtil;
+import com.scudata.util.Variant;
 
 /**
  * Public tools
@@ -741,11 +742,22 @@ public class AppUtil {
 		if (cellSet != null) {
 			ParamList pl = cellSet.getParamList();
 			if (pl != null) {
+				Object value;
+				Object editValue;
 				for (int i = 0; i < pl.count(); i++) {
 					Param p = pl.get(i);
 					if (p != null) {
-						if (p.getValue() != null && p.getEditValue() == null) {
-							p.setEditValue(p.getValue());
+						value = p.getValue();
+						if (value != null && p.getEditValue() == null) {
+							editValue = value;
+							if (editValue instanceof String) {
+								if (!StringUtils.isValidString(editValue)) {
+									editValue = null;
+								}
+							} else {
+								editValue = Variant.toString(value);
+							}
+							p.setEditValue(editValue);
 						}
 					}
 				}
