@@ -138,9 +138,9 @@ public class MemoryCursor extends ICursor {
 		return true;
 	}
 	
-	public Sequence fuzzyFetch(int n) {
-		return fetch();
-	}
+	//public Sequence fuzzyFetch(int n) {
+	//	return fetch();
+	//}
 
 	/**
 	 * 返回剩余的记录并关闭游标
