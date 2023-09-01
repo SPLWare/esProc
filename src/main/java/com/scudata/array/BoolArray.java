@@ -268,9 +268,28 @@ public class BoolArray implements IArray {
 						mm.getMessage("DataType.Boolean"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Boolean"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Boolean"), array.getDataType()));
+			ensureCapacity(size + size2);
+			boolean []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Boolean) {
+					datas[++size] = ((Boolean)obj).booleanValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Boolean"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -321,9 +340,28 @@ public class BoolArray implements IArray {
 						mm.getMessage("DataType.Boolean"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Boolean"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Boolean"), array.getDataType()));
+			ensureCapacity(size + count);
+			boolean []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Boolean) {
+					datas[++size] = ((Boolean)obj).booleanValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Boolean"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	

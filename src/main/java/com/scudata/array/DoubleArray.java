@@ -281,9 +281,28 @@ public class DoubleArray implements NumberArray {
 						mm.getMessage("DataType.Double"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Double"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Double"), array.getDataType()));
+			ensureCapacity(size + size2);
+			double []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Double) {
+					datas[++size] = ((Double)obj).doubleValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Double"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -334,9 +353,28 @@ public class DoubleArray implements NumberArray {
 						mm.getMessage("DataType.Double"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Double"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Double"), array.getDataType()));
+			ensureCapacity(size + count);
+			double []datas = this.datas;
+			
+			for (int i = 1; i <= 1; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Double) {
+					datas[++size] = ((Double)obj).doubleValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Double"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	

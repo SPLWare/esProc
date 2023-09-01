@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Comparator;
+import java.util.Date;
 
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
@@ -209,9 +210,24 @@ public class StringArray implements IArray {
 						mm.getMessage("DataType.String"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.String"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.String"), array.getDataType()));
+			ensureCapacity(size + size2);
+			String []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof String) {
+					datas[++size] = (String)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.String"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -251,9 +267,24 @@ public class StringArray implements IArray {
 						mm.getMessage("DataType.String"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.String"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.String"), array.getDataType()));
+			ensureCapacity(size + count);
+			String []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof String) {
+					datas[++size] = (String)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.String"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	

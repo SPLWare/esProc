@@ -228,9 +228,24 @@ public class DateArray implements IArray {
 						mm.getMessage("DataType.Date"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Date"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Date"), array.getDataType()));
+			ensureCapacity(size + size2);
+			Date []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Date) {
+					datas[++size] = (Date)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Date"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -270,9 +285,24 @@ public class DateArray implements IArray {
 						mm.getMessage("DataType.Date"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Date"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Date"), array.getDataType()));
+			ensureCapacity(size + count);
+			Date []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Date) {
+					datas[++size] = (Date)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Date"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	

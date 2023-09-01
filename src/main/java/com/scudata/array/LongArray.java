@@ -288,9 +288,28 @@ public class LongArray implements NumberArray {
 						mm.getMessage("DataType.Long"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Long"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Long"), array.getDataType()));
+			ensureCapacity(size + size2);
+			long []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Long) {
+					datas[++size] = ((Long)obj).longValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Long"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -341,9 +360,28 @@ public class LongArray implements NumberArray {
 						mm.getMessage("DataType.Long"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Long"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Long"), array.getDataType()));
+			ensureCapacity(size + count);
+			long []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Long) {
+					datas[++size] = ((Long)obj).longValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Long"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
