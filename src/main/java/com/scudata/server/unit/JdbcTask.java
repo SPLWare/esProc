@@ -9,6 +9,7 @@ import com.esproc.jdbc.JDBCUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.parallel.Request;
 
 /**
@@ -61,6 +62,9 @@ public class JdbcTask {
 	}
 
 	public static Object checkResult(Object r) throws Exception{
+		if(r instanceof ICursor) {//游标不必实现序列化，会产生远程游标
+			return r;
+		}
 		if(!(r instanceof Serializable)) {
 			throw new Exception("Return result "+r.getClass().getName()+" is not supportted.");
 		}
