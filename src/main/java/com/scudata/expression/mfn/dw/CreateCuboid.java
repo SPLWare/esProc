@@ -48,7 +48,7 @@ public class CreateCuboid extends PhyTableFunction {
 	}
 	
 	private static Object createCuboid(PhyTable srcTable, IParam param,  Context ctx) {
-		String C;
+		FileObject C;
 		if (param == null) {
 			try {
 				return srcTable.deleteCuboid(null);
@@ -56,13 +56,15 @@ public class CreateCuboid extends PhyTableFunction {
 				throw new RQException(e.getMessage(), e);
 			}
 		} else if (param.isLeaf()) {
-			C = (String) param.getLeafExpression().getIdentifierName();
-			//delete
-			try {
-				return srcTable.deleteCuboid(C);
-			} catch (IOException e) {
-				throw new RQException(e.getMessage(), e);
-			}
+//			C = (String) param.getLeafExpression().getIdentifierName();
+//			//delete
+//			try {
+//				return srcTable.deleteCuboid(C);
+//			} catch (IOException e) {
+//				throw new RQException(e.getMessage(), e);
+//			}
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("cuboid" + mm.getMessage("function.invalidParam"));
 		}
 		
 		IParam sub0;
@@ -85,7 +87,8 @@ public class CreateCuboid extends PhyTableFunction {
 			sub0 = param;
 		}
 		
-		C = (String) sub0.getSub(0).getLeafExpression().getIdentifierName();
+		//C = (String) sub0.getSub(0).getLeafExpression().getIdentifierName();
+		C = (FileObject) sub0.getSub(0).getLeafExpression().calculate(ctx);
 		sub0 = sub0.create(1, sub0.getSubSize());
 		
 		Expression []exps;
@@ -114,11 +117,14 @@ public class CreateCuboid extends PhyTableFunction {
 		}
 		
 		//ÎªcuboidÃüÃû
-		String dir = srcTable.getGroupTable().getFile().getAbsolutePath() + "_";
-		FileObject fo = new FileObject(dir + srcTable.getTableName() + Cuboid.CUBE_PREFIX + C);
+		//String dir = srcTable.getGroupTable().getFile().getAbsolutePath() + "_";
+		//FileObject fo = new FileObject(dir + srcTable.getTableName() + Cuboid.CUBE_PREFIX + C);
+		FileObject fo = C;
 		if (fo.isExists())
 		{
-			fo.delete();
+			//fo.delete();
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(fo.getFileName() + mm.getMessage("dw.cuboidAlreadyExist"));
 		}
 		
 		String cuboids[] = srcTable.getCuboids();
@@ -169,7 +175,7 @@ public class CreateCuboid extends PhyTableFunction {
 			table.setSrcCount(srcTable.getActualRecordCount());
 			table.writeHeader();
 			table.close();
-			srcTable.addCuboid(C);
+			//srcTable.addCuboid(C);
 		} catch (Exception e) {
 			if (table != null) table.close();
 			file.delete();

@@ -1140,6 +1140,9 @@ public class PhyTableIndex implements ITableIndex {
 				tmpFile.move(indexFile.getFileName(), null);
 			}
 			
+			if (opt != null && opt.indexOf('U') != -1) {
+				isAdd = false;
+			}
 			try {
 				if (isAdd) {
 					srcTable.addIndex(name, ifields, null);
@@ -5732,4 +5735,72 @@ public class PhyTableIndex implements ITableIndex {
 		rec.setNormalFieldValue(4, filter == null ? null : filter.toString());
 		return rec;
 	}
+	
+	/**
+	 * 判断字段是否与索引兼容
+	 * @param fieldNames 字段名数组
+	 * @param ifields 索引字段
+	 * @return
+	 */
+	public static boolean isCompatible(String []fieldNames, String[] ifields) {
+		if (fieldNames == null || ifields == null)
+			return false;
+		ArrayList<String> list = new ArrayList<String>();
+		int fcount = fieldNames.length;
+
+		int cnt = ifields.length;
+		if (cnt < fcount)
+			return false;
+		list.clear();
+		for (String str : ifields) {
+			list.add(str);
+		}
+		for (String str : fieldNames) {
+			list.remove(str);
+		}
+		if (list.isEmpty()) {
+			return true;
+		}
+	
+		return false;
+	}
+	
+	public static String[][] readIndexFields(FileObject indexFile) {
+		String[][] names = new String[2][];
+		ObjectReader reader = null;
+		try {
+			InputStream is = indexFile.getInputStream();
+			reader = new ObjectReader(is, BUFFER_SIZE);
+			if (reader.read() != 'r' || reader.read() != 'q' || 
+					reader.read() != 'd' || reader.read() != 'w' ||
+					reader.read() != 'i' || reader.read() != 'd' ) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+			
+			int flag = reader.read();
+			reader.readFully(new byte[32]);
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			names[0] = reader.readStrings();//ifields
+			if (flag == 'v') 
+				names[1] = reader.readStrings();//
+		} catch (IOException e) {
+			throw new RQException(e);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		return names;
+	}
+	
 }

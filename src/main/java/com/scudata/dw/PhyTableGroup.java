@@ -728,7 +728,7 @@ public class PhyTableGroup implements IPhyTable {
 		return result;
 	}
 	
-	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
+	public ICursor icursor(String []fields, Expression filter, Object iname, String opt, Context ctx) {
 		boolean sort = true;
 		int[] sortFields = null;
 		int count = tables.length;
@@ -878,15 +878,15 @@ public class PhyTableGroup implements IPhyTable {
 	 * @return
 	 */
 	public Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
-			Expression w, boolean hasM, int n, String option,  Context ctx) {
+			Expression w, boolean hasM, int n, String option, FileObject[] files, Context ctx) {
 			int count = tables.length;
 			
 			//把所有表的结果放到一起
 			Sequence result = Cuboid.cgroups(expNames, names, newExpNames, newNames, 
-					(PhyTable) tables[0], w, hasM, n, option, ctx);
+					(PhyTable) tables[0], w, hasM, n, option, files, ctx);
 			for (int i = 1; i < count; ++i) {
 				Sequence seq = Cuboid.cgroups(expNames, names, newExpNames, newNames, 
-						(PhyTable) tables[i], w, hasM, n, option, ctx);
+						(PhyTable) tables[i], w, hasM, n, option, files, ctx);
 				result.addAll(seq);
 			}
 			

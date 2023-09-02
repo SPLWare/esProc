@@ -465,6 +465,49 @@ abstract public class PhyTable implements IPhyTable {
 		}
 	}
 	
+	public void createIndex(FileObject file, String []fields, Object obj, String opt, Expression w, Context ctx) {
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			tmd.createIndex(file, fields, obj, opt, w, ctx);
+		}
+		
+		try {
+			appendCache();
+		} catch (IOException e) {
+			throw new RQException(e);
+		}
+		
+		//不存到组表里
+		if  (opt == null) {
+			opt = "U";
+		} else {
+			opt += "U";
+		}
+		
+		if (obj == null) {
+			if  (opt != null) {
+				//全文
+				if  (opt.indexOf('w') != -1) {
+					TableFulltextIndex index = new TableFulltextIndex(this, file);
+					index.create(fields, opt, ctx, w);
+					return;
+				}
+			}
+			
+			//排序
+			PhyTableIndex index = new PhyTableIndex(this, file);
+			index.create(fields, opt, ctx, w);
+		} else if (obj instanceof String[]) {
+			//KV
+			TableKeyValueIndex index = new TableKeyValueIndex(this, file);
+			index.create(fields, (String[]) obj, opt, ctx, w);
+		} else if (obj instanceof Integer) {
+			//hash
+			TableHashIndex index = new TableHashIndex(this, file, (Integer) obj);
+			index.create(fields, opt, ctx, w);
+		}
+	}
+	
 	/**
 	 * 重建索引
 	 * @param ctx
@@ -1191,17 +1234,29 @@ abstract public class PhyTable implements IPhyTable {
 	/**
 	 * 索引查询函数icursor的入口
 	 */
-	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
+	public ICursor icursor(String []fields, Expression filter, Object indexObj, String opt, Context ctx) {
 		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
-		ICursor cs = icursor_(fields, filter, iname, opt, ctx);
+		boolean isName = indexObj == null || indexObj instanceof String;
+		
+		ICursor cs;
+		if (isName) {
+			cs = icursor_(fields, filter, (String) indexObj, opt, ctx);
+		} else {
+			cs = icursorByFile(fields, filter, (FileObject[]) indexObj, opt, ctx);
+		}
 		PhyTable tmd = getSupplementTable(false);
 		
 		if (tmd == null) {
 			return cs;
 		} else {			
-			ICursor cs2 = tmd.icursor_(fields, filter, iname, opt, ctx);
+			ICursor cs2;
+			if (isName) {
+				cs2 = tmd.icursor_(fields, filter, (String) indexObj, opt, ctx);
+			} else {
+				cs2 = tmd.icursorByFile(fields, filter, (FileObject[]) indexObj, opt, ctx);
+			}
 			if (cs == null) {
 				return cs2;
 			}
@@ -1427,6 +1482,66 @@ abstract public class PhyTable implements IPhyTable {
 		return cursor;
 	}
 
+	private ICursor icursorByFile(String []fields, Expression filter, FileObject[] files, String opt, Context ctx) {
+		FileObject indexFile = null;
+		String[][] fileds = null;
+		
+		if (files == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+		} else {
+			String[] filterFields;
+			if (filter.getHome() instanceof DotOperator) {
+				Node right = filter.getHome().getRight();
+				if (!(right instanceof Contain)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+				}
+				String str = ((Contain)right).getParamString();
+				str = str.replaceAll("\\[", "");
+				str = str.replaceAll("\\]", "");
+				str = str.replaceAll(" ", "");
+				filterFields = str.split(",");
+			} else if (filter.getHome() instanceof Like) {
+				IParam sub1 = ((Like) filter.getHome()).getParam().getSub(0);
+				String f = (String) sub1.getLeafExpression().getIdentifierName();
+				filterFields = new String[]{f};
+			} else {
+				filterFields = getExpFields(filter, getColNames());
+			}
+			
+			for (FileObject file : files) {
+				fileds = PhyTableIndex.readIndexFields(file);
+				if (PhyTableIndex.isCompatible(filterFields, fileds[0])) {
+					indexFile = file;
+					break;
+				}
+			}
+			
+			if (filterFields == null || indexFile == null) {
+				//filter中不包含任何字段 or 索引不存在
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+			}
+		}
+		
+		ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1]);
+		ArrayList<ModifyRecord> mrl = getModifyRecord(this, filter, ctx);
+		ICursor cursor = index.select(filter, fields, opt, ctx);
+		if (cursor == null) {
+			if (mrl == null) {
+				return null;
+			} else {
+				cursor = new IndexCursor(this, fields, null, null, opt, ctx);
+			}
+		} else {
+			if (cursor instanceof IndexCursor) {
+				((IndexCursor) cursor).setModifyRecordList(mrl);
+			}
+		}
+		return cursor;
+	}
+	
 	/**
 	 * 取得索引实例
 	 * @param indexFile 索引文件
@@ -1434,7 +1549,7 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param isRead 是读操作，还是写操作
 	 * @return
 	 */
-	public synchronized ITableIndex getTableMetaDataIndex(FileObject indexFile, String iname, boolean isRead) {
+	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String iname, boolean isRead) {
 		String name = indexFile.getFileName().toLowerCase();
 		name += this.getTableName().toLowerCase();
 		
@@ -1481,6 +1596,34 @@ abstract public class PhyTable implements IPhyTable {
 			cache.remove(name);
 			return null;
 		}
+	}
+	
+	/**
+	 * 取得索引实例
+	 * @param indexFile 索引文件
+	 * @return
+	 */
+	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields) {
+		ITableIndex ti;
+		if (!this.getGroupTable().getFile().exists()) {
+			return null;
+		}
+		try {
+			byte[] type = (byte[]) indexFile.read(6, 6, "b");
+			if (type[0] == 'x') {
+				ti = new PhyTableIndex(this, indexFile);
+			} else if (type[0] == 'h') {
+				ti = new TableHashIndex(this, indexFile);
+			} else if (type[0] == 'w') {
+				ti = new TableFulltextIndex(this, indexFile);
+			} else {
+				ti = new TableKeyValueIndex(this, indexFile);
+			}
+			ti.setFields(ifields, vfields);
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+		return ti;
 	}
 	
 	/**

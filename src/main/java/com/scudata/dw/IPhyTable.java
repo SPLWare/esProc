@@ -200,12 +200,12 @@ public interface IPhyTable extends IResource {
 	 * 使用索引查询
 	 * @param fields 取出字段
 	 * @param filter 过滤表达式
-	 * @param iname 索引字段
+	 * @param iname 索引对象
 	 * @param opt 包含'u'时,不调整filter里各条件的过滤优先级
 	 * @param ctx 上下文
 	 * @return 索引游标，也可能是其它游标
 	 */
-	ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx);
+	ICursor icursor(String []fields, Expression filter, Object iname, String opt, Context ctx);
 	
 	/**
 	 * 修改字段名

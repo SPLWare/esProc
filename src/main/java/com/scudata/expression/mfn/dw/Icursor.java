@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.IndexCursor;
 import com.scudata.expression.Expression;
@@ -29,7 +30,7 @@ public class Icursor extends PhyTableFunction {
 		boolean isMultiThread = option != null && option.indexOf('m') != -1;
 		String []fields = null;
 		Expression w = null;
-		String I = null;
+		Object I = null;
 		
 		int segCount = 0;
 		if (isMultiThread) {
@@ -65,14 +66,26 @@ public class Icursor extends PhyTableFunction {
 			
 			if (param.getSubSize() == 3) {
 				sub = param.getSub(2);
-				if (sub != null) {
-					Object obj = sub.getLeafExpression().calculate(ctx);
-					if (!(obj instanceof Number)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
+				//这里是对多路的处理，仍保留注释
+//				if (sub != null) {
+//					Object obj = sub.getLeafExpression().calculate(ctx);
+//					if (!(obj instanceof Number)) {
+//						MessageManager mm = EngineMessage.get();
+//						throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
+//					}
+//
+//					segCount = ((Number)obj).intValue();
+//				}
+				int size = sub.getSubSize();
+				if (size == 0) {
+					FileObject f = (FileObject) sub.getLeafExpression().calculate(ctx);
+					I = new FileObject[] {f};	
+				} else {
+					FileObject[] files = new FileObject[size];
+					for (int i = 0; i < size; i++) {
+						files[i] = (FileObject) sub.getSub(i).getLeafExpression().calculate(ctx);
 					}
-
-					segCount = ((Number)obj).intValue();
+					I = files;
 				}
 			}
 			
@@ -87,10 +100,9 @@ public class Icursor extends PhyTableFunction {
 		IParam sub0;
 		if (param.isLeaf()) {
 			sub0 = param;
-			I = null;
 		} else {
 			sub0 = param.getSub(0);
-			I = (String) param.getSub(1).getLeafExpression().getIdentifierName();
+			I= param.getSub(1).getLeafExpression().getIdentifierName();
 		}
 		
 		if (sub0 != null) {

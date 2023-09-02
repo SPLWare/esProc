@@ -318,7 +318,7 @@ public class Cuboid extends RowComTable {
 			PhyTable srcTable, Expression w, boolean hasM, int n, String option,  Context ctx) {
 		//注意，cgroups_得到的是包含补文件cuboid的
 		
-		return cgroups_(expNames, names, newExpNames, newNames, srcTable, w, hasM, n, option, ctx);
+		return cgroups_(expNames, names, newExpNames, newNames, srcTable, w, hasM, n, option, null, ctx);
 		
 		/*TableMetaData tmd = srcTable.getSupplementTable(false);
 		if (tmd == null) {
@@ -349,8 +349,13 @@ public class Cuboid extends RowComTable {
 		}*/
 	}
 	
+	public static Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
+			PhyTable srcTable, Expression w, boolean hasM, int n, String option, FileObject[] files,  Context ctx) {
+		return cgroups_(expNames, names, newExpNames, newNames, srcTable, w, hasM, n, option, files, ctx);
+	}
+	
 	private static Sequence cgroups_(String []expNames, String []names, String []newExpNames, String []newNames,
-			PhyTable srcTable,	Expression w, boolean hasM, int n, String option,  Context ctx) {
+			PhyTable srcTable,	Expression w, boolean hasM, int n, String option, FileObject[] files, Context ctx) {
 		Expression []exps = null;
 		if (expNames != null) {
 			int len = expNames.length;
@@ -381,7 +386,12 @@ public class Cuboid extends RowComTable {
 			}
 		}
 
-		Object obj = findCuboid(srcTable, expNames, newExpNames, w, ctx);
+		Object obj;
+		if (files == null) {
+			obj= findCuboid(srcTable, expNames, newExpNames, w, ctx);
+		} else {
+			obj= findCuboid(srcTable, expNames, newExpNames, w, files, ctx);
+		}
 		try {
 			if (obj instanceof ArrayList) {
 				//有多个预分组立方体
@@ -910,6 +920,93 @@ public class Cuboid extends RowComTable {
 		
 		for (String cuboid: cuboids) {
 			FileObject fo = new FileObject(dir + srcTable.getTableName() + CUBE_PREFIX + cuboid);
+			if (!fo.isExists()) {
+				continue;
+			}
+			File file = fo.getLocalFile().file();
+			RowComTable table = null;
+			try {
+				table = new Cuboid(file, null);
+				table.checkPassword("cuboid");
+				PhyTable baseTable = table.getBaseTable();
+				String fields[] = baseTable.getAllColNames();
+				if (w != null) {
+					filterFields = new ArrayList<String>();
+					fieldList = new ArrayList<String>();
+					for (String f : fields) {
+						fieldList.add(f);
+					}
+					parseFilter(fieldList, w.getHome(), filterFields);
+				}
+				int match = check(fields, baseTable.getAllSortedColNames().length, names, expNames, filterFields, ctx);
+				if (match == 1 && !flag) {
+					tableList.add(baseTable);
+				} else if ( match == 2 && !flag) {
+					tableList2.add(baseTable);
+				} else if (match == 3) {
+					//最匹配，返回表对象
+					for (PhyTable tbl : tableList) {
+						tbl.close();
+					}
+					for (PhyTable tbl : tableList2) {
+						tbl.close();
+					}
+					return baseTable;
+				} else {
+					table.close();
+				}
+			} catch (Exception e) {
+				if (table != null) table.close();
+				for (PhyTable tbl : tableList) {
+					tbl.close();
+				}
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+
+		//去掉匹配度低的（如果有2的，则去掉1的）
+		if (tableList2.size() != 0) {
+			for (PhyTable tbl : tableList) {
+				tbl.close();
+			}
+			return tableList2;
+		}
+		return tableList;
+	}
+	
+	/**
+	 * 查找合适的立方体
+	 * @param srcTable 原表
+	 * @param names 要分组的字段名称
+	 * @param expNames 聚合表达式名称
+	 * @param w 过滤表达式
+	 * @param files 立方体文件
+	 * @param ctx
+	 * @return
+	 */
+	public static Object findCuboid(PhyTable srcTable, String names[], String expNames[], 
+			Expression w, FileObject[] files, Context ctx) {
+		//String dir = srcTable.getGroupTable().getFile().getAbsolutePath() + "_";
+		//String cuboids[] = srcTable.getCuboids();
+		ArrayList<PhyTable> tableList = new ArrayList<PhyTable>();
+		if (files == null) return tableList;
+		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
+		
+		//检查exps，avg不能做再聚合
+		boolean flag = false;//表示不能再聚合
+		for (String exp : expNames) {
+			if (exp.indexOf("avg(") != -1) {
+				flag = true;//return tableList;
+			}
+			if (exp.indexOf("top(") != -1) {
+				flag = true;//return tableList;
+			}
+		}
+		
+		ArrayList<String> filterFields = null;
+		ArrayList<String> fieldList = null;
+		
+		for (FileObject fo: files) {
 			if (!fo.isExists()) {
 				continue;
 			}

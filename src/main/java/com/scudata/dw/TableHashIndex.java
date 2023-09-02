@@ -990,18 +990,13 @@ public class TableHashIndex implements ITableIndex {
 		}
 	}
 	
+	public TableHashIndex(PhyTable table, FileObject indexFile, int h) {
+		this(table, indexFile);
+		this.h = h;
+	}
+	
 	public TableHashIndex(PhyTable table, FileObject indexFile) {
-		this.srcTable = table;
-		this.indexFile = indexFile;
-		if (srcTable instanceof ColPhyTable) {
-			positionCount = 0;
-		} else {
-			if (srcTable.parent == null) {
-				positionCount = 1;
-			} else {
-				positionCount = 2;
-			}
-		}
+		
 	}
 	
 	private void writeHeader(ObjectWriter writer) throws IOException {
@@ -1249,6 +1244,10 @@ public class TableHashIndex implements ITableIndex {
 			if (needDelete) {
 				indexFile.delete();
 				tmpFile.move(indexFile.getFileName(), null);
+			}
+			
+			if (opt != null && opt.indexOf('U') != -1) {
+				isAdd = false;
 			}
 			try {
 				if (isAdd) {

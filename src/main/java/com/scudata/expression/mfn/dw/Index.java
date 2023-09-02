@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.PhyTableFunction;
@@ -32,24 +34,24 @@ public class Index extends PhyTableFunction {
 		
 		String[] fields = null;
 		String[] valueFields = null;
-		String I = null;
+		Object I = null;
 		Expression w = null;
 		
 		if (param.isLeaf()) {
 			try {
-				I = (String) param.getLeafExpression().getIdentifierName();
+				I = param.getLeafExpression().calculate(ctx);
 				if  (option != null) {
 					if (option.indexOf('0') != -1 
 						|| option.indexOf('2') != -1
 						|| option.indexOf('3') != -1) {
 						//load index & unload index
-						table.createIndex(I, null, null, option, null, null);
+						table.createIndex((String) I, null, null, option, null, null);
 						return table;
 					}
 				}
 				
 				//delete I
-				return table.deleteIndex(I);
+				return table.deleteIndex((String) I);
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -66,7 +68,7 @@ public class Index extends PhyTableFunction {
 				//delete I
 				try {
 					I = (String) sub0.getLeafExpression().getIdentifierName();
-					return table.deleteIndex(I);
+					return table.deleteIndex((String) I);
 				} catch (IOException e) {
 					throw new RQException(e.getMessage(), e);
 				}
@@ -87,9 +89,9 @@ public class Index extends PhyTableFunction {
 			
 			IParam hParam = null;
 			if (sub0.isLeaf()) {
-				I = (String) sub0.getLeafExpression().getIdentifierName();
+				I = parseParam(sub0, ctx);
 			} else if (sub0.getType() == IParam.Colon) {
-				I = (String) sub0.getSub(0).getLeafExpression().getIdentifierName();
+				I = parseParam(sub0.getSub(0), ctx);
 				hParam = sub0.getSub(1);
 			} else if (sub0.getType() == IParam.Comma) {
 				if (sub0.getSubSize() != 2) {
@@ -99,16 +101,16 @@ public class Index extends PhyTableFunction {
 				w = sub0.getSub(1).getLeafExpression();
 				sub0 = sub0.getSub(0);
 				if (sub0.getType() == IParam.Colon) {
-					I = (String) sub0.getSub(0).getLeafExpression().getIdentifierName();
+					I = parseParam(sub0.getSub(0), ctx);
 					hParam = sub0.getSub(1);
 				} else {
-					I = (String) sub0.getLeafExpression().getIdentifierName();
+					I = parseParam(sub0, ctx);
 				}
 			}
 
 			if (fieldParam == null) {
 				try {
-					return table.deleteIndex(I);
+					return table.deleteIndex((String) I);
 				} catch (IOException e) {
 					throw new RQException(e.getMessage(), e);
 				}
@@ -128,6 +130,12 @@ public class Index extends PhyTableFunction {
 				}
 			}
 			
+			boolean isFile = false;
+			FileObject file = null;
+			if (I instanceof FileObject) {
+				isFile = true;
+				file = (FileObject) I;
+			}
 			if (valueFieldParam != null) {
 				if (valueFieldParam.isLeaf()) {
 					valueFields = new String[]{valueFieldParam.getLeafExpression().getIdentifierName()};
@@ -146,21 +154,41 @@ public class Index extends PhyTableFunction {
 				}
 				
 				//key-value-Index
-				table.createIndex(I, fields, valueFields, option, w, ctx);
+				if (isFile)
+					((PhyTable)table).createIndex(file, fields, valueFields, option, w, ctx);
+				else
+					table.createIndex((String) I, fields, valueFields, option, w, ctx);
 				return table;
 			}
 			
 			if (hParam != null) {
 				//hashIndex
 				Integer h = (Integer) hParam.getLeafExpression().calculate(ctx);
-				table.createIndex(I, fields, h, option, w, ctx);
+				if (isFile)
+					((PhyTable)table).createIndex(file, fields, h, option, w, ctx);
+				else
+					table.createIndex((String) I, fields, h, option, w, ctx);
 				return table;
 			}
 			
-			table.createIndex(I, fields, null, option, w, ctx);
+			if (isFile)
+				((PhyTable)table).createIndex(file, fields, null, option, w, ctx);
+			else
+				table.createIndex((String) I, fields, null, option, w, ctx);
 		}
 		
 		return table;
 	}
 
+	private Object parseParam(IParam param, Context ctx) {
+		try {
+			return param.getLeafExpression().calculate(ctx);
+		} catch (Exception e) {
+			return param.getLeafExpression().getIdentifierName();
+		}
+	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		return obj instanceof PhyTable;
+	}
 }
