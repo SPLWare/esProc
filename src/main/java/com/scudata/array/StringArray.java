@@ -2163,7 +2163,25 @@ public class StringArray implements IArray {
 	 * @return
 	 */
 	public Object sum() {
-		return null;
+		int size = this.size;
+		if (size < 1) {
+			return null;
+		}
+		
+		String []datas = this.datas;
+		String result = datas[1];
+		
+		for (int i = 2; i <= size; ++i) {
+			if (datas[i] != null) {
+				if (result == null) {
+					result = datas[i];
+				} else {
+					result += datas[i];
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	/**

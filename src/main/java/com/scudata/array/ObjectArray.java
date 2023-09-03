@@ -2841,25 +2841,19 @@ public class ObjectArray implements IArray {
 	 * @return
 	 */
 	public Object sum() {
-		Object []datas = this.datas;
 		int size = this.size;
-		Number sum = null;
-		int i = 1;
-
-		for (; i <= size; ++i) {
-			if (datas[i] instanceof Number) {
-				sum = (Number)datas[i];
-				break;
-			}
+		if (size < 1) {
+			return null;
 		}
-
-		for (++i; i <= size; ++i) {
-			if (datas[i] instanceof Number) {
-				sum = Variant.addNum(sum, (Number)datas[i]);
-			}
+		
+		Object []datas = this.datas;
+		Object result = datas[1];
+		
+		for (int i = 2; i <= size; ++i) {
+			result = Variant.add(result, datas[i]);
 		}
-
-		return sum;
+		
+		return result;
 	}
 	
 	/**
