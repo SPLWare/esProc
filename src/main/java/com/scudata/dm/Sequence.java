@@ -9512,12 +9512,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		Node home = vexp.getHome();
-		if (!(home instanceof Gather)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("pivot" + mm.getMessage("function.invalidParam"));
+		Gather gather = null;
+		if (home instanceof Gather) {
+			gather = (Gather)home;
+			gather.prepare(ctx);
 		}
 		
-		Gather gather = (Gather)home;
 		int keyCount = gexps == null ? 0 : gexps.length;
 		int ncount = names.length;
 		int totalCount = keyCount + ncount;
@@ -9569,23 +9569,48 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					for (int n = 0; n < ncount; ++n) {
 						if (n != nullIndex && Variant.isEquals(fval, vals[n])) {
 							Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
-							seq.add(vexp.calculate(ctx));
+							seq.add(group.getMem(m));
 							continue Next;
 						}
 					}
 					
 					if (nullIndex != -1) {
 						Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + nullIndex);
-						seq.add(vexp.calculate(ctx));
+						seq.add(group.getMem(m));
 					}
 				}
 			} finally {
 				stack.pop();
 			}
-			
-			for (int n = 0; n < ncount; ++n) {
-				Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
-				r.setNormalFieldValue(keyCount + n, gather.gather(seq));
+		}
+		
+		if (gather != null) {
+			for (int i = 1; i <= len; ++i) {
+				BaseRecord r = (BaseRecord)result.getMem(i);
+				for (int n = 0; n < ncount; ++n) {
+					Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
+					r.setNormalFieldValue(keyCount + n, gather.gather(seq, ctx));
+				}
+			}
+		} else {
+			// 创建一个临时序表用于计算每一条记录的每个汇总字段的汇总值
+			Sequence tmp = new Sequence(1);
+			tmp.add(null);
+			IArray array = tmp.getMems();
+			Current current = new Current(tmp, 1);
+			stack.push(current);
+
+			try {
+				for (int i = 1; i <= len; ++i) {
+					BaseRecord r = (BaseRecord)result.getMem(i);
+					for (int n = 0; n < ncount; ++n) {
+						Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
+						array.set(1, seq);
+						r.setNormalFieldValue(keyCount + n, home.calculate(ctx));
+					}
+				}
+			} finally {
+				stack.pop();
 			}
 		}
 		

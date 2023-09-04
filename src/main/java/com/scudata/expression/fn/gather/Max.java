@@ -84,11 +84,6 @@ public class Max extends Gather {
 			return maxVal;
 		}
 	}
-
-	// 对序列seq算一下汇总值
-	public Object gather(Sequence seq) {
-		return seq.max();
-	}
 	
 	/**
 	 * 计算所有记录的值，汇总到结果数组上

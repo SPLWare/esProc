@@ -121,11 +121,6 @@ public class Average extends Gather {
 
 		return Variant.avg(result, count);
 	}
-
-	// 对序列seq算一下汇总值
-	public Object gather(Sequence seq) {
-		return seq.average();
-	}
 	
 	public Expression getExp() {
 		return exp;

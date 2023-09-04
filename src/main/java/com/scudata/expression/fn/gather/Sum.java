@@ -73,11 +73,6 @@ public class Sum extends Gather {
 		return result;
 	}
 	
-	// 对序列seq算一下汇总值
-	public Object gather(Sequence seq) {
-		return seq.sum();
-	}
-	
 	public Expression getExp() {
 		return exp;
 	}

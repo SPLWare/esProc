@@ -1,10 +1,9 @@
 package com.scudata.expression;
 
-import com.scudata.common.MessageManager;
-import com.scudata.common.RQException;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
-import com.scudata.resources.EngineMessage;
 
 /**
  * 分组运算的汇总函数继承此类
@@ -91,10 +90,24 @@ abstract public class Gather extends Function {
 	/**
 	 * 针对给定序列算出汇总值
 	 * @param seq 序列
+	 * @param ctx 计算上下文
 	 * @return 汇总值
 	 */
-	public Object gather(Sequence seq) {
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(getFunctionName() + mm.getMessage("engine.unknownGroupsMethod"));
+	public Object gather(Sequence seq, Context ctx) {
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(seq, 1);
+		stack.push(current);
+
+		try {
+			Object result = gather(ctx);
+			for (int i = 2, len = seq.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				result = gather(result, ctx);
+			}
+			
+			return finish(result);
+		} finally {
+			stack.pop();
+		}
 	}
 }
