@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>r .run( x i ,… )</title>
+<title>rename()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,214 +13,8 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="r_run_xi"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>r</span></i><span
-lang=EN-US>.run(<i style='mso-bidi-font-style:normal'>x<sub>i</sub>,…</i>)</span></h3></div>
-	<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Compute an
-expression against a record <span style='mso-bidi-font-style:italic'>and return
-the modified record. </span></span></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>r</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>.run(</span></span><span class=var1><span
-lang=EN-US>x</span></span><span class=a4><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>i,…</span></b></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-computes the expression</span><span class=var1><span lang=EN-US> x</span></span><span
-lang=EN-US> against record </span><span class=var1><span lang=EN-US>r</span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
-and return the modified record. Usually, it is used to change the field values
-of </span><span lang=EN-US>r</span></span><span lang=EN-US>, for example, when </span><span
-class=var1><span lang=EN-US>x</span></span><span lang=EN-US> is </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>col1=col2+1</span></span><span
-lang=EN-US>, it will change the field value of </span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>col1</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>.</span></span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US></span></b></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>r</span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A record</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span><span
-  class=a4><b style='mso-bidi-font-weight:normal'><span lang=EN-US>i</span></b></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An expression, which is generally a field
-  name or a legal expression composed of field names, and in which &quot;</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>~</span></span><span
-  lang=EN-US>&quot; references the current record</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>The modified
-record</span></span></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=353 valign=top style='width:212.05pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=392 valign=top style='width:235.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=353 valign=top style='width:212.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[[12,23]].new(~(1):col1,~(2):col2)</span></span></p>
-  </td>
-  <td width=392 valign=top style='width:235.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=353 valign=top style='width:212.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1(1).run(col1=col2+1)</span></span></p>
-  </td>
-  <td width=392 valign=top style='width:235.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=212 height=41
-  src="Function_Reference.files/image2027.png" v:shapes="图片_x0020_380"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=353 valign=top style='width:212.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1(1).run(col1=col2+1,col2=col1+col2)</span></span></p>
-  </td>
-  <td width=392 valign=top style='width:235.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=212 height=40
-  src="Function_Reference.files/image2028.png" v:shapes="图片_x0020_381"></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Difference
-between</span><span lang=EN-US> r</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>.(</span></span><span
-class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span><span lang=EN-US>
-and </span><span class=var1><span lang=EN-US>r</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>.run(</span></span><span
-class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span><span lang=EN-US>:
-</span><span class=var1><span lang=EN-US>r</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>.(</span></span><span
-class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span><span lang=EN-US>
-computes the value of expression </span><span class=var1><span lang=EN-US>x</span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
-and returns it; </span><span lang=EN-US>r</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>.run(</span></span><span
-class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span><span lang=EN-US>
-modifies </span><span class=var1><span lang=EN-US>r </span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>through
-the comp</span></span><span lang=EN-US>utation of </span><span class=var1><span
-lang=EN-US>x, </span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'>and returns the modified </span><span
-lang=EN-US>r</span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'>.</span><span lang=EN-US></span></span></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related function:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="arunx1x2xi.html#A_run_x1_x2_xi"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.run(</span><span style='mso-bidi-font-size:10.5pt;
-font-style:normal'>x</span><sub><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>1</span></sub><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>,</span><span style='mso-bidi-font-size:10.5pt;font-style:
-normal'>x</span><span style='mso-bookmark:_Hlt414979100'><sub><span
-style='mso-bidi-font-size:12.0pt;font-style:normal'>2</span></sub></span><span
-style='mso-bookmark:_Hlt414979100'></span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>,…</span><span style='mso-bidi-font-size:10.5pt;font-style:
-normal'>x</span><sub><span style='mso-bidi-font-size:12.0pt;font-style:normal'>i</span></sub><span
-style='mso-bidi-font-size:12.0pt;font-style:normal'>)</span></a><a
-name="_Hlt414979100"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="prunxifi.html#P_run"><span style='mso-bidi-font-size:10.5pt;
-font-style:normal'>P.<span style='mso-bookmark:_Hlt432456498'>r</span><span
-style='mso-bookmark:_Hlt432378119'>u</span>n(xi<span style='mso-bookmark:_Hlt432455174'>:</span>Fi,…)</span><span
-style='mso-bidi-font-size:12.0pt;font-style:normal'><span style='mso-tab-count:
-1'>&nbsp; </span></span></a><a
-name="_Hlt432455174"></a><a name="_Hlt432378119"></a><a name="_Hlt432456498"></a></span></i><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+	<div id="centent-title"><h2><span lang=EN-US>rename()</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>Here’s how to use rename() function.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="748.html">Next</a></div>
@@ -228,17 +22,15 @@ lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="746.html">run()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="748.html">T .rename()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

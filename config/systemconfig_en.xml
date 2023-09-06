@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <RAQSOFT>
-<CONFIG splashFile="logo/esproc-en.png"/>
+<CONFIG splashFile="logo/esproc-en.png" isEcloudEnabled="true"/>
 <DATASOURCE>
 <ds0 config="isaddtilde=&quot;false&quot;;convertdata=&quot;false&quot;;extend=&quot;&quot;;charset=&quot;GBK&quot;;casesentence=&quot;false&quot;;type=&quot;13&quot;;password=&quot;&quot;;url=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;;clientcharset=&quot;GBK&quot;;convertsql=&quot;false&quot;;title=&quot;HSQL&quot;;useschema=&quot;false&quot;;driver=&quot;org.hsqldb.jdbcDriver&quot;;user=&quot;sa&quot;" name="demo"/>
 </DATASOURCE>
@@ -37,7 +37,9 @@
 	errormessage="Please find the jdbc driver of DB2 database from [The install directory of DB2]/sqllib/java, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
 
 <My_SQL driver1="com.mysql.jdbc.Driver" 
+	driver2="com.mysql.cj.jdbc.Driver"
 	url1="jdbc:mysql://192.168.0.1:3306/[database name]?useCursorFetch=[true/false]" 
+	url2="jdbc:mysql://192.168.0.1:3306/[database name]?useSSL=[true/false]&amp;serverTimezone=[GMT/UTC/...]"
 	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://dev.mysql.com/downloads/connector/j/5.0.html"/>
 
 <HSQL driver1="org.hsqldb.jdbcDriver" 

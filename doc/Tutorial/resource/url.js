@@ -2,7 +2,7 @@
   function openResource(path){
 
 	 var locationFile = location.href;
-	 var locationPath = locationFile.substring(0,locationFile.indexOf("/documents/en/"));
+	 var locationPath = locationFile.substring(0,locationFile.indexOf("/documents/zh/"));
 	 if(/{DOCHOME}/ig.test(path)){
 		path = path.replace(/{DOCHOME}/ig,locationPath);
 	 }
