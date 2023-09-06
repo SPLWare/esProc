@@ -90,6 +90,18 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
+	 * 设置文本
+	 */
+	public void setText(String t) {
+		try {
+			preventChanged = true;
+			super.setText(t);
+		} finally {
+			preventChanged = false;
+		}
+	}
+
+	/**
 	 * 初始化控件
 	 */
 	private void init() {
@@ -153,8 +165,8 @@ public class JTextPaneEx extends JTextPane {
 		StyleConstants.setForeground(AS_BRACKET, COLOR_BRACKET);
 		StyleConstants.setForeground(AS_KEY, COLOR_KEY);
 	}
-	
-	protected boolean isMatching(){
+
+	protected boolean isMatching() {
 		return false;
 	}
 
