@@ -127,6 +127,9 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 		return option;
 	}
 
+	// 太长的文本通常是数据就不辅助编辑了，要不然太慢了
+	private static final int STYLE_MAX_LENGTH = 100000;
+
 	/**
 	 * 设置文本
 	 * 
@@ -134,7 +137,10 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	 */
 	public void setText(String text) {
 		textEditor.setText(text);
-		textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
+		if (text == null || text.length() <= STYLE_MAX_LENGTH) {
+			textEditor.setCodeFoldingEnabled(true);
+			textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
+		}
 	}
 
 	/**
@@ -167,7 +173,6 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 		panelCenter.add(spEditor, BorderLayout.CENTER);
 		this.getContentPane().add(panelCenter, BorderLayout.CENTER);
 		textEditor.setEditable(true);
-		textEditor.setCodeFoldingEnabled(true);
 		textEditor.setFont(GC.font);
 
 		this.addWindowListener(new WindowAdapter() {

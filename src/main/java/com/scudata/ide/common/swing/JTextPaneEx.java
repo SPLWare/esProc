@@ -188,6 +188,9 @@ public class JTextPaneEx extends JTextPane {
 		initRefCells(true);
 	}
 
+	// 太长的文本通常是数据就不辅助编辑了，要不然太慢了
+	private static final int STYLE_MAX_LENGTH = 100000;
+
 	/**
 	 * 光标移动
 	 * 
@@ -203,6 +206,8 @@ public class JTextPaneEx extends JTextPane {
 		caretChanged();
 		List<CA> total = new ArrayList<CA>();
 		String text = getText();
+		if (text != null && text.length() > STYLE_MAX_LENGTH)
+			return;
 		if (text != null && text.length() > 0) {
 			// 重置
 			total.add(new CA(0, text.length(), AS_DEFAULT, true));
@@ -405,6 +410,9 @@ public class JTextPaneEx extends JTextPane {
 	public synchronized void initRefCells(boolean isUpdate) {
 		if (!matchEnabled)
 			return;
+		String text = getText();
+		if (text != null && text.length() > STYLE_MAX_LENGTH)
+			return;
 		List<INormalCell> lastRefCells = new ArrayList<INormalCell>();
 		if (refCells != null) {
 			lastRefCells.addAll(refCells);
@@ -419,7 +427,6 @@ public class JTextPaneEx extends JTextPane {
 					cellSet = control.cellSet;
 				}
 			}
-			String text = getText();
 			if (text != null && text.length() > 0) {
 				// 重置
 				refCAs.add(new CA(0, text.length(), AS_DEFAULT, true));

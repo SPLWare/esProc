@@ -577,10 +577,12 @@ public class ExcelUtils {
 			data = data.replaceAll("\n", "\r");
 		} catch (Exception x) {
 		}
-		ArgumentTokenizer rows = new ArgumentTokenizer(data, '\r');
+		ArgumentTokenizer rows = new ArgumentTokenizer(data, '\r', true, true,
+				true);
 		while (rows.hasMoreTokens()) {
 			ls_row = rows.nextToken();
-			ArgumentTokenizer items = new ArgumentTokenizer(ls_row, '\t');
+			ArgumentTokenizer items = new ArgumentTokenizer(ls_row, '\t', true,
+					true, true);
 			String item;
 			c = 0;
 			if (r >= matrix.getRowSize()) {
