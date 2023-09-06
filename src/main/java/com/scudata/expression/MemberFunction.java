@@ -18,7 +18,7 @@ import com.scudata.util.Variant;
  *
  */
 public abstract class MemberFunction extends Function {
-	private MemberFunction next; // 下一个同名的成员函数类
+	protected MemberFunction next; // 下一个同名的成员函数类
 	protected Node left; // 点操作符的左侧节点
 	
 	/**
