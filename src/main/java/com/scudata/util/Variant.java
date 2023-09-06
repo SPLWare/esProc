@@ -3176,11 +3176,25 @@ public class Variant {
 			}
 		} else if (opt.indexOf('w') != -1) { // 周
 			int dayDiff = (int)dayInterval(date1, date2);
-			if (dayDiff == 0) return true;
-			int week2 = df.week(date1) + dayDiff;
+			if (dayDiff == 0) {
+				return true;
+			} else if (dayDiff > 6 || dayDiff < -6) {
+				return false;
+			}
 
-			// 周日属于下一周
-			return week2 >= Calendar.SUNDAY && week2 <= Calendar.SATURDAY;
+			if (opt.indexOf('1') == -1) {
+				// 周日是周的第一天
+				int week2 = df.week(date1) + dayDiff;
+				return week2 >= Calendar.SUNDAY && week2 <= Calendar.SATURDAY;
+			} else {
+				int week = df.week(date1);
+				if (week == Calendar.SUNDAY) {
+					return dayDiff < 0 && dayDiff > -7;
+				} else {
+					week += dayDiff;
+					return week >= Calendar.MONDAY && week <= Calendar.SATURDAY + 1;
+				}
+			}
 		} else {
 			return df.month(date1) == df.month(date2) && df.day(date1) == df.day(date2);
 		}
