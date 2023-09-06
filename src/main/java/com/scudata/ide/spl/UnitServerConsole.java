@@ -563,7 +563,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				sb.append(buf);
 				sb.append("\r\n");
 
-				if (unitServer != null) {
+				if (unitServer != null && unitServer.getUnitContext()!=null) {
 					sb.append("\r\nLog file path:\r\n");
 					sb.append("	");
 					sb.append(unitServer.getUnitContext().getLogFile());
