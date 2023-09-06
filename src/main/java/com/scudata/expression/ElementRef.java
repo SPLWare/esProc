@@ -25,6 +25,7 @@ import com.scudata.util.Variant;
  */
 public class ElementRef extends Function {
 	private Node left;
+	private Expression exp;
 
 	public ElementRef() {
 		priority = PRI_SUF;
@@ -40,10 +41,9 @@ public class ElementRef extends Function {
 		}
 		
 		left.checkValidity();
-		if (param == null || !param.isLeaf()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("()" + mm.getMessage("function.invalidParam"));
-		}
+		if (param != null && param.isLeaf()) {
+			exp = param.getLeafExpression();
+		} // 这时先不抛出异常，先计算left再检查参数，这样如果left非法可以准确报错
 	}
 
 	public void setLeft(Node node) {
@@ -75,7 +75,10 @@ public class ElementRef extends Function {
 	}
 
 	public Node optimize(Context ctx) {
-		param.optimize(ctx);
+		if (param != null) {
+			param.optimize(ctx);
+		}
+		
 		left = left.optimize(ctx);
 		return this;
 	}
@@ -89,8 +92,12 @@ public class ElementRef extends Function {
 			throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
 		}
 
-		Object o = param.getLeafExpression().calculate(ctx);
-
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
+		Object o = exp.calculate(ctx);
 		if (o == null) {
 			return null;
 		} else if (o instanceof Number) {
@@ -116,9 +123,14 @@ public class ElementRef extends Function {
 			throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
 		}
 
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
 		Sequence srcSeries = (Sequence)result1;
 		int len = srcSeries.length();
-		Object pval = param.getLeafExpression().calculate(ctx);
+		Object pval = exp.calculate(ctx);
 
 		// 越界报错，不自动补
 		if (pval instanceof Number) {
@@ -193,9 +205,14 @@ public class ElementRef extends Function {
 			throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
 		}
 
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+
 		Sequence srcSeries = (Sequence)result1;
 		int len = srcSeries.length();
-		Object pval = param.getLeafExpression().calculate(ctx);
+		Object pval = exp.calculate(ctx);
 
 		// 越界报错，不自动补
 		if (pval instanceof Number) {
@@ -218,7 +235,12 @@ public class ElementRef extends Function {
 	
 	public IArray getFieldArray(Context ctx, FieldRef fieldRef) {
 		IArray sequenceArray = left.calculateAll(ctx);
-		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IArray posArray = exp.calculateAll(ctx);
 		int len = sequenceArray.size();
 		
 		if (sequenceArray instanceof ConstArray) {
@@ -267,7 +289,12 @@ public class ElementRef extends Function {
 	
 	public IArray getFieldArray(Context ctx, FieldId fieldId) {
 		IArray sequenceArray = left.calculateAll(ctx);
-		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IArray posArray = exp.calculateAll(ctx);
 		int len = sequenceArray.size();
 		
 		if (sequenceArray instanceof ConstArray) {
@@ -321,7 +348,12 @@ public class ElementRef extends Function {
 	 */
 	public IArray calculateAll(Context ctx) {
 		IArray sequenceArray = left.calculateAll(ctx);
-		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IArray posArray = exp.calculateAll(ctx);
 		int len = sequenceArray.size();
 		
 		if (sequenceArray instanceof ConstArray) {
@@ -410,13 +442,18 @@ public class ElementRef extends Function {
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
-		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		IArray sequenceArray = left.calculateAll(ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IArray posArray = exp.calculateAll(ctx);
 		if (!posArray.isNumberArray()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("()" + mm.getMessage("function.paramTypeError"));
 		}
 		
-		IArray sequenceArray = left.calculateAll(ctx);
 		BoolArray result = leftResult.isTrue();
 		int resultSize = result.size();
 		
@@ -478,7 +515,12 @@ public class ElementRef extends Function {
 			throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
 		}
 		
-		IArray array = param.getLeafExpression().calculateRange(ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("()" + mm.getMessage("function.invalidParam"));
+		}
+
+		IArray array = exp.calculateRange(ctx);
 		if (array == null) {
 			return Relation.PARTICALMATCH;
 		}
