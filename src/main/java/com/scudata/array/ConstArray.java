@@ -286,7 +286,19 @@ public class ConstArray implements IArray {
 	 * @return IArray
 	 */
 	public IArray get(IArray indexArray) {
-		return new ConstArray(data, indexArray.size());
+		Object data = this.data;
+		int len = indexArray.size();
+		ObjectArray result = new ObjectArray(len);
+		
+		for (int i = 1; i <= len; ++i) {
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.push(data);
+			}
+		}
+		
+		return result;
 	}
 	
 	/**

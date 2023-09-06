@@ -607,10 +607,15 @@ public class SerialBytesArray implements IArray {
 		long []resultDatas2 = new long[len + 1];
 		
 		for (int i = 1; i <= len; ++i) {
-			resultDatas1[i] = datas1[indexArray.getInt(i)];
-			resultDatas2[i] = datas2[indexArray.getInt(i)];
+			if (indexArray.isNull(i)) {
+				resultDatas1[i] = NULL;
+				resultDatas2[i] = NULL;
+			} else {
+				resultDatas1[i] = datas1[indexArray.getInt(i)];
+				resultDatas2[i] = datas2[indexArray.getInt(i)];
+			}
 		}
-		
+
 		return new SerialBytesArray(resultDatas1, resultDatas2, len);
 	}
 

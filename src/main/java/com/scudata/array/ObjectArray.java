@@ -424,7 +424,11 @@ public class ObjectArray implements IArray {
 		ObjectArray result = new ObjectArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.push(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.push(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;

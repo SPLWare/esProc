@@ -367,7 +367,9 @@ public class ElementRef extends Function {
 			
 			Sequence sequence = (Sequence)obj;
 			if (posArray instanceof NumberArray) {
-				return sequence.getMemberArray((NumberArray)posArray);
+				IArray result = sequence.getMemberArray((NumberArray)posArray);
+				result.setTemporary(true);
+				return result;
 			} else {
 				ObjectArray result = new ObjectArray(len);
 				result.setTemporary(true);
@@ -403,7 +405,8 @@ public class ElementRef extends Function {
 				}
 				
 				Sequence sequence = (Sequence)obj;
-				if (posArray instanceof NumberArray) {
+				if (posArray.isNull(i)) {
+				} else if (posArray instanceof NumberArray) {
 					obj = sequence.get(posArray.getInt(i));
 				} else {
 					obj = posArray.get(i);
@@ -411,7 +414,7 @@ public class ElementRef extends Function {
 						obj = sequence.get(((Number)obj).intValue());
 					} else if (obj instanceof Sequence) {
 						obj = sequence.get((Sequence)obj);
-					} else if (obj != null) {
+					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("()" + mm.getMessage("function.paramTypeError"));
 					}

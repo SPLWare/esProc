@@ -567,7 +567,11 @@ public class StringArray implements IArray {
 		StringArray result = new StringArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.pushString(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.pushString(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;

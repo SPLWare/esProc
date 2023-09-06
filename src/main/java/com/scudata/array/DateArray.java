@@ -586,7 +586,11 @@ public class DateArray implements IArray {
 		DateArray result = new DateArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.pushDate(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.pushDate(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;
