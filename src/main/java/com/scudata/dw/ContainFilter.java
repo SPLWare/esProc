@@ -79,13 +79,13 @@ public class ContainFilter extends IFilter {
 		}
 		
 		// 块最小值比集合最大值大或者块最小值等于最大值则没有符合条件的记录
-		if (low1 >= len || Variant.isEquals(minValue, maxValue)) {
+		if (low1 > len || Variant.isEquals(minValue, maxValue)) {
 			return false;
 		}
 		
 		// 二分法查找最大值在数组中的位置
-		int low2 = 0;
-		int high2 = len - 1;
+		int low2 = low1;
+		int high2 = len;
 		while (low2 <= high2) {
 			int mid = (low2 + high2) >>> 1;
 			int cmp = Variant.compare(values.get(mid), maxValue, true);
