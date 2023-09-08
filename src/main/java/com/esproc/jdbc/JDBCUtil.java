@@ -1589,4 +1589,15 @@ public class JDBCUtil {
 			Logger.debug(info);
 	}
 
+	private static final int MAX_SPL_LENGTH = 65536;
+
+	public static void checkSqlLength(String sql) throws SQLException {
+		if (sql == null)
+			return;
+		if (sql.length() > MAX_SPL_LENGTH) {
+			// 语句超出长度限制（{0}）。
+			throw new SQLException(JDBCMessage.get().getMessage("error.maxlen",
+					MAX_SPL_LENGTH));
+		}
+	}
 }
