@@ -4377,7 +4377,7 @@ public class IntArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(LongArray array, int relation) {
+	protected BoolArray calcRelation(LongArray array, int relation) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -4632,7 +4632,7 @@ public class IntArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DoubleArray array, int relation) {
+	protected BoolArray calcRelation(DoubleArray array, int relation) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -5238,7 +5238,7 @@ public class IntArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DateArray array, int relation) {
+	protected BoolArray calcRelation(DateArray array, int relation) {
 		boolean []s1 = this.signs;
 		Date []datas2 = array.getDatas();
 		
@@ -5279,7 +5279,7 @@ public class IntArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		boolean []s1 = this.signs;
 		String []datas2 = array.getDatas();
 		
@@ -5320,7 +5320,7 @@ public class IntArray implements NumberArray {
 		}
 	}
 
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6352,7 +6352,7 @@ public class IntArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(LongArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(LongArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6721,7 +6721,7 @@ public class IntArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -7687,7 +7687,7 @@ public class IntArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		int []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -9492,5 +9492,9 @@ public class IntArray implements NumberArray {
 		}
 		
 		return sum;
+	}
+	
+	public boolean hasSigns() {
+		return signs != null;
 	}
 }

@@ -7793,4 +7793,8 @@ public class DoubleArray implements NumberArray {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}
+
+	public boolean hasSigns() {
+		return signs != null;
+	}
 }

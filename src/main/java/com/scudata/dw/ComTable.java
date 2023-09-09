@@ -849,8 +849,10 @@ abstract public class ComTable implements IBlockStorage {
 		String path = this.file.getAbsolutePath();
 		close();
 		boolean b = this.file.delete();
-		if (!b) 
-			return Boolean.FALSE;
+		if (!b) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
+		}
 		newGroupTable.close();
 		newFileObj.move(path, null);
 

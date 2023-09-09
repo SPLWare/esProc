@@ -1200,7 +1200,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(IntArray array) {
+	protected IArray memberAdd(IntArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		int []d2 = array.getDatas();
@@ -1254,7 +1254,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	IArray memberAdd(LongArray array) {
+	protected IArray memberAdd(LongArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		long []d2 = array.getDatas();
@@ -1308,7 +1308,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	IArray memberAdd(DoubleArray array) {
+	protected IArray memberAdd(DoubleArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		double []d2 = array.getDatas();
@@ -1358,7 +1358,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	ObjectArray memberAdd(StringArray array) {
+	protected ObjectArray memberAdd(StringArray array) {
 		int size = this.size;
 		Object []d1 = this.datas;
 		String []d2 = array.getDatas();
@@ -1709,7 +1709,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 
-	ObjectArray memberMultiply(IntArray array) {
+	protected ObjectArray memberMultiply(IntArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		int []d2 = array.getDatas();
@@ -1751,7 +1751,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 
-	ObjectArray memberMultiply(LongArray array) {
+	protected ObjectArray memberMultiply(LongArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		long []d2 = array.getDatas();
@@ -1793,7 +1793,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	ObjectArray memberMultiply(DoubleArray array) {
+	protected ObjectArray memberMultiply(DoubleArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		double []d2 = array.getDatas();
@@ -3092,7 +3092,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Object []d1 = this.datas;
 		Object []d2 = array.getDatas();

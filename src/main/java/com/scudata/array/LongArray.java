@@ -8883,4 +8883,8 @@ public class LongArray implements NumberArray {
 		
 		return sum;
 	}
+	
+	public boolean hasSigns() {
+		return signs != null;
+	}
 }

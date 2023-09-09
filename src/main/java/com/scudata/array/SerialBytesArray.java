@@ -1636,7 +1636,7 @@ public class SerialBytesArray implements IArray {
 		return result;
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		Object []d2 = array.getDatas();
 		boolean []resultDatas = new boolean[size + 1];
@@ -2017,7 +2017,7 @@ public class SerialBytesArray implements IArray {
 		}
 	}
 	
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Object []d2 = array.getDatas();
 		boolean []resultDatas = result.getDatas();
@@ -3286,6 +3286,14 @@ public class SerialBytesArray implements IArray {
 
 	public long[] getDatas2() {
 		return datas2;
+	}
+	
+	public long getData1(int index) {
+		return datas1[index];
+	}
+
+	public long getData2(int index) {
+		return datas2[index];
 	}
 	
 	/**

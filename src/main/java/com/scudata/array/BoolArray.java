@@ -2264,7 +2264,7 @@ public class BoolArray implements IArray {
 		}
 	}
 	
-	BoolArray calcRelation(IntArray array, int relation) {
+	protected BoolArray calcRelation(IntArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -2274,7 +2274,7 @@ public class BoolArray implements IArray {
 		return calcRelation(array.getSigns(), relation);
 	}
 	
-	BoolArray calcRelation(LongArray array, int relation) {
+	protected BoolArray calcRelation(LongArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -2284,7 +2284,7 @@ public class BoolArray implements IArray {
 		return calcRelation(array.getSigns(), relation);
 	}
 	
-	BoolArray calcRelation(DoubleArray array, int relation) {
+	protected BoolArray calcRelation(DoubleArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -4713,5 +4713,9 @@ public class BoolArray implements IArray {
 	public int bit1() {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	public boolean hasSigns() {
+		return signs != null;
 	}
 }

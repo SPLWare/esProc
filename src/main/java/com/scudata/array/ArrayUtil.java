@@ -187,6 +187,63 @@ public final class ArrayUtil {
 	}
 	
 	/**
+	 * 数组的成员和null做比较
+	 * @param datas 数组
+	 * @param start 包含
+	 * @param end 包含
+	 * @param size 数组成员数
+	 * @param relation 比较关系
+	 * @return
+	 */
+	public static BoolArray calcRelationNull(Object []datas, int start, int end, int size, int relation) {
+		boolean []resultDatas = new boolean[size + 1];		
+		if (relation == Relation.EQUAL) {
+			// 是否等于判断
+			for (int i = start; i <= end; ++i) {
+				if (datas[i] == null) {
+					resultDatas[i] = true;
+				}
+			}
+		} else if (relation == Relation.GREATER) {
+			// 是否大于判断
+			for (int i = start; i <= end; ++i) {
+				if (datas[i] != null) {
+					resultDatas[i] = true;
+				}
+			}
+		} else if (relation == Relation.GREATER_EQUAL) {
+			// 是否大于等于判断
+			for (int i = start; i <= end; ++i) {
+				resultDatas[i] = true;
+			}
+		} else if (relation == Relation.LESS) {
+			// 是否小于判断
+		} else if (relation == Relation.LESS_EQUAL) {
+			// 是否小于等于判断
+			for (int i = start; i <= end; ++i) {
+				if (datas[i] == null) {
+					resultDatas[i] = true;
+				}
+			}
+		} else if (relation == Relation.NOT_EQUAL) {
+			// 是否不等于判断
+			for (int i = start; i <= end; ++i) {
+				if (datas[i] != null) {
+					resultDatas[i] = true;
+				}
+			}
+		} else if (relation == Relation.OR) {
+			for (int i = start; i <= end; ++i) {
+				resultDatas[i] = datas[i] != null;
+			}
+		}
+		
+		BoolArray result = new BoolArray(resultDatas, size);
+		result.setTemporary(true);
+		return result;
+	}
+	
+	/**
 	 * 计算数组的成员和null的关系
 	 * @param signs 数组成员是否为空标志，true为空
 	 * @param size 数组成员数

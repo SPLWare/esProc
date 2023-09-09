@@ -246,6 +246,9 @@ public class CreateCursor extends PhyTableFunction {
 					isMultiThread = false;
 				}
 			}
+		} else if (param != null && param.getType() == IParam.Comma) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		} else {
 			fieldParam = param;
 		}

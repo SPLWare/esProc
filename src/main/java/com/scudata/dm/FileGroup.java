@@ -208,7 +208,8 @@ public class FileGroup implements Externalizable {
 				boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize, null);
 				tmd.close();
 				if (!result) {
-					return false;
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
 				}
 			}
 		}
@@ -422,7 +423,8 @@ public class FileGroup implements Externalizable {
 				boolean result = tmd.getGroupTable().reset(newFile, opt, ctx, null);
 				tmd.close();
 				if (!result) {
-					return false;
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
 				}
 			}
 		} else {

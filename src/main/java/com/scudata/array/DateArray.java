@@ -1355,7 +1355,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(NumberArray array) {
+	protected IArray memberAdd(NumberArray array) {
 		int size = this.size;
 		Date []datas = this.datas;
 		Calendar calendar = Calendar.getInstance();
@@ -1386,7 +1386,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(ObjectArray array) {
+	protected IArray memberAdd(ObjectArray array) {
 		if (!array.isNumberArray()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
@@ -1865,7 +1865,7 @@ public class DateArray implements IArray {
 		return result;
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		Date []d1 = this.datas;
 		String []d2 = array.getDatas();
 		
@@ -1894,7 +1894,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		Date []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -2430,7 +2430,7 @@ public class DateArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Date []d1 = this.datas;
 		Object []d2 = array.getDatas();

@@ -1948,7 +1948,7 @@ public class StringArray implements IArray {
 		return result;
 	}
 
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		String []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -2501,7 +2501,7 @@ public class StringArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		String []d1 = this.datas;
 		Object []d2 = array.getDatas();
