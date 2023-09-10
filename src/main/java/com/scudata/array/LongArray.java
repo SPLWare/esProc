@@ -2101,7 +2101,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	LongArray memberAdd(IntArray array) {
+	protected LongArray memberAdd(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			long []newDatas = new long[size + 1];
@@ -2774,7 +2774,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 	
-	LongArray memberMultiply(IntArray array) {
+	protected LongArray memberMultiply(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			long []newDatas = new long[size + 1];
@@ -4420,7 +4420,7 @@ public class LongArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DoubleArray array, int relation) {
+	protected BoolArray calcRelation(DoubleArray array, int relation) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -5026,7 +5026,7 @@ public class LongArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DateArray array, int relation) {
+	protected BoolArray calcRelation(DateArray array, int relation) {
 		boolean []s1 = this.signs;
 		Date []datas2 = array.getDatas();
 		
@@ -5067,7 +5067,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		boolean []s1 = this.signs;
 		String []datas2 = array.getDatas();
 		
@@ -5108,7 +5108,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6185,7 +6185,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -7151,7 +7151,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;

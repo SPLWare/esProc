@@ -66,6 +66,10 @@ public class BoolArray implements IArray {
 		return signs;
 	}
 	
+	public void setSigns(boolean []signs) {
+		this.signs = signs;
+	}
+	
 	/**
 	 * 取数组的类型串，用于错误信息提示
 	 * @return 类型串
