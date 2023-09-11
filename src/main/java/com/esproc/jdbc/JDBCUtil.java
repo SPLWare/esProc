@@ -253,12 +253,13 @@ public class JDBCUtil {
 	 * @throws SQLException
 	 */
 	public static String getCallExp(String splName, String params,
-			boolean isOnlyServer) throws SQLException {
+			boolean isOnlyServer, List<String> hostNames) throws SQLException {
 		if (params == null)
 			params = "";
 		else
 			params = params.trim();
-		String hosts = JDBCUtil.getNodesString(splName, isOnlyServer);
+		String hosts = JDBCUtil
+				.getNodesString(splName, isOnlyServer, hostNames);
 
 		String sql;
 		if (hosts != null) {
@@ -1099,7 +1100,8 @@ public class JDBCUtil {
 	 * @param isOnlyServer
 	 * @return String
 	 */
-	public static String getNodesString(String spl, boolean isOnlyServer) {
+	public static String getNodesString(String spl, boolean isOnlyServer,
+			List<String> hosts) {
 		if (!StringUtils.isValidString(spl)) {
 			return null;
 		}
@@ -1108,7 +1110,7 @@ public class JDBCUtil {
 			if (f.exists())
 				return null;
 		}
-		List<String> hosts = Server.getInstance().getHostNames();
+		// List<String> hosts = Server.getInstance().getHostNames();
 		if (hosts.isEmpty())
 			return null;
 		StringBuffer sb = new StringBuffer();

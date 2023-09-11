@@ -92,8 +92,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 				} else {
 					t = JDBCUtil.getSplParams(splName);
 					if (t == null || t.length() == 0) { // 本地没找到，去服务器找
-						List<String> hosts = Server.getInstance()
-								.getHostNames();
+						List<String> hosts = connt.getHostNames();
 						if (hosts != null && !hosts.isEmpty()) {
 							UnitClient uc = null;
 							try {

@@ -202,7 +202,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				return null;
 			}
 			sql = JDBCUtil.trimSql(sql);
-			byte sqlType = JDBCUtil.getJdbcSqlType(sql);
+			byte sqlType = getJdbcSqlType(sql);
 			if (sqlType == JDBCConsts.TYPE_NONE) {
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"statement.unsupportsql", sql));
@@ -216,7 +216,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			// 重新创建计算上下文
 			Context ctx = con.getCtx();
 
-			RaqsoftConfig config = Server.getInstance().getConfig();
+			RaqsoftConfig config = con.getConfig();
 			if (config != null
 					&& StringUtils.isValidString(config.getGateway())) {
 				/*
@@ -245,7 +245,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				if (sqlType == JDBCConsts.TYPE_CALL
 						|| sqlType == JDBCConsts.TYPE_CALLS
 						|| sqlType == JDBCConsts.TYPE_SPL) {
-					List<String> hosts = Server.getInstance().getHostNames();
+					List<String> hosts = con.getHostNames();
 					if (hosts != null && !hosts.isEmpty()) {
 						try {
 							String splFile = JDBCUtil.getSplName(sql);
@@ -282,7 +282,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			} else {
 				// 本地如果是网格计算，复制当前上下文生成新的上下文来计算
 				ctx = prepareContext(ctx, sql, sqlType);
-				result = JDBCUtil.execute(sql, parameters, ctx, false);
+				result = executeLocal(sql, parameters, sqlType, ctx);
 			}
 			if (sqlType == JDBCConsts.TYPE_EXE) {
 				/* Execute statement */
@@ -305,6 +305,27 @@ public abstract class InternalStatement implements java.sql.Statement {
 			se.initCause(e);
 			throw se;
 		}
+	}
+
+	/**
+	 * 取语句类型
+	 * @return
+	 */
+	protected byte getJdbcSqlType(String sql) {
+		return JDBCUtil.getJdbcSqlType(sql);
+	}
+
+	/**
+	 * 本地执行语句
+	 * @param sql
+	 * @param parameters
+	 * @param ctx
+	 * @return
+	 * @throws Exception
+	 */
+	protected Object executeLocal(String sql, ArrayList<?> parameters,
+			byte sqlType, Context ctx) throws Exception {
+		return JDBCUtil.execute(sql, parameters, ctx, false);
 	}
 
 	/**
