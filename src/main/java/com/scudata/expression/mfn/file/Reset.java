@@ -70,7 +70,7 @@ public class Reset extends FileFunction {
 			File file = fo.getLocalFile().file();
 			
 			try {
-				ComTable gt = ComTable.open(file, ctx);
+				ComTable gt = open(fo, ctx);
 				boolean result =  gt.reset(f, option, ctx, null, null, cs);
 				gt.close();
 				return result;
@@ -122,7 +122,7 @@ public class Reset extends FileFunction {
 			File file = fo.getLocalFile().file();
 
 			try {
-				ComTable gt = ComTable.open(file, ctx);
+				ComTable gt = open(fo, ctx);
 				if (f != null) {
 					boolean result =  gt.reset(f, option, ctx, distribute, blockSize, cs);
 					gt.close();
