@@ -67,7 +67,6 @@ public class Reset extends FileFunction {
 			}
 			
 			FileObject fo = (FileObject) this.file;
-			File file = fo.getLocalFile().file();
 			
 			try {
 				ComTable gt = open(fo, ctx);
@@ -119,7 +118,6 @@ public class Reset extends FileFunction {
 			}
 			
 			FileObject fo = (FileObject) this.file;
-			File file = fo.getLocalFile().file();
 
 			try {
 				ComTable gt = open(fo, ctx);

@@ -36,10 +36,13 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Join;
+import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.PrimaryJoin;
+import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
 import com.scudata.dm.op.SwitchRemote;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.IFilter;
 import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
@@ -12421,5 +12424,40 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			stack.pop();
 		}
 		return table;
+	}
+	
+	public ICursor cursor(Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+		ICursor cs = new MemoryCursor(this);
+		
+		Select select = new Select(filter, null);
+		cs.addOperation(select, ctx);
+		
+		if (fkNames != null && codes != null) {
+			int fkCount = codes.length;
+			for (int i = 0; i < fkCount; i++) {
+				String tempFkNames[] = new String[] {fkNames[i]};
+				Sequence tempCodes[] = new Sequence[] {codes[i]};
+				String option = opts == null ? null : opts[i];
+				Operation op = new Switch(null, tempFkNames, null, tempCodes, null, null, option);	
+				cs.addOperation(op, ctx);
+			}
+		}
+
+		if (exps == null && names != null) {
+			int size = names.length;
+			exps = new Expression[size];
+			for (int i = 0; i < size; i++) {
+				exps[i] = new Expression(names[i]);
+			}
+		}
+		
+		if (exps != null) {
+			Expression tempExps[] = Operation.dupExpressions(exps, ctx);
+			Operation op = new New(tempExps, names, null);
+			cs.addOperation(op, ctx);
+		}
+		
+		return cs;
 	}
 }
