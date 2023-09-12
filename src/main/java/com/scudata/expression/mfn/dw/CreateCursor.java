@@ -12,8 +12,10 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dw.Cursor;
 import com.scudata.dw.IDWCursor;
 import com.scudata.dw.IPhyTable;
+import com.scudata.dw.RvsCursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -33,6 +35,9 @@ public class CreateCursor extends PhyTableFunction {
 		ICursor cs = createCursor(table, param, option, ctx);
 		if (option != null && option.indexOf('x') != -1) {
 			setOptionX(cs, option);
+		}
+		if (option != null && option.indexOf('z') != -1) {
+			return rvs(cs);
 		}
 		return cs;
 	}
@@ -65,7 +70,7 @@ public class CreateCursor extends PhyTableFunction {
 				codeList.add(new Sequence());
 			} else {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("join" + mm.getMessage("function.paramTypeError"));
+				throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
 			}
 			
 			if (subSize > 2) {
@@ -80,6 +85,18 @@ public class CreateCursor extends PhyTableFunction {
 				optList.add(null);
 			}
 		}
+	}
+	
+	//∞—”Œ±ÍƒÊ–Ú
+	private static ICursor rvs(ICursor src) {
+		if (src instanceof Cursor) {
+			Cursor cs = (Cursor) src;
+			if (!cs.hasModify() && cs.getGathers() == null) {
+				return new RvsCursor(cs);
+			}
+		}
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("cursor" + mm.getMessage("function.invalidParam"));		
 	}
 	
 	public static void setOptionX(ICursor cs, String opt) {
@@ -276,6 +293,8 @@ public class CreateCursor extends PhyTableFunction {
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		if (obj instanceof IPhyTable) {
+			if (option != null && option.indexOf('z') != -1)
+				return true;
 			if (option != null && option.indexOf('v') != -1)
 				return false;
 			return true;
