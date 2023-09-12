@@ -34,15 +34,13 @@ import com.scudata.common.Sentence;
 import com.scudata.dm.comparator.*;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Join;
-import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.PrimaryJoin;
-import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
 import com.scudata.dm.op.SwitchRemote;
-import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.IFilter;
 import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
@@ -12426,21 +12424,63 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return table;
 	}
 	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
 	public ICursor cursor(Expression []exps, String []names, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, Context ctx) {
-		ICursor cs = new MemoryCursor(this);
+		return cursor(1, length() + 1, exps, names, filter, fkNames, codes, opts, ctx);
+	}
+	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param start 起始位置，包含
+	 * @param end 结束位置，不包含
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
+	public ICursor cursor(int start, int end, Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+		ICursor cs = cursor(start, end);
 		
-		Select select = new Select(filter, null);
-		cs.addOperation(select, ctx);
+		if (filter != null) {
+			cs.select(null, filter, null, ctx);
+		}
 		
 		if (fkNames != null && codes != null) {
 			int fkCount = codes.length;
 			for (int i = 0; i < fkCount; i++) {
 				String tempFkNames[] = new String[] {fkNames[i]};
 				Sequence tempCodes[] = new Sequence[] {codes[i]};
+				Expression []codeExps = null;
 				String option = opts == null ? null : opts[i];
-				Operation op = new Switch(null, tempFkNames, null, tempCodes, null, null, option);	
-				cs.addOperation(op, ctx);
+				
+				if (option == null) {
+					option = "i";
+				} else if (option.equals("null")) {
+					option = "d";
+				} else if (option.equals("#")) {
+					option = "i";
+					codeExps = new Expression[] {new Expression(ctx, "#")};
+				} else {
+					option = "i";
+				}
+				
+				cs.switchFk(null, tempFkNames, null, tempCodes, codeExps, null, option, ctx);
 			}
 		}
 
@@ -12453,11 +12493,86 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (exps != null) {
-			Expression tempExps[] = Operation.dupExpressions(exps, ctx);
-			Operation op = new New(tempExps, names, null);
-			cs.addOperation(op, ctx);
+			cs.newTable(null, exps, names, null, ctx);
 		}
 		
 		return cs;
+	}
+	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param syncCursor 同步分段游标
+	 * @param sortedFields 排序字段
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
+	public MultipathCursors cursor(MultipathCursors syncCursor, String []sortedFields, 
+			Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx) {
+		ICursor []srcCursors = syncCursor.getParallelCursors();
+		int segCount = srcCursors.length;
+		if (segCount == 1) {
+			ICursor cs = cursor(exps, names, filter, fkNames, codes, opts, ctx);
+			ICursor []cursors = new ICursor[] {cs};
+			return new MultipathCursors(cursors, ctx);
+		}
+		
+		Object [][]minValues = new Object [segCount][];
+		int fcount = -1;
+		
+		for (int i = 1; i < segCount; ++i) {
+			minValues[i] = srcCursors[i].getSegmentStartValues(opt);
+			if (minValues[i] != null) {
+				if (fcount == -1) {
+					fcount = minValues[i].length;
+				} else if (fcount != minValues[i].length) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+				}
+			}
+		}
+		
+		if (fcount == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+		}
+		
+		if (opt != null && opt.indexOf('k') != -1) {
+			// 有k选项时以首键做为同步分段字段
+			fcount = 1;
+		} else {
+			if (sortedFields.length < fcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+		}
+		
+		int start = 1;
+		ICursor []resultCursors = new ICursor[segCount];
+		Expression []findExps = new Expression[fcount];
+		for (int f = 0; f < fcount; ++f) {
+			findExps[f] = new Expression(ctx, sortedFields[f]);
+		}
+		
+		for (int i = 1; i < segCount; ++i) {
+			int index = (Integer)pselect(findExps, minValues[i], start, "s", ctx);
+			if (index < 0) {
+				index = -index;
+			}
+			
+			resultCursors[i - 1] = cursor(start, index, exps, names, 
+					filter, fkNames, codes, opts, ctx);
+			start = index;
+		}
+		
+		resultCursors[segCount - 1] = cursor(start, length() + 1, exps, names, 
+				filter, fkNames, codes, opts, ctx);
+		return new MultipathCursors(resultCursors, ctx);
 	}
 }

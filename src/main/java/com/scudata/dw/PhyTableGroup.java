@@ -20,6 +20,7 @@ import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.cursor.UpdateMergeCursor;
+import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -29,12 +30,14 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class PhyTableGroup implements IPhyTable {
-	private String fileName;
 	private IPhyTable []tables;
+	private String fileName;
 	private int []partitions;
 	private String opt;
 	private Context ctx;
 	private Expression distribute;
+	
+	private Sequence memoryTable; // 内存分表
 	
 	public PhyTableGroup(String fileName, IPhyTable []tables, int []partitions, String opt, Context ctx) {
 		this.fileName = fileName;
@@ -180,9 +183,14 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	public void append(ICursor cursor, String opt) throws IOException {
-		if (opt != null && opt.indexOf('x') != -1) {
-			append_x(cursor, opt);
-			return;
+		if (opt != null) {
+			if (opt.indexOf('y') != -1) {
+				memoryTable = cursor.fetch();
+				return;
+			} else if (opt.indexOf('x') != -1) {
+				append_x(cursor, opt);
+				return;
+			}
 		}
 		
 		Expression distribute = this.distribute;
@@ -313,6 +321,16 @@ public class PhyTableGroup implements IPhyTable {
 				}
 			}
 			
+			if (memoryTable != null) {
+				String []sortedFields = getAllSortedColNames();
+				mcs2 = memoryTable.cursor(mcs, sortedFields, exps, fields, 
+						filter, fkNames, codes, opts, opt, ctx);
+				cursors = mcs2.getCursors();
+				for (int p = 0; p < cursors.length; ++p) {
+					lists[p].add(cursors[p]);
+				}
+			}
+			
 			ICursor []resultCursors = new ICursor[pathCount];
 			for (int i = 0; i < pathCount; ++i) {
 				int size = lists[i].size();
@@ -357,6 +375,15 @@ public class PhyTableGroup implements IPhyTable {
 				}
 			}
 			
+			if (memoryTable != null) {
+				String []sortedFields = getAllSortedColNames();
+				mcs2 = memoryTable.cursor(mcs, sortedFields, exps, fields, filter, fkNames, codes, opts, opt, ctx);
+				cursors = mcs2.getCursors();
+				for (int p = 0; p < cursors.length; ++p) {
+					lists[p].add(cursors[p]);
+				}
+			}
+			
 			ICursor []resultCursors = new ICursor[pathCount];
 			for (int i = 0; i < pathCount; ++i) {
 				int size = lists[i].size();
@@ -392,8 +419,19 @@ public class PhyTableGroup implements IPhyTable {
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Sequence []codes, String[] opts, String opt, Context ctx) {
 		int count = tables.length;
-		ICursor []cursors = new ICursor[count];
+		ICursor []cursors;
+		if (memoryTable == null) {
+			cursors = new ICursor[count];
+		} else {
+			cursors = new ICursor[count + 1];
+			exps = Operation.dupExpressions(exps, ctx);
+			filter = Operation.dupExpression(filter, ctx);
+			cursors[count] = memoryTable.cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+		}
+		
 		for (int i = 0; i < count; ++i) {
+			exps = Operation.dupExpressions(exps, ctx);
+			filter = Operation.dupExpression(filter, ctx);
 			cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
@@ -491,6 +529,16 @@ public class PhyTableGroup implements IPhyTable {
 					}
 				}
 				
+				if (memoryTable != null) {
+					String []sortedFields = getAllSortedColNames();
+					MultipathCursors mcs2 = memoryTable.cursor(mcs, sortedFields, exps, fields, 
+							filter, fkNames, codes, opts, opt, ctx);
+					cursors = mcs2.getCursors();
+					for (int p = 0; p < cursors.length; ++p) {
+						lists[p].add(cursors[p]);
+					}
+				}
+				
 				ICursor []resultCursors = new ICursor[pathCount];
 				for (int i = 0; i < pathCount; ++i) {
 					int size = lists[i].size();
@@ -517,10 +565,20 @@ public class PhyTableGroup implements IPhyTable {
 					throw new RQException(mm.getMessage("ds.lessKey"));
 				}
 				
-				ICursor []cursors = new ICursor[tableCount];
-				cursors[0] = cs;
+				ICursor []cursors;
+				if (memoryTable == null) {
+					cursors = new ICursor[tableCount];
+				} else {
+					cursors = new ICursor[tableCount + 1];
+					exps = Operation.dupExpressions(exps, ctx);
+					filter = Operation.dupExpression(filter, ctx);
+					cursors[tableCount] = memoryTable.cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				}
 				
+				cursors[0] = cs;
 				for (int i = 1; i < tableCount; ++i) {
+					exps = Operation.dupExpressions(exps, ctx);
+					filter = Operation.dupExpression(filter, ctx);
 					cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				}
 								
@@ -555,6 +613,16 @@ public class PhyTableGroup implements IPhyTable {
 						}
 					}
 					
+					if (memoryTable != null) {
+						String []sortedFields = getAllSortedColNames();
+						MultipathCursors mcs2 = memoryTable.cursor(mcs, sortedFields, exps, fields, 
+								filter, fkNames, codes, opts, opt, ctx);
+						cursors = mcs2.getCursors();
+						for (int p = 0; p < cursors.length; ++p) {
+							lists[p].add(cursors[p]);
+						}
+					}
+					
 					ICursor []resultCursors = new ICursor[pathCount];
 					for (int i = 0; i < pathCount; ++i) {
 						int size = lists[i].size();
@@ -570,10 +638,20 @@ public class PhyTableGroup implements IPhyTable {
 					return new MultipathCursors(resultCursors, ctx);
 				}
 			} else {
-				ICursor []cursors = new ICursor[tableCount];
-				cursors[0] = cs;
+				ICursor []cursors;
+				if (memoryTable == null) {
+					cursors = new ICursor[tableCount];
+				} else {
+					cursors = new ICursor[tableCount + 1];
+					exps = Operation.dupExpressions(exps, ctx);
+					filter = Operation.dupExpression(filter, ctx);
+					cursors[tableCount] = memoryTable.cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				}
 				
+				cursors[0] = cs;
 				for (int i = 1; i < tableCount; ++i) {
+					exps = Operation.dupExpressions(exps, ctx);
+					filter = Operation.dupExpression(filter, ctx);
 					cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				}
 				
@@ -621,6 +699,27 @@ public class PhyTableGroup implements IPhyTable {
 			}
 		}
 		
+		if (memoryTable != null) {
+			int len = memoryTable.length();
+			int blockSize = len / pathCount;
+			int start = 1;
+			
+			for (int i = 1; i <= pathCount; ++i) {
+				int end;
+				if (i == pathCount) {
+					end = len + 1;
+				} else {
+					end = blockSize * i + 1;
+				}
+
+				exps = Operation.dupExpressions(exps, ctx);
+				filter = Operation.dupExpression(filter, ctx);
+				ICursor cursor = memoryTable.cursor(start, end, exps, fields, filter, fkNames, codes, opts, ctx);
+				lists[i].add(cursor);
+				start = end;
+			}
+		}
+		
 		ArrayList<ICursor> list = new ArrayList<ICursor>(pathCount);
 		for (int i = 0; i < pathCount; ++i) {
 			int size = lists[i].size();
@@ -654,10 +753,32 @@ public class PhyTableGroup implements IPhyTable {
 		int count = tables.length;
 		ArrayList<ICursor> list = new ArrayList<ICursor>(count);
 		for (int i = 0; i < count; ++i) {
+			exps = Operation.dupExpressions(exps, ctx);
+			filter = Operation.dupExpression(filter, ctx);
 			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, segSeq, segCount, opt, ctx);
 			if (cursor != null) {
 				list.add(cursor);
 			}
+		}
+		
+		if (memoryTable != null) {
+			int len = memoryTable.length();
+			int blockSize = len / segCount;
+			int start;
+			int end;
+			
+			if (segSeq == segCount) {
+				start = blockSize * (segSeq - 1) + 1;
+				end = len + 1;
+			} else {
+				start = blockSize * (segSeq - 1) + 1;
+				end = blockSize * segSeq + 1;
+			}
+			
+			exps = Operation.dupExpressions(exps, ctx);
+			filter = Operation.dupExpression(filter, ctx);
+			ICursor cursor = memoryTable.cursor(start, end, exps, fields, filter, fkNames, codes, opts, ctx);
+			list.add(cursor);
 		}
 		
 		ICursor []cursors = new ICursor[list.size()];
@@ -916,5 +1037,21 @@ public class PhyTableGroup implements IPhyTable {
 
 	public int getDeleteFieldIndex(Expression[] exps, String[] fields) {
 		return tables[0].getDeleteFieldIndex(exps, fields);
+	}
+
+	/**
+	 * 取内存分表
+	 * @return Sequence
+	 */
+	public Sequence getMemoryTable() {
+		return memoryTable;
+	}
+
+	/**
+	 * 给复组表添加内存分表，用于历史数据和实时数据混合计算
+	 * @param memoryTable 内心序表
+	 */
+	public void setMemoryTable(Sequence memoryTable) {
+		this.memoryTable = memoryTable;
 	}
 }
