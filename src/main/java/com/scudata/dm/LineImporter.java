@@ -63,6 +63,8 @@ public final class LineImporter implements ILineInput {
 	private boolean checkColCount = false; // 用于列数超过的行删除选项，以第一行为准
 	private boolean checkValueType = false; // 数据类型和格式是否匹配
 	
+	private boolean isStringMode = false; // 是否先把行读成String再分列，防止有的编码的汉字的第二个字节的值等于列分隔符
+	
 	/**
 	 * 用于表示每行数据对应的字节数组
 	 * @author RunQian
@@ -187,6 +189,8 @@ public final class LineImporter implements ILineInput {
 			
 			// 保留数据项两端的空白符，缺省将自动做trim
 			if (opt.indexOf('k') != -1) isTrim = false;
+			
+			if (colSeparators == null && opt.indexOf('r') != -1) isStringMode = true;
 		}
 		
 		// 跳过BOM头
@@ -608,6 +612,258 @@ public final class LineImporter implements ILineInput {
 					if (readBuffer() <= 0) {
 						if (prevBuffer != null) {
 							return new LineBytes(prevBuffer, 0, prevBuffer.length);
+						} else {
+							return null;
+						}
+					} else {
+						count = this.count;
+						if (buffer[0] == LF) { // \n
+							index = 1;
+							start = 1;
+						} else if (buffer[0] == CR) { // \r\n
+							index = 2;
+							start = 2;
+						} else {
+							index = 0;
+							start = 0;
+							
+							// 把续行符加入到之前的缓冲区
+							if (prevBuffer == null) {
+								prevBuffer = new byte[]{CONTINUECHAR};
+							} else {
+								int prevLen = prevBuffer.length;
+								byte[] temp = new byte[prevLen + 1];
+								System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+								temp[prevLen] = CONTINUECHAR;
+								prevBuffer = temp;
+							}
+						}
+					}
+				}
+			} else {
+				++index;
+			}
+		}
+	}
+	
+	// 把下一行数据读成字符串
+	private String readLineString() throws IOException {
+		// 是否跳过引号内的回车
+		boolean skipQuoteEnter = escapeChar == '"';
+		byte[] buffer = this.buffer;
+		byte []prevBuffer = null; // 上次剩余的字节
+		int count = this.count;
+		int index = this.index;
+		int start = index;
+		
+		Next:
+		while (true) {
+			if (index >= count) {
+				// 当前缓存的数据已经遍历完，保存当前数据到prevBuffer中
+				int curCount = count - start;
+				if (curCount > 0) {
+					if (prevBuffer == null) {
+						prevBuffer = new byte[curCount];
+						System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+					} else {
+						int prevLen = prevBuffer.length;
+						byte[] temp = new byte[curCount + prevLen];
+						System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+						System.arraycopy(buffer, start, temp, prevLen, curCount);
+						prevBuffer = temp;
+					}
+				}
+
+				// 读入后面的字节
+				if (readBuffer() <= 0) {
+					if (prevBuffer != null) { // 最后一行
+						return new String(prevBuffer, 0, prevBuffer.length, charset);
+					} else {
+						return null;
+					}
+				} else {
+					count = this.count;
+					start = 0;
+					index = 0;
+				}
+			}
+			
+			if (buffer[index] == LF) {
+				// 找到行结束符，索引跳到换行后
+				this.index = index + 1;
+				
+				if (index > start) {
+					// 检查LF前是否是CR
+					if (buffer[index - 1] == CR) {
+						index--;
+					}
+					
+					int curLen = index - start;
+					if (prevBuffer == null) {
+						return new String(buffer, start, curLen, charset);
+					} else if (curLen > 0) {
+						int prevLen = prevBuffer.length;
+						byte []temp = new byte[prevLen + curLen];
+						System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+						System.arraycopy(buffer, start, temp, prevLen, curLen);
+						return new String(temp, 0, temp.length, charset);
+					} else {
+						return new String(prevBuffer, 0, prevBuffer.length, charset);
+					}
+				} else {
+					if (prevBuffer != null) {
+						// 检查会车前是否是换行符
+						int prevLen = prevBuffer.length;
+						if (prevBuffer[prevLen - 1] == CR) { // \r在上一次读出的缓冲区中，index等于0
+							return new String(prevBuffer, 0, prevLen -1, charset);
+						} else {
+							return new String(prevBuffer, 0, prevLen, charset);
+						}
+					} else {
+						// 此行内容为空，只有回车
+						return new String(buffer, start, 0, charset);
+					}
+				}
+			} else if (skipQuoteEnter && buffer[index] == '"') {
+				// 找引号匹配，跳到右引号的下一个字符
+				++index;
+				while (true) {
+					if (index == count) {
+						// 保存当前数据到prevBuffer中
+						int curCount = count - start;
+						if (prevBuffer == null) {
+							prevBuffer = new byte[curCount];
+							System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+						} else {
+							int prevLen = prevBuffer.length;
+							byte[] temp = new byte[curCount + prevLen];
+							System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+							System.arraycopy(buffer, start, temp, prevLen, curCount);
+							prevBuffer = temp;
+						}
+
+						// 读入后面的字节
+						if (readBuffer() <= 0) {
+							return new String(prevBuffer, 0, prevBuffer.length, charset);
+						} else {
+							count = this.count;
+							start = 0;
+							index = 0;
+						}
+					}
+					
+					if (buffer[index] == '"') {
+						++index;
+						if (index < count) {
+							if (buffer[index] != '"') {
+								// 找到引号匹配
+								continue Next;
+							} else {
+								// 连续两个双引号是对引号转义
+								++index;
+							}
+						} else {
+							// 保存当前数据到prevBuffer中
+							int curCount = count - start;
+							if (prevBuffer == null) {
+								prevBuffer = new byte[curCount];
+								System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+							} else {
+								int prevLen = prevBuffer.length;
+								byte[] temp = new byte[curCount + prevLen];
+								System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+								System.arraycopy(buffer, start, temp, prevLen, curCount);
+								prevBuffer = temp;
+							}
+	
+							// 读入后面的字节
+							if (readBuffer() <= 0) {
+								return new String(prevBuffer, 0, prevBuffer.length, charset);
+							} else {
+								count = this.count;
+								start = 0;
+								if (buffer[0] != '"') {
+									// 找到引号匹配
+									index = 0;
+									continue Next;
+								} else {
+									// 连续两个双引号是对引号转义
+									index = 1;
+								}
+							}
+						}
+					} else {
+						++index;
+					}
+				}
+			} else if (isContinueLine && buffer[index] == CONTINUECHAR) {
+				// 如果允许续行，检查当前字符是否是‘\’
+				++index;
+				if (index < count) {
+					if (buffer[index] == LF) { // \n
+						// 保存当前数据到prevBuffer中
+						int curCount = index - start - 1;
+						if (prevBuffer == null) {
+							prevBuffer = new byte[curCount];
+							System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+						} else {
+							int prevLen = prevBuffer.length;
+							byte[] temp = new byte[curCount + prevLen];
+							System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+							System.arraycopy(buffer, start, temp, prevLen, curCount);
+							prevBuffer = temp;
+						}
+						
+						start = ++index;
+					} else if (buffer[index] == CR) { // \r\n
+						// 保存当前数据到prevBuffer中
+						int curCount = index - start - 1;
+						if (prevBuffer == null) {
+							prevBuffer = new byte[curCount];
+							System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+						} else {
+							int prevLen = prevBuffer.length;
+							byte[] temp = new byte[curCount + prevLen];
+							System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+							System.arraycopy(buffer, start, temp, prevLen, curCount);
+							prevBuffer = temp;
+						}
+						
+						// CR后面跟着LF，跳到LF
+						++index;
+						if (index == count) {
+							// \n在下一个缓冲区
+							if (readBuffer() <= 0) {
+								return new String(prevBuffer, 0, prevBuffer.length, charset);
+							} else {
+								count = this.count;
+								index = 1;
+							}
+						} else {
+							++index;
+						}
+						
+						start = index;
+					}
+				} else {
+					// 保存当前数据到prevBuffer中
+					int curCount = index - start - 1;
+					if (curCount > 0) {
+						if (prevBuffer == null) {
+							prevBuffer = new byte[curCount];
+							System.arraycopy(buffer, start, prevBuffer, 0, curCount);
+						} else {
+							int prevLen = prevBuffer.length;
+							byte[] temp = new byte[curCount + prevLen];
+							System.arraycopy(prevBuffer, 0, temp, 0, prevLen);
+							System.arraycopy(buffer, start, temp, prevLen, curCount);
+							prevBuffer = temp;
+						}
+					}
+					
+					if (readBuffer() <= 0) {
+						if (prevBuffer != null) {
+							return new String(prevBuffer, 0, prevBuffer.length, charset);
 						} else {
 							return null;
 						}
@@ -1259,6 +1515,23 @@ public final class LineImporter implements ILineInput {
 	 * @throws IOException
 	 */
 	public Object[] readFirstLine() throws IOException {
+		if (isStringMode) {
+			String line = readLineString();
+			if (line == null) {
+				return null;
+			} else if (parseMode == PARSEMODE_SINGLE_STRING) {
+				if (isQuote || isSingleQuote) {
+					line = Escape.removeEscAndQuote(line, escapeChar);
+				}
+				
+				return new Object[] {line};
+			} else if (colTypes != null) {
+				return readLine(line, colTypes);
+			} else {
+				return readLine(line);
+			}
+		}
+		
 		LineBytes line = readLineBytes();
 		if (line == null) {
 			return null;
@@ -1277,7 +1550,53 @@ public final class LineImporter implements ILineInput {
 	 * @throws IOException
 	 */
 	public Object[] readLine() throws IOException {
-		if (parseMode == PARSEMODE_DELETE) {
+		if (isStringMode) {
+			if (parseMode == PARSEMODE_DELETE) {
+				while (true) {
+					String line = readLineString();
+					if (line == null) {
+						return null;
+					}
+					
+					Object []vals = readLineOnCheck(line, colTypes);
+					if (vals != null) {
+						return vals;
+					}
+				}
+			} else if (parseMode == PARSEMODE_EXCEPTION) {
+				String line = readLineString();
+				if (line == null) {
+					return null;
+				}
+				
+				Object []vals = readLineOnCheck(line, colTypes);
+				if (vals != null) {
+					return vals;
+				} else {
+					if (line.length() > 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(line + mm.getMessage("file.rowDataError"));
+					} else {
+						return null;
+					}
+				}
+			} else {
+				String line = readLineString();
+				if (line == null) {
+					return null;
+				} else if (parseMode == PARSEMODE_SINGLE_STRING) {
+					if (isQuote || isSingleQuote) {
+						line = Escape.removeEscAndQuote(line, escapeChar);
+					}
+					
+					return new Object[] {line};
+				} else if (colTypes != null) {
+					return readLine(line, colTypes);
+				} else {
+					return readLine(line);
+				}
+			}
+		} else if (parseMode == PARSEMODE_DELETE) {
 			while (true) {
 				LineBytes line = readLineBytes();
 				if (line == null) {
@@ -1700,6 +2019,298 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
+	private Object parse(String str, int col) throws UnsupportedEncodingException {
+		int start = 0, end = str.length();
+		
+		if (isTrim) {
+			while (start < end && Character.isWhitespace(str.charAt(start))) {
+				start++;
+			}
+			
+			while (end > start && Character.isWhitespace(str.charAt(end - 1))) {
+				end--;
+			}
+		}
+		
+		if (start >= end) {
+			return null;
+		}
+
+		byte []types = this.colTypes;
+		char c = str.charAt(start);
+		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
+			// 在结尾是否有引号
+			if (str.charAt(end - 1) == c) {
+				start++;
+				end--;
+				if (start < end) {
+					if (types[col] == Types.DT_DEFAULT || types[col] == Types.DT_STRING) {
+						return Escape.removeEscAndQuote(str, escapeChar);
+					}
+				} else if (start == end) {
+					return "";
+				} else {
+					return String.valueOf(c);
+				}
+			} else {
+				return str;
+			}
+		} else if (parseMode == PARSEMODE_MULTI_STRING) {
+			// 直接返回串
+			if (isNull(str)) {
+				return null;
+			} else {
+				return str;
+			}
+		}
+
+		switch (types[col]) {
+		case Types.DT_STRING:
+			if (isNull(str)) {
+				return null;
+			} else {
+				return str;
+			}
+		case Types.DT_INT:
+			Number num = Variant.parseNumber(str);
+			if (num != null) {
+				return num;
+			} else {
+				break;
+			}
+		case Types.DT_DOUBLE:
+			num = Variant.parseDouble(str);
+			if (num != null) {
+				return num;
+			} else {
+				break;
+			}
+		case Types.DT_DATE:
+			Date date = fmts[col].parse(str);
+			if (date != null) return new java.sql.Date(date.getTime());
+
+			break;
+		case Types.DT_DECIMAL:
+			try {
+				return new BigDecimal(str);
+			} catch (NumberFormatException e) {
+			}
+
+			break;
+		case Types.DT_LONG:
+			num = parseLong(str);
+			if (num != null) {
+				return num;
+			}
+
+			break;
+		case Types.DT_DATETIME:
+			date = fmts[col].parse(str);
+			if (date != null) return new java.sql.Timestamp(date.getTime());
+
+			break;
+		case Types.DT_TIME:
+			date = fmts[col].parse(str);
+			if (date != null) return new java.sql.Time(date.getTime());
+
+			break;
+		case Types.DT_BOOLEAN:
+			if (str.equals("true")) return Boolean.TRUE;
+			if (str.equals("false")) return Boolean.FALSE;
+
+			break;
+		case Types.DT_SERIALBYTES:
+			num = Variant.parseLong(str);
+			if (num != null) {
+				return new SerialBytes(num.longValue(), serialByteLens[col]);
+			}
+			
+			break;
+		default:
+			if (isNull(str)) {
+				return null;
+			}
+			
+			Object val = Variant.parseDirect(str);
+			types[col] = Variant.getObjectType(val);
+			
+			if (types[col] == Types.DT_DATE) {
+				fmts[col] = DateFormatFactory.get().getDateFormatX();
+			} else if (types[col] == Types.DT_DATETIME) {
+				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+			} else if (types[col] == Types.DT_TIME) {
+				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+			}
+			
+			return val;
+		}
+		
+		if (isNull(str)) {
+			return null;
+		} else {
+			return Variant.parseDirect(str);
+		}
+	}
+	
+	// 把字节数组解析成对象，如果类型不符则返回false
+	private boolean parse(String str, int col, Object []outValue) throws UnsupportedEncodingException {
+		int start = 0, end = str.length();
+		
+		if (isTrim) {
+			while (start < end && Character.isWhitespace(str.charAt(start))) {
+				start++;
+			}
+			
+			while (end > start && Character.isWhitespace(str.charAt(end - 1))) {
+				end--;
+			}
+		}
+		
+		if (start >= end) {
+			return true;
+		}
+
+		byte []types = this.colTypes;
+		char c = str.charAt(start);
+		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
+			// 在结尾是否有引号
+			if (str.charAt(end - 1) == c) {
+				start++;
+				end--;
+				if (start < end) {
+					if (types[col] == Types.DT_DEFAULT || types[col] == Types.DT_STRING) {
+						outValue[col] = Escape.remove(str, escapeChar);
+						return true;
+					}
+				} else if (start == end) {
+					outValue[col] = "";
+					return true;
+				} else {
+					outValue[col] = String.valueOf(c);
+					return true;
+				}
+			} else {
+				outValue[col] = str;
+				return true;
+			}
+		} else if (parseMode == PARSEMODE_MULTI_STRING) {
+			// 直接返回串
+			if (isNull(str)) {
+				outValue[col] = null;
+				return true;
+			} else {
+				outValue[col] = str;
+				return true;
+			}
+		}
+
+		switch (types[col]) {
+		case Types.DT_STRING:
+			if (!isNull(str)) {
+				outValue[col] = str;
+			}
+			
+			return true;
+		case Types.DT_INT:
+			Number num = Variant.parseNumber(str);
+			if (num != null) {
+				outValue[col] = num;
+				return true;
+			}
+
+			break;
+		case Types.DT_DOUBLE:
+			num = Variant.parseDouble(str);
+			if (num != null) {
+				outValue[col] = num;
+				return true;
+			}
+
+			break;
+		case Types.DT_DATE:
+			Date date = fmts[col].parse(str);
+			if (date != null) {
+				outValue[col] = new java.sql.Date(date.getTime());
+				return true;
+			}
+
+			break;
+		case Types.DT_DECIMAL:
+			try {
+				outValue[col] = new BigDecimal(str);
+				return true;
+			} catch (NumberFormatException e) {
+			}
+
+			break;
+		case Types.DT_LONG:
+			num = Variant.parseLong(str);
+			if (num != null) {
+				outValue[col] = num;
+				return true;
+			}
+
+			break;
+		case Types.DT_DATETIME:
+			date = fmts[col].parse(str);
+			if (date != null) {
+				outValue[col] = new java.sql.Timestamp(date.getTime());
+				return true;
+			}
+
+			break;
+		case Types.DT_TIME:
+			date = fmts[col].parse(str);
+			if (date != null) {
+				outValue[col] = new java.sql.Time(date.getTime());
+				return true;
+			}
+
+			break;
+		case Types.DT_BOOLEAN:
+			if (str.equals("true")) {
+				outValue[col] = Boolean.TRUE;
+				return true;
+			} else if (str.equals("false")) {
+				outValue[col] = Boolean.FALSE;
+				return true;
+			}
+
+			break;
+		case Types.DT_SERIALBYTES:
+			num = Variant.parseLong(str);
+			if (num != null) {
+				outValue[col] = new SerialBytes(num.longValue(), serialByteLens[col]);
+				return true;
+			}
+			
+			break;
+		default:
+			if (isNull(str)) {
+				return true;
+			}
+			
+			outValue[col] = Variant.parseDirect(str);
+			types[col] = Variant.getObjectType(outValue[col]);
+			
+			if (types[col] == Types.DT_DATE) {
+				fmts[col] = DateFormatFactory.get().getDateFormatX();
+			} else if (types[col] == Types.DT_DATETIME) {
+				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+			} else if (types[col] == Types.DT_TIME) {
+				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+			}
+			
+			return true;
+		}
+
+		if (isNull(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// 把字节数组解析成对象，如果类型不符则返回false
 	private boolean parse(byte []bytes, int start, int end, int col, Object []outValue) throws UnsupportedEncodingException {
 		if (isTrim) {
@@ -2066,6 +2677,38 @@ public final class LineImporter implements ILineInput {
 			return new Long(-result);
 		}
 	}
+	
+	private static Number parseLong(String s) {
+		s = s.trim();
+		int len = s.length();
+		if (len == 0) return null;
+
+
+		Long numObj = Variant.parseLong(s);
+		if (numObj != null) return numObj;
+
+		if (len > 2 && s.charAt(0) == '0' && (s.charAt(1) == 'X' || s.charAt(1) == 'x')) {
+			numObj = Variant.parseLong(s.substring(2), 16);
+			if (numObj != null) return numObj;
+		}
+
+		if (s.endsWith("%")) { // 5%
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s.
+					substring(0, s.length() - 1));
+				if (fd != null)return new Double(fd.doubleValue() / 100);
+			} catch (RuntimeException e) {
+			}
+		} else {
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s);
+				if (fd != null) return new Double(fd.doubleValue());
+			} catch (RuntimeException e) {
+			}
+		}
+
+		return null;
+	}
 
 	// 解析布尔值，不是布尔值则返回空
 	private static Boolean parseBoolean(byte []bytes, int i, int e) {
@@ -2079,5 +2722,265 @@ public final class LineImporter implements ILineInput {
 		}
 
 		return null;
+	}
+	
+	private Object[] readLineOnCheck(String line, byte []colTypes) throws IOException {
+		int count = line.length();
+		if (count < 1) {
+			return null;
+		}
+		
+		int colCount = colTypes.length;
+		Object []values = new Object[colCount];
+		
+		byte colSeparator = this.colSeparator;
+		int []selIndex = this.selIndex;
+		char escapeChar = this.escapeChar;
+		boolean doQuoteMatch = this.doQuoteMatch; // 是否做引号匹配
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // 是否做单引号匹配
+		boolean doBracketsMatch = this.doBracketsMatch; // 是否做括号匹配（包括圆括号、中括号、花括号）
+		boolean checkValueType = this.checkValueType;
+		
+		int colIndex = 0;
+		int index = 0, start = 0;
+		int BracketsLevel = 0; // 括号的层数，有p选项时认为括号总是匹配出现的
+		
+		Next:
+		while (index < count && colIndex < colCount) {
+			char c = line.charAt(index);
+			if (BracketsLevel == 0 && c == colSeparator) {
+				// 列结束
+				if (selIndex == null || selIndex[colIndex] != -1) {
+					String str = line.substring(start, index);
+					if (checkValueType) {
+						if (!parse(str, colIndex, values)) {
+							return null;
+						}
+					} else {
+						values[colIndex] = parse(str, colIndex);
+					}
+				}
+				
+				colIndex++;
+				start = ++index;
+			} else if (doQuoteMatch && c == '"') {
+				// 找引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '"') {
+						index++;
+						if (escapeChar != '"' || index == count || line.charAt(index) != '"') {
+							continue Next;
+						}
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+				
+				// 没找到匹配的引号返回空
+				return null;
+			} else if (doSingleQuoteMatch && c == '\'') {
+				// 找单引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '\'') {
+						index++;
+						continue Next;
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+				
+				// 没找到匹配的单引号返回空
+				return null;
+			} else if (doBracketsMatch) {
+				if (c == '(' || c == '[' || c == '{') {
+					BracketsLevel++;
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+					BracketsLevel--;
+				}
+				
+				index++;
+			} else {
+				index++;
+			}
+		}
+		
+		if (BracketsLevel != 0) {
+			// 有不匹配的括号
+			return null;
+		}
+		
+		if (colIndex < colCount) {
+			if (checkColCount && colIndex + 1 < colCount) {
+				return null;
+			}
+			
+			if (selIndex == null || selIndex[colIndex] != -1) {
+				String str = line.substring(start, index);
+				if (checkValueType) {
+					if (!parse(str, colIndex, values)) {
+						return null;
+					}
+				} else {
+					values[colIndex] = parse(str, colIndex);
+				}
+			}
+		}
+
+		return values;
+	}
+	
+	private Object[] readLine(String line, byte []colTypes) throws IOException {
+		int colCount = colTypes.length;
+		Object []values = new Object[colCount];
+		int count = line.length();
+		if (count < 1) {
+			return values;
+		}
+				
+		byte colSeparator = this.colSeparator;
+		int []selIndex = this.selIndex;
+		char escapeChar = this.escapeChar;
+		boolean doQuoteMatch = this.doQuoteMatch; // 是否做引号匹配
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // 是否做单引号匹配
+		boolean doBracketsMatch = this.doBracketsMatch; // 是否做括号匹配（包括圆括号、中括号、花括号）
+		
+		int colIndex = 0;
+		int index = 0, start = 0;
+		int BracketsLevel = 0; // 括号的层数，有p选项时认为括号总是匹配出现的
+		
+		while (index < count && colIndex < colCount) {
+			char c = line.charAt(index);
+			if (BracketsLevel == 0 && c == colSeparator) {
+				// 列结束
+				if (selIndex == null || selIndex[colIndex] != -1) {
+					String str = line.substring(start, index);
+					values[colIndex] = parse(str, colIndex);
+				}
+				
+				colIndex++;
+				start = ++index;
+			} else if (doQuoteMatch && c == '"') {
+				// 找引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '"') {
+						index++;
+						if (escapeChar != '"' || index == count || line.charAt(index) != '"') {
+							break;
+						}
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doSingleQuoteMatch && c == '\'') {
+				// 找单引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '\'') {
+						index++;
+						break;
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doBracketsMatch) {
+				if (c == '(' || c == '[' || c == '{') {
+					BracketsLevel++;
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+					BracketsLevel--;
+				}
+				
+				index++;
+			} else {
+				index++;
+			}
+		}
+		
+		if (colIndex < colCount && (selIndex == null || selIndex[colIndex] != -1)) {
+			String str = line.substring(start, index);
+			values[colIndex] = parse(str, colIndex);
+		}
+
+		return values;
+	}
+	
+	private Object[] readLine(String line) throws IOException {
+		int count = line.length();
+		if (count < 1) {
+			return new Object[0];
+		}
+		
+		byte colSeparator = this.colSeparator;
+		char escapeChar = this.escapeChar;
+		boolean isTrim = this.isTrim;
+		boolean doQuoteMatch = this.doQuoteMatch; // 是否做引号匹配
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // 是否做单引号匹配
+		boolean doBracketsMatch = this.doBracketsMatch; // 是否做括号匹配（包括圆括号、中括号、花括号）
+		
+		ArrayList<Object> list = new ArrayList<Object>();
+		int BracketsLevel = 0; // 括号的层数，有p选项时认为括号总是匹配出现的
+		int index = 0, start = 0;
+		
+		while (index < count) {
+			char c = line.charAt(index);
+			if (BracketsLevel == 0 && c == colSeparator) {
+				// 列结束
+				if (index > start) {
+					String str = line.substring(start, index);
+					if (isTrim) {
+						str = str.trim();
+					}
+					
+					list.add(parse(str));
+				} else {
+					list.add(null);
+				}
+				
+				start = ++index;
+			} else if (doQuoteMatch && c == '"') {
+				// 找引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '"') {
+						index++;
+						if (escapeChar != '"' || index == count || line.charAt(index) != '"') {
+							break;
+						}
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doSingleQuoteMatch && c == '\'') {
+				// 找单引号匹配，忽略引号内的列分隔符
+				for (++index; index < count; ++index) {
+					if (line.charAt(index) == '\'') {
+						index++;
+						break;
+					} else if (line.charAt(index) == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doBracketsMatch) {
+				if (c == '(' || c == '[' || c == '{') {
+					BracketsLevel++;
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+					BracketsLevel--;
+				}
+				
+				index++;
+			} else {
+				index++;
+			}
+		}
+		
+		if (count > start) {
+			String str = line.substring(start, index);
+			if (isTrim) {
+				str = str.trim();
+			}
+			
+			list.add(parse(str));
+		} else {
+			list.add(null);
+		}
+		
+		return list.toArray();
 	}
 }

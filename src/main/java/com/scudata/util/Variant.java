@@ -2055,6 +2055,25 @@ public class Variant {
 		return null;
 	}
 
+	public static Double parseDouble(String s) {
+		if (s.endsWith("%")) { // 5%
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s.
+					substring(0, s.length() - 1));
+				if (fd != null)return new Double(fd.doubleValue() / 100);
+			} catch (RuntimeException e) {
+			}
+		} else {
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s);
+				if (fd != null) return new Double(fd.doubleValue());
+			} catch (RuntimeException e) {
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 将时间转为相应的时间值
 	 * @param text String
@@ -2255,7 +2274,7 @@ public class Variant {
 		return -result;
 	}
 
-	private static Integer parseInt(String s) {
+	public static Integer parseInt(String s) {
 		int result = 0;
 		boolean negative = false;
 		int i = 0, max = s.length();
@@ -2308,7 +2327,7 @@ public class Variant {
 		}
 	}
 
-	private static Long parseLong(String s) {
+	public static Long parseLong(String s) {
 		long result = 0;
 		boolean negative = false;
 		int i = 0, max = s.length();
