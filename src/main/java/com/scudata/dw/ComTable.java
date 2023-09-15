@@ -171,6 +171,34 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 
+	public static ComTable open(FileObject fo, Context ctx) throws IOException {
+		IFile ifile = fo.getFile();
+		if (!ifile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist", fo.getFileName()));
+		}
+		
+		File file = fo.getLocalFile().file();
+		RandomAccessFile raf = ifile.getRandomAccessFile();
+
+		raf.seek(6);
+		
+		if (raf.length() == 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+		
+		int flag = raf.read(); 
+		if (flag == 'r') {
+			return new RowComTable(file, raf, ctx);
+		} else if (flag == 'c' || flag == 'C'){
+			return new ColComTable(file, raf, ctx);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+	}
+	
 	/**
 	 * 打开已经存在的组表,不检查出错日志，仅内部使用
 	 * @param file
@@ -490,7 +518,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		boolean isCol = this instanceof ColComTable;
 		boolean hasQ = false;
-		boolean hasN = false;
+		boolean hasN = false;// 只复制文件结构(包括附表)
 		boolean hasW = false;
 		boolean onlyDataStruct = false; // 只复制文件结构
 		boolean compress = false; // 压缩

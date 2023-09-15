@@ -2,18 +2,13 @@ package com.scudata.expression.mfn.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.IFile;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.ColComTable;
 import com.scudata.dw.ComTable;
-import com.scudata.dw.RowComTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -48,7 +43,7 @@ public class Reset extends FileFunction {
 			
 			ComTable gt;
 			try {
-				gt = open(fo, ctx);
+				gt = ComTable.open(fo, ctx);
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -69,7 +64,7 @@ public class Reset extends FileFunction {
 			FileObject fo = (FileObject) this.file;
 			
 			try {
-				ComTable gt = open(fo, ctx);
+				ComTable gt = ComTable.open(fo, ctx);
 				boolean result =  gt.reset(f, option, ctx, null, null, cs);
 				gt.close();
 				return result;
@@ -120,7 +115,7 @@ public class Reset extends FileFunction {
 			FileObject fo = (FileObject) this.file;
 
 			try {
-				ComTable gt = open(fo, ctx);
+				ComTable gt = ComTable.open(fo, ctx);
 				if (f != null) {
 					boolean result =  gt.reset(f, option, ctx, distribute, blockSize, cs);
 					gt.close();
@@ -137,34 +132,6 @@ public class Reset extends FileFunction {
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
-		}
-	}
-	
-	private static ComTable open(FileObject fo, Context ctx) throws IOException {
-		IFile ifile = fo.getFile();
-		if (!ifile.exists()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("file.fileNotExist", fo.getFileName()));
-		}
-		
-		File file = fo.getLocalFile().file();
-		RandomAccessFile raf = ifile.getRandomAccessFile();
-
-		raf.seek(6);
-		
-		if (raf.length() == 0) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("license.fileFormatError"));
-		}
-		
-		int flag = raf.read(); 
-		if (flag == 'r') {
-			return new RowComTable(file, raf, ctx);
-		} else if (flag == 'c' || flag == 'C'){
-			return new ColComTable(file, raf, ctx);
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 	}
 }

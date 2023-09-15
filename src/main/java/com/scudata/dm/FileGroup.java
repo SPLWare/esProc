@@ -578,6 +578,17 @@ public class FileGroup implements Externalizable {
 		}
 	}
 	
+	public boolean isExist() {
+		int pcount = partitions.length;
+		for (int i = 0; i < pcount; ++i) {
+			File file = Env.getPartitionFile(partitions[i], fileName);
+			if (!file.exists()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void rename(String newName, Context ctx) {
 		int pcount = partitions.length;
 		
@@ -601,7 +612,7 @@ public class FileGroup implements Externalizable {
 	 * 根据当前文件组，得到一个临时文件组
 	 * @return
 	 */
-	public FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {
+	private FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {
 		FileObject fo = new FileObject(fileName);
 		int pcount = partitions.length;
 		String tempFileName;
@@ -628,7 +639,7 @@ public class FileGroup implements Externalizable {
 		}
 		
 		String option = opt == null ? "" : opt;
-		option += "S";
+		option += "n";
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
 			File newFile = Env.getPartitionFile(partitions[i], tempFileName);

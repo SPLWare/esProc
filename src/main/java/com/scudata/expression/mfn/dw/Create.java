@@ -1,6 +1,7 @@
 package com.scudata.expression.mfn.dw;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -25,6 +26,7 @@ public class Create extends PhyTableFunction{
 	public Object calculate(Context ctx) {
 		Object fo = null;			
 		String distribute = null;
+		Integer blockSize = null;
 		
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -45,7 +47,25 @@ public class Create extends PhyTableFunction{
 
 			IParam sub0 = param.getSub(0);
 			if (sub0 != null) {
-				fo = sub0.getLeafExpression().calculate(ctx);
+				if (sub0.isLeaf()) {
+					fo = sub0.getLeafExpression().calculate(ctx);
+				} else {
+					IParam fileParam = sub0.getSub(0);
+					if (fileParam == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("create" + mm.getMessage("function.paramTypeError"));
+					}
+					fo = fileParam.getLeafExpression().calculate(ctx);
+					
+					IParam blockSizeParam = sub0.getSub(1);
+					if (blockSizeParam != null) {
+						String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+						try {
+							blockSize = Integer.parseInt(b);
+						} catch (NumberFormatException e) {
+						}
+					}
+				}
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("create" + mm.getMessage("function.paramTypeError"));
@@ -58,8 +78,23 @@ public class Create extends PhyTableFunction{
 		}
 		
 		if (fo instanceof FileObject) {
-			File file = ((FileObject) fo).getLocalFile().file();
-			((PhyTable)table).getGroupTable().reset(file, "n", ctx, distribute);
+			FileObject file = (FileObject) fo;
+
+			String opt = option;
+			if ((opt == null || opt.indexOf('y') == -1) && file.isExists()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("file.fileAlreadyExist", file.getFileName()));
+			} else if (opt != null && opt.indexOf('y') != -1 && file.isExists()) {
+				try {
+					ComTable table = ComTable.open(file, ctx);
+					table.delete();
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+			}
+			
+			opt = opt == null ? "n" : opt + "n";
+			((PhyTable)table).getGroupTable().reset(file.getLocalFile().file(), opt, ctx, distribute, blockSize, null);
 
 			PhyTable table = ComTable.openBaseTable(file, ctx);
 			Integer partition = ((FileObject) fo).getPartition();
@@ -73,13 +108,23 @@ public class Create extends PhyTableFunction{
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("create" + mm.getMessage("function.paramTypeError"));
 			}
+			
 			FileGroup fg = (FileGroup) fo;
+			String opt = option;
+			if ((opt == null || opt.indexOf('y') == -1) && fg.isExist()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("file.fileAlreadyExist", fg.getFileName()));
+			} else if (opt != null && opt.indexOf('y') != -1 && fg.isExist()) {
+				fg.delete(ctx);
+			}
+			
+			opt = opt == null ? "n" : opt + "n";
 			int partitions[] = fg.getPartitions();
 			int pcount = fg.getPartitions().length;
 			String fileName = fg.getFileName();
 			for (int i = 0; i < pcount; ++i) {
 				File newFile = Env.getPartitionFile(partitions[i], fileName);
-				((PhyTable)table).getGroupTable().reset(newFile, "n", ctx, distribute);
+				((PhyTable)table).getGroupTable().reset(newFile, opt, ctx, distribute, blockSize, null);
 			}
 			return fg.open(null, ctx);
 		} else {
