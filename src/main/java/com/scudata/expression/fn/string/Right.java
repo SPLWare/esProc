@@ -309,7 +309,7 @@ public class Right extends Function {
 		} else if (n == 0) {
 			return "";
 		} else {
-			n = -n;
+			n = -n - 1;
 			if (n >= len) {
 				return "";
 			} else {

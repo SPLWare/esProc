@@ -10619,10 +10619,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 		
-		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false;
+		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false, bLast = false;
 		if (opt != null) {
 			if (opt.indexOf('p') != -1) bData = true; // 自动识别成常数
-			if (opt.indexOf('1') != -1) bFirst = true; // 分成2段
+			if (opt.indexOf('1') != -1) {
+				bFirst = true; // 分成2段
+			} else if (opt.indexOf('z') != -1) {
+				bLast = true; // 从后分成2段
+			}
+
 			if (opt.indexOf('b') != -1) bMatch = false; // 不处理引号和括号匹配
 			if (opt.indexOf('t') != -1) bTrim = true;
 			if (opt.indexOf('c') != -1) sep = ",";
@@ -10826,7 +10831,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int srcLen = src.length();
 		int sepLen = sep.length();
 
-		if (bMatch) {
+		if (bLast) {
+			// 找到最后一个分割符拆成两段
+			int index;
+			if (bMatch) {
+				index = Sentence.lastIndexOf(src, sep);
+			} else {
+				index = src.lastIndexOf(sep);
+			}
+			
+			if (index == -1) {
+				if (bTrim) {
+					src = src.trim();
+				}
+
+				result.add(bData ? Variant.parse(src) : src);
+			} else {
+				String sub = src.substring(0, index);
+				if (bTrim) {
+					sub = sub.trim();
+				}
+
+				result.add(bData ? Variant.parse(sub) : sub);
+				sub = src.substring(index + sepLen);
+				if (bTrim) {
+					sub = sub.trim();
+				}
+
+				result.add(bData ? Variant.parse(sub) : sub);
+			}
+		} else if (bMatch) {
 			int match;
 			int start = 0;
 			int i = 0;

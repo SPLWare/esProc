@@ -1,6 +1,7 @@
 package com.scudata.common;
 
 import java.io.*;
+
 /**
  * 此类使用转义字符时请注意不能使用单引号、双引号、圆括号、中括号和大括号。 此类支持转义字符\，即\后的引号与括号不起作用，将被跳过
  */
@@ -873,7 +874,90 @@ public final class Sentence {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 从后往前查找字符串，做引号、括号匹配
+	 * @param src 源串
+	 * @param find 要查找的串
+	 * @return 找不到返回-1
+	 */
+	public static int lastIndexOf(String src, String find) {
+		int end = src.length() - 1;
+		int findLen = find.length();
+		
+		if (findLen == 1) {
+			char tc = find.charAt(0);
+			while (end >= 0) {
+				char c = src.charAt(end);
+				if (c == tc) {
+					if (end > 0 && src.charAt(end - 1) == '\\') {
+						break;
+					} else {
+						return end;
+					}
+				} else if (c == '"' || c == '\'' || c == ')' || c == ']' || c == '}' || c == '\\') {
+					// 从头开始找匹配
+					break;
+				} else {
+					end--;
+				}
+			}
+		}
+		
+		int pos = -1;
+		int i = 0;
+		while (i <= end) {
+			char c = src.charAt(i);
+			switch (c) {
+			case '"':
+			case '\'':
+				int match = scanQuotation(src, i, '\\');
+				if (match == -1) {
+					return -1;
+				} else {
+					i = match + 1;
+					continue; // 跳过引号内的内容
+				}
+			case '(':
+				match = Sentence.scanParenthesis(src, i, '\\');
+				if (match == -1) {
+					return -1;
+				} else {
+					i = match + 1;
+					continue; // 跳过扩号内的内容
+				}
+			case '[':
+				match = Sentence.scanBracket(src, i, '\\');
+				if (match == -1) {
+					return -1;
+				} else {
+					i = match + 1;
+					continue; // 跳过扩号内的内容
+				}
+			case '{':
+				match = Sentence.scanBrace(src, i, '\\');
+				if (match == -1) {
+					return -1;
+				} else {
+					i = match + 1;
+					continue; // 跳过扩号内的内容
+				}
+			case '\\':
+				i += 2;
+				continue;
+			}
 
+			if (src.startsWith(find, i)) {
+				pos = i;
+				i += findLen;
+			} else {
+				i++;
+			}
+		}
+
+		return pos;
+	}
+	
 	public static boolean isWordChar(char ch) {
 		return Character.isJavaIdentifierStart(ch)
 				|| Character.isJavaIdentifierPart(ch);

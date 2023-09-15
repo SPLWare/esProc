@@ -32,6 +32,68 @@ public class Mid extends Function {
 		}
 	}
 
+	private static String mid(String str, int begin, int count) {
+		if (count < 1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("mid" + mm.getMessage("function.invalidParam") + count + " < 1");
+		}
+		
+		int len = str.length();
+		if (begin > len) {
+			return "";
+		} else if (begin > 0) {
+			begin--;
+			int end = begin + count;
+			if (end > len) {
+				return str.substring(begin, len);
+			} else {
+				return str.substring(begin, end);
+			}
+		} else if (begin < 0) {
+			begin += len;
+			if (begin < 0) {
+				int end = begin + count;
+				if (end < 1) {
+					return "";
+				} else if (end < len) {
+					return str.substring(0, end);
+				} else {
+					return str;
+				}
+			} else {
+				int end = begin + count;
+				if (end > len) {
+					return str.substring(begin, len);
+				} else {
+					return str.substring(begin, end);
+				}
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("mid" + mm.getMessage("function.invalidParam"));
+		}
+	}
+	
+	private static String mid(String str, int begin) {
+		int len = str.length();
+		if (begin > len) {
+			return "";
+		} else if (begin > 0) {
+			begin--;
+			return str.substring(begin);
+		} else if (begin < 0) {
+			begin += len;
+			if (begin <= 0) {
+				return str;
+			} else {
+				return str.substring(begin);
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("mid" + mm.getMessage("function.invalidParam"));
+		}
+	}
+	
 	public Object calculate(Context ctx) {
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
@@ -54,13 +116,8 @@ public class Mid extends Function {
 			throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
 		}
 
-		int begin = ((Number)result2).intValue() - 1;
-		if (begin < 0) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("mid" + mm.getMessage("function.invalidParam") + result2 + " < 1");
-		}
+		int begin = ((Number)result2).intValue();
 
-		Number lenObj = null;
 		if (param.getSubSize() > 2) {
 			IParam sub3 = param.getSub(2);
 			if (sub3 != null) {
@@ -70,27 +127,12 @@ public class Mid extends Function {
 					throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				lenObj = (Number)result3;
+				int count = ((Number)result3).intValue();
+				return mid((String)result1, begin, count);
 			}
 		}
 
-		String str = (String)result1;
-		int end = str.length();
-		if (lenObj != null) {
-			end = lenObj.intValue() + begin;
-		}
-
-		int len = str.length();
-		if (begin >= len) {
-			return "";
-		} else if (end > len) {
-			return str.substring(begin, len);
-		} else if (end < begin) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("mid" + mm.getMessage("function.invalidParam"));
-		} else {
-			return str.substring(begin, end);
-		}
+		return mid((String)result1, begin);
 	}
 
 	/**
@@ -129,19 +171,8 @@ public class Mid extends Function {
 			}
 
 			if (array1 instanceof StringArray && array2 instanceof ConstArray && array3 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				int count = array3.getInt(1);
-				if (count < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-				}
-				
-				int end = begin + count;
 				StringArray stringArray = (StringArray)array1;
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -149,15 +180,7 @@ public class Mid extends Function {
 				for (int i = 1; i <= size; ++i) {
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else if (end > len) {
-							str = str.substring(begin, len);
-						} else {
-							str = str.substring(begin, end);
-						}
-						
+						str = mid(str, begin, count);
 						result.push(str);
 					} else {
 						result.push(null);
@@ -166,38 +189,19 @@ public class Mid extends Function {
 				
 				return result;
 			} else if (array1 instanceof ConstArray && array2 instanceof ConstArray && array3 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				int count = array3.getInt(1);
-				if (count < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-				}
-				
-				int end = begin + count;
 				Object obj1 = array1.get(1);
-				String str = null;
 				
 				if (obj1 instanceof String) {
-					str = (String)obj1;
-					int len = str.length();
-					if (begin >= len) {
-						str = "";
-					} else if (end > len) {
-						str = str.substring(begin, len);
-					} else {
-						str = str.substring(begin, end);
-					}
+					String str = mid((String)obj1, begin, count);
+					return new ConstArray(str, size);
 				} else if (obj1 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
+				} else {
+					return new ConstArray(null, size);
 				}
-				
-				return new ConstArray(str, size);
 			} else {
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -205,29 +209,10 @@ public class Mid extends Function {
 				for (int i = 1; i <= size; ++i) {
 					Object obj1 = array1.get(i);
 					if (obj1 instanceof String) {
-						int begin = array2.getInt(i) - 1;
-						if (begin < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-						}
-						
+						int begin = array2.getInt(i);
 						int count = array3.getInt(i);
-						if (count < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-						}
-						
-						int end = begin + count;
 						String str = (String)obj1;
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else if (end > len) {
-							str = str.substring(begin, len);
-						} else {
-							str = str.substring(begin, end);
-						}
-						
+						str = mid(str, begin, count);
 						result.push(str);
 					} else if (obj1 != null) {
 						MessageManager mm = EngineMessage.get();
@@ -241,12 +226,7 @@ public class Mid extends Function {
 			}
 		} else {
 			if (array1 instanceof StringArray && array2 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				StringArray stringArray = (StringArray)array1;
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -254,13 +234,7 @@ public class Mid extends Function {
 				for (int i = 1; i <= size; ++i) {
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else {
-							str = str.substring(begin, len);
-						}
-						
+						str = mid(str, begin);
 						result.push(str);
 					} else {
 						result.push(null);
@@ -269,29 +243,18 @@ public class Mid extends Function {
 				
 				return result;
 			} else if (array1 instanceof ConstArray && array2 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				Object obj1 = array1.get(1);
-				String str = null;
 				
 				if (obj1 instanceof String) {
-					str = (String)obj1;
-					int len = str.length();
-					if (begin >= len) {
-						str = "";
-					} else {
-						str = str.substring(begin, len);
-					}
+					String str = mid((String)obj1, begin);
+					return new ConstArray(str, size);
 				} else if (obj1 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
+				} else {
+					return new ConstArray(null, size);
 				}
-				
-				return new ConstArray(str, size);
 			} else {
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -299,20 +262,8 @@ public class Mid extends Function {
 				for (int i = 1; i <= size; ++i) {
 					Object obj1 = array1.get(i);
 					if (obj1 instanceof String) {
-						int begin = array2.getInt(i) - 1;
-						if (begin < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-						}
-						
-						String str = (String)obj1;
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else {
-							str = str.substring(begin, len);
-						}
-						
+						int begin = array2.getInt(i);
+						String str = mid((String)obj1, begin);
 						result.push(str);
 					} else if (obj1 != null) {
 						MessageManager mm = EngineMessage.get();
@@ -372,19 +323,8 @@ public class Mid extends Function {
 			}
 
 			if (array1 instanceof StringArray && array2 instanceof ConstArray && array3 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				int count = array3.getInt(1);
-				if (count < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-				}
-				
-				int end = begin + count;
 				StringArray stringArray = (StringArray)array1;
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -397,15 +337,7 @@ public class Mid extends Function {
 					
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else if (end > len) {
-							str = str.substring(begin, len);
-						} else {
-							str = str.substring(begin, end);
-						}
-						
+						str = mid(str, begin, count);
 						result.push(str);
 					} else {
 						result.push(null);
@@ -414,38 +346,19 @@ public class Mid extends Function {
 				
 				return result;
 			} else if (array1 instanceof ConstArray && array2 instanceof ConstArray && array3 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				int count = array3.getInt(1);
-				if (count < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-				}
-				
-				int end = begin + count;
 				Object obj1 = array1.get(1);
-				String str = null;
 				
 				if (obj1 instanceof String) {
-					str = (String)obj1;
-					int len = str.length();
-					if (begin >= len) {
-						str = "";
-					} else if (end > len) {
-						str = str.substring(begin, len);
-					} else {
-						str = str.substring(begin, end);
-					}
+					String str = mid((String)obj1, begin, count);
+					return new ConstArray(str, size);
 				} else if (obj1 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
+				} else {
+					return new ConstArray(null, size);
 				}
-				
-				return new ConstArray(str, size);
 			} else {
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -458,29 +371,10 @@ public class Mid extends Function {
 					
 					Object obj1 = array1.get(i);
 					if (obj1 instanceof String) {
-						int begin = array2.getInt(i) - 1;
-						if (begin < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-						}
-						
+						int begin = array2.getInt(i);
 						int count = array3.getInt(i);
-						if (count < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array3.get(1) + " < 1");
-						}
-						
-						int end = begin + count;
 						String str = (String)obj1;
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else if (end > len) {
-							str = str.substring(begin, len);
-						} else {
-							str = str.substring(begin, end);
-						}
-						
+						str = mid(str, begin, count);
 						result.push(str);
 					} else if (obj1 != null) {
 						MessageManager mm = EngineMessage.get();
@@ -494,12 +388,7 @@ public class Mid extends Function {
 			}
 		} else {
 			if (array1 instanceof StringArray && array2 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				StringArray stringArray = (StringArray)array1;
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -512,13 +401,7 @@ public class Mid extends Function {
 					
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else {
-							str = str.substring(begin, len);
-						}
-						
+						str = mid(str, begin);
 						result.push(str);
 					} else {
 						result.push(null);
@@ -527,29 +410,18 @@ public class Mid extends Function {
 				
 				return result;
 			} else if (array1 instanceof ConstArray && array2 instanceof ConstArray) {
-				int begin = array2.getInt(1) - 1;
-				if (begin < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-				}
-				
+				int begin = array2.getInt(1);
 				Object obj1 = array1.get(1);
-				String str = null;
 				
 				if (obj1 instanceof String) {
-					str = (String)obj1;
-					int len = str.length();
-					if (begin >= len) {
-						str = "";
-					} else {
-						str = str.substring(begin, len);
-					}
+					String str = mid((String)obj1, begin);
+					return new ConstArray(str, size);
 				} else if (obj1 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("mid" + mm.getMessage("function.paramTypeError"));
+				} else {
+					return new ConstArray(null, size);
 				}
-				
-				return new ConstArray(str, size);
 			} else {
 				StringArray result = new StringArray(size);
 				result.setTemporary(true);
@@ -562,20 +434,8 @@ public class Mid extends Function {
 					
 					Object obj1 = array1.get(i);
 					if (obj1 instanceof String) {
-						int begin = array2.getInt(i) - 1;
-						if (begin < 0) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("mid" + mm.getMessage("function.invalidParam") + array2.get(1) + " < 1");
-						}
-						
-						String str = (String)obj1;
-						int len = str.length();
-						if (begin >= len) {
-							str = "";
-						} else {
-							str = str.substring(begin, len);
-						}
-						
+						int begin = array2.getInt(i);
+						String str = mid((String)obj1, begin);
 						result.push(str);
 					} else if (obj1 != null) {
 						MessageManager mm = EngineMessage.get();
