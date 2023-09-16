@@ -736,7 +736,7 @@ public class PhyTableGroup implements IPhyTable {
 		if (size == 0) {
 			return null;
 		} else if (size == 1) {
-			return list.get(1);
+			return list.get(0);
 		} else {
 			ICursor []cursors = new ICursor[size];
 			list.toArray(cursors);
