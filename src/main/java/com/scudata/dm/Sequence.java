@@ -12370,16 +12370,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 区间归并连接
 	 * @param exp 关连键表达式
 	 * @param seq 关连表
-	 * @param name 新字段名
 	 * @param keyExp 关连表的键表达式
 	 * @param from 区间范围起始
+	 * @param newExps 新字段表达式
+	 * @param newNames 新字段名称
 	 * @param to 区间范围结束
-	 * @param opt 选项，r：重复匹配，seq中已经匹配过的仍然继续匹配
+	 * @param opt 选项，r：重复匹配，右边已经匹配过的仍然继续匹配；g：左边不冲重复
 	 * @param ctx 计算上下文
 	 * @return
 	 */
-	public Sequence mjoin(Expression exp, Sequence seq, String name, Expression keyExp, 
-			Object from, Object to, String opt, Context ctx) {
+	public Sequence mjoin(Expression exp, Sequence seq, Expression keyExp, 
+			Object from, Object to, Expression[] newExps, String[] newNames, String opt, Context ctx) {
 		if (length() == 0 || seq == null || seq.length() == 0) {
 			return this;
 		}
@@ -12391,16 +12392,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		IArray mems = getMems();
 		IArray mems2 = seq.getMems();
 		BaseRecord rec = (BaseRecord)mems.get(1);
+		
+		int newFieldsCount = newNames.length;
 		DataStruct newDs = rec.dataStruct().dup();
 		int fcount = newDs.getFieldCount();
-		String[] names = Arrays.copyOf(newDs.getFieldNames(), fcount + 1);
-		names[fcount] = name;
+		String[] names = Arrays.copyOf(newDs.getFieldNames(), fcount + newFieldsCount);
+		System.arraycopy(newNames, 0, names, fcount, newFieldsCount);
 		newDs.setFieldName(names);
 
 		int len = length();
 		int len2 = seq.length();
 		int cur = 1;
 		boolean hasR = opt != null && opt.indexOf("r") != -1;
+		boolean hasG = false;
+		if (opt != null && opt.indexOf("g") != -1) {
+			if (newExps.length == 1 && newExps[0].getHome() instanceof CurrentElement) {
+				hasG = true;
+			}
+		}
 		
 		Table table = new Table(newDs, len);
 		IArray resultMems = table.getMems();
@@ -12412,43 +12421,84 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current2);
 		
 		try {
-			for (int i = 1; i <= len; ++i) {
-				current.setCurrent(i);
-				Object obj = exp.calculate(ctx);
-				Object a = Variant.subtract(obj, from);
-				Object b = Variant.add(obj, to);
-				
-				Sequence temp = new Sequence();
-				int tempCur = cur;
-				while(tempCur <= len2) {
-					current2.setCurrent(tempCur);
-					Object obj2 = keyExp.calculate(ctx);
-					if (Variant.compare(obj2, a) >= 0) {
-						if ( Variant.compare(obj2, b) <= 0) {
-							BaseRecord rec2 = (BaseRecord)mems2.get(tempCur);
-							temp.add(rec2);
+			if (hasG) {
+				for (int i = 1; i <= len; ++i) {
+					current.setCurrent(i);
+					Object obj = exp.calculate(ctx);
+					Object a = Variant.subtract(obj, from);
+					Object b = Variant.add(obj, to);
+					
+					Sequence temp = new Sequence();
+					int tempCur = cur;
+					while(tempCur <= len2) {
+						current2.setCurrent(tempCur);
+						Object obj2 = keyExp.calculate(ctx);
+						if (Variant.compare(obj2, a) >= 0) {
+							if ( Variant.compare(obj2, b) <= 0) {
+								BaseRecord rec2 = (BaseRecord)mems2.get(tempCur);
+								temp.add(rec2);
+							} else {
+								break;
+							}
 						} else {
-							break;
+							cur++;
 						}
-					} else {
-						cur++;
+						tempCur++;
 					}
-					tempCur++;
+					
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					if (temp.length() != 0) {
+						r.setNormalFieldValue(fcount, temp);
+					}
+					
+					if (!hasR) {
+						cur = tempCur;
+					}
+					
+					if (cur > len2) {
+						break;
+					}
 				}
-				
-				Record r = new Record(newDs);
-				resultMems.add(r);
-				r.set((BaseRecord)mems.get(i));
-				if (temp.length() != 0) {
-					r.setNormalFieldValue(fcount, temp);
-				}
-				
-				if (!hasR) {
-					cur = tempCur;
-				}
-				
-				if (cur > len2) {
-					break;
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					current.setCurrent(i);
+					Object obj = exp.calculate(ctx);
+					Object a = Variant.subtract(obj, from);
+					Object b = Variant.add(obj, to);
+					
+					BaseRecord rec1 = (BaseRecord)mems.get(i);
+					int tempCur = cur;
+					while(tempCur <= len2) {
+						current2.setCurrent(tempCur);
+						Object obj2 = keyExp.calculate(ctx);
+						if (Variant.compare(obj2, a) >= 0) {
+							if ( Variant.compare(obj2, b) <= 0) {								
+								Record r = new Record(newDs);
+								resultMems.add(r);
+								r.set(rec1);
+								for (int f = 0; f < newFieldsCount; f++) {
+									r.setNormalFieldValue(fcount + f, newExps[f].calculate(ctx));
+								}
+							} else {
+								break;
+							}
+						} else {
+							cur++;
+						}
+						tempCur++;
+					}
+					
+					
+					
+					if (!hasR) {
+						cur = tempCur;
+					}
+					
+					if (cur > len2) {
+						break;
+					}
 				}
 			}
 		} finally {
