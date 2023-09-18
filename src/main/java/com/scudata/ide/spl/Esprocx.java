@@ -308,7 +308,7 @@ public class Esprocx {
 								.readLine("(%d): ", row++);
 						if (line == null)
 							break;
-						if (fileArgs.length() > 0) {
+						if (fileArgs.length()>1) {
 							fileArgs.append('\n');
 						}
 						fileArgs.append(line);
