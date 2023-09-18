@@ -480,6 +480,18 @@ public class Esprocx {
 				print(seq);
 				seq = cursor.fetch(1024);
 			}
+		} else if (result instanceof PgmCellSet) {
+			PgmCellSet pcs = (PgmCellSet)result;
+			while (pcs.hasNextResult()) {
+				CellLocation cl = pcs.nextResultLocation();
+				System.out.println();
+				if (cl != null) {// 没用return语句时，位置为null
+					String msg = cl + ":";
+					System.err.println(msg);
+				}
+				Object tmp = pcs.nextResult();
+				Esprocx.printResult(tmp);
+			}
 		} else {
 			System.out.println(Variant.toString(result));
 		}
