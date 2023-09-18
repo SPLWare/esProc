@@ -5803,4 +5803,71 @@ public class PhyTableIndex implements ITableIndex {
 		return names;
 	}
 	
+	public static Object getIndexStruct(FileObject indexFile) {
+		String[] ifields = null;
+		String[] vfields = null;
+		String filter = null;
+		int flag;
+		
+		Record rec = new Record(new DataStruct(INDEX_FIELD_NAMES2));
+		ObjectReader reader = null;
+		try {
+			InputStream is = indexFile.getInputStream();
+			reader = new ObjectReader(is, BUFFER_SIZE);
+			if (reader.read() != 'r' || reader.read() != 'q' || 
+					reader.read() != 'd' || reader.read() != 'w' ||
+					reader.read() != 'i' || reader.read() != 'd' ) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+			
+			flag = reader.read();
+			reader.readFully(new byte[32]);
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			reader.readLong64();
+			ifields = reader.readStrings();
+			
+			if (flag == 'x')
+				rec.setNormalFieldValue(0, 0);//ÅÅÐò
+			else if (flag == 'v') {
+				rec.setNormalFieldValue(0, 0);
+				vfields = reader.readStrings();//key-v
+			} else if (flag == 'w')
+				rec.setNormalFieldValue(0, null);//È«ÎÄ
+			else if (flag == 'h') {
+				int h  = reader.readInt32();
+				reader.readInt32();
+				reader.readInt32();
+				rec.setNormalFieldValue(0, h);//hash
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+				
+			if (reader.read() != 0) {
+				filter = reader.readUTF();
+			}
+			
+		} catch (IOException e) {
+			throw new RQException(e);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+
+		rec.setNormalFieldValue(1, new Sequence(ifields));
+		rec.setNormalFieldValue(2, new Sequence(vfields));
+		rec.setNormalFieldValue(3, filter);
+		return rec;
+	}
+	
 }
