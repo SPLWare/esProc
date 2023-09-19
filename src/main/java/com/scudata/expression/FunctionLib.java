@@ -714,6 +714,7 @@ public final class FunctionLib {
 		addFunction("iftime", "com.scudata.expression.fn.convert.IfTime");
 		addFunction("ifnumber", "com.scudata.expression.fn.convert.IfNumber");
 		addFunction("ifstring", "com.scudata.expression.fn.convert.IfString");
+		addFunction("typeof", "com.scudata.expression.fn.convert.Typeof");
 		addFunction("isalpha", "com.scudata.expression.fn.convert.IsAlpha");
 		addFunction("isdigit", "com.scudata.expression.fn.convert.IsDigit");
 		addFunction("islower", "com.scudata.expression.fn.convert.IsLower");
