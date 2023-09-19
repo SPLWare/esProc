@@ -9,7 +9,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
-import com.scudata.dm.query.metadata.Table;
+import com.scudata.dm.Table;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
