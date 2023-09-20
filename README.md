@@ -5,7 +5,7 @@ esProc is the unique name for esProc SPL package. <b>esProc SPL</b> is  an <b>op
 
 SPL focuses on the mainstream embedded and Java application architecture. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
 
-<img src="http://www.scudata.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
+<img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
 
 
 
@@ -252,7 +252,7 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
 *   [Function Reference](http://doc.scudata.com/esproc/func/) esProc syntax, applications and examples
 *   [User Reference](http://doc.scudata.com/esproc/manual/) esProc programming by examples
 *   [External Library Guide](http://doc.scudata.com/esproc/ext/) Deployment of and connection to esProc external libraries
-*   Please head to http://c.scudata.com/article/1595817756260 to download esProc executable files
+*   Please head to [Download esProc SPL] (http://c.scudata.com/article/1595817756260) to download esProc executable files
 *   [How to Get Open-source esProc for Eclipse through Git](http://c.scudata.com/article/1677815008127) 
 
 ## License
