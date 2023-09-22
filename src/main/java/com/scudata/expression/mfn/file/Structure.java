@@ -275,7 +275,7 @@ public class Structure extends FileFunction {
 				r.setNormalFieldValue(1, newExps[i]);
 				aggr.add(r);
 			}
-			rec.setNormalFieldValue(2, aggr);
+			rec.setNormalFieldValue(1, aggr);
 			srcCuboid.close();
 		} catch (Exception e) {
 			if (srcCuboid != null) srcCuboid.close();
