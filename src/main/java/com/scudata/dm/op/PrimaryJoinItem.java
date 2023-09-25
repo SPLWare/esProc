@@ -261,6 +261,11 @@ class PrimaryJoinItem {
 	}
 	
 	public boolean timeKeyJoin(Object []srcKeyValues, Object []resultValues, int fieldIndex) {
+		if (seq == -1) {
+			resetNewValues(resultValues, fieldIndex);
+			return joinType != 0;
+		}
+		
 		int keyCount = this.keyCount;
 		int timeIndex = keyCount - 1;
 		Expression []keyExps = this.keyExps;
