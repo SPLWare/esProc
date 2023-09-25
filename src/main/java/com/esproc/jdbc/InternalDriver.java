@@ -85,7 +85,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		if (!acceptsURL(url)) {
 			// The URL format is incorrect. Expected: {0}.
 			throw new SQLException(JDBCMessage.get().getMessage(
-					"jdbcdriver.incorrecturl", DEMO_URL));
+					"jdbcdriver.incorrecturl", getDemoUrl()));
 		}
 		Map<String, String> propMap = getPropertyMap(url, info);
 		String sconfig = propMap.get(KEY_CONFIG);
@@ -142,18 +142,22 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		if (url == null) {
 			return false;
 		}
-		return url.toLowerCase().startsWith(ACCEPT_URL);
+		return url.toLowerCase().startsWith(getAcceptUrl());
 	}
 
 	/**
 	 * 可接受的URL
 	 */
-	private static final String ACCEPT_URL = "jdbc:esproc:local:";
+	protected String getAcceptUrl() {
+		return "jdbc:esproc:local:";
+	}
 
 	/**
-	 * 示例
+	 * 示例URL
 	 */
-	private static final String DEMO_URL = "jdbc:esproc:local://";
+	protected String getDemoUrl() {
+		return "jdbc:esproc:local://";
+	}
 
 	/**
 	 * Gets information about the possible properties for this driver.
@@ -320,7 +324,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	protected void loadConfig(String sconfig) throws SQLException {
 		if (config != null) {
 			if (StringUtils.isValidString(sconfig))
-				if (currentConfig == null || !currentConfig.equalsIgnoreCase(sconfig)) { // 通过API加载过了
+				if (currentConfig == null
+						|| !currentConfig.equalsIgnoreCase(sconfig)) { // 通过API加载过了
 					Logger.info(JDBCMessage.get().getMessage(
 							"server.configloadonce"));
 				}
