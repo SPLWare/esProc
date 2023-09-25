@@ -5826,10 +5826,13 @@ public class PhyTableIndex implements ITableIndex {
 			reader.readLong64();
 			reader.readLong64();
 			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
+			if (flag != 'h') {
+				reader.readLong64();
+				reader.readLong64();
+				reader.readLong64();
+				reader.readLong64();
+			}
+
 			ifields = reader.readStrings();
 			
 			if (flag == 'x')
