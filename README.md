@@ -40,7 +40,7 @@ You are welcome to post your troubles and problems when trying to achieve high p
 *   [Function Reference](http://doc.scudata.com/esproc/func/) esProc syntax, applications and examples
 *   [User Reference](http://doc.scudata.com/esproc/manual/) esProc programming by examples
 *   [External Library Guide](http://doc.scudata.com/esproc/ext/) Deployment of and connection to esProc external libraries
-*   Please head to [Download esProc SPL] (http://c.scudata.com/article/1595817756260) to download esProc executable files
+*   Please head to [Download esProc SPL](http://c.scudata.com/article/1595817756260) to download esProc executable files
 *   [How to Get Open-source esProc for Eclipse through Git](http://c.scudata.com/article/1677815008127) 
 
 ## License
