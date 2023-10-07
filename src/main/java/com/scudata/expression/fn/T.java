@@ -221,7 +221,7 @@ public class T extends Function {
 				buf.append("xlsexport" + sopt + "(");
 				buf.append(A);
 				if (fields != null) {
-					buf.append(";");
+					buf.append(",");
 					buf.append(fields);
 				}
 			}
@@ -304,7 +304,7 @@ public class T extends Function {
 				buf.append("export" + sopt + "(");
 				buf.append(A);
 				if (fields != null) {
-					buf.append(";");
+					buf.append(",");
 					buf.append(fields);
 				}
 				if (StringUtils.isValidString(s)) {

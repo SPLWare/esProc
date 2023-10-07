@@ -26,7 +26,6 @@ import com.scudata.dm.LocalFile;
 /**
  * esProc jdbc驱动类，实现了java.sql.Driver。 
  * URL参数如下: 
- * username=UserName用户名。
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
