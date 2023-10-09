@@ -11944,10 +11944,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param field 列号，从0开始计数
 	 * @return
 	 */
-	public Object getFieldValue(int row, int field) {
+	public Object getFieldValue2(int row, int field) {
 		Object obj = get(row);
 		if (obj instanceof BaseRecord) {
-			return ((BaseRecord)obj).getNormalFieldValue(field);
+			return ((BaseRecord)obj).getFieldValue2(field);
 		} else if (obj == null) {
 			return null;
 		} else if (obj instanceof Sequence) {
@@ -11958,7 +11958,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			obj = ((Sequence)obj).get(1);
 			if (obj instanceof BaseRecord) {
-				return ((BaseRecord)obj).getNormalFieldValue(field);
+				return ((BaseRecord)obj).getFieldValue2(field);
 			} else if (obj == null) {
 				return null;
 			}
