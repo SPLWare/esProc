@@ -695,23 +695,29 @@ public class Expression {
 
 		if (KeyWord.isCurrentElement(id)) {
 			return new CurrentElement(); // ~, A.~
+		} else if (KeyWord.isIterateParam(id)) {
+			return new VarParam(ctx.getIterateParam()); // ~~
 		} else if (KeyWord.isCurrentSeq(id)) {
 			return new CurrentSeq(); // #, A.#
 		} else if (KeyWord.isFieldId(id)) {
 			return new FieldId(id); // #n, r.#n
-		} else if (KeyWord.isIterateParam(id)) {
-			return new VarParam(ctx.getIterateParam()); // ~~
-		}
-
-		if (cs instanceof PgmCellSet && id.startsWith(KeyWord.CURRENTSEQ)) { // #A1
-			INormalCell cell = cs.getCell(id.substring(1));
-			if (cell != null) {
-				return new ForCellCurSeq((PgmCellSet)cs, cell.getRow(), cell.getCol());
-			}
 		}
 
 		//形如series.select(...),series.field
-		if (preNode instanceof DotOperator) return createMemberNode(cs, id, ctx);
+		if (preNode instanceof DotOperator) {
+			return createMemberNode(cs, id, ctx);
+		}
+
+		if (id.startsWith(KeyWord.CURRENTSEQ)) { // #A1 #F
+			if (cs instanceof PgmCellSet) {
+				INormalCell cell = cs.getCell(id.substring(1));
+				if (cell != null) {
+					return new ForCellCurSeq((PgmCellSet)cs, cell.getRow(), cell.getCol());
+				}
+			}
+			
+			return new FieldFuzzyRef(id.substring(1));
+		}
 
 		if (id.equals("$") && isNextChar('[')) { // 字符串
 			int index = expStr.indexOf('[', location);
@@ -855,7 +861,11 @@ public class Expression {
 			}
 		}
 
-		return new FieldRef(id);
+		if (id.startsWith(KeyWord.CURRENTSEQ)) { // ~.#F
+			return new FuzzyFieldRef(id.substring(1));
+		} else {
+			return new FieldRef(id);
+		}
 	}
 
 	// 返回下一个字符是否是c，空字符跳过
