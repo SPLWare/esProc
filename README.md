@@ -1,10 +1,10 @@
-<div align=center>
-<a href="http://www.scudata.com" target="_blank" ><img src="http://www.scudata.com/images/Sharing-2.png" width="120" height="25"  style="margin: 0 10px 0 0;" /></a> 
-<a href="http://c.scudata.com" target="_blank" ><img src="http://www.scudata.com/images/Sharing-3.png" width="129" height="25"  style=" margin: 0 10px 0 0;"/></a>
-<a href="https://twitter.com/esProc_SPL" target="_blank"><img src="http://www.scudata.com/images/Sharing-1.png" width="97" height="25"  style="margin: 0 10px 0 0;"/></a>
-<a href="https://medium.com/@Scudata" target="_blank" ><img src="http://www.scudata.com/images/Sharing-4.png" width="112" height="25"  style=" margin: 0 10px 0 0;"/></a>
-<a href="https://www.reddit.com/r/esProc" target="_blank" ><img src="http://www.scudata.com/images/Sharing-5.png" width="100" height="25"  style=" margin: 0 10px 0 0;"/></a>
-<a href="https://dev.to/jbx1279" target="_blank" ><img src="http://www.scudata.com/images/Sharing-6.png" width="94" height="25"  style=" margin: 0 10px 0 0;"/></a>
+<div align=center style="margin: 30px 0 20px 0;">
+<a href="http://www.scudata.com" target="_blank" ><img src="http://www.scudata.com/images/Sharing-2.png" width="120" height="25"  style="margin: 0 20px 0 0;" /></a> &nbsp;
+<a href="http://c.scudata.com" target="_blank" ><img src="http://www.scudata.com/images/Sharing-3.png" width="129" height="25"  style=" margin: 0 20px 0 0;"/></a> &nbsp;
+<a href="https://twitter.com/esProc_SPL" target="_blank"><img src="http://www.scudata.com/images/Sharing-1.png" width="97" height="25"  style="margin: 0 20px 0 0;"/></a> &nbsp;
+<a href="https://medium.com/@Scudata" target="_blank" ><img src="http://www.scudata.com/images/Sharing-4.png" width="112" height="25"  style=" margin: 0 20px 0 0;"/></a> &nbsp;
+<a href="https://www.reddit.com/r/esProc" target="_blank" ><img src="http://www.scudata.com/images/Sharing-5.png" width="100" height="25"  style=" margin: 0 20px 0 0;"/></a> &nbsp;
+<a href="https://dev.to/jbx1279" target="_blank" ><img src="http://www.scudata.com/images/Sharing-6.png" width="94" height="25"  style=" margin: 0 0px 0 0;"/></a>
 </div>
 
 ##	About esProc SPL
