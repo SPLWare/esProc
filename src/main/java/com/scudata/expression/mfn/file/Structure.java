@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
@@ -25,6 +26,7 @@ import com.scudata.dw.PhyTableIndex;
 import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
 import com.scudata.parallel.ClusterPhyTable;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 获得组表文件的结构
@@ -279,6 +281,8 @@ public class Structure extends FileFunction {
 			srcCuboid.close();
 		} catch (Exception e) {
 			if (srcCuboid != null) srcCuboid.close();
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 		return rec;
 	}

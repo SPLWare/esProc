@@ -1,7 +1,13 @@
 package com.scudata.util;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BFileReader;
 import com.scudata.dm.BFileWriter;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
@@ -65,7 +71,11 @@ public class BFileUtil {
 	 * @return 排好序的游标
 	 */
 	public static Object sortx(Sequence files, FileObject outFile, String[] fields, Context ctx, String opt) {
-		int fcount = fields.length;
+		int fcount = fields == null ? 0 : fields.length;
+		
+		if (fcount == 0) {
+			return conj(files, outFile);
+		}
 		
 		int len = files.length();
 		BFileFetchCursor[] cursors = new BFileFetchCursor[len];
@@ -101,5 +111,70 @@ public class BFileUtil {
 		writer.close();
 		
 		return Boolean.TRUE;
+	}
+	
+	private static Object conj(Sequence files, FileObject outFile) {
+		int len = files.length();
+		BFileReader[] readers = new BFileReader[len];
+		for (int i = 1; i <= len; i++) {
+			Object obj = files.get(i);
+			if (obj instanceof FileObject) {
+				FileObject file = (FileObject) obj;
+				readers[i - 1] = new BFileReader(file);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
+			}
+		}
+		
+		FileObject first = (FileObject) files.get(1);
+		if (!first.move(outFile.getFileName(), "c")) {
+			return null;
+		}
+		
+		try {
+			for (int i = 1; i < len; i++) {
+				readers[i].open();
+				long start = readers[i].getFirstRecordPos();
+				readers[i].close();
+				FileObject file = (FileObject) files.get(i + 1);
+				long length = file.size() - start + 1;
+				
+				FileInputStream fis = null;
+				FileOutputStream fos = null;
+				
+				try {
+					fis = new FileInputStream(file.getLocalFile().getFile());
+					fos = new FileOutputStream(outFile.getLocalFile().getFile(), true);
+					FileChannel in = fis.getChannel();
+					FileChannel out = fos.getChannel();
+					in.transferTo(start, length, out); // 连接两个通道，并且从in通道读取，然后写入out通道
+				} catch (IOException e) {
+					throw new RQException(e);
+				} finally {
+					IOException ie = null;
+					try {
+						fis.close();
+					} catch (IOException e) {
+						ie = e;
+					}
+					try {
+						fos.close();
+					} catch (IOException e) {
+						ie = e;
+					}
+					
+					if (ie != null) {
+						throw new RQException(ie);
+					}
+				}
+				
+			}
+		} catch (IOException e) {
+			outFile.delete();
+			return null;
+		}
+		
+		return Boolean.TRUE; 
 	}
 }

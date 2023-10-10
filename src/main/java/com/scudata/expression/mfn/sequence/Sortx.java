@@ -32,10 +32,6 @@ public class Sortx extends SequenceFunction {
 			}
 
 			sortParam = param.getSub(0);
-			if (sortParam == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
-			}
 
 			IParam sub = param.getSub(1);
 			if (sub == null) {
@@ -57,7 +53,9 @@ public class Sortx extends SequenceFunction {
 		}
 
 		String []fields;
-		if (sortParam.isLeaf()) { // 只有一个参数
+		if (sortParam == null) {
+			fields = null;
+		} else if (sortParam.isLeaf()) { // 只有一个参数
 			fields = new String[]{ sortParam.getLeafExpression().toString() };
 		} else if (sortParam.getType() == IParam.Comma) { // ,
 			int size = sortParam.getSubSize();

@@ -1757,4 +1757,8 @@ public class BFileReader {
 	public ObjectReader getImporter() {
 		return importer;
 	}
+	
+	public long getFirstRecordPos() {
+		return firstRecordPos;
+	}
 }
