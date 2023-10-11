@@ -996,7 +996,18 @@ public class TableHashIndex implements ITableIndex {
 	}
 	
 	public TableHashIndex(PhyTable table, FileObject indexFile) {
-		
+		table.getGroupTable().checkWritable();
+		this.srcTable = table;
+		this.indexFile = indexFile;
+		if (srcTable instanceof ColPhyTable) {
+			positionCount = 0;
+		} else {
+			if (srcTable.parent == null) {
+				positionCount = 1;
+			} else {
+				positionCount = 2;
+			}
+		}
 	}
 	
 	private void writeHeader(ObjectWriter writer) throws IOException {

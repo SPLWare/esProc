@@ -7,7 +7,9 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.ComTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
@@ -30,6 +32,8 @@ public class Reset extends FileFunction {
 				obj = csParam.getLeafExpression().calculate(ctx);
 				if (obj instanceof ICursor) {
 					cs = (ICursor) obj;
+				} else if (obj instanceof Sequence) {
+					cs = new MemoryCursor((Sequence)obj);
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));

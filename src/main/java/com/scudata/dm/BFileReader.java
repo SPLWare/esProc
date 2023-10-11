@@ -1761,4 +1761,16 @@ public class BFileReader {
 	public long getFirstRecordPos() {
 		return firstRecordPos;
 	}
+	
+	public long[] getBlocks() {
+		return blocks;
+	}
+
+	public int getLastBlock() {
+		return lastBlock;
+	}
+	
+	public long getTotalRecordCount() {
+		return totalRecordCount;
+	}
 }

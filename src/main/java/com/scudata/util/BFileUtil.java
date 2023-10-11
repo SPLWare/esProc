@@ -115,65 +115,95 @@ public class BFileUtil {
 	
 	private static Object conj(Sequence files, FileObject outFile) {
 		int len = files.length();
-		BFileReader[] readers = new BFileReader[len];
+		FileObject[] fileArray = new FileObject[len];
+		long[][] blocks = new long[len][];
+		long[] startPosArray = new long[len];
+		long[] lengthArray = new long[len];
+		long totalRecordCount = 0;
+		
+		//读取所有文件的块地址、长度、记录总数信息
 		for (int i = 1; i <= len; i++) {
 			Object obj = files.get(i);
 			if (obj instanceof FileObject) {
 				FileObject file = (FileObject) obj;
-				readers[i - 1] = new BFileReader(file);
+				
+				long start;
+				long length;
+				try {
+					BFileReader reader = new BFileReader(file);
+					reader.open();
+					start = reader.getFirstRecordPos();
+					length = file.size() - start + 1;
+					blocks[i - 1] = reader.getBlocks();
+					totalRecordCount += reader.getTotalRecordCount();
+					reader.close();
+				} catch (IOException e) {
+					return null;
+				}
+				
+				fileArray[ i - 1] = file;
+				startPosArray[i - 1] = start;
+				lengthArray[i - 1] = length;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
 			}
 		}
 		
-		FileObject first = (FileObject) files.get(1);
+		//复制第一个文件
+		FileObject first = fileArray[0];
 		if (!first.move(outFile.getFileName(), "c")) {
 			return null;
 		}
 		
-		try {
-			for (int i = 1; i < len; i++) {
-				readers[i].open();
-				long start = readers[i].getFirstRecordPos();
-				readers[i].close();
-				FileObject file = (FileObject) files.get(i + 1);
-				long length = file.size() - start + 1;
-				
-				FileInputStream fis = null;
-				FileOutputStream fos = null;
-				
+		//只有一个文件则返回
+		if (len == 1) {
+			return Boolean.TRUE;
+		}
+		
+		//从第二个文件开始拼接到输出
+		for (int i = 1; i < len; i++) {
+			FileObject file = fileArray[i];
+			FileInputStream fis = null;
+			FileOutputStream fos = null;
+			long start = startPosArray[i];
+			long length = lengthArray[i];
+			
+			try {
+				fis = new FileInputStream(file.getLocalFile().getFile());
+				fos = new FileOutputStream(outFile.getLocalFile().getFile(), true);
+				FileChannel in = fis.getChannel();
+				FileChannel out = fos.getChannel();
+				in.transferTo(start, length, out); // 连接两个通道，并且从in通道读取，然后写入out通道
+			} catch (IOException e) {
 				try {
-					fis = new FileInputStream(file.getLocalFile().getFile());
-					fos = new FileOutputStream(outFile.getLocalFile().getFile(), true);
-					FileChannel in = fis.getChannel();
-					FileChannel out = fos.getChannel();
-					in.transferTo(start, length, out); // 连接两个通道，并且从in通道读取，然后写入out通道
+					fos.close();
+				} catch (IOException e1) {
+				}
+				outFile.delete();
+				return null;
+			} finally {
+				IOException ie = null;
+				try {
+					fis.close();
 				} catch (IOException e) {
-					throw new RQException(e);
-				} finally {
-					IOException ie = null;
-					try {
-						fis.close();
-					} catch (IOException e) {
-						ie = e;
-					}
-					try {
-						fos.close();
-					} catch (IOException e) {
-						ie = e;
-					}
-					
-					if (ie != null) {
-						throw new RQException(ie);
-					}
+					ie = e;
+				}
+				try {
+					fos.close();
+				} catch (IOException e) {
+					ie = e;
 				}
 				
+				if (ie != null) {
+					throw new RQException(ie);
+				}
 			}
-		} catch (IOException e) {
-			outFile.delete();
-			return null;
 		}
+		
+		//调整分块、总记录数信息
+		BFileWriter writer = new BFileWriter(outFile, null);
+		writer.close();
 		
 		return Boolean.TRUE; 
 	}
