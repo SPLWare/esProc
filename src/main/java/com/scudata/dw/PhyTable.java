@@ -6,7 +6,6 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -477,21 +476,37 @@ abstract public class PhyTable implements IPhyTable {
 			throw new RQException(e);
 		}
 		
+		boolean hasOpt = false;
 		//不存到组表里
 		if  (opt == null) {
 			opt = "U";
 		} else {
+			hasOpt = true;
 			opt += "U";
 		}
 		
 		if (obj == null) {
-			if  (opt != null) {
+			if  (hasOpt) {
 				//全文
 				if  (opt.indexOf('w') != -1) {
 					TableFulltextIndex index = new TableFulltextIndex(this, file);
 					index.create(fields, opt, ctx, w);
 					return;
 				}
+				
+				//load index
+				FileObject indexFile = file;
+				String[][] fileds = PhyTableIndex.readIndexFields(file);
+				ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1], true);
+				
+				if (opt.indexOf('2') != -1) {
+					index.loadAllBlockInfo();
+				} else if (opt.indexOf('3') != -1) {
+					index.loadAllKeys();
+				} else if (opt.indexOf('0') != -1) {
+					index.unloadAllBlockInfo();
+				}
+				return;
 			}
 			
 			//排序
@@ -1508,6 +1523,8 @@ abstract public class PhyTable implements IPhyTable {
 				filterFields = new String[]{f};
 			} else {
 				filterFields = getExpFields(filter, getColNames());
+				//List<String> resultList = new ArrayList<String>();
+				//filter.getUsedFields(ctx, resultList);
 			}
 			
 			for (FileObject file : files) {
@@ -1525,7 +1542,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 		}
 		
-		ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1]);
+		ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1], true);
 		ArrayList<ModifyRecord> mrl = getModifyRecord(this, filter, ctx);
 		ICursor cursor = index.select(filter, fields, opt, ctx);
 		if (cursor == null) {
@@ -1603,27 +1620,46 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param indexFile 索引文件
 	 * @return
 	 */
-	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields) {
-		ITableIndex ti;
+	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields, boolean isRead) {
+		String name = indexFile.getFileName().toLowerCase();
+		name += this.getTableName().toLowerCase();
+		
 		if (!this.getGroupTable().getFile().exists()) {
 			return null;
 		}
-		try {
-			byte[] type = (byte[]) indexFile.read(6, 6, "b");
-			if (type[0] == 'x') {
-				ti = new PhyTableIndex(this, indexFile);
-			} else if (type[0] == 'h') {
-				ti = new TableHashIndex(this, indexFile);
-			} else if (type[0] == 'w') {
-				ti = new TableFulltextIndex(this, indexFile);
-			} else {
-				ti = new TableKeyValueIndex(this, indexFile);
+		
+		if (isRead) {
+			SoftReference<ITableIndex> ref = cache.get(name);
+			ITableIndex ti = ref == null ? null : ref.get();
+			
+			if (ti == null) {
+				if (!this.getGroupTable().getFile().exists()) {
+					return null;
+				}
+				try {
+					byte[] type = (byte[]) indexFile.read(6, 6, "b");
+					if (type[0] == 'x') {
+						ti = new PhyTableIndex(this, indexFile);
+					} else if (type[0] == 'h') {
+						ti = new TableHashIndex(this, indexFile);
+					} else if (type[0] == 'w') {
+						ti = new TableFulltextIndex(this, indexFile);
+					} else {
+						ti = new TableKeyValueIndex(this, indexFile);
+					}
+					ti.setFields(ifields, vfields);
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+				cache.put(name, new SoftReference<ITableIndex>(ti));
 			}
-			ti.setFields(ifields, vfields);
-		} catch (IOException e) {
-			throw new RQException(e.getMessage(), e);
+			
+			return ti;
+		} else {
+			// 修改索引文件删除缓存
+			cache.remove(name);
+			return null;
 		}
-		return ti;
 	}
 	
 	/**

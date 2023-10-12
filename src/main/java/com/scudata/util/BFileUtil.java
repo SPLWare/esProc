@@ -12,6 +12,8 @@ import com.scudata.dm.BFileWriter;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.RandomObjectWriter;
+import com.scudata.dm.RandomOutputStream;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.BFileFetchCursor;
 import com.scudata.dm.cursor.BFileSortxCursor;
@@ -120,6 +122,12 @@ public class BFileUtil {
 		long[] startPosArray = new long[len];
 		long[] lengthArray = new long[len];
 		long totalRecordCount = 0;
+		DataStruct ds = null;
+		
+		if (outFile.isExists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileAlreadyExist", outFile.getFileName()));
+		}
 		
 		//读取所有文件的块地址、长度、记录总数信息
 		for (int i = 1; i <= len; i++) {
@@ -136,6 +144,7 @@ public class BFileUtil {
 					length = file.size() - start + 1;
 					blocks[i - 1] = reader.getBlocks();
 					totalRecordCount += reader.getTotalRecordCount();
+					ds = reader.getDataStruct();
 					reader.close();
 				} catch (IOException e) {
 					return null;
@@ -150,19 +159,35 @@ public class BFileUtil {
 			}
 		}
 		
-		//复制第一个文件
-		FileObject first = fileArray[0];
-		if (!first.move(outFile.getFileName(), "c")) {
+		//调整分块、总记录数信息
+		RandomOutputStream ros = outFile.getRandomOutputStream(true);
+		RandomObjectWriter writer = new RandomObjectWriter(ros);
+		try {
+			writer.position(0);
+			writer.write('r');
+			writer.write('q');
+			writer.write('t');
+			writer.write('b');
+			writer.write('x');
+			writer.write(BFileWriter.TYPE_NORMAL);
+			writer.writeInt32(0); // 保留
+			writer.writeLong64(totalRecordCount);
+			writer.writeStrings(ds.getFieldNames());
+			writer.close();
+			ros.close();
+		} catch (IOException e) {
 			return null;
+		} finally {
+			try {
+				writer.close();
+				ros.close();
+			} catch (IOException e) {
+			}
 		}
+
 		
-		//只有一个文件则返回
-		if (len == 1) {
-			return Boolean.TRUE;
-		}
-		
-		//从第二个文件开始拼接到输出
-		for (int i = 1; i < len; i++) {
+		//拼接输出
+		for (int i = 0; i < len; i++) {
 			FileObject file = fileArray[i];
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
@@ -200,10 +225,6 @@ public class BFileUtil {
 				}
 			}
 		}
-		
-		//调整分块、总记录数信息
-		BFileWriter writer = new BFileWriter(outFile, null);
-		writer.close();
 		
 		return Boolean.TRUE; 
 	}

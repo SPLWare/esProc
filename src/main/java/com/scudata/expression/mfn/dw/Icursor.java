@@ -91,8 +91,7 @@ public class Icursor extends PhyTableFunction {
 			
 			param = param.getSub(1);
 			if (param == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+				return table.cursor(fields);//没有过滤时
 			}
 
 		}

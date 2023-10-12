@@ -45,7 +45,14 @@ public class Index extends PhyTableFunction {
 						|| option.indexOf('2') != -1
 						|| option.indexOf('3') != -1) {
 						//load index & unload index
-						table.createIndex((String) I, null, null, option, null, null);
+						if (I instanceof String) {
+							table.createIndex((String) I, null, null, option, null, null);
+						} else if (I instanceof FileObject) {
+							((PhyTable)table).createIndex((FileObject) I, null, null, option, null, null);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("index" + mm.getMessage("function.paramTypeError"));
+						}
 						return table;
 					}
 				}

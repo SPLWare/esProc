@@ -1773,4 +1773,8 @@ public class BFileReader {
 	public long getTotalRecordCount() {
 		return totalRecordCount;
 	}
+	
+	public DataStruct getDataStruct() {
+		return ds;
+	}
 }
