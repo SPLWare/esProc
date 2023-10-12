@@ -1546,8 +1546,13 @@ public class ColPhyTable extends PhyTable {
 			
 			// 关闭并删除组表文件，把临时文件重命名为组表文件名
 			groupTable.raf.close();
-			groupTable.file.delete();
-			tmpFile.renameTo(groupTable.file);
+			if (groupTable.file.delete()) {
+				tmpFile.renameTo(groupTable.file);
+			} else {
+				tmpFile.delete();
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.needCloseTable"));
+			}
 			
 			// 重新打开组表
 			groupTable.reopen();
@@ -1557,8 +1562,6 @@ public class ColPhyTable extends PhyTable {
 			if (tmpGroupTable != null) {
 				tmpGroupTable.raf.close();
 			}
-			
-			tmpFile.delete();
 		}
 	}
 	
