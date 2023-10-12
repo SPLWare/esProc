@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.esproc.jdbc.JDBCUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
+import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.parallel.Request;
@@ -61,17 +63,17 @@ public class JdbcTask {
 		return seq;
 	}
 
-	public static Object checkResult(Object r) throws Exception{
-		if(r instanceof ICursor) {//游标不必实现序列化，会产生远程游标
+	public static Object checkResult(Object r) throws Exception {
+		if (r instanceof ICursor) {// 游标不必实现序列化，会产生远程游标
 			return r;
 		}
-		if(!(r instanceof Serializable)) {
-			throw new Exception("Return result "+r.getClass().getName()+" is not supportted.");
+		if (!(r instanceof Serializable)) {
+			throw new Exception("Return result " + r.getClass().getName()
+					+ " is not supportted.");
 		}
 		return r;
 	}
 
-	
 	/**
 	 * 取消当前任务
 	 * @return 成功取消返回true
@@ -122,7 +124,20 @@ public class JdbcTask {
 			execThread = new Thread() {
 				public void run() {
 					try {
-						result = JDBCUtil.execute(cmd, args, context);
+						Object gateway = envParams
+								.get(Request.PREPARE_ENV_GATEWAY);
+						boolean execGateway = false;
+						if (StringUtils.isValidString(gateway)) {
+							try {
+								result = JDBCUtil.executeGateway(cmd, args,
+										context, (String) gateway);
+								execGateway = true;
+							} catch (RetryException re) {
+								// 以end方式结束时，将按无网关方式执行
+							}
+						}
+						if (!execGateway)
+							result = JDBCUtil.execute(cmd, args, context);
 					} catch (ThreadDeath td) {
 						isCanceled = true;
 					} catch (SQLException e) {

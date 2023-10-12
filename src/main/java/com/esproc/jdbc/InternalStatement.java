@@ -15,7 +15,6 @@ import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
-import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.parallel.Request;
@@ -203,30 +202,39 @@ public abstract class InternalStatement implements java.sql.Statement {
 			}
 			sql = JDBCUtil.trimSql(sql);
 			byte sqlType = getJdbcSqlType(sql);
-			if (sqlType == JDBCConsts.TYPE_NONE) {
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"statement.unsupportsql", sql));
-			}
-			if (isUpdate
-					&& (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
-				// 仅简单SQL和SQL支持update语句
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"statement.updatesqlonly"));
-			}
+
 			// 重新创建计算上下文
 			Context ctx = con.getCtx();
-
+			boolean isOnlyServer = con.isOnlyServer();
 			RaqsoftConfig config = con.getConfig();
-			if (config != null
-					&& StringUtils.isValidString(config.getGateway())) {
+			String gateway = null;
+			if (config != null) {
+				gateway = config.getGateway();
+			}
+
+			// 远程执行gateway时，语句可能并不符合规则
+			if (!isOnlyServer || !StringUtils.isValidString(gateway)) {
+				if (sqlType == JDBCConsts.TYPE_NONE) {
+					throw new SQLException(JDBCMessage.get().getMessage(
+							"statement.unsupportsql", sql));
+				}
+				if (isUpdate
+						&& (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
+					// 仅简单SQL和SQL支持update语句
+					throw new SQLException(JDBCMessage.get().getMessage(
+							"statement.updatesqlonly"));
+				}
+			}
+			if (!isOnlyServer && config != null
+					&& StringUtils.isValidString(gateway)) {
 				/*
 				 * After the gateway is configured, the statements are parsed by
 				 * spl and the table sequence or cursor is returned. spl only
 				 * has parameters sql and args (sql parameter value sequence).
 				 */
 				try {
-					return executeGateway(sql, (ArrayList<Object>) parameters,
-							ctx, config);
+					return JDBCUtil.executeGateway(sql,
+							(ArrayList<Object>) parameters, ctx, gateway);
 				} catch (RetryException re) {
 					/*
 					 * If the gateway throws a RetryException, it will be
@@ -239,7 +247,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			Logger.debug("param size="
 					+ (parameters == null ? "0" : ("" + parameters.size())));
 			boolean isRemote = false;
-			if (con.isOnlyServer()) {
+			if (isOnlyServer) {
 				isRemote = true;
 			} else {
 				if (sqlType == JDBCConsts.TYPE_CALL
@@ -276,6 +284,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 					params = args.toArray();
 				Map<String, Object> envParams = new HashMap<String, Object>();
 				envParams.put(Request.PREPARE_ENV_SQLFIRST, false);
+				envParams.put(Request.PREPARE_ENV_GATEWAY, gateway);
 				unitStateId = uc.JDBCPrepare(connId, sql, params, envParams);
 				Sequence seq = uc.JDBCExecute(connId, unitStateId);
 				result = new MultiResult(seq);
@@ -348,52 +357,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			ctx = ctx.newComputeContext();
 		}
 		return ctx;
-	}
-
-	/**
-	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
-	 * 
-	 * @param sql        The SQL string
-	 * @param parameters The parameter list
-	 * @param ctx        The Context object
-	 * @param config     The RaqsoftConfig object
-	 * @return The result of execution
-	 * @throws SQLException
-	 */
-	private Object executeGateway(String sql, ArrayList<Object> parameters,
-			Context ctx, RaqsoftConfig config) throws SQLException {
-		/*
-		 * After the gateway is configured, the statements are parsed by spl and
-		 * the table sequence or cursor is returned. spl only has parameters sql
-		 * and args (sql parameter value sequence).
-		 */
-		String gateway = config.getGateway();
-		Sequence args = JDBCUtil.prepareArg(parameters);
-
-		// FileObject fo = new FileObject(gateway, "s", ctx);
-		PgmCellSet cellSet;
-		try {
-			// 支持无后缀时按顺序查找
-			cellSet = AppUtil.readCellSet(gateway);
-			// InputStream in = fo.getInputStream();
-			// if (in == null) {
-			// throw new SQLException("Gateway file: " + gateway +
-			// " not found.");
-			// }
-			// cellSet = CellSetUtil.readPgmCellSet(in);
-		} catch (Exception e) {
-			throw new SQLException("Failed to read gateway file: " + gateway, e);
-		}
-		ParamList pl = cellSet.getParamList();
-		if (pl == null || pl.count() != 2) {
-			throw new SQLException(
-					"The parameters of the gateway spl file should be sql and arguments.");
-		}
-		ctx.setParamValue(pl.get(0).getName(), sql);
-		ctx.setParamValue(pl.get(1).getName(), args);
-		cellSet.setContext(ctx);
-		cellSet.run();
-		return cellSet;
 	}
 
 	/**

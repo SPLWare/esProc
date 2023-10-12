@@ -34,6 +34,7 @@ import com.scudata.dm.KeyWord;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
+import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -206,6 +207,58 @@ public class JDBCUtil {
 		if (!hasReturn)
 			return null;
 		return o;
+	}
+
+	/**
+	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
+	 * 
+	 * @param sql        The SQL string
+	 * @param parameters The parameter list
+	 * @param ctx        The Context object
+	 * @param config     The RaqsoftConfig object
+	 * @return The result of execution
+	 * @throws SQLException,RetryException时将按无网关方式执行
+	 */
+	public static Object executeGateway(String sql,
+			ArrayList<Object> parameters, Context ctx, String gateway)
+			throws SQLException, RetryException {
+		/*
+		 * After the gateway is configured, the statements are parsed by spl and
+		 * the table sequence or cursor is returned. spl only has parameters sql
+		 * and args (sql parameter value sequence).
+		 */
+		Sequence args = JDBCUtil.prepareArg(parameters);
+
+		// FileObject fo = new FileObject(gateway, "s", ctx);
+		PgmCellSet cellSet;
+		try {
+			// 支持无后缀时按顺序查找
+			cellSet = AppUtil.readCellSet(gateway);
+			// InputStream in = fo.getInputStream();
+			// if (in == null) {
+			// throw new SQLException("Gateway file: " + gateway +
+			// " not found.");
+			// }
+			// cellSet = CellSetUtil.readPgmCellSet(in);
+		} catch (Exception e) {
+			// "Failed to read gateway file: " + gateway
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcutil.nogatewayfile", gateway), e);
+		}
+		ParamList pl = cellSet.getParamList();
+		if (pl == null || pl.count() != 2) {
+			// The parameters of the gateway splx file should be spl statement
+			// and
+			// arguments.
+			throw new SQLException(
+					JDBCMessage.get().getMessage(
+							"jdbcutil.errorgatewayparams"));
+		}
+		ctx.setParamValue(pl.get(0).getName(), sql);
+		ctx.setParamValue(pl.get(1).getName(), args);
+		cellSet.setContext(ctx);
+		cellSet.run();
+		return cellSet;
 	}
 
 	/**

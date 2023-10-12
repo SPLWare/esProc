@@ -200,6 +200,7 @@ public class Request implements Serializable {
 	public static final String PREPARE_ENV = "prepare env";// Map<String,
 															// Object> envParams
 	public static final String PREPARE_ENV_SQLFIRST = "sqlfirst";
+	public static final String PREPARE_ENV_GATEWAY = "gateway";
 
 	public static final int JDBC_EXECUTE = 3 + TYPE_JDBC; // 执行dfx,返回值：整数组，结果集号
 	public static final String EXECUTE_connID = "execute connId";// connId
