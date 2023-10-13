@@ -3110,4 +3110,8 @@ public class RowPhyTable extends PhyTable {
 		}
 		return new Object[] {max, min};
 	}
+
+	public void append(PhyTable table) throws IOException {
+		throw new RuntimeException();
+	}
 }

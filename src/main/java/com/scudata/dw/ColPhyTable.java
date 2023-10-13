@@ -4646,7 +4646,13 @@ public class ColPhyTable extends PhyTable {
 	 * @param table 另一个组表
 	 * @throws IOException
 	 */
-	public void append(ColPhyTable table) throws IOException {
+	public void append(PhyTable other) throws IOException {
+		if (!(other instanceof ColPhyTable)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+		
+		ColPhyTable table = (ColPhyTable) other;
 		getGroupTable().checkWritable();
 		table.getGroupTable().checkReadable();
 		

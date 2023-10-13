@@ -1054,4 +1054,8 @@ public class PhyTableGroup implements IPhyTable {
 	public void setMemoryTable(Sequence memoryTable) {
 		this.memoryTable = memoryTable;
 	}
+
+	public void append(PhyTable table) throws IOException {
+		throw new RuntimeException();
+	}
 }

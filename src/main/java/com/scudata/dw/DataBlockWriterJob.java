@@ -344,4 +344,13 @@ public class DataBlockWriterJob  extends Job {
 		}
 		return true;
 	}
+	
+	/**
+	 * 转换全局字典的数据块格式
+	 * @param dict 全局字典
+	 * @param data 数据
+	 */
+	public static void convertDictData(Sequence dict, Sequence data) {
+		
+	}
 }

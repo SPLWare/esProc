@@ -280,4 +280,11 @@ public interface IPhyTable extends IResource {
 	 * @return
 	 */
 	int getDeleteFieldIndex(Expression []exps, String []fields);
+	
+	/**
+	 * 合并两个组表文件
+	 * @param table 另一个组表
+	 * @throws IOException
+	 */
+	void append(PhyTable table) throws IOException;
 }

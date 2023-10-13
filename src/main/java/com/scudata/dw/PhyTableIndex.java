@@ -5746,23 +5746,15 @@ public class PhyTableIndex implements ITableIndex {
 		if (fieldNames == null || ifields == null)
 			return false;
 		ArrayList<String> list = new ArrayList<String>();
-		int fcount = fieldNames.length;
-
-		int cnt = ifields.length;
-		if (cnt < fcount)
-			return false;
-		list.clear();
 		for (String str : ifields) {
 			list.add(str);
 		}
 		for (String str : fieldNames) {
-			list.remove(str);
+			if (!list.contains(str)) {
+				return false;
+			}
 		}
-		if (list.isEmpty()) {
-			return true;
-		}
-	
-		return false;
+		return true;
 	}
 	
 	public static String[][] readIndexFields(FileObject indexFile) {
@@ -5783,10 +5775,12 @@ public class PhyTableIndex implements ITableIndex {
 			reader.readLong64();
 			reader.readLong64();
 			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
-			reader.readLong64();
+			if (flag != 'h') {
+				reader.readLong64();
+				reader.readLong64();
+				reader.readLong64();
+				reader.readLong64();
+			}
 			names[0] = reader.readStrings();//ifields
 			if (flag == 'v') 
 				names[1] = reader.readStrings();//

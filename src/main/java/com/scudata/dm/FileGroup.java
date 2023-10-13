@@ -236,6 +236,10 @@ public class FileGroup implements Externalizable {
 		boolean uncompress = false; // ²»Ñ¹Ëõ
 		
 		if (opt != null) {
+			if (opt.indexOf('q') != -1) {
+				return conj(newFile, ctx);
+			}
+			
 			if (opt.indexOf('r') != -1) {
 				isCol = false;
 			} else if (opt.indexOf('c') != -1) {
@@ -651,5 +655,39 @@ public class FileGroup implements Externalizable {
 			}
 		}
 		return new FileGroup(tempFileName, partitions);
+	}
+	
+	private boolean conj(File newFile, Context ctx) {
+		int pcount = partitions.length;
+		if (newFile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileAlreadyExist", newFile.getName()));
+		}
+		
+		File file = getPartitionFile(0);
+		LocalFile.copyFile(file, newFile);
+		if (pcount == 1) {
+			return false;
+		}
+		
+		PhyTable resultTable = ComTable.openBaseTable(newFile, ctx);
+		PhyTable table = null;
+		try {
+			for (int i = 1; i < pcount; ++i) {
+				File f = getPartitionFile(i);
+				table = ComTable.openBaseTable(f, ctx);
+				resultTable.append(table);
+				table.close();
+			}
+		} catch (IOException e) {
+			if (table != null) {
+				table.close();
+			}
+			newFile.delete();
+			return false;
+		} finally {
+			resultTable.close();
+		}
+		return true;
 	}
 }
