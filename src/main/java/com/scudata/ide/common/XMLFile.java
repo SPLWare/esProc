@@ -26,7 +26,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.scudata.app.common.Section;
-import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
@@ -44,11 +43,6 @@ public class XMLFile {
 	 * XML Document
 	 */
 	private Document xmlDocument = null;
-
-	/**
-	 * Common MessageManager
-	 */
-	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
 	 * Constructor
@@ -207,8 +201,8 @@ public class XMLFile {
 	public String newElement(String path, String element) throws Exception {
 		Element newElement = null;
 		if (!isLegalXmlName(element)) {
-			throw new Exception(mm.getMessage("xmlfile.falseelement", xmlFile,
-					element));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.falseelement", xmlFile, element));
 		}
 
 		Node parent = getTerminalNode(path, Node.ELEMENT_NODE);
@@ -238,8 +232,8 @@ public class XMLFile {
 	 */
 	public int newAttribute(String path, String attr) throws Exception {
 		if (!isLegalXmlName(attr)) {
-			throw new Exception(mm.getMessage("xmlfile.falseattr", xmlFile,
-					attr));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.falseattr", xmlFile, attr));
 		}
 
 		Node parent = getTerminalNode(path, Node.ELEMENT_NODE);
@@ -329,8 +323,8 @@ public class XMLFile {
 		int i;
 		i = path.lastIndexOf('/');
 		if (i == -1) {
-			throw new Exception(mm.getMessage("xmlfile.falsepath", xmlFile,
-					path));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.falsepath", xmlFile, path));
 		}
 
 		String value = getAttribute(path);
@@ -349,7 +343,8 @@ public class XMLFile {
 	 */
 	public void renameElement(String path, String newName) throws Exception {
 		if (path.lastIndexOf('/') == -1) {
-			throw new Exception(mm.getMessage("xmlfile.renameroot", xmlFile));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.renameroot", xmlFile));
 		}
 		Node nd = getTerminalNode(path, Node.ELEMENT_NODE);
 		Node pp = nd.getParentNode();
@@ -358,8 +353,8 @@ public class XMLFile {
 		if (childNodes != null) {
 			for (i = 0; i < childNodes.getLength(); i++) {
 				if (newName.equalsIgnoreCase(childNodes.item(i).getNodeName())) {
-					throw new Exception(mm.getMessage("xmlfile.existnode",
-							xmlFile, newName));
+					throw new Exception(IdeCommonMessage.get().getMessage(
+							"xmlfile.existnode", xmlFile, newName));
 				}
 			}
 		}
@@ -395,10 +390,12 @@ public class XMLFile {
 	 */
 	public void setAttribute(String path, String value) throws Exception {
 		if (path == null) {
-			throw new Exception(mm.getMessage("xmlfile.nullpath", xmlFile));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.nullpath", xmlFile));
 		}
 		if (path.trim().length() == 0) {
-			throw new Exception(mm.getMessage("xmlfile.nullpath", xmlFile));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.nullpath", xmlFile));
 		}
 		if (value == null) {
 			deleteAttribute(path);
@@ -612,8 +609,8 @@ public class XMLFile {
 			}
 		}
 		if (j == i) {
-			throw new Exception(mm.getMessage("xmlfile.falsenodename", xmlFile,
-					nodeName));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.falsenodename", xmlFile, nodeName));
 		}
 		return tmpNode;
 	}
@@ -633,7 +630,8 @@ public class XMLFile {
 		String sNode, sLast;
 		int i;
 		if (path == null) {
-			throw new Exception(mm.getMessage("xmlfile.nullpath1", xmlFile));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.nullpath1", xmlFile));
 		}
 		i = path.lastIndexOf('/');
 		if (i == -1) {
@@ -654,8 +652,8 @@ public class XMLFile {
 				sNode = st.nextToken();
 				tmpNode = locateNode(childNodes, sNode);
 				if (tmpNode == null) {
-					throw new Exception(mm.getMessage("xmlfile.notexistpath",
-							xmlFile, path));
+					throw new Exception(IdeCommonMessage.get().getMessage(
+							"xmlfile.notexistpath", xmlFile, path));
 				}
 				childNodes = tmpNode.getChildNodes();
 			}
@@ -666,8 +664,8 @@ public class XMLFile {
 			}
 		}
 		if (tmpNode == null) {
-			throw new Exception(mm.getMessage("xmlfile.notexistpath", xmlFile,
-					path));
+			throw new Exception(IdeCommonMessage.get().getMessage(
+					"xmlfile.notexistpath", xmlFile, path));
 		}
 		return tmpNode;
 	}

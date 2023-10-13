@@ -1,6 +1,7 @@
 package com.scudata.ide.spl;
 
 import com.scudata.ide.common.GC;
+import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 集算器常量
@@ -341,4 +342,34 @@ public class GCSpl extends GC {
 	/** 在文件中查找替换 */
 	public static final short iFILE_REPLACE = MENU_SPL + 341;
 
+	/** 属性名 */
+	public static final String TITLE_NAME = IdeSplMessage.get().getMessage(
+			"jtablevalue.name");
+	/** 属性值 */
+	public static final String TITLE_PROP = IdeSplMessage.get().getMessage(
+			"jtablevalue.property");
+	/** 数据源名称 */
+	public static final String DB_NAME = IdeSplMessage.get().getMessage(
+			"jtablevalue.dbname");
+	/** 用户名 */
+	public static final String USER = IdeSplMessage.get().getMessage(
+			"jtablevalue.user");
+	/** 密码 */
+	public static final String PASSWORD = IdeSplMessage.get().getMessage(
+			"jtablevalue.password");
+	/** 数据库类型 */
+	public static final String DB_TYPE = IdeSplMessage.get().getMessage(
+			"jtablevalue.dbtype");
+	/** 驱动程序 */
+	public static final String DRIVER = IdeSplMessage.get().getMessage(
+			"jtablevalue.driver");
+	/** 数据源URL */
+	public static final String URL = IdeSplMessage.get().getMessage(
+			"jtablevalue.url");
+	/** 对象名带模式 */
+	public static final String USE_SCHEMA = IdeSplMessage.get().getMessage(
+			"jtablevalue.useschema");
+	/** 对象名带限定符 */
+	public static final String ADD_TILDE = IdeSplMessage.get().getMessage(
+			"jtablevalue.addtilde");
 }

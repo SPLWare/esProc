@@ -462,7 +462,7 @@ public class SPL extends AppFrame {
 	protected ToolBarPropertyBase newToolBarProperty() {
 		return GVSpl.getSplProperty();
 	}
-	
+
 	protected ToolBarSpl newToolBarSpl() {
 		return GVSpl.getSplTool();
 	}
@@ -1464,7 +1464,7 @@ public class SPL extends AppFrame {
 		} catch (Throwable e) {
 			GM.outputMessage(e);
 		}
-		GMSpl.setOptionLocale();
+		// GMSpl.setOptionLocale();
 	}
 
 	public static void showSplash() {

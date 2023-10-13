@@ -74,6 +74,7 @@ import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextFieldReadOnly;
+import com.scudata.ide.spl.GCSpl;
 import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.dialog.DialogDisplayChart;
 import com.scudata.ide.spl.dialog.DialogTextEditor;
@@ -1660,8 +1661,8 @@ public class JTableValue extends JTableEx {
 	 */
 	private int initDB(DBObject db) {
 		dbTable = GMSpl.getDBTable(db);
-		addColumn(GMSpl.TITLE_NAME); // 名称
-		addColumn(GMSpl.TITLE_PROP); // 属性
+		addColumn(GCSpl.TITLE_NAME); // 名称
+		addColumn(GCSpl.TITLE_PROP); // 属性
 		for (int i = 0; i < this.getColumnCount(); i++) {
 			setColumnEditable(i, false);
 		}

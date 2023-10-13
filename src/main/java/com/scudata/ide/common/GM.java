@@ -2163,12 +2163,6 @@ public class GM {
 	}
 
 	/**
-	 * All in the schema name. All means null.
-	 */
-	public static final String SCHEMA_ALL = IdeCommonMessage.get().getMessage(
-			"public.all");
-
-	/**
 	 * Get the real schema name. All means null.
 	 * 
 	 * @param schema
@@ -2178,7 +2172,7 @@ public class GM {
 		if (!StringUtils.isValidString(schema)) {
 			return null;
 		}
-		if (schema.equals(SCHEMA_ALL)) {
+		if (schema.equals(GC.SCHEMA_ALL)) {
 			return null;
 		}
 		return (String) schema;
@@ -2193,7 +2187,7 @@ public class GM {
 	public static void loadSchemas(DataSource ds, JComboBox<String> cbSchema) {
 		cbSchema.removeAllItems();
 		if (ds == null) {
-			cbSchema.addItem(SCHEMA_ALL);
+			cbSchema.addItem(GC.SCHEMA_ALL);
 		} else {
 			DBInfo dbInfo = ds.getDBInfo();
 			String dbcs = dbInfo.getDBCharset();
@@ -2212,7 +2206,7 @@ public class GM {
 			} catch (Throwable x) {
 				/* Do nothing */
 			}
-			cbSchema.addItem(SCHEMA_ALL);
+			cbSchema.addItem(GC.SCHEMA_ALL);
 		}
 	}
 
