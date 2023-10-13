@@ -33,6 +33,32 @@ public class Create extends PhyTableFunction{
 			throw new RQException("create" + mm.getMessage("function.missingParam"));
 		} else if (param.isLeaf()) {
 			fo = param.getLeafExpression().calculate(ctx);
+		} else if (param.getType() == IParam.Colon) {
+			IParam sub0 = param;
+			if (sub0 != null) {
+				if (sub0.isLeaf()) {
+					fo = sub0.getLeafExpression().calculate(ctx);
+				} else {
+					IParam fileParam = sub0.getSub(0);
+					if (fileParam == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("create" + mm.getMessage("function.paramTypeError"));
+					}
+					fo = fileParam.getLeafExpression().calculate(ctx);
+					
+					IParam blockSizeParam = sub0.getSub(1);
+					if (blockSizeParam != null) {
+						String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+						try {
+							blockSize = Integer.parseInt(b);
+						} catch (NumberFormatException e) {
+						}
+					}
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("create" + mm.getMessage("function.paramTypeError"));
+			}
 		} else {
 			if (param.getType() != IParam.Semicolon) {
 				MessageManager mm = EngineMessage.get();

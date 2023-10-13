@@ -401,4 +401,9 @@ public class RowComTable extends ComTable {
 	public boolean isPureFormat() {
 		return false;
 	}
+	
+	// 返回是否压缩列数据
+	public boolean isCompress() {
+		return false;
+	}
 }
