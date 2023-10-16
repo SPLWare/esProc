@@ -226,7 +226,7 @@ public class MergeCursor extends ICursor {
 			group = new Sequence();
 			getGroupData(path, group);
 			
-			if (nextPath < pathCount) {
+			if (nextPath < pathCount && seqs[nextPath] > 0) {
 				fetchGroups(nextPath, group);
 			}
 			
@@ -240,23 +240,25 @@ public class MergeCursor extends ICursor {
 			int cmp = r2.compare(r1, fields);
 			if (cmp == 0) {
 				getGroupData(path, group);
-				if (nextPath < pathCount) {
+				if (nextPath < pathCount && seqs[nextPath] > 0) {
 					fetchGroups(nextPath, group);
 				}
 			} else if (cmp > 0) {
-				if (nextPath < pathCount) {
+				if (nextPath < pathCount && seqs[nextPath] > 0) {
 					fetchGroups(nextPath, group);
 				}
 			} else {
 				Sequence newGroup = new Sequence();
 				getGroupData(path, newGroup);
 				
-				if (nextPath < pathCount) {
+				if (nextPath < pathCount && seqs[nextPath] > 0) {
 					fetchGroups(nextPath, newGroup);
 				}
 				
 				resultCache.add(newGroup);
-				fetchGroups(path, group);
+				if (seqs[path] > 0) {
+					fetchGroups(path, group);
+				}
 			}
 		}
 	}
