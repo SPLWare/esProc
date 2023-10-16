@@ -219,47 +219,44 @@ public class MergeCursor extends ICursor {
 	
 	// 递归读取和首路的分组值相同的组，及分组值更小的组
 	private void fetchGroups(int path, Sequence group) {
-		int pathCount = seqs.length;
 		int nextPath = path + 1;
-		
 		if (group == null) {
 			group = new Sequence();
 			getGroupData(path, group);
 			
-			if (nextPath < pathCount && seqs[nextPath] > 0) {
+			if (nextPath < seqs.length) {
 				fetchGroups(nextPath, group);
 			}
 			
 			resultCache.add(group);
-		} else {
-			int seq = seqs[path];
+		} else if (seqs[path] > 0) {
 			BaseRecord r1 = (BaseRecord)group.getMem(1);
-			BaseRecord r2 = (BaseRecord)tables[path].getMem(seq);
+			BaseRecord r2 = (BaseRecord)tables[path].getMem(seqs[path]);
 			
 			// 比较分组字段值是否相等
 			int cmp = r2.compare(r1, fields);
 			if (cmp == 0) {
 				getGroupData(path, group);
-				if (nextPath < pathCount && seqs[nextPath] > 0) {
+				if (nextPath < seqs.length) {
 					fetchGroups(nextPath, group);
 				}
 			} else if (cmp > 0) {
-				if (nextPath < pathCount && seqs[nextPath] > 0) {
+				if (nextPath < seqs.length) {
 					fetchGroups(nextPath, group);
 				}
 			} else {
 				Sequence newGroup = new Sequence();
 				getGroupData(path, newGroup);
 				
-				if (nextPath < pathCount && seqs[nextPath] > 0) {
+				if (nextPath < seqs.length) {
 					fetchGroups(nextPath, newGroup);
 				}
 				
 				resultCache.add(newGroup);
-				if (seqs[path] > 0) {
-					fetchGroups(path, group);
-				}
+				fetchGroups(path, group);
 			}
+		} else if (nextPath < seqs.length) {
+			fetchGroups(nextPath, group);
 		}
 	}
 	
