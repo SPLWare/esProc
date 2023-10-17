@@ -425,19 +425,22 @@ public class Cuboid extends RowComTable {
 						table = (CuboidTable) tableList.get(idx);
 					}
 
-					//检查预分组是否是最新的
-					if (((Cuboid) table.groupTable).getSrcCount() != srcTable.getActualRecordCount()) {
-						try {
-							((Cuboid) table.groupTable).update(srcTable);
-						} catch (Exception e) {
-							if (table != null)
-								table.close();
-							for (PhyTable tbl : tableList) {
-								tbl.close();
-							}
-							throw new RQException(e.getMessage(), e);
-						}
-					}
+					
+					//预分组不再跟随组表更新，以下删除
+//					检查预分组是否是最新的
+//					if (((Cuboid) table.groupTable).getSrcCount() != srcTable.getActualRecordCount()) {
+//						try {
+//							((Cuboid) table.groupTable).update(srcTable);
+//						} catch (Exception e) {
+//							if (table != null)
+//								table.close();
+//							for (PhyTable tbl : tableList) {
+//								tbl.close();
+//							}
+//							throw new RQException(e.getMessage(), e);
+//						}
+//					}
+					
 
 					ArrayList<Expression> fieldExpList = new ArrayList<Expression>();
 					Expression[] fieldExps;//再聚合时要取出来的字段
@@ -2404,7 +2407,7 @@ class CuboidTable extends RowPhyTable {
 					if (Variant.compare(obj, minValues[j], true) < 0)
 						minValues[j] = obj;
 				} else {
-					bufferWriter.writeFixedLengthObject(obj);
+					bufferWriter.writeObject(obj);//bufferWriter.writeFixedLengthObject(obj);
 				}
 			}
 		}

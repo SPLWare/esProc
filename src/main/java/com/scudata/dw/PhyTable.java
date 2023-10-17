@@ -1926,44 +1926,45 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param ctx
 	 */
 	public void resetCuboid(Context ctx) {
-		if (cuboids == null) return;
-		String dir = groupTable.getFile().getAbsolutePath() + "_";
-		for (String cuboid: cuboids) {
-			FileObject fo = new FileObject(dir + tableName + Cuboid.CUBE_PREFIX + cuboid);
-			if (!fo.isExists()) {
-				continue;
-			}
-			File file = fo.getLocalFile().file();
-			Cuboid table = null;
-			Cuboid newTable = null;
-			FileObject newFileObj = null;
-			File newFile = null;
-			try {
-				newFileObj = new FileObject(file.getAbsolutePath());
-				newFileObj = new FileObject(newFileObj.createTempFile(file.getName()));
-				newFile = newFileObj.getLocalFile().file();
-				
-				table = new Cuboid(file, groupTable.ctx);//打开这个cuboid
-				table.checkPassword("cuboid");
-				newTable = new Cuboid(newFile, 0, table);
-				newTable.checkPassword("cuboid");
-				newTable.update(this);
-				newTable.close();
-				table.close();
-				file.delete();
-				newFile.renameTo(file);
-			} catch (Exception e) {
-				if (table != null) table.close();
-				for (PhyTable tbl : tableList) {
-					tbl.close();
-				}
-				if (newTable != null) 
-					newTable.close();
-				if (newFile != null) 
-					newFile.delete();
-				throw new RQException(e.getMessage(), e);
-			}
-		}
+		//预分组不再跟随组表更新，以下删除
+//		if (cuboids == null) return;
+//		String dir = groupTable.getFile().getAbsolutePath() + "_";
+//		for (String cuboid: cuboids) {
+//			FileObject fo = new FileObject(dir + tableName + Cuboid.CUBE_PREFIX + cuboid);
+//			if (!fo.isExists()) {
+//				continue;
+//			}
+//			File file = fo.getLocalFile().file();
+//			Cuboid table = null;
+//			Cuboid newTable = null;
+//			FileObject newFileObj = null;
+//			File newFile = null;
+//			try {
+//				newFileObj = new FileObject(file.getAbsolutePath());
+//				newFileObj = new FileObject(newFileObj.createTempFile(file.getName()));
+//				newFile = newFileObj.getLocalFile().file();
+//				
+//				table = new Cuboid(file, groupTable.ctx);//打开这个cuboid
+//				table.checkPassword("cuboid");
+//				newTable = new Cuboid(newFile, 0, table);
+//				newTable.checkPassword("cuboid");
+//				newTable.update(this);
+//				newTable.close();
+//				table.close();
+//				file.delete();
+//				newFile.renameTo(file);
+//			} catch (Exception e) {
+//				if (table != null) table.close();
+//				for (PhyTable tbl : tableList) {
+//					tbl.close();
+//				}
+//				if (newTable != null) 
+//					newTable.close();
+//				if (newFile != null) 
+//					newFile.delete();
+//				throw new RQException(e.getMessage(), e);
+//			}
+//		}
 	}
 	
 	/**

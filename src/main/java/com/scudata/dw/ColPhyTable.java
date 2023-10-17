@@ -4701,17 +4701,37 @@ public class ColPhyTable extends PhyTable {
 		int colCount = columns.length;
 		
 		BlockLinkReader rowCountReader = table.getSegmentReader();
-		BlockLinkReader []colReaders = new BlockLinkReader[colCount];
-		ObjectReader []segmentReaders = new ObjectReader[colCount];
+		BlockLinkReader []colReaders2 = new BlockLinkReader[colCount];
+		ObjectReader []segmentReaders2 = new ObjectReader[colCount];
+		byte[][] dictBuffer = new byte[colCount][];
+		BufferWriter[] bufferWriters = new BufferWriter[colCount];
+		
 		for (int i = 0; i < colCount; ++i) {
-			colReaders[i] = columns2[i].getColReader(true);
-			segmentReaders[i] = columns2[i].getSegmentReader();
+			colReaders2[i] = columns2[i].getColReader(true);
+			segmentReaders2[i] = columns2[i].getSegmentReader();
+			
+			//如果某列有全局字典，则整理出来
+			Sequence dict = columns2[i].getDict();
+			if (dict != null && dict.length() == 0) {
+				dictBuffer[i] = null;
+			} else {
+				BufferWriter bufferWriter = columns[i].getColDataBufferWriter();
+				bufferWriter.writeObject(dict);
+				dictBuffer[i] = bufferWriter.finish();
+				bufferWriters[i] = bufferWriter;
+			}
+			
 		}
+		
 		
 		int blockCount = table.getDataBlockCount();
 		for (int i = 0; i < blockCount; ++i) {
 			for (int j = 0; j < colCount; j++) {
-				columns[j].copyColBlock(colReaders[j], segmentReaders[j]);
+				if (dictBuffer[j] == null) {
+					columns[j].copyColBlock(colReaders2[j], segmentReaders2[j]);
+				} else {
+					columns[j].copyColBlock(colReaders2[j], segmentReaders2[j], bufferWriters[j], dictBuffer[j]);
+				}
 			}
 			
 			//更新分段信息buffer
@@ -4723,8 +4743,8 @@ public class ColPhyTable extends PhyTable {
 		
 		rowCountReader.close();
 		for (int i = 0; i < colCount; ++i) {
-			colReaders[i].close();
-			segmentReaders[i].close();
+			colReaders2[i].close();
+			segmentReaders2[i].close();
 		}
 	}
 	

@@ -110,18 +110,25 @@ public class BlockLinkWriter extends OutputStream {
 		}
 	}
 	
-	public long copyDataBlock(BlockLinkReader colReader) throws IOException {
-		int srcCount = colReader.readInt32();
-		int count = colReader.readInt32();
-		byte []buffer = new byte[count];
-		colReader.readFully(buffer, 0, count);
-		
+	// 追加数据块，返回写入位置 (不压缩)
+	public long writeDataBlock0(byte[] bytes) throws IOException {
 		long pos = blockLink.lastBlockPos + caret;
-		writeInt32(srcCount);
-		writeInt32(count);
-		write(buffer, 0, count);
+		write(bytes);
 		return pos;
 	}
+	
+//	public long copyDataBlock(BlockLinkReader colReader) throws IOException {
+//		int srcCount = colReader.readInt32();
+//		int count = colReader.readInt32();
+//		byte []buffer = new byte[count];
+//		colReader.readFully(buffer, 0, count);
+//		
+//		long pos = blockLink.lastBlockPos + caret;
+//		writeInt32(srcCount);
+//		writeInt32(count);
+//		write(buffer, 0, count);
+//		return pos;
+//	}
 	
 	// 读区块链的下一块的位置
 	private long readPointer(int i) {

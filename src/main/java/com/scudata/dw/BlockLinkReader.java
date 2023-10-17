@@ -158,6 +158,36 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
+	// 读下一数据块(不解压)
+	public byte[] readDataBlock0() throws IOException {
+		byte []readBuffer = this.readBuffer;
+		readFully(readBuffer, 0, 4);
+		int srcCount = (readBuffer[0] << 24) + ((readBuffer[1] & 0xff) << 16) +
+			((readBuffer[2] & 0xff) << 8) + (readBuffer[3] & 0xff);
+
+		if (storage.isCompress()) {
+			readFully(readBuffer, 4, 4);
+			int count = (readBuffer[4] << 24) + ((readBuffer[5] & 0xff) << 16) +
+					((readBuffer[6] & 0xff) << 8) + (readBuffer[7] & 0xff);
+			if (count > 0) {
+				byte []buffer = new byte[count + 8];
+				readFully(buffer, 8, count);
+				System.arraycopy(readBuffer, 0, buffer, 0, 8);
+				return buffer;
+			} else {
+				byte []buffer = new byte[srcCount + 8];
+				readFully(buffer, 8, srcCount);
+				System.arraycopy(readBuffer, 0, buffer, 0, 8);
+				return buffer;
+			}
+		} else {
+			byte []buffer = new byte[srcCount + 4];
+			readFully(buffer, 4, srcCount);
+			System.arraycopy(readBuffer, 0, buffer, 0, 4);
+			return buffer;
+		}
+	}
+	
 	private long getBlockPos(long pos) {
 		return pos - pos % blockSize;
 	}

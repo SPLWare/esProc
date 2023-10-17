@@ -848,4 +848,10 @@ public class BufferWriter {
 		writeBuffer[seq++] = (byte)(v >>> 56);
 		count = seq;
 	}
+	
+	public void reset() {
+		repeatValue = null;
+		repeatCount = 0;
+		count = 0;
+	}
 }
