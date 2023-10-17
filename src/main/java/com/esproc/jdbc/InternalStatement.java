@@ -212,8 +212,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 				gateway = config.getGateway();
 			}
 
-			// 远程执行gateway时，语句可能并不符合规则
-			if (!isOnlyServer || !StringUtils.isValidString(gateway)) {
+			// 执行gateway时，语句可能并不符合规则
+			if (!StringUtils.isValidString(gateway)) {
 				if (sqlType == JDBCConsts.TYPE_NONE) {
 					throw new SQLException(JDBCMessage.get().getMessage(
 							"statement.unsupportsql", sql));
