@@ -111,7 +111,6 @@ public class JdbcTask {
 	}
 
 	private Exception ex;
-	private Boolean execFinished = false;
 	private boolean isCanceled = false;
 	private Object result;
 
@@ -119,7 +118,6 @@ public class JdbcTask {
 		try {
 			ex = null;
 			result = null;
-			execFinished = false;
 			isCanceled = false;
 			execThread = new Thread() {
 				public void run() {
@@ -153,20 +151,11 @@ public class JdbcTask {
 						}
 						if (ex == null)
 							ex = new SQLException(e.getMessage(), e);
-					} finally {
-						execFinished = true;
 					}
 				}
 			};
 			execThread.start();
-			synchronized (execFinished) {
-				while (!execFinished.booleanValue())
-					try {
-						Thread.sleep(5);
-					} catch (ThreadDeath td) {
-					} catch (InterruptedException e) {
-					}
-			}
+			execThread.join();
 			if (ex != null) {
 				throw ex;
 			}

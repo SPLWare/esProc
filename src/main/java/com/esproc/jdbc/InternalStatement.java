@@ -63,10 +63,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	private SQLException ex;
 	/**
-	 * Whether the execution is finished
-	 */
-	private Boolean execFinished = false;
-	/**
 	 * Whether execution is canceled
 	 */
 	private boolean isCanceled = false;
@@ -143,7 +139,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			final boolean isUpdate) throws SQLException {
 		try {
 			ex = null;
-			execFinished = false;
 			isCanceled = false;
 			execThread = new Thread() {
 				public void run() {
@@ -156,18 +151,13 @@ public abstract class InternalStatement implements java.sql.Statement {
 						isCanceled = true;
 					} catch (SQLException e) {
 						ex = e;
-					} finally {
-						execFinished = true;
 					}
 				}
 			};
 			execThread.start();
-			while (!execFinished.booleanValue()) {
-				try {
-					Thread.sleep(5);
-				} catch (ThreadDeath td) {
-				} catch (InterruptedException e) {
-				}
+			try {
+				execThread.join();
+			} catch (InterruptedException e1) {
 			}
 			if (ex != null) {
 				throw ex;
