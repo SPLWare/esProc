@@ -27,8 +27,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Append records in cursor/distributed cursor <i style='mso-bidi-font-style:
-normal'>cs</i> to an entity table<i style='mso-bidi-font-style:normal'> T</i>.</span></p>
+lang=EN-US>Append records in a cursor/table sequence to an entity table.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -53,14 +52,14 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 line-height:200%'></span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function append-writes records in cursor <i>cs</i> to entity
-table <i>T</i>.</span></p>
+lang=EN-US>The function append-writes records in cursor/table sequence <i>cs</i>
+to entity table <i>T</i>.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>When <i style='mso-bidi-font-style:normal'>T</i> is a multizone
-composite table, <i style='mso-bidi-font-style:normal'>cs</i> can be an ordinary
-cursor or a multicursor. Each part of the multicursor <i>cs </i>corresponds to
-one zone of <i>T</i> uniquely. </span></p>
+composite table, <i style='mso-bidi-font-style:normal'>cs</i> can be a
+multicursor. Each part of the multicursor <i>cs </i>corresponds to one zone of <i>T</i>
+uniquely. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>If a table has an attached table, appending data to the parent table
@@ -94,7 +93,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
   style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:ºÚÌå'></span></b></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cursor</span></p>
+  <p class=MsoNormal><span lang=EN-US>A cursor/table sequence</span></p>
   </td>
  </tr>
 </table>
@@ -118,7 +117,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
   number of new records</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:1'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@x<span
   style='mso-bidi-font-style:italic'></span></span></b></p>
@@ -130,6 +129,18 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
   black'></span></span></p>
   </td>
  </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:ËÎÌå'>@m</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Write data through merge-append; append data
+  after the last record by default; do not support attached tables for the time
+  being; the option cannot work if the composite table file is already opened</span></p>
+  </td>
+ </tr>
 </table>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
@@ -137,7 +148,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b><span
 lang=EN-US style='font-size:14.0pt;line-height:200%'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An entity table</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Entity table</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -173,7 +184,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   <p class=MsoNormal><span lang=EN-US>Create a table sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=164 height=123
-  src="Function_Reference.files/image106.png" v:shapes="_x0000_i1090"></span></p>
+  src="Function_Reference.files/image109.png" v:shapes="_x0000_i1090"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
@@ -196,7 +207,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   <p class=MsoNormal><span lang=EN-US>Create a table sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=198 height=63
-  src="Function_Reference.files/image107.png" v:shapes="_x0000_i1091"></span></p>
+  src="Function_Reference.files/image110.png" v:shapes="_x0000_i1091"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
@@ -219,7 +230,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   <p class=MsoNormal><span lang=EN-US>Create a table sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=170 height=283
-  src="Function_Reference.files/image108.png" v:shapes="_x0000_i1092"></span></p>
+  src="Function_Reference.files/image111.png" v:shapes="_x0000_i1092"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
@@ -387,7 +398,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   <p class=MsoNormal><span lang=EN-US>Return data of the base table</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=189 height=124
-  src="Function_Reference.files/image109.png" v:shapes="_x0000_i1093"></span></p>
+  src="Function_Reference.files/image112.png" v:shapes="_x0000_i1093"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:11'>
@@ -409,7 +420,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   style='mso-bidi-font-style:normal'>table2</i></span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=216 height=65
-  src="Function_Reference.files/image110.png" v:shapes="_x0000_i1094"></span></p>
+  src="Function_Reference.files/image113.png" v:shapes="_x0000_i1094"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
@@ -431,7 +442,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
   style='mso-bidi-font-style:normal'>table3</i></span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
   mso-fareast-language:#0400'><img border=0 width=219 height=284
-  src="Function_Reference.files/image111.png" v:shapes="_x0000_i1095"></span></p>
+  src="Function_Reference.files/image114.png" v:shapes="_x0000_i1095"></span></p>
   </td>
  </tr>
 </table>
@@ -594,7 +605,7 @@ mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
 style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
 lang=EN-US>When a unicursor is appended to a multizone composite table:</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1189
  style='margin-left:15.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.8pt'>
@@ -707,6 +718,193 @@ lang=EN-US>When a unicursor is appended to a multizone composite table:</span></
   </td>
   <td width=577 valign=top style='width:432.95pt;padding:0cm 0cm 0cm 0cm;
   height:14.8pt'>
+  <p class=MsoNormal><span lang=EN-US>Close the composite table</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:21.0pt'><a name="f_append"></a><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0 level1 lfo16'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+lang=EN-US>Merge-append:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  EID,NAME from employee where EID&gt;495&quot;)</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=100 height=122
+  src="Function_Reference.files/image115.png" v:shapes="_x0000_i1096"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;apm.ctx&quot;)</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.create@y(#EID,NAME)</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append(A1)</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append data of A1¡¯s table sequence to the
+  composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(EID,NAME).record([5,&quot;Ashley&quot;])</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=106 height=42
+  src="Function_Reference.files/image116.png" v:shapes="_x0000_i1097"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append@m(A5)</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append data of A5¡¯s table sequence to the
+  composite table; as @m option works, write data through merge-append </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A6.import()</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Import data from the composite table:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=106 height=144
+  src="Function_Reference.files/image117.png" v:shapes="_x0000_i1098"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
+  </td>
+  <td width=421 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.close()</span></span></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>Close the composite table</span></p>
   </td>
  </tr>

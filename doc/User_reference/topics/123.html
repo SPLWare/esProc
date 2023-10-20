@@ -23,8 +23,8 @@ font-family:"Helvetica Neue";mso-bidi-font-family:宋体;color:#333333;mso-font-ke
 0pt'></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>On Cloud Storage
-Service window, select a cloud storage type, which supports “Amazon S3” and “Winhong”
-for the time being.</span></p>
+Service window, select a cloud storage type, which supports “Amazon S3” “Winhong”,
+“NFS” and “Google Cloud Storage” for the time being.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Then click “New”
 button to get into Storage Service Settings window, where you can set up
@@ -56,10 +56,6 @@ service settings connection:</span></p>
 style='mso-no-proof:yes'><span style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=537 height=366
 src="User_reference.files/image075.png" v:shapes="_x0000_i1068"></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Note: Same as
-“Amazon S3”, the “Winhong” cloud storage type also uses the jar files in s3
-directory.<span style='mso-no-proof:yes'></span></span></p>
-
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
 style='mso-no-proof:yes'>&nbsp;</span></p>
 
@@ -87,8 +83,60 @@ mso-ascii-font-family:"Times New Roman";mso-no-proof:yes'>【</span><span
 lang=EN-US style='mso-no-proof:yes'>Cache block size</span><span
 style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
 mso-no-proof:yes'>】</span><span lang=EN-US style='mso-no-proof:yes'>: Specify
-the size of cache block.</span><span lang=EN-US style='mso-bidi-font-family:
+the size of cache block.</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman";mso-no-proof:yes'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman";mso-no-proof:yes'>1. </span><span
+lang=EN-US>Same as “Amazon S3”, also use the jar files in s3 directory when the
+cloud storage type is “Winhong”.</span><span lang=EN-US style='mso-bidi-font-family:
 "Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>2. When the cloud storage type
+is “Google cloud storage”, put the corresponding jars in <i>google-gcs</i>
+directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>【</span></i><i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>esProc installation
+directory</span></i><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>. And add a Java
+proxy parameter: Djava.net.useSystemProxies=true, in the startup file, such as
+IDE’s startup file <i>starup.bat</i>, for “Google cloud storage” type:</span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>@echo off</span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>call
+&quot;D:\raqsoft\esProc\bin\setEnv.bat&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>start &quot;dm&quot; %EXECJAVAW%
+-Xms128m -Xmx9444m<span style='mso-spacerun:yes'>&nbsp; </span>-cp
+%START_HOME%\esProc\classes;%RAQCLASSPATH% -Duser.language=zh -<span
+style='color:red'>Djava.net.useSystemProxies=true</span>
+-Dstart.home=%START_HOME%\esProc<span style='mso-spacerun:yes'>&nbsp;
+</span>com.scudata.ide.spl.EsprocEE</span></p>
+
+<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>3. Put corresponding jars in nfs
+directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>【</span></i><i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>esProc installation
+directory</span></i><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
+"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> when the cloud
+storage is</span><span style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman"'>【</span><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>NFS</span><span
+style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
+mso-bidi-font-family:"Times New Roman"'>】</span><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="124.html">Next</a></div>

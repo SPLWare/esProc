@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.2.1 Coordinate systems and axes</title>
+<title>12.1.1 General charting procedure</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -15,92 +15,323 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>12.2.1 Coordinate systems and axes
-</span></h3></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc provides two commonly used coordinate systems &#8211; <b
-style='mso-bidi-font-weight:normal'>Cartesian coordinate</b> <b
-style='mso-bidi-font-weight:normal'>system</b> and <b style='mso-bidi-font-weight:
-normal'>polar coordinate system</b>. </span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+14.0pt;mso-bidi-font-size:10.0pt'>12.1.1 General charting procedure</span></h3></div>
+	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Different coordinate systems have different types of coordinate axes
-&#8211; <b style='mso-bidi-font-weight:normal'>x-axis</b> and <b style='mso-bidi-font-weight:
-normal'>y-axis</b>, or <b style='mso-bidi-font-weight:normal'>polar axis</b>
-and <b style='mso-bidi-font-weight:normal'>radial axis</b>. Each type of axis
-has its own plotting properties with which the corresponding coordinate
-transformation operation is handled. </span></p>
+lang=EN-US>Let’s fist look at the general charting procedure in esProc through
+the following code for drawing a column chart of vault competition results. </span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman",serif'>Cartesian
-coordinate system</span></b></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=378 valign=top style='width:283.45pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=canvas()</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=demo.query(&quot;select
+  * from GYMSCORE where EVENT = 'Vault'&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.plot(&quot;NumericAxis&quot;,&quot;name&quot;:&quot;y&quot;,&quot;location&quot;:2,&quot;labelFont&quot;:&quot;Calibri&quot;,
+  &quot;labelOverlapping&quot;:true)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>4</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.plot(&quot;EnumAxis&quot;,&quot;name&quot;:&quot;x&quot;,&quot;categories&quot;:A2.(NAME),
+  &quot;labelFont&quot;:&quot;Arial&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>5</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.plot(&quot;Column&quot;,&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(NAME),&quot;axis2&quot;:&quot;y&quot;,
+  &quot;data2&quot;:A2.(SCORE),&quot;text&quot;:A2.(SCORE))</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US>6</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.draw@p(450,350)</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>A
-Cartesian coordinate system has two mutually perpendicular axes, denoted the
-x-axis and y-axis. The logical coordinates on the horizontal x-axis determine
-the horizontal location of the chart, and those on the vertical y-axis
-determine the vertical location of the chart. Actually, in a Cartesian
-coordinate system the abscissa and ordinate of physical coordinates can be
-calculated individually based on their corresponding logical axes, without any
-mutual influences. </span></p>
+21.0pt'><span lang=EN-US>To create an esProc chart, the first thing is defining
+a canvas, like A1’s code </span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif'>=canvas()</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>. With esProc, we define chart-specific data and chart
+parameters as well as draw the chart on a specified canvas. Usually one canvas
+object is used to draw one chart.</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>In all
-the examples we have cited, the system of Cartesian coordinates is used to
-position chart elements. The native physical axes on the canvas also belong to
-a Cartesian coordinate system. The system is used in plotting most of the
-charts such as column chart, line chart, area chart, scatter chart, bubble
-chart and stock chart. </span></p>
+21.0pt'><span lang=EN-US>A2 retrieves the table sequence containing the
+required data: </span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman",serif'>Polar coordinate
-system</span></b></p>
-
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
-axes in a polar coordinate system are polar axis and radial axis. For the polar
-axis, you need to define the <b style='mso-bidi-font-weight:normal'>pole</b>
-position and the <b style='mso-bidi-font-weight:normal'>polar axis length</b>;
-and for the radial axis, the <b style='mso-bidi-font-weight:normal'>start angle</b>
-and <b style='mso-bidi-font-weight:normal'>end angle</b> of the polar
-coordinates. Conventionally the angle horizontally from the pole to the right
-is 0&#61616; and the counterclockwise angle from the polar axis is positive. By
-default the start angle of a polar coordinate system is 0 and the end angle is
-360.</span></p>
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=401 height=81
+src="Tutorial.files/image1157.png" v:shapes="_x0000_i2241"></span></p>
 
-<p class=T-Par0372CxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
-system of polar coordinates is used to plot pie chart, doughnut chart, radar
-chart and etc. </span></p>
+21.0pt'><span lang=EN-US>The various styles of charts drawn on the canvas are
+all made up of the simplest geometric units, called as <b style='mso-bidi-font-weight:
+normal'>chart elements</b>. A chart element is used to draw graphs with common
+features, and can make the charting simpler. You can draw common styles of
+charts through plotting chart elements with specified parameters. In </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>A3, A4 and A5, </span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(…)</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> is the function for plotting a chart element on A1’s canvas.
+The vertical axis element plotted by A3 is a numeric axis; the horizontal axis
+element that A4 plots is an enumeration axis; and A5 plots the Column chart
+element. Together they construct a column chart. Different chart elements are
+plotted with different parameters.</span></span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US></span></b></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>When
-performing coordinate transformation operation with polar coordinates, a
-point’s line segment length is calculated from the coordinates on the polar
-axis and its polar angle is calculated from the coordinates on the radial axis.
+21.0pt'><span lang=EN-US>After the chart elements are defined, we can start
+charting. </span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>A drawing function is used</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b><span
+lang=EN-US>in A6’s code<b style='mso-bidi-font-weight:normal'> </b></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>=A1.draw@p(450,350)</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>, in which the chart’s height and width, and the image file
+format, are specified. It sets the height to 450 pixel and the width to 350
+pixel and uses @p option to return the chart in png format. When using </span></span><span
+class=T-Var><span lang=EN-US>G</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>.draw()</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> function, without any options, to plot a chart on canvas <i
+style='mso-bidi-font-style:normal'>G</i>, the chart is by default outputted as
+an svg vector image. Besides @p option, you can use @j to output jpg images and
+@g to output gif images.</span></span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif'><span
+style='mso-spacerun:yes'>&nbsp; </span></span></span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US></span></b></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A set of code for drawing a chart is referred to as
+the <b style='mso-bidi-font-weight:normal'>plotting algorithm</b>, the
+execution of which by esProc will produce the chart through a <b
+style='mso-bidi-font-weight:normal'>painter</b>. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Let’s look at the result of using the above plotting
+algorithm. After the computation is completed, choose cell A6 where chart
+plotting code is held and click on <b style='mso-bidi-font-weight:normal'>Draw
+graphics</b> icon at the right corner in the value viewing section to start
+drawing: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=297 height=80
+src="Tutorial.files/image1158.png" v:shapes="图片_x0020_1594"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Alternatively, right-click on cell A6 and choose <b
+style='mso-bidi-font-weight:normal'>Browse graphics</b> from the menu to
+execute chart plotting (or select A6 and click <span class=T-Bold>Edit</span>&gt;<span
+class=T-Bold>Browse graphics </span><span class=T-Bold><span style='font-weight:
+normal'>on the menu bar):</span> </span><b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=291 height=130
+src="Tutorial.files/image1159.png" v:shapes="图片_x0020_1595"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The chart plotted with this plotting algorithm will be
+displayed on the <b style='mso-bidi-font-weight:normal'>Chart preview</b>
+window that pops up when plotting is completed. The chart area can be resized
+by dragging. The following is the finished chart:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=550 height=430
+src="Tutorial.files/image1160.png" v:shapes="图片_x0020_1593"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>There are <b style='mso-bidi-font-weight:normal'>Save
+as</b> and <b style='mso-bidi-font-weight:normal'>Copy</b> butttons on the <b
+style='mso-bidi-font-weight:normal'>Chart preview</b> window for saving the
+chart as a local image file, and copying and pasting it for use in other tools
+(such as Word and Graphics tool).<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>So three steps are needed to draw a chart with esProc:
 </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt;mso-list:l48 level1 lfo51'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Create a canvas object using <b
+style='mso-bidi-font-weight:normal'>canvas() </b></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>function</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>.</span></b></p>
+
+<p class=T-ParCxSpMiddle style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt;mso-list:l48 level1 lfo51'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Plot the chart elements step by
+step using <b style='mso-bidi-font-weight:normal'><i>G</i>.plot() </b></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>function</span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>.</span></b><span lang=EN-US> <b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt;mso-list:l48 level1 lfo51'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Draw the chart using <span
+class=T-Var><b style='mso-bidi-font-weight:normal'>G</b></span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.draw()
+</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>function.</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="270.html">下一页</a></div>
-		<div id="previous"><a href="268.html">上一页</a></div>		
+		<div id="next"><a href="270.html">Next</a></div>
+		<div id="previous"><a href="268.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="268.html">12.2 Coordinate Systems and Transformation</a></span></li>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="268.html">12.1 The Basics</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

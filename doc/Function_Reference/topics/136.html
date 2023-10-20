@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>chi2inv()</title>
+<title>chardetect()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,60 +13,107 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>chi2inv()<a name=chi2inv></a></span></h2></div>
-	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><a name="_clear_1"></a><a name=clear></a><span
+lang=EN-US style='mso-fareast-font-family:宋体'>chardetect()<a name=chardetect></a></span></h2></div>
+	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US>A chi-square inverse cumulative distribution
-function.</span><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>Auto-identify the character set used for a string or a text file.</span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Syntax:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span class=150><span lang=EN-US style='font-family:"Times New Roman",serif'>chi2inv(</span></span><span
-class=150><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>p</span></i></span><span class=150><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>, <i>v</i></span></span><span
-class=150><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
-lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US>chardetect(</span></b><i><span lang=EN-US>fn,cs</span></i><b><span
+lang=EN-US>)</span></b></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Note:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b><b><span
+lang=EN-US style='font-size:12.0pt'> </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US>The external library function <span
-style='mso-bidi-font-style:italic'>(See <a
-href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span> is
-a chi-square inverse cumulative distribution function (ICDF).</span><span
-lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>The function identifies the character set used for a specified text
+file when no options are used. Character sets it supports include UTF-8, GBK,
+UTF-16LE and UTF-16BE. </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>Identify the character set as GB18030 for text files where the
+original character sets are GBK, GB2312 and GB18030. </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>There could be multiple character set values when trying to identify
+the character set used for a specified string or binary code representing a (Traditional)
+Chinese character, a Japanese character or a Korean character because there are
+overlaps between character sets for the three languages. The function returns
+the first character set value by default. When parameter <i>cs</i> is present,
+return the first eligible character set value in the list.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i><span
+lang=EN-US>fn</span></i><span lang=EN-US> is interpreted as a URL if it begins
+with <a href="http://">http://</a> or &quot;https://&quot;.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>When parameter <i>cs</i> is present, return the encoded values
+included in the <i>cs</i> list.</span></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Option:</span></b><span
+lang=EN-US style='font-size:14.0pt;mso-font-kerning:0pt'></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=56 valign=top style='width:42.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  text-indent:10.5pt;mso-char-indent-count:1.0;mso-pagination:widow-orphan'><span
+  lang=EN-US style='mso-font-kerning:0pt'>@v</span></p>
+  </td>
+  <td width=478 valign=top style='width:358.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  mso-pagination:widow-orphan'><span lang=EN-US style='mso-font-kerning:0pt'>Get
+  the character set from </span><i><span lang=EN-US>fn </span></i><span
+  lang=EN-US style='mso-font-kerning:0pt'>if it is a string or a binary
+  variable</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=56 valign=top style='width:42.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  text-indent:10.5pt;mso-char-indent-count:1.0;mso-pagination:widow-orphan'><span
+  lang=EN-US style='mso-font-kerning:0pt'>@a</span></p>
+  </td>
+  <td width=478 valign=top style='width:358.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  mso-pagination:widow-orphan'><span lang=EN-US style='mso-font-kerning:0pt'>Return
+  the list of all eligible character sets; return the first eligible one by
+  default</span></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
 lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
-  height:28.5pt'>
-  <td width=57 valign=top style='width:42.45pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><i><span
-  lang=EN-US>P</span></i></p>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><i><span
-  lang=EN-US>v</span></i></p>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><span
-  lang=EN-US style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'>&nbsp;</span></p>
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>fn</span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><span
-  lang=EN-US>The p-value within the interval (0,1)</span></p>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><span
-  lang=EN-US>Degrees of freedom (DF)</span></p>
-  <p class=MsoNormal style='text-indent:4.8pt;mso-pagination:widow-orphan'><span
-  lang=EN-US style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'>&nbsp;</span></p>
+  <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  lang=EN-US style='mso-font-kerning:0pt'>The to-be-identified string or binary
+  value, name of the text file to be identified or object/URL of the text file
+  to be identified</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>cs</span></i></p>
+  </td>
+  <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  lang=EN-US style='mso-font-kerning:0pt'>The list of available character sets;
+  can be omitted</span></p>
   </td>
  </tr>
 </table>
@@ -75,84 +122,264 @@ lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Parameter
 lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Return
 value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>Double-precision
-number</span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>A charset value or a sequence of charset values</span></p>
 
 <p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Example:</span></b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:25.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=774
+ style='margin-left:21.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.55pt'>
-  <td width=51 valign=top style='width:38.3pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#A6A6A6;padding:0cm 0cm 0cm 0cm;
-  height:14.55pt'>
-  <p class=TabLabel><b><span lang=EN-US style='font-size:10.5pt'>&nbsp;</span></b></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=228 valign=top style='width:171.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=290 valign=top style='width:217.7pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#A6A6A6;
-  padding:0cm 0cm 0cm 0cm;height:14.55pt'>
-  <p class=TabLabel><b><span lang=EN-US style='font-size:10.5pt'>A</span></b></p>
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US>A</span></b></p>
   </td>
-  <td width=325 valign=top style='width:244.1pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:14.55pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>&nbsp;</span></b></p>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:51.15pt'>
-  <td width=51 style='width:38.3pt;border:solid #A6A6A6 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:51.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>1</span></b></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=228 valign=top style='width:171.0pt;border-top:none;border-left:
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:51.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-bidi-font-weight:bold'>=chi2inv(0.95,10)</span></p>
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>&gt;www=&quot;http://www.baidu.com&quot;</span></b></p>
   </td>
-  <td width=325 valign=top style='width:244.1pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:51.15pt'>
-  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
-   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
-   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:29.45pt'>
-    <td width=12 style='width:8.85pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
-    width=39><p class='MsoNormal'>&nbsp;</td>
-   </tr>
-   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:48.05pt'>
-    <td width=12 valign=top style='width:8.85pt;padding:0cm 0cm 0cm 0cm;
-    height:48.05pt'>
-    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-    style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=265 height=40
-    src="Function_Reference.files/image216.jpg" v:shapes="图片_x0020_108"></span><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
-    </td>
-    <td width=39 valign=top style='width:29.45pt;padding:0cm 0cm 0cm 0cm;
-    height:48.05pt'>
-    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-   </tr>
-  </table>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-bidi-font-weight:bold'></span></p>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect(www)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>UTF-8</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:54.55pt'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:54.55pt'>
+  <p class=MsoNormal><b><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:54.55pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect@v(&quot;abc</span></b><b><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>一二三</span><span lang=EN-US>123&quot;)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:54.55pt'>
+  <p class=MsoNormal><span lang=EN-US>GB-2312</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>&gt;file1=&quot;d:/UTF8.xml&quot;</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use UTF-8 character set</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>5</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>&gt;file2=&quot;d:/UTF16LE.xml&quot;</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use </span><span lang=EN-US
+  style='mso-font-kerning:0pt'>UTF-16LE character set</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>6</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect(file1)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>UTF-8; parameter <i>fn</i> is file name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>7</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=file(file2)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>8</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect(A7)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  mso-pagination:widow-orphan'><span lang=EN-US style='mso-font-kerning:0pt'>UTF-16LE</span><span
+  lang=EN-US>; parameter <i>fn</i> is file object</span><span lang=EN-US
+  style='mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>9</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect@v(&quot;</span></b><b><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>你好</span><span lang=EN-US>&quot;)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  mso-pagination:widow-orphan'><span lang=EN-US>GB2312</span><span lang=EN-US
+  style='mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>10</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect@av(&quot;</span></b><b><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>你好</span><span lang=EN-US>&quot;)</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span lang=EN-US>Return a
+  list of all eligible character sets</span></p>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+  mso-pagination:widow-orphan'><span lang=EN-US><img border=0 width=126 height=101
+  src="Function_Reference.files/image223.jpg" v:shapes="图片_x0020_113"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>11</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect@v(&quot;</span></b><b><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>你好</span><span lang=EN-US>&quot;,[&quot;Big5&quot;,&quot;CP949&quot;])</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span lang=EN-US>Return the
+  first eligible character set value in the <i>cs</i> list: Big5</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
+  <td width=34 valign=top style='width:25.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>12</span></b></p>
+  </td>
+  <td width=290 valign=top style='width:217.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=chardetect@va(&quot;</span></b><b><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>你好</span><span lang=EN-US>&quot;,[&quot;Big5&quot;,&quot;CP949&quot;])</span></b></p>
+  </td>
+  <td width=450 valign=top style='width:337.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span lang=EN-US>Return all
+  eligible character sets in the <i>cs</i> list</span></p>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span lang=EN-US
+  style='mso-no-proof:yes'><img border=0 width=119 height=43
+  src="Function_Reference.files/image224.png" v:shapes="_x0000_i1168"></span></p>
   </td>
  </tr>
 </table>

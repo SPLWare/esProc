@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <title>4.2.4 esProc JDBC</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -34,7 +34,7 @@ stored procedure is called in the same way as a real stored procedure. </span></
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>An esProc cellset file returns a result set via <b
 style='mso-bidi-font-weight:normal'>return</b> function, like the<i
-style='mso-bidi-font-style:normal'> test.dfx</i> file: </span></p>
+style='mso-bidi-font-style:normal'> test.splx</i> file: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -148,26 +148,26 @@ style='mso-bidi-font-style:normal'><span lang=EN-US>arg1</span></i><span
 lang=EN-US> is a cellset parameter, which should get assigned when <span
 style='mso-bidi-font-style:italic'>the script</span> file is called. The result
 is a table sequence returned via a <i style='mso-bidi-font-style:normal'>return</i>
-statement. Note that some files called by JDBC may need to connect to another data
-source, like </span><span class=T-CodeChar><span lang=EN-US style='font-family:
-"Times New Roman",serif;font-weight:normal'>&quot;demo&quot; in this example,
-which also requires being configured through parameter settings. But the data
-source configuration in esProc JDBC needs to be handled in the configuration
-file </span></span><i style='mso-bidi-font-style:normal'><span lang=EN-US>raqsoftC</span></i><span
-class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>onfig.xml</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>.</span></span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US></span></b></p>
+statement. Note that some files called by JDBC may need to connect to another
+data source, like </span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>&quot;demo&quot;
+in this example, which also requires being configured through parameter
+settings. But the data source configuration in esProc JDBC needs to be handled
+in the configuration file </span></span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>raqsoftC</span></i><span class=T-CodeChar><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>onfig.xml</span></i></span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>.</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
 <p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
 margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l18 level1 lfo35'><span
+text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l20 level1 lfo35'><span
 lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
 style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
 </span></span></span><span lang=EN-US>Method one for configuring data
-sources: Directly set connection parameters for the database datasource in the <i
-style='mso-bidi-font-style:normal'>raqsoftConfig.xml </i>file:</span></p>
+sources: Set connection parameters for the database data source in the <i
+style='mso-bidi-font-style:normal'>raqsoftConfig.xml </i>file directly:</span></p>
 
 <p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -303,7 +303,7 @@ lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
 
 <p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
 margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l18 level1 lfo35'><span
+text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l20 level1 lfo35'><span
 lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
 style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
 </span></span></span><span lang=EN-US>Method two for configuring data
@@ -622,7 +622,10 @@ DriverManager.getConnection(&quot;jdbc:esproc:local://&quot;);</span></i></p>
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
 lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// call the stored
-procedure, in which test is the name of the dfx file</span></i></p>
+procedure, in which test is the name of the </span><span lang=EN-US
+style='mso-bidi-font-style:italic'>splx/spl</span></i><span lang=EN-US>/</span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>dfx file</span></i></p>
 
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -804,8 +807,8 @@ lang=EN-US>In the above code, the connecting string of esProc JDBC is </span><sp
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'>&quot;jdbc:esproc:local://&quot;; in this case, default
 configuration will be used; if ...?config=...</span></span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>;</span></b><span lang=EN-US> is used in the connecting
-string, use the configuration of a specified <i style='mso-bidi-font-style:
+normal'><span lang=EN-US>;</span></b><span lang=EN-US> is used in the
+connecting string, use the configuration of a specified <i style='mso-bidi-font-style:
 normal'>.xml</i> file and ignore the definitions in the <i style='mso-bidi-font-style:
 normal'>raqsoftConfig.xml</i>. For example, </span><span class=T-CodeChar><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
@@ -815,17 +818,19 @@ font-weight:normal'>; should use the configuration in <i style='mso-bidi-font-st
 normal'>myconfig.xml </i>file.</span></span></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="123.html">下一页</a></div>
-		<div id="previous"><a href="121.html">上一页</a></div>		
+		<div id="next"><a href="123.html">Next</a></div>
+		<div id="previous"><a href="121.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
 		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="118.html">4.2 Database Configuration</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

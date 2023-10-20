@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.8 The Sector Element</title>
+<title>12.7.2 Width of columns</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -13,32 +13,99 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l19 level2 lfo50'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>12.8<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>The Sector Element</span></h2></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Used only in polar coordinates, the <b style='mso-bidi-font-weight:
-normal'>sector element</b> is usually for plotting a pie chart. Here its basic
-plotting method and properties will be explained. </span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>12.7.2 Width of columns</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The width of columns in a column chart has a default
+value. No columns will be plotted wider than this value, which is determined by
+the number of columns and the <b style='mso-bidi-font-weight:normal'>Gap ratio</b>
+property of the enumeration axis. The gap ratio is the ratio of <b
+style='mso-bidi-font-weight:normal'>space</b> <b style='mso-bidi-font-weight:
+normal'>width </b>between columns in different categories to the <b
+style='mso-bidi-font-weight:normal'>default column width</b>. The default ratio
+is 1.5, which means the former is 1.5 times wider than the latter. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=226 height=144
+src="Tutorial.files/image1272.png" v:shapes="图片_x0020_1743"><span
+style='mso-spacerun:yes'>&nbsp;</span></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Note: This property of enumeration axis will affect
+the plotting result of the column element that uses this axis. By editing the
+chart parameters to modify the property in A4, you can adjust the width of
+columns. For example, modifying this enumeration axis property in the clustered
+column chart as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=226 height=144
+src="Tutorial.files/image1273.png" v:shapes="图片_x0020_1744"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Set <b style='mso-bidi-font-weight:normal'>Gap ratio</b>
+as 1 to make the space smaller and equal to the column width. The plotting
+result would be this after the modification: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=450 height=200
+src="Tutorial.files/image1274.png" v:shapes="图片_x0020_1746"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The space between different groups of columns has
+become smaller, making the column width comparatively bigger. Actually the
+default column width is collectively decided by the gap ratio on the
+enumeration axis as well as the number of columns and their categories. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Besides the default width, the width of the column is
+affected by appearance properties of the column element as well, such as <b
+style='mso-bidi-font-weight:normal'>Column width</b>. The value of <b
+style='mso-bidi-font-weight:normal'>Column width</b> is the proportion of
+column width to the default width. When the value is 1, column width is equal
+to the default width. The default value is 0.9, meaning the ratio between the
+column width and the default width is 0.9. Seen from the above plotting result,
+columns within the same group in this case still have space between each other.
+If the chart properties are modified as follows: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=226 height=55
+src="Tutorial.files/image1275.png" v:shapes="图片_x0020_1745"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Since the <b style='mso-bidi-font-weight:normal'>Column
+width</b> value becomes smaller, the width of each column becomes smaller, with
+following plotting result produced:</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=450 height=200
+src="Tutorial.files/image1276.png" v:shapes="图片_x0020_1747"></span></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="301.html">下一页</a></div>
-		<div id="previous"><a href="299.html">上一页</a></div>		
+		<div id="next"><a href="301.html">Next</a></div>
+		<div id="previous"><a href="299.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="263.html">Chapter12 Charts</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="301.html">12.8.1 Data properties</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="302.html">12.8.2 Appearance properties</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="303.html">12.8.3 Pie charts with series and categories</a></span></li>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="298.html">12.7 The Column Element</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Multithreading</title>
+<title>Chapter8 Parallel Computing</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -13,47 +13,44 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Multithreading<a
-name=Multithreading></a></span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>This
-section explains how to perform a multithreaded computation using the <i
-style='mso-bidi-font-style:normal'>fork</i> statement. You can choose to skip
-this section if you are not a professional programmer. It won’t affect your
-learning about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.
-</span></p>
+	<div id="centent-title"><h1 style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:21.0pt;
+margin-bottom:.0001pt;line-height:normal;mso-list:l18 level1 lfo1'><span
+lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+"Times New Roman"'><span style='mso-list:Ignore'>Chapter8<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US style='font-family:"Times New Roman",serif'>Parallel
+Computing<a name="Parallel_Computing"></a></span></h1></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Parallel processing can make better use of the system resources and
+thus increase efficiency. It is used to deal with data-intensive or computation-intensive
+analysis. This chapter explains how to perform parallel computing in esProc.<span
+class=Char22></span></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Sequential computation is the simplest and most
-intuitive processing method in handling computational tasks. Contemporary
-servers and PCs, however, have gained the multi-tasking ability with multi-core
-CPUs. Under the circumstances, sequential computation cannot make the most use
-of the computational power the CPU offers. Parallel computation is thus a
-better choice for implementing complex computational tasks and processing big
-data using multiple threads, or even multicomputers. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>We’ll discuss multithreading &#8211; the most basic form of
-parallel computing &#8211; in this chapter. </span></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Parallel computing</span></b><span
+lang=EN-US> solves a computational problem by breaking it apart into discrete
+subtasks and distributing them among multiple servers on which they will be
+implemented concurrently. Each subtask returns its own computational result to
+the master task for summarization. Through the simultaneous use of multiple
+compute resources, parallel computing can effectively enhance the computational
+speed and the data processing ability.</span></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="218.html">下一页</a></div>
-		<div id="previous"><a href="216.html">上一页</a></div>		
+		<div id="next"><a href="218.html">Next</a></div>
+		<div id="previous"><a href="216.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="213.html">Chapter8 Parallel Computing</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="218.html">8.2.1 Multithreaded execution with fork statement</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="219.html">8.2.2 Performance advantage of multithreading</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="220.html">8.2.3 Setting the reasonable number of threads</a></span></li>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="218.html">8.1 The Built-in Parallelism</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="221.html">Multithreading</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="225.html">Multicursor operations</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

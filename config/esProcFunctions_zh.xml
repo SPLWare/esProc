@@ -760,7 +760,7 @@
 <P3 desc="wt(最长等待时间，单位为秒)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="lt(QVM的最长闲置时间，单位为秒)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P4 desc="it(QVM的最长闲置时间，缺省为120，单位为秒；闲置超时自动关闭，设为0表示永久关闭)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
 </params>
@@ -792,45 +792,45 @@
 </P2>
 </params>
 </F42>
-<F43 desc="读取云存储平台上存储桶中的文件" majortype="102" name="Qfile" postfix="" returntype="101">
+<F43 desc="读取云存储平台上存储桶中的文件组" majortype="102" name="Qfile" postfix="" returntype="101">
 <options>
-<O1 defaultselect="false" description="强行将该文件所有缓存块缓存至cachePath目录下，缺省可能只缓存部分缓存块" optionchar="c"/>
+<O1 defaultselect="false" description="强行将该文件所有缓存块缓存至缓存目录下；缺省时根据读取数据所在的块位置，只缓存部分缓存块" optionchar="c"/>
 </options>
 <params>
-<P1 desc="fd(云存储平台中的文件)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="fd(云存储平台中的文件，书写格式为“存储桶bucketName/文件名objectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(fd为文件组时，z为分表号或分表号组成的序列，否则忽略参数z)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(fd为文件组时需要设置此参数，z为分表号或分表号组成的序列)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 </params>
 </F43>
 <F44 desc="读取云存储平台上存储桶中的文件" majortype="102" name="Qfile" postfix="" returntype="101">
 <options>
-<O1 defaultselect="false" description="强行将该文件所有缓存块缓存至cachePath目录下，缺省可能只缓存部分缓存块" optionchar="c"/>
+<O1 defaultselect="false" description="强行将该文件所有缓存块缓存至缓存目录下；缺省时根据读取数据所在的块位置，只缓存部分缓存块" optionchar="c"/>
 </options>
 <params>
-<P1 desc="fd(云存储平台中的文件)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="fd(云存储平台中的文件，书写格式为“存储桶bucketName/文件名objectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="cs(字符集，支持的字符集是jvm自带的字符集。缺省则为操作系统默认值。)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="cs(字符集，支持jvm自带的字符集；缺省则为操作系统默认值。)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 </params>
 </F44>
-<F45 desc="向云存储平台上传或下载文件" majortype="102" name="Qload" postfix="" returntype="101">
+<F45 desc="向云存储平台上传或下载文件（组）" majortype="102" name="Qload" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="lfn(本地文件，书写格式为“存储桶bucket/文件名objectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="lfn(本地文件，书写格式为“存储桶bucket/文件名objectName”；省略时表示下载)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(参数lfn 为文件组时，z为分表号或分表号组成的序列，否则忽略参数z )" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(参数lfn/rfn 为文件组时需要设置此参数，z为分表号或分表号组成的序列 )" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="rfn(存储桶中的文件，书写格式同上)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="rfn(存储桶中的文件，书写格式同上；省略时表示上传)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="z(参数rfn 为文件组时，z为分表号或分表号组成的序列，否则忽略参数z )" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P4 desc="z(参数lfn/rfn 为文件组时需要设置此参数，z为分表号或分表号组成的序列)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
 </params>
@@ -843,18 +843,18 @@
 <P1 desc="n(锁名)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="s(加锁超时时间，单位秒 )" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="s(加锁超时时间，单位为秒 )" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 </params>
 </F46>
-<F47 desc="删除/重命名云存储平台上的文件" majortype="102" name="Qmove" postfix="" returntype="101">
+<F47 desc="删除/重命名云存储平台上的文件（组）" majortype="102" name="Qmove" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="fn(存储桶中的文件，书写格式为【bucketName/objectName】)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="fn(存储桶中的文件，书写格式为“存储桶bucketName/文件名objectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(分表号，可省略)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(fn为文件组时需要设置此参数，z为分表号或分表号组成的序列)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="path(参数fn的新名称，其书写格式同fn。path中省略bucketName时，使用参数fn中的bucketName值。)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -1097,13 +1097,14 @@
 </P1>
 </params>
 </F63>
-<F64 desc="将游标中的记录追加写入实表中" majortype="101" name="append" postfix="T." returntype="101">
+<F64 desc="将游标/序表中的记录追加写入实表中" majortype="101" name="append" postfix="T." returntype="101">
 <options>
 <O1 defaultselect="false" description="立即写出，缺省积累足够数据后再写出，程序退出/有读取时将立即写出" optionchar="i"/>
 <O2 defaultselect="false" description="单路cs时可能对应T的多个分表，每次计算分表表达式" optionchar="x"/>
+<O3 defaultselect="false" description="归并追加写出，缺省追加到最后一条记录后面；暂不支持有附表的情况。使用该选项时，组表文件没有在其他地方打开" optionchar="m"/>
 </options>
 <params>
-<P1 desc="cs (游标)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="cs (游标/序表)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 </params>
@@ -1914,7 +1915,7 @@
 <options>
 <O1 defaultselect="false" description="不压缩，缺省将压缩" optionchar="u"/>
 <O2 defaultselect="false" description="生成行存文件，缺省用列存，行存模式的组表不支持使用多路游标" optionchar="r"/>
-<O3 defaultselect="false" description="文件已存在时强制重新创建，缺省中断计算并弹出错误信息" optionchar="y"/>
+<O3 defaultselect="false" description="文件已存在时强制重新创建，缺省中断计算" optionchar="y"/>
 <O4 defaultselect="false" description="按第一个字段分段" optionchar="p"/>
 <O5 defaultselect="false" description="列存方式下，数据维护时对比列是否纯，并保存数据类型" optionchar="v"/>
 <O6 defaultselect="false" description="维构成键，且最后一个键是时间键，此时不能再有附表；支持复组表" optionchar="t"/>
@@ -1945,14 +1946,21 @@
 <params/>
 </F159>
 <F160 desc="用已存在的组表的数据结构创建新的组表文件" majortype="101" name="create" postfix="T." returntype="101">
-<options/>
+<options>
+<O1 defaultselect="false" description="不压缩，缺省将压缩。" optionchar="u"/>
+<O2 defaultselect="false" description="生成行存文件，缺省用列存，行存模式的组表不支持使用多路游标。行存文件不压缩。" optionchar="r"/>
+<O3 defaultselect="false" description="文件已存在时强制重新创建，缺省中断计算。" optionchar="y"/>
+</options>
 <params>
 <P1 desc="f(组表文件或文件组)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="x(整数，分表表达式)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P2 desc="b(区块大小，单位为字节，缺省使用选项中设置的【组表区块大小】的值；第三方应用程序中集成使用时，缺省为raqsoftConfig.xml文件中配置的blockSize的值。)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
+<P3 desc="x(整数，分表表达式)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P3>
 </params>
 </F160>
 <F161 desc="循环函数中迭代运算，对有相同字段值的的成员进行累积运算" majortype="102" name="cum" postfix="" returntype="101">
@@ -2053,21 +2061,22 @@
 <O3 defaultselect="false" description="游标取完则自动关闭T" optionchar="x"/>
 <O4 defaultselect="false" description="T为复组表时不做归并，直接按顺序取，所有分表统一分段" optionchar="o"/>
 <O5 defaultselect="false" description="用于复组表。 按更新机制归并，分表间存在相同键值时，忽略分表号较小的分表中的记录。分段要以第1分表为准，后面有些分表可能非常小可先全读。 处理删除标记，有删除标记的记录不返回到游标中，删除标记记录的键值在复组表中是唯一时，该条记录也会被保留。 使用该选项时，强制读出键字段，如果表中有删除标识列，则也会被强制读出。 " optionchar="w"/>
+<O6 defaultselect="false" description="逆序取，此时不支持分段" optionchar="z"/>
 </options>
 <params>
-<P1 desc="x (表达式)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<P1 desc="x (表达式，缺省将T中所有字段返回到游标中)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="C (列别名,可省略)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的字段： 1．K=w w为表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Kn=wn,w) wi为表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表，wi为null或false时将被过滤掉；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含K1,...Ki时，K1,...Ki将被赋值为T1,...Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。w为返回结果为Boolean值的表达式，多个Ki=wi与w间皆为AND关系。w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 5．K:Ti:# 用序号定位，根据实表中K的值去对比序表Ti的记录序号，对应不上的记录将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<P3 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的字段： 1．K=w w通常使用表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Ki=wi,w) Ki=wi为赋值表达式，参数wi通常可以使用表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ti的指引字段; 当wi为表达式Ti.pfind(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ki在Ti 中的序号。 w为过滤表达式，w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 5．K:Ti:# 用序号定位，根据实表中K的值去对比序表Ti的记录序号，对应不上的记录将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。   )" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
 <P4 desc="k (正整数，第k段，k小于等于n)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
-<P5 desc="n (正整数，分段数)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P5 desc="n (正整数，分段数。k:n省略返回所有记录)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P5>
 </params>
@@ -2100,7 +2109,7 @@
 <P2 desc="C (列别名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的字段： 1．K=w w为表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Kn=wn,w) wi为表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表，wi为null或false时将被过滤掉；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含K1,...Ki时，K1,...Ki将被赋值为T1,...Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。w为返回结果为Boolean值的表达式，多个Ki=wi与w间皆为AND关系。w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 5．K:Ti:# 用序号定位，根据实表中K的值去对比序表Ti的记录序号，对应不上的记录将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<P3 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的字段： 1．K=w w通常使用表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Ki=wi,w) Ki=wi为赋值表达式，参数wi通常可以使用表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ti的指引字段; 当wi为表达式Ti.pfind(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ki在Ti 中的序号。 w为过滤表达式，w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 5．K:Ti:# 用序号定位，根据实表中K的值去对比序表Ti的记录序号，对应不上的记录将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
 <P4 desc="mcs (附表/集群表的多路游标)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
@@ -2487,7 +2496,8 @@
 <O2 defaultselect="false" description="时间精确到季度" optionchar="q"/>
 <O3 defaultselect="false" description="时间精确到月" optionchar="m"/>
 <O4 defaultselect="false" description="时间精确到旬" optionchar="t"/>
-<O5 defaultselect="false" description="时间精确到周，缺省为时间精确到日 " optionchar="w"/>
+<O5 defaultselect="false" description="时间精确到周，将周日作为每周的第一天 " optionchar="w"/>
+<O6 defaultselect="false" description="与@w组合使用，将周一作为每周的第一天。注意是数字1" optionchar="1"/>
 </options>
 <params>
 <P1 desc="datetimeExp1 (日期或标准日期格式的字符串，  如：yyyy-MM-dd HH:mm:ss、yyyy-MM-dd 或 HH:mm:ss )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -2504,6 +2514,7 @@
 <O2 defaultselect="false" description="有xi且计算结果为空时不生成该行记录（原记录字段不受控制）" optionchar="i"/>
 <O3 defaultselect="false" description="f(...;n)    抄原字段时，将字段取值为记录的字段展开，n为层数，缺省为2" optionchar="x"/>
 <O4 defaultselect="false" description="A是纯序表时，增加的列加到原序表上，不产生新的cur" optionchar="o"/>
+<O5 defaultselect="false" description="逆向计算，仅适用于非纯序列。" optionchar="z"/>
 </options>
 <params>
 <P1 desc="xi      (表达式，计算结果作为字段值)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -2956,7 +2967,7 @@
 </F235>
 <F236 desc="通过QVS执行脚本文件" majortype="101" name="exec" postfix="qvm" returntype="101">
 <options>
-<O1 defaultselect="false" description="返回后自动关闭qvm，无论成功失败" optionchar="x"/>
+<O1 defaultselect="false" description="返回执行结果后自动关闭qvm，无论成功失败" optionchar="x"/>
 </options>
 <params>
 <P1 desc="splx(SPL脚本文件)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -2965,7 +2976,7 @@
 <P2 desc="...(splx的参数,多个参数间用逗号分割)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="t(超时时间，单位为秒)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P3 desc="t(超时时间，缺省为120，单位为秒)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -3366,13 +3377,13 @@
 </P2>
 </params>
 </F267>
-<F268 desc="针对序表做外键关联及过滤计算" majortype="101" name="fjoin" postfix="A." returntype="101">
+<F268 desc="针对序表/排列做外键关联及过滤计算" majortype="101" name="fjoin" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="w为null或false时删除当前行" optionchar="i"/>
 <O2 defaultselect="false" description="并行计算" optionchar="m"/>
 </options>
 <params>
-<P1 desc="w(计算表达式，w除支持常规表达式写法以外，还支持以下两种用法： 1，K=w，赋值形式，K是A中的字段，w中可使用集算器函数 2，(Ki=wi,…,w)，组合使用Ki=wi，w中可引用Ki )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="w(计算表达式，w除支持常规表达式写法以外，还支持以下两种用法： 1，K=w，赋值形式，K是P中的字段，w中可使用集算器函数 2，(Ki=wi,…,w)，组合使用Ki=wi，w中可引用Ki )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="T(w的别名，可省略)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -4481,9 +4492,9 @@
 </options>
 <params/>
 </F343>
-<F344 desc="通过索引与条件来过滤实表/复组表" majortype="101" name="icursor" postfix="T." returntype="101">
+<F344 desc="通过索引文件查询实表数据" majortype="101" name="icursor" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="确保返回结果集对I有序且可支持大结果集，支持基于文件组的T" optionchar="s"/>
+<O1 defaultselect="false" description="返回结果集对索引字段有序，支持大结果集" optionchar="s"/>
 <O2 defaultselect="false" description="从左到右处理多&amp;&amp;条件，缺省会根据条件优化过滤次序" optionchar="u"/>
 </options>
 <params>
@@ -4493,7 +4504,7 @@
 <P2 desc="w (过滤条件，过滤条件中用到的T表字段必须跟索引中的索引字段一致)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="I (索引名称，可省略)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="f (索引文件对象，多个f时程序会自动使用合适的索引文件)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -4868,6 +4879,7 @@
 <O13 defaultselect="false" description="解析时处理括号和引号匹配，括号内分隔符不算，包括@q功能，同时引号外转义也处理" optionchar="p"/>
 <O14 defaultselect="false" description="允许续行，行尾是转义字符\" optionchar="l"/>
 <O15 defaultselect="false" description="不做任何解析，简单用分隔符拆成串" optionchar="f"/>
+<O16 defaultselect="false" description="先读成串再解析，避免某些字符集的错误，使用该选项速度会慢" optionchar="r"/>
 </options>
 <params>
 <P1 desc="Fi (读出的字段，缺省读出所有)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -4903,6 +4915,7 @@
 <O15 defaultselect="false" description="解析时处理括号和引号匹配，括号内分隔符不算，包括@q功能，同时引号外转义也处理" optionchar="p"/>
 <O16 defaultselect="false" description="不做任何解析，简单用分隔符拆成串" optionchar="f"/>
 <O17 defaultselect="false" description="允许续行，行尾是转义字符\" optionchar="l"/>
+<O18 defaultselect="false" description="先读成串再解析，避免某些字符集的错误，使用该选项速度会慢" optionchar="r"/>
 </options>
 <params>
 <P1 desc="Fi  (读出的字段，缺省读出所有，用#时表示用序号定位)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -4925,24 +4938,21 @@
 </P6>
 </params>
 </F374>
-<F375 desc="根据实表返回序表，相当于T.cursor(...).fetch()" majortype="101" name="import" postfix="T." returntype="101">
+<F375 desc="根据实表返回序表" majortype="101" name="import" postfix="T." returntype="101">
 <options>
 <O1 defaultselect="false" description="生成纯序表列式" optionchar="v"/>
 <O2 defaultselect="false" description="完成后自动关闭T" optionchar="x"/>
 </options>
 <params>
-<P1 desc="T(实表)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="x(表达式)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="x(表达式)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P2 desc="C(列名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="C(列名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P3 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的字段： 1．K=w w通常使用表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Ki=wi,w) Ki=wi为赋值表达式，参数wi通常可以使用表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ti的指引字段; 当wi为表达式Ti.pfind(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ki在Ti 中的序号。 w为过滤表达式，w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 5．K:Ti:# 用序号定位，根据实表中K的值去对比序表Ti的记录序号，对应不上的记录将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 )" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
-<options/>
-</P4>
 </params>
 </F375>
 <F376 desc="从虚表中取出序表" majortype="101" name="import" postfix="T." returntype="101">
@@ -5005,18 +5015,18 @@
 </P1>
 </params>
 </F380>
-<F381 desc="为实表/复组表创建检索文件" majortype="101" name="index" postfix="T." returntype="101">
+<F381 desc="为实表创建索引文件" majortype="101" name="index" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="只有参数I时，主动加载索引的第二层并保持" optionchar="2"/>
-<O2 defaultselect="false" description="只有参数I时，主动加载索引的第三层并保持" optionchar="3"/>
-<O3 defaultselect="false" description="只有参数I时，释放" optionchar="0"/>
+<O1 defaultselect="false" description="只有参数f时可使用，用于加载索引文件至内存，可以提高查询性能" optionchar="2"/>
+<O2 defaultselect="false" description="只有参数f时可使用，用于加载索引文件至内存，相对于@2性能更高但占用内存也更多" optionchar="3"/>
+<O3 defaultselect="false" description="只有参数f时，释放索引文件占用的内存" optionchar="0"/>
 <O4 defaultselect="false" description="按列C建立全文检索，可支持like(“*X*”)式检索" optionchar="w"/>
 </options>
 <params>
-<P1 desc="I (索引名称)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="f(索引文件对象)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="h (索引长度)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="h (hash索引长度，可省略)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="w (筛选条件，可省略，缺省读取全集)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -5400,16 +5410,16 @@
 </P3>
 </params>
 </F409>
-<F410 desc="序表与排列外键式连接" majortype="101" name="join" postfix="A." returntype="101">
+<F410 desc="序表与排列外键式连接" majortype="101" name="join" postfix="P." returntype="101">
 <options>
-<O1 defaultselect="false" description="匹配不上的外键删除整条记录，缺省将填成null。当参数x:F省略时，只做针对A的过滤操作。" optionchar="i"/>
-<O2 defaultselect="false" description="匹配不上的外键删除整条记录，缺省将填成null。当参数x:F省略时，只做针对A的过滤操作。 原记录整个作为字段F生成新记录，x可以是~ " optionchar="o(F;…)"/>
-<O3 defaultselect="false" description="当参数x:F省略时，删除匹配上外键的整条记录，只做针对A的过滤操作。" optionchar="d"/>
+<O1 defaultselect="false" description="匹配不上的外键删除整条记录，缺省将填成null。当参数x:F省略时，只做针对P的过滤操作。" optionchar="i"/>
+<O2 defaultselect="false" description="原记录整个作为字段F生成新记录，此时相当于x为~" optionchar="o(F;…)"/>
+<O3 defaultselect="false" description="当参数x:F省略时，删除匹配上外键的整条记录，只做针对P的过滤操作。" optionchar="d"/>
 <O4 defaultselect="false" description="当x是~时，在结果序表中记录F和C:…对应关系用于识别预关联外键" optionchar="k"/>
-<O5 defaultselect="false" description="A对C有序，T对K有序，此时可用归并方式计算" optionchar="m"/>
+<O5 defaultselect="false" description="P对C有序，T对K有序，此时可用归并方式计算" optionchar="m"/>
 </options>
 <params>
-<P1 desc="C (A的外键，多个时以冒号隔开)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<P1 desc="C (P的外键，多个时以冒号隔开)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="T (序表/排列)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -5904,13 +5914,13 @@
 </P1>
 </params>
 </F438>
-<F439 desc="获得源字符串左边的子串。" majortype="102" name="left" postfix="" returntype="101">
+<F439 desc="获取源字符串左边的子串。" majortype="102" name="left" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="string (获得子串的源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s (源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="n          (获得子串的长度)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n (s中的第n位，n的绝对值大于s串的长度时，返回空串。)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 </params>
@@ -6003,10 +6013,10 @@
 <P2 desc="z(参数l为文件组时，z为分表号或分表号组成的序列，否则忽略z)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="r(用于下载的Qvm主目录下的文件（组）)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="r(用于下载的QVM主目录下的文件（组）)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="r(参数r为文件组时，z为分表号或分表号组成的序列，否则忽略z)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P4 desc="r(参数r为文件组时，z为分表号或分表号组成的序列)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
 </params>
@@ -6297,16 +6307,16 @@
 </P1>
 </params>
 </F476>
-<F477 desc="返回字符串的子串。" majortype="102" name="mid" postfix="" returntype="101">
+<F477 desc="获取字符串中的子串。" majortype="102" name="mid" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="s          (待获得子串的源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s    (源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="start    (获得子串的起始位置)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n   (子串的起始位置。n小于0时，从s的最后1位往前数，超出部分用空格补位，将倒数第abs(n)位作为起始位置)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="len       (获得子串的长度，缺省为起始位置到源串串尾的长度) " filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="l     (子串的长度，缺省为起始位置到源串串尾的长度) " filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -6541,7 +6551,6 @@
 <O1 defaultselect="false" description="目标文件已存在时强行操作，缺省将失败，path为空时强行删除" optionchar="y"/>
 <O2 defaultselect="false" description="复制文件，目标文件重名时复制失败" optionchar="c"/>
 <O3 defaultselect="false" description="path是相对路径时是相对于主目录的，缺省是相对fn的父目录" optionchar="p"/>
-<O4 defaultselect="false" description="当fn为文件组时，自动处理其索引" optionchar="a"/>
 </options>
 <params>
 <P1 desc="fn  (文件名称)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -6664,6 +6673,7 @@
 <O1 defaultselect="false" description="数据量大的复杂运算中并行计算提升性能，计算次序不确定。" optionchar="m"/>
 <O2 defaultselect="false" description="有xi并且计算结果为空时不生成该行记录。" optionchar="i"/>
 <O3 defaultselect="false" description="A是纯序表时，未改变的旧列直接引用，不再新产生，对结果序表进行更新操作时，会同时更新A的内容" optionchar="o"/>
+<O4 defaultselect="false" description="逆向计算，仅适用于非纯序列" optionchar="z"/>
 </options>
 <params>
 <P1 desc="xi    (表达式，结果为字段值，省略则为null，省略xi时，不能省略: Fi。用#时表示用序号定位)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -6700,24 +6710,24 @@
 </P2>
 </params>
 </F508>
-<F509 desc="根据组表的键值与序表字段对应，取出组表字段，结果返回序表/游标" majortype="101" name="new" postfix="T." returntype="101">
+<F509 desc="根据组表的键（/维）与序表/游标的字段对应，返回由指定字段组成的序表/游标" majortype="101" name="new" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="复制主表记录，返回结果集按A/cs对齐" optionchar="r"/>
+<O1 defaultselect="false" description="复制主表记录，返回结果集向A/cs对齐" optionchar="r"/>
 </options>
 <params>
 <P1 desc="A/cs (序表/游标)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="K (字段名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="K (A/cs的字段，有K时用K与T的键（/维）对应，K缺省用A/cs前面字段。多个K时用 : 隔开)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="x (字段名/聚合函数，支持count/sum/max/min/avg)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="C (列别名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P4 desc="C (列别名，可省略)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
-<P5 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的非键字段： 1．K=w w为表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Kn=wn,w) wi为表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表，wi为null或false时将被过滤掉；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含K1,...Ki时，K1,...Ki将被赋值为T1,...Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。w为返回结果为Boolean值的表达式，多个Ki=wi与w间皆为AND关系。w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P5 desc="wi(T的过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的非键字段： 1．K=w w通常使用表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Ki=wi,w) Ki=wi为赋值表达式，参数wi通常可以使用表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含Ki时，.Ki将被赋值为Ti的指引字段; 当wi为表达式Ti.pfind(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ki在Ti 中的序号。 w为过滤表达式， w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。 )" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
 </params>
@@ -6785,15 +6795,15 @@
 </P3>
 </params>
 </F513>
-<F514 desc="根据序表/游标键值取出组表中的指定字段值合并生成新的序表/游标。" majortype="101" name="news" postfix="T." returntype="101">
+<F514 desc="根据序表/游标的键与组表的字段对应，返回由指定字段组成的序表/游标" majortype="101" name="news" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="复制主表记录，返回结果集按A/cs对齐，此时可聚合" optionchar="r"/>
+<O1 defaultselect="false" description="聚合子表数据，返回结果集向A/cs对齐" optionchar="r"/>
 </options>
 <params>
 <P1 desc="A/cs (序表/游标/组表游标)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="K(字段名，A/cs后有K…参数时，则用这些字段来对应)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="K(A/cs的字段，有K时用K与T前面字段对应，K缺省用A/cs的键(/维)。多个K时用 : 隔开)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="x(字段名/聚合函数，支持count/sum/max/min/avg)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -6802,7 +6812,7 @@
 <P4 desc="C(列别名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
-<P5 desc="wi(过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的非键字段： 1．K=w w为表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Kn=wn,w) wi为表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表，wi为null或false时将被过滤掉；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含K1,...Ki时，K1,...Ki将被赋值为T1,...Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。w为返回结果为Boolean值的表达式，多个Ki=wi与w间皆为AND关系。w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉。)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P5 desc="wi(T的过滤条件，缺省读取全集，多个条件之间用逗号隔开，为AND关系。除常规的过滤表达式外，过滤条件中还支持如下几种写法，其中K表示实表T中的非键字段： 1．K=w w通常使用表达式Ti.find(K)或Ti.pfind(K)，Ti为序表，w为null或false时将被过滤掉；当w为表达式Ti.find(K)且被选出字段C,...中包含K时，K将被赋值为Ti的指引字段; 当w为表达式Ti.pfind(K)且被选出字段C,...中包含K时，K将被赋值为K在Ti 中的序号。 2．(K1=w1,…Ki=wi,w) Ki=wi为赋值表达式，参数wi通常可以使用表达式Ti.find(Ki)或Ti.pfind(K)，Ti为序表；当wi为表达式Ti.find(Ki)且被选出字段C,...中包含Ki时。Ki将被赋值为Ti的指引字段; 当wi为表达式Ti.pfind(Ki)且被选出字段C,...中包含Ki时，Ki将被赋值为Ki在Ti 中的序号。 w为过滤表达式， w中可引用Ki。 3．K:Ti Ti为序表，用实表中Ki的值与Ti的键值作对比，匹配不上的将被过滤掉；当选出字段C,...中包含K时，K将被赋值为Ti的指引字段。 4．K:Ti:null 符合K:Ti的记录将被过滤掉)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
 </params>
@@ -7122,15 +7132,14 @@
 </P2>
 </params>
 </F543>
-<F544 desc="获得指定日期所在星期/月/季度的最早的一天和最后的一天。" majortype="102" name="pdate" postfix="" returntype="101">
+<F544 desc="获取指定日期所在年/季度/月/周的最早的一天或最后的一天。" majortype="102" name="pdate" postfix="" returntype="101">
 <options>
-<O1 defaultselect="true" description="获得指定日期所在星期的星期天" optionchar="w"/>
-<O2 defaultselect="false" description="获得指定日期所在星期的星期六" optionchar="we"/>
-<O3 defaultselect="false" description="取得指定日期所在月的月首" optionchar="m"/>
-<O4 defaultselect="false" description="取得指定日期所在月的月末" optionchar="me"/>
-<O5 defaultselect="false" description="取得指定日期所在季度的首日" optionchar="q"/>
-<O6 defaultselect="false" description="取得指定日期所在季度的末日" optionchar="qe"/>
-<O7 defaultselect="false" description="获取指定日期所在年的第一天" optionchar="y"/>
+<O1 defaultselect="true" description="获取dateExp所在周的第一天，认为周日为每周的第一天。该选项为函数缺省选项" optionchar="w"/>
+<O2 defaultselect="false" description="获取dateExp所在月的第一天" optionchar="m"/>
+<O3 defaultselect="false" description="获取dateExp所在季度的第一天" optionchar="q"/>
+<O4 defaultselect="false" description="获取dateExp所在年的第一天" optionchar="y"/>
+<O5 defaultselect="false" description="与@w选项组合使用，将周一作为每周的第一天。注意是数字1" optionchar="1"/>
+<O6 defaultselect="false" description="获取最后一天，与其他选项组合使用" optionchar="e"/>
 </options>
 <params>
 <P1 desc="dateExp    (返回值为日期或标准日期格式的表达式)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -7216,16 +7225,16 @@
 </P1>
 </params>
 </F550>
-<F551 desc="将序列进行行转列操作" majortype="101" name="pivot" postfix="A." returntype="101">
+<F551 desc="将序表/排列进行行列转换操作" majortype="101" name="pivot" postfix="A." returntype="101">
 <options>
-<O1 defaultselect="false" description="序列进行列转行操作。 其中Ni为字段名，转换后作为字段F的值，有参数N'i时，N'i将代替Ni作为F的字段值；原Ni字段的值作为新列V的列数据。 Ni缺省值为A中除g,…以外的所有字段名称 " optionchar="r"/>
-<O2 defaultselect="false" description="@s(g:G,…;F,f(V);Ni:N'i,…)，f可以为聚合函数：sum/count/max/min/avg；可以且仅可以有一个Ni省略，此时缺省表示聚合其它未进行聚合的F" optionchar="s"/>
+<O1 defaultselect="false" description="将序表/排列进行列转行操作。 其中Ni为字段名，转换后作为字段F的值，有参数N'i时，N'i将代替Ni作为F的字段值；原Ni字段的值作为新列V的列数据。 Ni缺省值为A中除g,…以外的所有字段名称         " optionchar="r"/>
+<O2 optionchar="s"/>
 </options>
 <params>
 <P1 desc="g (分组字段/表达式)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="G(结果集中的字段名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="G(结果集中的字段名，缺省为g)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="F (A中的字段名称)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
@@ -7234,30 +7243,30 @@
 <P4 desc="V (A中的字段名称)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
-<P5 desc="Ni (F的字段值)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P5 desc="Ni (F的字段值，可省略，缺省为F中所有不重复字段值)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
-<P6 desc="N`i(新字段名)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P6 desc="N`i(新列字段名，缺省为Ni)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P6>
 </params>
 </F551>
-<F552 desc="通过关联键连接多个序列" majortype="101" name="pjoin" postfix="A." returntype="101">
+<F552 desc="通过关联键连接多个序表/排列" majortype="101" name="pjoin" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="有序，用归并" optionchar="o"/>
 <O2 defaultselect="false" description="full join，忽略后面的z参数" optionchar="f"/>
 </options>
 <params>
-<P1 desc="K(A中的关联键)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<P1 desc="K(P中的关联键)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="x(A的计算表达式)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<P2 desc="x(P的计算表达式)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P2>
 <P3 desc="F(表达式x的字段名称)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P3>
-<P4 desc="Ai(序列)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P4 desc="Ai(序表/排列)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
 <P5 desc="z(连接方式)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -7424,11 +7433,11 @@
 </P2>
 </params>
 </F560>
-<F561 desc="获取序列中成员在另一个序列中的位置" majortype="101" name="pos" postfix="A." returntype="101">
+<F561 desc="获取序列成员在另一个序列中的位置" majortype="101" name="pos" postfix="A." returntype="101">
 <options>
-<O1 defaultselect="false" description="返回单递增数列p使A(p)==x" optionchar="i"/>
-<O2 defaultselect="false" description="表示默认A为有序序列，使用二分法查找，递增或者递减均可" optionchar="b"/>
-<O3 defaultselect="false" description="返回序列x在A中第一次出现的位置。以便求序列A中子序列x出现的位置，若x不是A的子序列则返回空。" optionchar="c"/>
+<O1 defaultselect="false" description="获取单递增数列" optionchar="i"/>
+<O2 defaultselect="false" description="获取序列A中连续子序列x第一次出现的位置" optionchar="b"/>
+<O3 defaultselect="false" description="默认A为有序序列，使用二分法查找，递增或者递减均可" optionchar="c"/>
 </options>
 <params>
 <P1 desc="x     (序列)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -8535,7 +8544,7 @@
 <F649 desc="对序表/(复)实表中的字段重命名" majortype="101" name="rename" postfix="T." returntype="101">
 <options/>
 <params>
-<P1 desc="F (字段名)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<P1 desc="F (字段名，F在T中不存在时忽略)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
 </params>
@@ -8675,6 +8684,9 @@
 <P3 desc="x(分表表达式)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
+<P4 desc="cs(游标/序表)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<options/>
+</P4>
 </params>
 </F660>
 <F661 desc="清空序表成员。" majortype="101" name="reset" postfix="T." returntype="101">
@@ -8722,13 +8734,13 @@
 </P5>
 </params>
 </F664>
-<F665 desc="获得字符串右边的子串。" majortype="102" name="right" postfix="" returntype="101">
+<F665 desc="获取源字符串右边的子串。" majortype="102" name="right" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="s     (待获得子串的源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s     (源串)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="n     (获得子串的长度)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n     (s中的倒数第n位，n的绝对值大于s串的长度时，返回空串)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 </params>
@@ -8794,6 +8806,7 @@
 <F673 desc="针对序列/排列中每个成员计算表达式，返回原序列。" majortype="101" name="run" postfix="A." returntype="101">
 <options>
 <O1 defaultselect="false" description="数据量大的复杂运算中并行计算提升性能，计算次序不确定。" optionchar="m"/>
+<O2 defaultselect="false" description="逆向计算，仅适用于非纯序列" optionchar="z"/>
 </options>
 <params>
 <P1 desc="xi (计算表达式，一般为字段名，或者由字段名组成的合法表达式，&quot;~&quot;表示当前记录 ) " filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -9603,15 +9616,16 @@
 </P2>
 </params>
 </F743>
-<F744 desc="将字符串通过分隔符拆成序列" majortype="101" name="split" postfix="s." returntype="101">
+<F744 desc="通过分隔符将字符串拆成序列" majortype="101" name="split" postfix="s." returntype="101">
 <options>
-<O1 defaultselect="false" description="此项为@s子选项，找到第一个d即停止，即拆成两段" optionchar="1"/>
+<O1 defaultselect="false" description="在第一个d的位置将s拆成两段" optionchar="1"/>
 <O2 defaultselect="false" description="拆串后通过将成员解析成对应的数据类型，并将[]解释为序列并处理子序列，处理括号匹配" optionchar="p"/>
 <O3 defaultselect="false" description="此项为@s子选项，不处理引号匹配和括号匹配，处理数据类型" optionchar="b"/>
 <O4 defaultselect="false" description="完成后再做一下两边trim，d==&quot;&quot;时按连续的空白符拆分" optionchar="t"/>
 <O5 defaultselect="false" description="用逗号拆分" optionchar="c"/>
 <O6 defaultselect="false" description="d解释为正则表达式" optionchar="r"/>
 <O7 defaultselect="false" description="使用回车符\n拆分字符串，若有其它选项，将拆分后的字符串继续按照选项拆分，返回序列的序列" optionchar="n"/>
+<O8 defaultselect="false" description="在最后一个d的位置将s拆成两段" optionchar="z"/>
 </options>
 <params>
 <P1 desc="d  (分隔符，支持多字符，省略时把s拆成单字符)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -9758,7 +9772,8 @@
 </F754>
 <F755 desc="获取组表的结构信息" majortype="101" name="structure" postfix="f." returntype="101">
 <options>
-<O1 defaultselect="false" description="包括索引信息，缺省不包括" optionchar="i"/>
+<O1 defaultselect="false" description="f是索引文件" optionchar="i"/>
+<O2 defaultselect="false" description="f是预汇总文件" optionchar="c"/>
 </options>
 <params/>
 </F755>
@@ -9820,17 +9835,17 @@
 </P2>
 </params>
 </F760>
-<F761 desc="编码字段的键值和指引记录之间切换" majortype="101" name="switch" postfix="A." returntype="101">
+<F761 desc="编码字段的键值和指引记录之间切换" majortype="101" name="switch" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="过程中找不到任何F对应值则删除该记录" optionchar="i"/>
 <O2 defaultselect="false" description="与@i相反，只保留找不到的记录，此时不把F填成null" optionchar="d"/>
-<O3 defaultselect="false" description="A中某条记录的F值在B中找不到，则生成一条B结构的记录，主键值设为F" optionchar="1"/>
+<O3 defaultselect="false" description="P中某条记录的F值在B中找不到，则生成一条B结构的记录，主键值设为F" optionchar="1"/>
 </options>
 <params>
 <P1 desc="Fi           (A的键，当只有Fi参数时，Fi存的是码表Ai的记录。通过switch函数切换成码值。如果Fi, Ai:x 重复出现，那么用分号隔开，例如Fi, Ai:x;…)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="Ai           (当存在参数Ai时，Fi为A的编码字段，存的是码值。通过switch函数切换成Ai的记录。 匹配条件为Fi和Ai的主键值相等 找不到填为null。)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="Ai           (当存在参数Ai时，Fi为P的编码字段，存的是码值。通过switch函数切换成Ai的记录。 匹配条件为Fi和Ai的主键值相等 找不到填为null。)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 <P3 desc="x            (当存在参数Ai和主键x时，表示从Ai中选出第一条x值和Fi相同的记录，放到字段Fi中，特别地，x为#时直接用序号定位。)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -10932,5 +10947,74 @@
 </P3>
 </params>
 </F851>
+<F852 desc="打开组表上的附表" majortype="101" name="attach" postfix="T." returntype="101">
+<options/>
+<params>
+<P1/>
+</params>
+</F852>
+<F853 desc="利用组表/复组表的预汇总文件计算分组汇总" majortype="101" name="cgroups" postfix="T." returntype="101">
+<options>
+<O1 defaultselect="false" description="@m(…;n)，并行计算，参数n为并行数，缺省使用设计器中设置的【最大并行数】；第三方应用程序中集成使用时，缺省路数为raqsoftConfig.xml文件中配置的parallelNum的值。" optionchar="m"/>
+</options>
+<params>
+<P1 desc="Fi(分组字段)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="y(聚合表达式)" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
+<options/>
+</P2>
+<P3 desc="Gi(汇总字段名从)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<options/>
+</P3>
+<P4 desc="w(过滤条件，不能省略)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P4>
+<P5 desc="f(T的预汇总文件,多个f时在f,…中自动寻找合适的预汇总文件。)" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
+<options/>
+</P5>
+</params>
+</F853>
+<F854 desc="为组表/复组表生成预汇总文件" majortype="101" name="cuboid" postfix="T." returntype="101">
+<options/>
+<params>
+<P1 desc="f(预汇总文件对象)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="Fi(分组字段)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<options/>
+</P2>
+<P3 desc="y(聚合表达式，聚合函数仅支持sum/count/avg/max/min/top)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P3>
+</params>
+</F854>
+<F855 desc="将集文件/集文件序列排序后生成新的集文件" majortype="101" name="sortx" postfix="f." returntype="101">
+<options>
+<O1 defaultselect="false" description="降序排序，缺省为升序" optionchar="z"/>
+</options>
+<params>
+<P1 desc="Fi(f中的字段名，用于排序的字段)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="fn(集文件对象，省略时生成临时文件并返回其上的游标)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P2>
+</params>
+</F855>
+<F856 desc="获取变量x的数据类型" majortype="102" name="typeof" postfix="" returntype="101">
+<options>
+<O1 defaultselect="false" description="当x为number或date类型时，进一步细分数据类型。 number可分为：int,long,float,decimal； date可分为：date,time,datetime。 " optionchar="x"/>
+</options>
+<params>
+<P1 desc="x(变量)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<options/>
+</P1>
+</params>
+</F856>
+<F857 desc="" majortype="102" name="func1" postfix="" returntype="102">
+<options/>
+<params/>
+</F857>
 </normal>
 </funcs>

@@ -39,7 +39,7 @@ lang=EN-US>Compute an expression with each member of a sequence.</span></p>
   height:36.05pt'>
   <p class=MsoNormal><span lang=EN-US><span
   style='mso-spacerun:yes'>&nbsp;
-  </span></span></p>
+  </span><span style='mso-spacerun:yes'>&nbsp;</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:17.6pt'>
@@ -59,15 +59,18 @@ lang=EN-US>Compute an expression with each member of a sequence.</span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function generates
-a new sequence composed of the results of computing expression</span><span
-class=var1><span lang=EN-US> x</span></span><span lang=EN-US> with each member
-in sequence or table sequence </span><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US>. Use &quot;</span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>~</span></span><span lang=EN-US>&quot;
-in </span><span class=var1><span lang=EN-US>x</span></span><span lang=EN-US> to
-reference the current member in </span><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function computes
+expression</span><span class=var1><span lang=EN-US> </span></span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>x,…</span></i></span><span
+lang=EN-US> over each member in sequence or table sequence </span><span
+class=var1><span lang=EN-US>A</span></span><span lang=EN-US> and returns result
+of the last of expression </span><span class=code><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>x</span></i></span><span lang=EN-US>. Use &quot;</span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>~</span></span><span
+lang=EN-US>&quot; to reference the current member in </span><span class=var1><span
+lang=EN-US>A</span></span><span lang=EN-US>.</span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Parameter:</span></p>
 
@@ -101,15 +104,23 @@ style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Option:</span></b></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-12.55pt;border-collapse:collapse;mso-table-layout-alt:
  fixed;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><i><span
-  lang=EN-US>@m</span></i></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@m</span></b></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
   color:black'>Enable parallel processing where the order of task computations
   is not fixed</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@z</span></b></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  color:black'>Perform an inverse operation; only apply to non-pure sequences</span></p>
   </td>
  </tr>
 </table>
@@ -123,7 +134,7 @@ style='mso-bidi-font-style:normal'></i></span></p>
 name="_T.record()"></a><a name="_A.(x…;s…)"></a><a name="_A.(_x;s,…;g,…)"></a><a
 name="a1_a2_an"></a><a name="_A.len_()_1"></a><a name="_[a1,…,an]_1"></a></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=751
  style='margin-left:17.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
@@ -194,7 +205,7 @@ name="a1_a2_an"></a><a name="_A.len_()_1"></a><a name="_[a1,…,an]_1"></a></span
   mso-bidi-font-family:宋体;mso-bidi-font-weight:bold'>Return a table sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-bidi-font-size:10.5pt;
   mso-bidi-font-family:宋体;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=235 height=169
-  src="Function_Reference.files/image034.jpg" v:shapes="_x0000_i1046"></span><b
+  src="Function_Reference.files/image031.jpg" v:shapes="_x0000_i1043"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'></span></b></p>
   </td>
@@ -223,7 +234,7 @@ name="a1_a2_an"></a><a name="_A.len_()_1"></a><a name="_[a1,…,an]_1"></a></span
   EID column of A2’s sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-bidi-font-size:10.5pt;
   mso-bidi-font-family:宋体;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=67 height=190
-  src="Function_Reference.files/image036.jpg" v:shapes="_x0000_i1047"></span><b
+  src="Function_Reference.files/image033.jpg" v:shapes="_x0000_i1044"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'></span></b></p>
   </td>
@@ -252,12 +263,12 @@ name="a1_a2_an"></a><a name="_A.len_()_1"></a><a name="_[a1,…,an]_1"></a></span
   ages according to BIRTHDAY</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-bidi-font-size:10.5pt;
   mso-bidi-font-family:宋体;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=72 height=161
-  src="Function_Reference.files/image038.jpg" v:shapes="_x0000_i1048"></span><b
+  src="Function_Reference.files/image035.jpg" v:shapes="_x0000_i1045"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:5'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
@@ -279,9 +290,110 @@ name="a1_a2_an"></a><a name="_A.len_()_1"></a><a name="_[a1,…,an]_1"></a></span
   mso-bidi-font-family:宋体;mso-bidi-font-weight:bold'>Return A2’s sequence</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-bidi-font-size:10.5pt;
   mso-bidi-font-family:宋体;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=217 height=166
-  src="Function_Reference.files/image040.jpg" v:shapes="_x0000_i1049"></span><b
+  src="Function_Reference.files/image037.jpg" v:shapes="_x0000_i1046"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'></span></b></p>
+  </td>
+  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=demo.query(&quot;select top 10
+  EID,NAME,GENDER from EMPLOYEE &quot;)</span></b><b><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></b></p>
+  </td>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=189 height=193
+  src="Function_Reference.files/image039.jpg" v:shapes="_x0000_i1047"></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'></span></b></p>
+  </td>
+  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=A6.(seq(GENDER))</span></b><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></p>
+  </td>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400'>Number members
+  having same GENDER value in A6’s sequence</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=108 height=185
+  src="Function_Reference.files/image041.jpg" v:shapes="_x0000_i1048"></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'></span></b></p>
+  </td>
+  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=A6.@z(seq(GENDER))</span></b><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></p>
+  </td>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400'>Use @z
+  option to perform an inverse operation</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=107 height=181
+  src="Function_Reference.files/image043.jpg" v:shapes="_x0000_i1049"></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'></span></b></p>
+  </td>
+  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>=[1,2,3].(~=iterate(~~+~),~*10)</span></b><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></p>
+  </td>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>As there are multiple expressions, return result
+  of the last expression, which is [10, 30,60]</span><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'></span></p>
   </td>
  </tr>
 </table>

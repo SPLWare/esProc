@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Qload()</title>
+<title>Qconnect()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,103 +13,118 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>Qload()<a
-name="Qload_lfn_z_rfn_z"></a><span
-style='mso-tab-count:1'>&nbsp;&nbsp; </span></span></h2></div>
+	<div id="centent-title"><h2><a name="_Hlt494208045"></a><a name="_Hlt494268238"></a><a name=Qenv></a><span
+lang=EN-US style='mso-fareast-font-family:宋体'>Qconnect()<a
+name="Qconnect_urlv_wt_lt"></a></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>Upload to or download from cloud storage platform.</span></p>
+lang=EN-US>Request QVA through QVS to access QVM.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b><span class=var1><span lang=EN-US></span></span></p>
+style='font-size:14.0pt'>Syntax:</span></b><span class=var1><span lang=EN-US
+style='font-size:14.0pt'></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b><span
-lang=EN-US>Qload</span></b><span lang=EN-US>(<i>lfn</i>:<i>z,rfn</i>:<i>z</i>)</span></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Qconnect</span></b><span
+lang=EN-US>(<i style='mso-bidi-font-style:normal'>url:v,wt,it</i>)<b
+style='mso-bidi-font-weight:normal'></b></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note: </span></b></p>
+style='font-size:14.0pt'>Note:</span></b><span lang=EN-US> </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Download files(s) when parameter <i>lfn </i>is absent, and upload
-file(s) when parameter <i>rfn</i> is absent.</span></p>
+lang=EN-US>The function requests QVA through QVS to be assigned a QVM and
+returns a QVM object. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>File(s) to be uploaded is/are placed in directory</span><i><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>main directory/store
-Type/bucketName/objectName</span></i><i><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span></i><span
-lang=EN-US>.</span></p>
+lang=EN-US>Return null if no QVM is assigned.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The buffer file object(s) to be downloaded is also placed in the
-same directory.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>When QVS users service mode, the buffer directory here is QVM’s
-cache directory; when QVS users debug mode, it is QVS’s own cache directory. If
-no QVS connection is used, use the function directory in the esProc script and
-connection to cloud storage setting is needed.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Automatically overwrite the namesake file(s).</span></p>
+lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameter: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=48 valign=top style='width:35.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>lfn</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>url</span></span></p>
   </td>
-  <td width=652 valign=top style='width:489.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A local file, whose format is “<i>storageBucket/fileObjectName</i>”</span></p>
+  <td width=414 valign=top style='width:310.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>QVS address, whose format is http://host:port/QVSServerName</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=48 valign=top style='width:35.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>rfn</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>v</span></span></p>
   </td>
-  <td width=652 valign=top style='width:489.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A file in the storage bucket, whose
-  format is the same as parameter <i>lfn</i></span></p>
+  <td width=414 valign=top style='width:310.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Validation string</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=48 valign=top style='width:35.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>z</span></i></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>wt</span></span></p>
   </td>
-  <td width=652 valign=top style='width:489.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>When parameter <i>lfn/rfn </i>is a
-  homo-name files group, the parameter is a zone table number or a sequence of
-  zone table number; otherwise, this parameter will be ignored</span></p>
+  <td width=414 valign=top style='width:310.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Maximum wait time (unit: second)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>it</span></span></p>
+  </td>
+  <td width=414 valign=top style='width:310.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>QVM’s maximum idle time (unit: second),
+  whose default is 120</span><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>；</span><span
+  lang=EN-US>QVM will automatically close when the max idle time is reached,
+  and will close permanently when its value is specified as 0</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b><span lang=EN-US
-style='font-size:14.0pt'> </span></p>
+style='font-size:14.0pt'>Option:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Boolean value</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:4.5pt'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>@r</span></span><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'></span></b></span></p>
+  </td>
+  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span lang=EN-US>Clear buffer when QVM is closed</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>QVM object</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
 14.0pt'> </span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1130
- style='margin-left:24.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=879
+ style='margin-left:3.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
  mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
  mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=18 valign=top style='width:13.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
@@ -120,13 +135,13 @@ style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
-  <td width=599 valign=top style='width:449.0pt;border:none;mso-border-left-alt:
+  <td width=348 valign=top style='width:261.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=18 valign=top style='width:13.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
@@ -136,26 +151,18 @@ style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=Qload(&quot;qtc01/emp.ctx&quot;:[1,2])</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qconnect(&quot;http://54.213.221.123:8080/qvs&quot;:&quot;aws-qvs&quot;,30,300)</span></b></p>
   </td>
-  <td width=599 valign=top style='width:449.0pt;border:none;mso-border-left-alt:
+  <td width=348 valign=top style='width:261.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Upload homo-name files group <i>1.emp.ctx</i>
-  and <i>2.emp.ctx</i> in the local directory</span></span><span class=code><i><span
-  style='font-family:黑体;font-weight:normal;mso-bidi-font-weight:bold'>【</span></i></span><i><span
-  lang=EN-US>main directory</span></i><i><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span></i><span
-  class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>\s3\qtc01</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'> to storage bucket <i>qt01</i>
-  in the cloud storage platform</span></span><span lang=EN-US style='mso-fareast-font-family:
-  黑体;mso-bidi-font-weight:bold'></span></p>
+  <p class=MsoNormal><span lang=EN-US>Request QVA through QVS to access QVM;
+  QVS address is <a href="http://54.213.221.123:8080/qvs">http://54.213.221.123:8080/qvs</a>,
+  validation stirng is aws-qvs, maximum wait time is 30 seconds, and QVM’s
+  maximum idle time is 300 seconds; return a QVM object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=18 valign=top style='width:13.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
@@ -165,27 +172,15 @@ style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qload(,&quot;qtc01/emp.ctx&quot;:[1,2])</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.exec(&quot;qtc01/imp_txt.splx&quot;;100)</span></b></p>
   </td>
-  <td width=599 valign=top style='width:449.0pt;border:none;mso-border-left-alt:
+  <td width=348 valign=top style='width:261.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Download homo-name files group <i>1.emp.ctx</i>
-  and <i>2.emp.ctx</i> in storage bucket <i>qtc01</i> to the local directory </span></span><span
-  class=code><i><span style='font-family:黑体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";font-weight:normal;mso-bidi-font-weight:
-  bold'>【</span></i></span><span class=code><i><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>main directory</span></i></span><span class=code><i><span
-  style='font-family:黑体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";font-weight:normal;mso-bidi-font-weight:bold'>】</span></i></span><span
-  class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>\s3\qtc01</span></i></span><span
-  lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'></span></p>
+  <p class=MsoNormal><span lang=EN-US>Execute SPL script file</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=18 valign=top style='width:13.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
@@ -195,16 +190,11 @@ style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qload(&quot;myBucket/cities.txt&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;A1.close()</span></b></p>
   </td>
-  <td width=599 valign=top style='width:449.0pt;border:none;mso-border-left-alt:
+  <td width=348 valign=top style='width:261.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload the local file <i>cities.txt</i> in</span><i><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>【</span><span lang=EN-US>main directory</span></i><i><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>】</span><span lang=EN-US>\s3\myBucket\</span></i><span
-  lang=EN-US> to storage bucket <i>myBucket</i></span></p>
+  <p class=MsoNormal><span lang=EN-US>Close QVM</span></p>
   </td>
  </tr>
 </table>

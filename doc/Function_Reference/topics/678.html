@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .pos( x )</title>
+<title>A .pmin()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,36 +13,41 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_pos_x"></a><i
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_pmin"></a><i
 style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.pos(</span><span class=var1><span lang=EN-US style='mso-ansi-font-size:
-16.0pt;mso-bidi-font-size:16.0pt;line-height:172%;font-weight:normal'>x</span></span><span
-lang=EN-US>)</span></h3></div>
+lang=EN-US>.pmin()</span><span
+lang=EN-US style='mso-bidi-font-weight:bold'></span></h3></div>
 	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the
-positions of sequence members in another sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Get positions
+of members holding the minimum value in a sequence.</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Syntax:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
 lang=EN-US>A</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>.pos(</span></span><span class=var1><span lang=EN-US>x</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+"Times New Roman",serif'>.pmin</span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>(</span></span><span
+class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>)</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-style:italic'><span
-style='mso-spacerun:yes'>&nbsp;</span>The function gets positions of members in
-sequence </span><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
-lang=EN-US style='mso-bidi-font-style:italic'> in sequence </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US style='mso-bidi-font-style:italic'>. and returns null if it cannot
-find the positions for all members of <i>x</i>. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>The function
+computes expression </span><span lang=EN-US>x </span></span><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>with each
+member of sequence </span><span lang=EN-US>A</span></span><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'> and returns
+the ordinal numbers of the members whose</span><span lang=EN-US> </span></span><span
+lang=EN-US>computations</span><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'> are the minimum. Can be
+used to find the positions of the minimum value in a sequence.</span><span
+lang=EN-US></span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Parameter:</span></p>
@@ -63,7 +68,9 @@ find the positions for all members of <i>x</i>. </span></p>
   <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US>A field name or an expression, in which
+  &quot;</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>~</span></span><span
+  lang=EN-US>&quot; is used to reference the current record.</span></p>
   </td>
  </tr>
 </table>
@@ -76,40 +83,33 @@ find the positions for all members of <i>x</i>. </span></p>
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@i</span></span><span
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@a</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Return
-  a monitonically increasing integer sequence </span></p>
+  <p class=MsoNormal><span lang=EN-US>Return ordinal numbers of all members
+  that make expression <i style='mso-bidi-font-style:normal'>x</i> get the
+  smallest value.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@c</span></span><span
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@z</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return the position in which sequence <i
-  style='mso-bidi-font-style:normal'><span style='color:black'>x</span></i><span
-  style='color:black'> first appears in <i style='mso-bidi-font-style:normal'>A</i>.
-  By doing so, the position of sub-sequence <i style='mso-bidi-font-style:normal'>x</i>
-  in sequence A can be located.</span> If <i style='mso-bidi-font-style:normal'>x</i>
-  is not the sub-sequence of <i style='mso-bidi-font-style:normal'>A</i>, then
-  return null.</span></p>
+  <p class=MsoNormal><span lang=EN-US>Perform the search backwards from the
+  last member; by default perform the search from the first member.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@b</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>@0</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>Use the binary search to query the location. In
-  this case </span><span lang=EN-US>A</span></span><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'> is by
-  default assumed as an ordered sequence. Both Increasing and decreasing are
-  applicable</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>Do not skip null members</span></p>
   </td>
  </tr>
 </table>
@@ -117,67 +117,180 @@ find the positions for all members of <i>x</i>. </span></p>
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Return value:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A monotonically
-increasing integer sequence or an integer sequence </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A ordinal number
+or a sequence composed of ordinal numbers </span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Example:</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[6,2,1,4,6,3,7,8].pos@i([1,4,6])</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:12.0pt;
-  mso-bidi-font-weight:bold'>[3,4,5]</span><span lang=EN-US style='mso-bidi-font-size:
-  12.0pt'>, which is a monitonically increasing integer sequence</span></p>
+  <td width=277 valign=top style='width:208.0pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[6,2,1,4,6,3,7,8].posi([1,4,6])</span></span></p>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>[3,4,1]</span></span><span
-  lang=EN-US>, which is an integer sequence</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[2,5,4,3,2,1,4,1,3]</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[1,2,3,4,6,7,8].pos@b([3,1,4,6])</span></span></p>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.pmin(~*~)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>[3,1,4,5]</span></span></p>
+  font-weight:normal;mso-bidi-font-weight:bold'>6</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[2,1,4,6,3,7,8].pos@i([8,4,6])</span></span></p>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.pmin@a(~*~)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>null</span></span></p>
+  font-weight:normal;mso-bidi-font-weight:bold'>[6,8]</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[2,1,4,6,3,7,8,4,6,1].pos@c([4,6])</span></span></p>
+ <tr style='mso-yfti-irow:4'>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.pmin@z(~*~)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span></p>
+  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.pmin@az(~*~)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>[8,6]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  </td>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  * from EMPLOYEE&quot;)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+  </td>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A6.pmin(BIRTHDAY)</span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>296</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>8</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=277 valign=top style='width:208.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[4,6,1,2,null,7].pmin@0()</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=230 valign=top style='width:172.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>5</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
   </td>
  </tr>
 </table>
@@ -186,24 +299,23 @@ increasing integer sequence or an integer sequence </span></p>
 14.0pt;line-height:200%'>Related function:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="apos.html#A_pos_x_k"><span style='mso-bidi-font-size:
+normal'><span lang=EN-US><a  href="aminpx.html#A_minp"><span style='mso-bidi-font-size:
 10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.<span style='mso-bookmark:_Hlt474832575'><span
-style='mso-bookmark:_Hlt474832576'>p</span></span>o<span style='mso-bookmark:
-_Hlt415059640'><span style='mso-bookmark:_Hlt414982580'>s</span></span>(<span
-style='mso-bookmark:_Hlt346093100'>)</span></span><span style='mso-bookmark:
-_Hlt346093100'></span></a><a name="_Hlt346093100"></a><a
-name="_Hlt414982580"></a><a name="_Hlt415059640"></a><a name="_Hlt474832576"></a><a
-name="_Hlt474832575"></a></span></i></p>
+font-style:normal'>.m<span style='mso-bookmark:_Hlt426660938'>i</span>n<span
+style='mso-bookmark:_Hlt346093071'>p</span>()</span></a><a
+name="_Hlt346093071"></a><a name="_Hlt426660938"></a></span></i><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="apsortx.html#A_psort"><span style='mso-bidi-font-size:
+normal'><span lang=EN-US><a  href="apmaxx.html#A_pmax"><span style='mso-bidi-font-size:
 10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.ps<span style='mso-bookmark:_Hlt346093105'><span
-style='mso-bookmark:_Hlt414982520'>o</span></span>r<span style='mso-bookmark:
-_Hlt415059651'>t</span>()</span></a><a
-name="_Hlt415059651"></a><a name="_Hlt414982520"></a><a name="_Hlt346093105"></a></span></i><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+font-style:normal'>.pm<span style='mso-bookmark:_Hlt415059628'><span
+style='mso-bookmark:_Hlt414982766'>a</span></span><span style='mso-bookmark:
+_Hlt384045932'><span style='mso-bookmark:_Hlt346093081'>x</span></span><span
+style='mso-bookmark:_Hlt414982746'>(</span>)</span></a><a
+name="_Hlt414982746"></a><a name="_Hlt346093081"></a><a name="_Hlt384045932"></a><a
+name="_Hlt414982766"></a><a name="_Hlt415059628"></a></span></i><a
+name="_A.pmin(x;n)"></a></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="679.html">Next</a></div>
@@ -211,7 +323,7 @@ class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="676.html">pos()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="677.html">pmin()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

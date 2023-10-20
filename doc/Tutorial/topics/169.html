@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.5 Encryption</title>
+<title>6.4.2 Configuring raqsoftConfig.xm l</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -13,33 +13,1088 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l26 level2 lfo38'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.5<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Encryption</span></h2></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='background:aqua;mso-highlight:aqua'>This section explains
-cellset file encription. You can choose to skip this section if you are not a
-professional programmer. It won’t affect your learning about the other contents
-of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>6.4.2 Configuring <i style='mso-bidi-font-style:
+normal'>raqsoftConfig.xm<a name="Configuring_raqsoftConfig_xml"></a>l</i><span
+style='mso-spacerun:yes'>&nbsp; </span></span></h3></div>
+	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>The <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i> file
+contains configuration information, including esProc’s main path, the <span
+style='mso-bidi-font-style:italic'>script</span> file’s search path, and etc.,
+as shown below: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>This section explains the access privileges of esProc cellset files.</span></p>
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt; Config
+Version=&quot;2&quot;&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:63.7pt;mso-char-indent-count:
+7.08;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Runtime&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Method one for data source configuration: configure connection pool and specify
+the data source name in the application server --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;encryptLevel
+is the level of user password encryption in the data source: 0 represents
+plaintext, 1 represents password encryption, and 2 represents encryption of
+URL, username and password --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;DBList</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> <i style='mso-bidi-font-style:
+normal'>encryptLevel=&quot;0&quot;&gt;</i></span></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Data source name must be the same as that defined in the script file --&gt;</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;DB
+name=&quot;demo&quot;&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;url&quot; value=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;driver&quot; value=&quot;org.hsqldb.jdbcDriver&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;type
+represents serial number of the database type: UNKNOWN:0; ORACLE:1; SQLSVR:2;
+SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10;
+KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14; POSTGRES:15; DATALOGIC:16;
+IMPALA:17; DBOne</span></i><i><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman";color:#0066FF'>：</span><span
+lang=EN-US style='color:#0066FF'>20; ESSBASE:101;--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;type&quot; value=&quot;13&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;user&quot; value=&quot;sa&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;password&quot; value=&quot;&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Set the batch size --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;batchSize&quot; value=&quot;1000&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>Automatically
+connect or not. If the value is true, use db.query() function or a SQL
+statement starting with $ directly to access the database; if it is false,
+there will be no automatic connection; you should first establish the
+connection with connect(db) statement before you can access the database. </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;autoConnect&quot; value=&quot;true&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Set
+whether to use schema name. For instance, when “UseSchema” value is set as
+true, the syntax in the automatically generated SQL statement is select
+tbl.col1,tbl.col2 from tb1; otherwise the syntax is select col1,col2 from tbl --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;useSchema&quot; value=&quot;false&quot;/&gt;</span></i><span
+lang=EN-US style='color:#0066FF'></span></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Set whether to enclose object in quotes --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;addTilde&quot; value=&quot;false&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set whether to transcode the content retrieved
+from the database; when setting the value as true, the retrieved data will be
+transcoded for display when the database encoding is different from encoding at
+the frontend--&gt;</span></i><span lang=EN-US style='color:#0066FF'></span></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&lt;property
+name=&quot;needTransContent&quot; value=&quot;false&quot; /&gt;</span></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set whether to transcode the SQL statement because
+you may need to convert the type of encoded characters at the frontend into the
+database encoding type for SQL execution from frontend to the database --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&lt;property
+name=&quot;needTransSentence&quot; value=&quot;false&quot; /&gt;</span></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:106.3pt;mso-char-indent-count:
+11.81;line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set whether to set case-sensitive for the SQL
+statement--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><span lang=EN-US>&lt;property
+name=&quot;caseSensitive&quot; value=&quot;false&quot; /&gt;</span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/DB&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;DB
+name=&quot;hsql&quot;&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;url&quot; value=&quot;jdbc:hsqldb:hsql://localhost/hsql&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;driver&quot; value=&quot;org.hsqldb.jdbcDriver&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;type&quot; value=&quot;13&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property name=&quot;user&quot;
+value=&quot;sa&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;password&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;batchSize&quot; value=&quot;0&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;autoConnect&quot; value=&quot;false&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;useSchema&quot; value=&quot;false&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;addTilde&quot; value=&quot;false&quot;/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/DB&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/DBList &gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Esproc&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+esProc charset--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;charSet&gt;ISO-8859-1&lt;/charSet&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>Configure
+the search path of the script file. Multiple paths separated by &quot;;&quot;
+are allowed. The script file can also be placed in the application project’s
+classpath, which has the priority over the search path for file loading. </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;splPathList&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;
+splPath&gt;D:\files\spl;D:\files\txt;D:\files&lt;/splPath&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/splPathList&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Date
+type, time type and other data types --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;dateFormat&gt;
+yyyy-MM-dd&lt;/dateFormat&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;timeFormat&gt;HH:mm:ss&lt;/timeFormat&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;dateTimeFormat&gt;
+yyyy-MM-dd HH:mm:ss&lt;/dateTimeFormat&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Method one for data source configuration: configure connection pool and specify
+the data source name in the application server --&gt; </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+esProc main path, which is a single absolute path --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;mainPath&gt;
+D:\files&lt;/mainPath&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+The save path for temporary files; it can be an absolute path. If using a
+relative path, put it under the main path; don’t start a relative path with “/”
+or “\” --&gt;</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;tempPath&gt;temp&lt;/tempPath&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Set file buffer size, whose unit is byte --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;bufSize&gt;65536&lt;/bufSize&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set the maximum number of parallel tasks --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;parallelNum&gt;4&lt;/parallelNum&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set the composite file block size --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;blockSize&gt;1048576&lt;/blockSize&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!-- Set default number of subcursors in a multicursor
+--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>&lt;cursorParallelNum&gt;1&lt;/cursorParallelNum&gt;</span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='color:#0066FF'>&lt;!-- A null string in
+text data --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;nullStrings&gt;nan,null,n/a&lt;/nullStrings&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='color:#0066FF'>&lt;!-- Set the number of
+records fetched from the cursor --&gt;</span></i><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:3.0cm;mso-char-indent-count:9.45;
+line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;fetchCount&gt;9999&lt;/fetchCount&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='color:#0066FF'>&lt;!-- Configure external
+library directory--&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;extLibsPath/&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Esproc&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:63.7pt;mso-char-indent-count:
+7.08;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Logger&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i><span lang=EN-US style='color:#0066FF'>&lt;!--
+Log level, which can be OFF,SEVERE,WARNING,INFO,DEBUG; their priorities
+decrease in the order. Do not output any log information when log level is OFF;
+output WARNING, INFO, SERVERE when log level is INFO; and so on--&gt;</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Level&gt;DEBUG&lt;/Level&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Logger&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Runtime&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Server&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Default
+connection; the connected source can be one in DBList or in the following
+JNDIList --&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;defDataSource&gt;demo&lt;/defDataSource&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Set
+JNDI data source &#8211;&gt;</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JNDIList&gt;</span></i></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;color:#333333'>&lt;JNDI name=&quot;jdbc/test&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+color:#0066FF'>//Database type number; <i>0-14 represents database types in
+order: [UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6;
+ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13;
+TERADATA:14;]</i></span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;color:#333333'>&lt;property name=&quot;type&quot;
+value=&quot;1&quot;/&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;color:#333333'>&lt;property name=&quot;batchSize&quot;
+value=&quot;1000&quot;/&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+color:#0066FF'>//<i> Reference database’s JNDI data source, the format is: java:comp/env/DataSource
+name. Find DataSource through JNDI name; the environment string prefixes used
+for searching the data source are different in different web servers; for
+instance, java:/comp/env for Tomcat, and both Weblogic and Websphere do not
+need one and the string can be left unentered.</i></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:73.1pt;border-collapse:collapse;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:30.1pt'>
+  <td width=105 valign=top style='width:79.0pt;border:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Server</span></i></p>
+  </td>
+  <td width=124 valign=top style='width:93.05pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Tomcat</span></i></p>
+  </td>
+  <td width=102 valign=top style='width:76.25pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Weblogic</span></i></p>
+  </td>
+  <td width=107 valign=top style='width:80.1pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Webshpere</span></i></p>
+  </td>
+  <td width=124 valign=top style='width:93.05pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Resin</span></i></p>
+  </td>
+  <td width=101 valign=top style='width:75.85pt;border:solid windowtext 1.0pt;
+  border-left:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:30.1pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Jboss</span></i></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:22.45pt'>
+  <td width=105 valign=top style='width:79.0pt;border:solid windowtext 1.0pt;
+  border-top:none;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>JNDIPrefix</span></i></p>
+  </td>
+  <td width=124 valign=top style='width:93.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>java:comp/env</span></i></p>
+  </td>
+  <td width=102 valign=top style='width:76.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>None</span></i></p>
+  </td>
+  <td width=107 valign=top style='width:80.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>None</span></i></p>
+  </td>
+  <td width=124 valign=top style='width:93.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>java:comp/env</span></i></p>
+  </td>
+  <td width=101 valign=top style='width:75.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:22.45pt'>
+  <p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:
+  3.9pt;margin-left:0cm;line-height:21.0pt'><i><span lang=EN-US
+  style='font-size:9.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-family:Georgia;
+  color:#0066FF'>Java:</span></i></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:63.75pt;line-height:21.0pt'><span lang=EN-US
+style='font-size:9.0pt;color:#333333'>&lt;property name=&quot;lookup&quot;
+value=&quot;java:comp/env/jdbc/test&quot;/&gt;</span></p>
+
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/JNDI&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:63.7pt;mso-char-indent-count:
+7.08;line-height:16.0pt;mso-line-height-rule:exactly'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/JNDIList
+&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-indent:63.7pt;mso-char-indent-count:
+7.08;line-height:16.0pt;mso-line-height-rule:exactly'><i><span lang=EN-US
+style='color:#0066FF'>&lt;!&#8212;The log record configuration properties file. See raqsoftLog.properties
+for details --&gt;</span></i><span lang=EN-US style='color:#0066FF'></span></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;logConfig&gt;raqsoftLog.properties&lt;/logConfig&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Server&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JDBC&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Whether
+to read the runtime configurations or Server’s JNDIList; delete the unwanted
+one --&gt;</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;load&gt;Runtime,Server&lt;/load&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:0'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;After
+the jdbc gateway is configured, all statements will be parsed by the script
+file and return a table sequence or a cursor; the script file has two
+parameters: sql and args (which is the sequence of sql’s parameters) --&gt;</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;gateway&gt;executeSQL.splx&lt;/gateway&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212;Remote server list for
+a JDBC invoke for configuring IPs and port numbers of nodes</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> </span><span lang=EN-US style='color:#0066FF;mso-bidi-font-style:
+italic'>--&gt;</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;Units&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;Node&gt;192.168.0.197:8281&lt;/Unit&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;/Units&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;/JDBC&gt;</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;Init&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='color:#0066FF'>&lt;!&#8212; The specified script
+file executed first for system initialization --&gt;</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&lt;SPL&gt;initial.spl&lt;/SPL&gt;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Init &gt;</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Config&gt;</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Both esProc JDBC and the Integrated Development
+Environment (IDE) share the same <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>
+file, so you can configure the above information on the IDE interface. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Click <span class=T-Bold>Tool&gt;Options </span><span
+class=T-Bold><span style='font-weight:normal'>on the menu bar to edit the
+configuration information on the Option window. The key information related to
+JDBC, like paths, format of date and time and so on, can be edited on the
+Environment page:</span></span> <b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=554 height=344
+src="Tutorial.files/image729.jpg" v:shapes="_x0000_i1817"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>General</span></b><span
+lang=EN-US> page also provides JDBC-related settings, such as log level and
+number of parallel tasks: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=554 height=268
+src="Tutorial.files/image731.jpg" v:shapes="_x0000_i1818"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Besides, the <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>
+file’s data source information can be configured in the data source manager.
+Click <span class=T-Bold>Tool&gt;Datasource </span><span class=T-Bold><span
+style='font-weight:normal'>connection on the menu bar to open the data source
+manager window: </span></span><b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=396 height=303
+src="Tutorial.files/image116.png" v:shapes="_x0000_i1819"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>You can add, delete or modify the data source
+configuration information in the data source manager. Click <b
+style='mso-bidi-font-weight:normal'>Edit</b> to edit the connection parameters
+of the data source: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=500 height=368
+src="Tutorial.files/image732.png" v:shapes="_x0000_i1820"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>In the data source manager, you can set the data
+source driver, data source URL, user name, password, batch size, and other
+information. Note that <b style='mso-bidi-font-weight:normal'>demo</b> is the
+system data source, whose connection parameters cannot be changed. In addition,
+esProc JDBC itself cannot be used as a data source during the data source
+connection configuration. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The </span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif'>&lt;Server/&gt; </span></span><span
+lang=EN-US>node configures connection pool, log configuration file, and other
+information. If a data source needs to be connected for the <span
+style='mso-bidi-font-style:italic'>script</span> file invoked through the
+esProc JDBC, the related information should be configured in <i
+style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>’s data source or </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>connection pool. Particularly, if</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=var><b style='mso-bidi-font-weight:normal'><span lang=EN-US>db</span></b></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.query()
+</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>function or</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>$(</span></i></span><span
+class=var><b style='mso-bidi-font-weight:normal'><span lang=EN-US>db</span></b></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>) </span></i></span><span
+class=var><b style='mso-bidi-font-weight:normal'><span lang=EN-US>sql</span></b></span><span
+class=var><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'> </span></b></span><span
+class=var><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>statement
+is used to directly access the database, the <b style='mso-bidi-font-weight:
+normal'>autoConnect</b> property of this database should be true. For detailed
+information about esProc JDBC, refer to </span></span><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="bjavady.html#Java_Invocation"><span style='mso-bidi-font-size:
+10.5pt'>Java Invocation</span></a></span></i><span class=var><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>In the log configuration properties file<i
+style='mso-bidi-font-style:normal'> raqsoftLog.properties</i> , you can
+configure log levels and other information:</span></span></p>
+
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Log levels include OFF, ERROR,
+WARN, INFO, DEBUG and ALL, whose priority levels decrease from left to right.
+Level OFF turns off logging.</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Log messages.</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> </span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:"Times New Roman"'>Level
+INFO indicates that messages of levels ERROR, WARN and INFO will be exported;
+each level exports messages likewise.</span></i><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Specify name and log level for
+Logger.</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Format: Level (can be omitted;
+default level is INFO), log name 1, log name 2.</span></i><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Logger=LOG1</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+18.0pt'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Output log messages to the
+console. There are only two forms of message logging: console and file.</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG1=Console</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// INFO</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Log message level; messages
+whose priority levels are lower than it will be ignored. If it is omitted,
+level INFO is used by default.</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG1.Level=DEBUG</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+18.0pt'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Output logs to the specified
+file.</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Specify the full path of LOG2;
+default full path is the application’s current working path.</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG2=C:/raqsoft.log</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+18.0pt'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Default mode of logging is
+appending if not specified.</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG2.Append=true</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+18.0pt'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Maximum number of bytes in a log
+file; the default value is infinite if not specified.</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG2.MaxFileSize=10MB</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+18.0pt'><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+9.0pt;mso-bidi-font-family:"Times New Roman"'> Maximum number of backup files;
+the default value is 1 if not specified.</span></i><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>LOG2.MaxBackupIndex=2</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//LOG2.Level=DEBUG</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.25pt;mso-char-indent-count:2.36'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&nbsp;</span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>
+file in Java application’s classpath will be automatically loaded in the use of
+esProc JDBC, and cannot be renamed at this point. But if esProc JDBC’s
+connecting string uses the format like </span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>...?</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>config=..., the <i style='mso-bidi-font-style:normal'>.xml</i>
+file specified by <i style='mso-bidi-font-style:normal'>config</i> in the
+connecting string will be loaded for use in the configuration and the default
+file defined in the configuration will be ignored.</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+0cm;mso-char-indent-count:0'><span lang=EN-US>For example, with a connecting
+string like </span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman",serif'>con= DriverManager.getConnection(&quot;jdbc:esproc:local:/?config=myconfig.xml&quot;)</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>, the configuration in <i style='mso-bidi-font-style:normal'>myconfig.xml</i>
+will be used. </span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US></span></b></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="170.html">下一页</a></div>
-		<div id="previous"><a href="168.html">上一页</a></div>		
+		<div id="next"><a href="170.html">Next</a></div>
+		<div id="previous"><a href="168.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="154.html">Chapter6 Integration &amp; Application</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="170.html">6.5.1 File encryption</a></span></li>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="167.html">6.4 Deploying JDBC</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

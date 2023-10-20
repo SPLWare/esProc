@@ -1,11 +1,11 @@
 <!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>11.8.4 DQL logical table dimension</title>
+<title>11.8 DQL Tool</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
-<!--<link rel="stylesheet" href="document.css" type="text/css" />-->
-
+<link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
 </head>
 
@@ -13,155 +13,35 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:-194.15pt;text-indent:-39.75pt;mso-list:l42 level3 lfo55'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>11.8.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span lang=EN-US>DQL logical table dimension</span></h3></div>
-	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>DQL allows using a logically existed but not physically exited table
-as a dimension table. Such a dimension table is called <b>logical table</b>,
-which is often used in date handling.</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>In the following we will add several date-related logical tables on
-DQL’s Table tab. Select Edit-&gt;Add logical table through the menu bat to add
-a logical table definition:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=400 height=260
-src="Tutorial.files/image1122.png" v:shapes="图片_x0020_1497"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>Add a date-related logical table named <i>Day</i>,
-and click <img border=0 width=27 height=26
-src="Tutorial.files/image1123.png" v:shapes="图片_x0020_1498"><span
-style='mso-spacerun:yes'>&nbsp;</span>to add the field definition day:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=538 height=240
-src="Tutorial.files/image1124.png" v:shapes="图片_x0020_1499"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>A logical table allows one-field primary key only. It is equivalent
-to a single-field table without records. Here we choose default data type for
-the date logical table. Actually, the logical table’s data will be associated
-with a datetime type field. That is to say, field type of logical table <i>Day</i>
-is date and such a logical table is called <b>date dimension</b>. In DQL table
-definition window, a logical table is marked with a different icon from the
-regular DQL table.</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Next, we add two more logical tables <i>YearMonth</i> and <i>Quarter</i>
-and use them as another two time-related dimension tables &#8211; <i>YearMonth </i>dimension
-table and <i>Quarter</i> dimension table:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=538 height=240
-src="Tutorial.files/image1125.png" v:shapes="图片_x0020_1500"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=533 height=240
-src="Tutorial.files/image1126.png" v:shapes="图片_x0020_1501"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>The <i>YearMonth</i> table is used to get the year and month part of
-the date data, and <i>Quarter</i> table to get the quarter that the date
-belongs to. Data types of both dimension tables are integer. Such a logical
-table is called <b>integer dimension</b>.</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Since the three logical tables stores data according to time, there
-are associations between them actually. Based on Day table, you can get the
-year, month and quarter a date belongs to, and from <i>YearMonth</i> table you
-can find the quarter a month falls in. We can represent these associations with
-functions. If a dimension table can be associated with another dimension
-through a function’s computing result, we call it <b>level function</b>. For
-instance, we add a level function for dimension table <i>Day</i> and set up
-association relationships between it and another two time-dimension tables:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=542 height=242
-src="Tutorial.files/image1127.png" v:shapes="图片_x0020_1502"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Set a level function on “Dim and level” tab under “DQL” page by giving
-a distinct name to it and creating association with the primary key of a
-certain dimension table. In a level function, we use the quotation mark ? to
-represent the primary key value of the current dimension table. Through the
-level function, we can get data on different levels in the <i>YearMonth</i>
-table or <i>Quarter</i> table from a specified date. A level function does not
-compute bidirectionally. You can get the quarter a certain date belongs to, but
-you cannot find out a date according to a certain quarter value. Now, we add a
-level function for <i>YearMonth</i> table and set up the association between it
-and the <i>Quarter</i> table through the function:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=542 height=242
-src="Tutorial.files/image1128.png" v:shapes="图片_x0020_1503"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>In <i>orders</i> table’ “Foreign key”
-configuration tab,<span style='mso-spacerun:yes'>&nbsp; </span>we add an
-association relationship between it and the date dimension table <i>Day</i>: <img border=0 width=553 height=400
-src="Tutorial.files/image1129.png" v:shapes="图片_x0020_1504"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Add a new foreign key <i>fk1</i> for <i>orders</i> table to
-associate with dimension table <i>Day</i> by matching <i>orders</i>’ OTime
-field with <i>Day</i>’s primary key day. Through dimension table <i>Day</i>’s
-level function, <i>orders</i> table can also association with another two
-time-related dimension tables <i>YearMonth</i> and <i>Quarter</i>. We can use
-the association relationships in DQL queries, for instance:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=553 height=400
-src="Tutorial.files/image1130.png" v:shapes="图片_x0020_1505"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Through the level function, the date data stored in OTime field is
-able to associate with <i>YearMonth</i> table and get ym field data from the
-latter. In the DQL query, OTime#ym means getting corresponding ym values
-according to OTime field through the level function.</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>You can also use a multilevel dimension to filter data. To get
-orders of the 2<sup>nd</sup> quarter, for instance:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=553 height=400
-src="Tutorial.files/image1131.png" v:shapes="图片_x0020_1506"></span></p>
-
-<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>Using dimensions in DQL helps to make most
-use of table data and meet more real-world business needs. One dimension table
-an associate with foreign keys of multiple tables, and dimension table’s level
-function is convenient to use. With the above date-related dimension, we can
-get data from different levels only by creating association between a datetime
-foreign key and a date dimension table.</span><b><span lang=EN-US
-style='font-size:16.0pt;mso-fareast-font-family:黑体'></span></b></p>
+	<div id="centent-title"><h2 style='margin-left:39.0pt;mso-para-margin-left:0gd;text-indent:-39.0pt;
+mso-list:l56 level2 lfo49'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>11.8<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;</span>DQL Tool<a name="DQL_Tool"></a></span></h2></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>To make it more convenient to query pseudo
+tables, especially to handle multi-table association queries, esProc offers the
+DQL tool to query data using DQL (Dimensional Query Language).</span></p>
 	</div>
 	<div id="previous-next">
-		<div id="next"><a href="263.html">下一页</a></div>
-		<div id="previous"><a href="261.html">上一页</a></div>		
+		<div id="next"><a href="263.html">Next</a></div>
+		<div id="previous"><a href="261.html">Previous</a></div>		
 	</div>
 	<div id="related">
-		<div class="related-title"><div class="related-title-left"></div>相关主题：</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="258.html">11.8 DQL Tool</a></span></li>
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="251.html">Chapter11 Composite Tables</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="263.html">11.8.1 Starting DQL tool</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="264.html">11.8.2 Defining a pseudo table</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="265.html">11.8.3 Defining DQL tables and making DQL queries</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="266.html">11.8.4 DQL logical table dimension</a></span></li>
 </div>
 	</div>
-	<div id="footer">		
-		<div class="copyright">京ICP备 07503732号&nbsp;&nbsp;&nbsp; 版权信息 @ CopyRight <a href="http://www.scudata.com.cn" target="_blank">北京数速软件技术有限公司</a>  <a href="http://www.raqsoft.com.cn" target="_blank">北京润乾信息系统技术有限公司</a> 
-		</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
 	</div>
 </div>
 

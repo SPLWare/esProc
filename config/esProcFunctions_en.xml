@@ -760,7 +760,7 @@
 <P3 desc="wt(Maximum wait time (unit: second))" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="lt(QVM’s maximu idle time (unit: second))" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P4 desc="it(QVM’s maximum idle time (unit: second), whose default is 120；QVM will automatically close when the max idle time is reached, and will close permanently when its value is specified as 0)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
 </params>
@@ -792,15 +792,15 @@
 </P2>
 </params>
 </F42>
-<F43 desc="Retrieve file(s) from storage bucket in the cloud storage platform." majortype="102" name="Qfile" postfix="" returntype="101">
+<F43 desc="Retrieve file(s)/homo-name files group from storage bucket in the cloud storage platform." majortype="102" name="Qfile" postfix="" returntype="101">
 <options>
-<O1 defaultselect="false" description="Force to cache all cache blocks to the directory cachePath; by default, only certain cache blocks could be cached to the directory " optionchar="c"/>
+<O1 defaultselect="false" description="Force to cache all cache blocks to the cache directory; by default, only cache certain cache blocks containing data to be retrieved to the directory according to their positions " optionchar="c"/>
 </options>
 <params>
 <P1 desc="fd(File(s) on the cloud storage platform)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(When parameter fd is a homo-name files group, this parameter is zone table number or a sequence of zone table numbers; otherwise, ignore this parameter)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(Specify this parameter when parameter fd is a homo-name files group, this parameter is zone table number or a sequence of zone table numbers)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 </params>
@@ -818,19 +818,19 @@
 </P2>
 </params>
 </F44>
-<F45 desc="Upload to or download from cloud storage platform." majortype="102" name="Qload" postfix="" returntype="101">
+<F45 desc="Upload file(s)/homo-name files group to or download them from cloud storage platform." majortype="102" name="Qload" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="lfn(A local file, whose format is “storageBucket/fileObjectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="lfn(A local file, whose format is “storageBucket/fileObjectName”; means download when omitted)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(When parameter lfn is a homo-name files group, the parameter is a zone table number or a sequence of zone table number; otherwise, this parameter will be ignored)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(Specify this parameter when parameter lfn/rfn is a homo-name files group, the parameter is a zone table number or a sequence of zone table number)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="rfn(A file in the storage bucket, whose format is the same as parameter lfn)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="rfn(A file in the storage bucket, whose format is the same as parameter lfn; means upload when omitted)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="z(When parameter rfn is a homo-name files group, the parameter is a zone table number or a sequence of zone table number; otherwise, this parameter will be ignored)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P4 desc="z(Specify this parameter when parameter lfn/rfn is a homo-name files group, the parameter is a zone table number or a sequence of zone table number)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
 </params>
@@ -848,13 +848,13 @@
 </P2>
 </params>
 </F46>
-<F47 desc="Delete or rename files in the cloud storage platform." majortype="102" name="Qmove" postfix="" returntype="101">
+<F47 desc="Delete or rename files/homo-name files group in the cloud storage platform." majortype="102" name="Qmove" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="fn(fn&#9;File(s) in storage bucket, whose format is 【bucketName/objectName】)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="fn(File(s) in storage bucket, whose format is “storageBucket/fileObjectName”)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="z(Zone table number; can be absent)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="z(It is zone table number or a sequence of zone table numbers; specify this parameter when fn is a homo-name files group)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="path(New name for parameter fn and has same format as fn; when bucketName is omitted from this parameter, use bucketName value specified in parameter fn)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -1099,13 +1099,14 @@
 </P1>
 </params>
 </F63>
-<F64 desc="Append records in cursor/distributed cursor cs to an entity table T." majortype="101" name="append" postfix="T." returntype="101">
+<F64 desc="Append records in cursor/table sequence cs to an entity table T." majortype="101" name="append" postfix="T." returntype="101">
 <options>
 <O1 defaultselect="false" description="Real-time appending whenever a retrieval happens; force an appending when a composite table is closed; by default an appending is executed only when there is a specified number of new records" optionchar="i"/>
 <O2 defaultselect="false" description="It is possible that the data in a single cursor corresponds to multiple zones in a multi-zone composite table. In that case the zone expression needs to be calculated at each append" optionchar="x"/>
+<O3 defaultselect="false" description="Write data through merge-append; append data after the last record by default; do not support attached tables for the time being; the option cannot work if the composite table file is already opened" optionchar="m"/>
 </options>
 <params>
-<P1 desc="cs(A cursor)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="cs(A cursor/table sequence)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 </params>
@@ -1928,7 +1929,7 @@
 <options>
 <O1 defaultselect="false" description="Do not compress the file; default is to compress it" optionchar="u"/>
 <O2 defaultselect="false" description="Generate a rowwise file while default is columnar storage, which does not support the multicursor" optionchar="r"/>
-<O3 defaultselect="false" description="Force to re-create the file even if the target file already exists; defalut is to terminate computation and report error" optionchar="y"/>
+<O3 defaultselect="false" description="Force to re-create the file even if the target file already exists; defalut is to terminate computation " optionchar="y"/>
 <O4 defaultselect="false" description="Use the first field as the grouping key" optionchar="p"/>
 <O5 defaultselect="false" description="When columnar storage is used to generate the composite table, check whether each of its columns is pure during data maintenance and save the data type" optionchar="v"/>
 <O6 defaultselect="false" description="Create key for the composite table (including multizone composite table) using dimensions and the last key field is the time key; in this case no attached table is allowed " optionchar="t"/>
@@ -1959,14 +1960,21 @@
 <params/>
 </F158>
 <F159 desc="Create a new composite table file using the data structure of an existing composite table" majortype="101" name="create" postfix="T." returntype="101">
-<options/>
+<options>
+<O1 defaultselect="false" description="Do not compress data; use compression by default" optionchar="u"/>
+<O2 defaultselect="false" description="Generate a row-oriented file while by default generate a column-oriented one; a row-oriented composite table cannot use multicursor; do not compress a row-oriented file" optionchar="r"/>
+<O3 defaultselect="false" description="Forcibly to create the file even if a namesake one already exists; by default terminate the computation" optionchar="y"/>
+</options>
 <params>
 <P1 desc="f(A composite table file or a file group)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="x(An integer, which is the zone table expression)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P2 desc="b(Block size, whose unit is byte and whose default value is 【composite table block size】configured through menu option; when esProc is integrated in the third-party application, use blockSize value configured in raqsoftConfig.xml by default)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
+<P3 desc="x(An integer, which is the zone table expression)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P3>
 </params>
 </F159>
 <F160 desc="An interative loop to get a cumulative value over records in which one of its fields has same values." majortype="102" name="cum" postfix="" returntype="101">
@@ -2087,21 +2095,22 @@
 <O3 defaultselect="false" description="Automatically close the entity table/in-memory table after data in the cursor is fetched" optionchar="x"/>
 <O4 defaultselect="false" description="Get records in order without merging zone tables when T is a multi-zone composite table; all zone tables are segmented synchronously" optionchar="o"/>
 <O5 defaultselect="false" description="Used on a multizone composite table; Perform update merge; when zone tables share a same key value, ignore the record contained in the zone table with a smaller number; segmentation is performed according to the way zone table 1 is split; retrieve a zone table after the first one wholly if they are small enough; Handle the deletion mark and do not return records with a deletion mark to the cursor; but if the key value of a record with the deletion mark is unique in the multizone composite table, just retain it; This option enables retrieving key field(s) as well as the deletion mark field, if there is one, forcefully " optionchar="w"/>
+<O6 defaultselect="false" description="Get data in the inverse order; do not support segmentation in this case" optionchar="z"/>
 </options>
 <params>
-<P1 desc="x (Expression)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="x (Expression; by default all fields of T will be returned to the cursor)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="C (Column alias; can be omitted)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Kn=wn,w) wi is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of wi is null or false, the corresponding record in the entity table will be filtered away; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain K1,...Ki, T1,...Ti’s referencing field will be assigned to K1,...Ki correspondingly; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. w is an expression that returns a Boolean value; each of the multiple Ki=wi and w has a relationship of AND; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P3 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w usually uses expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Ki=wi,w) Ki=wi is an assignment expression. Generally, parameter wi can use expression Ti.find(Ki) or Ti.pfind(K), where Ti is a table sequence; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain Ki, Ti’s referencing field will be assigned to Ki correspondingly; when wi is expression Ti.pfind(Ki) and the to-be-selected fields C,... contain Ki, ordinal numbers of Ki values in Ti will be assigned to Ki.  w is a filter expression; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.  )" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
 <P4 desc="k (A positive integer (k≤n) representing the kth segment )" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
-<P5 desc="n (A positive integer representing the number of segments)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P5 desc="n (A positive integer representing the number of segments; return all records when parameters k:n are absent)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P5>
 </params>
@@ -2134,7 +2143,7 @@
 <P2 desc="C (Column alias )" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="wi(Filtering condition; retrieve the whole set when this parameter is absent; separate multiple conditions by comma(s) and their relationships are AND. Besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Kn=wn,w) wi is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of wi is null or false, the corresponding record in the entity table will be filtered away; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain K1,...Ki, T1,... Ti’s referencing field will be assigned to K1,...Ki correspondingly; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. w is an expression that returns a Boolean value; each of the multiple Ki=wi and w has a relationship of AND; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K: Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P3 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w usually uses expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Ki=wi,w) Ki=wi is an assignment expression. Generally, parameter wi can use expression Ti.find(Ki) or Ti.pfind(K), where Ti is a table sequence; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain Ki, Ti’s referencing field will be assigned to Ki correspondingly; when wi is expression Ti.pfind(Ki) and the to-be-selected fields C,... contain Ki, ordinal numbers of Ki values in Ti will be assigned to Ki.  w is a filter expression; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.   )" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 <P4 desc="msc (A multicursor generated from an entity table)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
@@ -2522,7 +2531,8 @@
 <O2 defaultselect="false" description="Accurate to the quarter" optionchar="q"/>
 <O3 defaultselect="false" description="Accurate to the month" optionchar="m"/>
 <O4 defaultselect="false" description="Accurate to the ten-day period" optionchar="t"/>
-<O5 defaultselect="false" description="Accurate to the week" optionchar="w"/>
+<O5 defaultselect="false" description="Accurate to the week; take Sunday as the first day of the week" optionchar="w"/>
+<O6 defaultselect="false" description="Work with @w option and take Mondy as the first day of the week; it is number 1 that is used in the option" optionchar="1"/>
 </options>
 <params>
 <P1 desc="datetimeExp1 (Date or standard datetime formate string  such as yyyy-MM-dd HH:mm:ss, yyyy-MM-dd, or HH:mm:ss )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -2539,6 +2549,7 @@
 <O2 defaultselect="false" description="Won’t generate a record if there is expression xi and its result is null (this won’t affect a record with null value in the original table sequence)" optionchar="i"/>
 <O3 defaultselect="false" description="@x(…;n) Unfold original fields whose values are records into n levels; default of n is 2" optionchar="x"/>
 <O4 defaultselect="false" description="When parameter A is a pure table sequence, add columns directly to it instead of generating a new table sequence" optionchar="o"/>
+<O5 defaultselect="false" description="Perform the inverse operation; only applies to non-pure sequences" optionchar="z"/>
 </options>
 <params>
 <P1 desc="xi      (Expression, whose results are used as the values of the derived fields )" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -2998,7 +3009,7 @@
 </F236>
 <F237 desc="Execute a SPL script file through QVS" majortype="102" name="exec" postfix="qvm." returntype="101">
 <options>
-<O1 defaultselect="false" description="Automatically close QVM when final value is returned, whether successfully or failed" optionchar="x"/>
+<O1 defaultselect="false" description="Automatically close QVM when final value is returned" optionchar="x"/>
 </options>
 <params>
 <P1 desc="splx(A SPL script file)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -3007,7 +3018,7 @@
 <P2 desc="...(Parameter(s) of the splx file; multiple parameters are separated by comma)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="t(Time-out (unit: second))" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P3 desc="t(Time-out (unit: second); default is 120)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -3403,13 +3414,13 @@
 </P2>
 </params>
 </F268>
-<F269 desc="Perform foreign-key-style association on a table sequence" majortype="101" name="fjoin" postfix="A." returntype="101">
+<F269 desc="Perform foreign-key-style association on a table sequence/record sequence" majortype="101" name="fjoin" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="Delete the current record when result of expression w is null or false" optionchar="i"/>
 <O2 defaultselect="false" description="Enable parallel processing" optionchar="m"/>
 </options>
 <params>
-<P1 desc="w(An expression, which, besides the regular syntax, can be used in the following syntax: 1. K=w, which means value assignment; K is a field of table sequence A, and you can use an esProc function in w; 2. (Ki=wi,…,w), which contains the combined use of Ki=wi and where Ki can be referenced in w; )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="w(An expression, which, besides the regular syntax, can be used in the following syntax: 1. K=w, which means value assignment; K is a field of table sequence P, and you can use an esProc function in w; 2. (Ki=wi,…,w), which contains the combined use of Ki=wi and where Ki can be referenced in w; )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="T(Alias of expression w; can be absent)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -4509,19 +4520,19 @@
 </options>
 <params/>
 </F343>
-<F344 desc="Use index to filter an entity table or a multi-zone composite table according to the filtering condition." majortype="101" name="icursor" postfix="T." returntype="101">
+<F344 desc="Use index to query data in an entity table." majortype="101" name="icursor" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="Make sure the result set is ordered by the index and large result sets are supported " optionchar="s"/>
+<O1 defaultselect="false" description="Make sure the result set is ordered by the indexed field and large result sets are supported " optionchar="s"/>
 <O2 defaultselect="false" description="Handle multiple conditions joined up with &amp;&amp; from left to right while the default is handling them in an optimal order" optionchar="u"/>
 </options>
 <params>
 <P1 desc="C (To-be-retrieved columns in the cluster table; get all columns when the parameter is absent)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="w (Filtering condition, in which the filtering field for T must be the same as the indexing field; support &gt;, &gt;=, &lt;, &lt;=, == and contain in its syntax)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P2 desc="w(Filtering condition, which cannot be omitted and in which the filtering field for T must be same as the indexed field; support &gt;, &gt;=, &lt;, &lt;=, == and contain in its syntax)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="I (Index name; can be omitted)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="f(Index file object; the program will automatically use the suitable one when there are multiple index files)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -4907,6 +4918,7 @@
 <O13 defaultselect="false" description="Enable handling the matching of parentheses (not including the separators within the parentheses) and quotes, as well as the the escape sequences outside of the quotes; the option covers functionalities defined by @q option" optionchar="p"/>
 <O14 defaultselect="false" description="Split the file content into a string by the separator without parsing" optionchar="f"/>
 <O15 defaultselect="false" description="Allow line continuation and put an escape character \ at the end the line" optionchar="l"/>
+<O16 defaultselect="false" description="Read contents as a string before parsing so that errors about some character sets can be avoided; the option slows the computation" optionchar="r"/>
 </options>
 <params>
 <P1 desc="Fi (Fields retrieved. By default, all fields will be retrieved)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -4938,6 +4950,7 @@
 <O11 defaultselect="false" description="Delete a record if it contains unmatching data types or data formats and start examining data by type" optionchar="d"/>
 <O12 defaultselect="false" description="Ignore and discard rows whose number of columns don’t match the first row" optionchar="n"/>
 <O13 defaultselect="false" description="Verify data type matching, and, if error reports, throw an exception, terminate the execution and output the content of the problem record" optionchar="v"/>
+<O14 defaultselect="false" description="Read contents as a string before parsing so that errors about some character sets can be avoided; the option slows the computation" optionchar="r"/>
 </options>
 <params/>
 </F375>
@@ -4960,6 +4973,7 @@
 <O15 defaultselect="false" description="Enable handling the matching of parentheses (not including the separators within the parentheses) and quotes, as well as the the escape sequences outside of the quotes; the option covers functionalities defined by @q option" optionchar="p"/>
 <O16 defaultselect="false" description="Enable handling the matching of parentheses (not including the separators within the parentheses) and quotes, as well as the the escape sequences outside of the quotes; the option covers functionalities defined by @q option" optionchar="f"/>
 <O17 defaultselect="false" description="Allow line continuation where there is an escape character \ at the end of the line" optionchar="l"/>
+<O18 defaultselect="false" description="Read contents as a string before parsing so that errors about some character sets can be avoided; the option slows the computation" optionchar="r"/>
 </options>
 <params>
 <P1 desc="Fi      (Fields to be retrieved. All fields will be retrieved by default. The sign # is used to represent a field with a sequence number.)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -4994,7 +5008,7 @@
 <P2 desc="C(A column name)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="wi(Filtering condition; retrieve the whole set when this parameter is absent; separate multiple conditions by comma(s) and their relationships are AND. Besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Kn=wn,w) wi is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of wi is null or false, the corresponding record in the entity table will be filtered away; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain K1,...Ki, T1,...Ti’s referencing field will be assigned to K1,...Ki correspondingly; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. w is an expression that returns a Boolean value; each of the multiple Ki=wi and w has a relationship of AND; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P3 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w usually uses expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Ki=wi,w) Ki=wi is an assignment expression. Generally, parameter wi can use expression Ti.find(Ki) or Ti.pfind(K), where Ti is a table sequence; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain Ki, Ti’s referencing field will be assigned to Ki correspondingly; when wi is expression Ti.pfind(Ki) and the to-be-selected fields C,... contain Ki, ordinal numbers of Ki values in Ti will be assigned to Ki.  w is a filter expression; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti. 5．K:Ti:# Locate records according to ordinal numbers, compare ordinal numbers of records in table sequence Ti according to the entity table’s K values, and discard non-matching records; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K.     )" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -5059,18 +5073,18 @@
 </P1>
 </params>
 </F382>
-<F383 desc="Create an index file for an entity table or a multi-zone composite table" majortype="101" name="index" postfix="T." returntype="101">
+<F383 desc="Create an index file for an entity table" majortype="101" name="index" postfix="T." returntype="101">
 <options>
-<O1 defaultselect="false" description="Auto-load and maintain the second-level index when only parameter I is present" optionchar="2"/>
-<O2 defaultselect="false" description="Auto-load and maintain the third-level index when only parameter I is present" optionchar="3"/>
-<O3 defaultselect="false" description="Close the index to release resources when only parameter I is present" optionchar="0"/>
-<O4 defaultselect="false" description="Create a full-table index based on a certain column and support like(“*X*”) style search" optionchar="w"/>
+<O1 defaultselect="false" description="Work when only parameter f is present; used to load the index file to the memory and can increase performance" optionchar="2"/>
+<O2 defaultselect="false" description="Work when only parameter f is present; used to load the index file to the memory; help achieve higher performance than @2 but occupy more memory space" optionchar="3"/>
+<O3 defaultselect="false" description="Close the index to release resources when only parameter f is present" optionchar="0"/>
+<O4 defaultselect="false" description="Create a full-table index based on a certain column C and support like(“*X*”) style search" optionchar="w"/>
 </options>
 <params>
-<P1 desc="I(Index name)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="f(Index file object)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="h(Index length)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="h(Hash index length; can be omitted)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="w(Filtering condition; retrieve the whose set if the parameter is absent)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -5503,16 +5517,16 @@
 </P3>
 </params>
 </F414>
-<F415 desc="A foreign-key-style join between table sequences/record sequences, or a table sequence and a record sequence." majortype="101" name="join" postfix="A." returntype="101">
+<F415 desc="A foreign-key-style join between table sequences/record sequences, or a table sequence and a record sequence." majortype="101" name="join" postfix="P." returntype="101">
 <options>
-<O1 defaultselect="false" description="Delete a record with a non-matching foreign key value; by default a non-matching record will be represented by null." optionchar="i"/>
+<O1 defaultselect="false" description="Delete a record with a non-matching foreign key value; by default, a non-matching record will be represented by null. If parameters x:F are omitted, perform the filtering purely over parameter P" optionchar="i"/>
 <O2 defaultselect="false" description="Use the record as the value of F field to generate a new record; here expression x can be represented by ~. " optionchar="o"/>
-<O3 defaultselect="false" description="If parameter x:F is absent, delete the records matching the foreign key and perform the filtering operation only over table sequence/record sequence A" optionchar="d"/>
+<O3 defaultselect="false" description="If parameter x:F is absent, delete the records matching the foreign key and perform the filtering operation only over table sequence/record sequence P" optionchar="d"/>
 <O4 defaultselect="false" description="When parameter x is ~, record the relationship between parameter F and parameter C to identify the potentially associative foreign key" optionchar="k"/>
-<O5 defaultselect="false" description="Enable a merge join when A is ordered by C and T is ordered by K" optionchar="m"/>
+<O5 defaultselect="false" description="Enable a merge join when P is ordered by C and T is ordered by K" optionchar="m"/>
 </options>
 <params>
-<P1 desc="C (A’s foreign key; separate multiple fields in a composite key with the colon)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="C (P’s foreign key; separate multiple fields in a composite key with the colon)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
 <P2 desc="T (Table sequence/record sequence)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
@@ -5998,10 +6012,10 @@
 <F445 desc="Get the substring from the left of a string" majortype="102" name="left" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="string (Get the source string of the substring)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s(The source string)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="n   (Get the length of the substring)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n(The nth character of source string s; return an empty string when the absolute value of n is greater than the length of s)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 </params>
@@ -6097,7 +6111,7 @@
 <P3 desc="r(To-be-downloaded file(s)/homo-name files in the QVM main directory)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
-<P4 desc="z(The parameter is a zone table number or a sequence of zone table numbers when parameters l and r are homo-name files group; otherwise, it will be ignored)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P4 desc="z(The parameter is a zone table number or a sequence of zone table numbers when parameters l and r are homo-name files group)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
 </params>
@@ -6386,16 +6400,16 @@
 </P1>
 </params>
 </F482>
-<F483 desc="Return the substring of a string " majortype="102" name="mid" postfix="" returntype="101">
+<F483 desc="Get the substring of a string " majortype="102" name="mid" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="s  (Source string from which to get the substring )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s(The source string)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="start (Get the starting position of substring )" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n(The starting position of the substring; if n&lt;0, count backwards from the last character of source string s, fill in the extra positions with spaces and make the abs(n)th-to-last character the starting position)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
-<P3 desc="len (Get the length of substring. By default, the length will be counted from the starting character to the  end of the source string) " filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="l(The length of substring; by default, the length will be counted from the starting character to the end of the source string)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 </params>
@@ -6629,7 +6643,6 @@
 <O1 defaultselect="false" description="Force an execution of the function if the target file already exists. Without the option you can’t force an execution. Delete the target file if parameter path is absent." optionchar="y"/>
 <O2 defaultselect="false" description="Copy the file. If the target file name is the same as that of the specified file to which it will be moved, the copy fails." optionchar="c"/>
 <O3 defaultselect="false" description="path is relative to the main directory when it is a relative path; default is relative to fn’s parent directory" optionchar="p"/>
-<O4 defaultselect="false" description="Automatically handle its index when parameter fn is a homo-name files group" optionchar="a"/>
 </options>
 <params>
 <P1 desc="fn(A file)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -6746,6 +6759,7 @@
 <O1 defaultselect="false" description="Use parallel processing to speed up computation" optionchar="m"/>
 <O2 defaultselect="false" description="Won’t generate a record if the result of expression xi is null." optionchar="i"/>
 <O3 defaultselect="false" description="When parameter A is a pure table sequence, directly reference an old column if it is unmodified instead of generating a new column; sequence A will also be updated when the result table sequence is updated" optionchar="o"/>
+<O4 defaultselect="false" description="Perform an inverse operation; only apply to non-pure sequences" optionchar="z"/>
 </options>
 <params>
 <P1 desc="xi(An expression whose results are field values; if omitted, field values will be nulls a, and when is absent, :Fi must not be omitted)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -6782,7 +6796,7 @@
 </P2>
 </params>
 </F514>
-<F515 desc="Get specified field(s) from a composite table according to correspondence between its key values and the fields in a table sequence or a cursor, and return result as a table sequence or a cursor." majortype="101" name="new" postfix="T." returntype="101">
+<F515 desc="Return a table sequence/cursor consisting of the specified fields according to the correspondence between the composite table’s key (/dimension) and the corresponding field in the table sequence/cursor." majortype="101" name="new" postfix="T." returntype="101">
 <options>
 <O1 defaultselect="false" description="Copy records of the primary table and return result set aligned by A/cs" optionchar="r"/>
 </options>
@@ -6790,16 +6804,16 @@
 <P1 desc="A/cs(A table sequence/cursor)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="K(Field names; when there are K… parameters after A/cs, correspond them with theses specified fields)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="K(Name of the A/cs’s field that corresponds to T’s key (/dimension) Field of A/cs; when it is specified, use it to match with T’s key (/dimension); when it is absent, use the first field of A/cs to perform the matching; when there are multiple  Ks, use colon (:) to separate them)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
-<P3 desc="x(Field name or aggregate function count/sum/max/min/avg)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P3 desc="x(Field expression or aggregate function count/sum/max/min/avg)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
 <P4 desc="C(Column alias; can be absent)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
 <options/>
 </P4>
-<P5 desc="wi(Filtering condition; retrieve the whole set when this parameter is absent; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a non-key field in entity table T: 1．K=w w is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Kn=wn,w) wi is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of wi is null or false, the corresponding record in the entity table will be filtered away; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain K1,...Ki, T1,...Ti’s referencing field will be assigned to K1,...Ki correspondingly; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. w is an expression that returns a Boolean value; each of the multiple Ki=wi and w has a relationship of AND; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti.)" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
+<P5 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w usually uses expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Ki=wi,w) Ki=wi is an assignment expression. Generally, parameter wi can use expression Ti.find(Ki) or Ti.pfind(K), where Ti is a table sequence; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain Ki, Ti’s referencing field will be assigned to Ki correspondingly; when wi is expression Ti.pfind(Ki) and the to-be-selected fields C,... contain Ki, ordinal numbers of Ki values in Ti will be assigned to Ki.  w is a filter expression; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
 </params>
@@ -6851,15 +6865,15 @@
 </P3>
 </params>
 </F518>
-<F519 desc="Get values of specified field(s) in a composite table according to key values in a table sequence or a cursor, concatenate them and return result as a table sequence or a cursor." majortype="102" name="news" postfix="T." returntype="102">
+<F519 desc="Return a table sequence/cursor consisting of the specified fields according to the correspondence between the table sequence/cursor’s key and the corresponding field in the composite table." majortype="102" name="news" postfix="T." returntype="102">
 <options>
-<O1 defaultselect="false" description="Copy records of the primary table and return result that aligned by A/cs and where aggregation can be performed" optionchar="r"/>
+<O1 defaultselect="false" description="Perform aggregation on data of the subtable and return a result set aligned to A/cs" optionchar="r"/>
 </options>
 <params>
 <P1 desc="A/cs(A table sequence/cursor/composite table cursor)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="K(Field names; when there are K… parameters after A/cs, correspond them with theses specified fields)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P2 desc="K( A/cs’s field name; when it is specified, use it to match with T’s first field; when it is absent, use A/cs’s key (/dimension) to perform the matching; when there are multiple Ks, use colon (:) to separate them)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P2>
 <P3 desc="x(Field value)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
@@ -6868,7 +6882,7 @@
 <P4 desc="C(Column alias)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P4>
-<P5 desc="wi(Filtering condition; retrieve the whole set when this parameter is absent; separate multiple conditions by comma(s) and their relationships are AND. Besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a non-key field in entity table T: 1．K=w w is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Kn=wn,w) wi is expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of wi is null or false, the corresponding record in the entity table will be filtered away; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain K1,...Ki, T1,... Ti’s referencing field will be assigned to K1,...Ki correspondingly; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. w is an expression that returns a Boolean value; each of the multiple Ki=wi and w has a relationship of AND; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K: Ti.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P5 desc="wi(Filtering condition; separate multiple conditions by comma(s) and their relationships are AND; besides regular filtering expressions, you can also use the following five types of syntax in a filtering condition, where K is a field in the entity table: 1．K=w w usually uses expression Ti.find(K) or Ti.pfind(K), where Ti is a table sequence. When value of w is null or false, the corresponding record in the entity table will be filtered away; when w is expression Ti.find(K) and the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K; when w is expression Ti.pfind(K) and the to-be-selected fields C,... contain K, ordinal numbers of K values in Ti will be assigned to K. 2．(K1=w1,…Ki=wi,w) Ki=wi is an assignment expression. Generally, parameter wi can use expression Ti.find(Ki) or Ti.pfind(K), where Ti is a table sequence; when wi is expression Ti.find(K) and the to-be-selected fields C,... contain Ki, Ti’s referencing field will be assigned to Ki correspondingly; when wi is expression Ti.pfind(Ki) and the to-be-selected fields C,... contain Ki, ordinal numbers of Ki values in Ti will be assigned to Ki.  w is a filter expression; you can reference Ki in w. 3．K:Ti Ti is a table sequence. Compare Ki value in the entity table with key values of Ti and discard records whose Ki value does not match; when the to-be-selected fields C,... contain K, Ti’s referencing field will be assigned to K. 4．K:Ti:null Filter away all records that satisfy K:Ti.)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
 </params>
@@ -7185,15 +7199,14 @@
 </P2>
 </params>
 </F548>
-<F549 desc="Get the first and the last days of the week/month/quarter to which a date belongs" majortype="102" name="pdate" postfix="" returntype="101">
+<F549 desc="Get the first day or  the last days of the week/month/quarter/year  to which a date belongs" majortype="102" name="pdate" postfix="" returntype="101">
 <options>
-<O1 defaultselect="true" description="Get the Sunday of the week to which the specified date belongs" optionchar="w"/>
-<O2 defaultselect="false" description="Get the Saturday of the week to which the specified date belongs" optionchar="we"/>
-<O3 defaultselect="false" description="Get the beginning day of the month to which the specified date belongs" optionchar="m"/>
-<O4 defaultselect="false" description="Get the last day of the month to which the specified date belongs" optionchar="me"/>
-<O5 defaultselect="false" description="Get the beginning day of the quarter to which the specified date belongs" optionchar="q"/>
-<O6 defaultselect="false" description="Get the last day of the quarter to which the specified date belongs" optionchar="qe"/>
-<O7 defaultselect="false" description="Get the first day of the year to which the specified data belongs" optionchar="y"/>
+<O1 defaultselect="true" description="Take Sunday as the first day of a week and get the first day of the week to which dateExp belongs; this is the default option of pdate() function" optionchar="w"/>
+<O2 defaultselect="false" description="Get the beginning day of the month to which dateExp belongs" optionchar="m"/>
+<O3 defaultselect="false" description="Get the beginning day of the quarter to which dateExp belongs" optionchar="q"/>
+<O4 defaultselect="false" description="Get the first day of the year to which dateExp  belongs" optionchar="y"/>
+<O5 defaultselect="false" description="Work with @w option and take Monday as the first day of a week; note that it is number 1 that is used here" optionchar="1"/>
+<O6 defaultselect="false" description="Work with another option to get the last day" optionchar="e"/>
 </options>
 <params>
 <P1 desc="dateExp    (Expression whose result is a date or date time)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -7279,16 +7292,16 @@
 </P1>
 </params>
 </F555>
-<F556 desc="Perform row-to-column transposition for a sequence." majortype="101" name="pivot" postfix="A." returntype="101">
+<F556 desc="Perform row-to-column/column-to-row transposition for a table sequence/record sequence." majortype="101" name="pivot" postfix="A." returntype="101">
 <options>
-<O1 defaultselect="false" description="Transpose rows to columns. In this case the default fields in Ni are the fields of A that are not included in g. " optionchar="r"/>
-<O2 defaultselect="false" description="@s(g:G,…;F,f(V);Ni:N'i,…),Parameter f can be an aggregate function, which is sum, count, max, min or avg. One and only one Ni can be ignored. In that case the function performs aggregate over all the other Nis." optionchar="s"/>
+<O1 defaultselect="false" description="Transpose rows to columns  in table sequence/record sequence. In this case the default fields in Ni are the fields of A that are not included in g. " optionchar="r"/>
+<O2 optionchar="s"/>
 </options>
 <params>
 <P1 desc="g (Grouping fields/expressions)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="G(A field in the result set)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P2 desc="G(A field in the result set; default is g)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 <P3 desc="F (A to-be-transposed field in the specified sequence)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
@@ -7297,30 +7310,30 @@
 <P4 desc="V (A field in the specified sequence)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
-<P5 desc="Ni (Values of F field)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P5 desc="Ni (Values of F fieldand can be absent; by default it represents all unique field values  in F)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P5>
-<P6 desc="Ni`(The new name of Ni field)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<P6 desc="Ni`(Names of new fields and default values are Ni )" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P6>
 </params>
 </F556>
-<F557 desc="Create association between multiple sequences through the join key" majortype="101" name="pjoin" postfix="A." returntype="101">
+<F557 desc="Create association between multiple table sequences/record sequences through the join key" majortype="101" name="pjoin" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="Work when data is ordered to enable MERGE " optionchar="o"/>
 <O2 defaultselect="false" description="Enable full join while ignoring parameter z" optionchar="f"/>
 </options>
 <params>
-<P1 desc="K(A’s join key)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="K(P’s join key)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="x(A’s expression)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<P2 desc="x(P’s expression)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
 </P2>
 <P3 desc="F(Field name corresponding to expression x)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
 <options/>
 </P3>
-<P4 desc="Ai(A sequence)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<P4 desc="Ai(A table sequence/record sequence)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P4>
 <P5 desc="z(Join type)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -7500,8 +7513,8 @@
 </F566>
 <F567 desc="Get the positions of sequence members in another sequence." majortype="101" name="pos" postfix="A." returntype="101">
 <options>
-<O1 defaultselect="false" description="Return single ascending ISeq p to make A(p)==x" optionchar="i"/>
-<O2 defaultselect="false" description="Return the position in which the sequence x firstly appears in A. By doing so, seek the position of sub sequence x in the sequence A. If x is not the sub sequence of A, then return null." optionchar="c"/>
+<O1 defaultselect="false" description="Get  single ascending ISeq p to make A(p)==x" optionchar="i"/>
+<O2 defaultselect="false" description="Get position of the continuous sub-sequence x of sequence A when it appears the first time" optionchar="c"/>
 <O3 defaultselect="false" description=" A is a sorted sequence by default, so dichotomizing search will be used. Increasing and decreasing  are all applicable " optionchar="b"/>
 </options>
 <params>
@@ -8561,12 +8574,10 @@
 <F646 desc="Rename the fields in a table sequence/(multi-zone) entity table" majortype="101" name="rename" postfix="T." returntype="101">
 <options/>
 <params>
-<P1 desc="F (Field name)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<P1 desc="F (Field name; ignore the parameter if the field name does not exist in T)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
-<options/>
-</P2>
+<P2/>
 </params>
 </F646>
 <F647 desc="Rename a field of a cursor" majortype="101" name="rename" postfix="cs." returntype="101">
@@ -8690,6 +8701,9 @@
 <P3 desc="x(Zone table expression)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
 <options/>
 </P3>
+<P4 desc="cs(A cursor/table sequence)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P4>
 </params>
 </F656>
 <F657 desc="Clear the members of a table sequence" majortype="101" name="reset" postfix="T." returntype="101">
@@ -8740,10 +8754,10 @@
 <F661 desc="Get the substring from the right of a string" majortype="102" name="right" postfix="" returntype="101">
 <options/>
 <params>
-<P1 desc="s     (Source string from which to get the substring )" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="s(The source string)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="n     (Get the length of substring)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="n(The nth-to-last character of source string s; return an empty string when the absolute value of n is greater than the length of s)" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 </params>
@@ -8788,7 +8802,10 @@
 </params>
 </F666>
 <F667 desc="Compute an expression against a record and return the modified record.  The function computes the expression x against record r and return the modified record. Usually it is used to change the field values of r, for example, when x is col1=col2+1, it will change the field value of col1." majortype="101" name="run" postfix="r." returntype="101">
-<options/>
+<options>
+<O1 defaultselect="false" description="Use parallel algorithm to handle data-intensive or computation-intensive tasks; no definite order for the records in the result set" optionchar="m"/>
+<O2 defaultselect="false" description="Perform the inverse operation; only apply to non-pure sequences" optionchar="z"/>
+</options>
 <params>
 <P1 desc="xi (An expression, which is generally a field name or a legal expression composed of field names, and in which &quot;~&quot; references the current record.)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
 <options/>
@@ -9612,6 +9629,7 @@
 <O4 defaultselect="false" description="Perform trim operation to remove blank characters from the front and end of each string member, and split the original string according to continuous blank characters when d==&quot;&quot;" optionchar="t"/>
 <O5 defaultselect="false" description="Treat parameter d as a regular expression" optionchar="r"/>
 <O6 defaultselect="false" description="Spit a string using the carriage return \n, and split each substring according to the other options if there are any, and return a sequence of sequences" optionchar="n"/>
+<O7 defaultselect="false" description="Split string into two parts at the position of the last d found" optionchar="z"/>
 </options>
 <params>
 <P1 desc="d  (The delimiter; if it is omitted, split the string into a sequence of single characters.)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
@@ -9755,7 +9773,8 @@
 </F749>
 <F750 desc="Get structure information of a composite table." majortype="101" name="structure" postfix="f." returntype="101">
 <options>
-<O1 defaultselect="false" description="Include index information; by default, it isn’t involved" optionchar="i"/>
+<O1 defaultselect="false" description="Means f is an index file" optionchar="i"/>
+<O2 defaultselect="false" description="Means f is a preaggregation file" optionchar="c"/>
 </options>
 <params/>
 </F750>
@@ -9817,17 +9836,17 @@
 </P2>
 </params>
 </F755>
-<F756 desc="Switch the reference field between the field value and the referenced record" majortype="101" name="switch" postfix="A." returntype="101">
+<F756 desc="Switch the reference field between the field value and the referenced record" majortype="101" name="switch" postfix="P." returntype="101">
 <options>
 <O1 defaultselect="false" description="Remove this record if no value corresponding to F is found in the procedure." optionchar="i"/>
 <O2 defaultselect="false" description="Perform the inverse operation of @i, which obtains the records that have no value corresponding to F; with the option do not populate F with nulls. " optionchar="d"/>
-<O3 defaultselect="false" description="If the specified F field value of a specified record in sequence A doesn’t exist in sequence B, generate a record of the same structure as one in B with F field as the primary key" optionchar="1"/>
+<O3 defaultselect="false" description="If the specified F field value of a specified record in sequence P doesn’t exist in sequence B, generate a record of the same structure as one in B with F field as the primary key" optionchar="1"/>
 </options>
 <params>
-<P1 desc="Fi  (The key of A. When Ai:x;… is omitted, Fi stores the records of the referenced table Ai. They can be replaced by Ai’s primary key values through the function.)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<P1 desc="Fi  (The key of P. When Ai:x;… is omitted, Fi stores the records of the referenced table Ai. They can be replaced by Ai’s primary key values through the function.)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
 <options/>
 </P1>
-<P2 desc="Ai  (When Ai is available, Fi is the reference field of A, which stores corresponding primary key values. The function is used to switch them to the referenced records. The ma. )" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
+<P2 desc="Ai  (When Ai is available, Fi is the reference field of P, which stores corresponding primary key values. The function is used to switch them to the referenced records. The ma. )" filtertype="0" identifieronly="false" presign="," repeatable="false" subparam="false" valuestring="">
 <options/>
 </P2>
 <P3 desc="x  (When both parameter Ai and the primary key x are available, get the first record from Ai in which value x is equal to Fi and make it the value of Fi field. If x is #, locate the records directly through the sequence numbers.)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
@@ -10931,5 +10950,70 @@
 </P2>
 </params>
 </F846>
+<F847 desc="Open a composite table’s attached table" majortype="101" name="attach" postfix="T." returntype="101">
+<options/>
+<params>
+<P1/>
+</params>
+</F847>
+<F848 desc="Perform grouping &amp; aggregation using the composite table/multizone composite table’s preaggregation file." majortype="101" name="cgroup" postfix="T." returntype="101">
+<options>
+<O1 defaultselect="false" description="@m(…;n),Enable parallel processing; parameter n is the number of parallel threads, which is the “max number of parallel threads” specified in the designer by default or parallelNum value configured in raqsoftConfig.xml by default when esProc is used by being integrated in the third-party application " optionchar="m"/>
+</options>
+<params>
+<P1 desc="Fi(Grouping field)" filtertype="0" identifieronly="false" presign=" " repeatable="true" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="y(Aggregate expression)" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
+<options/>
+</P2>
+<P3 desc="Gi(Aggregate field name)" filtertype="0" identifieronly="false" presign=":" repeatable="false" subparam="true" valuestring="">
+<options/>
+</P3>
+<P4 desc="w(Filtering condition; cannot omitted)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P4>
+<P5 desc="f(T’s preaggregation file; find the suitable one when there are multiple preaggregation files (f,…))" filtertype="0" identifieronly="false" presign=";" repeatable="true" subparam="false" valuestring="">
+<options/>
+</P5>
+</params>
+</F848>
+<F849 desc="Generate preaggregation file for a composite table/multizone composite table" majortype="101" name="cuboid" postfix="T." returntype="101">
+<options/>
+<params>
+<P1 desc="f(Preaggregation file object)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="Fi(Grouping field)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<options/>
+</P2>
+<P3 desc="y(Aggregate expression; aggregate functions supported are sum/count/avg/max/min/top/)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P3>
+</params>
+</F849>
+<F850 desc="Get data type of the specified variable" majortype="102" name="typeof" postfix="" returntype="101">
+<options>
+<O1 defaultselect="false" description="When x is number type or date type, it has multiple subtypes: number type: int, long, float, decimal； date type: date, time, datetime. " optionchar="x"/>
+</options>
+<params>
+<P1 desc="x(A variable)" filtertype="0" identifieronly="false" presign=" " repeatable="false" subparam="false" valuestring="">
+<options/>
+</P1>
+</params>
+</F850>
+<F851 desc="Sort a bin file or a sequence of bin files and generate a new bin file" majortype="102" name="sortx" postfix="f." returntype="102">
+<options>
+<O1 defaultselect="false" description="Sort in descending order; default is ascending" optionchar="z"/>
+</options>
+<params>
+<P1 desc="Fi(Name(s) of f field(s) by which the file is sorted)" filtertype="0" identifieronly="false" presign="," repeatable="true" subparam="false" valuestring="">
+<options/>
+</P1>
+<P2 desc="fn(Bin file object(s); generate a temporary file and return its cursor when this parameter is absent)" filtertype="0" identifieronly="false" presign=";" repeatable="false" subparam="false" valuestring="">
+<options/>
+</P2>
+</params>
+</F851>
 </normal>
 </funcs>

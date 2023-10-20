@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>len()</title>
+<title>left()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,26 +13,38 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=len></a><span
-lang=EN-US>len()</span></h3></div>
+	<div id="centent-title"><h2><a name=left></a><span lang=EN-US>left()</span></h2></div>
 	<p class=ae style='line-height:200%'><span lang=EN-US>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlk129855509"><span
-lang=EN-US>Compute the length of a string.</span></a></p>
+<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlk129854907"></a><a
+name="_Hlk129860053"><span style='mso-bookmark:_Hlk129854907'><span lang=EN-US>Get
+a substring starting from the leftmost side of a string</span></span></a><span
+style='mso-bookmark:_Hlk129854907'><span lang=EN-US>.</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Syntax: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>len(</span></span><span
-class=var1><span lang=EN-US>s,cs</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+lang=EN-US style='font-family:"Times New Roman",serif'>left(</span></span><span
+class=var1><span lang=EN-US>s</span></span><span lang=EN-US>,</span><span
+class=var1><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>)</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function computes
-the length of a string. <a name="_Hlk129855526">Calculate length of string’s
-corresponding Unicode if parameter <i style='mso-bidi-font-style:normal'>cs </i>is
-absent.</a></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function gets
+a substring from source string </span><span class=var1><span lang=EN-US>s</span></span><span
+lang=EN-US>starting from the first character at the leftmost side to the <i>n<sup>th</sup></i>
+character</span><span class=var1><span lang=EN-US>.</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
+<a name="_Hlk129854957">If </a></span><span style='mso-bookmark:_Hlk129854957'><span
+lang=EN-US>n&lt;0</span></span></span><span style='mso-bookmark:_Hlk129854957'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>,
+get a substring </span></span><span lang=EN-US>starting from the first
+character at the leftmost side to the <i>abs(n)<sup>th</sup></i>-to-last
+character</span></span><span style='mso-bookmark:_Hlk129854957'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
+</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Parameter: </span></p>
 
@@ -40,27 +52,31 @@ absent.</a></span></p>
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>String for which you want to compute the
-  length</span></p>
+  <td width=480 valign=top style='width:360.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><a name="_Hlk129855029"><span lang=EN-US>The source string</span></a></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>cs</span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Charset; can be omitted</span></p>
+  <td width=480 valign=top style='width:360.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The <i>n<sup>th</sup></i> character of <span
+  style='mso-bidi-font-style:italic'>source string</span></span><span
+  class=var1><span lang=EN-US> s</span></span><span lang=EN-US>; return an
+  empty string when the absolute value of <i style='mso-bidi-font-style:normal'>n
+  </i><span style='mso-bidi-font-style:italic'>is greater than the length of </span></span><span
+  class=var1><span lang=EN-US>s</span></span></p>
   </td>
  </tr>
 </table>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Return value: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An integer</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A string</span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US>Example:</span></p>
 
@@ -70,47 +86,57 @@ absent.</a></span></p>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>len(&quot;esproc&quot;)</span></span><span
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>left(&quot;abcdefg&quot;,3)</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=372 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>6</span></span><b><span
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;abc&quot;</span></span><b><span
   lang=EN-US></span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>len(&quot;
-  esproc &quot;)</span></span></p>
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>left(&quot;abcdefg&quot;,-3)</span></span></p>
   </td>
   <td width=372 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;abcde&quot;<span
+  style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
   <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>len(&quot;esproc&quot;,)</span></span></p>
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>left(&quot;abcdefg&quot;,-10)</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
   <td width=372 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>6</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>len(&quot;esproc&quot;,&quot;UTF-8&quot;)</span></span></p>
-  </td>
-  <td width=372 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>6</span></span></p>
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>Return
+  an empty string</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></p>
   </td>
  </tr>
 </table>
+
+<p class=ae style='line-height:200%'><span lang=EN-US>Related functions:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
+ href="mid.html#mid_s_start_len">m<span style='mso-bookmark:_Hlt129860066'>i</span>d()</a><a
+name="_Hlt129860066"></a></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US><a  href="right.html#right"><span style='mso-fareast-font-family:
+黑体;font-weight:normal'>r<span style='mso-bookmark:_Hlt428799662'>i</span><span
+style='mso-bookmark:_Hlt414972837'>g</span><span style='mso-bookmark:_Hlt428799072'><span
+style='mso-bookmark:_Hlt426387772'><span style='mso-bookmark:_Hlt428799284'>h</span></span></span><span
+style='mso-bookmark:_Hlt414972807'>t</span>()</span></a><a
+name="_Hlt414972807"></a><a name="_Hlt428799284"></a><a name="_Hlt426387772"></a><a
+name="_Hlt428799072"></a><a name="_Hlt414972837"></a><a name="_Hlt428799662"></a></span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="542.html">Next</a></div>
@@ -118,7 +144,7 @@ absent.</a></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="538.html">len()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

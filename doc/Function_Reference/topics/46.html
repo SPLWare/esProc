@@ -310,11 +310,6 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   </span>Match multiple characters;</span></p>
   <p class=MsoNormal><span lang=EN-US>_<span
   style='mso-spacerun:yes'>&nbsp; </span>Match a single character;</span></p>
-  <p class=MsoNormal><span lang=EN-US>[<i style='mso-bidi-font-style:normal'>chracter,¡­</i>]
-  Match any single character in the character list;</span></p>
-  <p class=MsoNormal><span lang=EN-US>[!<i style='mso-bidi-font-style:normal'>chracter,¡­</i>]
-  or [^<i style='mso-bidi-font-style:normal'>chracter,¡­</i>] Won¡¯t match any
-  single character in the character list;</span></p>
   <p class=MsoNormal><span lang=EN-US>The operator does not support subqueries.</span></p>
   </td>
  </tr>
@@ -1301,8 +1296,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Note:</span></b></p>
 
-<p class=MsoNormal><span lang=EN-US>In a simple SQL statement, a string used
-for field name, file path, file name or alias should be enclosed by double
+<p class=MsoNormal><span lang=EN-US>In a simple SQL statement, a string used for
+field name, file path, file name or alias should be enclosed by double
 quotation marks when it contains one or more special identifiers or has a
 non-underline or non-letter beginning character, otherwise error will be
 reported. When using quotation marks, make sure they are escaped if needed.</span><b
@@ -1313,7 +1308,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
 
 <p class=MsoNormal><span lang=EN-US>When used in db.query(sql):</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=949
  style='margin-left:16.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
@@ -1528,8 +1523,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform a query
   over <i style='mso-bidi-font-style:normal'>Persons.btx</i>, name the result
   set <i style='mso-bidi-font-style:normal'>persons</i>, and perform a second
-  query over <i style='mso-bidi-font-style:normal'>persons</i>; this can
-  optimize SQL huge data processing</span></p>
+  query over <i style='mso-bidi-font-style:normal'>persons</i>; this can optimize
+  SQL huge data processing</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=257 height=76
   src="Function_Reference.files/image010.jpg" v:shapes="Í¼Æ¬_x0020_299"></span><span
@@ -1659,7 +1654,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
   src="Function_Reference.files/image013.png" v:shapes="Í¼Æ¬_x0020_301"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:15;height:5.25pt'>
+ <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes;height:5.25pt'>
   <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1686,90 +1681,6 @@ style='font-size:14.0pt'>Example:</span></b></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=325 height=43
   src="Function_Reference.files/image014.png" v:shapes="Í¼Æ¬_x0020_316"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;height:5.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
-  </td>
-  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where
-  Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
-  style='mso-spacerun:yes'>&nbsp; </span>'%[us]%' &quot;)</span></span></p>
-  </td>
-  <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=code><span
-  lang=zh-CN style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  ËÎÌå;mso-ansi-language:#0400;mso-fareast-language:#0400;font-weight:normal'>Use
-  like syntax to find from file <i style='mso-bidi-font-style:normal'>Persons.btx</i>
-  the record where Name field contains character u or s</span></span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=299 height=63
-  src="Function_Reference.files/image015.png" v:shapes="Í¼Æ¬_x0020_330"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:17;height:5.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></p>
-  </td>
-  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where
-  Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
-  style='mso-spacerun:yes'>&nbsp; </span>'%[!a]%' &quot;)</span></span></p>
-  </td>
-  <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=code><span
-  lang=zh-CN style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  ËÎÌå;mso-ansi-language:#0400;mso-fareast-language:#0400;font-weight:normal'>Use
-  like syntax to find from file <i style='mso-bidi-font-style:normal'>Persons.btx</i>
-  the record where Name field does not contain character a</span></span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=311 height=43
-  src="Function_Reference.files/image016.png" v:shapes="Í¼Æ¬_x0020_340"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:18;mso-yfti-lastrow:yes;height:5.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>18</span></span></p>
-  </td>
-  <td width=446 valign=top style='width:334.4pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from Persons.btx <span style='mso-spacerun:yes'>&nbsp;</span>where
-  Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
-  style='mso-spacerun:yes'>&nbsp; </span>'%[^s]%' &quot;)</span></span></p>
-  </td>
-  <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=code><span
-  lang=zh-CN style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  ËÎÌå;mso-ansi-language:#0400;mso-fareast-language:#0400;font-weight:normal'>Use
-  like syntax to find from file <i style='mso-bidi-font-style:normal'>Persons.btx</i>
-  the record where Name field does not contain character s</span></span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=333 height=43
-  src="Function_Reference.files/image017.png" v:shapes="Í¼Æ¬_x0020_354"></span></p>
   </td>
  </tr>
 </table>
@@ -2087,7 +1998,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.85pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=582 height=288
-  src="Function_Reference.files/image019.jpg" v:shapes="_x0000_i1038"></span></p>
+  src="Function_Reference.files/image016.jpg" v:shapes="_x0000_i1035"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;height:15.3pt'>
@@ -2108,7 +2019,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.3pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=581 height=281
-  src="Function_Reference.files/image021.jpg" v:shapes="_x0000_i1039"></span></p>
+  src="Function_Reference.files/image018.jpg" v:shapes="_x0000_i1036"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;height:19.05pt'>
@@ -2137,7 +2048,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   lang=EN-US>* to match file names</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=583 height=318
-  src="Function_Reference.files/image023.jpg" v:shapes="_x0000_i1040"></span></p>
+  src="Function_Reference.files/image020.jpg" v:shapes="_x0000_i1037"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;height:13.65pt'>
@@ -2156,11 +2067,11 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   <td width=584 valign=top style='width:437.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.65pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Query a data
-  file¡¯s fields, and its name, extension, size and the last modified time</span></p>
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Query a data file¡¯s
+  fields, and its name, extension, size and the last modified time</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=583 height=213
-  src="Function_Reference.files/image025.jpg" v:shapes="_x0000_i1041"></span></p>
+  src="Function_Reference.files/image022.jpg" v:shapes="_x0000_i1038"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;height:5.25pt'>
@@ -2203,7 +2114,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   data files generated under the main directory:</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=119 height=91
-  src="Function_Reference.files/image026.png" v:shapes="_x0000_i1042"></span></p>
+  src="Function_Reference.files/image023.png" v:shapes="_x0000_i1039"></span></p>
   </td>
  </tr>
 </table>
