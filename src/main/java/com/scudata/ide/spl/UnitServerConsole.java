@@ -824,8 +824,12 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		console.clear();
 	}
 
-	// -b black 黑界面，即启动无图形界面
-	public static void main(String[] args) {
+	/**
+	 * 
+	 * @param args
+	 * @return [host,port,isGraph]
+	 */
+	public static Object[] prepareArgs(String[] args) {
 		initLang();
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2",
 				UnitServer.getHome()));
@@ -861,7 +865,15 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				specifyPort = Integer.parseInt(buf.substring(index + 1).trim());
 			}
 		}
-
+		return new Object[] {specifyHost,specifyPort,isGraph};
+	}
+	
+	// -b black 黑界面，即启动无图形界面
+	public static void main(String[] args) {
+		Object[] obj = prepareArgs(args);
+		String specifyHost = (String)obj[0];
+		int specifyPort = (int)obj[1];
+		boolean isGraph = (boolean)obj[2];
 		if (isGraph) {
 			ServerConsole.setDefaultLNF();
 			try {

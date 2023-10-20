@@ -2,7 +2,6 @@ package com.scudata.ide.spl;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -183,8 +182,6 @@ public class ServerConsole {
 	 * @param args 执行参数
 	 */
 	public static void main(String[] args) {
-		boolean init = true;
-		
 		String usage = "该类根据选项来启动或停止各种服务，格式为 ServerConsole.sh -[options] -[options]...\r\n"
 				+ "当指定了某种选项用于启动相应服务时，都是启动非图形环境下的该类服务。\r\n"
 				+ "也可以不带任何选项，表示启动服务控制台程序[图形窗口控制台]。\r\n"
@@ -206,6 +203,12 @@ public class ServerConsole {
 		if(lang.equalsIgnoreCase("en")){
 			usage = usageEn;			
 		}
+		doMain( args, usage );
+	}
+	
+	public static void doMain(String[] args,String usage) {
+		boolean init = true;
+		
 
 		String arg;
 		if (args.length == 1) { //
