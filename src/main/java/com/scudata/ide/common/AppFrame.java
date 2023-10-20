@@ -205,7 +205,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		return fixTitle;
 	}
 
-	public static final String RELEASE_DATE = "2023-09-01";
+	public static final String RELEASE_DATE = "2023-10-20";
 
 	/**
 	 * 取发布时间

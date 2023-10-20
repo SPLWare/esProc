@@ -262,10 +262,6 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 				// The parsing is complete, and the buffer area is empty
 				if (parseFinished.booleanValue())
 					return null;
-				try {
-					Thread.sleep(10);
-				} catch (Exception e) {
-				}
 			}
 		}
 		try {
