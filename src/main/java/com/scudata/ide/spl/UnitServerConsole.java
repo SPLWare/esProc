@@ -825,7 +825,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	}
 
 	/**
-	 * 
+	 * 供企业版调用
 	 * @param args
 	 * @return [host,port,isGraph]
 	 */

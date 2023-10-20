@@ -198,7 +198,20 @@ public class ServerConsole {
 				+ " 示例：ServerConsole.sh -o  仅启动odbc服务\r\n\r\n"
 		;
 		
-		String usageEn = usage;//目前没有翻译
+		String usageEn = "The class starts or stops services according to the option used, format is ServerConsole.sh -[options] -[options]....\r\n"
+				+ "When an option is specified to start the corresponding service, it starts the service in a non-GUI environment.\r\n"
+				+ "When no option is specified, start the service console [graphics console].\r\n"
+				+ "In the following options, any options can work together except for -a and -x.\r\n\r\n"
+				+ "-p[ip:port]	Start a node; wehn ip:port are absent, automatically find an idle node.\r\n"
+				+ "-c port cfg	Use configuration cfg to start or stop a node; when cfg is absent, just stop the node.\r\n"
+				+ "-o	Start ODBC service.\r\n"
+				+ "-h	Start HTTP service.\r\n"
+				+ "-x[ip:port]	Stop assigning nodes; when ip:port are absent, stop all working services on the local machine. \r\n"
+				+ "-a	Start all services.\r\n"
+				+ "-?	Or print the current help information when the error option is present. \r\n\r\n"
+				+ " Example：ServerConsole.sh -a  Start all services, which is equivalent to ServerConsole.sh -p -o -h\r\n\r\n"
+				+ " Example：ServerConsole.sh -p 127.0.0.1:8281  Start a node with specified ip.\r\n\r\n"
+				+ " Example：ServerConsole.sh -o  Start odbc service only.\r\n\r\n";
 		String lang = Locale.getDefault().toString();
 		if(lang.equalsIgnoreCase("en")){
 			usage = usageEn;			
