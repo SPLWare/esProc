@@ -33,9 +33,9 @@ public class FileGroupReset extends FileGroupFunction {
 		if (param != null && param.getType() == IParam.Semicolon && param.getSubSize() == 2) {
 			IParam csParam = param.getSub(1);
 			if (csParam != null) {
-				obj = csParam.getLeafExpression().calculate(ctx);
-				if (obj instanceof ICursor) {
-					cs = (ICursor) obj;
+				Object csObj = csParam.getLeafExpression().calculate(ctx);
+				if (csObj instanceof ICursor) {
+					cs = (ICursor) csObj;
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
@@ -70,7 +70,9 @@ public class FileGroupReset extends FileGroupFunction {
 			}
 			
 			param = param.getSub(0);
-			if (param.getType() == IParam.Colon) {
+			if (param.isLeaf()) {
+				obj = param.getLeafExpression().calculate(ctx);
+			} else if (param.getType() == IParam.Colon) {
 				//f:b
 				IParam sub0 = param.getSub(0);
 				if (sub0 != null) {
