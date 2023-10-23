@@ -33,6 +33,8 @@ public class Transpose extends Function{
 			throw new RQException("transpose" + mm.getMessage("function.paramTypeError"));
 		}
 		// 单纯用序列转置，不改变成员数据类型，但转置后矩阵一定会填满，缺失值用0d
+		// edited by bd, 2023.10.23, 添加选项@n, 允许转置后使用空值
+		boolean ifn = this.option != null && this.option.indexOf('n') > -1; 
 		Sequence seq = (Sequence) result1;
 		int rows = seq.length();
 		int cols = 0;
@@ -43,6 +45,8 @@ public class Transpose extends Function{
 			}
 		}
 		Double zero = Double.valueOf(0);
+		// edited by bd, 2023.10.23, 添加选项@n, 允许转置后使用空值
+		if (ifn) zero = null;
 		if (cols == 0) {
 			Sequence result = new Sequence(rows);
 			// 一位序列，只需转成列式就行
@@ -63,6 +67,10 @@ public class Transpose extends Function{
 					Sequence subSeq = (Sequence) o;
 					if (subSeq.length() >= c) {
 						o = subSeq.get(c);
+					}
+					// edited by bd, 2023.10.23, 这里处理存在问题，如果矩阵不满，序列长度不足时，应该设为null
+					else {
+						o = zero;
 					}
 				}
 				else if (c > 1) {
