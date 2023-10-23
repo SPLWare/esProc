@@ -872,8 +872,8 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	public static void main(String[] args) {
 		Object[] obj = prepareArgs(args);
 		String specifyHost = (String)obj[0];
-		int specifyPort = (int)obj[1];
-		boolean isGraph = (boolean)obj[2];
+		int specifyPort = ((Integer)obj[1]).intValue();
+		boolean isGraph = ((Boolean)obj[2]).booleanValue();
 		if (isGraph) {
 			ServerConsole.setDefaultLNF();
 			try {
