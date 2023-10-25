@@ -281,7 +281,9 @@ public class XlsxSImporter implements ILineInput {
 				public void run() {
 					try {
 						parser.parse(sheetSource);
-					} catch (Exception e) {
+					} catch (Throwable e) {
+						if (e instanceof RQException)
+							throw new RuntimeException(e);
 						if (!isClosed) {
 							throw new RuntimeException(e);
 						}

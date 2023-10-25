@@ -287,8 +287,11 @@ public class SheetHandler extends DefaultHandler {
 					if (indexes == null) {
 						if (f < colCount)
 							line[f] = rowData[f];
-					} else if (indexes[f] != -1) {
-						line[indexes[f]] = rowData[f];
+					} else {
+						if (indexes.length <= f)
+							continue;
+						if (indexes[f] != -1)
+							line[indexes[f]] = rowData[f];
 					}
 				}
 				row++;
