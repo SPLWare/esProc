@@ -313,6 +313,8 @@ public final class FunctionLib {
 		addMemberFunction("id", "com.scudata.expression.mfn.cursor.Id");
 		addMemberFunction("id", "com.scudata.expression.mfn.channel.Id");
 		addMemberFunction("sum", "com.scudata.expression.mfn.sequence.Sum");
+		addMemberFunction("cumulate", "com.scudata.expression.mfn.sequence.Cumulate");
+		addMemberFunction("proportion", "com.scudata.expression.mfn.sequence.Proportion");
 		addMemberFunction("icount", "com.scudata.expression.mfn.sequence.ICount");
 		addMemberFunction("mode", "com.scudata.expression.mfn.sequence.Mode");
 		addMemberFunction("avg", "com.scudata.expression.mfn.sequence.Avg");

@@ -2797,6 +2797,43 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 返回元素的累积构成的序列
+	 * @return Sequence
+	 */
+	public Sequence cumulate() {
+		IArray mems = getMems();
+		int size = mems.size();
+		Sequence result = new Sequence(size);
+		IArray resultMems = result.getMems();
+
+		Object value = null;
+		for (int i = 1; i <= size; ++i) {
+			value = Variant.add(value, mems.get(i));
+			resultMems.push(value);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 返回元素的占比构成的序列
+	 * @return Sequence
+	 */
+	public Sequence proportion() {
+		IArray mems = getMems();
+		int size = mems.size();
+		Sequence result = new Sequence(size);
+		IArray resultMems = result.getMems();
+
+		Object sum = sum();
+		for (int i = 1; i <= size; ++i) {
+			resultMems.push(Variant.divide(mems.get(i), sum));
+		}
+
+		return result;
+	}
+
+	/**
 	 * 返回平均值，元素类型必须为数值，空值不进行计数
 	 * @return Object
 	 */
