@@ -1473,29 +1473,7 @@ public class TableHashIndex implements ITableIndex {
 				}
 				ifields[i] = fields[i];
 			}
-			
-			//检查是否是对主键建立索引
-			keyNames = srcTable.getSortedColNames();
-			if (srcTable.isSorted && keyNames != null && fields.length == keyNames.length) {
-				boolean isKeyField = true;
-				for (int i = 0, len = fields.length; i < len; ++i) {
-					if (!fields[i].equals(keyNames[i])) {
-						isKeyField = false;
-						break;
-					}
-				}
-				if (isKeyField) {
-					if (index1EndPos > 0) {
-						srcCursor.seek(index1EndPos);
-					}
-					ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
-					cursorList.add(srcCursor);
-					srcCursor = null;
-					return cursorList;
-				}
-			}
-			
-			//Runtime rt = Runtime.getRuntime();
+
 			int baseCount = 100000;//每次取出来的条数
 			boolean flag = false;//是否调整过临时文件大小
 			
@@ -1585,28 +1563,6 @@ public class TableHashIndex implements ITableIndex {
 				ifields[i] = fields[i];
 			}
 			
-			//检查是否是对主键建立索引
-			keyNames = srcTable.getSortedColNames();
-			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
-				boolean isKeyField = true;
-				for (int i = 0, len = fields.length; i < len; ++i) {
-					if (!fields[i].equals(keyNames[i])) {
-						isKeyField = false;
-						break;
-					}
-				}
-				if (isKeyField) {
-					if (index1EndPos > 0) {
-						srcCursor.seek(index1EndPos);
-					}
-					ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
-					cursorList.add(srcCursor);
-					srcCursor = null;
-					return cursorList;
-				}
-			}
-			
-			//Runtime rt = Runtime.getRuntime();
 			int baseCount = 100000;//每次取出来的条数
 			boolean flag = false;//是否调整过临时文件大小
 			

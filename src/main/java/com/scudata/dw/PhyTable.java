@@ -1621,8 +1621,8 @@ abstract public class PhyTable implements IPhyTable {
 	 * @return
 	 */
 	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields, boolean isRead) {
-		String name = indexFile.getFileName().toLowerCase();
-		name += this.getTableName().toLowerCase();
+		File f = indexFile.getLocalFile().file();
+		String name = f.getAbsolutePath().toLowerCase();
 		
 		if (!this.getGroupTable().getFile().exists()) {
 			return null;
