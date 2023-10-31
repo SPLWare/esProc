@@ -424,7 +424,7 @@ abstract public class PhyTable implements IPhyTable {
 			if  (opt != null) {
 				//全文
 				if  (opt.indexOf('w') != -1) {
-					TableFulltextIndex index = new TableFulltextIndex(this, I);
+					TableFulltextIndex index = new TableFulltextIndex(this, I, (Integer) obj);
 					index.create(fields, opt, ctx, w);
 					return;
 				}
@@ -485,15 +485,17 @@ abstract public class PhyTable implements IPhyTable {
 			opt += "U";
 		}
 		
+		if (hasOpt) {
+			//全文
+			if  (opt.indexOf('w') != -1) {
+				TableFulltextIndex index = new TableFulltextIndex(this, file, (Integer) obj);
+				index.create(fields, opt, ctx, w);
+				return;
+			}
+		}
+		
 		if (obj == null) {
 			if  (hasOpt) {
-				//全文
-				if  (opt.indexOf('w') != -1) {
-					TableFulltextIndex index = new TableFulltextIndex(this, file);
-					index.create(fields, opt, ctx, w);
-					return;
-				}
-				
 				//load index
 				FileObject indexFile = file;
 				String[][] fileds = PhyTableIndex.readIndexFields(file);
@@ -557,7 +559,7 @@ abstract public class PhyTable implements IPhyTable {
 				TableKeyValueIndex index = new TableKeyValueIndex(this, indexNames[i]);
 				index.create(indexFields[i], indexValueFields[i], "ar", ctx, null);
 			} else {
-				TableFulltextIndex index = new TableFulltextIndex(this, indexNames[i]);
+				TableFulltextIndex index = new TableFulltextIndex(this, indexNames[i], null);
 				index.create(indexFields[i], "ar", ctx, null);
 			}
 		}
@@ -1741,7 +1743,7 @@ abstract public class PhyTable implements IPhyTable {
 					} else if (type[0] == 'h') {
 						ti = new TableHashIndex(this, indexFile);
 					} else if (type[0] == 'w') {
-						ti = new TableFulltextIndex(this, indexFile);
+						ti = new TableFulltextIndex(this, indexFile, null);
 					} else {
 						ti = new TableKeyValueIndex(this, indexFile);
 					}
@@ -1799,7 +1801,7 @@ abstract public class PhyTable implements IPhyTable {
 					} else if (type[0] == 'h') {
 						ti = new TableHashIndex(this, indexFile);
 					} else if (type[0] == 'w') {
-						ti = new TableFulltextIndex(this, indexFile);
+						ti = new TableFulltextIndex(this, indexFile, null);
 					} else {
 						ti = new TableKeyValueIndex(this, indexFile);
 					}
