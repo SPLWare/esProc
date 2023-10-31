@@ -1,7 +1,9 @@
 package com.scudata.dw;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +26,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IndexCursor extends ICursor {
-	private int BUFFER_SIZE = 1024 * 512;
+	private int BUFFER_SIZE = 1024 * 4;
 	
 	private PhyTable table;
 	private String []fields;//È¡³ö×Ö¶Î
@@ -425,6 +427,7 @@ public class IndexCursor extends ICursor {
 			BufferReader rowDataReader = this.rowDataReader;
 			rowDataReader.reset();
 			rowDataReader.skipObject();//Î±ºÅ
+			
 			values = new Object[allCount];
 			if (serialBytesLen != null) {
 				for (int f = 0; f < allCount; ++f) {
