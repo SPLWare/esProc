@@ -1618,7 +1618,7 @@ public class SPL extends AppFrame {
 	 * @param e
 	 */
 	void this_windowClosing(WindowEvent e) {
-		this.update(this.getGraphics());
+		// this.update(this.getGraphics()); 速度变慢，不记得为什么这样刷新
 		if (!closeAll(true)) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
