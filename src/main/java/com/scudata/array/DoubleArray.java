@@ -2270,12 +2270,12 @@ public class DoubleArray implements NumberArray {
 	 * @return 差数组
 	 */
 	public IArray memberSubtract(IArray array) {
-		if (array instanceof IntArray) {
+		if (array instanceof DoubleArray) {
+			return memberSubtract((DoubleArray)array);
+		} else if (array instanceof IntArray) {
 			return memberSubtract((IntArray)array);
 		} else if (array instanceof LongArray) {
 			return memberSubtract((LongArray)array);
-		} else if (array instanceof DoubleArray) {
-			return memberSubtract((DoubleArray)array);
 		} else if (array instanceof ConstArray) {
 			return memberSubtract(array.get(1));
 		} else if (array instanceof ObjectArray) {
@@ -2643,12 +2643,12 @@ public class DoubleArray implements NumberArray {
 	 * @return 积数组
 	 */
 	public IArray memberMultiply(IArray array) {
-		if (array instanceof IntArray) {
+		if (array instanceof DoubleArray) {
+			return memberMultiply((DoubleArray)array);
+		} else if (array instanceof IntArray) {
 			return memberMultiply((IntArray)array);
 		} else if (array instanceof LongArray) {
 			return memberMultiply((LongArray)array);
-		} else if (array instanceof DoubleArray) {
-			return memberMultiply((DoubleArray)array);
 		} else if (array instanceof ConstArray) {
 			return memberMultiply(array.get(1));
 		} else if (array instanceof ObjectArray) {
@@ -2881,17 +2881,50 @@ public class DoubleArray implements NumberArray {
 			}
 			
 			double []newDatas = new double[size + 1];
-			System.arraycopy(datas, 1, newDatas, 1, size);
-			
 			boolean []newSigns = null;
-			if (signs != null) {
+			double []datas = this.datas;;
+			boolean []signs = this.signs;
+			double []d2 = array.datas;
+			boolean []s2 = array.signs;
+
+			if (signs == null) {
+				if (s2 == null) {
+					for (int i = 1; i <= size; ++i) {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				} else {
+					newSigns = new boolean[size + 1];
+					for (int i = 1; i <= size; ++i) {
+						if (s2[i]) {
+							newSigns[i] = true;
+						} else {
+							newDatas[i] = datas[i] * d2[i];
+						}
+					}
+				}
+			} else if (s2 == null) {
 				newSigns = new boolean[size + 1];
-				System.arraycopy(signs, 1, newSigns, 1, size);
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i]) {
+						newSigns[i] = true;
+					} else {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				}
+			} else {
+				newSigns = new boolean[size + 1];
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i] || s2[i]) {
+						newSigns[i] = true;
+					} else {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				}
 			}
 			
 			DoubleArray result = new DoubleArray(newDatas, newSigns, size);
 			result.setTemporary(true);
-			return result.memberMultiply(array);
+			return result;
 		}
 		
 		double []datas = this.datas;;
