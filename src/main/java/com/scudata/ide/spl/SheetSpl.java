@@ -509,6 +509,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (!(GV.appMenu instanceof MenuSpl)) {
 			return;
 		}
+		// 当前页面没有激活时不设置
+		if (this != GV.appSheet) {
+			return;
+		}
 		try {
 			// Menu
 			MenuSpl md = (MenuSpl) GV.appMenu;
@@ -2362,6 +2366,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param enabled
 	 */
 	private void setMenuToolEnabled(short[] ids, boolean enabled) {
+		// 当前页面没有激活时不设置
+		if (this != GV.appSheet) {
+			return;
+		}
 		MenuSpl md = (MenuSpl) GV.appMenu;
 		for (int i = 0; i < ids.length; i++) {
 			md.setMenuEnabled(ids[i], enabled);
