@@ -12359,6 +12359,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
+	 * 返回序列成员按位异或值的二进制表示时1的个数和
+	 * @param seq 异或序列
+	 * @return 1的个数和
+	 */
+	public int bit1(Sequence seq) {
+		return getMems().bit1(seq.getMems());
+	}
+	
+	/**
 	 * 对排列做主键式关连
 	 * @param srcKeyExps 关连键表达式
 	 * @param srcNewExps 选出字段表达式数组，空则选出所有

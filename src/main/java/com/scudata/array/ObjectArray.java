@@ -4108,4 +4108,21 @@ public class ObjectArray implements IArray {
 		
 		return sum;
 	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		Object []datas = this.datas;
+		int size = this.size;
+		int count = 0;
+		
+		for (int i = 1; i <= size; ++i) {
+			count += Bit1.bitCount(datas[i], array.get(i));
+		}
+		
+		return count;
+	}
 }

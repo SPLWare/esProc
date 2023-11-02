@@ -15,6 +15,7 @@ import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
+import com.scudata.expression.fn.math.Bit1;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
@@ -9492,6 +9493,64 @@ public class IntArray implements NumberArray {
 		}
 		
 		return sum;
+	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		if (array instanceof IntArray) {
+			return bit1((IntArray)array);
+		} else if (array instanceof LongArray) {
+			return ((LongArray)array).bit1(this);
+		} else {
+			int size = this.size;
+			int count = 0;
+			for (int i = 1; i <= size; ++i) {
+				count += Bit1.bitCount(get(i), array.get(i));
+			}
+			
+			return count;
+		}
+	}
+	
+	private int bit1(IntArray array) {
+		int size = this.size;
+		int []d1 = this.datas;
+		boolean []s1 = this.signs;
+		int []d2 = array.datas;
+		boolean []s2 = array.signs;
+		int count = 0;
+		
+		if (s1 == null) {
+			if (s2 == null) {
+				for (int i = 1; i <= size; ++i) {
+					count += Integer.bitCount(d1[i] ^ d2[i]);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (!s2[i]) {
+						count += Integer.bitCount(d1[i] ^ d2[i]);
+					}
+				}
+			}
+		} else if (s2 == null) {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i]) {
+					count += Integer.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		} else {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i] && !s2[i]) {
+					count += Integer.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		}
+
+		return count;
 	}
 	
 	public boolean hasSigns() {
