@@ -92,4 +92,19 @@ public class Mod extends Operator {
 		IArray rightArray = right.calculateAll(ctx, signArray, sign);
 		return leftArray.memberMod(rightArray);
 	}
+	
+	/**
+	 * 计算表达式的取值范围
+	 * @param ctx 计算上行文
+	 * @return
+	 */
+	public IArray calculateRange(Context ctx) {
+		IArray leftArray = left.calculateAll(ctx);
+		if (leftArray.isMemberEquals(1, 2)) {
+			IArray rightArray = right.calculateAll(ctx);
+			return leftArray.memberMod(rightArray);
+		} else {
+			return null;
+		}
+	}
 }
