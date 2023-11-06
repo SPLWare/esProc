@@ -381,7 +381,7 @@ public class SimpleSelect
 							String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
 							Expression[] exps = new Expression[ff.length];
 							for (int m=0; m<ff.length; m++) {
-								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\", "/")+"\"");
 								else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
 								else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
 								else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
@@ -423,7 +423,7 @@ public class SimpleSelect
 						String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
 						Expression[] exps = new Expression[ff.length];
 						for (int m=0; m<ff.length; m++) {
-							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\","/")+"\"");
 							else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
 							else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
 							else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
@@ -452,8 +452,9 @@ public class SimpleSelect
 						
 						String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
 						Expression[] exps = new Expression[ff.length];
+						System.out.println("1------------"+foi.getFileName());
 						for (int m=0; m<ff.length; m++) {
-							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\","/")+"\"");
 							else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
 							else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
 							else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
@@ -484,8 +485,9 @@ public class SimpleSelect
 						FileObject foi = this.files.get(z);
 						try 
 						{
+							System.out.println("1------------"+foi.getFileName());
 							Table t2 = FileObject.import_x(importer, "t");
-							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName()+"\"")
+							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName().replace("\\","/")+"\"")
 									,new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"")
 									,new Expression("\""+foi.getFile().lastModified()+"\"")
 									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						
@@ -579,7 +581,7 @@ public class SimpleSelect
 								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 读取文件数据失败");
 							}
 							Table t2 = (Table)seq;
-							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName()+"\"")
+							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName().replace("\\","/")+"\"")
 									,new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"")
 									,new Expression("\""+foi.getFile().lastModified()+"\"")
 									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						

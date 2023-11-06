@@ -22,7 +22,7 @@ public class ExpressionTranslator //只能处理中间过程中的表达式，不能直接用来处理
 		{
 			return exp;
 		}
-		Logger.debug("translateExp beg : "+ exp);		
+		//Logger.debug("translateExp beg : "+ exp);		
 		exp = moveOutMarks(exp);//保护可能包含字段名的字符串""
 		exp = moveOutFuncs(exp, trMap);//保护与字段同名的函数fun(
 		
@@ -115,7 +115,7 @@ public class ExpressionTranslator //只能处理中间过程中的表达式，不能直接用来处理
 		exp = moveInMarks(exp);
 		exp = moveInFuncs(exp);
 
-		Logger.debug("translateExp end : "+ exp);		
+		//Logger.debug("translateExp end : "+ exp);		
 
 		return exp;
 	}
