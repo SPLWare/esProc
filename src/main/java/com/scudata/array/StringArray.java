@@ -209,9 +209,24 @@ public class StringArray implements IArray {
 						mm.getMessage("DataType.String"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.String"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.String"), array.getDataType()));
+			ensureCapacity(size + size2);
+			String []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof String) {
+					datas[++size] = (String)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.String"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -251,9 +266,24 @@ public class StringArray implements IArray {
 						mm.getMessage("DataType.String"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.String"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.String"), array.getDataType()));
+			ensureCapacity(size + count);
+			String []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof String) {
+					datas[++size] = (String)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.String"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -537,7 +567,11 @@ public class StringArray implements IArray {
 		StringArray result = new StringArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.pushString(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.pushString(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;
@@ -1914,7 +1948,7 @@ public class StringArray implements IArray {
 		return result;
 	}
 
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		String []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -2133,7 +2167,25 @@ public class StringArray implements IArray {
 	 * @return
 	 */
 	public Object sum() {
-		return null;
+		int size = this.size;
+		if (size < 1) {
+			return null;
+		}
+		
+		String []datas = this.datas;
+		String result = datas[1];
+		
+		for (int i = 2; i <= size; ++i) {
+			if (datas[i] != null) {
+				if (result == null) {
+					result = datas[i];
+				} else {
+					result += datas[i];
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -2449,7 +2501,7 @@ public class StringArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		String []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -3324,6 +3376,16 @@ public class StringArray implements IArray {
 	 * @return
 	 */
 	public int bit1() {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}

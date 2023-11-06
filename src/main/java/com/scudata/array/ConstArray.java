@@ -17,6 +17,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
 import com.scudata.expression.fn.math.And;
+import com.scudata.expression.fn.math.Bit1;
 import com.scudata.expression.fn.math.Or;
 import com.scudata.expression.fn.math.Xor;
 import com.scudata.resources.EngineMessage;
@@ -286,7 +287,19 @@ public class ConstArray implements IArray {
 	 * @return IArray
 	 */
 	public IArray get(IArray indexArray) {
-		return new ConstArray(data, indexArray.size());
+		Object data = this.data;
+		int len = indexArray.size();
+		ObjectArray result = new ObjectArray(len);
+		
+		for (int i = 1; i <= len; ++i) {
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.push(data);
+			}
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -2996,5 +3009,21 @@ public class ConstArray implements IArray {
 	public int bit1() {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		int count = 0;
+		Object data = this.data;
+		
+		for (int i = 1; i <= size; ++i) {
+			count += Bit1.bitCount(data, array.get(i));
+		}
+		
+		return count;
 	}
 }

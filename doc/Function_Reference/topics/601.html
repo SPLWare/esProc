@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.news( A/cs,K,x:C,…;wi,... )</title>
+<title>movefile( fn:z , path )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,779 +14,347 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="T_news_Acs_x_C_wi_1"></a><a name="T_news"><span style='mso-bookmark:T_news_Acs_x_C_wi_1'><span
-lang=EN-US>T.news(<i style='mso-bidi-font-style:normal'>A/cs,K,x:C,…;wi,...</i>)</span></span></a><a
-name="T_news977"></a><a name="T_news_Acs_K_x_C_wi_concat"></a></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+name="movefile_fn_path"></a><a name="movefile_fn_path_z"></a><span lang=EN-US>movefile(<i
+style='mso-bidi-font-style:normal'>fn:z</i>,<i style='mso-bidi-font-style:normal'>path</i>)</span></h3></div>
+	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Move, delete, or
+rename a file.</span></p>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>movefile(</span></span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>fn:z,path</span></i></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Get values of specified
-field(s) in a composite table according to key values in a table sequence or a
-cursor, concatenate them and return result as a table sequence or a cursor.</span></p>
+lang=EN-US>The function moves file </span><span class=code><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>fn</span></i></span><span lang=EN-US> to a file specified by parameter </span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
+lang=EN-US>. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>Delete </span></span><span lang=EN-US>file </span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>fn</span></i></span><span
+lang=EN-US> if </span><span class=code><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
+lang=EN-US> is absent</span><span class=code><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>; rename the file if only the file
+name is specified in the <i style='mso-bidi-font-style:normal'>path</i></span></span><span
+lang=EN-US>.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
-
-<p class=MsoNormal style='margin-left:147.0pt;mso-para-margin-left:2.5gd;
-text-indent:-120.75pt;mso-char-indent-count:-11.5'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US>T</span></i><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>.news(</span></span><i><span
-lang=EN-US>A/cs:K,x:C,…;wi,...</span></i><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span><span lang=EN-US
-style='mso-bidi-font-style:italic'></span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp;</span><span style='color:black'>Composite table
-<i>T</i> and table sequence <i>A</i> or cursor <i>cs</i> have a relationship of
-many-to-one. The function retrieves specified field values <i>x,...</i> from <i>T</i>
-and concatenate them to form a new table sequence according to the
-correspondence between table sequence <i>A</i> or cursor <i>cs</i>’s
-key/dimension values and <i>T</i>’s fields (begin form the first field). It is
-required that <i>A/cs</i> be ordered by the key and their key has same order as
-that of <i>T</i>’s first field keys. </span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>It is used to
-join a table sequence or a cursor to a composite in a one-to-many relationship
-and return a result set containing all records in the composite table pointing
-to the table sequence or cursor’s primary key. While T.new() function performs
-a join in a one-to-one or one-to-many relationship.</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameter:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>T</span></span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>fn</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A composite table</span></p>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>File name</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A/cs</span></span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>z</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence/cursor/composite table
-  cursor</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>K</span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Field names; when there are K… parameters
-  after A/cs, correspond them with theses specified fields</span></p>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An integer; it represents the zone table
+  number when parameter <i style='mso-bidi-font-style:normal'><span
+  style='mso-bidi-font-weight:bold'>fn</span></i> is a homo-name files group;
+  or is omitted when <i style='mso-bidi-font-style:normal'><span
+  style='mso-bidi-font-weight:bold'>fn </span></i>isn’t a homo-name files group</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>path</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Field names or aggregate function
-  count/sum/max/min/avg</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>C</span></span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Column alias</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>wi</span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition; retrieve the whole
-  set when this parameter is absent; separate multiple conditions by comma(s)
-  and their relationships are AND. Besides regular filtering expressions, you
-  can also use the following five types of syntax in a filtering condition,
-  where <i>K</i> is a non-key field in entity table <i style='mso-bidi-font-style:
-  normal'>T</i>:</span></p>
-  <p class=MsoNormal><span lang=EN-US>1</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>K</span></i><span
-  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w</i></span></p>
-  <p class=MsoNormal><i><span lang=EN-US>w</span></i><span lang=EN-US> is
-  expression <i>T<sub>i</sub></i>.find(<i>K</i>) or <i>T<sub>i</sub></i>.pfind(<i>K</i>),
-  where <i>T<sub>i</sub></i> is a table sequence. When value of w is null or
-  false, the corresponding record in the entity table will be filtered away;
-  when w is expression <i>T<sub>i</sub></i>.find(<i>K</i>) and the
-  to-be-selected fields <i>C,...</i> contain <i>K</i>, <i>T<sub>i</sub></i></span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>’</span><span lang=EN-US>s referencing field will be
-  assigned to <i>K</i>; when <i>w</i> is expression <i>T<sub>i</sub></i>.pfind(<i>K</i>)
-  and the to-be-selected fields <i>C,...</i> contain <i>K</i>, ordinal numbers
-  of <i>K</i> values in <i>T<sub>i</sub></i> will be assigned to <i>K</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>2</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><span
-  lang=EN-US>(<i style='mso-bidi-font-style:normal'>K<sub><span
-  style='color:black;mso-bidi-font-style:italic'>1</span></sub></i>=<i
-  style='mso-bidi-font-style:normal'>w<sub><span style='color:black;mso-bidi-font-style:
-  italic'>1</span></sub></i>,</span><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>K<sub><span
-  style='color:black;mso-bidi-font-style:italic'>n</span></sub></span></i><span
-  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
-  style='color:black;mso-bidi-font-style:italic'>n</span></sub></i>,<i
-  style='mso-bidi-font-style:normal'>w</i>)</span></p>
-  <p class=MsoNormal><i><span lang=EN-US>w<sub>i</sub></span></i><span
-  lang=EN-US> is expression <i>T<sub>i</sub></i>.find(<i>K</i>) or <i>T<sub>i</sub></i>.pfind(<i>K</i>),
-  where <i>T<sub>i</sub></i> is a table sequence. When value of wi is null or
-  false, the corresponding record in the entity table will be filtered away;
-  when <i>w<sub>i</sub></i> is expression <i>T<sub>i</sub></i>.find(<i>K</i>)
-  and the to-be-selected fields <i>C,...</i> contain <i>K<sub>1</sub>,...K<sub>i</sub></i>,
-  <i>T<sub>1</sub>,... T<sub>i</sub></i>’s referencing field will be assigned
-  to <i>K<sub>1</sub>,...K<sub>i</sub></i> correspondingly; when w is
-  expression <i>T<sub>i</sub></i>.pfind(<i>K</i>) and the to-be-selected fields
-  <i>C,...</i> contain <i>K</i>, ordinal numbers of <i>K</i> values in <i>T<sub>i</sub></i>
-  will be assigned to <i>K</i>. <i>w</i> is an expression that returns a
-  Boolean value; each of the multiple <i>K<sub>i</sub></i>=<i>w<sub>i</sub></i>
-  and w has a relationship of AND; you can reference <i>K<sub>i</sub> </i>in <i>w</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>3</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>K</span></i><span
-  lang=EN-US>:<i style='mso-bidi-font-style:normal'>T<sub><span
-  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i></span></p>
-  <p class=MsoNormal><i><span lang=EN-US>T<sub>i</sub></span></i><span
-  lang=EN-US> is a table sequence. Compare <i>K<sub>i</sub></i> value in the
-  entity table with key values of <i>T<sub>i</sub></i> and discard records
-  whose <i>K<sub>i</sub></i> value does not match; when the to-be-selected
-  fields <i>C,...</i> contain<i> K</i>, <i>T<sub>i</sub></i>’s referencing
-  field will be assigned to <i>K</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>4</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>K</span></i><span
-  lang=EN-US>:<i style='mso-bidi-font-style:normal'>T<sub><span
-  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>:null</span></p>
-  <p class=MsoNormal><span lang=EN-US>Filter away all records that satisfy <i>K</i>:<i>
-  T<sub>i</sub></i>.</span></p>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The path (with file name) along which the
+  file is moved, or a file name</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Option:</span></b></p>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Option:</span></p>
 
-<p class=MsoNormal style='text-indent:15.8pt;mso-char-indent-count:1.5;
-tab-stops:18.0pt'><b><span lang=EN-US>@r</span></b><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp; </span>Copy records of the primary table
-and return result that aligned by </span><span class=var1><span lang=EN-US>A/cs
-</span></span><span class=var1><span lang=EN-US style='font-style:normal'>and
-where aggregation can be performed</span></span></p>
-
-<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Return
-value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A table sequence/cursor</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
- mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
- .5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=22 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@y</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=642 valign=top style='width:385.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Force an execution of the function if the
+  target file already exists. Without the option you can’t force an execution.
+  Delete the target file if parameter </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>path</span></i></span><span lang=EN-US> is absent. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@c</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file. If the target file name is
+  the same as that of the specified file to which it will be moved, the copy
+  fails.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>path</span></i><span lang=EN-US> is
+  relative to the main directory when it is a relative path; default is
+  relative to <i>fn</i>’s parent directory</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value:</span><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
+style='mso-bidi-font-size:14.0pt;line-height:200%'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></p>
+
+<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
+lang=EN-US>Boolean value</span></p>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=576
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:254.65pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
-  <td width=337 valign=top style='width:202.2pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.95pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=22 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=642 valign=top style='width:385.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif"'>=file(&quot;score.ctx&quot;).open()</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(&quot;E://test.property&quot;,&quot;D://testfile.property&quot;)</span></span></p>
   </td>
-  <td width=337 valign=top style='width:202.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Open a composite table file</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=333 height=529
-  src="Function_Reference.files/image1719.jpg" v:shapes="_x0000_i2095"></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Move the file to </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>testfile.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+  lang=EN-US>file under root directory on driver D</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=22 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=642 valign=top style='width:385.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif"'>=demo.query(&quot;select * from
-  students&quot;).keys(ID)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(&quot;D://testfile.property&quot;,&quot;file.property&quot;)</span></span></p>
   </td>
-  <td width=337 valign=top style='width:202.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence with ID as the
-  key</span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=316 height=209
-  src="Function_Reference.files/image1721.jpg" v:shapes="图片_x0020_1032"></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D://testfile.property</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>is renamed</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=22 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=642 valign=top style='width:385.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>=A1.news(A2:ID,STUDENTID,SUBJECT,SCORE;SUBJECT==&quot;Math&quot;,SCORE&gt;70)</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:
-  "Times New Roman","serif"'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(&quot;D://file.property&quot;)</span></span></p>
   </td>
-  <td width=337 valign=top style='width:202.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:
-  bold'>Join A1’s composite table and A2’s table sequence where the filteing
-  condition is SUBJECT=Math &amp; SCORE&gt;70 and return eligible records in
-  the composite table</span></span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=299 height=133
-  src="Function_Reference.files/image1723.jpg" v:shapes="图片_x0020_1033"></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:
-  "Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Delete </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>file.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=22 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=642 valign=top style='width:385.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>=A1.news@r(A2:ID,NAME,sum(SCORE):TotalScore)</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:
-  "Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=337 valign=top style='width:202.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Sum scores of all subjects for each
-  student and return result:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=193 height=206
-  src="Function_Reference.files/image1724.png" v:shapes="_x0000_i2098"></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:
-  "Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><a name="T_news_Acs_x_C_wi_2"></a><a
-name="T_news_T_A_cs_x_C_wi"></a><a name="T_news_X_xi_Fi"></a><span
-style='mso-bookmark:T_news_Acs_x_C_wi_2'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-lang=EN-US>Use special types of filtering conditions:</span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select
-  STUDENTID,CLASS,SUBJECT,SCORE from SCORES&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Below is content of the cursor:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=411 height=667
-  src="Function_Reference.files/image1726.jpg" v:shapes="图片_x0020_128"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;scores.ctx&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.create@y(#STUDENTID,#CLASS,SUBJECT,SCORE
-  )</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Create a composite table</span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>4</span></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.append@i(A1)</span></b></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(&quot;E://test1.property&quot;,&quot;D://testfile1.property&quot;)</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Append cursor A1’s data to the composite table’s base table</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The file </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>testfile1.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black'> </span></span><span
+  lang=EN-US>already exists.</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;color:black'> </span></span><span
+  lang=EN-US>Force the move and override the original file</span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>5</span></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>ID,NAME,GENDER,AGE<span
-  style='mso-spacerun:yes'>&nbsp; </span>from STUDENTS&quot;)</span></b></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(&quot;D://testfile1.property&quot;,&quot;file.property&quot;)</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Return a table sequence</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=309 height=205
-  src="Function_Reference.files/image1728.jpg" v:shapes="图片_x0020_129"></span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file, instead of renaming it</span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>6</span></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,STUDENTID,NAME,SUBJECT,SCORE)</span></b></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cy(&quot;E://test2.property&quot;,&quot;D://
+  file.property&quot;)</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Match the composite table’s key values to table sequence’s fields
-  and retrieve corresponding composite table fields and return a table sequence</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=345 height=555
-  src="Function_Reference.files/image1730.jpg" v:shapes="图片_x0020_130"></span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'> </span></span><span lang=EN-US>already exists.</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'> </span></span><span lang=EN-US>Force the copy and override the
+  original file</span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
  <tr style='mso-yfti-irow:7'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>7</span></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(Subject,Num).record([&quot;PE&quot;,01,&quot;Math&quot;,02,&quot;History&quot;,03]).keys(Subject)</span></b></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(&quot;D://testfile1.property&quot;)</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Generate a table sequence using Subject as the key</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=216 height=108
-  src="Function_Reference.files/image1732.jpg" v:shapes="图片_x0020_131"></span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>Delete <i style='mso-bidi-font-style:normal'>testfile1.property</i></span></span><span
+  lang=EN-US style='mso-fareast-font-family:黑体'> </span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>8</span></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SUBJECT,SCORE;SUBJECT=A7.find(SUBJECT))</span></b></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cp(&quot;D://testfile1.property&quot;,&quot;file.property&quot;)</span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>=<i
-  style='mso-bidi-font-style:normal'>w </i><span style='mso-bidi-font-style:
-  italic'>filtering</span><i style='mso-bidi-font-style:normal'> </i><span
-  style='mso-bidi-font-style:italic'>mode; in this case </span><i
-  style='mso-bidi-font-style:normal'>w </i>is<i style='mso-bidi-font-style:
-  normal'> T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.find(<i
-  style='mso-bidi-font-style:normal'>K</i>) and entity table records making
-  SUBJECT=A7.find(SUBJECT) get null or false are discarded; SUBJECT is the
-  selected field, to which table sequence A7’s referencing field is assigned<i
-  style='mso-bidi-font-style:normal'></i></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=291 height=505
-  src="Function_Reference.files/image1734.jpg" v:shapes="图片_x0020_135"></span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file to the main directory and
+  rename it</span><span class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'> file.property</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></span></p>
   </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>9</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SUBJECT,SCORE;SUBJECT=A7.pfind(SUBJECT))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>=<i
-  style='mso-bidi-font-style:normal'>w </i><span style='mso-bidi-font-style:
-  italic'>filtering</span><i style='mso-bidi-font-style:normal'> </i><span
-  style='mso-bidi-font-style:italic'>mode; in this case </span><i
-  style='mso-bidi-font-style:normal'>w </i>is<i style='mso-bidi-font-style:
-  normal'> T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i
-  style='mso-bidi-font-style:normal'>K</i>) and entity table records making
-  SUBJECT=A7.pfind(SUBJECT) get null or false are discarded; SUBJECT is the
-  selected field, to which its ordinal numbers in table sequence A7 are
-  assigned</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=290 height=381
-  src="Function_Reference.files/image1736.jpg" v:shapes="图片_x0020_136"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>10</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SUBJECT,SCORE;SUBJECT:A7)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>:<i
-  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
-  italic'>i </span></sub></i><span style='mso-bidi-font-style:italic'>filtering</span><i
-  style='mso-bidi-font-style:normal'> </i><span style='mso-bidi-font-style:
-  italic'>mode; compare the entity table’s </span>SUBJECT<span
-  style='mso-bidi-font-style:italic'> values with the table sequence’s key
-  values and discard entity table records that cannot match</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=278 height=380
-  src="Function_Reference.files/image1738.jpg" v:shapes="图片_x0020_137"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>11</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SCORE;SUBJECT:A7)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>This is a case where <i style='mso-bidi-font-style:normal'>K</i>
-  isn’t selected; SUBJECT isn’t the selected field, so only filtering is
-  performed</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=189 height=380
-  src="Function_Reference.files/image1740.jpg" v:shapes="图片_x0020_138"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>12</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SUBJECT,SCORE;SUBJECT:A7:null)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>:<i
-  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
-  italic'>i</span></sub></i>:null filtering mode; <span style='mso-bidi-font-style:
-  italic'>compare the entity table’s </span>SUBJECT<span style='mso-bidi-font-style:
-  italic'> values with the table sequence’s key values and discard entity table
-  records that can match</span><i style='mso-bidi-font-style:normal'></i></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=263 height=206
-  src="Function_Reference.files/image1742.jpg" v:shapes="图片_x0020_139"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>13</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(Score,Level).record([90,&quot;A&quot;,80,&quot;B&quot;,70,&quot;C&quot;,60,&quot;D&quot;]).keys(Score)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Return a table sequene using Score as the key</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=181 height=131
-  src="Function_Reference.files/image1744.jpg" v:shapes="图片_x0020_140"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
- </tr>
- <tr style='mso-yfti-irow:14;mso-yfti-lastrow:yes'>
-  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:T_news_Acs_x_C_wi_2'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>14</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=886 valign=top style='width:531.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.news(A5:ID,NAME,SUBJECT,SCORE;(SCORE=A13.find(SCORE),SUBJECT=A7.find(SUBJECT),SCORE!=null&amp;&amp;SUBJECT!=null))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
-  <td width=486 valign=top style='width:291.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=EN-US>Use (<i style='mso-bidi-font-style:normal'>K<sub><span
-  style='color:black;mso-bidi-font-style:italic'>1</span></sub></i>=<i
-  style='mso-bidi-font-style:normal'>w<sub><span style='color:black;mso-bidi-font-style:
-  italic'>1</span></sub></i>,</span></span><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>…</span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>K<sub><span style='color:black;mso-bidi-font-style:italic'>n</span></sub></span></i><span
-  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
-  style='color:black;mso-bidi-font-style:italic'>n</span></sub></i>,<i
-  style='mso-bidi-font-style:normal'>w</i>) filtring mode; return records that
-  meet all conditions</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=410 height=235
-  src="Function_Reference.files/image1746.jpg" v:shapes="图片_x0020_144"></span></span></p>
-  </td>
-  <span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
  </tr>
 </table>
 
-<span style='mso-bookmark:T_news_Acs_x_C_wi_2'></span>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related function:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="fexists.html#f_exists">f<span style='font-style:normal'>.
+ex<span style='mso-bookmark:_Hlt415042025'>i</span>s<span style='mso-bookmark:
+_Hlt414994538'>t</span><span style='mso-bookmark:_Hlt414993856'>s</span>()</span></a><a
+name="_Hlt414993856"></a><a name="_Hlt414994538"></a><a name="_Hlt415042025"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="fdate.html#f_date">f<span style='font-style:normal'>.
+dat<span style='mso-bookmark:_Hlt414993906'>e</span>()</span></a><a
+name="_Hlt414993906"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="fsize.html#f_size">f<span style='font-style:normal'>.
+size()</span></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="602.html">Next</a></div>
@@ -794,17 +362,14 @@ lang=EN-US>Use special types of filtering conditions:</span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="597.html">news()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="600.html">movefile()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

@@ -63,22 +63,22 @@ public class FieldId extends Node {
 	public Object calculate(Context ctx) {
 		if (src == null) { // #1
 			ComputeStack stack = ctx.getComputeStack();
-			return stack.getTopObject().getFieldValue(index);
+			return stack.getTopObject().getFieldValue2(index);
 		} else { // series.#1 record.#1
 			if (src instanceof Sequence) {
 				Sequence seq = (Sequence)src;
 				Current current = ctx.getComputeStack().getSequenceCurrent(seq);
 				if (current == null) {
 					if (seq.length() > 0) {
-						return seq.getFieldValue(1, index);
+						return seq.getFieldValue2(1, index);
 					} else {
 						return null;
 					}
 				} else {
-					return seq.getFieldValue(current.getCurrentIndex(), index);
+					return seq.getFieldValue2(current.getCurrentIndex(), index);
 				}
 			} else if (src instanceof BaseRecord) {
-				return ((BaseRecord)src).getNormalFieldValue(index);
+				return ((BaseRecord)src).getFieldValue2(index);
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("#" + (index + 1) + mm.getMessage("ds.fieldNotExist"));
@@ -398,7 +398,7 @@ public class FieldId extends Node {
 
 				Object obj = current.get(pos);
 				if (obj instanceof BaseRecord) {
-					return ((BaseRecord)obj).getNormalFieldValue(index);
+					return ((BaseRecord)obj).getFieldValue2(index);
 				} else if (obj == null) {
 					return null;
 				} else {
@@ -429,7 +429,7 @@ public class FieldId extends Node {
 
 			Object obj = current.get(pos);
 			if (obj instanceof BaseRecord) {
-				return ((BaseRecord)obj).getNormalFieldValue(index);
+				return ((BaseRecord)obj).getFieldValue2(index);
 			} else if (obj == null) {
 				return null;
 			} else {

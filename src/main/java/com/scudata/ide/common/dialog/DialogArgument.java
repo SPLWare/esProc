@@ -28,6 +28,7 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.resources.IdeSplMessage;
+import com.scudata.util.Variant;
 
 /**
  * 输入参数对话框
@@ -239,8 +240,14 @@ public class DialogArgument extends DialogMaxmizable {
 			v.setName(name);
 			o = paraTable.data.getValueAt(i, COL_VALUE);
 			Object editValue = o;
-			if (!StringUtils.isValidString(o))
-				editValue = null;
+			if (o != null) {
+				if (o instanceof String) { // 编辑的空串当作null
+					if (!StringUtils.isValidString(o))
+						editValue = null;
+				} else { // 编辑值是串
+					editValue = Variant.toString(o);
+				}
+			}
 			v.setEditValue(editValue);
 			if (editValue == null) {
 				v.setValue(null);

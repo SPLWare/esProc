@@ -1299,4 +1299,8 @@ public class BufferReader {
 		int len = readUInt16();
 		index += 8 * len;
 	}
+
+	public void setStructManager(StructManager structManager) {
+		this.structManager = structManager;
+	}
 }

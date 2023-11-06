@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>time()</title>
+<title>f.sortx()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,8 +13,540 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>time()</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US>Here’s how to use time() functions.</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
+name="spark_client"><span lang=EN-US>f.sortx()</span></a><a name="f_sortx"></a><span
+style='mso-bookmark:spark_client'></span><span
+style='mso-bookmark:spark_client'></span><span
+style='mso-bookmark:spark_client'></span></h3></div>
+	<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
+
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+style='mso-bookmark:spark_client'><span lang=EN-US>Sort a bin file or a
+sequence of bin files and generate a new bin file.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
+style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:24.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=208 valign=top style='width:155.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>f.</span></i><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'>sortx</span></span><span
+  lang=EN-US>(<i style='mso-bidi-font-style:normal'>F<sub>i</sub></i>,…;<i
+  style='mso-bidi-font-style:normal'>f<sub>n</sub></i>)</span></span><span
+  style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=761 valign=top style='width:570.75pt;padding:0cm 5.4pt 0cm 5.4pt'><span
+  style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=208 valign=top style='width:155.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US
+  style='color:black;mso-bidi-font-style:italic'>[</span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='color:black'>f<sub>i</sub></span></i><span
+  lang=EN-US style='color:black;mso-bidi-font-style:italic'>,…].<b>sortx</b>(</span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='color:black'>F<sub>i</sub></span></i><span
+  lang=EN-US style='color:black;mso-bidi-font-style:italic'>,…;</span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>f<sub>n</sub></span></i><span
+  lang=EN-US style='color:black;mso-bidi-font-style:italic'>)</span></span><span
+  style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=761 valign=top style='width:570.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Sort
+  a sequence of bin files and generate a new bin file</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><span
+style='mso-tab-count:1'>&nbsp; </span></span></b><span
+lang=EN-US>The function sorts bin file <i style='mso-bidi-font-style:normal'>f</i>
+or a sequence of bin files <span style='color:black;mso-bidi-font-style:italic'>[</span><i
+style='mso-bidi-font-style:normal'><span style='color:black'>f<sub>i</sub></span></i><span
+style='color:black;mso-bidi-font-style:italic'>,…] </span>by certain field <i
+style='mso-bidi-font-style:normal'><span style='color:black'>F<sub>i </sub></span></i>,
+generates a new bin file <i style='mso-bidi-font-style:normal'>f<sub>n </sub></i>and
+return non-null if the operation succeeds.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b><span
+lang=EN-US> </span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=57 valign=top style='width:42.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=var1><span
+  lang=EN-US>f</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=699 valign=top style='width:524.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>A
+  bin file object</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=57 valign=top style='width:42.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US
+  style='color:black;mso-bidi-font-style:italic'>[</span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='color:black'>f<sub>i</sub></span></i><span
+  lang=EN-US style='color:black;mso-bidi-font-style:italic'>,…]</span></span><span
+  style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=699 valign=top style='width:524.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>A
+  sequence of bin files of same structrue</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=57 valign=top style='width:42.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i></span><span
+  style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=699 valign=top style='width:524.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Name(s)
+  of <i style='mso-bidi-font-style:normal'>f</i> field(s) by which the file is
+  sorted</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=57 valign=top style='width:42.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>f<sub>n</sub></span></i></span><span
+  style='mso-bookmark:spark_client'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=699 valign=top style='width:524.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Bin
+  file object(s); generate a temporary file and return its cursor when this parameter
+  is absent</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Option:</span></b></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:4.5pt'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=var1><span
+  lang=EN-US>@z</span></span></span><span style='mso-bookmark:spark_client'><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'></span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Sort
+  in descending order; default is ascending</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b><span
+lang=EN-US> </span></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:spark_client'><span
+lang=EN-US>Boolean/cursor</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
+style='mso-bookmark:spark_client'><span lang=EN-US style='font-size:14.0pt'></span></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+style='mso-bookmark:spark_client'><span lang=EN-US>Sort a bin file:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1011
+ style='margin-left:13.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;PERFORMANCE.btx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>A
+  bin file object; its content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=247 height=138
+  src="Function_Reference.files/image2031.png" v:shapes="_x0000_i2509"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;PER-cp.btx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Specify
+  a bin file object</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.sortx(BONUS;A2)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>Sort
+  </span></span><span class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'>PERFORMANCE.btx</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'> by BONUS field and generate a
+  new bin file <i>PER-cp.btx</i>, whose content is as follows:</span></span></span><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=253 height=140
+  src="Function_Reference.files/image2032.png" v:shapes="_x0000_i2510"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.sortx(BONUS)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>As
+  parameter <i style='mso-bidi-font-style:normal'>f<sub>n</sub></i> is absent,
+  generate a temporary file in the temporary directory and return a cursor,
+  whose content is same as that in A3</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.sortx</span></span></span><span style='mso-bookmark:spark_client'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@z</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>(BONUS)</span></span></span><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>Sort
+  by BONUS field in descending order and return a cursor whose content is as
+  follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=256 height=140
+  src="Function_Reference.files/image2033.png" v:shapes="_x0000_i2511"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp; </span>Sort a sequence of bin files:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1011
+ style='margin-left:13.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;f_emp.btx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>A
+  bin file object; its content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=317 height=121
+  src="Function_Reference.files/image2034.png" v:shapes="_x0000_i2512"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;m_emp.btx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>A
+  bin file object; its content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=313 height=118
+  src="Function_Reference.files/image2035.png" v:shapes="_x0000_i2513"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;emp_all.btx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:spark_client'></span>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=[A1,A2].sortx(SALARY</span></span></span><span style='mso-bookmark:spark_client'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>,EID</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>;A3)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>Sort
+  </span></span><span class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'>f_emp.btx</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'> and </span></span></span><span
+  style='mso-bookmark:spark_client'><span class=code><i><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>m</span></i></span><span
+  class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'>_emp.btx</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'> by SALARY and EID fields and
+  generate a new bin file <i>emp_all.btx</i>, whose content is as follows:</span></span></span><span
+  style='mso-bookmark:spark_client'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=337 height=225
+  src="Function_Reference.files/image2036.png" v:shapes="_x0000_i2514"></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=[A1,A2].sortx(SALARY)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:spark_client'><span lang=EN-US>As
+  parameter <i style='mso-bidi-font-style:normal'>f<sub>n </sub></i>is absent,
+  return a cursor</span></span></p>
+  </td>
+  <span style='mso-bookmark:spark_client'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:spark_client'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="852.html">Next</a></div>
@@ -22,19 +554,14 @@
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="852.html">time( datetimeExp )</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="853.html">time()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="847.html">sortx()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

@@ -990,7 +990,13 @@ public class TableHashIndex implements ITableIndex {
 		}
 	}
 	
+	public TableHashIndex(PhyTable table, FileObject indexFile, int h) {
+		this(table, indexFile);
+		this.h = h;
+	}
+	
 	public TableHashIndex(PhyTable table, FileObject indexFile) {
+		table.getGroupTable().checkWritable();
 		this.srcTable = table;
 		this.indexFile = indexFile;
 		if (srcTable instanceof ColPhyTable) {
@@ -1250,6 +1256,10 @@ public class TableHashIndex implements ITableIndex {
 				indexFile.delete();
 				tmpFile.move(indexFile.getFileName(), null);
 			}
+			
+			if (opt != null && opt.indexOf('U') != -1) {
+				isAdd = false;
+			}
 			try {
 				if (isAdd) {
 					srcTable.addIndex(name, ifields, null);
@@ -1463,29 +1473,7 @@ public class TableHashIndex implements ITableIndex {
 				}
 				ifields[i] = fields[i];
 			}
-			
-			//检查是否是对主键建立索引
-			keyNames = srcTable.getSortedColNames();
-			if (srcTable.isSorted && keyNames != null && fields.length == keyNames.length) {
-				boolean isKeyField = true;
-				for (int i = 0, len = fields.length; i < len; ++i) {
-					if (!fields[i].equals(keyNames[i])) {
-						isKeyField = false;
-						break;
-					}
-				}
-				if (isKeyField) {
-					if (index1EndPos > 0) {
-						srcCursor.seek(index1EndPos);
-					}
-					ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
-					cursorList.add(srcCursor);
-					srcCursor = null;
-					return cursorList;
-				}
-			}
-			
-			//Runtime rt = Runtime.getRuntime();
+
 			int baseCount = 100000;//每次取出来的条数
 			boolean flag = false;//是否调整过临时文件大小
 			
@@ -1530,7 +1518,7 @@ public class TableHashIndex implements ITableIndex {
 				}
 			}
 
-			if (table.length() > 0) {
+			if (table != null && table.length() > 0) {
 				table.sortFields(sortFields);
 				MemoryCursor mc = new MemoryCursor(table);
 				cursorList.add(mc);
@@ -1575,28 +1563,6 @@ public class TableHashIndex implements ITableIndex {
 				ifields[i] = fields[i];
 			}
 			
-			//检查是否是对主键建立索引
-			keyNames = srcTable.getSortedColNames();
-			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
-				boolean isKeyField = true;
-				for (int i = 0, len = fields.length; i < len; ++i) {
-					if (!fields[i].equals(keyNames[i])) {
-						isKeyField = false;
-						break;
-					}
-				}
-				if (isKeyField) {
-					if (index1EndPos > 0) {
-						srcCursor.seek(index1EndPos);
-					}
-					ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
-					cursorList.add(srcCursor);
-					srcCursor = null;
-					return cursorList;
-				}
-			}
-			
-			//Runtime rt = Runtime.getRuntime();
 			int baseCount = 100000;//每次取出来的条数
 			boolean flag = false;//是否调整过临时文件大小
 			

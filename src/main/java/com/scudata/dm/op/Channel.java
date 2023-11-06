@@ -125,8 +125,11 @@ public class Channel extends Operable implements IPipe {
 				}
 			}
 			
-			if (result != null && seq != null) {
-				result.push(seq, ctx);
+			if (result != null) {
+				if (seq != null) {
+					result.push(seq, ctx);
+				}
+				
 				result.finish(ctx);
 			}
 		}

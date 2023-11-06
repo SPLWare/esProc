@@ -15,7 +15,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IFile;
-import com.scudata.dm.LocalFile;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
@@ -172,6 +171,34 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 
+	public static ComTable open(FileObject fo, Context ctx) throws IOException {
+		IFile ifile = fo.getFile();
+		if (!ifile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist", fo.getFileName()));
+		}
+		
+		File file = fo.getLocalFile().file();
+		RandomAccessFile raf = ifile.getRandomAccessFile();
+
+		raf.seek(6);
+		
+		if (raf.length() == 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+		
+		int flag = raf.read(); 
+		if (flag == 'r') {
+			return new RowComTable(file, raf, ctx);
+		} else if (flag == 'c' || flag == 'C'){
+			return new ColComTable(file, raf, ctx);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+	}
+	
 	/**
 	 * 打开已经存在的组表,不检查出错日志，仅内部使用
 	 * @param file
@@ -227,12 +254,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		ComTable comTable;
 		RandomAccessFile raf;
-		File file = null;
-		
-		if (ifile instanceof LocalFile) {
-			// 本地文件
-			file = ((LocalFile)ifile).file();
-		}
+		File file = fo.getLocalFile().file();
 		
 		try {
 			raf = ifile.getRandomAccessFile();
@@ -496,7 +518,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		boolean isCol = this instanceof ColComTable;
 		boolean hasQ = false;
-		boolean hasN = false;
+		boolean hasN = false;// 只复制文件结构(包括附表)
 		boolean hasW = false;
 		boolean onlyDataStruct = false; // 只复制文件结构
 		boolean compress = false; // 压缩
@@ -598,10 +620,13 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		
 		// 生成分段选项，是否按第一字段分段
-		String newOpt = null;
+		String newOpt = "";
 		String segmentCol = baseTable.getSegmentCol();
 		if (segmentCol != null) {
-			newOpt = "p";
+			newOpt += "p";
+		}
+		if (baseTable.groupTable.hasDeleteKey()) {
+			newOpt += "d";
 		}
 		
 		ComTable newGroupTable = null;
@@ -852,8 +877,10 @@ abstract public class ComTable implements IBlockStorage {
 		String path = this.file.getAbsolutePath();
 		close();
 		boolean b = this.file.delete();
-		if (!b) 
-			return Boolean.FALSE;
+		if (!b) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
+		}
 		newGroupTable.close();
 		newFileObj.move(path, null);
 
@@ -954,6 +981,11 @@ abstract public class ComTable implements IBlockStorage {
 		if (uncompress) {
 			newOpt += 'u';
 		}
+		
+		if (baseTable.groupTable.hasDeleteKey()) {
+			newOpt += "d";
+		}
+		
 		try {
 			//写基表
 			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);

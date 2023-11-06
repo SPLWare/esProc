@@ -5,8 +5,11 @@ import java.io.IOException;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
@@ -35,23 +38,32 @@ public class Append extends PhyTableFunction {
 		}
 		
 		Object obj = param.getLeafExpression().calculate(ctx);
+		ICursor cursor;
 		if (obj instanceof ICursor) {
-			try {
-				synchronized(table) {
-					table.append((ICursor)obj, option);
-				}
-			} catch (IOException e) {
-				throw new RQException(e.getMessage(), e);
-			}
+			cursor = (ICursor)obj;
+		} else if (obj instanceof Sequence) {
+			cursor = ((Sequence)obj).cursor();
 		} else if (obj == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("append" + mm.getMessage("function.invalidParam"));
+			return table;
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("append" + mm.getMessage("function.paramTypeError"));
 		}
 		
+		try {
+			synchronized(table) {
+				if (option != null && option.indexOf('y') != -1) {
+					PhyTableGroup tg = new PhyTableGroup(null, new IPhyTable[] {table}, null, null, ctx);
+					Sequence seq = cursor.fetch();
+					tg.setMemoryTable(seq);
+					return tg;
+				}
+				table.append(cursor, option);
+			}
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+		
 		return table;
 	}
-
 }

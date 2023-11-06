@@ -500,4 +500,10 @@ public class GC {
 	 */
 	public static final int RECENT_MENU_COUNT = 20;
 
+	/**
+	 * All in the schema name. All means null.
+	 */
+	public static final String SCHEMA_ALL = IdeCommonMessage.get().getMessage(
+			"public.all");
+
 }

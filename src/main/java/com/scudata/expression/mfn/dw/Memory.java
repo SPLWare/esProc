@@ -17,9 +17,13 @@ import com.scudata.expression.PhyTableFunction;
  */
 public class Memory extends PhyTableFunction {
 	public Object calculate(Context ctx) {
-		PhyTable tmd = (PhyTable) table;
+		IPhyTable tmd = table;
 		
 		ICursor cursor = CreateCursor.createCursor(tmd, param, option, ctx);
+		if (option != null && option.indexOf('x') != -1) {
+			CreateCursor.setOptionX(cursor, option);
+		}
+		
 		Sequence seq = cursor.fetch();
 		
 		Table table;
@@ -32,12 +36,14 @@ public class Memory extends PhyTableFunction {
 		}
 		
 		MemoryTable result = new MemoryTable(table);
-		Integer partition = tmd.getGroupTable().getPartition();
-		
-		if (partition != null) {
-			String distribute = tmd.getDistribute();
-			result.setDistribute(distribute);
-			result.setPart(partition);
+		if (tmd instanceof PhyTable) {
+			Integer partition = ((PhyTable) tmd).getGroupTable().getPartition();
+			
+			if (partition != null) {
+				String distribute = tmd.getDistribute();
+				result.setDistribute(distribute);
+				result.setPart(partition);
+			}
 		}
 		
 		if (option != null && option.indexOf('p') != -1) {

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.5.1 Basic method of invoking user-defined functions</title>
+<title>9.4 Simple SQL</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,269 +13,13 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>9.5.1 Basic method of invoking user-defined
-functions</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The <b style='mso-bidi-font-weight:normal'>invoke </b>function can
-be used to invoke the static method(s) in a specified user-defined Java class.
-Take the following Java class <b style='mso-bidi-font-weight:normal'>test.Calc01</b>
-as an example: </span></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>package
-test;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-class Calc01 {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static Double distance1(Number loc) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
-len = Math.abs(loc.doubleValue());</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
-= Math.round(len*1000)/1000d;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-Double.valueOf(len);</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>In this simple class, the static method <b style='mso-bidi-font-weight:
-normal'>distance1</b> computes the distance between a given coordinate and the
-origin, with the value being rounded to three decimal places. The methods
-invoked in esProc must be both static and public. Before invocation, the class
-of user-defined functions needs to be placed in esProc’s classpath, i.e.
-[installation directory]\esProc\classes; if invoked in the web environment, it
-needs to be placed in WEB-INF/classes path. After that, the user-defined
-functions can be invoked using <b style='mso-bidi-font-weight:normal'>invoke</b>
-function in the cellset: </span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=284 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
-  </td>
-  <td width=284 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>-12.34567</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
-  </td>
-  <td width=284 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance1,A1)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
-  </td>
-  <td width=284 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance1,
-  -512)</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>As shown in this example, when using invoke function, first specify
-the full path of the class being invoked and the static method name and then
-list the parameters in order. The parameters can be cell values in a cellset
-and cellset parameters, or can be directly entered. After computation, results
-of A2 and A3 are as follows: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=125 height=51
-src="Tutorial.files/image1812.jpg" v:shapes="_x0000_i2010"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=125 height=51
-src="Tutorial.files/image1814.jpg" v:shapes="_x0000_i2011"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>There can be multiple user-defined functions in a single class. Now
-add another method: </span></p>
-
-<p class=MsoNormal style='text-indent:36.45pt;mso-char-indent-count:4.05'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static Double distance2(Number loc1, Number loc2) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
-len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
-= Math.round(len*1000)/1000d;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-Double.valueOf(len);</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span><span
-lang=EN-US></span></i></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The newly-added <b style='mso-bidi-font-weight:normal'>distance2</b>
-computes the distance between two coordinates in a numerical axis. As esProc
-invokes methods by their names, different user-defined functions need to have <b
-style='mso-bidi-font-weight:normal'>different method names</b>. Once the
-class(es) has been place in the application’s classpath, the user-defined
-functions can be invoked in the same cellset, no matter they are from a single
-class or multiple classes: </span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=284 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>1</span></p>
-  </td>
-  <td width=284 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance1,-12.3456)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  vertical-align:middle'><span lang=EN-US style='font-size:9.0pt'>2</span></p>
-  </td>
-  <td width=284 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance2,12,-12)</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>In the <b style='mso-bidi-font-weight:normal'>invoke</b> function,
-the number and type of parameters need to match the methods being invoked.
-Here’re results of A1 and A2: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=125 height=51
-src="Tutorial.files/image1812.jpg" v:shapes="_x0000_i2012"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=125 height=51
-src="Tutorial.files/image1816.jpg" v:shapes="_x0000_i2013"></span></p>
+	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
+mso-list:l26 level2 lfo44'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.4<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US>Simple SQL<a name="Simple_SQL"></a></span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>This section illustrates the basic uses of
+simple SQL and how they work with esProc ODBC.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="231.html">Next</a></div>
@@ -283,17 +27,16 @@ src="Tutorial.files/image1816.jpg" v:shapes="_x0000_i2013"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="229.html">9.5 User-defined Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="226.html">Chapter9 Heterogeneous Data Sources</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="231.html">9.4.1 Basic uses</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="232.html">9.4.2 Using simple SQL in esProc ODBC</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

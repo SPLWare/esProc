@@ -45,7 +45,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	/**
 	 * 结点类型
 	 */
-	private byte type = TYPE_LOCAL;
+	protected byte type = TYPE_LOCAL;
 	/**
 	 * 结点标题
 	 */
@@ -125,7 +125,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	 */
 	public ImageIcon getDispIcon() {
 		String imgPath = GC.IMAGES_PATH;
-		if (this.getLevel() == 0) {
+		if (type == TYPE_ROOT) {
 			imgPath += "tree0.gif";
 		} else if (this.getLevel() == 1) { // 本地资源和服务器资源根目录的图标
 			imgPath += "treelocal.gif";

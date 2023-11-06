@@ -607,10 +607,15 @@ public class SerialBytesArray implements IArray {
 		long []resultDatas2 = new long[len + 1];
 		
 		for (int i = 1; i <= len; ++i) {
-			resultDatas1[i] = datas1[indexArray.getInt(i)];
-			resultDatas2[i] = datas2[indexArray.getInt(i)];
+			if (indexArray.isNull(i)) {
+				resultDatas1[i] = NULL;
+				resultDatas2[i] = NULL;
+			} else {
+				resultDatas1[i] = datas1[indexArray.getInt(i)];
+				resultDatas2[i] = datas2[indexArray.getInt(i)];
+			}
 		}
-		
+
 		return new SerialBytesArray(resultDatas1, resultDatas2, len);
 	}
 
@@ -1631,7 +1636,7 @@ public class SerialBytesArray implements IArray {
 		return result;
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		Object []d2 = array.getDatas();
 		boolean []resultDatas = new boolean[size + 1];
@@ -2012,7 +2017,7 @@ public class SerialBytesArray implements IArray {
 		}
 	}
 	
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Object []d2 = array.getDatas();
 		boolean []resultDatas = result.getDatas();
@@ -3283,6 +3288,14 @@ public class SerialBytesArray implements IArray {
 		return datas2;
 	}
 	
+	public long getData1(int index) {
+		return datas1[index];
+	}
+
+	public long getData2(int index) {
+		return datas2[index];
+	}
+	
 	/**
 	 * 返回指定数组的成员在当前数组中的位置
 	 * @param array 待查找的数组
@@ -3298,6 +3311,16 @@ public class SerialBytesArray implements IArray {
 	 * @return
 	 */
 	public int bit1() {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}

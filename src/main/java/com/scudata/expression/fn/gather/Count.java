@@ -95,11 +95,6 @@ public class Count extends Gather {
 		return count;
 	}
 	
-	// 对序列seq算一下汇总值
-	public Object gather(Sequence seq) {
-		return seq.count();
-	}
-	
 	public Expression getExp() {
 		return exp;
 	}

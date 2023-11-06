@@ -6,7 +6,6 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -425,7 +424,7 @@ abstract public class PhyTable implements IPhyTable {
 			if  (opt != null) {
 				//全文
 				if  (opt.indexOf('w') != -1) {
-					TableFulltextIndex index = new TableFulltextIndex(this, I);
+					TableFulltextIndex index = new TableFulltextIndex(this, I, (Integer) obj);
 					index.create(fields, opt, ctx, w);
 					return;
 				}
@@ -465,6 +464,67 @@ abstract public class PhyTable implements IPhyTable {
 		}
 	}
 	
+	public void createIndex(FileObject file, String []fields, Object obj, String opt, Expression w, Context ctx) {
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			tmd.createIndex(file, fields, obj, opt, w, ctx);
+		}
+		
+		try {
+			appendCache();
+		} catch (IOException e) {
+			throw new RQException(e);
+		}
+		
+		boolean hasOpt = false;
+		//不存到组表里
+		if  (opt == null) {
+			opt = "U";
+		} else {
+			hasOpt = true;
+			opt += "U";
+		}
+		
+		if (hasOpt) {
+			//全文
+			if  (opt.indexOf('w') != -1) {
+				TableFulltextIndex index = new TableFulltextIndex(this, file, (Integer) obj);
+				index.create(fields, opt, ctx, w);
+				return;
+			}
+		}
+		
+		if (obj == null) {
+			if  (hasOpt) {
+				//load index
+				FileObject indexFile = file;
+				String[][] fileds = PhyTableIndex.readIndexFields(file);
+				ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1], true);
+				
+				if (opt.indexOf('2') != -1) {
+					index.loadAllBlockInfo();
+				} else if (opt.indexOf('3') != -1) {
+					index.loadAllKeys();
+				} else if (opt.indexOf('0') != -1) {
+					index.unloadAllBlockInfo();
+				}
+				return;
+			}
+			
+			//排序
+			PhyTableIndex index = new PhyTableIndex(this, file);
+			index.create(fields, opt, ctx, w);
+		} else if (obj instanceof String[]) {
+			//KV
+			TableKeyValueIndex index = new TableKeyValueIndex(this, file);
+			index.create(fields, (String[]) obj, opt, ctx, w);
+		} else if (obj instanceof Integer) {
+			//hash
+			TableHashIndex index = new TableHashIndex(this, file, (Integer) obj);
+			index.create(fields, opt, ctx, w);
+		}
+	}
+	
 	/**
 	 * 重建索引
 	 * @param ctx
@@ -499,7 +559,7 @@ abstract public class PhyTable implements IPhyTable {
 				TableKeyValueIndex index = new TableKeyValueIndex(this, indexNames[i]);
 				index.create(indexFields[i], indexValueFields[i], "ar", ctx, null);
 			} else {
-				TableFulltextIndex index = new TableFulltextIndex(this, indexNames[i]);
+				TableFulltextIndex index = new TableFulltextIndex(this, indexNames[i], null);
 				index.create(indexFields[i], "ar", ctx, null);
 			}
 		}
@@ -901,9 +961,10 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param home 表达式home节点
 	 * @param indexs 输出，每两个连续对象是一组输出，第一个对象是找到的索引，第二个是表达式节点
 	 * @param intervals 输出，表示地址范围
+	 * @param indexFiles 备选的索引文件
 	 * @param ctx
 	 */
-	private void checkAnds(Node home, ArrayList<Object> indexs, ArrayList<Long> intervals, Context ctx) {
+	private void checkAnds(Node home, ArrayList<Object> indexs, ArrayList<Long> intervals, FileObject[] indexFiles, Context ctx) {
 		if (!(home instanceof Operator) &&
 				!(home instanceof Like)) {
 			return;
@@ -912,8 +973,8 @@ abstract public class PhyTable implements IPhyTable {
 		Node left = home.getLeft();
 		Node right = home.getRight();
 		if (home instanceof And) {
-			checkAnds(left, indexs, intervals, ctx);
-			checkAnds(right, indexs, intervals, ctx);
+			checkAnds(left, indexs, intervals, indexFiles, ctx);
+			checkAnds(right, indexs, intervals, indexFiles, ctx);
 			return;
 		} else {
 			String []fields = null;
@@ -948,22 +1009,38 @@ abstract public class PhyTable implements IPhyTable {
 				fields[0] = (String) sub1.getLeafExpression().getIdentifierName();
 			}
 			if (fields == null) return;
-			String indexName = chooseIndex(fields);
-			if (indexName == null) {
-				//如果不是索引字段，则检查是否是维字段
-				long[] posArray = checkDim(fields[0], home, ctx);
-				if (posArray != null) {
-					for (long pos : posArray) {
-						if (!intervals.contains(pos)) {
-							intervals.add(pos);
+			
+			ITableIndex index = null;
+			if (indexFiles == null) {
+				String indexName = chooseIndex(fields);
+				if (indexName == null) {
+					//如果不是索引字段，则检查是否是维字段
+					long[] posArray = checkDim(fields[0], home, ctx);
+					if (posArray != null) {
+						for (long pos : posArray) {
+							if (!intervals.contains(pos)) {
+								intervals.add(pos);
+							}
 						}
 					}
+					return;
 				}
+				String dir = getGroupTable().getFile().getAbsolutePath() + "_";
+				FileObject indexFile = new FileObject(dir + getTableName() + "_" + indexName);
+				index = getTableMetaDataIndex(indexFile, indexName, true);
+			} else {
+				for (FileObject file : indexFiles) {
+					String[][] indexFileds = PhyTableIndex.readIndexFields(file);
+					if (PhyTableIndex.isCompatible(fields, indexFileds[0])) {
+						index = getTableMetaDataIndex(file, indexFileds[0], indexFileds[1], true);
+						break;
+					}
+				}
+			}
+
+			if (index == null) {
 				return;
 			}
-			String dir = getGroupTable().getFile().getAbsolutePath() + "_";
-			FileObject indexFile = new FileObject(dir + getTableName() + "_" + indexName);
-			ITableIndex index = getTableMetaDataIndex(indexFile, indexName, true);
 			if (index instanceof TableKeyValueIndex) {
 				//带F的索引不行
 				return;
@@ -1191,17 +1268,29 @@ abstract public class PhyTable implements IPhyTable {
 	/**
 	 * 索引查询函数icursor的入口
 	 */
-	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
+	public ICursor icursor(String []fields, Expression filter, Object indexObj, String opt, Context ctx) {
 		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
-		ICursor cs = icursor_(fields, filter, iname, opt, ctx);
+		boolean isName = indexObj == null || indexObj instanceof String;
+		
+		ICursor cs;
+		if (isName) {
+			cs = icursor_(fields, filter, (String) indexObj, opt, ctx);
+		} else {
+			cs = icursorByFile(fields, filter, (FileObject[]) indexObj, opt, ctx);
+		}
 		PhyTable tmd = getSupplementTable(false);
 		
 		if (tmd == null) {
 			return cs;
 		} else {			
-			ICursor cs2 = tmd.icursor_(fields, filter, iname, opt, ctx);
+			ICursor cs2;
+			if (isName) {
+				cs2 = tmd.icursor_(fields, filter, (String) indexObj, opt, ctx);
+			} else {
+				cs2 = tmd.icursorByFile(fields, filter, (FileObject[]) indexObj, opt, ctx);
+			}
 			if (cs == null) {
 				return cs2;
 			}
@@ -1238,7 +1327,7 @@ abstract public class PhyTable implements IPhyTable {
 		if (filter.getHome() instanceof And) {
 			ArrayList<Object> indexs = new ArrayList<Object>();
 			ArrayList<Long> intervals = new ArrayList<Long>();
-			checkAnds(filter.getHome(), indexs, intervals, ctx);
+			checkAnds(filter.getHome(), indexs, intervals, null, ctx);
 			int intervalSize = intervals.size();
 			if (intervalSize > 0 && intervalSize / 2 <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
 				//如果维过滤的结果块数已经很少了
@@ -1427,6 +1516,207 @@ abstract public class PhyTable implements IPhyTable {
 		return cursor;
 	}
 
+	private ICursor icursorByFile(String []fields, Expression filter, FileObject[] files, String opt, Context ctx) {
+		FileObject indexFile = null;
+		String[][] fileds = null;
+		
+		//检查是否可以做连续AND优化
+		if (filter.getHome() instanceof And) {
+			ArrayList<Object> indexs = new ArrayList<Object>();
+			ArrayList<Long> intervals = new ArrayList<Long>();
+			checkAnds(filter.getHome(), indexs, intervals, files, ctx);
+			int intervalSize = intervals.size();
+			if (intervalSize > 0 && intervalSize / 2 <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
+				//如果维过滤的结果块数已经很少了
+				return cursor(fields, filter, ctx);
+			}
+			if (intervalSize == dataBlockCount * 2) {
+				//如果维过滤的结果每块都命中了,则没有意义
+				intervals.clear();
+				intervalSize = 0;
+			}
+			int size = indexs.size();
+			if (size > 0) {
+				LongArray tempPos = null;
+				int i;
+				int maxRecordLen = 0;
+				Object []indexArray = new Object[size];
+				
+				if (opt != null && opt.indexOf('u') != -1) {
+					//不排序优先级
+					indexs.toArray(indexArray);
+				} else {
+					//index要按照优先级排序
+					int j = 0;
+					i = 0;
+					while (j < size) {
+						Object index = indexs.get(j++);
+						Object node = indexs.get(j++);
+						if (node instanceof Equals) {
+							indexArray[i++] = index;
+							indexArray[i++] = node;
+						}
+					}
+					j = 0;
+					while (j < size) {
+						Object index = indexs.get(j++);
+						Object node = indexs.get(j++);
+						if (node instanceof Like) {
+							indexArray[i++] = index;
+							indexArray[i++] = node;
+						}
+					}
+					j = 0;
+					while (j < size) {
+						Object index = indexs.get(j++);
+						Object node = indexs.get(j++);
+						if (node instanceof DotOperator) {
+							indexArray[i++] = index;
+							indexArray[i++] = node;
+						}
+					}
+					j = 0;
+					while (j < size) {
+						Object index = indexs.get(j++);
+						Object node = indexs.get(j++);
+						if ((!(node instanceof Equals))
+								&&(!(node instanceof Like))
+								&&(!(node instanceof DotOperator))) {
+							indexArray[i++] = index;
+							indexArray[i++] = node;
+						}
+					}
+				}
+				i = 0;
+				boolean isRow = this instanceof RowPhyTable;
+				long recCountOfSegment[] = null;
+				if (!isRow) {
+					recCountOfSegment = ((ColPhyTable)this).getSegmentInfo();
+				}
+				while (i < size) {
+					ITableIndex index = (ITableIndex)indexArray[i++];
+					Node node = (Node) indexArray[i++];
+					LongArray srcPos = index.select(new Expression(node), opt, ctx);
+					int len = index.getMaxRecordLen();
+					if (len > 0) {
+						maxRecordLen = len;
+					}
+
+					boolean sort = true;
+					if (isRow) {
+						tempPos = longArrayUnite(tempPos, srcPos.toArray(), index.getPositionCount(), sort);
+						if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {
+							break;
+						}
+					} else {
+						long [] arr = srcPos.toArray();
+						if (sort) {
+							Arrays.sort(arr);
+						}
+						tempPos = longArrayUnite(tempPos, arr);
+						if (getBlockCount(tempPos, recCountOfSegment) <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
+							break;
+						}
+					}
+					
+
+					if (intervalSize > 0) {
+						//利用维过滤的结果
+						tempPos = longArrayUnite(tempPos, intervals);
+						intervalSize = 0;//只进来1次
+						if (isRow) {
+							if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {
+								break;
+							}
+						} else {
+							if (getBlockCount(tempPos, recCountOfSegment) <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
+								break;
+							}
+						}
+					}
+					
+				}
+				
+				ArrayList<ModifyRecord> mrl = getModifyRecord(this, filter, ctx);
+				if (tempPos != null && tempPos.size() > 0) {
+					ICursor cs = new IndexCursor(this, fields, null, tempPos.toArray(), opt, ctx);
+					if (cs instanceof IndexCursor) {
+						((IndexCursor) cs).setModifyRecordList(mrl);
+						if (maxRecordLen != 0) {
+							((IndexCursor) cs).setRowBufferSize(maxRecordLen);
+						}
+					}
+					Select select = new Select(filter, null);
+					cs.addOperation(select, ctx);
+					return cs;
+				} else {
+					if (mrl == null) {
+						return null;
+					} else {
+						return new IndexCursor(this, fields, null, null, opt, ctx);
+					}
+				}
+			}
+		}
+		
+		if (files == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+		} else {
+			String[] filterFields;
+			if (filter.getHome() instanceof DotOperator) {
+				Node right = filter.getHome().getRight();
+				if (!(right instanceof Contain)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+				}
+				String str = ((Contain)right).getParamString();
+				str = str.replaceAll("\\[", "");
+				str = str.replaceAll("\\]", "");
+				str = str.replaceAll(" ", "");
+				filterFields = str.split(",");
+			} else if (filter.getHome() instanceof Like) {
+				IParam sub1 = ((Like) filter.getHome()).getParam().getSub(0);
+				String f = (String) sub1.getLeafExpression().getIdentifierName();
+				filterFields = new String[]{f};
+			} else {
+				filterFields = getExpFields(filter, getColNames());
+				//List<String> resultList = new ArrayList<String>();
+				//filter.getUsedFields(ctx, resultList);
+			}
+			
+			for (FileObject file : files) {
+				fileds = PhyTableIndex.readIndexFields(file);
+				if (PhyTableIndex.isCompatible(filterFields, fileds[0])) {
+					indexFile = file;
+					break;
+				}
+			}
+			
+			if (filterFields == null || indexFile == null) {
+				//filter中不包含任何字段 or 索引不存在
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+			}
+		}
+		
+		ITableIndex index = getTableMetaDataIndex(indexFile, fileds[0], fileds[1], true);
+		ArrayList<ModifyRecord> mrl = getModifyRecord(this, filter, ctx);
+		ICursor cursor = index.select(filter, fields, opt, ctx);
+		if (cursor == null) {
+			if (mrl == null) {
+				return null;
+			} else {
+				cursor = new IndexCursor(this, fields, null, null, opt, ctx);
+			}
+		} else {
+			if (cursor instanceof IndexCursor) {
+				((IndexCursor) cursor).setModifyRecordList(mrl);
+			}
+		}
+		return cursor;
+	}
+	
 	/**
 	 * 取得索引实例
 	 * @param indexFile 索引文件
@@ -1434,7 +1724,7 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param isRead 是读操作，还是写操作
 	 * @return
 	 */
-	public synchronized ITableIndex getTableMetaDataIndex(FileObject indexFile, String iname, boolean isRead) {
+	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String iname, boolean isRead) {
 		String name = indexFile.getFileName().toLowerCase();
 		name += this.getTableName().toLowerCase();
 		
@@ -1453,7 +1743,7 @@ abstract public class PhyTable implements IPhyTable {
 					} else if (type[0] == 'h') {
 						ti = new TableHashIndex(this, indexFile);
 					} else if (type[0] == 'w') {
-						ti = new TableFulltextIndex(this, indexFile);
+						ti = new TableFulltextIndex(this, indexFile, null);
 					} else {
 						ti = new TableKeyValueIndex(this, indexFile);
 					}
@@ -1468,6 +1758,53 @@ abstract public class PhyTable implements IPhyTable {
 						}
 					}
 					ti.setName(iname);
+					ti.setFields(ifields, vfields);
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+				cache.put(name, new SoftReference<ITableIndex>(ti));
+			}
+			
+			return ti;
+		} else {
+			// 修改索引文件删除缓存
+			cache.remove(name);
+			return null;
+		}
+	}
+	
+	/**
+	 * 取得索引实例
+	 * @param indexFile 索引文件
+	 * @return
+	 */
+	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields, boolean isRead) {
+		File f = indexFile.getLocalFile().file();
+		String name = f.getAbsolutePath().toLowerCase();
+		
+		if (!this.getGroupTable().getFile().exists()) {
+			return null;
+		}
+		
+		if (isRead) {
+			SoftReference<ITableIndex> ref = cache.get(name);
+			ITableIndex ti = ref == null ? null : ref.get();
+			
+			if (ti == null) {
+				if (!this.getGroupTable().getFile().exists()) {
+					return null;
+				}
+				try {
+					byte[] type = (byte[]) indexFile.read(6, 6, "b");
+					if (type[0] == 'x') {
+						ti = new PhyTableIndex(this, indexFile);
+					} else if (type[0] == 'h') {
+						ti = new TableHashIndex(this, indexFile);
+					} else if (type[0] == 'w') {
+						ti = new TableFulltextIndex(this, indexFile, null);
+					} else {
+						ti = new TableKeyValueIndex(this, indexFile);
+					}
 					ti.setFields(ifields, vfields);
 				} catch (IOException e) {
 					throw new RQException(e.getMessage(), e);
@@ -1747,44 +2084,45 @@ abstract public class PhyTable implements IPhyTable {
 	 * @param ctx
 	 */
 	public void resetCuboid(Context ctx) {
-		if (cuboids == null) return;
-		String dir = groupTable.getFile().getAbsolutePath() + "_";
-		for (String cuboid: cuboids) {
-			FileObject fo = new FileObject(dir + tableName + Cuboid.CUBE_PREFIX + cuboid);
-			if (!fo.isExists()) {
-				continue;
-			}
-			File file = fo.getLocalFile().file();
-			Cuboid table = null;
-			Cuboid newTable = null;
-			FileObject newFileObj = null;
-			File newFile = null;
-			try {
-				newFileObj = new FileObject(file.getAbsolutePath());
-				newFileObj = new FileObject(newFileObj.createTempFile(file.getName()));
-				newFile = newFileObj.getLocalFile().file();
-				
-				table = new Cuboid(file, groupTable.ctx);//打开这个cuboid
-				table.checkPassword("cuboid");
-				newTable = new Cuboid(newFile, 0, table);
-				newTable.checkPassword("cuboid");
-				newTable.update(this);
-				newTable.close();
-				table.close();
-				file.delete();
-				newFile.renameTo(file);
-			} catch (Exception e) {
-				if (table != null) table.close();
-				for (PhyTable tbl : tableList) {
-					tbl.close();
-				}
-				if (newTable != null) 
-					newTable.close();
-				if (newFile != null) 
-					newFile.delete();
-				throw new RQException(e.getMessage(), e);
-			}
-		}
+		//预分组不再跟随组表更新，以下删除
+//		if (cuboids == null) return;
+//		String dir = groupTable.getFile().getAbsolutePath() + "_";
+//		for (String cuboid: cuboids) {
+//			FileObject fo = new FileObject(dir + tableName + Cuboid.CUBE_PREFIX + cuboid);
+//			if (!fo.isExists()) {
+//				continue;
+//			}
+//			File file = fo.getLocalFile().file();
+//			Cuboid table = null;
+//			Cuboid newTable = null;
+//			FileObject newFileObj = null;
+//			File newFile = null;
+//			try {
+//				newFileObj = new FileObject(file.getAbsolutePath());
+//				newFileObj = new FileObject(newFileObj.createTempFile(file.getName()));
+//				newFile = newFileObj.getLocalFile().file();
+//				
+//				table = new Cuboid(file, groupTable.ctx);//打开这个cuboid
+//				table.checkPassword("cuboid");
+//				newTable = new Cuboid(newFile, 0, table);
+//				newTable.checkPassword("cuboid");
+//				newTable.update(this);
+//				newTable.close();
+//				table.close();
+//				file.delete();
+//				newFile.renameTo(file);
+//			} catch (Exception e) {
+//				if (table != null) table.close();
+//				for (PhyTable tbl : tableList) {
+//					tbl.close();
+//				}
+//				if (newTable != null) 
+//					newTable.close();
+//				if (newFile != null) 
+//					newFile.delete();
+//				throw new RQException(e.getMessage(), e);
+//			}
+//		}
 	}
 	
 	/**

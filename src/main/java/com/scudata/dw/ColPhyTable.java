@@ -1546,8 +1546,13 @@ public class ColPhyTable extends PhyTable {
 			
 			// 关闭并删除组表文件，把临时文件重命名为组表文件名
 			groupTable.raf.close();
-			groupTable.file.delete();
-			tmpFile.renameTo(groupTable.file);
+			if (groupTable.file.delete()) {
+				tmpFile.renameTo(groupTable.file);
+			} else {
+				tmpFile.delete();
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.needCloseTable"));
+			}
 			
 			// 重新打开组表
 			groupTable.reopen();
@@ -1557,8 +1562,6 @@ public class ColPhyTable extends PhyTable {
 			if (tmpGroupTable != null) {
 				tmpGroupTable.raf.close();
 			}
-			
-			tmpFile.delete();
 		}
 	}
 	
@@ -4086,6 +4089,41 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
+	 * 检查是否是时间键find
+	 * @param values
+	 * @return
+	 */
+	private Table findsByTimekey(Sequence values, String []selFields) {
+		String []keys = getAllSortedColNames();
+		Expression exp = new Expression("null.contain(" + keys[0] + ")");
+		Sequence keyValues = new Sequence();
+		int valueLen = values.length();
+		keyValues = new Sequence();
+		for (int i = 1; i <= valueLen; ++i) {
+			Object obj = values.getMem(i);
+			if (obj instanceof Sequence) {
+				Sequence seq = (Sequence) obj;
+				keyValues.add(seq.getMem(1));
+			} else {
+				keyValues.add(obj);
+			}
+			
+		}
+		
+		Context ctx = new Context();
+		exp.getHome().setLeft(new Constant(keyValues));
+		Sequence temp = cursor(selFields, exp, ctx).fetch();
+		if (temp == null) return null;
+		
+		Sequence result = new Sequence(valueLen);
+		for (int i = 1; i <= valueLen; ++i) {
+			result.add(temp.findByKey(values.getMem(i), false));
+		}
+		Table table = new Table(result.dataStruct());
+		table.addAll(result);
+		return table;
+	}
+	/**
 	 * 根据主键查找记录
 	 * @param values
 	 */
@@ -4104,6 +4142,10 @@ public class ColPhyTable extends PhyTable {
 		if (!hasPrimaryKey()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.lessKey"));
+		}
+		
+		if (getGroupTable().hasTimeKey()) {
+			return findsByTimekey(values, selFields);
 		}
 		
 		if (parent != null || getModifyRecords() != null) {
@@ -4604,7 +4646,13 @@ public class ColPhyTable extends PhyTable {
 	 * @param table 另一个组表
 	 * @throws IOException
 	 */
-	public void append(ColPhyTable table) throws IOException {
+	public void append(PhyTable other) throws IOException {
+		if (!(other instanceof ColPhyTable)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+		
+		ColPhyTable table = (ColPhyTable) other;
 		getGroupTable().checkWritable();
 		table.getGroupTable().checkReadable();
 		
@@ -4653,17 +4701,37 @@ public class ColPhyTable extends PhyTable {
 		int colCount = columns.length;
 		
 		BlockLinkReader rowCountReader = table.getSegmentReader();
-		BlockLinkReader []colReaders = new BlockLinkReader[colCount];
-		ObjectReader []segmentReaders = new ObjectReader[colCount];
+		BlockLinkReader []colReaders2 = new BlockLinkReader[colCount];
+		ObjectReader []segmentReaders2 = new ObjectReader[colCount];
+		byte[][] dictBuffer = new byte[colCount][];
+		BufferWriter[] bufferWriters = new BufferWriter[colCount];
+		
 		for (int i = 0; i < colCount; ++i) {
-			colReaders[i] = columns2[i].getColReader(true);
-			segmentReaders[i] = columns2[i].getSegmentReader();
+			colReaders2[i] = columns2[i].getColReader(true);
+			segmentReaders2[i] = columns2[i].getSegmentReader();
+			
+			//如果某列有全局字典，则整理出来
+			Sequence dict = columns2[i].getDict();
+			if (dict != null && dict.length() == 0) {
+				dictBuffer[i] = null;
+			} else {
+				BufferWriter bufferWriter = columns[i].getColDataBufferWriter();
+				bufferWriter.writeObject(dict);
+				dictBuffer[i] = bufferWriter.finish();
+				bufferWriters[i] = bufferWriter;
+			}
+			
 		}
+		
 		
 		int blockCount = table.getDataBlockCount();
 		for (int i = 0; i < blockCount; ++i) {
 			for (int j = 0; j < colCount; j++) {
-				columns[j].copyColBlock(colReaders[j], segmentReaders[j]);
+				if (dictBuffer[j] == null) {
+					columns[j].copyColBlock(colReaders2[j], segmentReaders2[j]);
+				} else {
+					columns[j].copyColBlock(colReaders2[j], segmentReaders2[j], bufferWriters[j], dictBuffer[j]);
+				}
 			}
 			
 			//更新分段信息buffer
@@ -4675,8 +4743,8 @@ public class ColPhyTable extends PhyTable {
 		
 		rowCountReader.close();
 		for (int i = 0; i < colCount; ++i) {
-			colReaders[i].close();
-			segmentReaders[i].close();
+			colReaders2[i].close();
+			segmentReaders2[i].close();
 		}
 	}
 	

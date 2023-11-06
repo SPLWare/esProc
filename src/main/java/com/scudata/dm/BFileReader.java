@@ -1757,4 +1757,24 @@ public class BFileReader {
 	public ObjectReader getImporter() {
 		return importer;
 	}
+	
+	public long getFirstRecordPos() {
+		return firstRecordPos;
+	}
+	
+	public long[] getBlocks() {
+		return blocks;
+	}
+
+	public int getLastBlock() {
+		return lastBlock;
+	}
+	
+	public long getTotalRecordCount() {
+		return totalRecordCount;
+	}
+	
+	public DataStruct getDataStruct() {
+		return ds;
+	}
 }

@@ -21,6 +21,11 @@ public class FuncInfo implements ICloneable {
 	String desc;
 
 	/**
+	 * 函数显示的字符串
+	 */
+	String displayStr;
+
+	/**
 	 * 后缀，用来区分同名函数。
 	 */
 	String postfix;
@@ -87,6 +92,25 @@ public class FuncInfo implements ICloneable {
 	 */
 	public String getDesc() {
 		return desc;
+	}
+
+	/**
+	 * 设置函数显示的字符串
+	 * 
+	 * @param displayStr
+	 *            函数显示的字符串
+	 */
+	public void setDisplayStr(String displayStr) {
+		this.displayStr = displayStr;
+	}
+
+	/**
+	 * 取函数显示的字符串
+	 * 
+	 * @return 函数显示的字符串
+	 */
+	public String getDisplayStr() {
+		return displayStr;
 	}
 
 	/**
@@ -188,6 +212,7 @@ public class FuncInfo implements ICloneable {
 		FuncInfo fi = new FuncInfo();
 		fi.setName(name);
 		fi.setDesc(desc);
+		fi.setDisplayStr(displayStr);
 		fi.setPostfix(postfix);
 		fi.setMajorType(majorType);
 		fi.setReturnType(returnType);

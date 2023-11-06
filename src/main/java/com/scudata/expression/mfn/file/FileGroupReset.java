@@ -14,7 +14,7 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * 整理复组表数据或者复制组表数据到另一个复组表
- * f.reset(f’) f.reset(f’,x;cs)
+ * f.reset(f’:b;cs) f.reset(f’:b,x;cs)
  * @author RunQian
  *
  */
@@ -33,9 +33,9 @@ public class FileGroupReset extends FileGroupFunction {
 		if (param != null && param.getType() == IParam.Semicolon && param.getSubSize() == 2) {
 			IParam csParam = param.getSub(1);
 			if (csParam != null) {
-				obj = csParam.getLeafExpression().calculate(ctx);
-				if (obj instanceof ICursor) {
-					cs = (ICursor) obj;
+				Object csObj = csParam.getLeafExpression().calculate(ctx);
+				if (csObj instanceof ICursor) {
+					cs = (ICursor) csObj;
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
@@ -44,32 +44,41 @@ public class FileGroupReset extends FileGroupFunction {
 			param = param.getSub(0);
 		}
 		
-		if (param.isLeaf()) {
-			obj = param.getLeafExpression().calculate(ctx);
-		} else {
-			if (param.getType() != IParam.Semicolon) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
-			}
-
-			int size = param.getSubSize();
-			if (size != 2 && size != 3) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
-			}
+		if (param == null) {
 			
+		} else if (param.isLeaf()) {
+			obj = param.getLeafExpression().calculate(ctx);
+		} else if (param.getType() == IParam.Colon) {
+			//f:b
 			IParam sub0 = param.getSub(0);
 			if (sub0 != null) {
 				obj = sub0.getLeafExpression().calculate(ctx);
 			}
-			
+			IParam blockSizeParam = param.getSub(1);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
+			}
+		} else if (param.getType() == IParam.Comma) {
+			//x
 			IParam expParam = param.getSub(1);
 			if (expParam != null) {
 				distribute = expParam.getLeafExpression().toString();
 			}
 			
-			if (size == 3) {
-				IParam blockSizeParam = param.getSub(2);
+			param = param.getSub(0);
+			if (param.isLeaf()) {
+				obj = param.getLeafExpression().calculate(ctx);
+			} else if (param.getType() == IParam.Colon) {
+				//f:b
+				IParam sub0 = param.getSub(0);
+				if (sub0 != null) {
+					obj = sub0.getLeafExpression().calculate(ctx);
+				}
+				IParam blockSizeParam = param.getSub(1);
 				if (blockSizeParam != null) {
 					String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
 					try {
@@ -81,7 +90,9 @@ public class FileGroupReset extends FileGroupFunction {
 		}
 		
 		if (obj == null) {
-			return fg.resetGroupTable(option, blockSize, cs, ctx);
+			//return fg.resetGroupTable(option, blockSize, cs, ctx);
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
 		} else if (obj instanceof FileObject) {
 			File newFile = ((FileObject)obj).getLocalFile().file();
 			return fg.resetGroupTable(newFile, option, blockSize, cs, ctx);

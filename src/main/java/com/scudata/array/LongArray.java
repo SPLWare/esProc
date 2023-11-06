@@ -14,6 +14,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
+import com.scudata.expression.fn.math.Bit1;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
@@ -78,7 +79,7 @@ public class LongArray implements NumberArray {
 		return datas;
 	}
 	
-	boolean[] getSigns() {
+	public boolean[] getSigns() {
 		return signs;
 	}
 	
@@ -288,9 +289,28 @@ public class LongArray implements NumberArray {
 						mm.getMessage("DataType.Long"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Long"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Long"), array.getDataType()));
+			ensureCapacity(size + size2);
+			long []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Long) {
+					datas[++size] = ((Long)obj).longValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Long"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -341,9 +361,28 @@ public class LongArray implements NumberArray {
 						mm.getMessage("DataType.Long"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Long"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Long"), array.getDataType()));
+			ensureCapacity(size + count);
+			long []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Long) {
+					datas[++size] = ((Long)obj).longValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Long"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -2063,7 +2102,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	LongArray memberAdd(IntArray array) {
+	protected LongArray memberAdd(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			long []newDatas = new long[size + 1];
@@ -2736,7 +2775,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 	
-	LongArray memberMultiply(IntArray array) {
+	protected LongArray memberMultiply(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			long []newDatas = new long[size + 1];
@@ -4382,7 +4421,7 @@ public class LongArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DoubleArray array, int relation) {
+	protected BoolArray calcRelation(DoubleArray array, int relation) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -4988,7 +5027,7 @@ public class LongArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DateArray array, int relation) {
+	protected BoolArray calcRelation(DateArray array, int relation) {
 		boolean []s1 = this.signs;
 		Date []datas2 = array.getDatas();
 		
@@ -5029,7 +5068,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		boolean []s1 = this.signs;
 		String []datas2 = array.getDatas();
 		
@@ -5070,7 +5109,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6147,7 +6186,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(DoubleArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -7113,7 +7152,7 @@ public class LongArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		long []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -8844,5 +8883,115 @@ public class LongArray implements NumberArray {
 		}
 		
 		return sum;
+	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		if (array instanceof LongArray) {
+			return bit1((LongArray)array);
+		} else if (array instanceof IntArray) {
+			return bit1((IntArray)array);
+		} else {
+			int size = this.size;
+			int count = 0;
+			for (int i = 1; i <= size; ++i) {
+				count += Bit1.bitCount(get(i), array.get(i));
+			}
+			
+			return count;
+		}
+	}
+	
+    public static int bitCount(long v) {
+        // HD, Figure 5-14
+        v = v - ((v >>> 1) & 0x5555555555555555L);
+        v = (v & 0x3333333333333333L) + ((v >>> 2) & 0x3333333333333333L);
+        v = (v + (v >>> 4)) & 0x0f0f0f0f0f0f0f0fL;
+        v = v + (v >>> 8);
+        v = v + (v >>> 16);
+        v = v + (v >>> 32);
+        return (int)v & 0x7f;
+     }
+	
+	private int bit1(LongArray array) {
+		int size = this.size;
+		long []d1 = this.datas;
+		boolean []s1 = this.signs;
+		long []d2 = array.datas;
+		boolean []s2 = array.signs;
+		int count = 0;
+		
+		if (s1 == null) {
+			if (s2 == null) {
+				for (int i = 1; i <= size; ++i) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (!s2[i]) {
+						count += Long.bitCount(d1[i] ^ d2[i]);
+					}
+				}
+			}
+		} else if (s2 == null) {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i]) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		} else {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i] && !s2[i]) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		}
+
+		return count;
+	}
+	
+	public int bit1(IntArray array) {
+		int size = this.size;
+		long []d1 = this.datas;
+		boolean []s1 = this.signs;
+		int []d2 = array.getDatas();
+		boolean []s2 = array.getSigns();
+		int count = 0;
+		
+		if (s1 == null) {
+			if (s2 == null) {
+				for (int i = 1; i <= size; ++i) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (!s2[i]) {
+						count += Long.bitCount(d1[i] ^ d2[i]);
+					}
+				}
+			}
+		} else if (s2 == null) {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i]) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		} else {
+			for (int i = 1; i <= size; ++i) {
+				if (!s1[i] && !s2[i]) {
+					count += Long.bitCount(d1[i] ^ d2[i]);
+				}
+			}
+		}
+
+		return count;
+	}
+	
+	public boolean hasSigns() {
+		return signs != null;
 	}
 }

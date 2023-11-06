@@ -463,6 +463,10 @@ public class SPL extends AppFrame {
 		return GVSpl.getSplProperty();
 	}
 
+	protected ToolBarSpl newToolBarSpl() {
+		return GVSpl.getSplTool();
+	}
+
 	/**
 	 * 查看参数值
 	 * @param varName
@@ -775,39 +779,38 @@ public class SPL extends AppFrame {
 	/**
 	 * 打开文件
 	 */
-	public JInternalFrame openSheetFile(String filePath) throws Exception {
-		synchronized (desk) {
-			JInternalFrame o = getSheet(filePath);
-			if (o != null) {
-				if (!showSheet(o))
-					return null;
-				GV.toolWin.refresh();
+	public synchronized JInternalFrame openSheetFile(String filePath)
+			throws Exception {
+		JInternalFrame o = getSheet(filePath);
+		if (o != null) {
+			if (!showSheet(o))
 				return null;
-			} else {
-				if (GV.appSheet != null && !GV.appSheet.submitEditor()) {
-					return null;
-				}
+			GV.toolWin.refresh();
+			return null;
+		} else {
+			if (GV.appSheet != null && !GV.appSheet.submitEditor()) {
+				return null;
 			}
-			ICellSet cs = null;
-			if (!StringUtils.isValidString(filePath)) { // 新建
-				String pre;
-				if (filePath == null) {
-					pre = GCSpl.PRE_NEWPGM;
-				} else {
-					pre = GCSpl.PRE_NEWETL;
-				}
-				filePath = GMSpl.getNewName(pre);
-			} else {
-				// 不同的参数传递，可能会在后面多加空格
-				filePath = filePath.trim();
-				// 打开时检查权限
-				cs = readCellSet(filePath);
-				if (cs == null)
-					return null;
-			}
-			JInternalFrame sheet = openSheet(filePath, cs);
-			return sheet;
 		}
+		ICellSet cs = null;
+		if (!StringUtils.isValidString(filePath)) { // 新建
+			String pre;
+			if (filePath == null) {
+				pre = GCSpl.PRE_NEWPGM;
+			} else {
+				pre = GCSpl.PRE_NEWETL;
+			}
+			filePath = GMSpl.getNewName(pre);
+		} else {
+			// 不同的参数传递，可能会在后面多加空格
+			filePath = filePath.trim();
+			// 打开时检查权限
+			cs = readCellSet(filePath);
+			if (cs == null)
+				return null;
+		}
+		JInternalFrame sheet = openSheet(filePath, cs);
+		return sheet;
 	}
 
 	/**
@@ -1460,7 +1463,7 @@ public class SPL extends AppFrame {
 		} catch (Throwable e) {
 			GM.outputMessage(e);
 		}
-		GMSpl.setOptionLocale();
+		// GMSpl.setOptionLocale();
 	}
 
 	public static void showSplash() {
@@ -1615,7 +1618,7 @@ public class SPL extends AppFrame {
 	 * @param e
 	 */
 	void this_windowClosing(WindowEvent e) {
-		this.update(this.getGraphics());
+		// this.update(this.getGraphics()); 速度变慢，不记得为什么这样刷新
 		if (!closeAll(true)) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;

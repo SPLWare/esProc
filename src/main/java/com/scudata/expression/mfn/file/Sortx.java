@@ -39,8 +39,6 @@ public class Sortx extends FileFunction {
 
 			IParam sub = param.getSub(1);
 			if (sub == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
 			} else if (sub.isLeaf()) {
 				Object obj = sub.getLeafExpression().calculate(ctx);
 				if (obj instanceof FileObject) {
@@ -77,7 +75,6 @@ public class Sortx extends FileFunction {
 			throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
 		}
 
-		BFileUtil.sortx(file, out, fields, ctx, option);
-		return file;
+		return BFileUtil.sortx(file, out, fields, ctx, option);
 	}
 }

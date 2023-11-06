@@ -28,4 +28,10 @@ public interface NumberArray extends IArray {
 	 * @return IntArray 1：左侧大，0：相等，-1：右侧大
 	 */
 	IntArray memberCompare(NumberArray rightArray);
+	
+	/**
+	 * 是否有null值数组
+	 * @return
+	 */
+	boolean hasSigns();
 }

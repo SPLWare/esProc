@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.2.1 Coordinate systems and axes</title>
+<title>11.8.2 Defining a pseudo table</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,81 +13,76 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>12.2.1 Coordinate systems and axes
-</span></h3></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc provides two commonly used coordinate systems &#8211; <b
-style='mso-bidi-font-weight:normal'>Cartesian coordinate</b> <b
-style='mso-bidi-font-weight:normal'>system</b> and <b style='mso-bidi-font-weight:
-normal'>polar coordinate system</b>. </span></p>
+	<div id="centent-title"><h3 style='margin-left:-194.15pt;text-indent:-39.75pt;mso-list:l45 level3 lfo55'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>11.8.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Defining a pseudo table</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>To define metadata, you need to first
+define the pseudo table that will be used in DQL. The pseudo table must come
+from a composite table or a bin file. Click “Add pseudo table” icon <img border=0 width=27 height=26
+src="Tutorial.files/image1124.png" v:shapes="图片_x0020_1474">, or
+click Edit-&gt;Add pseudo table through the menu bar, to add a pseudo table
+definition for the metadata:</span></p>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Different coordinate systems have different types of coordinate axes
-&#8211; <b style='mso-bidi-font-weight:normal'>x-axis</b> and <b style='mso-bidi-font-weight:
-normal'>y-axis</b>, or <b style='mso-bidi-font-weight:normal'>polar axis</b>
-and <b style='mso-bidi-font-weight:normal'>radial axis</b>. Each type of axis
-has its own plotting properties with which the corresponding coordinate
-transformation operation is handled. </span></p>
+<p class=T-ParCxSpMiddle style='margin-left:21.3pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:0cm;mso-char-indent-count:
+0'><span lang=EN-US><img border=0 width=501 height=398
+src="Tutorial.files/image1125.png" v:shapes="图片_x0020_1475"></span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman","serif"'>Cartesian
-coordinate system</span></b></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+mso-char-indent-count:0'><span lang=EN-US>Click “Select” button to select the
+data file for generating the pseudo table. You can change the variable name
+used by the pseudo table in DQL as needed:</span></p>
 
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>A
-Cartesian coordinate system has two mutually perpendicular axes, denoted the
-x-axis and y-axis. The logical coordinates on the horizontal x-axis determine
-the horizontal location of the chart, and those on the vertical y-axis
-determine the vertical location of the chart. Actually, in a Cartesian
-coordinate system the abscissa and ordinate of physical coordinates can be
-calculated individually based on their corresponding logical axes, without any
-mutual influences. </span></p>
+<p class=T-ParCxSpMiddle style='margin-left:21.3pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:0cm;mso-char-indent-count:
+0'><span lang=EN-US><img border=0 width=562 height=400
+src="Tutorial.files/image1126.png" v:shapes="图片_x0020_1508"></span></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>In all
-the examples we have cited, the system of Cartesian coordinates is used to
-position chart elements. The native physical axes on the canvas also belong to
-a Cartesian coordinate system. The system is used in plotting most of the
-charts such as column chart, line chart, area chart, scatter chart, bubble
-chart and stock chart. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+mso-char-indent-count:0'><span lang=EN-US>Here we use the original composite
+table file <i>emps.ctx</i>. After data is selected for the pseudo table, the
+pseudo table name will be automatically changed to one the same as the
+composite table file name. You can also change it as you like. To define a custom
+field for the pseudo table, the process is similar to that of defining a pseudo
+table user-defined field explained in the above section. You just add one under
+the “User-defined field” and modify the corresponding field of the records in <span
+class=T-Bold>column </span>definition. Click “Add row” icon <img border=0 width=27 height=27
+src="Tutorial.files/image1127.png" v:shapes="图片_x0020_1477">, or
+click Edit-&gt;Add row through the menu bar, to add a new field. As the
+following shows, we add enumerated pseudo field Dept and binary dimension
+pseudo fields IfMarried and IfLady:</span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman","serif"'>Polar coordinate
-system</span></b></p>
+<p class=T-ParCxSpMiddle style='margin-left:21.3pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:0cm;mso-char-indent-count:
+0'><span lang=EN-US><img border=0 width=546 height=312
+src="Tutorial.files/image1128.png" v:shapes="图片_x0020_1511"></span></p>
 
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
-axes in a polar coordinate system are polar axis and radial axis. For the polar
-axis, you need to define the <b style='mso-bidi-font-weight:normal'>pole</b>
-position and the <b style='mso-bidi-font-weight:normal'>polar axis length</b>;
-and for the radial axis, the <b style='mso-bidi-font-weight:normal'>start angle</b>
-and <b style='mso-bidi-font-weight:normal'>end angle</b> of the polar
-coordinates. Conventionally the angle horizontally from the pole to the right
-is 0&#61616; and the counterclockwise angle from the polar axis is positive. By
-default the start angle of a polar coordinate system is 0 and the end angle is
-360.</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+mso-char-indent-count:0'><span lang=EN-US>Double-click the cell under “Enum dim
+value sequence” to set up enumerated values for the enumerated pseudo field:</span></p>
 
-<p class=T-Par0372CxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
-system of polar coordinates is used to plot pie chart, doughnut chart, radar
-chart and etc. </span></p>
+<p class=T-ParCxSpMiddle style='margin-left:21.3pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:0cm;mso-char-indent-count:
+0'><span lang=EN-US><img border=0 width=476 height=303
+src="Tutorial.files/image1129.png" v:shapes="图片_x0020_1479"></span></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>When
-performing coordinate transformation operation with polar coordinates, a
-point’s line segment length is calculated from the coordinates on the polar
-axis and its polar angle is calculated from the coordinates on the radial axis.
-</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+mso-char-indent-count:0'><span lang=EN-US>Similarly, Double-click the cell
+under “Binary dimension pseudo field” to set up values for the binary dimension
+pseudo field: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-left:21.3pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:0cm;mso-char-indent-count:
+0'><span lang=EN-US><img border=0 width=476 height=303
+src="Tutorial.files/image1130.png" v:shapes="图片_x0020_1480"></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+mso-char-indent-count:0'><span lang=EN-US>The DQL interface offers meticulous
+guide to configurations of pseudo table custom field in DQL, such as setting up
+enum field and bits field for defining apply expressions under “Enum dim value
+sequence” and “Binary dimension pseudo field” respectively.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="265.html">Next</a></div>
@@ -95,17 +90,14 @@ axis and its polar angle is calculated from the coordinates on the radial axis.
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="263.html">12.2 Coordinate Systems and Transformation</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="262.html">11.8 DQL Tool</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

@@ -168,6 +168,7 @@ public class FuncManager {
 			FuncInfo fi = new FuncInfo();
 			fi.setName(xml.getAttribute(path + "name"));
 			fi.setDesc(xml.getAttribute(path + "desc"));
+			fi.setDisplayStr(xml.getAttribute(path + "displaystr"));
 			try {
 				fi.setPostfix(xml.getAttribute(path + "postfix"));
 			} catch (Throwable e) {
@@ -430,6 +431,7 @@ public class FuncManager {
 
 				xml.setAttribute(path + "/name", fi.getName());
 				xml.setAttribute(path + "/desc", removeTab(fi.getDesc()));
+				xml.setAttribute(path + "/displaystr", removeTab(fi.getDisplayStr()));
 				xml.setAttribute(path + "/postfix", removeTab(fi.getPostfix()));
 				xml.setAttribute(path + "/majortype",
 						String.valueOf(fi.getMajorType()));

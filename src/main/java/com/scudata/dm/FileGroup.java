@@ -208,7 +208,8 @@ public class FileGroup implements Externalizable {
 				boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize, null);
 				tmd.close();
 				if (!result) {
-					return false;
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
 				}
 			}
 		}
@@ -235,6 +236,10 @@ public class FileGroup implements Externalizable {
 		boolean uncompress = false; // 不压缩
 		
 		if (opt != null) {
+			if (opt.indexOf('q') != -1) {
+				return conj(newFile, ctx);
+			}
+			
 			if (opt.indexOf('r') != -1) {
 				isCol = false;
 			} else if (opt.indexOf('c') != -1) {
@@ -291,10 +296,13 @@ public class FileGroup implements Externalizable {
 		}
 
 		// 生成分段选项，是否按第一字段分段
-		String newOpt = null;
+		String newOpt = "";
 		String segmentCol = baseTable.getSegmentCol();
 		if (segmentCol != null) {
-			newOpt = "p";
+			newOpt += "p";
+		}
+		if (baseTable.getGroupTable().hasDeleteKey()) {
+			newOpt += "d";
 		}
 		
 		ComTable newGroupTable = null;
@@ -419,7 +427,8 @@ public class FileGroup implements Externalizable {
 				boolean result = tmd.getGroupTable().reset(newFile, opt, ctx, null);
 				tmd.close();
 				if (!result) {
-					return false;
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("file.deleteFailed"));
 				}
 			}
 		} else {
@@ -489,6 +498,11 @@ public class FileGroup implements Externalizable {
 			if (uncompress) {
 				newOpt += 'u';
 			}
+			
+			if (baseTable.getGroupTable().hasDeleteKey()) {
+				newOpt += "d";
+			}
+			
 			try {
 				//写基表
 				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
@@ -568,6 +582,17 @@ public class FileGroup implements Externalizable {
 		}
 	}
 	
+	public boolean isExist() {
+		int pcount = partitions.length;
+		for (int i = 0; i < pcount; ++i) {
+			File file = Env.getPartitionFile(partitions[i], fileName);
+			if (!file.exists()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void rename(String newName, Context ctx) {
 		int pcount = partitions.length;
 		
@@ -591,7 +616,7 @@ public class FileGroup implements Externalizable {
 	 * 根据当前文件组，得到一个临时文件组
 	 * @return
 	 */
-	public FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {
+	private FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {
 		FileObject fo = new FileObject(fileName);
 		int pcount = partitions.length;
 		String tempFileName;
@@ -618,7 +643,7 @@ public class FileGroup implements Externalizable {
 		}
 		
 		String option = opt == null ? "" : opt;
-		option += "S";
+		option += "n";
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
 			File newFile = Env.getPartitionFile(partitions[i], tempFileName);
@@ -630,5 +655,39 @@ public class FileGroup implements Externalizable {
 			}
 		}
 		return new FileGroup(tempFileName, partitions);
+	}
+	
+	private boolean conj(File newFile, Context ctx) {
+		int pcount = partitions.length;
+		if (newFile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileAlreadyExist", newFile.getName()));
+		}
+		
+		File file = getPartitionFile(0);
+		LocalFile.copyFile(file, newFile);
+		if (pcount == 1) {
+			return false;
+		}
+		
+		PhyTable resultTable = ComTable.openBaseTable(newFile, ctx);
+		PhyTable table = null;
+		try {
+			for (int i = 1; i < pcount; ++i) {
+				File f = getPartitionFile(i);
+				table = ComTable.openBaseTable(f, ctx);
+				resultTable.append(table);
+				table.close();
+			}
+		} catch (IOException e) {
+			if (table != null) {
+				table.close();
+			}
+			newFile.delete();
+			return false;
+		} finally {
+			resultTable.close();
+		}
+		return true;
 	}
 }

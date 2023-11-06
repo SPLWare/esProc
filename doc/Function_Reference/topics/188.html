@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>cursor()</title>
+<title>create(# Fi ,…)</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,486 +13,114 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=cursor></a><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman","serif"'>cursor()</span></span><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman","serif"'></span></span></h3></div>
-	<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="create_F"><span
+class=code><span lang=EN-US style='mso-ansi-font-size:16.0pt;mso-bidi-font-size:
+16.0pt;line-height:172%;font-family:"Times New Roman",serif'>create(#<i>Fi</i>,…)</span></span></a><span
+style='mso-bookmark:create_F'></span><span
+style='mso-bookmark:create_F'></span><span
+style='mso-bookmark:create_F'><span class=code><span lang=EN-US
+style='mso-ansi-font-size:16.0pt;mso-bidi-font-size:16.0pt;line-height:172%;
+font-family:"Times New Roman",serif'></span></span></span></h3></div>
+	<span style='mso-bookmark:create_F'></span>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp;</span>Call a cellset file and return the result
-set returned from the execution of the file as a cursor.</span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Description:</span></b></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create an empty
+table sequence with one or more keys set.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US>cursor</span></b><span
-lang=EN-US style='mso-bidi-font-weight:bold'>(<i style='mso-bidi-font-style:
-normal'>dfx</i>,…)</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>create</span></b><span
+lang=EN-US>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>#F<sub>i</sub>,…</span></i><span
+lang=EN-US>)<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function calls a cellset file and returns the result set
-returned from the execution of the file as a cursor. When there are multiple <i
-style='mso-bidi-font-style:normal'>return </i>statements in the <i
-style='mso-bidi-font-style:normal'>dfx</i> file, first merge the result sets
-returned by the <i style='mso-bidi-font-style:normal'>return</i> statements,
-and then return the merge result as a cursor. These result sets of <i
-style='mso-bidi-font-style:normal'>return</i> must be of the same structure, or
-error will be reported. Use either an absolute path or a relative path to
-search for the <i style='mso-bidi-font-style:normal'>dfx</i> file. With the
-relative path, the search order is Class path &#8211;&gt; Search path &#8211;&gt; Main
-directory. The cursor the function returns is irreversible.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+creates an empty table sequence consisting of fields </span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub>,…</span></i><span
+lang=EN-US>. A field name headed by a hash (#) is a key. For the time being,
+the function cannot generate a time key directly.</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>dfx</span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Cellset file name</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>…</span><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>dfx</span></i><span
-  lang=EN-US>’s parameter</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Option:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@c</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub></span></i></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The </span><span class=var1><span
-  lang=EN-US>dfx</span></span><span lang=EN-US> can be represented by a cell
-  that corresponds to a subroutine defined by <i style='mso-bidi-font-style:
-  normal'>func()</i> function</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Cursor</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Empty table
+sequence</span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Here’s<i
-style='mso-bidi-font-style:normal'> test.dfx</i> cellset file under the main
-directory in which <i style='mso-bidi-font-style:normal'>arg1</i> is the
-cellset parameter:</span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example: </span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:13.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:13.9pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=61 valign=top style='width:36.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=302 valign=top style='width:226.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=567 valign=top style='width:340.1pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>B</span></span></p>
-  </td>
-  <td width=141 valign=top style='width:84.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:13.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=61 valign=top style='width:36.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>for arg1</span></p>
-  </td>
-  <td width=567 valign=top style='width:340.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
-  </td>
-  <td width=141 valign=top style='width:84.4pt;border:none;mso-border-left-alt:
+  <td width=256 valign=top style='width:191.95pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:13.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:38.0pt'>
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=61 valign=top style='width:36.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=567 valign=top style='width:340.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>=connect(&quot;demo&quot;).query(&quot;select
-  * from GYMNASTICSWOMEN where ID=?&quot;,A1)</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=141 valign=top style='width:84.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=23 valign=top style='width:13.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=61 valign=top style='width:36.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=567 valign=top style='width:340.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>=B2.derive(avg(VAULT,UNEVENBARS,BALANCEBEAM,FLOOR):Average)</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=141 valign=top style='width:84.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:13.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=61 valign=top style='width:36.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=567 valign=top style='width:340.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>return B3</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=141 valign=top style='width:84.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Perform a loop computation and return the
-  result sets<span style='mso-bidi-font-style:italic'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><u><span lang=EN-US style='mso-fareast-font-family:黑体;
-color:blue'><span style='text-decoration:none'>&nbsp;</span></span></u></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:13.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:221.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:13.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:221.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>=[5,10,20,25]</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=378 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:13.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:221.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>=cursor(&quot;test.dfx&quot;,A1)</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=378 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=362 height=54
-  src="Function_Reference.files/image357.jpg" v:shapes="_x0000_i1239"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Cll <i style='mso-bidi-font-style:normal'>test.dfx</i>,
-  pass A1’s sequence as the value of parameter <i style='mso-bidi-font-style:
-  normal'>arg1</i>, and return result as a cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;height:32.15pt'>
-  <td width=23 valign=top style='width:13.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:32.15pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:221.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:32.15pt'>
-  <p class=MsoNormal><span lang=EN-US>=A2.fetch()</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=378 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:32.15pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=413 height=70
-  src="Function_Reference.files/image359.jpg" v:shapes="_x0000_i1240"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Fetch records from the cursor; the result is the
-  union of returned result sets by the loop computation of <i style='mso-bidi-font-style:
-  normal'>test.dfx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;height:18.15pt'>
-  <td width=23 valign=top style='width:13.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.15pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:221.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt'>
-  <p class=MsoNormal><span lang=EN-US>=call(&quot;test.dfx&quot;,A1)</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=378 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=508 height=38
-  src="Function_Reference.files/image361.jpg" v:shapes="_x0000_i1241"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Use call function to call <i style='mso-bidi-font-style:
-  normal'>test.dfx</i> but only the result set of the first loop is
-  returned<span
-  style='mso-spacerun:yes'>&nbsp;
-  </span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><a name="P_cursor"></a><span lang=EN-US>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=201 valign=top style='width:120.45pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>B</span></span></p>
-  </td>
-  <td width=247 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>func</span></b></p>
-  </td>
-  <td width=201 valign=top style='width:120.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=247 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
-  </td>
-  <td width=201 valign=top style='width:120.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>return
-  A1.sum()</span></b></p>
-  </td>
-  <td width=247 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=cursor@c(A1,[2,5,7])</span></b></p>
-  </td>
-  <td width=201 valign=top style='width:120.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
-  </td>
-  <td width=247 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Call the code block whose master cell is
-  A1</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
-  </td>
-  <td width=201 valign=top style='width:120.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
-  </td>
-  <td width=247 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:38.0pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-style:italic'>14</span></b></p>
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=302 valign=top style='width:226.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:38.0pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=create(#id,#name,gender)</span></b></p>
+  </td>
+  <td width=256 valign=top style='width:191.95pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:38.0pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=178 height=28
+  src="Function_Reference.files/image334.jpg" v:shapes="图片_x0020_1091"></span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>id</span></i><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'> field
+  and <i style='mso-bidi-font-style:normal'>name</i> field are keys</span></p>
   </td>
  </tr>
 </table>
@@ -503,17 +131,14 @@ color:blue'><span style='text-decoration:none'>&nbsp;</span></span></u></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="187.html">cursor()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="186.html">create()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

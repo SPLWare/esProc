@@ -15,6 +15,7 @@ import com.scudata.dm.comparator.RecordFieldComparator;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
+import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
 /**
@@ -1429,6 +1430,51 @@ public class Table extends Sequence {
 		
 		return result;
 	}
+
+	public void run(Expression[] assignExps, Expression[] exps, String opt, Context ctx) {
+		if (opt != null) {
+			if (opt.indexOf('m') != -1) {
+				MultithreadUtil.run(this, assignExps, exps, ctx);
+			} else if (opt.indexOf('z') != -1) {
+				int colCount = exps.length;
+				int []fields = new int[colCount];
+
+				for (int i = 0; i < colCount; ++i) {
+					if (assignExps[i] != null) {
+						fields[i] = assignExps[i].getFieldIndex(ds);
+						if (fields[i] != -1) {
+							continue;
+						}
+					}
+					
+					super.run(assignExps, exps, ctx);
+					return;
+				}
+				
+				ComputeStack stack = ctx.getComputeStack();
+				Current current = new Current(this);
+				stack.push(current);
+				IArray mems = getMems();
+
+				try {
+					for (int i = length(); i > 0; --i) {
+						current.setCurrent(i);
+						BaseRecord r = (BaseRecord)mems.get(i);
+						for (int c = 0; c < colCount; ++c) {
+							r.setNormalFieldValue(fields[c], exps[c].calculate(ctx));
+						}
+					}
+				} finally {
+					stack.pop();
+				}
+			} else {
+				run(assignExps, exps, ctx);
+			}
+		} else {
+			run(assignExps, exps, ctx);
+		}
+	}
+
 	/**
 	 * 循环序列元素，计算表达式并进行赋值
 	 * @param assignExps Expression[] 赋值表达式

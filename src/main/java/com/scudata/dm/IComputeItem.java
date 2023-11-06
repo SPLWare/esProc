@@ -43,5 +43,5 @@ public interface IComputeItem {
 	 * @param field
 	 * @return
 	 */
-	Object getFieldValue(int field);
+	Object getFieldValue2(int field);
 }

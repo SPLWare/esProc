@@ -47,30 +47,30 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * URL String
 	 */
-	private String url = null;
+	protected String url = null;
 
 	/**
 	 * The properties of the connection
 	 */
-	private Properties clientInfo = null;
+	protected Properties clientInfo = null;
 
 	/**
 	 * Whether the connection has been closed
 	 */
-	private boolean closed = true;
+	protected boolean closed = true;
 
 	/**
 	 * The list of the statements
 	 */
-	private List<InternalStatement> stats = new ArrayList<InternalStatement>();
+	protected List<InternalStatement> stats = new ArrayList<InternalStatement>();
 
 	/**
 	 * DatabaseMetaData object
 	 */
-	private DatabaseMetaData metaData;
+	protected DatabaseMetaData metaData;
 
-	private String driverName;
-	private int driverMajorVersion, driverMinorVersion;
+	protected String driverName;
+	protected int driverMajorVersion, driverMinorVersion;
 
 	/**
 	 * The esProc context
@@ -113,6 +113,8 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	private JobSpace jobSpace = null;
 
+	protected List<String> hostNames = null;
+
 	/**
 	 * Constructor
 	 * 
@@ -121,11 +123,12 @@ public class InternalConnection implements Connection, Serializable {
 	 * @param config
 	 * @throws SQLException
 	 */
-	public InternalConnection(InternalDriver driver, RaqsoftConfig config)
-			throws SQLException {
+	public InternalConnection(InternalDriver driver, RaqsoftConfig config,
+			List<String> hostNames) throws SQLException {
 		JDBCUtil.log("InternalConnection-2");
 		closed = false;
 		raqsoftConfig = config;
+		this.hostNames = hostNames;
 		this.driverName = driver.getClass().getName();
 		this.driverMajorVersion = driver.getMajorVersion();
 		this.driverMinorVersion = driver.getMinorVersion();
@@ -140,7 +143,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @return int
 	 */
-	private synchronized int nextStatementId() {
+	protected synchronized int nextStatementId() {
 		JDBCUtil.log("InternalConnection-1");
 		if (stMaxId == Integer.MAX_VALUE)
 			stMaxId = 1;
@@ -308,6 +311,24 @@ public class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
+	 * Get host names
+	 * 
+	 * @return host names
+	 */
+	public List<String> getHostNames() {
+		return hostNames;
+	}
+
+	/**
+	 * Get the RaqsoftConfig object
+	 * 
+	 * @return the RaqsoftConfig
+	 */
+	public RaqsoftConfig getConfig() {
+		return raqsoftConfig;
+	}
+
+	/**
 	 * Get the unit client
 	 * 
 	 * @return UnitClient
@@ -316,7 +337,7 @@ public class InternalConnection implements Connection, Serializable {
 	public synchronized UnitClient getUnitClient(int timeoutMS)
 			throws SQLException {
 		if (unitClient == null) {
-			List<String> hosts = Server.getInstance().getHostNames();
+			List<String> hosts = this.hostNames;
 			if (hosts == null || hosts.isEmpty()) {
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"jdbcutil.noserverconfig"));
@@ -749,7 +770,8 @@ public class InternalConnection implements Connection, Serializable {
 	 * 关闭节点机连接
 	 */
 	private void closeUnitClient() {
-		System.out.println("-------------jdbc-close connect:"+unitConnectionId);
+		System.out.println("-------------jdbc-close connect:"
+				+ unitConnectionId);
 		if (unitClient != null) {
 			try {
 				unitClient.JDBCCloseConnection(unitConnectionId);
@@ -1492,7 +1514,7 @@ public class InternalConnection implements Connection, Serializable {
 				"abort(Executor executor)"));
 	}
 
-	private int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
+	protected int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
 
 	/**
 	 * Sets the maximum period a Connection or objects created from the Connection

@@ -281,9 +281,28 @@ public class DoubleArray implements NumberArray {
 						mm.getMessage("DataType.Double"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Double"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Double"), array.getDataType()));
+			ensureCapacity(size + size2);
+			double []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Double) {
+					datas[++size] = ((Double)obj).doubleValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Double"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -334,9 +353,28 @@ public class DoubleArray implements NumberArray {
 						mm.getMessage("DataType.Double"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Double"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Double"), array.getDataType()));
+			ensureCapacity(size + count);
+			double []datas = this.datas;
+			
+			for (int i = 1; i <= 1; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Double) {
+					datas[++size] = ((Double)obj).doubleValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Double"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -2042,7 +2080,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	DoubleArray memberAdd(IntArray array) {
+	public DoubleArray memberAdd(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2102,7 +2140,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 	
-	DoubleArray memberAdd(LongArray array) {
+	public DoubleArray memberAdd(LongArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2162,7 +2200,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	private DoubleArray memberAdd(DoubleArray array) {
+	public DoubleArray memberAdd(DoubleArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			if (array.isTemporary()) {
@@ -2232,12 +2270,12 @@ public class DoubleArray implements NumberArray {
 	 * @return 差数组
 	 */
 	public IArray memberSubtract(IArray array) {
-		if (array instanceof IntArray) {
+		if (array instanceof DoubleArray) {
+			return memberSubtract((DoubleArray)array);
+		} else if (array instanceof IntArray) {
 			return memberSubtract((IntArray)array);
 		} else if (array instanceof LongArray) {
 			return memberSubtract((LongArray)array);
-		} else if (array instanceof DoubleArray) {
-			return memberSubtract((DoubleArray)array);
 		} else if (array instanceof ConstArray) {
 			return memberSubtract(array.get(1));
 		} else if (array instanceof ObjectArray) {
@@ -2605,12 +2643,12 @@ public class DoubleArray implements NumberArray {
 	 * @return 积数组
 	 */
 	public IArray memberMultiply(IArray array) {
-		if (array instanceof IntArray) {
+		if (array instanceof DoubleArray) {
+			return memberMultiply((DoubleArray)array);
+		} else if (array instanceof IntArray) {
 			return memberMultiply((IntArray)array);
 		} else if (array instanceof LongArray) {
 			return memberMultiply((LongArray)array);
-		} else if (array instanceof DoubleArray) {
-			return memberMultiply((DoubleArray)array);
 		} else if (array instanceof ConstArray) {
 			return memberMultiply(array.get(1));
 		} else if (array instanceof ObjectArray) {
@@ -2725,7 +2763,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 
-	DoubleArray memberMultiply(IntArray array) {
+	public DoubleArray memberMultiply(IntArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2780,7 +2818,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	DoubleArray memberMultiply(LongArray array) {
+	public DoubleArray memberMultiply(LongArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			double []newDatas = new double[size + 1];
@@ -2835,7 +2873,7 @@ public class DoubleArray implements NumberArray {
 		return this;
 	}
 
-	private DoubleArray memberMultiply(DoubleArray array) {
+	public  DoubleArray memberMultiply(DoubleArray array) {
 		int size = this.size;
 		if (!isTemporary()) {
 			if (array.isTemporary()) {
@@ -2843,17 +2881,50 @@ public class DoubleArray implements NumberArray {
 			}
 			
 			double []newDatas = new double[size + 1];
-			System.arraycopy(datas, 1, newDatas, 1, size);
-			
 			boolean []newSigns = null;
-			if (signs != null) {
+			double []datas = this.datas;;
+			boolean []signs = this.signs;
+			double []d2 = array.datas;
+			boolean []s2 = array.signs;
+
+			if (signs == null) {
+				if (s2 == null) {
+					for (int i = 1; i <= size; ++i) {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				} else {
+					newSigns = new boolean[size + 1];
+					for (int i = 1; i <= size; ++i) {
+						if (s2[i]) {
+							newSigns[i] = true;
+						} else {
+							newDatas[i] = datas[i] * d2[i];
+						}
+					}
+				}
+			} else if (s2 == null) {
 				newSigns = new boolean[size + 1];
-				System.arraycopy(signs, 1, newSigns, 1, size);
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i]) {
+						newSigns[i] = true;
+					} else {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				}
+			} else {
+				newSigns = new boolean[size + 1];
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i] || s2[i]) {
+						newSigns[i] = true;
+					} else {
+						newDatas[i] = datas[i] * d2[i];
+					}
+				}
 			}
 			
 			DoubleArray result = new DoubleArray(newDatas, newSigns, size);
 			result.setTemporary(true);
-			return result.memberMultiply(array);
+			return result;
 		}
 		
 		double []datas = this.datas;;
@@ -4623,7 +4694,7 @@ public class DoubleArray implements NumberArray {
 		return result;
 	}
 
-	BoolArray calcRelation(DateArray array, int relation) {
+	protected BoolArray calcRelation(DateArray array, int relation) {
 		boolean []s1 = this.signs;
 		Date []datas2 = array.getDatas();
 		
@@ -4664,7 +4735,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		boolean []s1 = this.signs;
 		String []datas2 = array.getDatas();
 		
@@ -4705,7 +4776,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		double []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -6114,7 +6185,7 @@ public class DoubleArray implements NumberArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		double []d1 = this.datas;
 		boolean []s1 = this.signs;
@@ -7754,5 +7825,19 @@ public class DoubleArray implements NumberArray {
 	public int bit1() {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	public boolean hasSigns() {
+		return signs != null;
 	}
 }

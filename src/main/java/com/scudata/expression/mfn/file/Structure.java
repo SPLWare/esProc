@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
@@ -21,9 +22,11 @@ import com.scudata.dw.ComTable;
 import com.scudata.dw.ITableIndex;
 import com.scudata.dw.RowPhyTable;
 import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableIndex;
 import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
 import com.scudata.parallel.ClusterPhyTable;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 获得组表文件的结构
@@ -32,11 +35,12 @@ import com.scudata.parallel.ClusterPhyTable;
  *
  */
 public class Structure extends FileFunction {
-	private static final String FIELD_NAMES[] = { "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach", "block" };
-	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
+	private static final String FIELD_NAMES[] = { "field", "key", "del", "row", "zip", "seg", "zonex", "attach", "block" };
+	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "attach" };
 	private static final String COL_FIELD_FIELD_NAMES[] = {"name", "dim", "type", "type-len", "dict"};
 	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
+	private static final String CUBOID_FIELD_NAMES2[] = { "keys", "aggr" };
 	private static final String CUBOID_AGGR_FIELD_NAMES[] = { "name", "exp" };
 	private static final String BLOCK_INFO_FIELD_NAMES[] = {"min", "max", "count", "pos"};
 	
@@ -56,6 +60,25 @@ public class Structure extends FileFunction {
 			return seq;
 		} else {
 			// 本地文件
+			boolean hasI = false;
+			boolean hasC = false;
+			if (option != null) {
+				if (option.indexOf('i') != -1)
+					hasI = true;
+				if (option.indexOf('c') != -1)
+					hasC = true;
+			}
+			if (hasI) {
+				Sequence seq = new Sequence();
+				seq.add(PhyTableIndex.getIndexStruct(file));
+				return seq;
+			}
+			if (hasC) {
+				Sequence seq = new Sequence();
+				seq.add(getTableCuboidStruct(file));
+				return seq;
+			}
+			
 			File f = file.getLocalFile().file();
 			PhyTable table = ComTable.openBaseTable(f, ctx);
 			
@@ -85,14 +108,6 @@ public class Structure extends FileFunction {
 	 */
 	public static Record getTableStruct(PhyTable table, String option) {
 		int idx = 0;
-		boolean hasI = false;
-		boolean hasC = false;
-		if (option != null) {
-			if (option.indexOf('i') != -1)
-				hasI = true;
-			if (option.indexOf('c') != -1)
-				hasC = true;
-		}
 		
 		Record rec;
 		if (table.isBaseTable()) {
@@ -105,21 +120,15 @@ public class Structure extends FileFunction {
 		String[] colNames = table.getAllColNames();
 		rec.setNormalFieldValue(idx++, getTableColumnStruct(table));
 		rec.setNormalFieldValue(idx++, table.hasPrimaryKey());
+		if (table.isBaseTable()) {
+			rec.setNormalFieldValue(idx++, table.getGroupTable().hasDeleteKey());
+		}
 		rec.setNormalFieldValue(idx++, table instanceof RowPhyTable);
 		rec.setNormalFieldValue(idx++, table.getGroupTable().isCompress());
 		
 		String seg = table.getSegmentCol();
 		rec.setNormalFieldValue(idx++, seg != null && colNames[0] != null && seg.equals(colNames[0]));
 		rec.setNormalFieldValue(idx++, table.getGroupTable().getDistribute());
-		if (hasI) {
-			rec.setNormalFieldValue(idx, getTableIndexStruct(table));
-		}
-		idx++;
-		
-		if (hasC) {
-			rec.setNormalFieldValue(idx, getTableCuboidStruct(table));
-		}
-		idx++;
 		
 		ArrayList<PhyTable> tables = table.getTableList();
 		if (tables != null && tables.size() > 0) {
@@ -149,7 +158,7 @@ public class Structure extends FileFunction {
 			for (ColumnMetaData column: columns ) {
 				Record rec = new Record(new DataStruct(COL_FIELD_FIELD_NAMES));
 				rec.setNormalFieldValue(0, column.getColName());
-				rec.setNormalFieldValue(1, column.isDim());
+				rec.setNormalFieldValue(1, column.isKey());
 				rec.setNormalFieldValue(2, DataBlockType.getTypeName(column.getDataType()));
 				rec.setNormalFieldValue(3, DataBlockType.getTypeLen(column.getDataType()));
 				Sequence dict = column.getDict();
@@ -243,6 +252,39 @@ public class Structure extends FileFunction {
 			}
 		}
 		return seq;
+	}
+	
+	private static Object getTableCuboidStruct(FileObject fo) {
+		File file = fo.getLocalFile().file();
+		Cuboid srcCuboid = null;
+		Record rec = null;
+		try {
+			srcCuboid = new Cuboid(file, null);
+			rec = new Record(new DataStruct(CUBOID_FIELD_NAMES2));
+			rec.setNormalFieldValue(0, new Sequence(srcCuboid.getExps()));//分组表达式
+			
+			/**
+			 * 组织汇总表达式
+			 */
+			Sequence aggr = new Sequence();
+			String[] newExps = srcCuboid.getNewExps();//汇总表达式
+			String[] names = srcCuboid.getBaseTable().getAllColNames();//这里的后半部分是汇总表达式的name
+			int len = newExps.length;
+			int start = names.length - len;
+			for (int i = 0; i < len; i++) {
+				Record r = new Record(new DataStruct(CUBOID_AGGR_FIELD_NAMES));
+				r.setNormalFieldValue(0, names[start + i]);
+				r.setNormalFieldValue(1, newExps[i]);
+				aggr.add(r);
+			}
+			rec.setNormalFieldValue(1, aggr);
+			srcCuboid.close();
+		} catch (Exception e) {
+			if (srcCuboid != null) srcCuboid.close();
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("license.fileFormatError"));
+		}
+		return rec;
 	}
 	
 	private Sequence getTableBlockInfo(ColPhyTable table) {

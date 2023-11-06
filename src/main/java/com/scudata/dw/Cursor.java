@@ -3207,7 +3207,7 @@ public class Cursor extends IDWCursor {
 		return isSegment;
 	}
 	
-	protected boolean hasModify() {
+	public boolean hasModify() {
 		return mindex < mcount;
 	}
 	
@@ -3663,5 +3663,9 @@ public class Cursor extends IDWCursor {
 		} finally {
 			setEndBlock(endBlock);
 		}
+	}
+	
+	public TableGather[] getGathers() {
+		return gathers;
 	}
 }

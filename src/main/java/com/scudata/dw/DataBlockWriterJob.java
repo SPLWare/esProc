@@ -301,6 +301,13 @@ public class DataBlockWriterJob  extends Job {
 	 * @return
 	 */
 	private static boolean checkDict(Sequence column_dict, Sequence block_dict) {
+		//成员里有ds时，暂时不作为字典处理
+		for (int i = 1, len = block_dict.length(); i <= len; i++) {
+			Object obj = block_dict.get(i);
+			if (obj instanceof Sequence || obj instanceof BaseRecord) {
+				return false;
+			}
+		}
 		if (column_dict.length() == 0) {
 			column_dict.addAll(block_dict);
 			return true;
@@ -336,5 +343,14 @@ public class DataBlockWriterJob  extends Job {
 			if (p != pos[i]) return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * 转换全局字典的数据块格式
+	 * @param dict 全局字典
+	 * @param data 数据
+	 */
+	public static void convertDictData(Sequence dict, Sequence data) {
+		
 	}
 }

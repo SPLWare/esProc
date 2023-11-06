@@ -919,6 +919,9 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		case ObjectWriter.TABLE:
 			skipTable();
 			break;
+		case ObjectWriter.RECORD:
+			skipRecord();
+			break;
 		default: // BLOB
 			int n = readInt();
 			if (n > 0) skipFully(n);
@@ -1071,6 +1074,17 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		}
 		
 		return r;
+	}
+	
+	private void skipRecord() throws IOException {
+		int fcount = readInt();
+		for (int i = 0; i < fcount; ++i) {
+			readString();
+		}
+		
+		for (int f = 0; f < fcount; ++f) {
+			skipObject();
+		}
 	}
 	
 	private Table readTable() throws IOException {

@@ -660,12 +660,15 @@ public class FuncWindow extends JWindow {
 
 	public static String getFuncString(FuncInfo fi, String efo,
 			FuncParam activeParam, int paramCaret, boolean getFullString) {
-		ArrayList<FuncParam> params = fi.getParams();
 		StringBuffer sb = new StringBuffer();
 		if (getFullString) {
 			if (StringUtils.isValidString(fi.getPostfix())) {
 				sb.append(fi.getPostfix());
 			}
+		}
+		if (StringUtils.isValidString(fi.getDisplayStr())) {
+			sb.append(fi.getDisplayStr());
+			return sb.toString();
 		}
 		sb.append(fi.getName());
 		ArrayList<FuncOption> options = fi.getOptions();
@@ -686,6 +689,7 @@ public class FuncWindow extends JWindow {
 				}
 			}
 		sb.append("(");
+		ArrayList<FuncParam> params = fi.getParams();
 		if (params != null && params.size() != 0) {
 			FuncParam fp, fpNext;
 			String name;

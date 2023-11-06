@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.2 Java Invocation</title>
+<title>6.1.4 Using command line under Linux</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,23 +13,71 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l26 level2 lfo38'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.2</span></span><span
-lang=EN-US> Java Invocation<a name="Java_Invocation"></a></span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>You can
-choose to skip this section if you are not a professional programmer. This
-won’t affect your learning about the other contents of this <i
-style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+	<div id="centent-title"><h3 style='margin-left:36.0pt;text-indent:-36.0pt;mso-list:l13 level3 lfo57;
+tab-stops:21.0pt'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'><span style='mso-list:Ignore'>6.1.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Using command line under Linux</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>We can also use the command line under Linux, with similar uses to
+those under Windows. Difference is that the command called is <i>esproc.sh</i>.
+To run a cellset file <i>output1</i> that does not return any result, for
+instance:</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc can be embedded in a Java application. Invoking
-an esProc cellset program is like accessing a database via JDBC. For the
-invocation the cellset program is packaged as a stored procedure, so it is
-called in the same way as the latter is called. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=482 height=282
+src="Tutorial.files/image698.png" alt=返回无结果集的网格文件 v:shapes="图片_x0020_1461"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>DEBUG log level is set up to view more
+detailed entries. We can see that the output result is completely same as that
+under Windows.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can see similar output result for other
+command line executions. To execute <i>calculate1.splx</i> that returns a
+result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=522 height=365
+src="Tutorial.files/image700.png" alt=返回结果集-不传参 v:shapes="图片_x0020_1465"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>To pass a parameter, just add the
+parameter after the to-be-called cellset file:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=534 height=319
+src="Tutorial.files/image702.png" alt=返回结果集-传参 v:shapes="图片_x0020_1466"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Under Linux, we can also use -c option to
+execute a cellset script. Unlike executions under Windows, Ctrl+D is needed to
+confirm the start of execution after the script is successfully input. For
+example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=431 height=262
+src="Tutorial.files/image704.png" alt=执行SPL v:shapes="图片_x0020_1469"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>By using -r option, we can see the result
+returned by return statement:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=459 height=288
+src="Tutorial.files/image706.png" alt=返回网格脚本计算结果 v:shapes="图片_x0020_1468"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can also execute simple SQL queries
+under Linux, as the following shows:</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=585 height=134
+src="Tutorial.files/image708.png" alt=执行简单SQL v:shapes="图片_x0020_1467"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="160.html">Next</a></div>
@@ -37,22 +85,14 @@ called in the same way as the latter is called. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="154.html">Chapter6 Integration &amp; Application</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="160.html">6.2.1 Basic uses</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="161.html">6.2.2 Calling different cellset files</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="162.html">6.2.3 Cellset files that return no results or multiple results</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="163.html">6.2.4 Executing statements automatically</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="164.html">6.2.5 Calling remote server via JDBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="155.html">6.1 Command Line</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

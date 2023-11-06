@@ -577,10 +577,12 @@ public class ExcelUtils {
 			data = data.replaceAll("\n", "\r");
 		} catch (Exception x) {
 		}
-		ArgumentTokenizer rows = new ArgumentTokenizer(data, '\r');
+		ArgumentTokenizer rows = new ArgumentTokenizer(data, '\r', true, true,
+				true);
 		while (rows.hasMoreTokens()) {
 			ls_row = rows.nextToken();
-			ArgumentTokenizer items = new ArgumentTokenizer(ls_row, '\t');
+			ArgumentTokenizer items = new ArgumentTokenizer(ls_row, '\t', true,
+					true, true);
 			String item;
 			c = 0;
 			if (r >= matrix.getRowSize()) {
@@ -978,15 +980,16 @@ public class ExcelUtils {
 	 * Remove whitespace
 	 * 
 	 * @param data
+	 * @param isW @w ±ø’¥Æ∂¡≥…null
 	 * @return
 	 */
-	public static Object trim(Object data) {
+	public static Object trim(Object data, boolean isW) {
 		if (data == null)
 			return null;
 		if (data instanceof String) {
 			String str = (String) data;
 			str = str.trim();
-			if ("".equals(str)) {
+			if (isW && "".equals(str)) {
 				str = null;
 			}
 			data = str;

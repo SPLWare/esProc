@@ -2,13 +2,14 @@ package com.scudata.expression.mfn.file;
 
 import java.io.File;
 import java.io.IOException;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.ComTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
@@ -31,6 +32,8 @@ public class Reset extends FileFunction {
 				obj = csParam.getLeafExpression().calculate(ctx);
 				if (obj instanceof ICursor) {
 					cs = (ICursor) obj;
+				} else if (obj instanceof Sequence) {
+					cs = new MemoryCursor((Sequence)obj);
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
@@ -39,13 +42,17 @@ public class Reset extends FileFunction {
 			param = param.getSub(0);
 		}
 		
+		File f = null;
+		FileGroup fg = null;
+		String distribute = null;
+		Integer blockSize = null;
+		
 		if (param == null) {
 			FileObject fo = (FileObject) this.file;
-			File file = fo.getLocalFile().file();
 			
 			ComTable gt;
 			try {
-				gt = ComTable.open(file, ctx);
+				gt = ComTable.open(fo, ctx);
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -55,7 +62,7 @@ public class Reset extends FileFunction {
 			return result;
 		} else if (param.isLeaf()) {
 			obj = param.getLeafExpression().calculate(ctx);
-			File f = null;
+			f = null;
 			if (obj instanceof FileObject) {
 				f = ((FileObject) obj).getLocalFile().file();
 			} else {
@@ -64,28 +71,19 @@ public class Reset extends FileFunction {
 			}
 			
 			FileObject fo = (FileObject) this.file;
-			File file = fo.getLocalFile().file();
 			
 			try {
-				ComTable gt = ComTable.open(file, ctx);
+				ComTable gt = ComTable.open(fo, ctx);
 				boolean result =  gt.reset(f, option, ctx, null, null, cs);
 				gt.close();
 				return result;
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
-		} else {
-			int size = param.getSubSize();
-			if (size != 2 && size != 3) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
-			}
-			
-			File f = null;
-			FileGroup fg = null;
-			String distribute = null;
-			Integer blockSize = null;
-			
+		} 
+		
+		if (param.getType() == IParam.Colon) {
+			//f:b
 			IParam sub0 = param.getSub(0);
 			if (sub0 != null) {
 				obj = sub0.getLeafExpression().calculate(ctx);
@@ -98,14 +96,37 @@ public class Reset extends FileFunction {
 					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
 				}
 			}
-			
+			IParam blockSizeParam = param.getSub(1);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
+			}
+		} else if (param.getType() == IParam.Comma) {
+			//x
 			IParam expParam = param.getSub(1);
 			if (expParam != null) {
 				distribute = expParam.getLeafExpression().toString();
 			}
 			
-			if (size == 3) {
-				IParam blockSizeParam = param.getSub(2);
+			param = param.getSub(0);
+			if (param.getType() == IParam.Colon) {
+				//f:b
+				IParam sub0 = param.getSub(0);
+				if (sub0 != null) {
+					obj = sub0.getLeafExpression().calculate(ctx);
+					if (obj instanceof FileObject) {
+						f = ((FileObject) obj).getLocalFile().file();
+					} else if (obj instanceof FileGroup) {
+						fg= (FileGroup) obj;
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+				IParam blockSizeParam = param.getSub(1);
 				if (blockSizeParam != null) {
 					String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
 					try {
@@ -114,28 +135,27 @@ public class Reset extends FileFunction {
 					}
 				}
 			}
-			
-			FileObject fo = (FileObject) this.file;
-			File file = fo.getLocalFile().file();
+		}
+		
+		FileObject fo = (FileObject) this.file;
 
-			try {
-				ComTable gt = ComTable.open(file, ctx);
-				if (f != null) {
-					boolean result =  gt.reset(f, option, ctx, distribute, blockSize, cs);
-					gt.close();
-					return result;
-				} else {
-					if (distribute == null) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("reset" + mm.getMessage("function.invalidParam"));
-					}
-					boolean result =  gt.resetFileGroup(fg, option, ctx, distribute, blockSize, cs);
-					gt.close();
-					return result;
+		try {
+			ComTable gt = ComTable.open(fo, ctx);
+			if (f != null) {
+				boolean result =  gt.reset(f, option, ctx, distribute, blockSize, cs);
+				gt.close();
+				return result;
+			} else {
+				if (distribute == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 				}
-			} catch (IOException e) {
-				throw new RQException(e.getMessage(), e);
+				boolean result =  gt.resetFileGroup(fg, option, ctx, distribute, blockSize, cs);
+				gt.close();
+				return result;
 			}
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
 		}
 	}
 }

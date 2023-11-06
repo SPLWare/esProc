@@ -977,7 +977,11 @@ public class TableKeyValueIndex implements ITableIndex {
 		if (indexFile.size() > 0) {
 			if ((opt == null) ||(opt != null && opt.indexOf('a') == -1)) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(name + " " + mm.getMessage("dw.indexNameAlreadyExist"));
+				if (name == null) {
+					throw new RQException(indexFile.getFileName() + " " + mm.getMessage("dw.indexNameAlreadyExist"));
+				} else {
+					throw new RQException(name + " " + mm.getMessage("dw.indexNameAlreadyExist"));
+				}
 			}
 		}
 		while (opt != null && opt.indexOf('a') != -1 && indexFile.size() > 0) {
@@ -1086,6 +1090,9 @@ public class TableKeyValueIndex implements ITableIndex {
 				tmpFile.move(indexFile.getFileName(), null);
 			}
 			
+			if (opt != null && opt.indexOf('U') != -1) {
+				isAdd = false;
+			}
 			try {
 				if (isAdd) {
 					srcTable.addIndex(name, ifields, vfields);
@@ -1623,7 +1630,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				}
 			}
 
-			if (table.length() > 0) {
+			if (table != null && table.length() > 0) {
 				table.sortFields(sortFields);
 				MemoryCursor mc = new MemoryCursor(table);
 				cursorList.add(mc);

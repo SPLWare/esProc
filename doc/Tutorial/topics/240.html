@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.2 Clustered files</title>
+<title>10.1.1 esProc server cluster</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,16 +13,61 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l25 level2 lfo45'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>10.2<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Clustered files</span></h2></div>
-	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>After clustered servers are started, they can provide remote file
-service and remote cursor service, enabling users to access files stored on
-them.</span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>10.1.1 esProc server cluster</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A cluster computing system usually consists of
+multiple nodes. There is a <b style='mso-bidi-font-weight:normal'>main node</b>
+at the highest level of all processes that controls the computing jobs on all
+nodes. A running node receives computing tasks, computes <b style='mso-bidi-font-weight:
+normal'>local cellset files</b> and returns results to the main node. In a
+cluster network, nodes may run on multiple machines or a single machine. Each
+node is identified through the IP address and the port number. In a cluster
+system, one computational transaction is called an <b>assignment</b>; each
+assignment consists of one or more <b>task</b>s. Tasks are assigned to nodes by
+the main node for execution. One node can perform multiple tasks concurrently.
+All running nodes form a cluster system for parallel processing. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>esProc provides the server class &#8211; </span><span
+class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>com.scudata.ide.spl.ServerConsole</span></i></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US> </span></i><span
+lang=EN-US>&#8211; to get addresses and ports according to the configuration files
+and to launch clustered servers.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>esProc parallel system <b style='mso-bidi-font-weight:
+normal'>hasn’t a certain single &quot;manager&quot; node centrally conducting a
+group of &quot;worker&quot; nodes. An available computer is designated to serve
+as the provisional node for execution of each parallel task.</b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Yet each assignment has its logical center &#8211; the main
+node &#8211; from which instructions are given and to which results are returned for
+being combined. The task usually fails if a node malfunctions; in certain
+cases, <b style='mso-bidi-font-weight:normal'>the main node will redistribute
+the subtask</b> to another capable one. To know more about the execution of
+parallel tasks in esProc, see <i style='mso-bidi-font-style:normal'><a
+ href="jiqunjisuan2.html#Cluster_computations">Cluster computations</a></i>.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Data can be also stored on a Network File System
+(NFS), such as HDFS, over which it can be accessed by the computing nodes. The
+NFS redundancy management is simpler than the strategy of storing data on
+certain computing nodes for fault-tolerance. But compared with accessing files
+stored locally, it may sacrifice some performance due to the network
+transmission.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="241.html">Next</a></div>
@@ -30,19 +75,14 @@ them.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="234.html">Chapter10 Cluster Computing</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="241.html">10.2.1 Accessing a clustered file</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="242.html">10.2.2 Maintaining clustered files</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="239.html">10.1 The Server Cluster</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

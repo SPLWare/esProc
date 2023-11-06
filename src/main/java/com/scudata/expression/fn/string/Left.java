@@ -302,7 +302,7 @@ public class Left extends Function {
 	
 	private static String left(String str, int n) {
 		if (n < 0) {
-			n += str.length();
+			n += str.length() + 1;
 			if (n <= 0) {
 				return "";
 			} else {

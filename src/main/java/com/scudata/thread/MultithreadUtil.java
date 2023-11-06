@@ -296,25 +296,29 @@ public final class MultithreadUtil {
 		int len = src.length();
 		int parallelNum = getParallelNum();
 
-		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+		if (len < 2 || parallelNum < 2) {
 			return src.calc(exp, ctx);
 		}
 		
-		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
-		if (threadCount > parallelNum) {
-			threadCount = parallelNum;
+		if (parallelNum > len) {
+			parallelNum = len;
 		}
 		
 		ThreadPool pool = ThreadPool.instance();
-		int singleCount = len / threadCount;
-		CalcJob []jobs = new CalcJob[threadCount];
+		int singleCount = len / parallelNum;
+		CalcJob []jobs = new CalcJob[parallelNum];
 
+		// 前面的块每段多一
+		int mod = len % parallelNum;
 		int start = 1;
 		int end; // 不包括
 		Sequence result = new Sequence(new Object[len]);
-		for (int i = 0; i < threadCount; ++i) {
-			if (i + 1 == threadCount) {
+		
+		for (int i = 0; i < parallelNum; ++i) {
+			if (i + 1 == parallelNum) {
 				end = len + 1;
+			} else if (i < mod) {
+				end = start + singleCount + 1;
 			} else {
 				end = start + singleCount;
 			}
@@ -327,7 +331,7 @@ public final class MultithreadUtil {
 		}
 
 		// 等待任务执行完毕
-		for (int i = 0; i < threadCount; ++i) {
+		for (int i = 0; i < parallelNum; ++i) {
 			jobs[i].join();
 		}
 
@@ -348,25 +352,29 @@ public final class MultithreadUtil {
 		int len = src.length();
 		int parallelNum = getParallelNum();
 
-		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+		if (len < 2 || parallelNum < 2) {
 			src.run(exp, ctx);
 			return;
 		}
 		
-		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
-		if (threadCount > parallelNum) {
-			threadCount = parallelNum;
+		if (parallelNum > len) {
+			parallelNum = len;
 		}
 		
 		ThreadPool pool = ThreadPool.instance();
-		int singleCount = len / threadCount;
-		RunJob []jobs = new RunJob[threadCount];
+		int singleCount = len / parallelNum;
+		RunJob []jobs = new RunJob[parallelNum];
 
+		// 前面的块每段多一
+		int mod = len % parallelNum;
 		int start = 1;
 		int end; // 不包括
-		for (int i = 0; i < threadCount; ++i) {
-			if (i + 1 == threadCount) {
+		
+		for (int i = 0; i < parallelNum; ++i) {
+			if (i + 1 == parallelNum) {
 				end = len + 1;
+			} else if (i < mod) {
+				end = start + singleCount + 1;
 			} else {
 				end = start + singleCount;
 			}
@@ -380,7 +388,7 @@ public final class MultithreadUtil {
 		}
 		
 		// 等待任务执行完毕
-		for (int i = 0; i < threadCount; ++i) {
+		for (int i = 0; i < parallelNum; ++i) {
 			jobs[i].join();
 		}
 	}

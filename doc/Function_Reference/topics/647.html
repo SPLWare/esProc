@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A.pivot( g , … ; F , V ; N i : N' i ,… )</title>
+<title>f.open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,444 +13,120 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_pivot"></a><span
-lang=FR style='mso-ansi-language:FR'>A.pivot(</span><i style='mso-bidi-font-style:
-normal'><span lang=EN-US>g</span></i><span lang=EN-US>,<i style='mso-bidi-font-style:
-normal'>…</i>;<i style='mso-bidi-font-style:normal'>F</i>,<i style='mso-bidi-font-style:
-normal'>V</i>;<i style='mso-bidi-font-style:normal'>N<sub>i</sub></i>:<i
-style='mso-bidi-font-style:normal'>N'<sub>i</sub></i>,…</span><span lang=FR
-style='mso-ansi-language:FR'>)</span><span
-lang=FR style='mso-ansi-language:FR;mso-bidi-font-weight:bold'></span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description: </span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
+name="f_open_cluster"></a><a name=open></a><span style='mso-bookmark:f_open_cluster'><span
+lang=EN-US>f.open()</span></span></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Perform row-to-column transposition for a sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Generate a
+cluster table from a cluster file.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>A</span></i><span lang=EN-US>.</span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>pivot</span></b><span lang=EN-US>(<i style='mso-bidi-font-style:normal'>g:G</i>,<i
-style='mso-bidi-font-style:normal'>…</i>;<i style='mso-bidi-font-style:normal'>F</i>,<i
-style='mso-bidi-font-style:normal'>V</i>;<i style='mso-bidi-font-style:normal'>N<sub>i</sub></i>:<i
-style='mso-bidi-font-style:normal'>N'<sub>i</sub></i>,…)</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+mso-fareast-font-family:宋体;font-weight:normal'>f</span></i></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+mso-fareast-font-family:宋体;font-weight:normal'>.open(<i style='mso-bidi-font-style:
+normal'>p</i>)</span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US></span></b></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>According to
-grouping fields/expression <i style='mso-bidi-font-style:normal'>g</i>, the
-function transfers values </span><span class=var1><span lang=EN-US>Ni</span></span><span
-lang=EN-US> in <i style='mso-bidi-font-style:normal'>F</i> field in each group as
-new field names <i style='mso-bidi-font-style:normal'>N'<sub>i </sub></i><span
-style='mso-spacerun:yes'>&nbsp;</span>to perform a row-to-column transposition,
-and reassigns values of <i style='mso-bidi-font-style:normal'>V</i> field to
-the new fields. By default, <i style='mso-bidi-font-style:normal'>N<sub>i </sub></i>includes
-non-duplicate values in<i style='mso-bidi-font-style:normal'> F</i> field; when
-<i style='mso-bidi-font-style:normal'>N'<sub>i</sub></i> is omitted , just use <i
-style='mso-bidi-font-style:normal'>N<sub>i</sub></i>. </span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>Then function opens cluster file <i>f </i>and generates a cluster
+able based on <i>f</i>. </span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:12.4pt'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>f</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-bidi-font-style:italic'>A sequence </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>g</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Grouping fields/expressions</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>G</span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A field in the result set</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>F</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A to-be-transposed field in the specified
-  sequence </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>V</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A field in the specified sequence </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>N<sub>i</sub></span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Values of </span><i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>F</span></i><span lang=EN-US> field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>N'<sub>i</sub></span></i><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The name of new</span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'> N<sub>i </sub></span></i><span
-  lang=EN-US>field </span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:12.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A cluster file; support only the
+  composite table file</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@r</span></b><i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Transpose rows to columns. In this case
-  the default fields in <i style='mso-bidi-font-style:normal'>N<sub>i </sub></i>are
-  the fields of <i style='mso-bidi-font-style:normal'>A</i> that are not
-  included in <i style='mso-bidi-font-style:normal'>g</i>. Perform
-  column-to-row transposition, where field names <i style='mso-bidi-font-style:
-  normal'>N<sub>i</sub></i> are transposed as values of </span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>F</span></i><span lang=EN-US>
-  field; when parameter <i style='mso-bidi-font-style:normal'>N'<sub>i</sub> </i>is
-  present, it will be values of </span><i><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>F</span></i><span lang=EN-US> field and values of original <i
-  style='mso-bidi-font-style:normal'>N<sub>i </sub></i>field will be assigned
-  to new field </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>V</span></i><span
-  lang=EN-US>.<i style='mso-bidi-font-style:normal'> </i>In this case the
-  default values of <i style='mso-bidi-font-style:normal'>N<sub>i </sub></i>are
-  all fields in sequence <i style='mso-bidi-font-style:normal'>A</i> except for
-  grouping field <i style='mso-bidi-font-style:normal'>g</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>@s(</span></span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>g:G</span></i><span lang=EN-US>,<i style='mso-bidi-font-style:
-  normal'>…</i></span><span class=code><i><span lang=EN-US style='mso-bidi-font-weight:
-  bold'>;</span></i></span><i><span lang=EN-US>F,f(V);</span></i><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>N<sub>i</sub></span></i><span
-  lang=EN-US>:<i style='mso-bidi-font-style:normal'>N'<sub>i</sub></i>,…<span
-  class=code><span style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体'>)</span></span></span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold;
-  mso-bidi-font-style:italic'>Parameter <i>f</i> can be an aggregate function,
-  which is </span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-fareast-font-family:宋体;font-weight:normal;
-  mso-bidi-font-weight:bold'>sum, count, max, min or avg. One and only one <i>N</i></span></span><span
-  class=code><i><sub><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>i </span></sub></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体;font-weight:normal;mso-bidi-font-weight:bold'>can be ignored. In that case
-  <span style='mso-bidi-font-style:italic'>the function</span> performs
-  aggregate over all the other</span></span><span class=code><i><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体;mso-bidi-font-weight:bold'> N<sub>i</sub></span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>s.</span></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'>A
+cluster table</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A
-sequence/record sequence </span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example: </span></b><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%;
-color:red'></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=707
- style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=353 valign=top style='width:211.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=217 valign=top style='width:163.0pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>A</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
   </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;height:3.5pt'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>1</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from
-  SCORES&quot;)</span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=233 height=206
-  src="Function_Reference.files/image1804.png" v:shapes="_x0000_i2141"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:3.5pt'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>2</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A1.pivot(CLASS,STUDENTID;SUBJECT,SCORE;&quot;English&quot;:&quot;ENGLISH&quot;,&quot;Math&quot;,&quot;PE&quot;)</span></b></p>
-  </td>
-  <td width=326 style='width:195.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:3.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=285 height=123
-  src="Function_Reference.files/image1805.png" v:shapes="_x0000_i2142"></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US>Transpose
-  values of SUBJECT column English, Math and PE to new fields, in which the new
-  name of English field is ENGLISH; values of original SCORE field will be reassigned
-  to the new fields </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1</span></span></p>
   </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=217 style='width:163.0pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A1.pivot(CLASS,STUDENTID;SUBJECT,SCORE;&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=file(&quot;employee.ctx&quot;,[&quot;192.168.0.104:8281&quot;])</span></span></p>
   </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=274 height=166
-  src="Function_Reference.files/image1807.jpg" v:shapes="_x0000_i2143"></span></p>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>N'<sub>I
-  </sub></span></i><span lang=EN-US>is omitted <span style='mso-bidi-font-weight:
-  bold'></span></span></p>
+  <td width=265 style='width:7.0cm;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open a cluster file</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>4</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2</span></span></p>
   </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=217 style='width:163.0pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A1.pivot(CLASS,STUDENTID;SUBJECT,SCORE)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=A1.open()</span></span></p>
   </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=285 height=140
-  src="Function_Reference.files/image1808.png" v:shapes="_x0000_i2144"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Both </span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>N<sub>i</sub></span></i><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'> and </span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>N'<sub>i</sub></span></i><span lang=EN-US> are
-  omitted, and values of<i style='mso-bidi-font-style:normal'> N<sub>i</sub></i></span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'> are by
-  default the distinct values of the original SUBJECT field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A2.pivot@r(CLASS,STUDENTID;SUBJECT,SCORE;ENGLISH:&quot;English&quot;,Math,PE)</span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=263 height=145
-  src="Function_Reference.files/image1809.png" v:shapes="_x0000_i2145"></span></p>
-  <p class=MsoNormal><span lang=EN-US>column-to-row transposition; make columns
-  ENGLISH, Math and PE values of SUBJECT field; and values of original ENGLISH,
-  Math, PE fields values of column SCORE </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>6</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A2.pivot@r(CLASS,STUDENTID;SUBJECT,SCORE)</span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=285 height=152
-  src="Function_Reference.files/image1811.jpg" v:shapes="_x0000_i2146"></span></p>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>N<sub>i</sub></span></i><span
-  lang=EN-US> is omitted; its values are by default all the original field
-  names except for CLASS and STUDENTID</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>7</span></span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.pivot@s(CLASS;SUBJECT,min(SCORE);&quot;PE&quot;:&quot;minPE&quot;,&quot;Math&quot;:&quot;maxMath&quot;)</span></b><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=288 height=81
-  src="Function_Reference.files/image1812.png" v:shapes="_x0000_i2147"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Row to column transposition, where the
-  minimum values of PE and Math are the new fields, whose names are minPE and
-  minMath respectively</span><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>8</span></span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.pivot@s(CLASS;SUBJECT,max(SCORE);&quot;English&quot;:&quot;maxEnglish&quot;,:&quot;other&quot;)</span></b><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=265 height=77
-  src="Function_Reference.files/image1813.png" v:shapes="_x0000_i2148"></span></p>
-  <p class=MsoNormal><span lang=EN-US>One <i>N<sub>i</sub></i> is ignored,
-  which means getting the maximum value from all fields except for English </span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
-  <td width=27 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>9</span></span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
-  </td>
-  <td width=353 valign=top style='width:211.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.pivot@s(CLASS;SUBJECT,max(SCORE);:&quot;max&quot;)</span></b><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=326 valign=top style='width:195.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=169 height=78
-  src="Function_Reference.files/image1814.png" v:shapes="_x0000_i2149"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Get the maximum value from all fields</span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  <td width=265 style='width:7.0cm;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a cluster table based on it</span></p>
   </td>
  </tr>
 </table>
@@ -461,17 +137,14 @@ color:red'></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="646.html">pivot()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="645.html">open()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

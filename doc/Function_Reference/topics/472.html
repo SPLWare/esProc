@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>interval()</title>
+<title>T.index( f:h,w;C,…;F,… )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,369 +13,718 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Hlt494230599"></a><a name="_Hlt494230607"></a><a
-name="_interval()"></a><a name=interval></a><span lang=EN-US>interval()</span></h2></div>
-	<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_index_I"></a><a
+name="_Hlt513767260"></a><span style='mso-bookmark:T_index_I'><span lang=EN-US>T.index(<i
+style='mso-bidi-font-style:normal'>f:h,w;C,…;F,…</i>)<a name="_Hlt494293786"></a></span></span><span
+style='mso-bookmark:T_index_I'></span><span
+style='mso-bookmark:T_index_I'></span></h3></div>
+	<span style='mso-bookmark:T_index_I'></span>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Compute the number
-of days between two datetime values.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Create an index file for an entity table.<a name="_Hlt85538778"></a></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>interval (</span></span><span
-class=var1><span lang=EN-US>t<sub>1</sub></span></span><span lang=EN-US>,</span><span
-class=var1><span lang=EN-US>t<sub>2</sub></span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>t<sub>1</sub></span></span><span class=var1><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>-</span></b><span
-lang=EN-US> t<sub>2</sub><span style='mso-tab-count:1'> </span><span
-style='mso-tab-count:1'>&nbsp; </span></span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'><span
-style='mso-tab-count:1'>&nbsp; </span>Equivalent
-to </span></span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval
-(</span></span><span class=var1><span lang=EN-US>t<sub>2</sub></span></span><span
-lang=EN-US>,</span><span class=1Char2><span lang=EN-US style='font-size:18.0pt;
-mso-bidi-font-size:12.0pt'> </span></span><span class=var1><span lang=EN-US>t<sub>1</sub></span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-weight:bold;mso-bidi-font-style:italic'>T</span><i><span
+lang=EN-US>.</span></i><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>index</span></b><span
+lang=EN-US>(<i style='mso-bidi-font-style:normal'>f:h,w;C,…;F,…</i>)</span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function computes
-the number of days between two datetime values</span><span class=var1><span
-lang=EN-US> t<sub>1</sub> </span></span><span lang=EN-US>and </span><span
-class=var1><span lang=EN-US>t<sub>2</sub></span></span><span class=var1><span
-lang=EN-US style='font-style:normal'>.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>For records of entity table <i>T</i> that meets condition <i>w</i>,
+use column <i style='mso-bidi-font-style:normal'>C,…</i> as the key and create
+index file object <i style='mso-bidi-font-style:normal'>f</i> on it; the index
+file does not update itself accordingly when the composite table is updated (or
+reset).</span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Field name of entity table <i>T</i>; the presence of <i>F</i> speeds
+up the query. When using the index file to retrieve data, get the indexed
+fields <i style='mso-bidi-font-style:normal'>C,… </i>and <i>F</i> field only; retrieve
+all fields when <i>F</i> is absent.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Creating an index file requires the presence of column <i
+style='mso-bidi-font-style:normal'>C,… </i>and index file object <i
+style='mso-bidi-font-style:normal'>f</i>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>If parameter <i>h</i> is present, create a HASH index file whose
+length his <i>h</i>; create a full-text index file when @w option works; create
+an ordered index file when parameter <i>h</i> and @w option are absent.
+Parameter <i>F</i> should be absent if you need to create a HASH index or
+full-text index.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>When <i>T</i> is an attached table, parameter </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'>C</span></i><span
+lang=EN-US> cannot be a field inherited from the primary table.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'></span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>t<sub>1</sub></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>T</span></i></p>
   </td>
-  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A date value, datetime value or integer;
-  when it is an integer, it can be understood as value of days@o()</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An entity table</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>t<sub>2</sub></span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>f</span></i></p>
   </td>
-  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A date value, datetime value or integer;
-  when it is an integer, it can be understood as value of days@o()</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Index file object</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>w</span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filtering condition; retrieve the whose
+  set if the parameter is absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>C</span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The field for which an index is created</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>h</span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Hash index length; can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=150><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>F</span></i></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name in an entity table; can be
+  omitted</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Option:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Option:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@y</span></span><span
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@2</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of years between two
-  datetime values</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Work when only parameter <i>f</i> is
+  present; used to load the index file to the memory and can increase
+  performance</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@q</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@3</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Compute
-  the number of quarters between two datetime values</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US><span
+  style='mso-spacerun:yes'>&nbsp;</span>Work when only parameter <i>f</i> is
+  present; used to load the index file to the memory; help achieve higher
+  performance than @2 but occupy more memory space</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@m</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@0</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of months between two
-  datetime values</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Close the index to release resources when
+  only parameter </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;mso-bidi-font-weight:
+  bold'>f</span></i><span lang=EN-US> is present</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@w</span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Create a full-text index on column <i>C</i>
+  and support like(&quot;*X*&quot;) style search</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b><span
+lang=EN-US style='font-size:14.0pt;line-height:200%'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An entity table</span><span
+lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create an
+ordered index file:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:15.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=490 valign=top style='width:367.85pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  EID,NAME,BIRTHDAY,DEPT,GENDER,HIREDATE,SALARY from employee &quot;)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;empi.ctx&quot;)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@s</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of seconds between two
-  datetime values</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.create@y(#EID,NAME,BIRTHDAY,DEPT,GENDER,HIREDATE,SALARY)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a composite table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@ms</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of milliseconds
-  between two datetime values</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append@i(A1)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append table sequence A1’s data to the
+  composite table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@r</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Compute
-  the interval between two datetime values and return a real number </span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;index_dzdpx&quot;)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create index file object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.index(A5,DEPT==&quot;HR&quot;;EID;DEPT)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>For data of EID and DEPT fields meeting DEPT==&quot;HR&quot;
+  in composite table A3, create ordered index file <i>index_dzdpx</i> on EID,
+  which is the indexed field</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@w</span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of weeks between two
-  datetime values</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;index_px&quot;)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create index file object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:8'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@7</span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of Sundays between two
-  datetime values according to a left-open interval</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.index(A7;EID,NAME)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create index file <i>index_px</i> for
+  composite table A3 on EID and NAME, which are indexed fields; as parameter <i>F</i>
+  is absent, read all fields of the table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
-  <td width=56 valign=top style='width:33.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@1</span></span></p>
+  <td width=15 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compute the number of Mondays between two
-  datetime values according to a left-open interval</span></p>
+  <td width=490 valign=top style='width:367.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.icursor(EID,NAME,DEPT,SALARY;EID&lt;20;A7,A5)</span></span></p>
+  </td>
+  <td width=346 valign=top style='width:259.6pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Query </span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>EID,
+  NAME, DEPT and SALAR</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>Y fields meeting </span></span><span lang=EN-US>EID&lt;20 in the
+  composite table according to the index file:</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=277 height=403
+  src="Function_Reference.files/image1018.png" v:shapes="_x0000_i1848"></span></p>
   </td>
  </tr>
 </table>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Integer</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a HASH
+index file:</span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=806
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-padding-alt:
- 0cm 5.4pt 0cm 5.4pt'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=867
+ style='margin-left:13.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1983-02-27
-  00:00:45&quot;))</span></span><span class=var1><span lang=EN-US></span></span></p>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
   </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>1097</span></span><b><span
-  lang=EN-US></span></b></p>
+  <td width=566 valign=top style='width:424.4pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@y(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1983-02-27
-  00:00:45&quot;))</span></span></p>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span></p>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;empi.ctx&quot;).open()</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open the composite table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@q(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1983-02-27
-  00:00:45&quot;))</span></span></p>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>12</span></span></p>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;index_hs&quot;)</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create index file object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@m(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1983-02-27
-  00:00:45&quot;))</span></span></p>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>36</span></span></p>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.index(A2:10;DEPT,GENDER)</span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@s(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1980-02-27
-  00:00:45&quot;))</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>45</span></span></p>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a HASH index file whose length is
+  10 for composite table <i>empi.ctx</i> on DEPT and GENDER, which are the
+  indexed fields</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@s
-  (&quot;1972-11-08 10:20:30&quot;,&quot;1972-11-08 10:30:50&quot;)</span></span></p>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>620</span></span></p>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.icursor(NAME,DEPT,GENDER,SALARY;[[&quot;HR&quot;,&quot;M&quot;]].contain(DEPT,GENDER);A2)</span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@ms(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1980-02-27
-  00:00:45&quot;))</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>45,000</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@ms(&quot;1972-11-08
-  10:20:30&quot;,&quot;1972-11-08 10:30:50&quot;)</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>620,000</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@r(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),datetime(&quot;1980-02-27
-  00:00:45&quot;))</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>5.208333333333333E-4</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>interval@r(&quot;1972-11-08
-  10:20:30&quot;,&quot;1973-11-08 10:30:50&quot;)</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>365.00717592592594</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>datetime(&quot;19850227&quot;,&quot;yyyyMMdd&quot;)-datetime(&quot;1983-02-27
-  00:00:45&quot;)</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>730</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>interval@w(&quot;1972-10-08
-  10:20:30&quot;,&quot;1972-11-08 10:30:50&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>4</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>interval@7(&quot;1972-10-08
-  10:20:30&quot;,&quot;1972-11-08 10:30:50&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>4</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>interval@1(&quot;1972-10-08
-  10:20:30&quot;,&quot;1972-11-08 10:30:50&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>5</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>interval@y(15899,23545)</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>20</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes'>
-  <td width=612 valign=top style='width:366.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afd style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>interval@y(date@o(15899),date@o(23545))</span></span></p>
-  </td>
-  <td width=194 valign=top style='width:116.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>20</span></span></p>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use index file <i>index_hs</i> to query
+  data of NAME, DEPT, GENDER and SALARY fields where DEPT is HR and GENDER is M
+  in the composite table and return a cursor, whose content is as follows:</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=225 height=203
+  src="Function_Reference.files/image1019.png" v:shapes="_x0000_i1849"></span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a
+full-text index file:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=867
+ style='margin-left:13.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;empi.ctx&quot;).open()</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open the composite table file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;index_qw&quot;)</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create index file object</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.index@w(A2;NAME,EID)</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use @w option to create a full-text index
+  file for composite table <i>empi.ctx</i> on NAME and EID, which are indexed
+  fields </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.icursor(EID,NAME,BIRTHDAY;like(NAME,&quot;A*&quot;);A2)</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use index file <i>index_qw</i> to query
+  data of EID, NAME and BIRTHDAY fields where NAME values begin with A in the
+  composite table and return a cursor, whose content is as follows:</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=194 height=272
+  src="Function_Reference.files/image1155.png" v:shapes="_x0000_i1850"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Automatically
+load the composite table’s index file:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=867
+ style='margin-left:13.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;empi.ctx&quot;).open()</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open the composite table file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.index@2(file(&quot;index_qw&quot;))</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Load the composite table’s index file to
+  the memory</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.icursor(EID,NAME,BIRTHDAY;like(NAME,&quot;A*&quot;);file(&quot;index_qw&quot;))</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use the index file loaded to the memory
+  to query data in the composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.index@0(file(&quot;index_qw&quot;))</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Release the memory resources occupied by
+  the index file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=566 valign=top style='width:424.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1.close()</span></span></p>
+  </td>
+  <td width=282 valign=top style='width:211.85pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Close the composite table</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="473.html">Next</a></div>
@@ -383,17 +732,14 @@ lang=EN-US style='font-style:normal'>.</span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="469.html">index()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

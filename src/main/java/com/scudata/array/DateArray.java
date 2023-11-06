@@ -228,9 +228,24 @@ public class DateArray implements IArray {
 						mm.getMessage("DataType.Date"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Date"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Date"), array.getDataType()));
+			ensureCapacity(size + size2);
+			Date []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Date) {
+					datas[++size] = (Date)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Date"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -270,9 +285,24 @@ public class DateArray implements IArray {
 						mm.getMessage("DataType.Date"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Date"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Date"), array.getDataType()));
+			ensureCapacity(size + count);
+			Date []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Date) {
+					datas[++size] = (Date)obj;
+				} else if (obj == null) {
+					datas[++size] = null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Date"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -556,7 +586,11 @@ public class DateArray implements IArray {
 		DateArray result = new DateArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.pushDate(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.pushDate(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;
@@ -1321,7 +1355,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(NumberArray array) {
+	protected IArray memberAdd(NumberArray array) {
 		int size = this.size;
 		Date []datas = this.datas;
 		Calendar calendar = Calendar.getInstance();
@@ -1352,7 +1386,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(ObjectArray array) {
+	protected IArray memberAdd(ObjectArray array) {
 		if (!array.isNumberArray()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
@@ -1831,7 +1865,7 @@ public class DateArray implements IArray {
 		return result;
 	}
 	
-	BoolArray calcRelation(StringArray array, int relation) {
+	protected BoolArray calcRelation(StringArray array, int relation) {
 		Date []d1 = this.datas;
 		String []d2 = array.getDatas();
 		
@@ -1860,7 +1894,7 @@ public class DateArray implements IArray {
 		}
 	}
 	
-	BoolArray calcRelation(ObjectArray array, int relation) {
+	protected BoolArray calcRelation(ObjectArray array, int relation) {
 		int size = this.size;
 		Date []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -2396,7 +2430,7 @@ public class DateArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Date []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -3271,6 +3305,16 @@ public class DateArray implements IArray {
 	 * @return
 	 */
 	public int bit1() {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}

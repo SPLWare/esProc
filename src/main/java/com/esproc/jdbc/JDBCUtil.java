@@ -34,6 +34,7 @@ import com.scudata.dm.KeyWord;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
+import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -72,9 +73,14 @@ public class JDBCUtil {
 				if (s.startsWith(")")) {
 					return JDBCConsts.TYPE_SIMPLE_SQL;
 				}
+				Command command = Command.parse(sql);
+				if (command.getType() == Command.SQL) {
+					return JDBCConsts.TYPE_SQL;
+				}
+			} else if (AppUtil.isSQL(sql)) {
+				return JDBCConsts.TYPE_SIMPLE_SQL;
 			}
-			return JDBCConsts.TYPE_SQL;
-		} else if (AppUtil.isSQL(sql)) {
+		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return JDBCConsts.TYPE_SIMPLE_SQL;
 		}
 		return JDBCConsts.TYPE_NONE;
@@ -145,14 +151,18 @@ public class JDBCUtil {
 					return AppUtil.executeSql(sql,
 							(ArrayList<Object>) parameters, ctx);
 				}
+
+				Command command = Command.parse(sql);
+				if (command.getType() == Command.SQL) {
+					Sequence arg = prepareArg((ArrayList<Object>) parameters);
+					sql = AppUtil.prepareSql(sql, arg);
+					return AppUtil.execute(sql, arg, ctx);
+				}
+			} else if (AppUtil.isSQL(sql)) {
+				return AppUtil.executeSql(s, (ArrayList<Object>) parameters,
+						ctx);
 			}
-			Command command = Command.parse(sql);
-			if (command.getType() == Command.SQL) {
-				Sequence arg = prepareArg((ArrayList<Object>) parameters);
-				sql = AppUtil.prepareSql(sql, arg);
-				return AppUtil.execute(sql, arg, ctx);
-			}
-		} else if (AppUtil.isSQL(sql)) {
+		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
 		} else {
 			sql = parseSpl(sql);
@@ -200,6 +210,58 @@ public class JDBCUtil {
 	}
 
 	/**
+	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
+	 * 
+	 * @param sql        The SQL string
+	 * @param parameters The parameter list
+	 * @param ctx        The Context object
+	 * @param config     The RaqsoftConfig object
+	 * @return The result of execution
+	 * @throws SQLException,RetryException时将按无网关方式执行
+	 */
+	public static Object executeGateway(String sql,
+			ArrayList<Object> parameters, Context ctx, String gateway)
+			throws SQLException, RetryException {
+		/*
+		 * After the gateway is configured, the statements are parsed by spl and
+		 * the table sequence or cursor is returned. spl only has parameters sql
+		 * and args (sql parameter value sequence).
+		 */
+		Sequence args = JDBCUtil.prepareArg(parameters);
+
+		// FileObject fo = new FileObject(gateway, "s", ctx);
+		PgmCellSet cellSet;
+		try {
+			// 支持无后缀时按顺序查找
+			cellSet = AppUtil.readCellSet(gateway);
+			// InputStream in = fo.getInputStream();
+			// if (in == null) {
+			// throw new SQLException("Gateway file: " + gateway +
+			// " not found.");
+			// }
+			// cellSet = CellSetUtil.readPgmCellSet(in);
+		} catch (Exception e) {
+			// "Failed to read gateway file: " + gateway
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcutil.nogatewayfile", gateway), e);
+		}
+		ParamList pl = cellSet.getParamList();
+		if (pl == null || pl.count() != 2) {
+			// The parameters of the gateway splx file should be spl statement
+			// and
+			// arguments.
+			throw new SQLException(
+					JDBCMessage.get().getMessage(
+							"jdbcutil.errorgatewayparams"));
+		}
+		ctx.setParamValue(pl.get(0).getName(), sql);
+		ctx.setParamValue(pl.get(1).getName(), args);
+		cellSet.setContext(ctx);
+		cellSet.run();
+		return cellSet;
+	}
+
+	/**
 	 * 去除sql外的空白和大括号
 	 * @param sql
 	 * @return
@@ -244,12 +306,13 @@ public class JDBCUtil {
 	 * @throws SQLException
 	 */
 	public static String getCallExp(String splName, String params,
-			boolean isOnlyServer) throws SQLException {
+			boolean isOnlyServer, List<String> hostNames) throws SQLException {
 		if (params == null)
 			params = "";
 		else
 			params = params.trim();
-		String hosts = JDBCUtil.getNodesString(splName, isOnlyServer);
+		String hosts = JDBCUtil
+				.getNodesString(splName, isOnlyServer, hostNames);
 
 		String sql;
 		if (hosts != null) {
@@ -1090,7 +1153,8 @@ public class JDBCUtil {
 	 * @param isOnlyServer
 	 * @return String
 	 */
-	public static String getNodesString(String spl, boolean isOnlyServer) {
+	public static String getNodesString(String spl, boolean isOnlyServer,
+			List<String> hosts) {
 		if (!StringUtils.isValidString(spl)) {
 			return null;
 		}
@@ -1099,7 +1163,7 @@ public class JDBCUtil {
 			if (f.exists())
 				return null;
 		}
-		List<String> hosts = Server.getInstance().getHostNames();
+		// List<String> hosts = Server.getInstance().getHostNames();
 		if (hosts.isEmpty())
 			return null;
 		StringBuffer sb = new StringBuffer();
@@ -1568,6 +1632,8 @@ public class JDBCUtil {
 	 */
 	public static boolean isDebugMode = false;
 
+	public static boolean isCompatiblesql = false;
+
 	/**
 	 * Output debugging information.
 	 * 
@@ -1578,4 +1644,15 @@ public class JDBCUtil {
 			Logger.debug(info);
 	}
 
+	private static final int MAX_SPL_LENGTH = 65536;
+
+	public static void checkSqlLength(String sql) throws SQLException {
+		if (sql == null)
+			return;
+		if (sql.length() > MAX_SPL_LENGTH) {
+			// 语句超出长度限制（{0}）。
+			throw new SQLException(JDBCMessage.get().getMessage("error.maxlen",
+					MAX_SPL_LENGTH));
+		}
+	}
 }

@@ -112,7 +112,7 @@ public class Current implements IComputeItem {
 	 * @param field
 	 * @return
 	 */
-	public Object getFieldValue(int field) {
-		return sequence.getFieldValue(curIndex, field);
+	public Object getFieldValue2(int field) {
+		return sequence.getFieldValue2(curIndex, field);
 	}
 }

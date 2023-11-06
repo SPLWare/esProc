@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.6.2 Appearance properties</title>
+<title>12.4.5 Properties of grid region</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,42 +15,55 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>12.6.2 Appearance properties</span></h3></div>
+14.0pt;mso-bidi-font-size:10.0pt'>12.4.5 Properties of grid region</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>As can be seen from the above chart, the end points
-and all other data points on the line are dots with automatically generated
-fill colors. A line element for plotting a polyline chart can be regarded as
-the dot elements connected with lines. In this sense, appearance properties of
-the line element are the same as those of the dot element discussed in <i
-style='mso-bidi-font-style:normal'><a  href="diantuyuan.html#The_Dot_Element">The Dot Element</a></i>.
-Note that in a polyline chart plotting, the lines of the polyline chart and the
-boundary line of the dots share properties such as line color, line weight and
-line style. Supposing modify the chart parameters in A6 to set appearance
-properties for the lines and dots.</span></p>
+21.0pt'><span lang=EN-US>In the coordinate plane, you can plot a region of grid
+lines according to the major tick marks, so that the chart will look pleasing
+and become easy to observe. By default white color alternate with dark blue for
+the grid background of the coordinate axes. The colors can be modified in the
+chart properties dialog box. Modify the preceding plotting algorithm by editing
+A5’s code to set the properties for the background grid region of y-axis: </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=652 height=350
-src="Tutorial.files/image2370.jpg" v:shapes="图片_x0020_1718"></span></p>
+21.0pt'><span lang=EN-US><img border=0 width=523 height=210
+src="Tutorial.files/image1230.png" v:shapes="图片_x0020_1651"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Set the line as dark blue dotted line with 2 pixels’
-line weight, the marker style as triangle with 6 pixels’ marker weight and the
-fill color as light blue. With the modifications, the plotting result is</span><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>：</span></p>
+21.0pt'><span lang=EN-US>Set <b style='mso-bidi-font-weight:normal'>Line style</b>
+as the default solid line, specify values for<b style='mso-bidi-font-weight:
+normal'> Line color</b> and <b style='mso-bidi-font-weight:normal'>Region
+colors</b>, and change value for <b style='mso-bidi-font-weight:normal'>Regiontransparency</b>
+from 1.0 to 0.5. A sequence parameter is used to set the colors of the grid
+region. Click the right-most arrow button on the property setting dialog box to
+edit the parameter on a popup window of <b style='mso-bidi-font-weight:normal'>Sequence
+parameter value</b>.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=563 height=313
-src="Tutorial.files/image2372.png" v:shapes="图片_x0020_1719"></span></p>
+21.0pt'><span lang=EN-US>According to the above setting, the plotting result
+is:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=450 height=250
+src="Tutorial.files/image1231.png" v:shapes="_x0000_i2313"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>You see that the color of grid region in horizontal
+direction has changed. With certain colors set for the grid region,
+transparency needs to be adjusted too. That way, an overlay effect in grid
+region of different axes will be created. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>You see that the appearance of the line has been
-changed accordingly. </span></p>
+21.0pt'><span lang=EN-US>You can also hide the grid region by setting the
+property of <b style='mso-bidi-font-weight:normal'>Allow regions</b> as <b
+style='mso-bidi-font-weight:normal'>false</b>. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="287.html">Next</a></div>
@@ -58,17 +71,14 @@ changed accordingly. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="284.html">12.6 The Line Element</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="281.html">12.4 The Axis Element</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

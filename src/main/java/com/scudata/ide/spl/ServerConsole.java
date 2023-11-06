@@ -2,7 +2,6 @@ package com.scudata.ide.spl;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -183,8 +182,6 @@ public class ServerConsole {
 	 * @param args 执行参数
 	 */
 	public static void main(String[] args) {
-		boolean init = true;
-		
 		String usage = "该类根据选项来启动或停止各种服务，格式为 ServerConsole.sh -[options] -[options]...\r\n"
 				+ "当指定了某种选项用于启动相应服务时，都是启动非图形环境下的该类服务。\r\n"
 				+ "也可以不带任何选项，表示启动服务控制台程序[图形窗口控制台]。\r\n"
@@ -201,11 +198,30 @@ public class ServerConsole {
 				+ " 示例：ServerConsole.sh -o  仅启动odbc服务\r\n\r\n"
 		;
 		
-		String usageEn = usage;//目前没有翻译
+		String usageEn = "The class starts or stops services according to the option used, format is ServerConsole.sh -[options] -[options]....\r\n"
+				+ "When an option is specified to start the corresponding service, it starts the service in a non-GUI environment.\r\n"
+				+ "When no option is specified, start the service console [graphics console].\r\n"
+				+ "In the following options, any options can work together except for -a and -x.\r\n\r\n"
+				+ "-p[ip:port]	Start a node; wehn ip:port are absent, automatically find an idle node.\r\n"
+				+ "-c port cfg	Use configuration cfg to start or stop a node; when cfg is absent, just stop the node.\r\n"
+				+ "-o	Start ODBC service.\r\n"
+				+ "-h	Start HTTP service.\r\n"
+				+ "-x[ip:port]	Stop assigning nodes; when ip:port are absent, stop all working services on the local machine. \r\n"
+				+ "-a	Start all services.\r\n"
+				+ "-?	Or print the current help information when the error option is present. \r\n\r\n"
+				+ " Example：ServerConsole.sh -a  Start all services, which is equivalent to ServerConsole.sh -p -o -h\r\n\r\n"
+				+ " Example：ServerConsole.sh -p 127.0.0.1:8281  Start a node with specified ip.\r\n\r\n"
+				+ " Example：ServerConsole.sh -o  Start odbc service only.\r\n\r\n";
 		String lang = Locale.getDefault().toString();
 		if(lang.equalsIgnoreCase("en")){
 			usage = usageEn;			
 		}
+		doMain( args, usage );
+	}
+	
+	public static void doMain(String[] args,String usage) {
+		boolean init = true;
+		
 
 		String arg;
 		if (args.length == 1) { //

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.3 JDBC gateway</title>
+<title>6.2.5 Calling remote server via JDBC</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,301 +13,84 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l26 level2 lfo38'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.3</span></span><span
-lang=EN-US> JDBC gateway</span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>You can
-choose to skip this section if you are not a professional programmer. This
-won’t affect your learning about the other contents of this <i
-style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;line-height:normal;mso-list:none'><span
+lang=EN-US>6.2.5 Calling remote server via JDBC</span></h3></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can call a remote server in a
+calculation via esProc JDBC. Check <i style='mso-bidi-font-style:normal'><a
+ href="fuwuqi.html#The_Server">The Server Cluster</a></i> to learn more about the
+configuration and launch of the remote server. To invoke a remote server, we
+need to configure IPs and port numbers for every remote server in &lt;Units&gt;
+of the node &lt;JDBC&gt; in the configuration file <b style='mso-bidi-font-weight:
+normal'>raqsoftConfig.xml</b>: </span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>When calling an esProc script via JDBC, we can create
-a SQL gateway by configuring a <i style='mso-bidi-font-style:normal'>dfx</i>
-script file, and let it handle all the SQL statements to be executed in JDBC. The
-gateway script reads in the SQL statements and their parameters, handles
-database connection, and then executes SQL and returns results. Below is a
-gateway script <i style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
+<p class=TConfigCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JDBC&gt;</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=189 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
-  </td>
-  <td width=236 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>B</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>1</span></p>
-  </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=connect(&quot;demo&quot;)</span></p>
-  </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>2</span></p>
-  </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>if args==null ||
-  args.len()&lt;2</span></p>
-  </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;B1=A1.query(sql)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>3</span></p>
-  </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>else</span></p>
-  </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;B1=A1.query(sql,args(1),args(2))</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt'>4</span></p>
-  </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
-  </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>return B1</span></p>
-  </td>
- </tr>
-</table>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;load&gt;Runtime&lt;/load&gt;</span></p>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The <span style='mso-bidi-font-style:italic'>script</span> file uses
-two parameters:</span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;gateway&gt;executeSQL.splx&lt;/gateway&gt;</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=557 height=161
-src="Tutorial.files/image1427.jpg" v:shapes="_x0000_i1808"></span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Units&gt;</span></p>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The above two parameters are necessary. The first
-passes the SQL statements that have been input at the call of the esProc
-script. The second passes parameters input for executing the SQL statements.</span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Unit&gt;192.168.0.197:8281&lt;/Unit&gt;</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>To use the JDBC gateway, we need to specify the
-gateway script file in &lt;gateway&gt; under <i style='mso-bidi-font-style:
-normal'>raqsoftConfig.xml</i>’s &lt;JDBC&gt; node. To connect a data source,
-load the data source connection configuration from Runtime or Server:</span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Units&gt;</span></p>
 
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JDBC&gt;</span></i></p>
+<p class=TConfigCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/JDBC&gt;</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;load&gt;Runtime&lt;/load&gt;</span></i></p>
+<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When calling a script via JDBC in a Java
+application, the calculation will be performed locally unless there are
+problems with the local operation, like missing data files. In those cases, the
+calculation will be performed on the remote server. If we need to perform a
+calculation remotely in the first place, just add the parameter <b
+style='mso-bidi-font-weight:normal'>?onlyServer=true</b> to the connecting
+string. For example:</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;gateway&gt;executeSQL.dfx&lt;/gateway&gt;</span></i></p>
+<p class=TConfigCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Class.forName(&quot;com.esproc.jdbc.InternalDriver&quot;);</span></p>
 
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/JDBC&gt;</span></i></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con=
+DriverManager.getConnection(&quot;jdbc:esproc:local://onlyServer=true&quot;);</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>See <i style='mso-bidi-font-style:normal'><a
- href="pzraqsoftconfig.html#Configuring_raqsoftConfig_xml">Configuring ra<span style='mso-bookmark:
-_Hlt18584996'>q</span>softConfig.xml</a><a
-name="_Hlt18584996"></a></i> to learn more about JDBC tag libraries.</span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
+= con.createStatement();</span></p>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>With required configuration done, all the SQL statements will be
-handed over to the gateway script for execution during the invocation of esProc
-JDBC from Java. For example:</span></p>
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet
+rs1 = st.executeQuery(&quot;=5.(~*~)&quot;);<span style='mso-tab-count:1'>&nbsp; </span></span></p>
 
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// Execute SQL; the
-question mark (?) represents the parameter</span></i></p>
+<p class=TConfigCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet
+rs2 = st.executeQuery(&quot;select * from cities.txt where CID&lt;30&quot;);</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-=con.prepareCall(&quot;select * from CITIES where STATEID = ? and POPULATION
-&gt; ?&quot;);</span></i></p>
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The program exports ResultSets by
+executing a query. Here’s the result:</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// Set parameters</span></i></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=350 height=236
+src="Tutorial.files/image724.png" v:shapes="_x0000_i1812"><span
+style='mso-spacerun:yes'>&nbsp;</span></span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(1, 5); </span></i></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can check the system information about
+the calculation on the remote server’s console:</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(2,
-400000);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// Execute the stored
-procedure</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.execute();</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// Get the result set</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs1 =
-st.getResultSet();</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// Directly execute
-SQL with no input parameters</span></i></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs2 =
-con.createStatement().executeQuery(&quot;select STATEID,NAME,ABBR,CAPITAL from
-STATES where STATEID&lt;8&quot;);</span></i></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Since the gateway script has checked the status of the non-input
-parameters, it can execute SQL with no input parameters. Below are the outputs
-of the query results<i style='mso-bidi-font-style:normal'> rs1</i> and <i
-style='mso-bidi-font-style:normal'>rs2</i>:</span></p>
-
-<p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=410 height=191
-src="Tutorial.files/image1429.jpg" v:shapes="_x0000_i1809"></span></p>
-
-<p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=462 height=175
-src="Tutorial.files/image1431.jpg" v:shapes="_x0000_i1810"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The connection to and disconnection from a data source are handled
-by the gateway script. With a default data source, we can directly use its name
-in executing a query and there is no need to handle data source disconnection.</span></p>
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=400 height=536
+src="Tutorial.files/image725.png" v:shapes="_x0000_i1813"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="166.html">Next</a></div>
@@ -315,17 +98,14 @@ in executing a query and there is no need to handle data source disconnection.</
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="154.html">Chapter6 Integration &amp; Application</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="160.html">Java Invocation</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

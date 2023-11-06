@@ -281,7 +281,9 @@ public class XlsxSImporter implements ILineInput {
 				public void run() {
 					try {
 						parser.parse(sheetSource);
-					} catch (Exception e) {
+					} catch (Throwable e) {
+						if (e instanceof RQException)
+							throw new RuntimeException(e);
 						if (!isClosed) {
 							throw new RuntimeException(e);
 						}
@@ -313,10 +315,6 @@ public class XlsxSImporter implements ILineInput {
 				// The parsing is complete, and the buffer area is empty
 				if (parseFinished.booleanValue())
 					return null;
-				try {
-					Thread.sleep(10);
-				} catch (Exception e) {
-				}
 			}
 		}
 		try {
@@ -327,7 +325,7 @@ public class XlsxSImporter implements ILineInput {
 			Object[] line = (Object[]) obj;
 			if (isN && line != null) {
 				for (int i = 0; i < line.length; i++) {
-					line[i] = ExcelUtils.trim(line[i]);
+					line[i] = ExcelUtils.trim(line[i], false);
 				}
 			}
 			return line;

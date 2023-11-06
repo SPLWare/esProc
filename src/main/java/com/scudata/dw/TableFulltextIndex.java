@@ -37,14 +37,26 @@ import com.scudata.util.EnvUtil;
  *
  */
 public class TableFulltextIndex extends PhyTableIndex {
-	private static final int LIMIT = 1000000;//高频词限制数，超过这个值就抛弃
+	private static final int FETCH_SIZE = 1000;
+	private static final int DEFAULT_LIMIT = 1000000;//高频词限制数，超过这个值就抛弃
+	private int limit;//每个key值允许的最多记录数
 	
 	public TableFulltextIndex(PhyTable table, FileObject indexFile) {
-		super(table, indexFile);
+		this(table, indexFile, null);
 	}
 	
 	public TableFulltextIndex(PhyTable table, String indexName) {
+		this(table, indexName, null);
+	}
+	
+	public TableFulltextIndex(PhyTable table, FileObject indexFile, Integer limit) {
+		super(table, indexFile);
+		this.limit = limit == null ? DEFAULT_LIMIT : limit;
+	}
+	
+	public TableFulltextIndex(PhyTable table, String indexName, Integer limit) {
 		super(table, indexName);
+		this.limit = limit == null ? DEFAULT_LIMIT : limit;
 	}
 	
 	protected void writeHeader(ObjectWriter writer) throws IOException {
@@ -109,7 +121,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 		
 		if (strCounters.containsKey(key)) {
 			Long  cnt = strCounters.get(key) + 1;
-			if (cnt >= LIMIT) {
+			if (cnt >= limit) {
 				return true;
 			}
 			strCounters.put(key, cnt);
@@ -216,7 +228,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("index" + mm.getMessage("function.paramTypeError"));
 					}
-					String ifield = (String) objs[0];
+					String ifield = ((String) objs[0]).toLowerCase();
 					
 					list.clear();//用于判断重复的字符，例如"宝宝巴士"，重复的"宝"字不能被重复索引
 					int strLen = ifield.length();
@@ -243,21 +255,21 @@ public class TableFulltextIndex extends PhyTableIndex {
 										list.add(str3);
 									}
 									
-									if (j + 3 < strLen) {
-										char ch4 = ifield.charAt(j + 3);
-										if (checkAlpha(ch4)) {
-											String str4 =  new String(str3 + ch4);
-											if (!list.contains(str4)) {
-												vals = new Object[fieldsCount];
-												for (int f = 1; f < fieldsCount; f++) {
-													vals[f] = objs[f];
-												}
-												vals[0] = str4;
-												subTable.newLast(vals);
-												list.add(str4);
-											}
-										}
-									}
+//									if (j + 3 < strLen) {
+//										char ch4 = ifield.charAt(j + 3);
+//										if (checkAlpha(ch4)) {
+//											String str4 =  new String(str3 + ch4);
+//											if (!list.contains(str4)) {
+//												vals = new Object[fieldsCount];
+//												for (int f = 1; f < fieldsCount; f++) {
+//													vals[f] = objs[f];
+//												}
+//												vals[0] = str4;
+//												subTable.newLast(vals);
+//												list.add(str4);
+//											}
+//										}
+//									}
 								}
 							}
 						} else if (ch1 > 255) {
@@ -359,7 +371,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 			Sequence table;
 			Record r = null;
 
-			table = cursor.fetchGroup(ifs, LIMIT, ctx);
+			table = cursor.fetchGroup(ifs, FETCH_SIZE, ctx);
 			if (table == null || table.length() == 0) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("index" + mm.getMessage("function.invalidParam"));
@@ -391,7 +403,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 					p += len;
 					if (p > length) {
-						table = cursor.fetchGroup(ifs, LIMIT, ctx);
+						table = cursor.fetchGroup(ifs, FETCH_SIZE, ctx);
 						if (table == null || table.length() == 0) break;
 						p = 1;
 						mems = table.getMems();
@@ -637,8 +649,12 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 				}
 				
-				Select select = new Select(exp, null);
-				cs.addOperation(select, ctx);
+				//如果长度不是3，则需要再过滤一下
+				if (fmtExp.length() != 3) {
+					Expression tempExp = new Expression("like@c(" + f + ",\"*" + fmtExp + "*\")");
+					Select select = new Select(tempExp, null);
+					cs.addOperation(select, ctx);
+				}
 				return cs;
 			} else {
 				if (mrl == null) {
@@ -655,7 +671,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 		String f = ifields[0];
 		IParam sub2 = ((Like) exp.getHome()).getParam().getSub(1);
 		String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
-		fmtExp = fmtExp.substring(1, fmtExp.length() - 1);
+		fmtExp = fmtExp.substring(1, fmtExp.length() - 1).toLowerCase();
 		
 		boolean isRow = srcTable instanceof RowPhyTable;
 		long recCountOfSegment[] = null;
@@ -676,13 +692,14 @@ public class TableFulltextIndex extends PhyTableIndex {
 			if (str.matches(regex)) {
 				//英文
 				//尝试连续取4个字母
-				if (j + 3 < strLen) {
-					String str4 = fmtExp.substring(j, j + 4);
-					if (str4.matches(regex)) {
-						str = str4;
-						p = j + 4;
-					}
-				} else if (j + 2 < strLen) {//尝试连续取3个字母
+//				if (j + 3 < strLen) {
+//					String str4 = fmtExp.substring(j, j + 4);
+//					if (str4.matches(regex)) {
+//						str = str4;
+//						p = j + 4;
+//					}
+//				} else 
+				if (j + 2 < strLen) {//尝试连续取3个字母
 					String str3 = fmtExp.substring(j, j + 3);
 					if (str3.matches(regex)) {
 						str = str3;

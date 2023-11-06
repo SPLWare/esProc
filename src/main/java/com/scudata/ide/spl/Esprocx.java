@@ -206,8 +206,8 @@ public class Esprocx {
 				+ "Esprocx [-r] [-c]\r\n" + " [-r]   打印返回结果到控制台。\r\n"
 				+ " [-c]   从控制台读入一个列用Tab键分开的多行式网格脚本来执行(Ctrl+C结束录入)。\r\n\r\n"
 				+ "Esprocx [-r] [dfxFile] [arg0] [arg1]...\r\n"
-				+ " [dfxFile]   相对于寻址路径或者主路径的dfx文件名，也可以是绝对路径。\r\n"
-				+ " [argN]      如果是dfxFile且有参数，按顺序依次对应。\r\n\r\n" + etlUsage
+				+ " [splxFile]   相对于寻址路径或者主路径的splx文件名，也可以是绝对路径。\r\n"
+				+ " [argN]      如果是splxFile且有参数，按顺序依次对应。\r\n\r\n" + etlUsage
 				+ "Esprocx [-r] [exp]\r\n" + " [exp]   一句dfx脚本命令。\r\n\r\n"
 				+ "示例:\r\n" + "  Esprocx -r -c\r\n"
 				+ "    执行一个待录入的文本式网格并打印返回结果。\r\n"
@@ -264,11 +264,18 @@ public class Esprocx {
 				args = st.toStringArray();
 			}
 		}
-
+//		args = new String[] {"select","esprocx.sh","other.cmd","from","a.txt"};
+//		args = new String[] {"esprocx.sh","other.cmd","from","a.txt"};
+//		args = new String[] {"field1","field2","from","a.txt"};
+//		args = new String[] {"$select","field1","field2","from","a.txt"};
 		boolean existStar = false;// 处理 Select *
+		boolean isSql = false;// 由于$select会被linux操作系统解析掉，用from
+//		关键字来判断当前表达式是否为sql语句
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i];// .toLowerCase();
+//				Logger.debug("arg "+i+"=" + arg);
+				
 				boolean existSpace = false;// 此处替换回c传过来的特殊处理的空格跟引号
 				char[] argchars = arg.toCharArray();
 				for (int n = 0; n < argchars.length; n++) {
@@ -284,7 +291,7 @@ public class Esprocx {
 					arg = new String(argchars);
 				}
 
-				if (arg.toLowerCase().equals("com.scudata.ide.spl.esproc")) { // 用bat打开的文件，类名本身会是参数
+				if (arg.toLowerCase().equals("com.scudata.ide.spl.esprocx")) { // 用bat打开的文件，类名本身会是参数
 					continue;
 				}
 				if (arg.toLowerCase().startsWith("-r")) {
@@ -308,7 +315,7 @@ public class Esprocx {
 								.readLine("(%d): ", row++);
 						if (line == null)
 							break;
-						if (fileArgs.length() > 0) {
+						if (fileArgs.length()>1) {
 							fileArgs.append('\n');
 						}
 						fileArgs.append(line);
@@ -327,14 +334,25 @@ public class Esprocx {
 							existStar = true;
 							continue;
 						}
-						if (existStar && arg.equalsIgnoreCase("from")) {
-							fileArgs.setLength(0);
-							fileArgs.append(" * FROM ");
+						if (arg.equalsIgnoreCase("from")) {
+							if(existStar) { 
+								fileArgs.setLength(0);
+								fileArgs.append(" * From ");
+							}else {
+								fileArgs.append(arg + " ");
+								isSql = true;
+							}
 						} else {
 							fileArgs.append(arg + " ");
 						}
 					} else {
-						dfxFile = arg;
+						if(arg.equalsIgnoreCase("esprocx.sh")) {
+							dfxFile="$select";//Linux下执行 esprocx.sh $select * from txt时
+//							会将$select本身也替换掉了
+							existStar = true;
+						}else {
+							dfxFile = arg;
+						}
 						loadArg = true;
 					}
 
@@ -353,10 +371,6 @@ public class Esprocx {
 			initEnv();// 设定跟IDE相同的StartHome
 			checkMainPath();
 			// 有了环境后才能判断控制点
-			FileObject fo = null;
-			if (dfxFile != null) {
-				fo = new FileObject(dfxFile, "s");
-			}
 
 			long workBegin = System.currentTimeMillis();
 			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false, isSpl = false;
@@ -369,6 +383,7 @@ public class Esprocx {
 				isFile = (isDfx || isEtl || isSplx || isSpl);
 			}
 			if (isFile) {
+				FileObject fo = new FileObject(dfxFile, "s");
 				if (isDfx || isEtl || isSplx || isSpl) {
 					PgmCellSet pcs = null;
 					if (isDfx || isSplx) {
@@ -419,6 +434,11 @@ public class Esprocx {
 					if (dfxFile == null) {
 						cmd = fileArgs.toString();
 					} else {
+						if(dfxFile.equalsIgnoreCase("select") || dfxFile.equalsIgnoreCase("$select")) {
+							dfxFile = "$Select";//要求select语法必须加上$，以跟DQL一致2023年9月18日 xq
+						}else if(isSql) {
+							dfxFile = "$Select "+dfxFile;//如果输入的为$select field from t.txt时
+						}
 						cmd = dfxFile + " " + fileArgs;
 					}
 					Logger.debug(ParallelMessage.get().getMessage(
@@ -479,6 +499,18 @@ public class Esprocx {
 			while (seq != null) {
 				print(seq);
 				seq = cursor.fetch(1024);
+			}
+		} else if (result instanceof PgmCellSet) {
+			PgmCellSet pcs = (PgmCellSet)result;
+			while (pcs.hasNextResult()) {
+				CellLocation cl = pcs.nextResultLocation();
+				System.out.println();
+				if (cl != null) {// 没用return语句时，位置为null
+					String msg = cl + ":";
+					System.err.println(msg);
+				}
+				Object tmp = pcs.nextResult();
+				Esprocx.printResult(tmp);
 			}
 		} else {
 			System.out.println(Variant.toString(result));

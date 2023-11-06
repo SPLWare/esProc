@@ -14,7 +14,7 @@ import com.scudata.dm.op.Operation;
 public class MemoryCursor extends ICursor {
 	private Sequence data; // 序列
 	private int startSeq; // 起始位置，包含
-	private int endSeq; // 结束位置，不包含
+	private int endSeq; // 结束位置，包含
 	private int next = 1; // 下一条记录的序号
 	
 	/**
@@ -48,9 +48,11 @@ public class MemoryCursor extends ICursor {
 					data = seq;
 					next = start;
 					startSeq = start;
-					endSeq = end - 1;
-					if (endSeq > len) {
+					
+					if (end > len) {
 						endSeq = len;
+					} else {
+						endSeq = end - 1;
 					}
 				}
 			} else {
@@ -138,9 +140,9 @@ public class MemoryCursor extends ICursor {
 		return true;
 	}
 	
-	public Sequence fuzzyFetch(int n) {
-		return fetch();
-	}
+	//public Sequence fuzzyFetch(int n) {
+	//	return fetch();
+	//}
 
 	/**
 	 * 返回剩余的记录并关闭游标

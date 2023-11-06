@@ -34,6 +34,7 @@ import com.scudata.common.Sentence;
 import com.scudata.dm.comparator.*;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Join;
 import com.scudata.dm.op.Operation;
@@ -2796,6 +2797,43 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 返回元素的累积构成的序列
+	 * @return Sequence
+	 */
+	public Sequence cumulate() {
+		IArray mems = getMems();
+		int size = mems.size();
+		Sequence result = new Sequence(size);
+		IArray resultMems = result.getMems();
+
+		Object value = null;
+		for (int i = 1; i <= size; ++i) {
+			value = Variant.add(value, mems.get(i));
+			resultMems.push(value);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 返回元素的占比构成的序列
+	 * @return Sequence
+	 */
+	public Sequence proportion() {
+		IArray mems = getMems();
+		int size = mems.size();
+		Sequence result = new Sequence(size);
+		IArray resultMems = result.getMems();
+
+		Object sum = sum();
+		for (int i = 1; i <= size; ++i) {
+			resultMems.push(Variant.divide(mems.get(i), sum));
+		}
+
+		return result;
+	}
+
+	/**
 	 * 返回平均值，元素类型必须为数值，空值不进行计数
 	 * @return Object
 	 */
@@ -4027,7 +4065,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	/**
 	 * 返回序列的计算列
 	 * @param exp Expression 计算表达式
-	 * @param opt String m：并行计算
+	 * @param opt String m：并行计算，z：从后往前算
 	 * @param ctx Context 计算上下文环境
 	 * @return Sequence
 	 */
@@ -4035,6 +4073,31 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
 				return MultithreadUtil.calc(this, exp, ctx);
+			} else if (opt.indexOf('z') != -1) {
+				int size = length();
+				Sequence result = new Sequence(size);
+				IArray array = result.getMems();
+				array.setSize(size);
+				
+				ComputeStack stack = ctx.getComputeStack();
+				Current current = new Current(this);
+				stack.push(current);
+
+				try {
+					for (int i = size; i > 0; --i) {
+						current.setCurrent(i);
+						array.set(i, exp.calculate(ctx));
+					}
+				} finally {
+					stack.pop();
+				}
+
+				if (opt.indexOf('v') != -1) {
+					array = array.toPureArray();
+					result.mems = array;
+				}
+				
+				return result;
 			} else if (opt.indexOf('v') != -1) {
 				Sequence result = calc(exp, ctx);
 				result.mems = result.mems.toPureArray();
@@ -4290,10 +4353,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	public void run(Expression exp, String opt, Context ctx) {
-		if (opt == null || opt.indexOf('m') == -1) {
+		if (opt == null) {
 			run(exp, ctx);
-		} else {
+		} else if (opt.indexOf('m') != -1) {
 			MultithreadUtil.run(this, exp, ctx);
+		} else if (opt.indexOf('z') != -1) {
+			ComputeStack stack = ctx.getComputeStack();
+			Current current = new Current(this);
+			stack.push(current);
+
+			try {
+				for (int i = length(); i > 0; --i) {
+					current.setCurrent(i);
+					exp.calculate(ctx);
+				}
+			} finally {
+				stack.pop();
+			}
+		} else {
+			run(exp, ctx);
 		}
 	}
 	
@@ -4319,6 +4397,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		} finally {
 			stack.pop();
+		}
+	}
+
+	public void run(Expression[] assignExps, Expression[] exps, String opt, Context ctx) {
+		if (opt == null || opt.indexOf('m') == -1) {
+			run(assignExps, exps, ctx);
+		} else {
+			MultithreadUtil.run(this, assignExps, exps, ctx);
 		}
 	}
 
@@ -4360,7 +4446,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			stack.pop();
 		}
 	}
-
+	
 	private Object subPos(Sequence sub, String opt) {
 		IArray subMems = sub.getMems();
 		if (subMems.size() == 0) {
@@ -5336,8 +5422,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException(mm.getMessage("engine.needIntExp"));
 			}
 
-			int valFirst = ((Number)objFirst).intValue();
-			int valLast = ((Number)objLast).intValue();
+			double valFirst = ((Number)objFirst).doubleValue();
+			double valLast = ((Number)objLast).doubleValue();
 
 			// 如果最小值大于0或着最大值小于于0则没有满足条件的元素
 			if (valFirst > 0) {
@@ -5375,7 +5461,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						throw new RQException(mm.getMessage("engine.needIntExp"));
 					}
 
-					int value = ((Number)obj).intValue();
+					double value = ((Number)obj).doubleValue();
 					if (value < 0) {
 						low = mid + 1;
 					} else if (value > 0) {
@@ -5407,7 +5493,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							first--;
 						} else {
 							break;
@@ -5426,7 +5512,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							last++;
 						} else {
 							break;
@@ -6049,8 +6135,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException(mm.getMessage("engine.needIntExp"));
 			}
 
-			int valFirst = ((Number)objFirst).intValue();
-			int valLast = ((Number)objLast).intValue();
+			double valFirst = ((Number)objFirst).doubleValue();
+			double valLast = ((Number)objLast).doubleValue();
 
 			// 如果最小值大于0或着最大值小于于0则没有满足条件的元素
 			if (valFirst > 0 || valLast < 0) {
@@ -6088,7 +6174,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						throw new RQException(mm.getMessage("engine.needIntExp"));
 					}
 
-					int value = ((Number)obj).intValue();
+					double value = ((Number)obj).doubleValue();
 					if (value < 0) {
 						low = mid + 1;
 					} else if (value > 0) {
@@ -6128,7 +6214,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							first--;
 						} else {
 							break;
@@ -6147,7 +6233,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							last++;
 						} else {
 							break;
@@ -7516,7 +7602,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 由序列创建出一个新序表
 	 * @param ds 新序表的数据结构
 	 * @param exps 新序表的字段计算表达式数组
-	 * @param opt i：有表达式计算结果为空时不生成该行记录
+	 * @param opt i：有表达式计算结果为空时不生成该行记录，z：从后往前算
 	 * @param ctx 计算上下文
 	 * @return 新产生的序表
 	 */
@@ -7525,7 +7611,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int colCount = ds.getFieldCount();
 		Table table = new Table(ds, len);
 		IArray resultMems = table.getMems();
-
+		
+		boolean iopt = false, zopt = false;
+		if (opt != null) {
+			if (opt.indexOf('i') != -1) iopt = true;
+			if (opt.indexOf('z') != -1) zopt = true;
+		}
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current newCurrent = new Current(table);
 		stack.push(newCurrent);
@@ -7533,18 +7625,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (opt == null || opt.indexOf('i') == -1) {
-				for (int i = 1; i <= len; ++i) {
-					Record r = new Record(ds);
-					resultMems.add(r);
-					
-					newCurrent.setCurrent(i);
-					current.setCurrent(i);
-					for (int c = 0; c < colCount; ++c) {
-						r.setNormalFieldValue(c, exps[c].calculate(ctx));
+			if (zopt) {
+				table.getRecord(len);
+				
+				if (iopt) {
+					Next:
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							if (obj != null) {
+								r.setNormalFieldValue(c, obj);
+							} else {
+								// 计算表达式可能依赖于新产生的记录，所以要先产生记录，不满足条件再删除记录
+								resultMems.remove(i);
+								continue Next;
+							}
+						}
+					}
+				} else {
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						for (int c = 0; c < colCount; ++c) {
+							r.setNormalFieldValue(c, exps[c].calculate(ctx));
+						}
 					}
 				}
-			} else {
+			} else if (iopt) {
 				Next:
 				for (int i = 1, q = 1; i <= len; ++i) {
 					Record r = new Record(ds);
@@ -7564,6 +7675,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					++q;
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Record r = new Record(ds);
+					resultMems.add(r);
+					
+					newCurrent.setCurrent(i);
+					current.setCurrent(i);
+					for (int c = 0; c < colCount; ++c) {
+						r.setNormalFieldValue(c, exps[c].calculate(ctx));
+					}
 				}
 			}
 		} finally {
@@ -7935,12 +8057,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 为源排列添加列
 	 * @param names String[] 需要添加的列
 	 * @param exps Expression[] 需要添加的列的表达式
-	 * @param opt String m：多线程运算，i：表达式计算结果为null是不生成该条记录
+	 * @param opt String m：多线程运算，i：表达式计算结果为null是不生成该条记录，z：从后往前算
 	 * @param ctx Context
 	 */
 	public Table derive(String []names, Expression []exps, String opt, Context ctx) {
-		if (opt != null && opt.indexOf('m') != -1) {
-			return MultithreadUtil.derive(this, names, exps, opt, ctx);
+		boolean iopt = false, zopt = false;
+		if (opt != null) {
+			if (opt.indexOf('m') != -1) {
+				return MultithreadUtil.derive(this, names, exps, opt, ctx);
+			}
+			
+			if (opt.indexOf('i') != -1) iopt = true;
+			if (opt.indexOf('z') != -1) zopt = true;
 		}
 		
 		IArray mems = getMems();
@@ -8016,21 +8144,43 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (opt == null || opt.indexOf('i') == -1) {
-				for (int i = 1; i <= len; ++i) {
-					Record r = new Record(newDs);
-					resultMems.add(r);
-					r.set((BaseRecord)mems.get(i));
-					
-					newCurrent.setCurrent(i);
-					current.setCurrent(i);
+			if (zopt) {
+				table.getRecord(len);
+				
+				if (iopt) {
+					Next:
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
+						
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							if (obj != null) {
+								r.setNormalFieldValue(c + oldColCount, obj);
+							} else {
+								resultMems.remove(i); // 计算exps可能依赖于新产生的记录
+								continue Next;
+							}
+						}
+						
+						r.set((BaseRecord)mems.get(i));
+					}
+				} else {
+					for (int i = len; i > 0; --i) {
+						Record r = (Record)resultMems.get(i);
+						r.set((BaseRecord)mems.get(i));
+						
+						newCurrent.setCurrent(i);
+						current.setCurrent(i);
 
-					// 计算新字段
-					for (int c = 0; c < colCount; ++c) {
-						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+						// 计算新字段
+						for (int c = 0; c < colCount; ++c) {
+							r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+						}
 					}
 				}
-			} else {
+			} else if (iopt) {
 				Next:
 				for (int i = 1, q = 1; i <= len; ++i) {
 					Record r = new Record(newDs);
@@ -8052,6 +8202,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					++q;
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					
+					newCurrent.setCurrent(i);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < colCount; ++c) {
+						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+					}
 				}
 			}
 		} finally {
@@ -9386,12 +9550,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		Node home = vexp.getHome();
-		if (!(home instanceof Gather)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("pivot" + mm.getMessage("function.invalidParam"));
+		Gather gather = null;
+		if (home instanceof Gather) {
+			gather = (Gather)home;
+			gather.prepare(ctx);
 		}
 		
-		Gather gather = (Gather)home;
 		int keyCount = gexps == null ? 0 : gexps.length;
 		int ncount = names.length;
 		int totalCount = keyCount + ncount;
@@ -9443,23 +9607,48 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					for (int n = 0; n < ncount; ++n) {
 						if (n != nullIndex && Variant.isEquals(fval, vals[n])) {
 							Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
-							seq.add(vexp.calculate(ctx));
+							seq.add(group.getMem(m));
 							continue Next;
 						}
 					}
 					
 					if (nullIndex != -1) {
 						Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + nullIndex);
-						seq.add(vexp.calculate(ctx));
+						seq.add(group.getMem(m));
 					}
 				}
 			} finally {
 				stack.pop();
 			}
-			
-			for (int n = 0; n < ncount; ++n) {
-				Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
-				r.setNormalFieldValue(keyCount + n, gather.gather(seq));
+		}
+		
+		if (gather != null) {
+			for (int i = 1; i <= len; ++i) {
+				BaseRecord r = (BaseRecord)result.getMem(i);
+				for (int n = 0; n < ncount; ++n) {
+					Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
+					r.setNormalFieldValue(keyCount + n, gather.gather(seq, ctx));
+				}
+			}
+		} else {
+			// 创建一个临时序表用于计算每一条记录的每个汇总字段的汇总值
+			Sequence tmp = new Sequence(1);
+			tmp.add(null);
+			IArray array = tmp.getMems();
+			Current current = new Current(tmp, 1);
+			stack.push(current);
+
+			try {
+				for (int i = 1; i <= len; ++i) {
+					BaseRecord r = (BaseRecord)result.getMem(i);
+					for (int n = 0; n < ncount; ++n) {
+						Sequence seq = (Sequence)r.getNormalFieldValue(keyCount + n);
+						array.set(1, seq);
+						r.setNormalFieldValue(keyCount + n, home.calculate(ctx));
+					}
+				}
+			} finally {
+				stack.pop();
 			}
 		}
 		
@@ -10467,10 +10656,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 		
-		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false;
+		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false, bLast = false;
 		if (opt != null) {
 			if (opt.indexOf('p') != -1) bData = true; // 自动识别成常数
-			if (opt.indexOf('1') != -1) bFirst = true; // 分成2段
+			if (opt.indexOf('1') != -1) {
+				bFirst = true; // 分成2段
+			} else if (opt.indexOf('z') != -1) {
+				bLast = true; // 从后分成2段
+			}
+
 			if (opt.indexOf('b') != -1) bMatch = false; // 不处理引号和括号匹配
 			if (opt.indexOf('t') != -1) bTrim = true;
 			if (opt.indexOf('c') != -1) sep = ",";
@@ -10674,7 +10868,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int srcLen = src.length();
 		int sepLen = sep.length();
 
-		if (bMatch) {
+		if (bLast) {
+			// 找到最后一个分割符拆成两段
+			int index;
+			if (bMatch) {
+				index = Sentence.lastIndexOf(src, sep);
+			} else {
+				index = src.lastIndexOf(sep);
+			}
+			
+			if (index == -1) {
+				if (bTrim) {
+					src = src.trim();
+				}
+
+				result.add(bData ? Variant.parse(src) : src);
+			} else {
+				String sub = src.substring(0, index);
+				if (bTrim) {
+					sub = sub.trim();
+				}
+
+				result.add(bData ? Variant.parse(sub) : sub);
+				sub = src.substring(index + sepLen);
+				if (bTrim) {
+					sub = sub.trim();
+				}
+
+				result.add(bData ? Variant.parse(sub) : sub);
+			}
+		} else if (bMatch) {
 			int match;
 			int start = 0;
 			int i = 0;
@@ -11758,10 +11981,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param field 列号，从0开始计数
 	 * @return
 	 */
-	public Object getFieldValue(int row, int field) {
+	public Object getFieldValue2(int row, int field) {
 		Object obj = get(row);
 		if (obj instanceof BaseRecord) {
-			return ((BaseRecord)obj).getNormalFieldValue(field);
+			return ((BaseRecord)obj).getFieldValue2(field);
 		} else if (obj == null) {
 			return null;
 		} else if (obj instanceof Sequence) {
@@ -11772,7 +11995,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			obj = ((Sequence)obj).get(1);
 			if (obj instanceof BaseRecord) {
-				return ((BaseRecord)obj).getNormalFieldValue(field);
+				return ((BaseRecord)obj).getFieldValue2(field);
 			} else if (obj == null) {
 				return null;
 			}
@@ -12136,6 +12359,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
+	 * 返回序列成员按位异或值的二进制表示时1的个数和
+	 * @param seq 异或序列
+	 * @return 1的个数和
+	 */
+	public int bit1(Sequence seq) {
+		return getMems().bit1(seq.getMems());
+	}
+	
+	/**
 	 * 对排列做主键式关连
 	 * @param srcKeyExps 关连键表达式
 	 * @param srcNewExps 选出字段表达式数组，空则选出所有
@@ -12177,5 +12409,300 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					sequences, options, keyExps, newExps, newNames, opt, ctx);
 			return hashTable.result();
 		}
+	}
+	
+	
+	/**
+	 * 区间归并连接
+	 * @param exp 关连键表达式
+	 * @param seq 关连表
+	 * @param keyExp 关连表的键表达式
+	 * @param from 区间范围起始
+	 * @param newExps 新字段表达式
+	 * @param newNames 新字段名称
+	 * @param to 区间范围结束
+	 * @param opt 选项，r：重复匹配，右边已经匹配过的仍然继续匹配；g：左边不冲重复
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Sequence mjoin(Expression exp, Sequence seq, Expression keyExp, 
+			Object from, Object to, Expression[] newExps, String[] newNames, String opt, Context ctx) {
+		if (length() == 0 || seq == null || seq.length() == 0) {
+			return this;
+		}
+		
+		if (to == null) {
+			to = from;
+		}
+		
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
+		BaseRecord rec = (BaseRecord)mems.get(1);
+		
+		int newFieldsCount = newNames.length;
+		DataStruct newDs = rec.dataStruct().dup();
+		int fcount = newDs.getFieldCount();
+		String[] names = Arrays.copyOf(newDs.getFieldNames(), fcount + newFieldsCount);
+		System.arraycopy(newNames, 0, names, fcount, newFieldsCount);
+		newDs.setFieldName(names);
+
+		int len = length();
+		int len2 = seq.length();
+		int cur = 1;
+		boolean hasR = opt != null && opt.indexOf("r") != -1;
+		boolean hasG = false;
+		if (opt != null && opt.indexOf("g") != -1) {
+			if (newExps.length == 1 && newExps[0].getHome() instanceof CurrentElement) {
+				hasG = true;
+			}
+		}
+		
+		Table table = new Table(newDs, len);
+		IArray resultMems = table.getMems();
+		
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		Current current2 = new Current(seq);
+		stack.push(current);
+		stack.push(current2);
+		
+		try {
+			if (hasG) {
+				for (int i = 1; i <= len; ++i) {
+					current.setCurrent(i);
+					Object obj = exp.calculate(ctx);
+					Object a = Variant.subtract(obj, from);
+					Object b = Variant.add(obj, to);
+					
+					Sequence temp = new Sequence();
+					int tempCur = cur;
+					while(tempCur <= len2) {
+						current2.setCurrent(tempCur);
+						Object obj2 = keyExp.calculate(ctx);
+						if (Variant.compare(obj2, a) >= 0) {
+							if ( Variant.compare(obj2, b) <= 0) {
+								BaseRecord rec2 = (BaseRecord)mems2.get(tempCur);
+								temp.add(rec2);
+							} else {
+								break;
+							}
+						} else {
+							cur++;
+						}
+						tempCur++;
+					}
+					
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					if (temp.length() != 0) {
+						r.setNormalFieldValue(fcount, temp);
+					}
+					
+					if (!hasR) {
+						cur = tempCur;
+					}
+					
+					if (cur > len2) {
+						break;
+					}
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					current.setCurrent(i);
+					Object obj = exp.calculate(ctx);
+					Object a = Variant.subtract(obj, from);
+					Object b = Variant.add(obj, to);
+					
+					BaseRecord rec1 = (BaseRecord)mems.get(i);
+					int tempCur = cur;
+					while(tempCur <= len2) {
+						current2.setCurrent(tempCur);
+						Object obj2 = keyExp.calculate(ctx);
+						if (Variant.compare(obj2, a) >= 0) {
+							if ( Variant.compare(obj2, b) <= 0) {								
+								Record r = new Record(newDs);
+								resultMems.add(r);
+								r.set(rec1);
+								for (int f = 0; f < newFieldsCount; f++) {
+									r.setNormalFieldValue(fcount + f, newExps[f].calculate(ctx));
+								}
+							} else {
+								break;
+							}
+						} else {
+							cur++;
+						}
+						tempCur++;
+					}
+					
+					
+					
+					if (!hasR) {
+						cur = tempCur;
+					}
+					
+					if (cur > len2) {
+						break;
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+			stack.pop();
+		}
+		return table;
+	}
+	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
+	public ICursor cursor(Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+		return cursor(1, length() + 1, exps, names, filter, fkNames, codes, opts, ctx);
+	}
+	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param start 起始位置，包含
+	 * @param end 结束位置，不包含
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
+	public ICursor cursor(int start, int end, Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+		ICursor cs = cursor(start, end);
+		
+		if (filter != null) {
+			cs.select(null, filter, null, ctx);
+		}
+		
+		if (fkNames != null && codes != null) {
+			int fkCount = codes.length;
+			for (int i = 0; i < fkCount; i++) {
+				String tempFkNames[] = new String[] {fkNames[i]};
+				Sequence tempCodes[] = new Sequence[] {codes[i]};
+				Expression []codeExps = null;
+				String option = opts == null ? null : opts[i];
+				
+				if (option == null) {
+					option = "i";
+				} else if (option.equals("null")) {
+					option = "d";
+				} else if (option.equals("#")) {
+					option = "i";
+					codeExps = new Expression[] {new Expression(ctx, "#")};
+				} else {
+					option = "i";
+				}
+				
+				cs.switchFk(null, tempFkNames, null, tempCodes, codeExps, null, option, ctx);
+			}
+		}
+
+		if (exps == null && names != null) {
+			int size = names.length;
+			exps = new Expression[size];
+			for (int i = 0; i < size; i++) {
+				exps[i] = new Expression(names[i]);
+			}
+		}
+		
+		if (exps != null) {
+			cs.newTable(null, exps, names, null, ctx);
+		}
+		
+		return cs;
+	}
+	
+	/**
+	 * 构建内存游标，用于和复组表混合计算
+	 * @param syncCursor 同步分段游标
+	 * @param sortedFields 排序字段
+	 * @param exps 选出字段表达式数组
+	 * @param names 选出字段名数组
+	 * @param filter 过滤条件
+	 * @param fkNames 外键字段
+	 * @param codes 维表
+	 * @param opts 关连选项
+	 * @param ctx 计算上下文
+	 * @return ICursor
+	 */
+	public MultipathCursors cursor(MultipathCursors syncCursor, String []sortedFields, 
+			Expression []exps, String []names, Expression filter, 
+			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx) {
+		ICursor []srcCursors = syncCursor.getParallelCursors();
+		int segCount = srcCursors.length;
+		if (segCount == 1) {
+			ICursor cs = cursor(exps, names, filter, fkNames, codes, opts, ctx);
+			ICursor []cursors = new ICursor[] {cs};
+			return new MultipathCursors(cursors, ctx);
+		}
+		
+		Object [][]minValues = new Object [segCount][];
+		int fcount = -1;
+		
+		for (int i = 1; i < segCount; ++i) {
+			minValues[i] = srcCursors[i].getSegmentStartValues(opt);
+			if (minValues[i] != null) {
+				if (fcount == -1) {
+					fcount = minValues[i].length;
+				} else if (fcount != minValues[i].length) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+				}
+			}
+		}
+		
+		if (fcount == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+		}
+		
+		if (opt != null && opt.indexOf('k') != -1) {
+			// 有k选项时以首键做为同步分段字段
+			fcount = 1;
+		} else {
+			if (sortedFields.length < fcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+		}
+		
+		int start = 1;
+		ICursor []resultCursors = new ICursor[segCount];
+		Expression []findExps = new Expression[fcount];
+		for (int f = 0; f < fcount; ++f) {
+			findExps[f] = new Expression(ctx, sortedFields[f]);
+		}
+		
+		for (int i = 1; i < segCount; ++i) {
+			int index = (Integer)pselect(findExps, minValues[i], start, "s", ctx);
+			if (index < 0) {
+				index = -index;
+			}
+			
+			resultCursors[i - 1] = cursor(start, index, exps, names, 
+					filter, fkNames, codes, opts, ctx);
+			start = index;
+		}
+		
+		resultCursors[segCount - 1] = cursor(start, length() + 1, exps, names, 
+				filter, fkNames, codes, opts, ctx);
+		return new MultipathCursors(resultCursors, ctx);
 	}
 }

@@ -301,7 +301,7 @@ public class Move extends Function {
 				}
 
 				BaseRecord cur = (BaseRecord)obj;
-				result.add(cur.getFieldValue(field));
+				result.add(cur.getFieldValue2(field));
 			} else {
 				result.add(null);
 			}

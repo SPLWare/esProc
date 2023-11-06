@@ -134,6 +134,13 @@ public class SheetXls extends SheetObject {
 		return IExcelTool.MAX_XLSX_LINECOUNT;
 	}
 
+	public int getMaxColCount() {
+		if (isXls) {
+			return IExcelTool.MAX_XLS_COLCOUNT;
+		}
+		return IExcelTool.MAX_XLSX_COLCOUNT;
+	}
+
 	/**
 	 * Move line
 	 * 
@@ -751,7 +758,7 @@ public class SheetXls extends SheetObject {
 			if (pos2 != null) {
 				endRow = pos2.getRow() - 1;
 				endCol = pos2.getCol() - 1;
-			} else {
+			} else { // pos2应该总不是null了
 				endRow = startRow;
 				endCol = startCol;
 			}
@@ -785,6 +792,9 @@ public class SheetXls extends SheetObject {
 		StringBuffer buf = new StringBuffer();
 		Object[] cutLine;
 		for (int i = startRow; i <= endRow; i++) {
+			if (i >= getMaxRowCount()) {
+				break;
+			}
 			if (i > startRow) {
 				buf.append(ROW_SEP);
 			}
@@ -799,7 +809,7 @@ public class SheetXls extends SheetObject {
 				if (startCol + c < line.length) {
 					cutLine[c] = line[startCol + c];
 					if (isN) {
-						cutLine[c] = ExcelUtils.trim(cutLine[c]);
+						cutLine[c] = ExcelUtils.trim(cutLine[c], false);
 					}
 				}
 			}
@@ -853,7 +863,7 @@ public class SheetXls extends SheetObject {
 				if (startCol + c < line.length) {
 					cutLine[c] = line[startCol + c];
 					if (isN) {
-						cutLine[c] = ExcelUtils.trim(cutLine[c]);
+						cutLine[c] = ExcelUtils.trim(cutLine[c], true);
 					}
 				}
 			}
@@ -896,7 +906,7 @@ public class SheetXls extends SheetObject {
 			int rowCount = seq.length();
 			if (isRowInsert) {
 				// ：插入行后超出行数限制：{0}
-				if (totalCount + rowCount - 1 > IExcelTool.MAX_XLS_LINECOUNT) {
+				if (totalCount + rowCount - 1 > getMaxRowCount()) {
 					throw new RQException("xlscell"
 							+ AppMessage.get().getMessage(
 									"filexls.morethanmax", getMaxRowCount()));
@@ -914,7 +924,7 @@ public class SheetXls extends SheetObject {
 			}
 			int endCol;
 			for (int r = startRow; r < endRow; r++) {
-				if (r >= IExcelTool.MAX_XLS_LINECOUNT) {
+				if (r >= getMaxRowCount()) {
 					break;
 				}
 				Object rowData = seq.get(r - startRow + 1);
@@ -952,7 +962,7 @@ public class SheetXls extends SheetObject {
 			Matrix matrix = (Matrix) content;
 			int rowCount = matrix.getRowSize();
 			if (isRowInsert) {
-				if (totalCount + rowCount - 1 > IExcelTool.MAX_XLS_LINECOUNT) {
+				if (totalCount + rowCount - 1 > getMaxRowCount()) {
 					throw new RQException("xlscell"
 							+ AppMessage.get().getMessage(
 									"filexls.morethanmax", getMaxRowCount()));
@@ -966,11 +976,15 @@ public class SheetXls extends SheetObject {
 			int endRow = startRow + rowCount;
 			int endCol = startCol + matrix.getColSize();
 			if (pos2 != null) {
-				endRow = Math.min(pos2.getRow(), endRow);
+				int pos2Row = pos2.getRow();
+				if (isRowInsert) {
+					pos2Row++;
+				}
+				endRow = Math.min(pos2Row, endRow);
 				endCol = Math.min(pos2.getCol(), endCol);
 			}
 			for (int r = startRow; r < endRow; r++) {
-				if (r >= IExcelTool.MAX_XLS_LINECOUNT) {
+				if (r >= getMaxRowCount()) {
 					break;
 				}
 				Object[] line = matrix.getRow(r - startRow);

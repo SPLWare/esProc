@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.2.4 Executing statements automatically</title>
+<title>6.2.3 Cellset files that return no results or multiple results</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,278 +15,33 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>6.2.4 Executing statements automatically</span></h3></div>
+14.0pt;mso-bidi-font-size:10.0pt'>6.2.3 Cellset files that return no results or
+multiple results</span></h3></div>
 	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>To use an esProc file in the Java application, besides calling the
-cellset file, you can also execute the statement directly. That is to say, the
-invocation of a cellset file can be automatically executed as a <b
-style='mso-bidi-font-weight:normal'>call</b> statement. Let’s look at how to do
-this. For example: </span></p>
-
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the
-statement directly and return a result set</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-=con.createStatement();</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs1 =
-st.executeQuery(&quot;=age(date(\&quot;1/1/1990\&quot;))&quot;);</span></i></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs2 =
-st.executeQuery(&quot;=5.(~*~)&quot;)</span></i><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>;<span style='mso-tab-count:
-1'>&nbsp; </span></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Here the method of <b style='mso-bidi-font-weight:
-normal'>executeQuery</b> is used to directly execute an esProc expression
-starting with <b style='mso-bidi-font-weight:normal'>=</b> and return its
-result as a result set. Note that an escape character needs to precede the
-double quotation marks enclosing the expression. Here’s the output file if the
-similar code is used to output the result sets: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=103 height=171
-src="Tutorial.files/image1411.jpg" v:shapes="图片_x0020_696"></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Notice that if a returned result is a sequence, JDBC
-will return a one-column-and-multiple-row result set. There’s another method to
-call the statement: </span></p>
-
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// first judge if
-there exists a result set; get it if there is one</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult1 =
-st.execute(&quot;=age(date(\&quot;1/1/1990\&quot;))&quot;);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs1,rs2;</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if (hasResult1) {</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>rs1 =
-st.getResultSet();</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult2 =
-st.execute(&quot;=5.(~*~)&quot;);<span style='mso-tab-count:1'>&nbsp; </span></span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if (hasResult2) {</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>rs2 =
-st.getResultSet();</span></i></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Based on the statement being executed, the <b
-style='mso-bidi-font-weight:normal'>execute</b> function will return a value to
-show whether there is a result set. The code is functionally equivalent to the
-previous one.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>If parameters are needed in the statement, use the
-operator - </span><span class=T-CodeChar><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>(</span></span><span class=var><span lang=EN-US>x</span></span><span
-class=T-CodeChar><sub><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></sub></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif"'>,
-</span></span><span class=var><span lang=EN-US>x</span></span><span
-class=T-CodeChar><sub><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></sub></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif"'>,…)
-</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>to compute the expressions successively and return the last
-result. For example:</span></span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US> </span></b></p>
-
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-=con.createStatement();</span></i></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs1 =
-st.executeQuery(&quot;=(pi=3.14,r=4,r*r*pi)&quot;)</span></i><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>;</span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The above code computes the area of a circle. The
-output result set is as follows: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=103 height=41
-src="Tutorial.files/image1413.jpg" v:shapes="图片_x0020_697"></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The parameters used in a statement will be called in a
-fixed format <b style='mso-bidi-font-weight:normal'>?1,?2,…</b> according to
-the order set for them in <b style='mso-bidi-font-weight:normal'>PreparedStatement</b>.
-For example: </span></p>
-
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>PreparedStatement pst
-= con.prepareStatement(</span></i><span lang=EN-US>&quot;=?1*?1*?2&quot;</span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>pst.setObject(1,3);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>pst.setObject(2,3.14);</span></i></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs =
-pst.executeQuery()</span></i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>;</span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The code computes the area of a circle with a radius
-of 3, and returns the following result set: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=89 height=41
-src="Tutorial.files/image1415.jpg" v:shapes="图片_x0020_698"></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The data set query statement starting with <b
-style='mso-bidi-font-weight:normal'>$</b> can be used with esProc JDBC. For
-example: </span></p>
-
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the data
-set query statement</span></i></p>
-
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-=con.createStatement();</span></i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'></span></p>
-
-<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs1 =
-st.executeQuery(&quot;$(demo) select * from CITIES where POPULATION &gt;
-2000000&quot;)</span></i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>;</span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Note that <b style='mso-bidi-font-weight:normal'>demo</b>
-data set used here needs to be configured as automatically connected. The
-result is as follows: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=398 height=106
-src="Tutorial.files/image1417.jpg" v:shapes="图片_x0020_699"></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc JDBC also supports executing a piece of cellset
-code with multiple lines and columns in one statement. To do this, compose the
-code into a string, with lines separated by <b style='mso-bidi-font-weight:
-normal'>\n</b> and columns of the same line separated by <b style='mso-bidi-font-weight:
-normal'>\t</b>. Note that the code string should be headed by == instead of =
-when we try to execute a block of cellset code of multiple rows and columns.
-For example: </span></p>
-
-<p class=TConfig style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;
-mso-char-indent-count:4.72'><span lang=EN-US>ResultSet rs =
-st.executeQuery(&quot;==demo.cursor(\&quot;select * from EMPLOYEE order by
-SALARY desc\&quot;)\t=[]\nfor A1;SALARY\n\t&gt;B1.insert(0,A2)\nreturn B1</span><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The execution of this string is equivalent to computing the
-following cellset: </span></p>
+lang=EN-US>An invoked cellset file can have no return value. Take the following
+cellset file &#8211; </span><span class=T-CodeChar><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>outputData1.splx</span></i></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'> </span></span><span
+lang=EN-US>&#8211; as an example: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
  .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=189 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -295,7 +50,250 @@ following cellset: </span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>A</span></p>
   </td>
-  <td width=236 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>$(demo)
+  select * from CITIES</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(Arg.pos(left(NAME,1))&gt;0)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;cities.txt&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US>4</span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.export@t(A2)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The file uses the parameter <b style='mso-bidi-font-weight:
+normal'>Arg</b>, of sequence string type:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=446 height=110
+src="Tutorial.files/image713.png" v:shapes="_x0000_i1802"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A1 directly calls the <b style='mso-bidi-font-weight:
+normal'>demo</b> database to query data, instead of first establishing a
+connection using <b style='mso-bidi-font-weight:normal'>connect</b> statement.
+In this case, the <b style='mso-bidi-font-weight:normal'>autoConnect</b>
+property of <b style='mso-bidi-font-weight:normal'>demo</b> data source in <i
+style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>’s database
+configuration should be <b style='mso-bidi-font-weight:normal'>true</b>:</span></p>
+
+<p class=TConfig style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;
+mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;autoConnect&quot; value=&quot;true&quot;/&gt;</span></i></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Refer to <i style='mso-bidi-font-style:normal'><a
+ href="jdbcbushu.html#Deploying_JDBC">Deploying JDBC</a></i><b style='mso-bidi-font-weight:
+normal'> </b>for detailed configuration. Here’s the code for calling the
+cellset file in Java:</span></p>
+
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// call the stored
+procedure; outputData1 is the name of the script file</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
+=con.prepareCall(&quot;call outputData1(?)&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// set the parameter</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>com.scudata.dm.Sequence
+seq = new com.scudata.dm.Sequence();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;A&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;B&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;C&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(1, seq);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the stored
+procedure</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult =
+st.execute();</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// cannot get the
+result set as there is no return result; hasResult is false</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Note</span></b><span
+lang=EN-US>: The cellset file uses a parameter of sequence type, which can only
+be set by generating a <b style='mso-bidi-font-weight:normal'>Sequence</b>
+object. As with this example, a sequence parameter </span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>[A,B,C]</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> is set for writing information of cities whose initials
+are A, B and C to the <i style='mso-bidi-font-style:normal'>cities.txt</i>
+file. If no path has been specified for storing the output file, store it in
+the main path, which is specified by</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>raqsoftC<span class=T-Bold><span
+style='font-weight:normal'>onfig.xml</span></span></span></i><span
+class=T-Bold><span lang=EN-US style='font-weight:normal'>’s</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>&lt;mainPath/</span></i></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif'>&gt;</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>node. The output file is as follows:</span></span><span
+lang=EN-US> <b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=337 height=203
+src="Tutorial.files/image714.png" v:shapes="_x0000_i1803"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A cellset file could return multiple result sets, like
+</span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>createTable3.splx
+</span></i></span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>shows:</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=265 valign=top style='width:7.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>A</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -306,7 +304,7 @@ following cellset: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -315,27 +313,27 @@ following cellset: </span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>* from EMPLOYEE order by SALARY
-  desc&quot;)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>$(demo)
+  select EID, NAME+' '+SURNAME FULLNAME, GENDER, STATE, BIRTHDAY from EMPLOYEE</span></p>
   </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[]</span></p>
+  text-indent:18.0pt;mso-char-indent-count:2.0;line-height:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -344,25 +342,26 @@ following cellset: </span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>for
-  A1;SALARY</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(STATE
+  == State &amp;&amp; Age(BIRTHDAY)&lt;age)</span></p>
   </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  text-indent:18.0pt;mso-char-indent-count:2.0;line-height:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -371,25 +370,25 @@ following cellset: </span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.select(GENDER==&quot;F&quot;)</span></p>
   </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;B1.insert(0,A2)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2\A3</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -398,66 +397,286 @@ following cellset: </span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>return
-  B1</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  A3</span></p>
   </td>
-  <td width=236 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  B3</span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Output the returned <b style='mso-bidi-font-weight:
-normal'>ResultSet</b> as follows: </span></p>
+21.0pt'><span lang=EN-US>This cellset returns the employees who are younger
+than the specified age and who, at the same time, come from the specified state
+as two table sequences according to genders. The cellset uses two parameters,
+respectively specifying the oldest age and the state from which the employees
+come from: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=446 height=129
+src="Tutorial.files/image715.png" v:shapes="_x0000_i1804"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>This cellset file will return multiple result sets
+when executed. </span></p>
+
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// call the stored
+procedure; createTable3 is the name of the script file and ? represents the
+parameter</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
+=con.prepareCall(&quot;call createTable3(?,?)&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// set the parameters
+in order</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(1, 30); </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(2,
+&quot;California&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the stored
+procedure</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult =
+st.execute();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// get the multiple
+result sets and print them out</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>while (hasResult) { </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs =
+st.getResultSet();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// print out the
+results</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSetMetaData
+rsmd = rs.getMetaData();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>int colCount =
+rsmd.getColumnCount();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>for ( int c = 1; c
+&lt;= colCount;c++) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String title =
+rsmd.getColumnName(c);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(title);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>while (rs.next()) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>for (int c = 1;
+c&lt;= colCount; c++) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+148.75pt;mso-char-indent-count:16.53'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+148.75pt;mso-char-indent-count:16.53'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Object o =
+rs.getObject(c);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(o.toString());</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.println();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// check if there are
+other return results </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>hasResult =
+st.getMoreResults();</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>When the code is executed, the female and male
+employees who are younger than 30 and who come from the state of California
+will be fetched respectively. Here’s the printed out result: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=781 height=277
-src="Tutorial.files/image1419.jpg" v:shapes="_x0000_i1804"></span></p>
+#0400'><img border=0 width=534 height=282
+src="Tutorial.files/image716.png" v:shapes="_x0000_i1805"></span></p>
 
-<p class=MsoNormalCxSpFirst style='margin-bottom:6.0pt;mso-add-space:auto;
-text-indent:21.0pt;mso-char-indent-count:2.0;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>We can also execute a simple SQL statement in a Java
-application to query a data file in the main directory. For example:</span></p>
-
-<p class=MsoNormalCxSpMiddle style='margin-bottom:6.0pt;mso-add-space:auto;
-text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>st
-=con.createStatement();</span></p>
-
-<p class=MsoNormalCxSpMiddle style='margin-bottom:6.0pt;mso-add-space:auto;
-text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>ResultSet
-rs = st.executeQuery(&quot;select * from cities.txt&quot;);</span></p>
-
-<p class=MsoNormalCxSpMiddle style='margin-bottom:6.0pt;mso-add-space:auto;
-text-indent:21.0pt;mso-char-indent-count:2.0;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The exported <b style='mso-bidi-font-weight:normal'>ResultSet</b>
-is like this:</span></p>
-
-<p class=MsoNormalCxSpLast style='margin-bottom:6.0pt;mso-add-space:auto;
-text-indent:21.0pt;mso-char-indent-count:2.0'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=532 height=225
-src="Tutorial.files/image1421.jpg" v:shapes="_x0000_i1805"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Similarly, we can perform a simple SQL statement within Java code
-when calling an esProc script. About simple SQL syntax, see <i
-style='mso-bidi-font-style:normal'><a  href="jiandansql.html#Simple_SQL">Simple SQL</a></i>. </span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>In the cellset file <b style='mso-bidi-font-weight:
+normal'>-</b> </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>createTable3.splx</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>,</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> a single</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+lang=EN-US>statement &#8211;<b style='mso-bidi-font-weight:normal'> return A3,B3</b>
+&#8211; can also be used to return </span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>two record
+sequences. Its invocation in Java is the same as the above.</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="164.html">Next</a></div>
@@ -465,17 +684,14 @@ style='mso-bidi-font-style:normal'><a  href="jiandansql.html#Simple_SQL">Simple 
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="159.html">6.2 Java Invocation</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="160.html">Java Invocation</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

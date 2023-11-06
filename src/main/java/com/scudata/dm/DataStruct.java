@@ -210,6 +210,14 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
+	 * 设置字段名称
+	 * @param fieldNames
+	 */
+	public void setFieldName(String[] fieldNames) {
+		this.fieldNames = fieldNames;
+	}
+	
+	/**
 	 * 返回字段数目
 	 * @return int
 	 */
@@ -402,8 +410,9 @@ public class DataStruct implements Externalizable, IRecord {
 		for (int i = 0, count = srcFields.length; i < count; ++i) {
 			int f = getFieldIndex(srcFields[i]);
 			if (f < 0) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(srcFields[i] + mm.getMessage("ds.fieldNotExist"));
+				continue; // 不存在时忽略，不再报错
+				//MessageManager mm = EngineMessage.get();
+				//throw new RQException(srcFields[i] + mm.getMessage("ds.fieldNotExist"));
 			}
 			
 			if (newFields[i] != null) {

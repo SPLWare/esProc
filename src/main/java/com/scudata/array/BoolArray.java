@@ -66,6 +66,10 @@ public class BoolArray implements IArray {
 		return signs;
 	}
 	
+	public void setSigns(boolean []signs) {
+		this.signs = signs;
+	}
+	
 	/**
 	 * 取数组的类型串，用于错误信息提示
 	 * @return 类型串
@@ -268,9 +272,28 @@ public class BoolArray implements IArray {
 						mm.getMessage("DataType.Boolean"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Boolean"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Boolean"), array.getDataType()));
+			ensureCapacity(size + size2);
+			boolean []datas = this.datas;
+			
+			for (int i = 1; i <= size2; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Boolean) {
+					datas[++size] = ((Boolean)obj).booleanValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Boolean"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -321,9 +344,28 @@ public class BoolArray implements IArray {
 						mm.getMessage("DataType.Boolean"), array.getDataType()));
 			}
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Boolean"), array.getDataType()));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Boolean"), array.getDataType()));
+			ensureCapacity(size + count);
+			boolean []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Boolean) {
+					datas[++size] = ((Boolean)obj).booleanValue();
+				} else if (obj == null) {
+					if (signs == null) {
+						signs = new boolean[datas.length];
+					}
+					
+					signs[++size] = true;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.Boolean"), Variant.getDataType(obj)));
+				}
+			}
 		}
 	}
 	
@@ -2226,7 +2268,7 @@ public class BoolArray implements IArray {
 		}
 	}
 	
-	BoolArray calcRelation(IntArray array, int relation) {
+	protected BoolArray calcRelation(IntArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -2236,7 +2278,7 @@ public class BoolArray implements IArray {
 		return calcRelation(array.getSigns(), relation);
 	}
 	
-	BoolArray calcRelation(LongArray array, int relation) {
+	protected BoolArray calcRelation(LongArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -2246,7 +2288,7 @@ public class BoolArray implements IArray {
 		return calcRelation(array.getSigns(), relation);
 	}
 	
-	BoolArray calcRelation(DoubleArray array, int relation) {
+	protected BoolArray calcRelation(DoubleArray array, int relation) {
 		if (relation != Relation.AND && relation != Relation.OR) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Variant2.illCompare", get(1), array.get(1),
@@ -4675,5 +4717,19 @@ public class BoolArray implements IArray {
 	public int bit1() {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	public boolean hasSigns() {
+		return signs != null;
 	}
 }

@@ -90,7 +90,7 @@ public class DateFormatFactory {
 		String key = locale + fmt;
 		DateFormat df = map.get(key);
 		if(df == null) {
-			df = new SimpleDateFormat(fmt, new Locale(locale));
+			df = new SimpleDateFormat(fmt, Locale.forLanguageTag(locale)); // new Locale(locale)
 			df.getCalendar().setLenient(false);
 			map.put(key, df);
 		}

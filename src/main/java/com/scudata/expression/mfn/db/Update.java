@@ -185,7 +185,7 @@ public class Update extends DBFunction {
 				}
 
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("update(...; " + pkName + ")" + mm.getMessage("function.invalidParam"));
+				throw new RQException(mm.getMessage("function.paramError", "update", mm.getMessage("mfn.dbUpdateKey")));
 			}
 
 			if (option != null && option.indexOf('1') != -1) {

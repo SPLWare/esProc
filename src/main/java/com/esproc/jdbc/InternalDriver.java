@@ -1,27 +1,35 @@
 package com.esproc.jdbc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.IOUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.Env;
+import com.scudata.dm.LocalFile;
 
 /**
  * esProc jdbc驱动类，实现了java.sql.Driver。 
  * URL参数如下: 
- * username=UserName用户名。
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
- * 
+ * compatiblesql=true/false。简单SQL现在以$开头，true时兼容不以$开头的。兼容一段时间后取消此选项。
  */
 public class InternalDriver implements java.sql.Driver, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -76,12 +84,13 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		if (!acceptsURL(url)) {
 			// The URL format is incorrect. Expected: {0}.
 			throw new SQLException(JDBCMessage.get().getMessage(
-					"jdbcdriver.incorrecturl", DEMO_URL));
+					"jdbcdriver.incorrecturl", getDemoUrl()));
 		}
 		Map<String, String> propMap = getPropertyMap(url, info);
-		String config = propMap.get(KEY_CONFIG);
+		String sconfig = propMap.get(KEY_CONFIG);
 		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
 		String sdebugmode = propMap.get(KEY_DEBUGMODE);
+		String scompatiblesql = propMap.get(KEY_COMPATIBLESQL);
 		boolean isOnlyServer = false;
 		if (StringUtils.isValidString(sonlyServer))
 			try {
@@ -90,6 +99,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				Logger.warn("Invalid onlyServer parameter: " + sonlyServer);
 			}
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
+
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
 			try {
@@ -98,9 +108,18 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			}
 		}
 		JDBCUtil.isDebugMode = isDebugMode;
-		Server server = Server.getInstance();
-		server.initConfig(rc, config);
-		InternalConnection con = server.connect(this);
+
+		boolean isCompatiblesql = false;
+		if (StringUtils.isValidString(scompatiblesql)) {
+			try {
+				isCompatiblesql = Boolean.valueOf(scompatiblesql);
+			} catch (Exception e) {
+			}
+		}
+		JDBCUtil.isCompatiblesql = isCompatiblesql;
+
+		initConfig(rc, sconfig);
+		InternalConnection con = newConnection();
 		if (con != null) {
 			con.setUrl(url);
 			con.setClientInfo(info);
@@ -122,18 +141,22 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		if (url == null) {
 			return false;
 		}
-		return url.toLowerCase().startsWith(ACCEPT_URL);
+		return url.toLowerCase().startsWith(getAcceptUrl());
 	}
 
 	/**
 	 * 可接受的URL
 	 */
-	private static final String ACCEPT_URL = "jdbc:esproc:local:";
+	protected String getAcceptUrl() {
+		return "jdbc:esproc:local:";
+	}
 
 	/**
-	 * 示例
+	 * 示例URL
 	 */
-	private static final String DEMO_URL = "jdbc:esproc:local://";
+	protected String getDemoUrl() {
+		return "jdbc:esproc:local://";
+	}
 
 	/**
 	 * Gets information about the possible properties for this driver.
@@ -206,12 +229,22 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		return null;
 	}
 
-	private Map<String, String> getPropertyMap(String url, Properties info) {
+	/**
+	 * 创建连接对象
+	 * @return
+	 * @throws SQLException
+	 */
+	protected InternalConnection newConnection() throws SQLException {
+		return new InternalConnection(this, config, hostNames);
+	}
+
+	protected Map<String, String> getPropertyMap(String url, Properties info) {
 		if (info == null)
 			info = new Properties();
 		String config = info.getProperty(KEY_CONFIG);
 		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
-		String sdebugmode = info.getProperty("debugmode");
+		String sdebugmode = info.getProperty(KEY_DEBUGMODE);
+		String scompatibleSql = info.getProperty(KEY_COMPATIBLESQL);
 		if (url != null) {
 			String[] parts = url.split("&");
 			for (int i = 0; i < parts.length; i++) {
@@ -221,6 +254,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 						KEY_ONLY_SERVER.toLowerCase() + "=");
 				int i3 = parts[i].toLowerCase().indexOf(
 						KEY_DEBUGMODE.toLowerCase() + "=");
+				int i4 = parts[i].toLowerCase().indexOf(
+						KEY_COMPATIBLESQL.toLowerCase() + "=");
 				if (i1 >= 0)
 					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
 				if (i2 >= 0)
@@ -229,13 +264,187 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (i3 >= 0)
 					sdebugmode = parts[i].substring(i3 + KEY_DEBUGMODE.length()
 							+ 1);
+				if (i4 >= 0)
+					scompatibleSql = parts[i].substring(i4
+							+ KEY_COMPATIBLESQL.length() + 1);
 			}
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put(KEY_CONFIG, config);
 		map.put(KEY_ONLY_SERVER, sonlyServer);
 		map.put(KEY_DEBUGMODE, sdebugmode);
+		map.put(KEY_COMPATIBLESQL, scompatibleSql);
 		return map;
+	}
+
+	/**
+	 * The host names
+	 */
+	protected List<String> hostNames = new ArrayList<String>();
+	/**
+	 * The RaqsoftConfig object
+	 */
+	protected RaqsoftConfig config = null;
+
+	/**
+	 * The default name of the configuration file
+	 */
+	private static final String CONFIG_FILE = "raqsoftConfig.xml";
+
+	protected String currentConfig = null;
+
+	/**
+	 * Initialize the configuration file
+	 * 
+	 * @param rc The RaqsoftConfig object
+	 * @throws SQLException
+	 */
+	protected synchronized void initConfig(RaqsoftConfig rc, String sconfig)
+			throws SQLException {
+		if (rc != null) {
+			this.config = rc;
+			try {
+				ConfigUtil.setConfig(Env.getApplication(),
+						System.getProperty("start.home"), config, true, false,
+						true);
+			} catch (Exception e) {
+				throw new SQLException(e);
+			}
+		} else {
+			loadConfig(sconfig);
+		}
+	}
+
+	/**
+	 * Load configuration file
+	 * 
+	 * @throws SQLException
+	 */
+	protected void loadConfig(String sconfig) throws SQLException {
+		if (config != null) {
+			if (StringUtils.isValidString(sconfig))
+				if (currentConfig == null
+						|| !currentConfig.equalsIgnoreCase(sconfig)) { // 通过API加载过了
+					Logger.info(JDBCMessage.get().getMessage(
+							"server.configloadonce"));
+				}
+			return;
+		}
+		InputStream is = null;
+		String fileName = sconfig;
+		try {
+			if (StringUtils.isValidString(sconfig)) {
+				LocalFile lf = new LocalFile(sconfig, "s");
+				is = lf.getInputStream();
+			} else {
+				is = findResource(CONFIG_FILE);
+				fileName = CONFIG_FILE;
+			}
+		} catch (Exception ex) {
+		}
+		if (is != null) {
+			try {
+				config = ConfigUtil.load(is, true, true);
+				currentConfig = sconfig;
+				Logger.info(JDBCMessage.get().getMessage("error.configloaded",
+						fileName));
+				Logger.debug("parallelNum=" + config.getParallelNum());
+			} catch (Exception e) {
+				String errorMessage = JDBCMessage.get().getMessage(
+						"error.loadconfigerror", fileName);
+				Logger.error(errorMessage);
+				e.printStackTrace();
+				throw new SQLException(errorMessage + " : " + e.getMessage(), e);
+			} finally {
+				if (is != null)
+					try {
+						is.close();
+					} catch (IOException e) {
+					}
+			}
+		} else {
+			String errorMessage = JDBCMessage.get().getMessage(
+					"error.confignotfound", fileName);
+			Logger.error(errorMessage);
+			if (StringUtils.isValidString(sconfig)) {
+				// URL指定的config加载出错时抛异常，默认加载类路径下的不抛异常
+				throw new SQLException(errorMessage);
+			}
+		}
+		hostNames = new ArrayList<String>();
+		if (config != null) {
+			List<String> units = config.getUnitList();
+			if (units != null && !units.isEmpty()) {
+				for (String unit : units)
+					hostNames.add(unit);
+			}
+			Properties sps = config.getServerProperties();
+			if (sps != null) {
+				String log = sps.getProperty("logConfig");
+				if (StringUtils.isValidString(log)) {
+					log = log.trim();
+					boolean loadLog = false;
+					LocalFile logFile = new LocalFile(log, "s");
+					InputStream lcis = logFile.getInputStream();
+					if (lcis != null) {
+						Properties p = new Properties();
+						try {
+							p.load(lcis);
+							Logger.setPropertyConfig(p);
+							loadLog = true;
+							lcis.close();
+						} catch (Exception e1) {
+						}
+					}
+					if (loadLog) {
+						Logger.debug("log properties loaded: " + log);
+					} else {
+						Logger.debug("log properties not loaded: " + log);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Get input stream by file name
+	 * 
+	 * @param fileName The file name
+	 * @return the input stream
+	 */
+	protected InputStream findResource(String fileName) {
+		InputStream in = null;
+		if (in == null) {
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			if (cl != null) {
+				try {
+					URL url = cl.getResource(fileName);
+					if (url != null) {
+						try {
+							in = url.openStream();
+							Logger.info("jdbc config from : " + url.toString());
+						} catch (Exception e) {
+						}
+					}
+				} catch (Exception e) {
+				}
+			}
+		}
+		if (in == null) {
+			try {
+				URL url = IOUtils.class.getResource(fileName);
+				if (url != null) {
+					try {
+						in = url.openStream();
+						Logger.info("raqsoftConfig.xml load from : "
+								+ url.toString());
+					} catch (Exception e) {
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
+		return in;
 	}
 
 	private static final String KEY_CONFIG = "config";
@@ -243,4 +452,6 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 
 	// 仅调试用
 	private static final String KEY_DEBUGMODE = "debugmode";
+	// 兼容之前简单SQL没有$开头时的用法
+	private static final String KEY_COMPATIBLESQL = "compatiblesql";
 }

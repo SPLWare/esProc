@@ -424,7 +424,11 @@ public class ObjectArray implements IArray {
 		ObjectArray result = new ObjectArray(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			result.push(datas[indexArray.getInt(i)]);
+			if (indexArray.isNull(i)) {
+				result.pushNull();
+			} else {
+				result.push(datas[indexArray.getInt(i)]);
+			}
 		}
 		
 		return result;
@@ -1196,7 +1200,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 	
-	IArray memberAdd(IntArray array) {
+	protected IArray memberAdd(IntArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		int []d2 = array.getDatas();
@@ -1250,7 +1254,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	IArray memberAdd(LongArray array) {
+	protected IArray memberAdd(LongArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		long []d2 = array.getDatas();
@@ -1304,7 +1308,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	IArray memberAdd(DoubleArray array) {
+	protected IArray memberAdd(DoubleArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		double []d2 = array.getDatas();
@@ -1354,7 +1358,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	ObjectArray memberAdd(StringArray array) {
+	protected ObjectArray memberAdd(StringArray array) {
 		int size = this.size;
 		Object []d1 = this.datas;
 		String []d2 = array.getDatas();
@@ -1705,7 +1709,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 
-	ObjectArray memberMultiply(IntArray array) {
+	protected ObjectArray memberMultiply(IntArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		int []d2 = array.getDatas();
@@ -1747,7 +1751,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 
-	ObjectArray memberMultiply(LongArray array) {
+	protected ObjectArray memberMultiply(LongArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		long []d2 = array.getDatas();
@@ -1789,7 +1793,7 @@ public class ObjectArray implements IArray {
 		return result;
 	}
 	
-	ObjectArray memberMultiply(DoubleArray array) {
+	protected ObjectArray memberMultiply(DoubleArray array) {
 		int size = this.size;
 		Object []datas = this.datas;
 		double []d2 = array.getDatas();
@@ -2841,25 +2845,19 @@ public class ObjectArray implements IArray {
 	 * @return
 	 */
 	public Object sum() {
-		Object []datas = this.datas;
 		int size = this.size;
-		Number sum = null;
-		int i = 1;
-
-		for (; i <= size; ++i) {
-			if (datas[i] instanceof Number) {
-				sum = (Number)datas[i];
-				break;
-			}
+		if (size < 1) {
+			return null;
 		}
-
-		for (++i; i <= size; ++i) {
-			if (datas[i] instanceof Number) {
-				sum = Variant.addNum(sum, (Number)datas[i]);
-			}
+		
+		Object []datas = this.datas;
+		Object result = datas[1];
+		
+		for (int i = 2; i <= size; ++i) {
+			result = Variant.add(result, datas[i]);
 		}
-
-		return sum;
+		
+		return result;
 	}
 	
 	/**
@@ -3094,7 +3092,7 @@ public class ObjectArray implements IArray {
 		}
 	}
 
-	void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
+	protected void calcRelations(ObjectArray array, int relation, BoolArray result, boolean isAnd) {
 		int size = this.size;
 		Object []d1 = this.datas;
 		Object []d2 = array.getDatas();
@@ -4109,5 +4107,22 @@ public class ObjectArray implements IArray {
 		}
 		
 		return sum;
+	}
+	
+	/**
+	 * 返回数组成员按位异或值的二进制表示时1的个数和
+	 * @param array 异或数组
+	 * @return 1的个数和
+	 */
+	public int bit1(IArray array) {
+		Object []datas = this.datas;
+		int size = this.size;
+		int count = 0;
+		
+		for (int i = 1; i <= size; ++i) {
+			count += Bit1.bitCount(datas[i], array.get(i));
+		}
+		
+		return count;
 	}
 }

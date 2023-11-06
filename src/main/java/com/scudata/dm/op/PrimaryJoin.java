@@ -301,41 +301,82 @@ public class PrimaryJoin extends Operation {
 		}
 
 		boolean isFirst = resultDs == null;
-		if (isFirst) {
-			if (srcNewExps == null || srcNewExps.length == 0) {
+		if (tableCount == 1) {
+			PrimaryJoinItem joinItem = joinItems[0];
+			Object []topValues = joinItem.getCurrentKeyValues();
+			if (topValues == null) {
 				return null;
 			}
 			
-			init(null, ctx);
-			calcRanks();
-		}
-		
-		if (minValues == null) {
-			return null;
-		}
-		
-		int srcRefCount = this.srcRefCount;
-		for (int f = 0; f < srcRefCount; ++f) {
-			resultValues[f] = null;
-		}
-			
-		int keyCount = srcKeyValues.length;
-		Object []resultValues = this.resultValues;
-		int []keySeqs = this.keySeqs;
-		
-		Table result = new Table(resultDs);
-		while (minValues != null) {
-			for (int f = 0; f < keyCount; ++f) {
-				if (keySeqs[f] != -1) {
-					resultValues[keySeqs[f]] = minValues[f];
+			if (isFirst) {
+				if (srcNewExps == null || srcNewExps.length == 0) {
+					return null;
 				}
+				
+				init(null, ctx);
 			}
 			
-			popTop(resultValues);
-			result.newLast(resultValues);
+			int srcRefCount = this.srcRefCount;
+			for (int f = 0; f < srcRefCount; ++f) {
+				resultValues[f] = null;
+			}
+			
+			int keyCount = srcKeyValues.length;
+			Object []resultValues = this.resultValues;
+			int []keySeqs = this.keySeqs;
+			int newSeq = newSeqs[0];
+			Table result = new Table(resultDs);
+			
+			do {
+				for (int f = 0; f < keyCount; ++f) {
+					if (keySeqs[f] != -1) {
+						resultValues[keySeqs[f]] = topValues[f];
+					}
+				}
+				
+				joinItem.popTop(resultValues, newSeq);
+				result.newLast(resultValues);
+				topValues = joinItem.getCurrentKeyValues();
+			} while (topValues != null);
+						
+			return result;
+		} else {
+			if (isFirst) {
+				if (srcNewExps == null || srcNewExps.length == 0) {
+					return null;
+				}
+				
+				init(null, ctx);
+				calcRanks();
+			}
+			
+			if (minValues == null) {
+				return null;
+			}
+			
+			int srcRefCount = this.srcRefCount;
+			for (int f = 0; f < srcRefCount; ++f) {
+				resultValues[f] = null;
+			}
+				
+			int keyCount = srcKeyValues.length;
+			Object []resultValues = this.resultValues;
+			int []keySeqs = this.keySeqs;
+			
+			Table result = new Table(resultDs);
+			while (minValues != null) {
+				for (int f = 0; f < keyCount; ++f) {
+					if (keySeqs[f] != -1) {
+						resultValues[keySeqs[f]] = minValues[f];
+					}
+				}
+				
+				popTop(resultValues);
+				result.newLast(resultValues);
+			}
+			
+			return result;
 		}
-		
-		return result;
 	}
 	
 	private Sequence fullJoin1(Sequence seq, Context ctx) {

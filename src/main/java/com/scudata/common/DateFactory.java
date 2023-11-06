@@ -65,8 +65,26 @@ public class DateFactory {
 
 	public Date weekBegin(Date date) {
 		Calendar gc = getCalendar();
+		gc.setFirstDayOfWeek(Calendar.SUNDAY);
 		gc.setTime(date);
-		gc.set(Calendar.DAY_OF_WEEK, gc.getActualMinimum(Calendar.DAY_OF_WEEK));
+		gc.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		gc.set(Calendar.HOUR_OF_DAY, 0);
+		gc.set(Calendar.MINUTE, 0);
+		gc.set(Calendar.SECOND, 0);
+		gc.set(Calendar.MILLISECOND, 0);
+		return new java.sql.Date(gc.getTimeInMillis());
+	}
+	
+	/**
+	 * 以周一为第一天
+	 * @param date
+	 * @return
+	 */
+	public Date weekBegin1(Date date) {
+		Calendar gc = getCalendar();
+		gc.setFirstDayOfWeek(Calendar.MONDAY);
+		gc.setTime(date);
+		gc.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		gc.set(Calendar.HOUR_OF_DAY, 0);
 		gc.set(Calendar.MINUTE, 0);
 		gc.set(Calendar.SECOND, 0);
@@ -76,14 +94,31 @@ public class DateFactory {
 
 	public Date weekEnd(Date date) {
 		Calendar gc = getCalendar();
+		gc.setFirstDayOfWeek(Calendar.SUNDAY);
 		gc.setTime(date);
-		gc.set(Calendar.DAY_OF_WEEK, gc.getActualMaximum(Calendar.DAY_OF_WEEK));
+		gc.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 		gc.set(Calendar.HOUR_OF_DAY, 0);
 		gc.set(Calendar.MINUTE, 0);
 		gc.set(Calendar.SECOND, 0);
 		gc.set(Calendar.MILLISECOND, 0);
 		return new java.sql.Date(gc.getTimeInMillis());
-
+	}
+	
+	/**
+	 * 以周一为第一天
+	 * @param date
+	 * @return
+	 */
+	public Date weekEnd1(Date date) {
+		Calendar gc = getCalendar();
+		gc.setFirstDayOfWeek(Calendar.MONDAY);
+		gc.setTime(date);
+		gc.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		gc.set(Calendar.HOUR_OF_DAY, 0);
+		gc.set(Calendar.MINUTE, 0);
+		gc.set(Calendar.SECOND, 0);
+		gc.set(Calendar.MILLISECOND, 0);
+		return new java.sql.Date(gc.getTimeInMillis());
 	}
 
 	/**

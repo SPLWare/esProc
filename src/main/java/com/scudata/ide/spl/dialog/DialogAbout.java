@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -500,9 +501,20 @@ public class DialogAbout extends JDialog {
 	void jBJDK_actionPerformed(ActionEvent e) {
 		DialogInputText dit = new DialogInputText(parent, false);
 		Properties p = System.getProperties();
-		String buf = p.toString();
-		buf = Sentence.replace(buf, ",", "\r\n", 0);
-		dit.setText(buf);
+		String str = p.toString();
+		try {
+			str = Sentence.replace(str, ",", "\n", 0);
+		} catch (Exception ex) {
+			StringBuffer buf = new StringBuffer();
+			Iterator it = p.keySet().iterator();
+			while (it.hasNext()) {
+				Object key = it.next();
+				buf.append(key + "=" + p.getProperty((String) key));
+				buf.append("\n");
+			}
+			str = buf.toString();
+		}
+		dit.setText(str);
 		dit.setVisible(true);
 	}
 

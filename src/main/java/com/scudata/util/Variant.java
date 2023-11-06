@@ -2055,6 +2055,25 @@ public class Variant {
 		return null;
 	}
 
+	public static Double parseDouble(String s) {
+		if (s.endsWith("%")) { // 5%
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s.
+					substring(0, s.length() - 1));
+				if (fd != null)return new Double(fd.doubleValue() / 100);
+			} catch (RuntimeException e) {
+			}
+		} else {
+			try {
+				FloatingDecimal fd = FloatingDecimal.readJavaFormatString(s);
+				if (fd != null) return new Double(fd.doubleValue());
+			} catch (RuntimeException e) {
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 将时间转为相应的时间值
 	 * @param text String
@@ -2255,7 +2274,7 @@ public class Variant {
 		return -result;
 	}
 
-	private static Integer parseInt(String s) {
+	public static Integer parseInt(String s) {
 		int result = 0;
 		boolean negative = false;
 		int i = 0, max = s.length();
@@ -2308,7 +2327,7 @@ public class Variant {
 		}
 	}
 
-	private static Long parseLong(String s) {
+	public static Long parseLong(String s) {
 		long result = 0;
 		boolean negative = false;
 		int i = 0, max = s.length();
@@ -3176,11 +3195,25 @@ public class Variant {
 			}
 		} else if (opt.indexOf('w') != -1) { // 周
 			int dayDiff = (int)dayInterval(date1, date2);
-			if (dayDiff == 0) return true;
-			int week2 = df.week(date1) + dayDiff;
+			if (dayDiff == 0) {
+				return true;
+			} else if (dayDiff > 6 || dayDiff < -6) {
+				return false;
+			}
 
-			// 周日属于下一周
-			return week2 >= Calendar.SUNDAY && week2 <= Calendar.SATURDAY;
+			if (opt.indexOf('1') == -1) {
+				// 周日是周的第一天
+				int week2 = df.week(date1) + dayDiff;
+				return week2 >= Calendar.SUNDAY && week2 <= Calendar.SATURDAY;
+			} else {
+				int week = df.week(date1);
+				if (week == Calendar.SUNDAY) {
+					return dayDiff < 0 && dayDiff > -7;
+				} else {
+					week += dayDiff;
+					return week >= Calendar.MONDAY && week <= Calendar.SATURDAY + 1;
+				}
+			}
 		} else {
 			return df.month(date1) == df.month(date2) && df.day(date1) == df.day(date2);
 		}

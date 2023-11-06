@@ -509,6 +509,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (!(GV.appMenu instanceof MenuSpl)) {
 			return;
 		}
+		// 当前页面没有激活时不设置
+		if (this != GV.appSheet) {
+			return;
+		}
 		try {
 			// Menu
 			MenuSpl md = (MenuSpl) GV.appMenu;
@@ -1618,7 +1622,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * 执行
 		 */
 		public void run() {
-			runState = RUN;
+			runState = new Byte(RUN);
 			resetRunState();
 			boolean isThreadDeath = false;
 			try {
@@ -1648,7 +1652,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (Throwable x) {
 				showException(x);
 			} finally {
-				runState = FINISH;
+				runState = new Byte(FINISH);
 				if (!isThreadDeath)
 					resetRunState(false, true);
 				GVSpl.panelSplWatch.watch();
@@ -1668,7 +1672,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * 继续执行
 		 */
 		public void continueRun() {
-			runState = RUN;
+			runState = new Byte(RUN);
 			resetRunState();
 			isPaused = Boolean.FALSE;
 		}
@@ -1695,7 +1699,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 执行的状态
 		 */
-		protected Byte runState = FINISH;
+		protected Byte runState = new Byte(FINISH);
 
 		/** 调试执行 */
 		static final byte DEBUG = 1;
@@ -1745,7 +1749,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * 执行
 		 */
 		public void run() {
-			runState = RUN;
+			runState = new Byte(RUN);
 			resetRunState();
 			boolean isThreadDeath = false;
 			boolean hasReturn = false;
@@ -1869,7 +1873,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (Throwable x) {
 				showException(x);
 			} finally {
-				runState = FINISH;
+				runState = new Byte(FINISH);
 				if (!isThreadDeath)
 					resetRunState(false, true);
 				GVSpl.panelSplWatch.watch();
@@ -1919,7 +1923,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 */
 		protected void stepFinish() {
 			isPaused = Boolean.TRUE;
-			runState = PAUSED;
+			runState = new Byte(PAUSED);
 			resetRunState(false, true);
 		}
 
@@ -1964,7 +1968,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * 暂停
 		 */
 		public void pause() {
-			runState = PAUSING;
+			runState = new Byte(PAUSING);
 			resetRunState(false, false);
 		}
 
@@ -2007,7 +2011,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * @param debugType 调试方式
 		 */
 		public void continueRun(byte debugType) {
-			runState = RUN;
+			runState = new Byte(RUN);
 			setDebugType(debugType);
 			resetRunState();
 			isPaused = Boolean.FALSE;
@@ -2213,12 +2217,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		byte runState = DebugThread.FINISH;
 		synchronized (threadLock) {
 			if (debugThread != null) {
-				synchronized (debugThread) {
-					isThreadNull = debugThread == null;
-					if (!isThreadNull) {
-						isDebugMode = debugThread.isDebugMode;
-						runState = debugThread.getRunState();
-					}
+				isThreadNull = debugThread == null;
+				if (!isThreadNull) {
+					isDebugMode = debugThread.isDebugMode;
+					runState = debugThread.getRunState();
 				}
 			} else {
 				isThreadNull = true;
@@ -2346,7 +2348,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 使用和关闭计算线程时需要使用此锁。
 	 */
-	private byte[] threadLock = new byte[0];
+	private Object threadLock = new Object();
 
 	/**
 	 * 关闭执行和调试线程
@@ -2364,6 +2366,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param enabled
 	 */
 	private void setMenuToolEnabled(short[] ids, boolean enabled) {
+		// 当前页面没有激活时不设置
+		if (this != GV.appSheet) {
+			return;
+		}
 		MenuSpl md = (MenuSpl) GV.appMenu;
 		for (int i = 0; i < ids.length; i++) {
 			md.setMenuEnabled(ids[i], enabled);
@@ -2410,33 +2416,31 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			public void run() {
 				synchronized (threadLock) {
 					if (debugThread != null) {
-						synchronized (debugThread) {
-							if (debugThread != null) {
-								debugThread.pause();
-							}
-							if (debugThread != null
-									&& debugThread.getRunState() != DebugThread.FINISH) {
-								if (tg != null) {
-									try {
+						if (debugThread != null) {
+							debugThread.pause();
+						}
+						if (debugThread != null
+								&& debugThread.getRunState() != DebugThread.FINISH) {
+							if (tg != null) {
+								try {
+									if (tg != null)
+										tg.interrupt();
+								} catch (Throwable t) {
+								}
+								try {
+									if (tg != null) {
+										int nthreads = tg.activeCount();
+										Thread[] threads = new Thread[nthreads];
 										if (tg != null)
-											tg.interrupt();
-									} catch (Throwable t) {
-									}
-									try {
-										if (tg != null) {
-											int nthreads = tg.activeCount();
-											Thread[] threads = new Thread[nthreads];
-											if (tg != null)
-												tg.enumerate(threads);
-											for (int i = 0; i < nthreads; i++) {
-												try {
-													threads[i].stop();
-												} catch (Throwable t1) {
-												}
+											tg.enumerate(threads);
+										for (int i = 0; i < nthreads; i++) {
+											try {
+												threads[i].stop();
+											} catch (Throwable t1) {
 											}
 										}
-									} catch (Throwable t) {
 									}
+								} catch (Throwable t) {
 								}
 							}
 						}
@@ -3454,7 +3458,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					sheet.splControl.repaint();
 					GV.appFrame.changeMenuAndToolBar(
 							((SPL) GV.appFrame).newMenuSpl(),
-							GVSpl.getSplTool());
+							((SPL) GV.appFrame).newToolBarSpl());
 
 					GV.appMenu.addLiveMenu(sheet.getSheetTitle());
 					GV.appMenu.resetPrivilegeMenu();

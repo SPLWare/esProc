@@ -224,7 +224,32 @@ public class ColumnMetaData {
 	}
 	
 	public void copyColBlock(BlockLinkReader colReader, ObjectReader segmentReader) throws IOException {
-		long pos = colWriter.copyDataBlock(colReader);
+		byte[] data = colReader.readDataBlock0();
+		long pos = colWriter.writeDataBlock0(data);
+		
+		segmentReader.readLong40();
+		objectWriter.writeLong40(pos);
+		if (hasMaxMinValues()) {
+			objectWriter.writeObject(segmentReader.readObject());
+			objectWriter.writeObject(segmentReader.readObject());
+			objectWriter.writeObject(segmentReader.readObject());
+		}
+	}
+	
+	public void copyColBlock(BlockLinkReader colReader, ObjectReader segmentReader, 
+			BufferWriter bufferWriter,byte[] dict) throws IOException {
+		byte[] data = colReader.readDataBlock();
+		if (data[0] == DataBlockType.DICT && data[1] == DataBlockType.DICT_PUBLIC) {
+			int len = data.length - 2;
+			bufferWriter.reset();
+			bufferWriter.write(DataBlockType.DICT);
+			bufferWriter.write(DataBlockType.DICT_PRIVATE);
+			bufferWriter.write(dict);
+			bufferWriter.write(data, 2, len);
+			data = bufferWriter.finish();
+		}
+		
+		long pos = colWriter.writeDataBlock(data);
 		
 		segmentReader.readLong40();
 		objectWriter.writeLong40(pos);

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>cs.groupx()</title>
+<title>T.group( x:F,…;y:G,… )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,458 +13,504 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:"_hbase_close\(\)"'><a name="cs_groupx_x"></a><span
-lang=EN-US>cs.groupx()<a name="cs_groupx2"></a></span></span><span
-style='mso-bookmark:"_hbase_close\(\)"'></span><span
-style='mso-bookmark:"_hbase_close\(\)"'></span></h3></div>
-	<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
+	<div id="centent-title"><h3 align=left style='text-align:left;tab-stops:-179.95pt'><span lang=EN-US>T.group(<i>x:F,…;y:G,…</i>)<a
+name="T_group_xF_yG_pseudo_table"></a></span></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm;mso-layout-grid-align:none;text-autospace:none'><span
-style='mso-bookmark:"_hbase_close\(\)"'><span lang=EN-US>Group records in a cluster
-cursor and return a synchronously segmented cursor.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Group a pseudo table by comparing each record with its next
+neighbor, perform aggregation over each group, and return a new pseudo table.</span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=270 valign=top style='width:162.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>cs</span></i><span
-  lang=EN-US>.<b style='mso-bidi-font-weight:normal'>groupx</b>(<i
-  style='mso-bidi-font-style:normal'>x:F,…;y:G…;n</i>)<i style='mso-bidi-font-style:
-  normal'></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><a
+name="_Hlt138941797"></a><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>T.</span></i><span class=code><span lang=EN-US style='font-family:
+"Times New Roman",serif;mso-fareast-font-family:宋体'>group</span></span><span
+lang=EN-US>(<i style='mso-bidi-font-style:normal'>x</i>:<i style='mso-bidi-font-style:
+normal'>F,...</i>;<i style='mso-bidi-font-style:normal'>y</i>:<i
+style='mso-bidi-font-style:normal'>G,</i>…)<span style='mso-tab-count:1'>&nbsp; </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:0cm;mso-layout-grid-align:
-none;text-autospace:none'><span style='mso-bookmark:"_hbase_close\(\)"'><span
-lang=EN-US>The function groups records in cluster cursor <i style='mso-bidi-font-style:
-normal'>cs<sub> </sub></i>by grouping expression </span></span><span
-style='mso-bookmark:"_hbase_close\(\)"'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>x</span></i><span
-lang=EN-US> to create a new cluster cursor consisting of fields </span></span><span
-style='mso-bookmark:"_hbase_close\(\)"'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>F</span><span
-lang=EN-US>,...</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体'>G</span><span lang=EN-US>,… </span></i><span
-lang=EN-US>sorted by the grouping field </span></span><span style='mso-bookmark:
-"_hbase_close\(\)"'><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>x</span></i><span
-lang=EN-US>. </span></span><span style='mso-bookmark:"_hbase_close\(\)"'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体'>G</span></i><span lang=EN-US> field gets
-values</span></span><span style='mso-bookmark:"_hbase_close\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'> </span><span
-lang=EN-US>by computing <i style='mso-bidi-font-style:normal'>y</i> &#8211; the
-aggregate function with which records of <i>cs</i><i style='mso-bidi-font-style:
-normal'> </i>is aggregated &#8211; on each group. </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-style:italic'>The function groups records in
+pseudo table <i>T</i> according to expression <i>x</i>, by which <i>T</i> is
+ordered and whose values are only compared with their neighbors while aggregate
+expression </span><i style='mso-bidi-font-style:normal'><span lang=EN-US>y</span></i><span
+lang=EN-US style='mso-bidi-font-style:italic'> is calculated, and returns a
+pseudo table having fields </span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>F</span></i><span
+lang=EN-US>,...</span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'> G</span></i><span
+lang=EN-US>,….<span style='mso-bidi-font-style:italic'> The result set won’t be
+sorted again. </span>Values of <i style='mso-bidi-font-style:normal'>G</i>
+field are results of computing aggregate function <i style='mso-bidi-font-style:
+normal'>y</i> over each group.</span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-18.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>cs</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>T</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>A cluster cursor</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A pseudo table</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>x</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Grouping expression</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Grouping expression</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>F</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>F</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Resulting field name</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>y</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>G</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>An aggregate function on <i>cs</i>, which only supports <i
-  style='mso-bidi-font-style:normal'>sum/count/max/min/top/avg/iterate</i>; when
-  the function works with iterate(</span></span><span style='mso-bookmark:"_hbase_close\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>x,a;G<sub>i</sub>,…</span></i><span lang=EN-US>) function, the latter’s
-  parameter </span></span><span style='mso-bookmark:"_hbase_close\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>Gi </span></i><span lang=EN-US>should be omitted</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Aggregation field name</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>G</span></i></span><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>y</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Aggregate field name</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Aggregate expression</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><i><span
-  lang=EN-US>n</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Number of buffer rows; if the number of groups reaches n, write
-  the grouping result to a temporary file; its value is n times of the default,
-  which is automatically calculated, if n&lt;1</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Option:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_hbase_close\(\)"'><span
-lang=EN-US>A cluster cursor</span></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-18.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@s</span></b></p>
+  </td>
+  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Cumulative aggregation</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@q(x:F,…;x’:F’,…;…)</span></b></p>
+  </td>
+  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Used when parameter </span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US> is
+  ordered by <i>x,…</i> and only fields after it need to be sorted; support
+  in-memory sorting</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@sq(x:F,…;x’:F’,…;…)</span></b></p>
+  </td>
+  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Only sort without grouping when
+  parameters <i style='mso-bidi-font-style:normal'>y</i>:<i style='mso-bidi-font-style:
+  normal'>G </i><span style='mso-bidi-font-style:italic'>are absent, and
+  perform cumulative aggregation when the parameters are present; @s works only
+  when @q option is present</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@e</span></b></p>
+  </td>
+  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Return a pseudo table consisting of
+  results of expression y; grouping expression <i>x</i> is a field of </span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US>
+  and <i>y</i> is function on </span><i><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'>T</span></i><span lang=EN-US>; the result of computing <i>y</i> must
+  be one record of </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span
+  lang=EN-US>; and <i>y</i> only supports maxp, minp and top@1 functions when
+  it is an aggregate expressio</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-lang=EN-US>&nbsp;</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Pseudo table</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:7.2pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:7.2pt'><span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=572 valign=top style='width:428.85pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>A</span></b></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'><span
-  style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:1;height:7.2pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>1</span></b></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>[192.168.31.72:8281,
-  192.168.31.72:8291]</span></b></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;scores-g.ctx&quot;])
+  </span></b></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'><span
-  style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>&nbsp;</span></span></p>
+  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><i><span lang=EN-US>scores-g.ctx</span></i><span
+  lang=EN-US> is a composite table file ordered by STUDENTID; its content is as
+  follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=293 height=413
+  src="Function_Reference.files/image775.jpg" v:shapes="_x0000_i1592"></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:2;height:20.8pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>2</span></b></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;orderpart.ctx&quot;:[1],
-  A1)</span></b></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Open a cluster file<b style='mso-bidi-font-weight:normal'></b></span></span></p>
+  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table from composite
+  table A1</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:3;height:15.0pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>3</span></b></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2. open ()</span></b></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group(STUDENTID:StudentID;~.sum(SCORE):TotalScore)</span></b></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Open a
-  cluster composite table</span></span></p>
+  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Group pseudo table A2 by STUDENTID and
+  compute total SCORE values in each group</span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:4;height:20.8pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>4</span></b></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>4</span></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor()</span></b></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.import()</span></b></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Return a cluster cursor</span></span><span style='mso-bookmark:
-  "_hbase_close\(\)"'><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'></span></span></p>
+  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Below is content of the pseudo table
+  returned by A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=172 height=108
+  src="Function_Reference.files/image777.jpg" v:shapes="_x0000_i1593"></span></p>
   </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:5;height:17.95pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>5</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.groupx(EID:ID;count(~):IdCount)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Group
-  A7 and perform count by EID, and return a cluster cursor</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:21.0pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:21.0pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>6</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:21.0pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.fetch()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:21.0pt'><span
-  style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:23.1pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:23.1pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>7</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:23.1pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:23.1pt'><span
-  style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:23.1pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:23.1pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>8</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:23.1pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A7.groupx(if(EID==4,1,2):ID;count(~):IdCount)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:23.1pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=EN-US>Put records where EID is 4 into the first group and others into
-  the second group, and then count the EID values</span></span><span
-  style='mso-bookmark:"_hbase_close\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:17.45pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>9</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A8.fetch()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.45pt'><span
-  style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes;height:17.45pt'>
-  <td width=27 valign=top style='width:15.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_hbase_close\(\)"'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>10</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=401 valign=top style='width:240.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A7.groupx(if(EID&lt;=10):ID;count(~):IdCount;2)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
-  <td width=303 valign=top style='width:181.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Since
-  the number of groups reaches 2, write the grouping result to a temporary file</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_hbase_close\(\)"'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:"_hbase_close\(\)"'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;emp-g.ctx&quot;])
+  </span></b></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><i><span lang=EN-US>emp-g.ctx</span></i><span lang=EN-US>
+  is a composite table file ordered by DEPT; its content is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=294 height=296
+  src="Function_Reference.files/image779.jpg" v:shapes="_x0000_i1594"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table from composite
+  table A1</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@q(DEPT;GENDER)</span></b></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>As the pseudo table is already ordered by
+  DEPT, the function only sorts by GENDER during grouping; below is content of
+  the returned pseudo table:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=294 height=224
+  src="Function_Reference.files/image781.jpg" v:shapes="_x0000_i1595"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>4</span></span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@qs(DEPT:DEPT;GENDER:GENDER)</span></b></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Only sort records without grouping since
+  parameters <i>y:G</i> are absent; below is content of the returned pseudo
+  table:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=294 height=316
+  src="Function_Reference.files/image783.jpg" v:shapes="_x0000_i1596"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>5</span></span></p>
+  </td>
+  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@qs(DEPT:DEPT;GENDER:GENDER;count(GENDER):count)</span></b></p>
+  </td>
+  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Perform cumulative aggregation as
+  parameters <i>y:G</i> are present; below is content of the returned pseudo
+  table:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=234 height=364
+  src="Function_Reference.files/image785.jpg" v:shapes="图片_x0020_16"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>With @e option,
+return a pseudo table consisting of results of expression <i>y:</i></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=321 valign=top style='width:240.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
+  </td>
+  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
+  </td>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;emp-g.ctx&quot;])
+  </span></b></p>
+  </td>
+  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Below is content of composite table <i>emp-g.ctx</i>:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=289 height=279
+  src="Function_Reference.files/image787.jpg" v:shapes="_x0000_i1598"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
+  </td>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></p>
+  </td>
+  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table from composite
+  table A1</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
+  </td>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@e(DEPT;~.minp(SALARY))</span></b></p>
+  </td>
+  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use @e option to return a pseudo table
+  consisting of result records of computing minp(SALARY)</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=289 height=170
+  src="Function_Reference.files/image789.jpg" v:shapes="_x0000_i1599"></span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="383.html">Next</a></div>
@@ -472,17 +518,14 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</sp
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="379.html">groupx()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="373.html">group()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

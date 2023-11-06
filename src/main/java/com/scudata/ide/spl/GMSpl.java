@@ -760,60 +760,30 @@ public class GMSpl extends GM {
 		return map;
 	}
 
-	/** 属性名 */
-	public static final String TITLE_NAME = IdeSplMessage.get().getMessage(
-			"jtablevalue.name");
-	/** 属性值 */
-	public static final String TITLE_PROP = IdeSplMessage.get().getMessage(
-			"jtablevalue.property");
-	/** 数据源名称 */
-	private static final String DB_NAME = IdeSplMessage.get().getMessage(
-			"jtablevalue.dbname");
-	/** 用户名 */
-	private static final String USER = IdeSplMessage.get().getMessage(
-			"jtablevalue.user");
-	/** 密码 */
-	private static final String PASSWORD = IdeSplMessage.get().getMessage(
-			"jtablevalue.password");
-	/** 数据库类型 */
-	private static final String DB_TYPE = IdeSplMessage.get().getMessage(
-			"jtablevalue.dbtype");
-	/** 驱动程序 */
-	private static final String DRIVER = IdeSplMessage.get().getMessage(
-			"jtablevalue.driver");
-	/** 数据源URL */
-	private static final String URL = IdeSplMessage.get().getMessage(
-			"jtablevalue.url");
-	/** 对象名带模式 */
-	private static final String USE_SCHEMA = IdeSplMessage.get().getMessage(
-			"jtablevalue.useschema");
-	/** 对象名带限定符 */
-	private static final String ADD_TILDE = IdeSplMessage.get().getMessage(
-			"jtablevalue.addtilde");
-
 	public static Table getDBTable(DBObject dbo) {
-		Table dbTable = new Table(new String[] { TITLE_NAME, TITLE_PROP });
+		Table dbTable = new Table(new String[] { GCSpl.TITLE_NAME,
+				GCSpl.TITLE_PROP });
 		if (dbo == null)
 			return dbTable;
 		DBInfo info = dbo.getDbSession().getInfo();
 		if (info == null) {
 			return dbTable;
 		}
-		dbTable.newLast(new Object[] { DB_NAME, info.getName() });
+		dbTable.newLast(new Object[] { GCSpl.DB_NAME, info.getName() });
 		if (info instanceof DBConfig) {
 			int type = info.getDBType();
-			dbTable.newLast(new Object[] { DB_TYPE,
+			dbTable.newLast(new Object[] { GCSpl.DB_TYPE,
 					DBTypeEx.getDBTypeName(type) });
 
 			DBConfig dc = (DBConfig) info;
-			dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
-			dbTable.newLast(new Object[] { URL, dc.getUrl() });
-			dbTable.newLast(new Object[] { USER, dc.getUser() });
+			dbTable.newLast(new Object[] { GCSpl.DRIVER, dc.getDriver() });
+			dbTable.newLast(new Object[] { GCSpl.URL, dc.getUrl() });
+			dbTable.newLast(new Object[] { GCSpl.USER, dc.getUser() });
 			String pwd = dc.getPassword();
-			dbTable.newLast(new Object[] { PASSWORD, pwd });
-			dbTable.newLast(new Object[] { USE_SCHEMA,
+			dbTable.newLast(new Object[] { GCSpl.PASSWORD, pwd });
+			dbTable.newLast(new Object[] { GCSpl.USE_SCHEMA,
 					Boolean.toString(dc.isUseSchema()) });
-			dbTable.newLast(new Object[] { ADD_TILDE,
+			dbTable.newLast(new Object[] { GCSpl.ADD_TILDE,
 					Boolean.toString(dc.isAddTilde()) });
 		}
 		return dbTable;
@@ -829,6 +799,21 @@ public class GMSpl extends GM {
 			Area toArea) {
 		CellRect fromRect = new CellRect(fromArea);
 		CellRect toRect = new CellRect(toArea);
+
+		int toEndRow = toRect.getEndRow();
+		int toEndCol = toRect.getEndCol();
+
+		int rowCount = cellSet.getRowCount();
+		int colCount = cellSet.getColCount();
+
+		if (toEndRow > rowCount) {
+			cellSet.addRow(toEndRow - rowCount);
+		}
+
+		if (toEndCol > colCount) {
+			cellSet.addCol(toEndCol - colCount);
+		}
+
 		Matrix fromData = GMSpl.getMatrixCells(cellSet, fromRect);
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
 		NormalCell nc;

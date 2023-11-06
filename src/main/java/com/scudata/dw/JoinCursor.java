@@ -2254,7 +2254,14 @@ public class JoinCursor extends ICursor {
 			} else {
 				node.setDotLeftObject(tempTable);
 			}
-			record.setNormalFieldValue(i, node.calculate(ctx));
+			//record.setNormalFieldValue(i, node.calculate(ctx));
+			ComputeStack stack = ctx.getComputeStack();
+			try {
+				stack.push(r);
+				record.setNormalFieldValue(i, node.calculate(ctx));
+			} finally {
+				stack.pop();
+			}
 		}
 	
 		tempTable.clear();

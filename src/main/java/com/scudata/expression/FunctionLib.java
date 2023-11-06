@@ -313,6 +313,8 @@ public final class FunctionLib {
 		addMemberFunction("id", "com.scudata.expression.mfn.cursor.Id");
 		addMemberFunction("id", "com.scudata.expression.mfn.channel.Id");
 		addMemberFunction("sum", "com.scudata.expression.mfn.sequence.Sum");
+		addMemberFunction("cumulate", "com.scudata.expression.mfn.sequence.Cumulate");
+		addMemberFunction("proportion", "com.scudata.expression.mfn.sequence.Proportion");
 		addMemberFunction("icount", "com.scudata.expression.mfn.sequence.ICount");
 		addMemberFunction("mode", "com.scudata.expression.mfn.sequence.Mode");
 		addMemberFunction("avg", "com.scudata.expression.mfn.sequence.Avg");
@@ -348,6 +350,7 @@ public final class FunctionLib {
 		addMemberFunction("select", "com.scudata.expression.mfn.sequence.Select");
 		addMemberFunction("select", "com.scudata.expression.mfn.op.AttachSelect");
 		addMemberFunction("sort", "com.scudata.expression.mfn.sequence.Sort");
+		addMemberFunction("sortx", "com.scudata.expression.mfn.sequence.Sortx");
 		addMemberFunction("rvs", "com.scudata.expression.mfn.sequence.Rvs");
 		addMemberFunction("swap", "com.scudata.expression.mfn.sequence.Swap");
 		addMemberFunction("shift", "com.scudata.expression.mfn.sequence.Shift");
@@ -532,6 +535,7 @@ public final class FunctionLib {
 		addMemberFunction("fjoin", "com.scudata.expression.mfn.op.AttachFJoin");
 		addMemberFunction("pjoin", "com.scudata.expression.mfn.sequence.PJoin");
 		addMemberFunction("pjoin", "com.scudata.expression.mfn.op.AttachPJoin");
+		addMemberFunction("mjoin", "com.scudata.expression.mfn.sequence.MJoin");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.cursor.Joinx");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.sequence.Joinx");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.channel.Joinx");
@@ -712,6 +716,7 @@ public final class FunctionLib {
 		addFunction("iftime", "com.scudata.expression.fn.convert.IfTime");
 		addFunction("ifnumber", "com.scudata.expression.fn.convert.IfNumber");
 		addFunction("ifstring", "com.scudata.expression.fn.convert.IfString");
+		addFunction("typeof", "com.scudata.expression.fn.convert.Typeof");
 		addFunction("isalpha", "com.scudata.expression.fn.convert.IsAlpha");
 		addFunction("isdigit", "com.scudata.expression.fn.convert.IsDigit");
 		addFunction("islower", "com.scudata.expression.fn.convert.IsLower");

@@ -563,7 +563,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				sb.append(buf);
 				sb.append("\r\n");
 
-				if (unitServer != null) {
+				if (unitServer != null && unitServer.getUnitContext()!=null) {
 					sb.append("\r\nLog file path:\r\n");
 					sb.append("	");
 					sb.append(unitServer.getUnitContext().getLogFile());
@@ -824,8 +824,12 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		console.clear();
 	}
 
-	// -b black 黑界面，即启动无图形界面
-	public static void main(String[] args) {
+	/**
+	 * 供企业版调用
+	 * @param args
+	 * @return [host,port,isGraph]
+	 */
+	public static Object[] prepareArgs(String[] args) {
 		initLang();
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2",
 				UnitServer.getHome()));
@@ -861,7 +865,15 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				specifyPort = Integer.parseInt(buf.substring(index + 1).trim());
 			}
 		}
-
+		return new Object[] {specifyHost,specifyPort,isGraph};
+	}
+	
+	// -b black 黑界面，即启动无图形界面
+	public static void main(String[] args) {
+		Object[] obj = prepareArgs(args);
+		String specifyHost = (String)obj[0];
+		int specifyPort = ((Integer)obj[1]).intValue();
+		boolean isGraph = ((Boolean)obj[2]).booleanValue();
 		if (isGraph) {
 			ServerConsole.setDefaultLNF();
 			try {

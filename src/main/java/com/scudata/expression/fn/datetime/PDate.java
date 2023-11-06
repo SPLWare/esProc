@@ -46,9 +46,17 @@ public class PDate extends Function {
 		if (option != null) {
 			if (option.indexOf('w') != -1) {
 				if (option.indexOf('e') == -1) {
-					return DateFactory.get().weekBegin(date);
+					if (option.indexOf('1') == -1) {
+						return DateFactory.get().weekBegin(date);
+					} else {
+						return DateFactory.get().weekBegin1(date);
+					}
 				} else {
-					return DateFactory.get().weekEnd(date);
+					if (option.indexOf('1') == -1) {
+						return DateFactory.get().weekEnd(date);
+					} else {
+						return DateFactory.get().weekEnd1(date);
+					}
 				}
 			} else if (option.indexOf('m') != -1) {
 				if (option.indexOf('e') == -1) {
