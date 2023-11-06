@@ -54,7 +54,7 @@ public final class Tokenizer {
 		"HAVING",
 		"IN","INNER","INSERT","INTERSECT","IS","INTO",
 		"JOIN",
-		"LIKE","LEFT","LIMIT",
+		"LIKE","LEFT","LIMIT","RIGHT",
 		"MINUS",
 		"NOT","NULL",
 		"OFFSET","OLAP","ON","ONLY","OR","ORDER","OUTER",

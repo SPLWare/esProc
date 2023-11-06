@@ -3608,7 +3608,8 @@ public class SimpleSelect
 				{
 					tableName = tableName + tokens[pos].getOriginString();
 					//xingjl 20230323 from D://test/1集算器/emps.txt，去掉1后面空格 
-					//tableName = tableName + tokens[pos].getSpaces();
+					//       20231106 去掉影响表别名，优先支持表别名，以数字开头的文件夹暂不支持。
+					tableName = tableName + tokens[pos].getSpaces();
 					pos++;
 				}
 				tableName = tableName.trim();
@@ -4720,6 +4721,11 @@ public class SimpleSelect
 				i = end;
 			}
 			else if (token.isKeyWord("LEFT") && i+1 != next && tokens[i+1].getType() == Tokenizer.LPAREN) 
+			{
+				token.setType(Tokenizer.IDENT);
+				i = i - 1;
+			}
+			else if (token.isKeyWord("RIGHT") && i+1 != next && tokens[i+1].getType() == Tokenizer.LPAREN) 
 			{
 				token.setType(Tokenizer.IDENT);
 				i = i - 1;
