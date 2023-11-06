@@ -26,7 +26,8 @@ public class PureBufferReader extends BufferReader {
 	private int dataType;//数据类型（只有字典块类型时才有意义）
 	private Sequence dict;
 	private int[] pos;
-	private Object constValue;
+	private Object constValue;//  (递增块时是first value)
+	private int step;//递增块step
 	private boolean[] isNull;
 	private int dataIndex = 0;//用于维护isNull
 	
@@ -114,6 +115,15 @@ public class PureBufferReader extends BufferReader {
 					pos[i] = buffer[index++];
 				}
 				this.pos = pos;
+				return;
+			case DataBlockType.INC_BLOCK:
+				constValue = super.readObject();
+				step = super.readInt();
+				if (constValue instanceof Integer) {
+					dataType = DataBlockType.INT;
+				} else {
+					dataType = DataBlockType.LONG;
+				}
 				return;
 			case DataBlockType.INT:
 			case DataBlockType.LONG:
@@ -281,6 +291,16 @@ public class PureBufferReader extends BufferReader {
 		case DataBlockType.DICT:
 			dataIndex++;
 			return dict.get(pos[dataIndex]);
+		case DataBlockType.INC_BLOCK:
+			if (this.dataType == DataBlockType.INT) {
+				int value = (Integer)constValue + dataIndex * step;
+				dataIndex++;
+				return value;
+			} else {
+				long value = (Long)constValue + dataIndex * step;
+				dataIndex++;
+				return value;
+			}
 		case DataBlockType.INT:
 		case DataBlockType.LONG:
 		case DataBlockType.DOUBLE:
@@ -335,6 +355,7 @@ public class PureBufferReader extends BufferReader {
 				index += len;
 			}
 			return;
+		case DataBlockType.INC_BLOCK:
 		case DataBlockType.DICT:
 			dataIndex++;
 			return;
@@ -476,6 +497,17 @@ public class PureBufferReader extends BufferReader {
 			dataIndex++;
 			array.set(index, dict.get(pos[dataIndex]));
 			return;
+		case DataBlockType.INC_BLOCK:
+			if (this.dataType == DataBlockType.INT) {
+				int value = (Integer)constValue + dataIndex * step;
+				dataIndex++;
+				array.set(index, value);
+			} else {
+				long value = (Long)constValue + dataIndex * step;
+				dataIndex++;
+				array.set(index, value);
+			}
+			return;
 		case DataBlockType.INT:
 			if (super.isNull()) {
 				super.readObject();
@@ -542,6 +574,8 @@ public class PureBufferReader extends BufferReader {
 			return new StringArray(count);
 		case DataBlockType.DATE:
 			return new DateArray(count);
+		case DataBlockType.INC_BLOCK:
+			return getArray(this.dataType, count);
 		case DataBlockType.DICT:
 		default:
 			throw new RuntimeException();
