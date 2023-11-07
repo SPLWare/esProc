@@ -35,14 +35,6 @@ public class Output extends Function {
 	}
 
 	public Object calculate(Context ctx) {
-		boolean isInfo = false, isError = false, isTime = false, isLF = true;
-		if (option != null) {
-			if (option.indexOf('t') != -1) isTime = true;
-			if (option.indexOf('g') != -1) isInfo = true;
-			if (option.indexOf('e') != -1) isError = true;
-			if (option.indexOf('s') != -1) isLF = false;
-		}
-		
 		Expression []exps = getParamExpressions("output", false);
 		String msg = null;
 		for (int i = 0, size = exps.length; i < size; ++i) {
@@ -54,21 +46,38 @@ public class Output extends Function {
 			}
 		}
 		
-		if (isError) {
-			Logger.error(msg);
-		} else if (isInfo) {
-			Logger.info(msg);
+		boolean isTime = false, isLF = true;
+		if (option != null) {
+			if (option.indexOf('e') != -1) {
+				Logger.error(msg);
+				return null;
+			} else if (option.indexOf('g') != -1) {
+				if (option.indexOf('1') != -1) {
+					Logger.debug(msg);
+				} else if (option.indexOf('3') != -1) {
+					Logger.warning(msg);
+				} else if (option.indexOf('4') != -1) {
+					Logger.severe(msg);
+				} else {
+					Logger.info(msg);
+				}
+
+				return null;
+			}
+			
+			if (option.indexOf('t') != -1) isTime = true;
+			if (option.indexOf('s') != -1) isLF = false;
+		}
+		
+		if (isTime) {
+			Timestamp time = new Timestamp(System.currentTimeMillis());
+			msg = Variant.toString(time) + '\t' + msg;
+		}
+
+		if (isLF) {
+			System.out.println(msg);
 		} else {
-			if (isTime) {
-				Timestamp time = new Timestamp(System.currentTimeMillis());
-				msg = Variant.toString(time) + '\t' + msg;
-			}
-	
-			if (isLF) {
-				System.out.println(msg);
-			} else {
-				System.out.print(msg);
-			}
+			System.out.print(msg);
 		}
 		
 		return null;
