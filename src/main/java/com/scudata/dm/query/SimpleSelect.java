@@ -374,38 +374,61 @@ public class SimpleSelect
 						//非分段二进制文件不能并行读取
 						if(parallelNumber == 1 || SimpleSQL.checkParallel(this.file) == BFileWriter.TYPE_NORMAL)
 						{
+//							System.out.println("-------------1" + this.files.size());
 							FileObject foi = this.files.get(z);
 							BFileCursor bf = new BFileCursor(foi, this.fields, 1, 1, null, ctx);
 							cursors2[z] = bf;
 
-							String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
-							Expression[] exps = new Expression[ff.length];
-							for (int m=0; m<ff.length; m++) {
-								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\", "/")+"\"");
-								else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
-								else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
-								else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
-							}
-							Operation op = new Derive(exps, ff, null);
-							cursors2[z].addOperation(op, ctx);
-
-							if (this.fields != null) {
-								Expression[] exps2 = new Expression[fields.length];
-								for (int m=0; m<fields.length; m++) {
-									exps2[m] = new Expression(fields[m]);
-								}
-
-								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
-							}
+//							String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
+//							Expression[] exps = new Expression[ff.length];
+//							for (int m=0; m<ff.length; m++) {
+//								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\", "/")+"\"");
+//								else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
+//								else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
+//								else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
+//							}
+//							Operation op = new Derive(exps, ff, null);
+//							cursors2[z].addOperation(op, ctx);
+//
+//							if (this.fields != null) {
+//								Expression[] exps2 = new Expression[fields.length];
+//								for (int m=0; m<fields.length; m++) {
+//									exps2[m] = new Expression("'"+fields[m]+"'");
+//								}
+//
+//								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
+//							}
 						}
 						else
 						{
+//							System.out.println("-------------2");
 							ICursor []cursors = new ICursor[parallelNumber];
 							for (int i = 0; i < parallelNumber; ++i) 
 							{
 								cursors[i] = new BFileCursor(this.file, this.fields, i+1, parallelNumber, null, ctx);
 							}		
+	
 							cursors2[z] = new MultipathCursors(cursors, ctx);
+
+//							String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
+//							Expression[] exps = new Expression[ff.length];
+//							for (int m=0; m<ff.length; m++) {
+//								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+this.file.getFileName().replace("\\", "/")+"\"");
+//								else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+this.file.getFileName().substring(this.file.getFileName().lastIndexOf("."))+"\"");
+//								else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+this.file.getFile().lastModified()+"\"");
+//								else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+this.file.getFile().size()+"\"");
+//							}
+//							Operation op = new Derive(exps, ff, null);
+//							cursors2[z].addOperation(op, ctx);
+//						
+//							if (this.fields != null) {
+//								Expression[] exps2 = new Expression[fields.length];
+//								for (int m=0; m<fields.length; m++) {
+//									exps2[m] = new Expression(fields[m]);
+//								}
+//
+//								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
+//							}
 						}
 
 
@@ -452,7 +475,7 @@ public class SimpleSelect
 						
 						String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
 						Expression[] exps = new Expression[ff.length];
-						System.out.println("1------------"+foi.getFileName());
+//						System.out.println("1------------"+foi.getFileName());
 						for (int m=0; m<ff.length; m++) {
 							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().replace("\\","/")+"\"");
 							else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
