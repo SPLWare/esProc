@@ -76,6 +76,23 @@ public class DataBlockWriterJob  extends Job {
 				bufferWriter.writeObject(obj);
 			}
 			bufferWriter.flush();
+		} else if (blockType.getType() == DataBlockType.INC_BLOCK) {
+			bufferWriter.write(DataBlockType.INC_BLOCK);
+			r = (BaseRecord) mems.get(1);
+			Object obj1 = r.getNormalFieldValue(col);
+			r = (BaseRecord) mems.get(2);
+			Object obj2 = r.getNormalFieldValue(col);
+			bufferWriter.writeObject(obj1);
+			bufferWriter.flush();
+			
+			int step;
+			if (obj1 instanceof Long) {
+				step = (int) (((Number) obj2).longValue() - ((Number) obj1).longValue());
+			} else {
+				step = ((Number) obj2).intValue() - ((Number) obj1).intValue();
+			}
+			bufferWriter.writeInt(step);
+			return;
 		} else if (blockType.getType() == DataBlockType.DICT) {
 			bufferWriter.write(DataBlockType.DICT);
 			Sequence seq = blockType.getDict();

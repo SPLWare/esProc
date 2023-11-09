@@ -57,6 +57,7 @@ public class DataBlockType {
 	public static final int DICT_PUBLIC = 0;
 	public static final int DICT_PRIVATE = 1;
 	public static final int DICT_PRIVATE_CONST = 2;
+	public static final int INC_BLOCK = 3; //递增块
 	
 	public static final int MAX_DICT_NUMBER = 127;
 	
@@ -250,6 +251,35 @@ public class DataBlockType {
 		int maxTypeLength = 0;
 		int maxTypeLengthCount = 0;
 		boolean hasNull = false;
+		boolean increasing = true;
+		
+		//检查是否递增
+		if (end - start > 16) {
+			Object obj1 = data.get(start);
+			Object obj2 = data.get(start + 1);
+			if (obj1 != null && obj2 != null && obj1 instanceof Integer && obj2 instanceof Integer) {
+				int lastVal = (Integer) obj2;
+				int stepVal = (Integer) obj2 - (Integer) obj1;
+				for (int i = start + 2; i <= end; ++i) {
+					Object obj = data.get(i);
+					if (obj == null || !(obj instanceof Integer)) {
+						increasing = false;
+						break;
+					}
+					int val = (Integer) obj;
+					if (stepVal == val - lastVal) {
+						lastVal = val;	
+					} else {
+						increasing = false;
+						break;
+					}
+				}
+			}
+			
+			if (increasing) {
+				return new DataBlockType(INC_BLOCK, INT, false);
+			}
+		}
 		
 		for (int i = start; i <= end; ++i) {
 			Object obj = data.get(i);
@@ -299,6 +329,35 @@ public class DataBlockType {
 		int maxTypeLength = 0;
 		int maxTypeLengthCount = 0;
 		boolean hasNull = false;
+		boolean Increasing = true;
+		
+		//检查是否递增
+		if (end - start > 16) {
+			Object obj1 = data.get(start);
+			Object obj2 = data.get(start + 1);
+			if (obj1 != null && obj2 != null && obj1 instanceof Long && obj2 instanceof Long) {
+				long lastVal = (Long) obj2;
+				long stepVal = (Long) obj2 - (Long) obj1;
+				for (int i = start + 2; i <= end; ++i) {
+					Object obj = data.get(i);
+					if (obj == null || !(obj instanceof Long)) {
+						Increasing = false;
+						break;
+					}
+					Long val = (Long) obj;
+					if (stepVal == val - lastVal) {
+						lastVal = val;	
+					} else {
+						Increasing = false;
+						break;
+					}
+				}
+			}
+			
+			if (Increasing) {
+				return new DataBlockType(INC_BLOCK, LONG, false);
+			}
+		}
 		
 		for (int i = start; i <= end; ++i) {
 			Object obj = data.get(i);

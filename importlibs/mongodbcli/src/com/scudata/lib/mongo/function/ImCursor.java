@@ -159,7 +159,7 @@ public class ImCursor extends ICursor {
 		}else if(isColumnContain(vTbl.dataStruct().getFieldNames(), bufTbl.dataStruct().getFieldNames())){
 			Table tmpTable = new Table(vTbl.dataStruct());
 			modifyTableData(tmpTable, bufTbl);
-			bufTbl.clear();
+			bufTbl = new Table(vTbl.dataStruct());
 			bufTbl.addAll(tmpTable);
 			tmpTable.clear();
 		//C. 不同结构合并
@@ -181,7 +181,7 @@ public class ImCursor extends ICursor {
 			tmpTable.clear();
 			// newData
 			modifyTableData(tmpTable, bufTbl);
-			bufTbl.clear();
+			bufTbl = new Table(newCols);
 			bufTbl.addAll(tmpTable);
 			tmpTable.clear();
 		}
