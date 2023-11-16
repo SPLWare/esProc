@@ -89,7 +89,7 @@ public class ExtGraphProperty {
 		return listSeriesNames(getArrayList(cats));
 	}
 
-	protected String getReportASeriesName(Object series) {
+	protected static String getReportASeriesName(Object series) {
 		return null;
 	}
 
@@ -100,7 +100,7 @@ public class ExtGraphProperty {
 	 *            分类属性(包含系列)
 	 * @return 系列的名字
 	 */
-	public Vector listSeriesNames(ArrayList cats) {
+	public static Vector listSeriesNames(ArrayList cats) {
 		Vector names = new Vector();
 		for (int c = 0; c < cats.size(); c++) {
 			ArrayList series = ((ExtGraphCategory) cats.get(c)).getSeries();
