@@ -62,6 +62,7 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.DataSourceListModel;
+import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IPrjxSheet;
@@ -195,7 +196,7 @@ public class SPL extends AppFrame {
 		try {
 			ConfigFile.getConfigFile().setConfigNode(ConfigFile.NODE_OPTIONS);
 			GV.lastDirectory = ConfigFile.getConfigFile().getAttrValue(
-					"fileDirectory");
+					GC.LAST_DIR);
 		} catch (Throwable t) {
 			GM.outputMessage(t);
 		}
@@ -727,7 +728,7 @@ public class SPL extends AppFrame {
 
 			ConfigFile cf = ConfigFile.getConfigFile();
 			cf.setConfigNode(ConfigFile.NODE_OPTIONS);
-			cf.setAttrValue("fileDirectory", GV.lastDirectory);
+			cf.setAttrValue(GC.LAST_DIR, GV.lastDirectory);
 			GM.setWindowDimension(GVSpl.panelValue);
 			cf.save();
 

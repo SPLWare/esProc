@@ -27,6 +27,7 @@ import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.Env;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.spl.GMSpl;
@@ -368,7 +369,13 @@ public abstract class DialogFileReplace extends RQDialog {
 		jBDir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String sDir = GM.dialogSelectDirectory(jTFDir.getText(), owner);
+				String lastDir = jTFDir.getText();
+				if (!StringUtils.isValidString(lastDir)) {
+					if (StringUtils.isValidString(Env.getMainPath())) {
+						lastDir = Env.getMainPath();
+					}
+				}
+				String sDir = GM.dialogSelectDirectory(lastDir, owner);
 				if (sDir != null) {
 					jTFDir.setText(sDir);
 				}
@@ -464,5 +471,4 @@ public abstract class DialogFileReplace extends RQDialog {
 	 * 信息文本框
 	 */
 	private JTextArea jTAMessage = new JTextArea();
-
 }

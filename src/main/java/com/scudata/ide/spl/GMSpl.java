@@ -3,7 +3,9 @@ package com.scudata.ide.spl;
 import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -570,70 +572,109 @@ public class GMSpl extends GM {
 	 * config.txt文件中的键名
 	 */
 	private static final String KEY_JVM = "jvm_args";
-	private static final String KEY_XMX = "-xmx";
-	private static final String KEY_XMS = "-xms";
+	public static final String KEY_XMX = "-Xmx";
+	public static final String KEY_XMS = "-Xms";
+	public static final String KEY_PRINT_GC_DETAILS = "-XX:+PrintGCDetails";
+	public static final String KEY_PRINT_GC_TIMESTAMPS = "-XX:+PrintGCTimeStamps";
+	public static final String KEY_PRINT_GC_DATESTAMPS = "-XX:+PrintGCDateStamps";
+	public static final String KEY_GC_LOG = "-Xloggc:";
+	public static final String KEY_PRINT_GC_HEAP = "-XX:+PrintHeapAtGC";
 
-	/**
-	 * 取最大内存
-	 * 
-	 * @return
-	 */
-	public static String getXmx() {
-		String jvmArgs = getConfigValue(KEY_JVM);
-		if (jvmArgs == null)
+	private static String[] getJVMArgs() {
+		String str;
+		if (GM.isWindowsOS()) {
+			str = getConfigValue(KEY_JVM);
+		} else {
+			str = readConfigTxt();
+		}
+		if (str == null)
 			return null;
-		String[] args = jvmArgs.split(" ");
-		if (args == null)
-			return null;
-		for (int i = 0; i < args.length; i++) {
-			if (StringUtils.isValidString(args[i])) {
-				args[i] = args[i].trim();
-				if (args[i].toLowerCase().startsWith(KEY_XMX)) {
-					String xmx = args[i].substring(KEY_XMX.length());
-					if (StringUtils.isValidString(xmx))
-						return xmx.trim();
-					else
-						return null;
-				}
+		List<String> jvmArgs = new ArrayList<String>();
+		ArgumentTokenizer at = new ArgumentTokenizer(str, ' ');
+		while (at.hasNext()) {
+			String arg = at.next();
+			if (StringUtils.isValidString(arg)) {
+				jvmArgs.add(arg.trim());
 			}
 		}
-		return null;
+		return jvmArgs.toArray(new String[jvmArgs.size()]);
 	}
 
 	/**
-	 * 设置最大内存
-	 * 
-	 * @param xmx
+	 * 取JVM参数
+	 * @param keys
+	 * @return
 	 */
-	public static void setXmx(String xmx) {
-		if (!StringUtils.isValidString(xmx))
-			return;
-		xmx = xmx.trim();
-		try {
-			Integer.parseInt(xmx);
-			xmx += "m"; // 没写单位拼上M
-		} catch (Exception e) {
+	public static Map<String, String> getJVMArgs(String[] keys) {
+		if (keys == null || keys.length == 0)
+			return null;
+		String[] args = getJVMArgs();
+		if (args == null)
+			return null;
+		HashMap<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < args.length; i++) {
+			if (StringUtils.isValidString(args[i])) {
+				args[i] = args[i].trim();
+				for (String key : keys) {
+					if (args[i].toLowerCase().startsWith(key.toLowerCase())) {
+						map.put(key, args[i]);
+						break;
+					}
+				}
+			}
 		}
-		String jvmArgs = getConfigValue(KEY_JVM);
-		if (!StringUtils.isValidString(jvmArgs))
+		return map;
+	}
+
+	/**
+	 * 设置JVM参数
+	 * @param map key:value
+	 */
+	public static void setJVMArgs(Map<String, String> map) {
+		if (map == null)
 			return;
+		String[] jvmArgs = getJVMArgs();
+		List<String> args = new ArrayList<String>();
+		if (jvmArgs != null) {
+			for (String arg: jvmArgs) {
+				args.add(arg);
+			}
+		}
+		Iterator<String> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			String key = it.next();
+			boolean containsKey = false;
+			for (int i = 0; i < args.size(); i++) {
+				String arg = args.get(i);
+				// 已有参数
+				if (arg.toLowerCase().startsWith(key.toLowerCase())) {
+					String value = map.get(key);
+					args.set(i, value);
+					containsKey = true;
+					break;
+				}
+			}
+			// 新增参数
+			if (!containsKey) {
+				String value = map.get(key);
+				args.add(value);
+			}
+		}
+
 		StringBuffer buf = new StringBuffer();
-		ArgumentTokenizer at = new ArgumentTokenizer(jvmArgs, ' ');
-		while (at.hasNext()) {
+		for (String arg : args) {
+			if (!StringUtils.isValidString(arg)) // 可能是删除
+				continue;
 			if (buf.length() > 0) {
 				buf.append(" ");
 			}
-			String s = at.next();
-			String arg = s.trim();
-			if (arg.toLowerCase().startsWith(KEY_XMX)) {
-				buf.append("-Xmx" + xmx);
-			} else if (arg.toLowerCase().startsWith(KEY_XMS)) {
-				buf.append("-Xms" + xmx);
-			} else {
-				buf.append(s);
-			}
+			buf.append(arg);
 		}
-		setConfigValue(KEY_JVM, buf.toString());
+		if (GM.isWindowsOS()) {
+			setConfigValue(KEY_JVM, buf.toString());
+		} else {
+			writeConfigTxt(buf.toString());
+		}
 	}
 
 	/**
@@ -655,7 +696,7 @@ public class GMSpl extends GM {
 			String configFile = getConfigTxtFilePath();
 			FileObject fo = new FileObject(configFile);
 			Object obj = fo.read(0, -1, null);
-			if (obj instanceof Sequence) {
+			if (obj != null && obj instanceof Sequence) {
 				Sequence seq = (Sequence) obj;
 				obj = seq.ifn();
 			}
@@ -663,8 +704,23 @@ public class GMSpl extends GM {
 				return null;
 			return obj.toString().trim();
 		} catch (Exception x) {
+			Logger.error(x);
 		}
 		return null;
+	}
+
+	/**
+	 * 写bin/config.txt
+	 * @param contentStr
+	 */
+	private static void writeConfigTxt(String contentStr) {
+		try {
+			String configFile = getConfigTxtFilePath();
+			FileObject fo = new FileObject(configFile);
+			fo.write(contentStr, null);
+		} catch (Exception x) {
+			Logger.error(x);
+		}
 	}
 
 	/**
