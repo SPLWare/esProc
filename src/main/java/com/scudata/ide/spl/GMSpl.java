@@ -3,7 +3,6 @@ package com.scudata.ide.spl;
 import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -151,11 +150,11 @@ public class GMSpl extends GM {
 				private static final long serialVersionUID = 1L;
 
 				public PgmCellSet readEncryptedCellSet(String filePath,
-						String fileName, StringBuffer buf) throws Exception {
-					writeMessage(
-							buf,
+						String fileName) throws Exception {
+					fileResultMap.put(
+							filePath,
 							IdeSplMessage.get().getMessage("spl.errorsplfile",
-									filePath));
+									fileName));
 					return null;
 				}
 
@@ -636,7 +635,7 @@ public class GMSpl extends GM {
 		String[] jvmArgs = getJVMArgs();
 		List<String> args = new ArrayList<String>();
 		if (jvmArgs != null) {
-			for (String arg: jvmArgs) {
+			for (String arg : jvmArgs) {
 				args.add(arg);
 			}
 		}
