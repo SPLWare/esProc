@@ -1598,7 +1598,7 @@ public class PhyTableIndex implements ITableIndex {
 				}
 			}
 
-			if (table.length() > 0) {
+			if (table != null && table.length() > 0) {
 				table.sortFields(sortFields);
 				MemoryCursor mc = new MemoryCursor(table);
 				cursorList.add(mc);

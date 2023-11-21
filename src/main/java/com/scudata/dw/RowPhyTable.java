@@ -879,11 +879,11 @@ public class RowPhyTable extends PhyTable {
 					if (tableMaxValues != null) {
 						int cmp = Variant.compareArrays(vals, tableMaxValues, sortedColCount);
 						if (cmp < 0) {
-							hasPrimaryKey = false;
+							//hasPrimaryKey = false;//不再处理主键
 							isSorted = false;
 							maxValues = null;
 						} else if (cmp == 0){
-							if (hasPrimaryKey) hasPrimaryKey = false;
+							//if (hasPrimaryKey) hasPrimaryKey = false;//不再处理主键
 						} else {
 							System.arraycopy(vals, 0, tableMaxValues, 0, sortedColCount);
 						}
