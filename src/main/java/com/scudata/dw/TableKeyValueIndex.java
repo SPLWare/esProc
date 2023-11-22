@@ -1166,16 +1166,16 @@ public class TableKeyValueIndex implements ITableIndex {
 		
 		//检查是否是对主键建立索引
 		boolean isPrimaryKey = false;
-		String[] keyNames = srcTable.getAllSortedColNames();
-		if (srcTable.hasPrimaryKey && keyNames != null && ifields.length == keyNames.length) {
-			isPrimaryKey = true;
-			for (int i = 0, len = ifields.length; i < len; ++i) {
-				if (!ifields[i].equals(keyNames[i])) {
-					isPrimaryKey = false;
-					break;
-				}
-			}
-		}
+//		String[] keyNames = srcTable.getAllSortedColNames();
+//		if (srcTable.hasPrimaryKey && keyNames != null && ifields.length == keyNames.length) {
+//			isPrimaryKey = true;
+//			for (int i = 0, len = ifields.length; i < len; ++i) {
+//				if (!ifields[i].equals(keyNames[i])) {
+//					isPrimaryKey = false;
+//					break;
+//				}
+//			}
+//		}
 		
 		RowBufferWriter bufferWriter = null;
 		long blockValueStartPos = 0;
