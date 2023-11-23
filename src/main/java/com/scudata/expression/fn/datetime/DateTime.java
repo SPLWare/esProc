@@ -232,6 +232,7 @@ public class DateTime extends Function {
 			Calendar calendar = Calendar.getInstance();
 			//calendar.setLenient(false);
 			calendar.set(year, month - 1, day, hour, minute, second);
+			calendar.set(Calendar.MILLISECOND, 0);
 			return new java.sql.Timestamp(calendar.getTimeInMillis());
 		} else if (size == 5) {
 			// datetime(ym,d,h,m,s)	ym是6位数是解释为年月
