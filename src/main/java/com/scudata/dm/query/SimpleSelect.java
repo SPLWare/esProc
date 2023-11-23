@@ -390,14 +390,14 @@ public class SimpleSelect
 //							Operation op = new Derive(exps, ff, null);
 //							cursors2[z].addOperation(op, ctx);
 //
-//							if (this.fields != null) {
-//								Expression[] exps2 = new Expression[fields.length];
-//								for (int m=0; m<fields.length; m++) {
-//									exps2[m] = new Expression("'"+fields[m]+"'");
-//								}
-//
-//								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
-//							}
+							if (this.fields != null) {
+								Expression[] exps2 = new Expression[fields.length];
+								for (int m=0; m<fields.length; m++) {
+									exps2[m] = new Expression("'"+fields[m]+"'");
+								}
+
+								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
+							}
 						}
 						else
 						{
@@ -421,14 +421,14 @@ public class SimpleSelect
 //							Operation op = new Derive(exps, ff, null);
 //							cursors2[z].addOperation(op, ctx);
 //						
-//							if (this.fields != null) {
-//								Expression[] exps2 = new Expression[fields.length];
-//								for (int m=0; m<fields.length; m++) {
-//									exps2[m] = new Expression(fields[m]);
-//								}
-//
-//								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
-//							}
+							if (this.fields != null) {
+								Expression[] exps2 = new Expression[fields.length];
+								for (int m=0; m<fields.length; m++) {
+									exps2[m] = new Expression("'"+fields[m]+"'");
+								}
+
+								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
+							}
 						}
 
 
@@ -488,7 +488,7 @@ public class SimpleSelect
 						if (this.fields != null) {
 							Expression[] exps2 = new Expression[fields.length];
 							for (int m=0; m<fields.length; m++) {
-								exps2[m] = new Expression(fields[m]);
+								exps2[m] = new Expression("'" + fields[m] + "'");
 							}
 
 							cursors[i].addOperation(new New(null, exps2, this.fields, null), ctx);
@@ -508,7 +508,7 @@ public class SimpleSelect
 						FileObject foi = this.files.get(z);
 						try 
 						{
-							System.out.println("1------------"+foi.getFileName());
+//							System.out.println("1------------"+foi.getFileName());
 							Table t2 = FileObject.import_x(importer, "t");
 							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName().replace("\\","/")+"\"")
 									,new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"")
@@ -516,11 +516,12 @@ public class SimpleSelect
 									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						
 							if (this.fields != null && this.fields.length>0) {
 								Expression[] exps2 = new Expression[this.fields.length];
-								for (int p=0; p<this.fields.length; p++) exps2[p] = new Expression(this.fields[p]);
+								for (int p=0; p<this.fields.length; p++) exps2[p] = new Expression("'"+fields[p]+"'");
 								t2 = t2.newTable(this.fields, exps2, ctx);
 							}	
 							cursors[z] = new MemoryCursor(t2);
-//							if(this.fields != null)
+
+							//							if(this.fields != null)
 //							{
 //								Expression[] colExps = new Expression[this.fields.length];
 //								for(int i=0, len=this.fields.length; i<len; i++)
@@ -610,7 +611,7 @@ public class SimpleSelect
 									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						
 							if (this.fields != null && this.fields.length>0) {
 								Expression[] exps2 = new Expression[this.fields.length];
-								for (int z=0; z<this.fields.length; z++) exps2[z] = new Expression(this.fields[z]);
+								for (int z=0; z<this.fields.length; z++) exps2[z] = new Expression("'" + this.fields[z] + "'");
 								t2 = t2.newTable(this.fields, exps2, ctx);
 							}	
 							cursors[i] = new MemoryCursor(t2);

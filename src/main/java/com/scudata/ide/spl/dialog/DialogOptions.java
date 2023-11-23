@@ -13,8 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -32,9 +35,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.IStyle;
+import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
@@ -242,6 +247,36 @@ public class DialogOptions extends JDialog {
 	private JTextField jTFXmx = new JTextField();
 
 	/**
+	 * GC日志文件
+	 */
+	private JLabel jLGCLog = new JLabel(mm.getMessage("dialogoptions.gclog"));
+
+	private JTextField jTFGCLog = new JTextField();
+
+	private JButton jBGCLog = new JButton(mm.getMessage("dialogoptions.select"));
+
+	/**
+	 * 打印GC的详细日志
+	 */
+	private JCheckBox jCBPrintGCDetails = new JCheckBox(
+			mm.getMessage("dialogoptions.printgcdetails"));
+	/**
+	 * 打印GC时间戳
+	 */
+	private JCheckBox jCBPrintGCTimeStamps = new JCheckBox(
+			mm.getMessage("dialogoptions.printgctime"));
+	/**
+	 * 打印GC日期时间戳
+	 */
+	private JCheckBox jCBPrintGCDateStamps = new JCheckBox(
+			mm.getMessage("dialogoptions.printgcdate"));
+	/**
+	 * 打印GC时堆的信息
+	 */
+	private JCheckBox jCBPrintHeapAtGC = new JCheckBox(
+			mm.getMessage("dialogoptions.printheap"));
+
+	/**
 	 * 行数控件
 	 */
 	private JSpinner jSPRowCount;
@@ -365,10 +400,6 @@ public class DialogOptions extends JDialog {
 	 * 父窗口控件
 	 */
 	private JFrame parent;
-	/**
-	 * 是否显示最大内存设置
-	 */
-	private boolean showXmx = true;
 
 	/**
 	 * 是否按下了CTRL键
@@ -398,7 +429,6 @@ public class DialogOptions extends JDialog {
 		try {
 			this.parent = parent;
 			this.isUnit = isUnit;
-			showXmx = GM.isWindowsOS();
 			if (isUnit) {
 				loadUnitServerConfig();
 				GV.dsModel = new DataSourceListModel();
@@ -409,7 +439,7 @@ public class DialogOptions extends JDialog {
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
-			setSize(dialogWidth, 550);
+			setSize(dialogWidth, 560);
 			if (isUnit) {
 				ConfigOptions.bWindowSize = Boolean.FALSE;
 			}
@@ -544,12 +574,66 @@ public class DialogOptions extends JDialog {
 				this.tabMain.setSelectedIndex(TAB_NORMAL);
 			return false;
 		}
-		if (showXmx) {
-			String newXmx = jTFXmx.getText();
-			if (StringUtils.isValidString(newXmx)
-					&& !newXmx.equalsIgnoreCase(oldXmx))
-				GMSpl.setXmx(newXmx);
+		Map<String, String> jvmArgMap = new HashMap<String, String>();
+
+		// Xmx, Xms
+		String newXmx = jTFXmx.getText();
+		if (isArgChanged(oldXmx, newXmx)) {
+			newXmx = newXmx.trim();
+			try {
+				Integer.parseInt(newXmx);
+				newXmx += "M"; // 没写单位拼上M
+			} catch (Exception e) {
+			}
+			if (StringUtils.isValidString(newXmx)) {
+				jvmArgMap.put(GMSpl.KEY_XMX, GMSpl.KEY_XMX + newXmx);
+				jvmArgMap.put(GMSpl.KEY_XMS, GMSpl.KEY_XMS + newXmx);
+			} else {
+				jvmArgMap.put(GMSpl.KEY_XMX, "");
+				jvmArgMap.put(GMSpl.KEY_XMS, "");
+			}
 		}
+		// -Xloggc:
+		String newGCLogFile = jTFGCLog.getText();
+		if (isArgChanged(oldGCLogFile, newGCLogFile)) {
+			if (StringUtils.isValidString(newGCLogFile)) {
+				jvmArgMap.put(GMSpl.KEY_GC_LOG,
+						GMSpl.KEY_GC_LOG + Escape.addEscAndQuote(newGCLogFile));
+			} else {
+				jvmArgMap.put(GMSpl.KEY_GC_LOG, "");
+			}
+		}
+
+		// -XX:+PrintGCDetails
+		boolean newPrintGCDetails = jCBPrintGCDetails.isSelected();
+		if (oldPrintGCDetails != newPrintGCDetails) {
+			jvmArgMap.put(GMSpl.KEY_PRINT_GC_DETAILS,
+					newPrintGCDetails ? GMSpl.KEY_PRINT_GC_DETAILS : "");
+		}
+
+		// -XX:+PrintGCTimeStamps
+		boolean newPrintGCTimeStamps = jCBPrintGCTimeStamps.isSelected();
+		if (oldPrintGCTimeStamps != newPrintGCTimeStamps) {
+			jvmArgMap.put(GMSpl.KEY_PRINT_GC_TIMESTAMPS,
+					newPrintGCTimeStamps ? GMSpl.KEY_PRINT_GC_TIMESTAMPS : "");
+		}
+
+		// -XX:+PrintGCDateStamps
+		boolean newPrintGCDateStamps = jCBPrintGCDateStamps.isSelected();
+		if (oldPrintGCDateStamps != newPrintGCDateStamps) {
+			jvmArgMap.put(GMSpl.KEY_PRINT_GC_DATESTAMPS,
+					newPrintGCDateStamps ? GMSpl.KEY_PRINT_GC_DATESTAMPS : "");
+		}
+
+		// -XX:+PrintHeapAtGC
+		boolean newPrintHeapAtGC = jCBPrintHeapAtGC.isSelected();
+		if (oldPrintHeapAtGC != newPrintHeapAtGC) {
+			jvmArgMap.put(GMSpl.KEY_PRINT_GC_HEAP,
+					newPrintHeapAtGC ? GMSpl.KEY_PRINT_GC_HEAP : "");
+		}
+
+		if (!jvmArgMap.isEmpty())
+			GMSpl.setJVMArgs(jvmArgMap);
 
 		// Normal
 		ConfigOptions.iUndoCount = (Integer) jSUndoCount.getValue();
@@ -633,18 +717,90 @@ public class DialogOptions extends JDialog {
 		return true;
 	}
 
+	private boolean isArgChanged(String oldArg, String newArg) {
+		if (StringUtils.isValidString(oldArg)) {
+			if (!StringUtils.isValidString(newArg)) // 删除
+				return true;
+			if (!oldArg.equalsIgnoreCase(newArg)) { // 修改
+				return true;
+			}
+		} else {
+			if (StringUtils.isValidString(newArg)) { // 新增
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private String oldXmx = null;
+	private boolean oldPrintGCDetails = false;
+	private boolean oldPrintGCTimeStamps = false;
+	private boolean oldPrintGCDateStamps = false;
+	private String oldGCLogFile = null;
+	private boolean oldPrintHeapAtGC = false;
 
 	/**
 	 * 加载选项
 	 */
 	private void load() {
-		if (showXmx)
-			try {
-				oldXmx = GMSpl.getXmx();
-				jTFXmx.setText(oldXmx);
-			} catch (Throwable t) {
+		final String[] JVM_ARG_KEYS = new String[] { GMSpl.KEY_XMX,
+				GMSpl.KEY_PRINT_GC_DETAILS, GMSpl.KEY_PRINT_GC_TIMESTAMPS,
+				GMSpl.KEY_PRINT_GC_DATESTAMPS, GMSpl.KEY_GC_LOG,
+				GMSpl.KEY_PRINT_GC_HEAP };
+		Map<String, String> jvmArgMap = GMSpl.getJVMArgs(JVM_ARG_KEYS);
+		if (jvmArgMap != null) {
+			// Xmx
+			String xmx = jvmArgMap.get(GMSpl.KEY_XMX);
+			if (StringUtils.isValidString(xmx)) {
+				oldXmx = xmx.substring(GMSpl.KEY_XMX.length());
+				if (StringUtils.isValidString(oldXmx)) {
+					oldXmx = oldXmx.trim();
+					jTFXmx.setText(oldXmx);
+				}
 			}
+			// -Xloggc:
+			String gcLogFile = jvmArgMap.get(GMSpl.KEY_GC_LOG);
+			if (StringUtils.isValidString(gcLogFile)) {
+				gcLogFile = gcLogFile.substring(GMSpl.KEY_GC_LOG.length());
+				if (StringUtils.isValidString(gcLogFile)) {
+					oldGCLogFile = gcLogFile.trim();
+					oldGCLogFile = Escape.removeEscAndQuote(oldGCLogFile);
+					jTFGCLog.setText(oldGCLogFile);
+				}
+			}
+
+			// -XX:+PrintGCDetails
+			String printGCDetails = jvmArgMap.get(GMSpl.KEY_PRINT_GC_DETAILS);
+			if (StringUtils.isValidString(printGCDetails)) {
+				oldPrintGCDetails = true;
+				jCBPrintGCDetails.setSelected(true);
+			}
+
+			// -XX:+PrintGCTimeStamps
+			String printGCTimeStamps = jvmArgMap
+					.get(GMSpl.KEY_PRINT_GC_TIMESTAMPS);
+			if (StringUtils.isValidString(printGCTimeStamps)) {
+				oldPrintGCTimeStamps = true;
+				jCBPrintGCTimeStamps.setSelected(true);
+			}
+
+			// -XX:+PrintGCDateStamps
+			String printGCDateStamps = jvmArgMap
+					.get(GMSpl.KEY_PRINT_GC_DATESTAMPS);
+			if (StringUtils.isValidString(printGCDateStamps)) {
+				oldPrintGCDateStamps = true;
+				jCBPrintGCDateStamps.setSelected(true);
+			}
+
+			// -XX:+PrintHeapAtGC
+			String printHeapAtGC = jvmArgMap.get(GMSpl.KEY_PRINT_GC_HEAP);
+			if (StringUtils.isValidString(printHeapAtGC)) {
+				oldPrintHeapAtGC = true;
+				jCBPrintHeapAtGC.setSelected(true);
+			}
+
+		}
+
 		jSUndoCount.setValue(ConfigOptions.iUndoCount);
 		jCBIdeConsole.setSelected(ConfigOptions.bIdeConsole.booleanValue());
 		jCBAutoOpen.setSelected(ConfigOptions.bAutoOpen.booleanValue());
@@ -790,6 +946,11 @@ public class DialogOptions extends JDialog {
 		jSConnectTimeout.setPreferredSize(new Dimension(80, 25));
 
 		jLXmx.setForeground(Color.BLUE);
+		jLGCLog.setForeground(Color.BLUE);
+		jCBPrintGCDetails.setForeground(Color.BLUE);
+		jCBPrintGCTimeStamps.setForeground(Color.BLUE);
+		jCBPrintGCDateStamps.setForeground(Color.BLUE);
+		jCBPrintHeapAtGC.setForeground(Color.BLUE);
 
 		jSFontSize.setBorder(BorderFactory.createLoweredBevelBorder());
 		jCBIdeConsole.setText("接管控制台");
@@ -904,10 +1065,29 @@ public class DialogOptions extends JDialog {
 		panelMid.add(jLabelTimeout, GM.getGBC(4, 3));
 		panelMid.add(jPanelTimeout, GM.getGBC(4, 4, true));
 
-		if (showXmx) {
-			panelMid.add(jLXmx, GM.getGBC(5, 1));
-			panelMid.add(jTFXmx, GM.getGBC(5, 2, true));
-		}
+		JPanel panelVM = new JPanel(new GridLayout(3, 2));
+		panelVM.setBorder(BorderFactory.createTitledBorder(mm
+				.getMessage("dialogoptions.vmborder")));
+		GridBagConstraints gbc;
+		gbc = GM.getGBC(5, 1, true, true);
+		gbc.gridwidth = 4;
+		panelMid.add(panelVM, gbc);
+
+		JPanel panelXmx = new JPanel(new GridBagLayout());
+		panelXmx.add(jLXmx, GM.getGBC(1, 1));
+		panelXmx.add(jTFXmx, GM.getGBC(1, 2, true));
+		panelVM.add(panelXmx);
+
+		JPanel panelGCLog = new JPanel(new GridBagLayout());
+		panelGCLog.add(jLGCLog, GM.getGBC(1, 1));
+		panelGCLog.add(jTFGCLog, GM.getGBC(1, 2, true));
+		panelGCLog.add(jBGCLog, GM.getGBC(1, 3));
+		panelVM.add(panelGCLog);
+
+		panelVM.add(jCBPrintGCDetails);
+		panelVM.add(jCBPrintGCTimeStamps);
+		panelVM.add(jCBPrintGCDateStamps);
+		panelVM.add(jCBPrintHeapAtGC);
 
 		jLAutoSaveMinutes.setPreferredSize(new Dimension(60, 25));
 
@@ -948,6 +1128,17 @@ public class DialogOptions extends JDialog {
 
 			public void actionPerformed(ActionEvent e) {
 				autoSaveChanged();
+			}
+
+		});
+
+		this.jBGCLog.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				File f = GM.dialogSelectFile(AppConsts.FILE_LOG, parent);
+				if (f != null) {
+					jTFGCLog.setText(f.getAbsolutePath());
+				}
 			}
 
 		});

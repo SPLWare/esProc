@@ -505,5 +505,7 @@ public class GC {
 	 */
 	public static final String SCHEMA_ALL = IdeCommonMessage.get().getMessage(
 			"public.all");
+	
+	public static final String LAST_DIR = "fileDirectory";
 
 }
