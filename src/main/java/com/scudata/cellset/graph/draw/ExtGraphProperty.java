@@ -55,7 +55,7 @@ public class ExtGraphProperty {
 	 *            分类
 	 * @return 名称
 	 */
-	public static Vector listCategoryNames(ExtGraphCategory[] categories) {
+	public Vector listCategoryNames(ExtGraphCategory[] categories) {
 		return listCategoryNames(getArrayList(categories));
 	}
 
@@ -66,7 +66,7 @@ public class ExtGraphProperty {
 	 *            分类
 	 * @return 名称
 	 */
-	public static Vector listCategoryNames(ArrayList categories) {
+	public Vector listCategoryNames(ArrayList categories) {
 		Vector v = new Vector();
 		if (categories == null) {
 			return v;
@@ -89,7 +89,7 @@ public class ExtGraphProperty {
 		return listSeriesNames(getArrayList(cats));
 	}
 
-	protected static String getReportASeriesName(Object series) {
+	protected String getReportASeriesName(Object series) {
 		return null;
 	}
 
@@ -100,7 +100,7 @@ public class ExtGraphProperty {
 	 *            分类属性(包含系列)
 	 * @return 系列的名字
 	 */
-	public static Vector listSeriesNames(ArrayList cats) {
+	public Vector listSeriesNames(ArrayList cats) {
 		Vector names = new Vector();
 		for (int c = 0; c < cats.size(); c++) {
 			ArrayList series = ((ExtGraphCategory) cats.get(c)).getSeries();
@@ -174,9 +174,11 @@ public class ExtGraphProperty {
 
 	/**
 	 * 构造函数
-	 * @param graph 图形属性接口
+	 * @param graph 图形属性接口，该值为null时方便报表中的子类创建一个空的实例。
+	 * 这个空实例用于Option对象调用其中的listCategory以及listSeries方法，从而不需要调整这些方法的继承执行顺序
 	 */
 	public ExtGraphProperty(IGraphProperty graph) {
+		if( graph==null )return;
 		prop = graph;
 		graphType = prop.getType();
 	}
