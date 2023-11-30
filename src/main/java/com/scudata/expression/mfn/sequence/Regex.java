@@ -142,19 +142,35 @@ public class Regex extends SequenceFunction {
 		if (names == null) {
 			IArray srcMems = srcSequence.getMems();
 			Sequence result = new Sequence(len);
-			for (int i = 1; i <= len; ++i) {
-				Object obj = strMems.get(i);
-				if (obj instanceof String) {
-					m = pattern.matcher((String)obj);
-					if (m.find()) {
-						result.add(srcMems.get(i));
+			
+			if (option == null || option.indexOf('w') == -1) {
+				for (int i = 1; i <= len; ++i) {
+					Object obj = strMems.get(i);
+					if (obj instanceof String) {
+						m = pattern.matcher((String)obj);
+						if (m.find()) {
+							result.add(srcMems.get(i));
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needStringExp"));
 					}
-				} else if (obj != null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(mm.getMessage("engine.needStringExp"));
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Object obj = strMems.get(i);
+					if (obj instanceof String) {
+						m = pattern.matcher((String)obj);
+						if (m.matches()) {
+							result.add(srcMems.get(i));
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needStringExp"));
+					}
 				}
 			}
-
+			
 			return result;
 		} else {
 			int gcount = names.length;

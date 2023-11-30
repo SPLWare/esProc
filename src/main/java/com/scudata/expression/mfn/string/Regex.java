@@ -37,12 +37,27 @@ public class Regex extends StringFunction {
 
 			Pattern pattern = Pattern.compile((String)obj, flags);
 			Matcher m = pattern.matcher(srcStr);
-			if (!m.find()) return null;
-
 			int gcount = m.groupCount();
+
 			if (gcount == 0) {
-				return srcStr;
+				if (option == null || option.indexOf('w') == -1) {
+					if (m.find()) {
+						return srcStr;
+					} else {
+						return null;
+					}
+				} else {
+					if (m.matches()) {
+						return srcStr;
+					} else {
+						return null;
+					}
+				}
 			} else if (gcount == 1) {
+				if (!m.find()) {
+					return null;
+				}
+				
 				Sequence seq = new Sequence(3);
 				do {
 					seq.add(m.group(1));
@@ -50,6 +65,10 @@ public class Regex extends StringFunction {
 				
 				return seq;
 			} else {
+				if (!m.find()) {
+					return null;
+				}
+				
 				Sequence seq = new Sequence(gcount);
 				do {
 					for (int i = 1; i <= gcount; ++i) {
