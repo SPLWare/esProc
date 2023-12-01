@@ -20,7 +20,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 import com.scudata.chart.Utils;
 import com.scudata.common.ByteArrayInputRecord;
