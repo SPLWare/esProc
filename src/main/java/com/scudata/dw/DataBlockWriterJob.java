@@ -78,9 +78,9 @@ public class DataBlockWriterJob  extends Job {
 			bufferWriter.flush();
 		} else if (blockType.getType() == DataBlockType.INC_BLOCK) {
 			bufferWriter.write(DataBlockType.INC_BLOCK);
-			r = (BaseRecord) mems.get(1);
+			r = (BaseRecord) mems.get(start);
 			Object obj1 = r.getNormalFieldValue(col);
-			r = (BaseRecord) mems.get(2);
+			r = (BaseRecord) mems.get(start + 1);
 			Object obj2 = r.getNormalFieldValue(col);
 			bufferWriter.writeObject(obj1);
 			bufferWriter.flush();
