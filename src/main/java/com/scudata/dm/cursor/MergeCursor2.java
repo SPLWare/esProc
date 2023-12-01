@@ -541,7 +541,7 @@ public class MergeCursor2 extends ICursor {
 					data2 = cs2.fetch(FETCHCOUNT_M);
 					if (data2 != null && data2.length() > 0) {
 						cur2 = 1;
-						len2 = data1.length();
+						len2 = data2.length();
 					} else {
 						cur2 = 0;
 						break;
@@ -706,7 +706,7 @@ public class MergeCursor2 extends ICursor {
 					data2 = cs2.fetch(FETCHCOUNT_M);
 					if (data2 != null && data2.length() > 0) {
 						cur2 = 1;
-						len2 = data1.length();
+						len2 = data2.length();
 					} else {
 						cur2 = 0;
 						break;
