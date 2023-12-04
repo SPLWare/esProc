@@ -1211,10 +1211,16 @@ public class Variant {
 	 */
 	public static String negate(String str) {
 		char []chars = str.toCharArray();
-		for (int i = 0, len = chars.length; i < len; ++i) {
-			chars[i] = (char)(0xFFFF - chars[i]);
+		int last = chars.length - 1;
+		
+		if (last >= 0) {
+			for (int i = 0; i < last; ++i) {
+				chars[i] = (char)(0xFFFF - chars[i]);
+			}
+			
+			chars[last] = (char)(0x10000 - chars[last]);
 		}
-
+		
 		return new String(chars);
 	}
 
