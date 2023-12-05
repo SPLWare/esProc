@@ -17,22 +17,78 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Nodes extends SequenceFunction {
-	/**
-	 * 检查表达式的有效性，无效则抛出异常
-	 */
-	public void checkValidity() {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("nodes" + mm.getMessage("function.missingParam"));
+	public static void getAllSubs(Sequence srcSequence, String []fields, Sequence result) {
+		for (int i = 1, len = srcSequence.length(); i <= len; ++i) {
+			Object obj = srcSequence.getMem(i);
+			if (obj instanceof BaseRecord) {
+				getAllSubs((BaseRecord)obj, fields, result);
+			} else if (obj instanceof Sequence) {
+				getAllSubs((Sequence)obj, fields, result);
+			}
 		}
 	}
-
+	
+	public static void getAllSubs(BaseRecord srcRecord, String []fields, Sequence result) {
+		boolean sign = true;
+		if (fields == null) {
+			for (int f = 0, fcount = srcRecord.getFieldCount(); f < fcount; ++f) {
+				Object obj = srcRecord.getNormalFieldValue(f);
+				if (obj instanceof BaseRecord) {
+					getAllSubs((BaseRecord)obj, null, result);
+					sign = false;
+				} else if (obj instanceof Sequence) {
+					getAllSubs((Sequence)obj, null, result);
+					sign = false;
+				}
+			}
+		} else {
+			for (String field : fields) {
+				int f = srcRecord.getFieldIndex(field);
+				if (f != -1) {
+					Object obj = srcRecord.getNormalFieldValue(f);
+					if (obj instanceof BaseRecord) {
+						getAllSubs((BaseRecord)obj, null, result);
+						sign = false;
+					} else if (obj instanceof Sequence) {
+						getAllSubs((Sequence)obj, null, result);
+						sign = false;
+					}
+				}
+			}
+		}
+		
+		if (sign) {
+			result.add(srcRecord);
+		}
+	}
+	
 	public Object calculate(Context ctx) {
+		boolean isLeaf = false, isPath = false;
+		if (option != null) {
+			if (option.indexOf('r') != -1) {
+				Sequence result = new Sequence();
+				if (param == null) {
+					getAllSubs(srcSequence, null, result);
+				} else {
+					String []fields = param.toStringArray("nodes", false);
+					getAllSubs(srcSequence, fields, result);
+				}
+				
+				return result;
+			}
+			
+			if (option.indexOf('d') != -1) isLeaf = true;
+			if (option.indexOf('p') != -1) isPath = true;
+		}
+		
 		String field;
 		BaseRecord parent = null;
 		int maxLevel = 1000;
 		
-		if (param.isLeaf()) {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("nodes" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
 			field = param.getLeafExpression().getIdentifierName();
 		} else {
 			int size = param.getSubSize();
@@ -76,12 +132,6 @@ public class Nodes extends SequenceFunction {
 		IArray mems = srcSequence.getMems();
 		int len = mems.size();
 		Sequence result = new Sequence(len);
-		
-		boolean isLeaf = false, isPath = false;
-		if (option != null) {
-			if (option.indexOf('d') != -1) isLeaf = true;
-			if (option.indexOf('p') != -1) isPath = true;
-		}
 		
 		if (isLeaf) {
 			IArray p = srcSequence.fieldValues(field).getMems();

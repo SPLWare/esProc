@@ -429,6 +429,7 @@ public final class FunctionLib {
 		addMemberFunction("index", "com.scudata.expression.mfn.table.Index");
 		addMemberFunction("prior", "com.scudata.expression.mfn.record.Prior");
 		addMemberFunction("nodes", "com.scudata.expression.mfn.sequence.Nodes");
+		addMemberFunction("nodes", "com.scudata.expression.mfn.Nodes");
 
 		addMemberFunction("array", "com.scudata.expression.mfn.record.Array");
 		addMemberFunction("array", "com.scudata.expression.mfn.sequence.Array");
