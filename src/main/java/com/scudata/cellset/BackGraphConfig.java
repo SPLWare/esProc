@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,6 @@ import java.io.ObjectOutput;
 
 import javax.imageio.ImageIO;
 
-import com.scudata.chart.Utils;
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.ICloneable;
@@ -847,7 +847,8 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		int xloc = drawPoint.x;
 		int yloc = drawPoint.y;
 
-		Utils.setGraphAntiAliasingOff(g);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_OFF);
 
 		// ·ÇÊúÅÅÎÄ×Ö
 		if (angle != 0) {
@@ -884,7 +885,8 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			g.setColor(c);
 			g.drawString(txt, xloc, yloc);
 		}
-		Utils.setGraphAntiAliasingOn(g);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
 }
