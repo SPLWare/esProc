@@ -770,8 +770,6 @@ public class InternalConnection implements Connection, Serializable {
 	 * 关闭节点机连接
 	 */
 	private void closeUnitClient() {
-		System.out.println("-------------jdbc-close connect:"
-				+ unitConnectionId);
 		if (unitClient != null) {
 			try {
 				unitClient.JDBCCloseConnection(unitConnectionId);
