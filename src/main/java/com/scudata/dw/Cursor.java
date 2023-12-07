@@ -322,7 +322,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	private static Object combineAnd(Node node, Object left, Object right) {
-		if (left instanceof ColumnsOr && right instanceof ColumnsOr) {
+		/*if (left instanceof ColumnsOr && right instanceof ColumnsOr) {
 			return node;
 		}
 		if (left instanceof ColumnsOr) {
@@ -330,7 +330,7 @@ public class Cursor extends IDWCursor {
 		}
 		if (right instanceof ColumnsOr) {
 			right = ((ColumnsOr) right).getNode();
-		}
+		}*/
 		
 		if (left instanceof IFilter) {
 			if (right instanceof IFilter) {
@@ -344,12 +344,7 @@ public class Cursor extends IDWCursor {
 					filterList.add(f2);
 					return filterList;
 				}
-			} else if (right instanceof Node) {
-				ArrayList<Object> filterList = new ArrayList<Object>();
-				filterList.add(left);
-				filterList.add(right);
-				return filterList;
-			} else {
+			} else if (right instanceof ArrayList) {
 				IFilter filter = (IFilter)left;
 				ArrayList<Object> filterList = (ArrayList<Object>)right;
 				for (int i = 0, size = filterList.size(); i < size; ++i) {
@@ -363,21 +358,13 @@ public class Cursor extends IDWCursor {
 				
 				filterList.add(filter);
 				return filterList;
-			}
-		} else if (left instanceof Node) {
-			if (right instanceof IFilter) {
+			} else {
 				ArrayList<Object> filterList = new ArrayList<Object>();
 				filterList.add(left);
 				filterList.add(right);
 				return filterList;
-			} else if (right instanceof Node) {
-				return node;
-			} else {
-				ArrayList<Object> filterList = (ArrayList<Object>)right;
-				filterList.add(left);
-				return filterList;
 			}
-		} else { // ArrayList<IFilter>
+		} else if (left instanceof ArrayList) {
 			ArrayList<Object> filterList = (ArrayList<Object>)left;
 			if (right instanceof IFilter) {
 				IFilter filter = (IFilter)right;
@@ -392,10 +379,7 @@ public class Cursor extends IDWCursor {
 				
 				filterList.add(filter);
 				return filterList;
-			} else if (right instanceof Node) {
-				filterList.add(right);
-				return filterList;
-			} else {
+			} else if (right instanceof ArrayList) {
 				ArrayList<Object> filterList2 = (ArrayList<Object>)right;
 				int size = filterList.size();
 				
@@ -420,6 +404,22 @@ public class Cursor extends IDWCursor {
 				}
 				
 				return filterList;
+			} else {
+				filterList.add(right);
+				return filterList;
+			}
+		} else {
+			if (right instanceof IFilter) {
+				ArrayList<Object> filterList = new ArrayList<Object>();
+				filterList.add(left);
+				filterList.add(right);
+				return filterList;
+			} else if (right instanceof ArrayList) {
+				ArrayList<Object> filterList = (ArrayList<Object>)right;
+				filterList.add(left);
+				return filterList;
+			} else {
+				return node;
 			}
 		}
 	}
@@ -548,9 +548,17 @@ public class Cursor extends IDWCursor {
 			ArrayList<Object> list = (ArrayList<Object>)obj;
 			ArrayList<IFilter> filterList = new ArrayList<IFilter>();
 			Node node = null;
+			boolean hasOr = false;
+			
 			for (Object f : list) {
 				if (f instanceof IFilter) {
 					filterList.add((IFilter)f);
+				} else if (f instanceof ColumnsOr) {
+					hasOr = true;
+					IFilter []orFilters = ((ColumnsOr)f).toArray();
+					for (IFilter filter : orFilters) {
+						filterList.add(filter);
+					}
 				} else {
 					if (node == null) {
 						node = (Node)f;
@@ -567,7 +575,10 @@ public class Cursor extends IDWCursor {
 			if (size > 0) {
 				filters = new IFilter[size];
 				filterList.toArray(filters);
-				Arrays.sort(filters);
+				
+				if (!hasOr) {
+					Arrays.sort(filters);
+				}
 				
 				if (node != null) {
 					unknownFilter = new Expression(node);
