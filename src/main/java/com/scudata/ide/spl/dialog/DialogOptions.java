@@ -597,8 +597,10 @@ public class DialogOptions extends JDialog {
 		String newGCLogFile = jTFGCLog.getText();
 		if (isArgChanged(oldGCLogFile, newGCLogFile)) {
 			if (StringUtils.isValidString(newGCLogFile)) {
-				jvmArgMap.put(GMSpl.KEY_GC_LOG,
-						GMSpl.KEY_GC_LOG + Escape.addEscAndQuote(newGCLogFile));
+				if (GM.isWindowsOS()) // windows系统加引号
+					newGCLogFile = Escape.addEscAndQuote(newGCLogFile);
+				jvmArgMap
+						.put(GMSpl.KEY_GC_LOG, GMSpl.KEY_GC_LOG + newGCLogFile);
 			} else {
 				jvmArgMap.put(GMSpl.KEY_GC_LOG, "");
 			}
@@ -764,7 +766,8 @@ public class DialogOptions extends JDialog {
 				gcLogFile = gcLogFile.substring(GMSpl.KEY_GC_LOG.length());
 				if (StringUtils.isValidString(gcLogFile)) {
 					oldGCLogFile = gcLogFile.trim();
-					oldGCLogFile = Escape.removeEscAndQuote(oldGCLogFile);
+					if (GM.isWindowsOS()) // windows系统加引号
+						oldGCLogFile = Escape.removeEscAndQuote(oldGCLogFile);
 					jTFGCLog.setText(oldGCLogFile);
 				}
 			}
