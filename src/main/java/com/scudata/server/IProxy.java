@@ -111,8 +111,13 @@ public abstract class IProxy
 	public boolean checkTimeOut(int timeOut) {
 		if(subProxies!=null){
 			for(int i=0;i<subProxies.size(); i++){
-				IProxy sub = subProxies.get(i);
-				sub.checkTimeOut(timeOut);
+				try {
+					IProxy sub = subProxies.get(i);
+					sub.checkTimeOut(timeOut);
+				}catch(Exception x) {
+					//超时不再设置同步，避免从上往下，一路锁下来；而直接关代理对象时，会从下往上锁上去，可能死锁
+					//这里不同步对象后，可能代理对象已经被关掉，get会越界，对于越界的对象，直接忽略就可以了 xq 2023年12月11日
+				}
 			}
 		}
 		if (lastAccessTime < 0) {
