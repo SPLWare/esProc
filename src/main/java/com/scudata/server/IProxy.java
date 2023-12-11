@@ -108,7 +108,7 @@ public abstract class IProxy
 	 * @param timeOut 超时时间
 	 * @return 超时后销毁对象，返回true，否则返回false
 	 */
-	public synchronized boolean checkTimeOut(int timeOut) {
+	public boolean checkTimeOut(int timeOut) {
 		if(subProxies!=null){
 			for(int i=0;i<subProxies.size(); i++){
 				IProxy sub = subProxies.get(i);
