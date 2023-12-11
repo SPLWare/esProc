@@ -38,8 +38,7 @@ import com.scudata.util.EnvUtil;
  */
 public class TableFulltextIndex extends PhyTableIndex {
 	private static final int FETCH_SIZE = 1000;
-	private static final int DEFAULT_LIMIT = 1000000;//高频词限制数，超过这个值就抛弃
-	private int limit;//每个key值允许的最多记录数
+	private long limit;//每个key值允许的最多记录数
 	
 	public TableFulltextIndex(PhyTable table, FileObject indexFile) {
 		this(table, indexFile, null);
@@ -51,12 +50,14 @@ public class TableFulltextIndex extends PhyTableIndex {
 	
 	public TableFulltextIndex(PhyTable table, FileObject indexFile, Integer limit) {
 		super(table, indexFile);
-		this.limit = limit == null ? DEFAULT_LIMIT : limit;
+		long total = table.totalRecordCount;
+		this.limit = limit == null ? total : limit;
 	}
 	
 	public TableFulltextIndex(PhyTable table, String indexName, Integer limit) {
 		super(table, indexName);
-		this.limit = limit == null ? DEFAULT_LIMIT : limit;
+		long total = table.totalRecordCount;
+		this.limit = limit == null ? total : limit;
 	}
 	
 	protected void writeHeader(ObjectWriter writer) throws IOException {

@@ -178,8 +178,17 @@ class RecordValSearcher {
 		}
 		if (tableId == 0) {
 			recNum = -recNum;
-			record = modifyRecords.get((int) recNum - 1).getRecord();
-			curModifyRecord = record;
+			ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
+			for (ModifyRecord mr : modifyRecords) {
+				if (mr.getRecordSeq() == recNum) {
+					record = mr.getRecord();
+					curModifyRecord = record;
+					break;
+				}
+			}
+			
+//			record = modifyRecords.get((int) recNum - 1).getRecord();
+//			curModifyRecord = record;
 		} else {
 			ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
 			for (ModifyRecord mr : modifyRecords) {
