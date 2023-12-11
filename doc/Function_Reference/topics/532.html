@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>kafka_send()</title>
+<title>json()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,213 +13,335 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="kafka_subscribe"></a><span lang=EN-US style='mso-fareast-font-family:
-宋体'>kafka_send()<a name="kafka_send"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Descripition:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US>json()<a name=json></a></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>A producer publishes messages to topics.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><a
+name="_Hlk129783155"><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Parse a
+string, a record, a sequence or a table sequence of JSON format</span></a><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><span
-class=var1><b><span lang=EN-US>kafka_send</span></b><span lang=EN-US>(fd,
-[key,] value)<span style='mso-tab-count:1'>&nbsp; </span></span></span></p>
+<p class=MsoNormal><span lang=EN-US><span style='mso-tab-count:1'>&nbsp; </span></span><b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>json(x) </span></b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><span
-class=var1><b><span lang=EN-US>kafka_send</span></b><span lang=EN-US>(fd,
-partition, key, value)</span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note: </span></b></p>
+<p class=af6 style='text-indent:21.0pt'><span lang=EN-US style='font-family:
+"Times New Roman",serif'>If parameter<i style='mso-bidi-font-style:normal'> x<span
+style='color:red'> </span></i>is a JSON string, the function parses it into a
+table sequence to return; if parameter<i style='mso-bidi-font-style:normal'> x</i>
+is a record, a sequence or a table sequence, the function parses it into a JSON
+string to return.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>External library function <span style='mso-bidi-font-style:italic'>(See
-<a href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span>.</span></p>
+lang=EN-US>The format of JSON string is [{F:v,</span><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><span
+lang=EN-US>},</span><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>…</span><span lang=EN-US>], where v is
+the value of F and a string constant should be quoted.</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>When there aren’t partitions, parameter </span><span class=var1><span
-lang=EN-US>key</span></span><span lang=EN-US> can be absent; and when there are
-partitions, parameters </span><span class=var1><span lang=EN-US>partition</span></span><span
-lang=EN-US>, </span><span class=var1><span lang=EN-US>key</span></span><span
-lang=EN-US> and </span><span class=var1><span lang=EN-US>value</span></span><span
-lang=EN-US> must be present.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameter: </span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-15.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>fd</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-font-weight:bold'>x</span></i></p>
   </td>
-  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A connection object</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>key</span></span></p>
-  </td>
-  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The key word of a message</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>value</span></span></p>
-  </td>
-  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Value of a message</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>partition</span></span></p>
-  </td>
-  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Index numbers of partitions, which is an
-  integer or a sequence beginning from 0</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A JSON string/record/sequence</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
-14.0pt'> </span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Option:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-20.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:4.5pt'>
+  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>@v</span></b><span class=var1><span
+  lang=EN-US></span></span></p>
+  </td>
+  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-font-weight:bold'>Treat parameter <i style='mso-bidi-font-style:
+  normal'>x</i> as an expression and calculate its result</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:4.5pt'>
+  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span class=var1><b><span lang=EN-US>@</span></b></span><span
+  class=var1><b><span lang=EN-US style='font-style:normal'>t</span><span
+  lang=EN-US></span></b></span></p>
+  </td>
+  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span lang=EN-US>Arrange the returned result set as a
+  same-structure table sequence</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Return
+value:</span></b><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'></span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A record/sequence/table
+sequence/JSON string</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:13.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-1.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
   </td>
-  <td width=257 valign=top style='width:192.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=257 valign=top style='width:192.65pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b><span
+  class=code><span lang=EN-US style='font-weight:normal'></span></span></p>
   </td>
-  <td width=552 valign=top style='width:413.95pt;border:none;mso-border-left-alt:
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(&quot;D://kafka.properties&quot;,&quot;topic-test&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US>=</span></span><span
+  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt'>&quot;</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:'China',province:[{name:'Heilongjiang',cities:</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{city:['Harbin','Daqing']}},{name:'Guangdong',</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>cities:{city:['Guangzhou','Shenzhen','Zhuhai']}},{name:'Taiwan',cities:</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{city:['Taipei','Kaohsiung']}},{name:'Xinjiang',cities:{city:['Urumqi']}}]}</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+  mso-bidi-font-size:11.0pt;mso-bidi-font-family:宋体'> </span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;mso-bidi-font-family:宋体'>&quot;</span></b><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'></span></p>
   </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to Kafka server </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,
-  &quot;A100&quot;,&quot;apple&quot;)</span></span></p>
-  </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Send a message where the key is A100 and
-  value is apple to A1</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,&quot;apple&quot;)</span></span></p>
-  </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Omit parameter </span><span class=var1><span
-  lang=EN-US>key</span></span><span lang=EN-US> as there are no partitions</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(file(&quot;D://kafka.properties&quot;);&quot;topic-test1&quot;)</span></span></p>
-  </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,1,
-  &quot;A100&quot;,&quot;apple&quot;)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=json(A1)</span></b><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'></span></p>
   </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>All parameters must be present as there
-  are partitions</span></p>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>A1 is a JSON string, which is parsed into a table
+  sequence and return the result:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=287 height=159
+  src="Function_Reference.files/image1409.jpg" v:shapes="_x0000_i2023"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
   </td>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_close(A1)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=demo.query(&quot;select EID,NAME,SURNAME
+  from EMPLOYEE&quot;)</span></b><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></p>
   </td>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Close the Kafka connection</span></p>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=271 height=171
+  src="Function_Reference.files/image1410.png" v:shapes="_x0000_i2024"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=json(A3)</span></b><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'></span></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>A3 is a table sequence, which is parsed
+  into a JSON string and return the result:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=272 height=165
+  src="Function_Reference.files/image1412.jpg" v:shapes="_x0000_i2025"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=&quot;{
+  number:rand(10)}&quot;</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt'></span></b></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=json(A5)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></b></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Result:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=183 height=43
+  src="Function_Reference.files/image1414.jpg" v:shapes="_x0000_i2026"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=json@v(A5)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></b></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The @v option treats rand(10) as an
+  expression and calculates it, and the function returns random numbers within
+  10</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>8</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=&quot;[{ID:1,NAME:aa,GENDER:F},{GENDER:M,NAME:bb,ID:2}]&quot;</span></b></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>9</span></b></p>
+  </td>
+  <td width=257 valign=top style='width:192.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=json@t(A8)</span></b></p>
+  </td>
+  <td width=272 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>@t option enables arranging the result set as a
+  same-structure table sequence</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=287 height=94
+  src="Function_Reference.files/image1415.png" v:shapes="_x0000_i2027"></span></p>
   </td>
  </tr>
 </table>
@@ -230,7 +352,7 @@ style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>kmeans()</title>
+<title>kafka_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,331 +13,256 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>kmeans()<a name=kmeans></a></span></h2></div>
-	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>kafka_open()<a
+name="kafka_open"></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>The
-external library function </span><span lang=EN-US style='mso-bidi-font-style:
-italic'>(See <a href="http://doc.raqsoft.com/esproc/ext/">External Library
-Guide</a>) </span><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>performs
-an unsupervised clustering algorithm that divides a dataset into predetermined
-number of clusters based on the minimum error function.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US>Connect to Kafka server.</span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b><span class=var1><span lang=EN-US></span></span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>kafka_open</span></span><span
+class=var1><span lang=EN-US>(filename or fileObject, topic,..., partitionSize)</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b><span lang=EN-US> </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The external library function <span style='mso-bidi-font-style:italic'>(See
+<a href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>) </span>connects
+to Kafka server, and stores attribute parameter <i>properties</i> in the
+configuration file with extension.<i>properties</i>. </span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b><span lang=EN-US
+style='font-size:14.0pt'> </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>topic</span></span></p>
+  </td>
+  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Query one or more specified <i>topic</i>s</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>filename</span></span></p>
+  </td>
+  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The attribute parameter file with the
+  extension .<i>properties</i>, which contains the send key, value encoding and
+  message decoding; all of them should correspond to each other one by one</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>fileObject</span></span></p>
+  </td>
+  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file object</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>partitionSize</span></span></p>
+  </td>
+  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:5.25pt;text-indent:-5.25pt;mso-char-indent-count:
+  -.5'><span lang=EN-US>The number of partitions in a <i>topic</i>; if a corresponding
+  topic already exists, ignore the parameter, which means SPL does not support
+  changing the partition size in a topic </span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A connection object</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
+14.0pt'> </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.25pt;border-collapse:collapse;border:none;mso-border-alt:
- solid #F2F2F2 .25pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.25pt solid #F2F2F2;
- mso-border-insidev:.25pt solid #F2F2F2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:34.1pt'>
-  <td width=223 valign=top style='width:167.45pt;border:solid #F2F2F2 1.0pt;
-  mso-border-alt:solid #F2F2F2 .25pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:34.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>kmeans(A,k)</span></b><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'></span></p>
+ style='margin-left:-.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
   </td>
-  <td width=345 valign=top style='width:258.65pt;border:solid #F2F2F2 1.0pt;
-  border-left:none;mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-alt:solid #F2F2F2 .25pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:34.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>Perform
-  training on training set A using training parameter k, and return training
-  result model R</span></p>
+  <td width=322 valign=top style='width:241.15pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:21.1pt'>
-  <td width=223 valign=top style='width:167.45pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-alt:solid #F2F2F2 .25pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:21.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>kmeans(R,B)</span></b><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'></span></p>
-  </td>
-  <td width=345 valign=top style='width:258.65pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-left-alt:solid #F2F2F2 .25pt;
-  mso-border-alt:solid #F2F2F2 .25pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:21.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>Perform
-  prediction on scoring set B according to model R and return the prediction
-  result</span></p>
+  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:49.5pt'>
-  <td width=223 valign=top style='width:167.45pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-alt:solid #F2F2F2 .25pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:49.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>kmeans(A,k,B)</span></b></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=345 valign=top style='width:258.65pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-left-alt:solid #F2F2F2 .25pt;
-  mso-border-alt:solid #F2F2F2 .25pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:49.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>Connect
-  training and prediction; perform a linkage task of model training and data
-  scoring by inputting training data A, training parameter k and scoring data
-  B, and return the prediction result</span></p>
+  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(&quot;D://kafka.properties&quot;,&quot;topic-test&quot;)</span></span></p>
   </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Parameter:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-7.55pt;border-collapse:collapse;border:none;mso-border-alt:
- solid #F2F2F2 .25pt;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:28.5pt'>
-  <td width=57 valign=top style='width:42.45pt;border:solid #F2F2F2 1.0pt;
-  border-bottom:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-left-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>A</span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;border-top:solid #F2F2F2 1.0pt;
-  border-left:none;border-bottom:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>A
-  sequence, which is the training set</span></p>
+  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Connect topic-test’s configuration file <i>kafka.properties</i>
+  to Kafka server using a topic</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;height:28.5pt'>
-  <td width=57 valign=top style='width:42.45pt;border-top:none;border-left:
-  solid #F2F2F2 1.0pt;border-bottom:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>k</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;border:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-right-alt:solid #F2F2F2 .75pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US>An
-  integer, which is the number of clusters; support 2 only</span></p>
+  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(file(&quot;D://kafka.properties&quot;),&quot;topic-test&quot;,3)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:28.5pt'>
-  <td width=57 valign=top style='width:42.45pt;border-top:none;border-left:
-  solid #F2F2F2 1.0pt;border-bottom:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>R</span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;border:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-right-alt:solid #F2F2F2 .75pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>A
-  sequence, which is the result returned by syntax kmeans(A,k)</span></p>
+  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Connect topic-test’s configuration file <i>kafka.properties</i>
+  to Kafka server using a file object</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:28.5pt'>
-  <td width=57 valign=top style='width:42.45pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>B</span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:29.95pt'>
+  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-bottom-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;color:#333333;mso-font-kerning:0pt'>A
-  sequence, which is the scoring set</span></p>
+  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_close(A1)</span></span></p>
+  </td>
+  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Return value:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Below
+is the content of D://kafka.properties:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>A
-sequence</span></p>
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>##produce<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Example:</span></b><span lang=EN-US style='font-size:
-14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>bootstrap.servers=192.168.0.1:9092</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=492
- style='margin-left:19.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid #A5A5A5 1.0pt;
-  mso-border-alt:solid #A5A5A5 .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel><span lang=EN-US style='font-size:10.5pt'>&nbsp;</span></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border:solid #A5A5A5 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabLabel><b><span lang=EN-US style='font-size:10.5pt'>A</span></b></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>1</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>[[1,2,3,4],[2,3,1,2],[1,1,1,-1],[1,0,-2,-6]]</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Training set A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>2</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>2</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Parameter k</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>3</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>[[6,2,3,5],[0,3,1,5],[1,2,1,-1],[1,5,2,-6]]</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Scoring set B</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>4</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>=kmeans(A1,A2)</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Perform training on A1
-  according to k=2 and return training result R</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>5</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>=kmeans(A4,A3)</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span style='mso-ignore:vglayout;
-   position:relative;z-index:251666432;left:-130px;top:0px;width:265px;
-   height:1px'><img width=265 height=1
-   src="Function_Reference.files/image1369.jpg" v:shapes="图片_x0020_1"></span><br
-  style='mso-ignore:vglayout' clear=ALL>
-  <span lang=zh-CN style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'><span
-  style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>Perform data prediction on the scoring set using
-  A4’s training result R and return the prediction result; separate A3’s sample
-  into two groups, where sample 1 and sample 2 are in the same group and sample
-  3 and sample 4 are put another group</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:49.8pt'>
-  <td width=42 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>6</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=MsoNormal><span lang=EN-US>=kmeans(A1,A2,A3)</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>Input the training set,
-  parameter k and scoring set to perform training and scoring in a row, and
-  return prediction result, which is the same as A5</span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>producer.type=sync<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>request.required.acks=1<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>serializer.class=kafka.serializer.DefaultEncoder<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>key.serializer=org.apache.kafka.common.serialization.StringSerializer<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>value.serializer=org.apache.kafka.common.serialization.StringSerializer<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>##consume<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>group.id=test </span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>zookeeper.session.timeout.ms=1000<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>zookeeper.sync.time.ms=200<span style='mso-spacerun:yes'>&nbsp;
+</span></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;mso-layout-grid-align:
+none;text-autospace:none'><span lang=EN-US>auto.commit.interval.ms=500</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;mso-layout-grid-align:
+none;text-autospace:none'><span lang=EN-US># Manual mode;
+auto.commit.interval.ms is invalid</span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>enable.auto.commit=false<span style='mso-spacerun:yes'>&nbsp;
+</span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>auto.offset.reset=earliest </span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>key.deserializer=org.apache.kafka.common.serialization.StringDeserializer<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>value.deserializer=org.apache.kafka.common.serialization.StringDeserializer<br>
+<br>
+<b style='mso-bidi-font-weight:normal'>Explanations of user-defined coding and
+decoding:<br>
+</b>Put the jar containing encoding and decoding information in<i>
+exlib\KafkaCil</i> directory, as shown below:<br>
+</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=554 height=99
+src="Function_Reference.files/image1417.jpg" v:shapes="_x0000_i2028"></span><span
+lang=EN-US><br>
+In <i>raq-kafa-cil-2.11.jar</i>, the encoding file is <i>EncodeingSequence.class</i>,
+the decoding file is <i>DecodeingSequence.class</i>, and their corresponding
+record object is Sequence.<br style='mso-special-character:line-break'>
+<br style='mso-special-character:line-break'>
+</span><span lang=EN-US style='color:black;mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt;mso-bidi-font-weight:
+bold'>Below are configurations of user-defined encoding and decoding in <i>.properties</i>
+file:<br>
+key.serializer=org.apache.kafka.common.serialization.StringSerializer<span
+style='mso-spacerun:yes'>&nbsp; </span><br>
+</span><span lang=EN-US>value.serializer=com.raqsoft.lib.kafka.EncodeingSequence</span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>key.deserializer=org.apache.kafka.common.serialization.StringDeserializer<span
+style='mso-spacerun:yes'>&nbsp;
+</span>value.deserializer=com.raqsoft.lib.kafka.DecodeingSequence</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="539.html">Next</a></div>
@@ -345,7 +270,7 @@ mso-font-kerning:0pt'>Example:</span></b><span lang=EN-US style='font-size:
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

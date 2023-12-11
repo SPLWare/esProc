@@ -573,7 +573,11 @@ immediately. Without the option, the function cumulates a certain number of
 records before writing them in an entity table, or it writes data to a
 composite table when <span class=T-Var><b style='mso-bidi-font-weight:normal'>T'</b></span></span><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.close()
-</span></span><span lang=EN-US>function closes the table. </span></p>
+</span></span><span lang=EN-US>function closes the table. When <b
+style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>T</i>.append()</b>
+function is used to add data, composite table <b style='mso-bidi-font-weight:
+normal'><i style='mso-bidi-font-style:normal'>T</i></b> should not be opened in
+multiple locations, otherwise data collision may occur.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -583,11 +587,11 @@ class=T-Bold>,</span><span class=T-Var>C</span><span class=T-Bold><sub>1</sub>,¡
 function adds another entity table <i style='mso-bidi-font-style:normal'>stable</i>
 in the composite table. It has two fields &#8211; OCount (number of orders) and
 OAmount (order amount). B13 fill this entity table with data. One thing to note
-is that the seller table <i style='mso-bidi-font-style:normal'>stable</i> depends
-on the base table, or the entity table <i style='mso-bidi-font-style:normal'>employee</i>.
-It is called the <b style='mso-bidi-font-weight:normal'>attached table</b> of a
-composite table¡¯s base table; the base table, or the entity table <i
-style='mso-bidi-font-style:normal'>employee </i>as in here, is called <i
+is that the seller table <i style='mso-bidi-font-style:normal'>stable</i>
+depends on the base table, or the entity table <i style='mso-bidi-font-style:
+normal'>employee</i>. It is called the <b style='mso-bidi-font-weight:normal'>attached
+table</b> of a composite table¡¯s base table; the base table, or the entity
+table <i style='mso-bidi-font-style:normal'>employee </i>as in here, is called <i
 style='mso-bidi-font-style:normal'>stable</i>¡¯s <b style='mso-bidi-font-weight:
 normal'>parent table</b>. Except for its own fields, <b style='mso-bidi-font-weight:
 normal'>an attached table must contain the parent table¡¯s key field(s)</b>. So

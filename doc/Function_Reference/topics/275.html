@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>qvm.exec()</title>
+<title>es_post ()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,508 +13,348 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>qvm.exec()<a
-name="qvm_exec_splx_t"></a></span></h3></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="es_post"><span lang=EN-US>es_post</span></a><span lang=EN-US>()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%;mso-font-kerning:
+0pt'>Description:</span></b><span lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>Execute a SPL script file through QVS.</span></p>
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US>Execute
+the post command and return a table sequence or a cursor.</span><span
+lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b><span class=var1><span lang=EN-US
-style='font-size:14.0pt'></span></span></p>
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%;mso-font-kerning:0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US>qvm.</span></i><b><span lang=EN-US>exec</span></b><span lang=EN-US>(<i>splx</i>,…;<i>t</i>)</span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+<p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+style='mso-font-kerning:0pt'><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-fareast-font-family:
+黑体'>es_post</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
+0pt'>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>fd,
+endpoint, entity</span></i><i><span style='mso-bidi-font-size:10.5pt;
+font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>，</span></i><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>header</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+mso-font-kerning:0pt'>)</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function executes a SPL script file through QVS. </span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
+mso-pagination:widow-orphan'><span lang=EN-US>The external library function <span
+style='mso-bidi-font-style:italic'>(See <a
+href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span>
+queries data through the post command and by default returns 10 records at
+most. If the JSON data in the result set contains multiple <i style='mso-bidi-font-style:
+normal'>_index</i>, they will be fully displayed. Parameter <i
+style='mso-bidi-font-style:normal'>entity</i> can be omitted.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>When configuring cloud storage connection through QVS, execute the target
-script file on the cloud storage platform; if the cloud storage is not
-configured, execute the script in the QVM main directory.<span
-style='color:red'> </span></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameter:</span></b><span lang=EN-US
-style='font-size:14.0pt'></span></p>
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Option:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-yfti-tbllook:
- 1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.25pt'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>@c</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=476 valign=top style='width:356.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5;
+  mso-pagination:widow-orphan'><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-font-kerning:0pt'>Query a cursor </span><span lang=EN-US
+  style='font-size:14.0pt;mso-fareast-font-family:黑体;mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:15.25pt'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>@f</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=476 valign=top style='width:356.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5;
+  mso-pagination:widow-orphan'><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>entity</i> can be a file</span><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>qvm</span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><a name="_Hlk511231197"><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>fd</span></i></a></p>
   </td>
-  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A QVM object</span></p>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A REST Client object</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>splx</span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>endpoint</span></i></span></p>
   </td>
-  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A SPL script file</span></p>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>Rest API address</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>…</span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>entity</span></i></span></p>
   </td>
-  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Parameter(s) of the splx file; multiple
-  parameters are separated by comma</span></p>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A parameter
+  transmitted through http body, which is a JSON string or the name of JSON
+  file</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>t</span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>header</span></i></span><span
+  style='mso-bookmark:_Hlk511231197'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-font-kerning:0pt'></span></span></p>
   </td>
-  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Time-out (unit: second); default is 120</span></p>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A variable parameter
+  that passes http header; it is a key type JSON string</span></span><span
+  style='mso-bookmark:_Hlk511231197'><span lang=EN-US style='mso-bidi-language:
+  AR'></span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Option:</span></b></p>
+<span style='mso-bookmark:_Hlk511231197'></span>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-yfti-tbllook:
- 1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
-  height:4.5pt'>
-  <td width=94 valign=top style='width:70.55pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>@x</span></span><span
-  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'></span></b></span></p>
-  </td>
-  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span lang=EN-US>Automatically close QVM when final value
-  is returned</span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b><span lang=EN-US
-style='font-size:14.0pt'></span></p>
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:10.5pt;mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-para-margin-left:1.0gd;mso-pagination:widow-orphan'><span lang=EN-US>A
+table sequence/cursor</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Return value of
-the SPL script file</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Example:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=FR style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-ansi-language:FR'></span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
-14.0pt'></span></p>
-
-<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
-mso-char-indent-count:0;mso-list:l22 level1 lfo23'><span
-lang=EN-US style='font-size:10.5pt;font-family:Wingdings;mso-fareast-font-family:
-Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.5pt;
-font-family:"Times New Roman",serif'>Execute script file on the cloud storage
-platform</span></b></p>
-
-<p class=MsoNormal><span lang=EN-US>Create script file <i>sEmp.splx</i>, for
-which cellset parameters <i>arg1</i> and <i>arg2</i> are added:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=997
- style='margin-left:3.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-1.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=303 valign=top style='width:227.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/Employees.txt&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_open(&quot;localhost:9200
+  &quot;,&quot;user&quot;:&quot;un1234&quot;)</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Read <i>Employees.txt</i> in storage
-  bucket <i>qtc01</i></span></p>
+  <p class=MsoNormal><span lang=EN-US>Connect to the ES server</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.import@t()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post(A1,&quot;/accounts/_search?q=user:kimchy&quot;)</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return file content as a table sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US>Query in the <i style='mso-bidi-font-style:
+  normal'>bank</i> index the record where user is <i style='mso-bidi-font-style:
+  normal'>kimchy</i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.select(Gender:arg1,Post:arg2)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post(A1,&quot;/_all/_search?q=_id:5&quot;)</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Select records meeting the specified condition</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>return
-  A3</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return A3’s result</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-mso-bidi-font-weight:bold'>Execute script file </span><i><span lang=EN-US
-style='mso-bidi-font-weight:bold'>sEmp.splx</span></i><span lang=EN-US
-style='mso-bidi-font-weight:bold'> </span><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-bidi-font-weight:bold'>on the cloud storage platform through QVS:</span><span
-lang=EN-US style='mso-bidi-font-weight:bold'></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=997
- style='margin-left:3.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qconnect(&quot;http://54.213.221.123:8080/qvs&quot;:&quot;aws-qvs&quot;,30,300)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Request QVA through QVS to access QVM</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;qtc01/sEmp.splx&quot;)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload script file <i>sEmp.splx</i> to
-  storage bucket <i>qtc01</i> on the cloud storage platform</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.exec@x(&quot;qtc01/sEmp.splx&quot;,&quot;Male&quot;,&quot;Sale&quot;;100)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Execute script file <i>sEmp.splx</i> in
-  storage bucket <i>qtc01</i>, and pass Male to parameter <i>arg1</i> and Sale
-  to parameter <i>arg2</i>, and set time-out as 100s;</span></p>
-  <p class=MsoNormal><span lang=EN-US>As @x option is present, automatically
-  close QVM when execution result is returned</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
-mso-char-indent-count:0;mso-list:l22 level1 lfo23'><span
-lang=EN-US style='font-size:10.5pt;font-family:Wingdings;mso-fareast-font-family:
-Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.5pt;
-font-family:"Times New Roman",serif'>Execute script file in QVM main directory</span></b></p>
-
-<p class=MsoNormal><span lang=EN-US>Create script file <i>getfileqvm.splx</i>,
-add cellcet parameter <i>txtfile</i> to it, save the file and upload it to QVM
-main directory</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=997
- style='margin-left:3.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(txtfile)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Pass txt format data file name through
-  parameter <i>txtfile</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.import@t()</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Import data file content</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>Execute script file <i>getfileqvm.splx</i>
-in QVM main directory:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=997
- style='margin-left:3.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qconnect(&quot;http://localhost:8090/qvs&quot;:&quot;demoqvs&quot;,30,300)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Request QVA through QVS to access QVM</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;tran.txt&quot;)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload data file <i>tran.txt</i> to QVM
-  main directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;getfileqvm.splx&quot;)</span></b></p>
-  </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload script file <i>getfileqvm.splx</i>
-  to QVM main directory</span></p>
+  <p class=MsoNormal><span lang=EN-US>Query the record where _id is <i
+  style='mso-bidi-font-style:normal'>5</i> across different databases</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.exec(&quot;getfileqvm.splx&quot;,&quot;tran.txt&quot;;100)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post@c(A1,&quot;/accounts/person/_search&quot;)</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Execute script file <i>getfileqvm.splx</i>
-  in QVM main directory, and pass &quot;tran.txt&quot; to parameter <i>txtfile</i>,
-  and set time-out as 100s</span></p>
+  <p class=MsoNormal><span lang=EN-US>Query records where index is <i
+  style='mso-bidi-font-style:normal'>accounts</i> and type is <i
+  style='mso-bidi-font-style:normal'>person </i>via the cursor</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>5</span></b></p>
   </td>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;A1.close()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A4.fetch()</span></b></p>
   </td>
-  <td width=467 valign=top style='width:349.95pt;border:none;mso-border-left-alt:
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Close QVM</span></p>
+  <p class=MsoNormal><span lang=EN-US>Return records fetched from the cursor</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post@f(A1,&quot;/bank/person/_search&quot;,&quot;D:/entity_post_accounts.txt&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>entity</i> is a file, from which the function queries records where <i
+  style='mso-bidi-font-style:normal'>_gender=“F”</i> under /bank/person and
+  sort them</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>Note: Here’s the
+file <i style='mso-bidi-font-style:normal'>entity_post_accounts.txt</i>:<br>
+</span></b><span lang=EN-US style='mso-font-kerning:0pt'>{</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;query&quot; : {</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp;
+</span>&quot;match&quot; : { &quot;gender&quot; : &quot;F&quot; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>},</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;track_scores&quot;: true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;sort&quot; : [</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>{
+&quot;account_number&quot; : {&quot;order&quot; : &quot;desc&quot;} },</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span><span
+style='mso-spacerun:yes'>&nbsp;</span>{ &quot;firstname&quot;
+: &quot;desc&quot; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>{
+&quot;lastname&quot; : &quot;desc&quot; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>]</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'>}</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="276.html">Next</a></div>
@@ -522,7 +362,7 @@ in QVM main directory:</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="274.html">exec()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

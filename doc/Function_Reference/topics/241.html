@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>directory( path )</title>
+<title>diff()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,300 +13,279 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="directory_path"></a><span lang=EN-US>directory(<i style='mso-bidi-font-style:
-normal'>path</i>)</span></h3></div>
-	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><a name="A_diff_x"></a><span lang=EN-US>diff()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>List the file
-name(s) satisfying a wildcard path.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Calculate difference
+between the sequence-type members in a specified sequence. </span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>directory(</span></span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>A</span></span><span lang=EN-US>.</span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>diff(x)</span></span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function lists
-file name(s) satisfying wildcard path <i style='mso-bidi-font-style:normal'>path</i>,
-excluding the path names.</span></p>
+<p class=MsoNormal style='text-indent:21.85pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+italic'>The function computes difference between sequence-type members in
+sequence </span></span><span class=var1><span lang=EN-US style='mso-bidi-font-style:
+normal'>A</span></span><span class=var1><span lang=EN-US style='font-style:
+normal;mso-bidi-font-style:italic'>, </span></span><span lang=EN-US>ensuring
+that members of the new sequence do not include any member of the other
+sub-sequences. When parameter <i>x</i> is present, compute expression <i>x</i>
+with each member of <i>A</i> and then find the difference.</span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter:</span></p>
+<p class=MsoNormal style='text-indent:21.85pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The algorithm is to compute the difference between
+the first sub-sequence and the second one, then compute the difference between
+the result and the third sub-sequence, and so on and so forth.</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>path</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Wildcard path, * represents 0 or multiple
-  characters, and ? represents a single character</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Option: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@d</span></span><span
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>List the subdirectory of </span><span
-  class=var1><span lang=EN-US>path</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>A sequence whose members are sequences</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span><span
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return files with full paths under the
-  directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-font-style:italic'>@m</span></span><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-font-style:italic'>@r</span></span><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete a directory, which must be empty</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-font-style:italic'>@s</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Perform recursive query to get all file
-  names under all subdirectories; mutually exclusive with @m and @r</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-font-style:italic'>@c</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Make case-insensitive; without it the OS
-  will have a say</span></p>
+  <p class=MsoNormal><span lang=EN-US>An expression that returns a sequence;
+  cannot be omitted when members of <i style='mso-bidi-font-style:normal'>A</i>
+  are table sequences or record sequences</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A sequence</span></p>
+<p class=MsoNormal><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp; </span>A sequence</span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Example:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i
+style='mso-bidi-font-style:normal'>A</i> is a sequence:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><span style='mso-tab-count:1'>&nbsp; </span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=222 valign=top style='width:166.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=156 valign=top style='width:117.15pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
   </td>
-  <td width=280 valign=top style='width:209.75pt;border:none;mso-border-left-alt:
+  <td width=553 valign=top style='width:414.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
   </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
+  <td width=156 style='width:117.15pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory(&quot;D://*.txt&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,3,4,5],[3,7,8]].diff()</span></span></p>
   </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=553 style='width:414.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return the txt file list under the root
-  directory on driver D</span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[1,2,4,5]</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
   </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
+  <td width=156 style='width:117.15pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@d(&quot;D://tomcat5&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,3],[3,2],[1]].diff()</span></span></p>
   </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=553 style='width:414.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List the subdirectory under the </span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>tomcat5</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>directory</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[]</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
   </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
+  <td width=156 style='width:117.15pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@m(&quot;D://test&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,2,3],[2]].diff()</span></span></p>
   </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=553 style='width:414.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create test folder under the root
-  directory on driver D</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@r(&quot;D://test&quot;)</span></span></p>
-  </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Delete </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>D://test</span></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>directory,</span></span><span lang=EN-US> but the test folder
-  must be empty</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@s(&quot;D://tomcat5&quot;)</span></span></p>
-  </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a list of files in subdirectories
-  under the <i style='mso-bidi-font-style:normal'>tomcat5</i> directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@p(&quot;D://tomcat5&quot;)</span></span></p>
-  </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List full path of files under <i
-  style='mso-bidi-font-style:normal'>tomcat5</i> directory </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=222 style='width:166.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=directory@c(&quot;d://TOMCAT5/*.txt&quot;)</span></span></p>
-  </td>
-  <td width=280 style='width:209.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List txt files under tomcat5 directory;
-  must be case-insensitive </span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[1,2,3]</span></span><span
+  lang=EN-US>; delete a duplicate member once only</span><span lang=EN-US
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="fexists.html#f_exists">f<span style='font-style:normal'>.
-exist<span style='mso-bookmark:_Hlt415042038'>s</span>()</span></a><a
-name="_Hlt415042038"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i
+style='mso-bidi-font-style:normal'>A</i> is a table sequence or a record
+sequence:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="fsize.html#f_size">f<span style='font-style:normal'>.
-siz<span style='mso-bookmark:_Hlt415042050'>e</span>()</span></a><a
-name="_Hlt415042050"></a></span></i></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=348 valign=top style='width:261.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
+  </td>
+  <td width=357 valign=top style='width:267.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
+  </td>
+  <td width=348 valign=top style='width:261.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
+  * from STUDENTS where ID&gt;3&quot;)</span></b><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal'></span></span></p>
+  </td>
+  <td width=357 style='width:267.55pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=304 height=103
+  src="Function_Reference.files/image530.png" v:shapes="_x0000_i1386"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
+  </td>
+  <td width=348 valign=top style='width:261.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
+  * from STUDENTS1&quot;)</span></b><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal'></span></span></p>
+  </td>
+  <td width=357 style='width:267.55pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=303 height=103
+  src="Function_Reference.files/image531.png" v:shapes="图片_x0020_408"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
+  </td>
+  <td width=348 valign=top style='width:261.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[A1,A2].diff(~.(NAME))</span></span></p>
+  </td>
+  <td width=357 style='width:267.55pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>[&quot;Michael&quot;,&quot;John&quot;,&quot;Nicholas&quot;]</span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="movefilefp.html#movefile_fn_path">movefil<span style='mso-bookmark:_Hlt415042023'>e</span>()</a><a
-name="_Hlt415042023"></a><a name="mdb_distinct"></a><a
-name="directory_path_z"></a><i style='mso-bidi-font-style:normal'></i></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="242.html">Next</a></div>
@@ -314,7 +293,7 @@ name="directory_path_z"></a><i style='mso-bidi-font-style:normal'></i></span></p
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="240.html">directory()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

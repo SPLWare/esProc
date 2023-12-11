@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>mid()</title>
+<title>T.memory( C,…;w )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,160 +13,998 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:mid'><span lang=EN-US>mid()</span></span><a
-name="mid_s_start_len"></a></h2></div>
-	<p class=ae style='line-height:200%'><span lang=EN-US>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>T.memory(<i
+style='mso-bidi-font-style:normal'>C,…;w</i>)</span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlk129860080"></a><a
-name="_Hlk129855093"><span style='mso-bookmark:_Hlk129860080'><span lang=EN-US>Get
-a substring of a string</span></span></a><span style='mso-bookmark:_Hlk129860080'><span
-lang=EN-US>.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Generate an in-memory table from an entity table.</span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Syntax: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>mid(</span></span><span
-class=var1><span lang=EN-US>s</span></span><span lang=EN-US>,</span><span
-class=var1><span lang=EN-US>n</span></span><span lang=EN-US>{,</span><span
-class=var1><span lang=EN-US>l</span></span><span lang=EN-US>}</span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US>T.</span></i><b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>memory</span></b><span
+lang=EN-US>(<i>C,…;w</i>)</span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Note: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b><span lang=EN-US
+style='mso-bidi-font-style:italic'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-gets a substring of the length of </span><span class=var1><span lang=EN-US>l</span></span><span
-lang=EN-US> from string </span><span class=var1><span lang=EN-US>s</span></span><span
-lang=EN-US> starting from the <i>n<sup>th</sup></i> character.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function filters entity table <i>T</i> according to filtering
+condition <i style='mso-bidi-font-style:normal'>w</i> and imports the data into
+the memory to generate an in-memory table containing column <i
+style='mso-bidi-font-style:normal'>C</i>. <span style='mso-bidi-font-style:
+italic'>we can handle an in-memory table as we do to a table sequence. When
+parameter <i>C,… </i>is absent but parameter <i>w</i> is present, the semicolon
+before <i>w</i> can’t be omitted. If a column <i>C</i> is preceded by # in the
+entity table, column <i>C</i> will be the key of in-memory table <i>T</i>. Use
+null to record a <i>C</i> value if it does not exist in <i>T</i>. </span>The in-memory
+table inherits the entity table’s key if you don’t set a key for it. </span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Parameter: </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>C</span></i></p>
   </td>
-  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The source string</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A column name; import all columns when
+  the parameter is omitted</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>w</span></i><b><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
   </td>
-  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The starting position of the substring;
-  if </span><span class=var1><span lang=EN-US>n</span></span><span lang=EN-US>&lt;0,
-  count backwards from the last character of source string </span><span
-  class=var1><span lang=EN-US>s</span></span><span lang=EN-US>, fill in the
-  extra positions with spaces and make the abs(n)<sup>th</sup>-to-last
-  character the starting position</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filtering condition; won’t perform
+  filtering when the parameter is omitted</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>l</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
   </td>
-  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The length of substring; by default, the
-  length will be counted from the starting character to the end of the source
-  string</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An entity table in a composite table</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Return value: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>String</span></p>
-
-<p class=ae style='line-height:200%'><span lang=EN-US>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ style='margin-left:-12.55pt;border-collapse:collapse;mso-table-layout-alt:
+ fixed;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>mid(&quot;abcde&quot;,1)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@p</span></b></p>
   </td>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>abcde</span></span><b><span
-  lang=EN-US></span></b></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Group the would-be in-memory table by the
+  first field, and this requires that the entity table must be ordered by the
+  first field; when the entity table is already segmented and the
+  to-be-imported fields include its first field, the result in-memory table
+  will inherit the composite table’s segmentation property</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>mid(&quot;abcde&quot;,1,2)</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@v</span></b></p>
   </td>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>ab</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The option requires that the entity table
+  be a pure table sequence and it enables to return a column-wise in-memory
+  table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>mid(&quot;abcde&quot;,3)</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@x</span></b></p>
   </td>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>cde</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>mid(&quot;abcde&quot;,-3,2)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>cd;
-  use the third-to-last character as the starting position to 2 get a substring
-  whose length is 2</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'></span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Automatically close the entity table
+  after the in-memory table is generated</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>mid(&quot;abcde&quot;,-8,5)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@w</span></b></p>
   </td>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>ab;
-  treat the 8<sup>th</sup>-to-last character of string _ _ _abcde as the
-  starting position, where characters _ _ _ before the source string are
-  complement spaces, get a substring of length 5 and remove the complement
-  spaces from the returned result set</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'> </span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Used on a multizone composite table;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Perform update merge; ignore the record
+  in the zone table having the smaller number when there are same key values in
+  two zone tables;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Split zone tables according to the way of
+  segmenting the first zone table; first read certain zone tables after the
+  first one wholly if they are small enough.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Related function:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b><span
+lang=EN-US style='font-size:14.0pt;line-height:200%'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="left.html#left"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>le<span style='mso-bookmark:_Hlt129855307'><span
-style='mso-bookmark:_Hlt129855123'>f</span></span><span style='mso-bookmark:
-_Hlt414972805'>t</span>()</span></a><a
-name="_Hlt414972805"></a><a name="_Hlt129855123"></a><a name="_Hlt129855307"></a></span></b></p>
+<p class=MsoNormal><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp; </span>An in-memory table or a
+column-wise in-memory table</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="right.html#right"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>ri<span style='mso-bookmark:_Hlt129855194'>g</span><span
-style='mso-bookmark:_Hlt129860109'>h</span><span style='mso-bookmark:_Hlt414972841'>t</span>()</span></a><a
-name="_Hlt414972841"></a><a name="_Hlt129860109"></a><a name="_Hlt129855194"></a></span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%;
+color:red'></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=541
+ style='margin-left:11.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>A</span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=file(&quot;D:\\employees.ctx&quot;)</span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>employees</span></i><span
+  lang=EN-US> is an existing composite table file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A1.open()</span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open the composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A2.attach(t1)</span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return the composite table’s attached
+  table <i style='mso-bidi-font-style:normal'>t1</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>4</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A2.memory()</span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate an in-memory table using all
+  columns of the base table</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=239 height=122
+  src="Function_Reference.files/image1475.jpg" v:shapes="_x0000_i2063"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>5</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.memory(EID,Dept,Name;EID&lt;5)</span></span><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Get some columns where EID&lt;5 from the
+  base table to generate an in-memory table</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=208 height=104
+  src="Function_Reference.files/image1477.jpg" v:shapes="_x0000_i2064"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.15pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=286 valign=top style='width:214.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体;color:black'>=A3.memory()</span></b><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=236 valign=top style='width:177.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Get all columns from the attached table
+  to generate an in-memory table<span style='color:red'></span></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=191 height=159
+  src="Function_Reference.files/image1479.jpg" v:shapes="_x0000_i2065"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><a name="T_memory_C"></a><a name="T_memory_C_w_v"></a><span
+style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1031
+ style='margin-left:20.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=connect(&quot;demo&quot;).cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,GENDER,SALARY&nbsp;
+  from <span
+  style='mso-spacerun:yes'>&nbsp;</span>employee&quot;).sortx(EID )</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Return
+  a cursor ordered by EID</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;emp.ctx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Generate
+  a composite table file</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.create@yp(#EID,NAME,GENDER,SALARY)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Create
+  the composite table’s base table and use the first field as the segmentation
+  key</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append@i(A1)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Append
+  data of the cursor to the base table</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.open()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Open
+  the composite table file</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A5.memory@p(EID,NAME)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Generate
+  an in-memory table from A5’s entity table; @p option enables using the first
+  field as the segmentation field, and as the composite table is already
+  segmented and the fields A6 retrieves include the first field EID, the
+  generated in-memory table will inherit the composite table’s segmentation
+  property</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Create
+a column-wise in-memory table:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1031
+ style='margin-left:19.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=to(1000).new(~:ID,~*~:pNum).cursor()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Return
+  a cursor that contains a pure table sequence of the following structure:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US><img border=0 width=133 height=160
+  src="Function_Reference.files/image1480.jpg" v:shapes="_x0000_i2066"></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;tb1.ctx&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Generate
+  a composite table file</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.create@y(#ID,pNum)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Generate
+  the composite table’s base table</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append@i(A1)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Append
+  data of the cursor to the base table</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=608 valign=top style='width:455.65pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span class=170><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A4.memory@v()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=406 valign=top style='width:304.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>@v
+  option enables to return a column-wise in-memory table</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Generate
+an in-memory table from a multizone composite table:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1031
+ style='margin-left:19.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,GENDER<span
+  style='mso-spacerun:yes'>&nbsp; </span>from employee&quot;)<span
+  style='mso-spacerun:yes'>&nbsp; </span></span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Return
+  a cursor whose content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'><img border=0 width=207 height=249
+  src="Function_Reference.files/image1481.jpg" v:shapes="_x0000_i2067"></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=file(&quot;em.ctx&quot;:[1,2])</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Define
+  a homo-name files group: <i>1.em.ctx</i> and <i>2.em.ctx</i></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A2.create@y(#EID,NAME,GENDER;if(GENDER==&quot;F&quot;,1,2))</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Create
+  a multizone composite table, set EID as its key, and put records where GENDER
+  is F to <i>1.em.ctx</i> and the other records to <i>2.em.ctx</i></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A3.append@ix(A1)</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Append
+  cursor A1’s data to the multizone composite table</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=create(EID,NAME,GENDER).record([1,&quot;AAA&quot;,&quot;M&quot;]).cursor()</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Return
+  a cursor whose content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'><img border=0 width=211 height=46
+  src="Function_Reference.files/image1482.jpg" v:shapes="_x0000_i2068"></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=file(&quot;em.ctx&quot;:[3])</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:T_memory_C'></span>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A6.create@y(#EID,NAME,GENDER;3)</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Add
+  a zone table named <i>3.em.ctx</i></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>8</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A7.append@i(A5)</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Append
+  cursor A5’s data to zone table <i>3.em.ctx</i> and now both <i>1.em.ctx </i>and<i>
+  3.em.ctx </i>have a record whose primary key is [1]</span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>9</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=file(&quot;em.ctx&quot;:[1,2,3]).open()</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US>Open
+  multizone composite table <i>em.ctx</i></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>10</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A9.memory()</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'>Generate an in-memory table from the multizone
+  composite table:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'><img border=0 width=201 height=281
+  src="Function_Reference.files/image468.png" v:shapes="_x0000_i2069"></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+ <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
+  <td width=17 valign=top style='width:12.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>11</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=457 valign=top style='width:342.75pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>=A9.memory@w()</span></b></span><span
+  style='mso-bookmark:T_memory_C'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+  <td width=557 valign=top style='width:417.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'>Generate an in-memory table from the multizone
+  composite table and use @w option to perform update merge</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:T_memory_C'><span lang=EN-US
+  style='mso-no-proof:yes'><img border=0 width=204 height=250
+  src="Function_Reference.files/image469.png" v:shapes="_x0000_i2070"></span></span></p>
+  </td>
+  <span style='mso-bookmark:T_memory_C'></span>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="584.html">Next</a></div>
@@ -174,7 +1012,7 @@ name="_Hlt414972841"></a><a name="_Hlt129860109"></a><a name="_Hlt129855194"></a
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="578.html">memory()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

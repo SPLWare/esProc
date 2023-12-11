@@ -238,8 +238,8 @@ amount. Below is the code for generating the composite tables:</span></p>
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=to(1000).new(#:EID, B7.pseg(rand()):DeptID,
-  if(rand()&lt;0.5,0,1):Gender, if(rand()&gt;0.8,1,0):Married,
+  lang=EN-US style='font-family:"Times New Roman",serif'>=to(1000).new(#:EID,
+  B7.pseg(rand()):DeptID, if(rand()&lt;0.5,0,1):Gender, if(rand()&gt;0.8,1,0):Married,
   if(Gender==0,A3(rand(B3)+1), A4(rand(B4)+1))/&quot;
   &quot;/A5(rand(B5)+1):Name, bits(Gender, Married):Bools )</span></p>
   </td>
@@ -340,8 +340,8 @@ amount. Below is the code for generating the composite tables:</span></p>
   lang=EN-US style='font-family:"Times New Roman",serif'>=A11.((a=string(~,&quot;yyMMdd&quot;),
   to(rand(100)+ 10).new(A9 if(rand()&gt;0.9, (rand(B9)+1, rand(B9-20)+
   21)).EID:SID, a/string(#, &quot;0000&quot;):OID, datetime(A11.~,
-  time(rand(8)+8, rand(60), 0)):OTime, rand(100)*10+200:Amount))).conj().sort(SID,
-  OID)</span></p>
+  time(rand(8)+8, rand(60), 0)):OTime,
+  rand(100)*10+200:Amount))).conj().sort(SID, OID)</span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -368,8 +368,8 @@ amount. Below is the code for generating the composite tables:</span></p>
   lang=EN-US style='font-family:"Times New Roman",serif'>=B11.((a=string(~,&quot;yyMMdd&quot;),
   to(rand(100)+ 10).new(A9 if(rand()&gt;0.9, (rand(B9)+1, rand(B9-20)+
   21)).EID:SID, a/string(#, &quot;0000&quot;):OID, datetime(B11.~,
-  time(rand(8)+8, rand(60), 0)):OTime, rand(100)*10+200:Amount))).conj().sort(SID,
-  OID)</span></p>
+  time(rand(8)+8, rand(60), 0)):OTime,
+  rand(100)*10+200:Amount))).conj().sort(SID, OID)</span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -692,10 +692,10 @@ we backup them in case data is modified later during the testing.</span></p>
 
 <p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><b><span
-lang=EN-US>A pseudo table definition record is a table sequence¡¯s record of specified
-structure</span></b><span lang=EN-US>. Its simplest form should include a <b>file
-</b>field to specify data source of the pseudo table. In the above code, A1
-generates a pseudo table definition record as follows:</span></p>
+lang=EN-US>A pseudo table definition record is a table sequence¡¯s record of
+specified structure</span></b><span lang=EN-US>. Its simplest form should
+include a <b>file </b>field to specify data source of the pseudo table. In the
+above code, A1 generates a pseudo table definition record as follows:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
@@ -704,8 +704,8 @@ src="Tutorial.files/image1084.png" v:shapes="Í¼Æ¬_x0020_1144"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>The source of data in a pseudo table can be a composite table or a bin
-file.</span></p>
+lang=EN-US>The source of data in a pseudo table should be a composite table
+whose extension is ctx.</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -955,8 +955,8 @@ style='mso-bidi-font-style:normal'>T</i>.import() </span>function, as shown
 below:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=465 height=63
-src="Tutorial.files/image1089.png" v:shapes="Í¼Æ¬_x0020_1430"></span><span
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=476 height=63
+src="Tutorial.files/image1089.png" v:shapes="_x0000_i2173"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
@@ -972,13 +972,13 @@ table</b>, because all these operations are performed based on the composite
 table¡¯s dimension. With the modification, A4 and B4 get the following results:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=484 height=232
-src="Tutorial.files/image1090.png" v:shapes="Í¼Æ¬_x0020_1431"></span><span
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=495 height=248
+src="Tutorial.files/image1090.png" v:shapes="_x0000_i2174"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=465 height=60
-src="Tutorial.files/image1091.png" v:shapes="Í¼Æ¬_x0020_1433"></span><span
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=495 height=58
+src="Tutorial.files/image1091.png" v:shapes="_x0000_i2175"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
@@ -999,8 +999,8 @@ normal'><i style='mso-bidi-font-style:normal'>T</i>.update() </b>function to upd
 the change to the pseudo table. Below is A6¡¯s result:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US><img border=0 width=484 height=232
-src="Tutorial.files/image1092.png" v:shapes="Í¼Æ¬_x0020_1435"></span><span
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=495 height=248
+src="Tutorial.files/image1092.png" v:shapes="_x0000_i2176"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;

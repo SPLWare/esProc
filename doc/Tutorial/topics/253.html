@@ -434,9 +434,9 @@ src="Tutorial.files/image1029.png" v:shapes="_x0000_i2111"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>When a composite table contains a large amount of data, we can
-perform segmental retrieval. But first we need to split the composite table and
-store it by segment. We need to specify the field according to which the entity
+lang=EN-US>When a composite table contains a large amount of data, we can perform
+segmental retrieval. But first we need to split the composite table and store
+it by segment. We need to specify the field according to which the entity
 tables in a composite table are split when segmental storage is needed. Let¡¯s
 look at how to store data in and retrieve data from an enity table by segment:</span></p>
 
@@ -989,7 +989,7 @@ style='mso-bidi-font-style:normal'>f</i></b> to join with data in a cursor.</spa
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>We can create an index for an entity table according
-to a certain condition. An index-based query will be much more effcient. For
+to a certain condition. An index-based query will be much more efficient. For
 example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
@@ -1169,9 +1169,10 @@ example:</span></p>
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
   14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=B1.index(file(&quot;D:/file/dw/idx&quot;),
+  [8136,11247,83372,264,8223, </span></p>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;B1.index(idx,
-  [8136,11247,83372,264,8223, 826,32758,1341,6255,1983].contain(EID);EID)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>826,32758,1341,6255,1983].contain(EID);EID)</span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -1195,9 +1196,9 @@ example:</span></p>
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=B1.icursor(;[8136,11247,83372,264,8223,826,32758,1341,</span></p>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=B1.icursor(;[8136,11247,83372,264,8223,
-  826,32758,1341,6255,1983].contain(EID),idx)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>6255,1983].contain(EID);file(&quot;D:/file/dw/idx&quot;))</span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -1275,24 +1276,22 @@ src="Tutorial.files/image1036.png" v:shapes="_x0000_i2118"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In A6, <b style='mso-bidi-font-weight:normal'><i
-style='mso-bidi-font-style:normal'>T</i>.index(<i style='mso-bidi-font-style:
-normal'>I</i>, <i style='mso-bidi-font-style:normal'>w</i>; <i
-style='mso-bidi-font-style:normal'>C</i>,¡­) </b>function creates an index for <i
-style='mso-bidi-font-style:normal'>employees</i>, and names the index <i
-style='mso-bidi-font-style:normal'>idx</i> and generates it according to the
-key EID. The index file will be generated and the file name be handled
-automatically when the code is executed. In A7, <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>T</i>.icursor(<i
-style='mso-bidi-font-style:normal'>C</i>,¡­; <i style='mso-bidi-font-style:normal'>w</i>,
-<i style='mso-bidi-font-style:normal'>I</i>) </b>function performs query by the
-index. B7 gets the same result as B4 does. Without specifying <i
-style='mso-bidi-font-style:normal'>C</i>,¡­<b style='mso-bidi-font-weight:normal'>
-</b>fields, the function will delete entity table <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>T</i></b>¡¯s index <i
-style='mso-bidi-font-style:normal'>I</i>; without parameter <i
-style='mso-bidi-font-style:normal'>I</i>, it will delete <i style='mso-bidi-font-style:
-normal'>T</i>¡¯s all indexes.</span></p>
+21.0pt'><span lang=EN-US>In A6, </span><b style='mso-bidi-font-weight:normal'><i
+style='mso-bidi-font-style:normal'><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'>T</span></i></b><b style='mso-bidi-font-weight:
+normal'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'>.index(<i style='mso-bidi-font-style:normal'>f:h,w;C,¡­;F,¡­</i>)</span><span
+lang=zh-CN> </span></b><span lang=EN-US>function creates an index file named <i
+style='mso-bidi-font-style:normal'>idx</i> on indexed field EID for <i
+style='mso-bidi-font-style:normal'>employees</i>. In A7, </span><b
+style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>T</span></i></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:#333333'>.</span></i><b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:#333333'>icursor</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:#333333'>(<i>C,¡­;w;f,¡­</i>)</span><span lang=EN-US> </span></b><span
+lang=EN-US>function performs query according to the index file. B7 gets the
+same result as B4 does. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -1307,7 +1306,7 @@ src="Tutorial.files/image1038.png" v:shapes="_x0000_i2120"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>An index makes the query faster. So it can also speed
+21.0pt'><span lang=EN-US>An index makes the query faster. So, it can also speed
 up a query over a row-based composite table. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
@@ -1953,8 +1952,8 @@ name, and parameter <span class=T-Bold><i style='mso-bidi-font-style:normal'>zs
 integer sequence, <i>n</i> files will be generated for the homo-name files
 group. A composite table generated from a homo-name files group is called a <b>multi-zone
 composite table</b>, where each member is a <b>zone table</b> that can be
-accessed separately through the corresponding <b>zone name</b> and <b>zone table
-number</b>. A2 uses 20 zone tables that correspond to 20 cities. B2 uses <span
+accessed separately through the corresponding <b>zone name</b> and <b>zone
+table number</b>. A2 uses 20 zone tables that correspond to 20 cities. B2 uses <span
 class=T-Bold><i style='mso-bidi-font-style:normal'>T</i>.create(<i
 style='mso-bidi-font-style:normal'>fg</i>; <i style='mso-bidi-font-style:normal'>x</i>)
 </span>function to generate a multi-zone composite table according to the

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hdfs_dir()</title>
+<title>hbase_get()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,304 +13,253 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="hdfs_dir"></a><a name="_Hlt495582764"></a><span style='mso-bookmark:
-hdfs_dir'><span lang=EN-US>hdfs_dir()</span></span><span
-style='mso-bookmark:hdfs_dir'></span><span
-style='mso-bookmark:hdfs_dir'></span></h2></div>
-	<span style='mso-bookmark:hdfs_dir'></span>
+	<div id="centent-title"><h2><a name="_hbase_get()"></a><a name="hbase_get"></a><span style='mso-bookmark:
+"_hbase_get\(\)"'><span lang=EN-US>hbase_get()</span></span><span
+style='mso-bookmark:"_hbase_get\(\)"'></span><span
+style='mso-bookmark:"_hbase_get\(\)"'></span></h2></div>
+	<span style='mso-bookmark:"_hbase_get\(\)"'></span>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the list of
-all files in a specified path.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Query data in HBase database and return a one-row table sequence.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>hdfs_dir(</span></b><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i><span lang=EN-US>, </span><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>path</span></i><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>)</span></b></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>hbase_get</span></b><span
+lang=EN-US>(client,tableName,rowName,family:column:type:alias,family2:column2:type:alias2,...;filter:f,timeRange:[t1,t2]).</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
-library function <span style='mso-bidi-font-style:italic'>(See <a
-href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>) </span>lists
-names of all files in a specified path in an HDFS file system.</span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'></span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>This external library function <span style='mso-bidi-font-style:
+italic'>(See <a href="http://doc.raqsoft.com/esproc/ext/">External Library
+Guide</a>) </span>queries a HBbase database to return a sing-row table
+sequence.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=74 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i></p>
-  </td>
-  <td width=472 valign=top style='width:353.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-bidi-font-style:italic'>An <i>hd</i> connecton</span><i style='mso-bidi-font-style:
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:17.1pt'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.1pt'>
+  <p class=MsoNormal><i><span lang=EN-US>client</span></i><i style='mso-bidi-font-style:
   normal'><span lang=EN-US></span></i></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=74 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>path</span></i></p>
-  </td>
-  <td width=472 valign=top style='width:353.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A relative path within the path
-  containing the HDFS file</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@d</span></b></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>List names of all directories in the
-  specified path</span></p>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.1pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection information</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@p</span></b></p>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>tableName</span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>List
-  the full paths of all directories and files in the specified path</span><span
-  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Table name</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@m</span></b></p>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>rowName</span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a directory; return true if the
-  directory is created, otherwise return false</span></p>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Row name</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@r</span></b></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>family<span
+  style='mso-bidi-font-style:italic'></span></span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete a directory; return true if the
-  operation is successful, otherwise return false</span></p>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Column family name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>column<span
+  style='mso-bidi-font-style:italic'></span></span></i></p>
+  </td>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Colum name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>type</span></i></p>
+  </td>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Data type; can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>alias<span
+  style='mso-bidi-font-style:italic'></span></span></i></p>
+  </td>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Another name of a column; can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:4.5pt'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>filter:f<span
+  style='mso-bidi-font-style:italic'></span></span></i></p>
+  </td>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:4.5pt'>
+  <p class=MsoNormal><span lang=EN-US><span
+  style='mso-spacerun:yes'>&nbsp;</span>“<i style='mso-bidi-font-style:normal'>filter:</i>”
+  is a fixed format, and parameter <i style='mso-bidi-font-style:normal'>f</i>
+  means filter handle; can be omitted </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=144 valign=top style='width:107.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>timeRange:[t1,t2]<span
+  style='background:yellow;mso-highlight:yellow'></span></span></i></p>
+  </td>
+  <td width=379 valign=top style='width:284.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>‘“<i style='mso-bidi-font-style:normal'>timeRange:</i><span
+  style='mso-bidi-font-style:italic'>”</span>’ is a fixed format, and
+  parameters <i style='mso-bidi-font-style:normal'>t1</i> and <i
+  style='mso-bidi-font-style:normal'>t2</i> specify a range of timestamp; can
+  be omitted<span style='background:yellow;mso-highlight:yellow'></span></span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Sequence or Boolean
-value</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Table sequence</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:7.25pt'>
   <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
+  height:7.25pt'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=253 valign=top style='width:190.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=238 valign=top style='width:178.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>A</span></b></p>
   </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=228 valign=top style='width:171.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
+ <tr style='mso-yfti-irow:1;height:7.25pt'>
   <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
+  <td width=238 valign=top style='width:178.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hdfs_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_open(&quot;</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>hdfs://192.168.0.8:9000</span></span></b><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>&quot;)</span></b></p>
   </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to the HDFS file system</span></p>
+  <td width=228 valign=top style='width:171.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
+ <tr style='mso-yfti-irow:2;height:7.25pt'>
   <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
+  <td width=238 valign=top style='width:178.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_dir@p(A1,&quot;/user&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_scan(A1,&quot;emp&quot;)</span></b></p>
   </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List the full paths of all directories
-  and files under the <i style='mso-bidi-font-style:normal'>/user</i> directory</span><span
-  lang=EN-US style='font-family:等线;mso-bidi-font-family:等线'></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='font-family:等线;mso-bidi-font-family:
-  等线;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=92 height=163
-  src="Function_Reference.files/image977.png" v:shapes="_x0000_i1715"></span></p>
+  <td width=228 valign=top style='width:171.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=199 height=107
+  src="Function_Reference.files/image996.jpg" v:shapes="图片_x0020_467"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Query all table data</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:7.25pt'>
   <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
+  <td width=238 valign=top style='width:178.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_dir@d(A1,&quot;/user&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List names of all directories under the <i
-  style='mso-bidi-font-style:normal'>/user</i> directory</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=78 height=103
-  src="Function_Reference.files/image978.png" v:shapes="_x0000_i1716"></span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>4</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_get(A1,&quot;emp&quot;,&quot;row3&quot;,&quot;company:name&quot;::cname,&quot;company:position&quot;:string:cpos,&quot;family:tel&quot;:string)</span></b></p>
   </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_dir(A1,&quot;/user&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List all file names under the<i
-  style='mso-bidi-font-style:normal'> /dr1</i> directory</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=89 height=83
-  src="Function_Reference.files/image979.png" v:shapes="_x0000_i1717"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_dir@m(A1,&quot;/user/h1&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create a directory named h1 under the <i
-  style='mso-bidi-font-style:normal'>/user</i> directory</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>6</span></b></p>
-  </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_dir@r(A1,&quot;/user/h1&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Delete the <i style='mso-bidi-font-style:
-  normal'>/user/h1</i> directory</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=16 valign=top style='width:12.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>7</span></b></p>
-  </td>
-  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hdfs_close(A1)</span></b></p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Close the HDFS connection</span></p>
+  <td width=228 valign=top style='width:171.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.25pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=213 height=33
+  src="Function_Reference.files/image998.jpg" v:shapes="图片_x0020_468"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Find a row whose rowkey is <i
+  style='mso-bidi-font-style:normal'>row3</i>, and rename column names</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Related function:</span></b></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span><u><span
+style='color:blue'><a  href="hbaseopen.html#hbase_open">hbase_ope<span style='mso-bookmark:
+_Hlt478109530'>n</span>()</a><a
+name="_Hlt478109530"></a></span></u></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US style='color:blue'><span style='mso-spacerun:yes'>&nbsp;
+</span><u><a  href="hbasescan.html#hbase_scan">hbase_sca<span style='mso-bookmark:_Hlt478109534'>n</span>()</a><a
+name="_Hlt478109534"></a></u></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="412.html">Next</a></div>
@@ -318,7 +267,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
