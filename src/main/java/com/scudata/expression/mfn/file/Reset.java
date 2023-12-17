@@ -71,6 +71,20 @@ public class Reset extends FileFunction {
 			}
 			
 			FileObject fo = (FileObject) this.file;
+			if (f != null) {
+				String opt = option;
+				if ((opt == null || opt.indexOf('y') == -1) && f.exists()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("file.fileAlreadyExist", f.getName()));
+				} else if (opt != null && opt.indexOf('y') != -1 && f.exists()) {
+					try {
+						ComTable table = ComTable.open(f, ctx);
+						table.delete();
+					} catch (IOException e) {
+						throw new RQException(e.getMessage(), e);
+					}
+				}
+			}
 			
 			try {
 				ComTable gt = ComTable.open(fo, ctx);
@@ -138,10 +152,22 @@ public class Reset extends FileFunction {
 		}
 		
 		FileObject fo = (FileObject) this.file;
-
 		try {
 			ComTable gt = ComTable.open(fo, ctx);
 			if (f != null) {
+				String opt = option;
+				if ((opt == null || opt.indexOf('y') == -1) && f.exists()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("file.fileAlreadyExist", f.getName()));
+				} else if (opt != null && opt.indexOf('y') != -1 && f.exists()) {
+					try {
+						ComTable table = ComTable.open(f, ctx);
+						table.delete();
+					} catch (IOException e) {
+						throw new RQException(e.getMessage(), e);
+					}
+				}
+				
 				boolean result =  gt.reset(f, option, ctx, distribute, blockSize, cs);
 				gt.close();
 				return result;

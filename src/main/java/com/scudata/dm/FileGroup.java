@@ -271,6 +271,18 @@ public class FileGroup implements Externalizable {
 			}
 		}
 		
+		if ((opt == null || opt.indexOf('y') == -1) && newFile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileAlreadyExist", newFile.getName()));
+		} else if (opt != null && opt.indexOf('y') != -1 && newFile.exists()) {
+			try {
+				ComTable table = ComTable.open(newFile, ctx);
+				table.delete();
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+		
 		String []srcColNames = baseTable.getColNames();
 		int len = srcColNames.length;
 		String []colNames = new String[len];
