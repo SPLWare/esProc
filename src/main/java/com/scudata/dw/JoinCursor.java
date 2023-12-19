@@ -128,6 +128,10 @@ public class JoinCursor extends ICursor {
 		this.isNews = type == 2;
 		this.ctx = ctx;
 		
+		if (ctx != null) {
+			ctx.addResource(this);
+		}
+		
 		if (filter != null) {
 			parseFilter((ColPhyTable) table, filter, ctx);
 		}

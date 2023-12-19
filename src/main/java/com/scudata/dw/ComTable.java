@@ -967,7 +967,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		// 生成分段选项，是否按第一字段分段
 		String newOpt = "";
-		if (opt != null && opt.indexOf('w') != -1) {
+		if (opt != null && opt.indexOf('y') != -1) {
 			newOpt = "y";
 		}
 		

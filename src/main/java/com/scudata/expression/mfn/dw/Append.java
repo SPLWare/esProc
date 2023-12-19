@@ -1,13 +1,17 @@
 package com.scudata.expression.mfn.dw;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.ComTable;
 import com.scudata.dw.IPhyTable;
 import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.PhyTableFunction;
@@ -58,12 +62,61 @@ public class Append extends PhyTableFunction {
 					tg.setMemoryTable(seq);
 					return tg;
 				}
-				table.append(cursor, option);
+				
+				if (cursor instanceof MultipathCursors) {
+					parallelAppend((MultipathCursors) cursor, ctx);
+				} else {
+					table.append(cursor, option);
+				}
 			}
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
 		
 		return table;
+	}
+	
+	private void parallelAppend(MultipathCursors mcs, Context ctx) throws IOException {
+		int num = mcs.getPathCount();
+		ColPhyTable[] tables = new ColPhyTable[num];
+		File[] files = new File[num];
+		Thread[] threads = new Thread[num];
+		
+		tables[0] = (ColPhyTable) table;
+		for (int i = 1; i < num; i++) {
+			FileObject tmp = FileObject.createTempFileObject();
+			files[i] = tmp.getLocalFile().file();
+			((ColPhyTable)table).getGroupTable().reset(files[i], "S", null, null);
+			tables[i] = (ColPhyTable) ComTable.openBaseTable(files[i], ctx);
+		}
+		
+		for (int i = 0; i < num; i++) {
+			threads[i] = newAppendThread(tables[i], mcs.getPathCursor(i), option);
+			threads[i].run();
+		}
+		for (int i = 0; i < num; i++) {
+			try {
+				threads[i].join();
+			} catch (InterruptedException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+		
+		for (int i = 1; i < num; i++) {
+			table.append(tables[i]);
+			tables[i].getGroupTable().delete();
+		}
+	}
+	
+	private static Thread newAppendThread(final ColPhyTable table, ICursor cs, String option) {
+		return new Thread() {
+			public void run() {
+				try {
+					table.append(cs, option);
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+			}
+		};
 	}
 }

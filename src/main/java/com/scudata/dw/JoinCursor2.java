@@ -78,6 +78,11 @@ public class JoinCursor2 extends ICursor {
 		this.isNew = opt == 1;
 		this.isNews = opt == 2;
 		this.ctx = ctx;
+		
+		if (ctx != null) {
+			ctx.addResource(this);
+		}
+		
 		hasR = option != null && option.indexOf("r") != -1;
 		
 		String []keyNames;
