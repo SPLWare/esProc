@@ -108,7 +108,7 @@ public class Append extends PhyTableFunction {
 		}
 	}
 	
-	private static Thread newAppendThread(final ColPhyTable table, ICursor cs, String option) {
+	private static Thread newAppendThread(final ColPhyTable table, final ICursor cs, final String option) {
 		return new Thread() {
 			public void run() {
 				try {

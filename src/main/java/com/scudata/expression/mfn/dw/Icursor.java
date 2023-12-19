@@ -126,9 +126,6 @@ public class Icursor extends PhyTableFunction {
 		}
 		
 		ICursor cursor = table.icursor(fields, w, I, option, ctx);
-		if (ctx != null) {
-			ctx.addResource(cursor);
-		}
 		if (segCount != 0 && cursor instanceof IndexCursor) {
 			return ((IndexCursor)cursor).toMultiCursor(segCount);
 		} else {
