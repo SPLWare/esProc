@@ -455,6 +455,11 @@ public final class SQLUtil {
 					keyPos = i;
 					start = i;
 					break;
+				} else if (tokens[i].getType() == Tokenizer.LPAREN) {
+					i = scanParen(tokens, i, count);
+					if (i == -1) {
+						return sql;
+					}
 				}
 			}
 			
@@ -473,6 +478,11 @@ public final class SQLUtil {
 					start = i + 1;
 				} else if (token.isKeyWord("DISTINCT")) {
 					start = i + 1;
+				} else if (token.getType() == Tokenizer.LPAREN) {
+					i = scanParen(tokens, i, count);
+					if (i == -1) {
+						return sql;
+					}
 				}
 			}
 			
@@ -513,6 +523,11 @@ public final class SQLUtil {
 					}
 					
 					break;
+				} else if (tokens[i].getType() == Tokenizer.LPAREN) {
+					i = scanParen(tokens, i, count);
+					if (i == -1) {
+						return sql;
+					}
 				}
 			}
 			
@@ -527,6 +542,11 @@ public final class SQLUtil {
 							end = i;
 							break Next;
 						}
+					}
+				} else if (token.getType() == Tokenizer.LPAREN) {
+					i = scanParen(tokens, i, count);
+					if (i == -1) {
+						return sql;
 					}
 				}
 			}
