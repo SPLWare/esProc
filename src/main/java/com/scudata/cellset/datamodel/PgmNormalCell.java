@@ -465,4 +465,13 @@ public class PgmNormalCell extends NormalCell {
 		
 		exp.getUsedCells(resultList);
 	}
+	
+	/**
+	 * 清除单元格值和计算表达式
+	 */
+	public void clear() {
+		value = null;
+		expRef = null;
+		command = null;
+	}
 }

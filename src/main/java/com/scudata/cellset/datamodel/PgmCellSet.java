@@ -1752,12 +1752,10 @@ public class PgmCellSet extends CellSet {
 	private void clearArea(IParam startParam, IParam endParam, Context ctx) {
 		if (startParam == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("clear"
-					+ mm.getMessage("function.invalidParam"));
+			throw new RQException("clear" + mm.getMessage("function.invalidParam"));
 		}
 
-		INormalCell startCell = startParam.getLeafExpression().calculateCell(
-				ctx);
+		INormalCell startCell = startParam.getLeafExpression().calculateCell(ctx);
 		if (startCell == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("clear"
@@ -1775,12 +1773,10 @@ public class PgmCellSet extends CellSet {
 			right = getColCount();
 			bottom = getCodeBlockEndRow(top, left);
 		} else {
-			INormalCell endCell = endParam.getLeafExpression().calculateCell(
-					ctx);
+			INormalCell endCell = endParam.getLeafExpression().calculateCell(ctx);
 			if (endCell == null || endCell.getCellSet() != cs) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("clear"
-						+ mm.getMessage("function.invalidParam"));
+				throw new RQException("clear" + mm.getMessage("function.invalidParam"));
 			}
 
 			right = endCell.getCol();
@@ -1791,13 +1787,13 @@ public class PgmCellSet extends CellSet {
 			if (left <= right) { // 左上 - 右下
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c <= right; ++c) {
-						cs.getCell(r, c).setValue(null);
+						cs.getCell(r, c).clear();
 					}
 				}
 			} else { // 右上 - 左下
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c >= right; --c) {
-						cs.getCell(r, c).setValue(null);
+						cs.getCell(r, c).clear();
 					}
 				}
 			}
@@ -1805,13 +1801,13 @@ public class PgmCellSet extends CellSet {
 			if (left <= right) { // 左下 - 右上
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c <= right; ++c) {
-						cs.getCell(r, c).setValue(null);
+						cs.getCell(r, c).clear();
 					}
 				}
 			} else { // 右下 - 左上
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c >= right; --c) {
-						cs.getCell(r, c).setValue(null);
+						cs.getCell(r, c).clear();
 					}
 				}
 			}
@@ -1830,7 +1826,7 @@ public class PgmCellSet extends CellSet {
 						+ mm.getMessage("function.invalidParam"));
 			}
 
-			cell.setValue(null);
+			cell.clear();
 		} else if (param.getType() == IParam.Comma) { // ,
 			int size = param.getSubSize();
 			for (int i = 0; i < size; ++i) {
@@ -1845,7 +1841,7 @@ public class PgmCellSet extends CellSet {
 								+ mm.getMessage("function.invalidParam"));
 					}
 
-					cell.setValue(null);
+					cell.clear();
 				} else { // :
 					clearArea(sub.getSub(0), sub.getSub(1), ctx);
 				}

@@ -92,4 +92,9 @@ public interface INormalCell
 	 * @param value Object
 	 */
 	public void setValue(Object value);
+	
+	/**
+	 * 清除单元格值和计算表达式
+	 */
+	public void clear();
 }

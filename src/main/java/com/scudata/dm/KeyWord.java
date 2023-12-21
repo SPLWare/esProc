@@ -15,6 +15,7 @@ public final class KeyWord {
 	public static final String ITERATEPARAM = "~~"; // 迭代参数，用于iterate函数中引用迭代值
 	public static final String FIELDIDPREFIX = "#"; // 用序号引用字段#1, #2...
 	public static final String CURRENTCELL = "@"; // 当前格
+	public static final String CURRENTCELLSEQ = "#@"; // 当前格循环序号
 
 	public static final char CELLPREFIX = '#'; // #A1 #C 单元格前缀
 	public static final String CONSTSTRINGPREFIX = "'"; // 常量字符串前缀
@@ -61,12 +62,21 @@ public final class KeyWord {
 	}
 	
 	/**
-	 * 判断标识符是否是序列的当前循环序号
+	 * 判断标识符是否是当前格
 	 * @param id 标识
 	 * @return true：是，false：不是
 	 */
 	public static boolean isCurrentCell(String id) {
 		return CURRENTCELL.equals(id);
+	}
+	
+	/**
+	 * 判断标识符是否是当前格循环序号
+	 * @param id 标识
+	 * @return true：是，false：不是
+	 */
+	public static boolean isCurrentCellSeq(String id) {
+		return CURRENTCELLSEQ.equals(id);
 	}
 	
 	/**

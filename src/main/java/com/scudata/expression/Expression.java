@@ -14,6 +14,7 @@ import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
+import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.Current;
 import com.scudata.dm.DBObject;
@@ -701,6 +702,8 @@ public class Expression {
 			return new CurrentSeq(); // #, A.#
 		} else if (KeyWord.isFieldId(id)) {
 			return new FieldId(id); // #n, r.#n
+		} else if (KeyWord.isCurrentCellSeq(id)) {
+			return new CurrentCellSeq(); // #@
 		}
 
 		//–Œ»Áseries.select(...),series.field
@@ -1257,12 +1260,13 @@ public class Expression {
 	 * @return
 	 */
 	public static String replaceFunc(String src, String func, String newStr) {
-		int start = src.indexOf(func);
+		/*int start = src.indexOf(func);
 		if (start != -1) {
 			return src.substring(0, start) + newStr + src.substring(start + func.length());
 		} else {
 			return src;
-		}
+		}*/
+		return StringUtils.replace(src, func, newStr);
 	}
 
 	/**
