@@ -978,6 +978,7 @@ public class SPL extends AppFrame {
 		if (GV.appSheet != null) {
 			GM.setCurrentPath(GV.appSheet.getSheetTitle());
 		}
+		GM.fontMap.clear();
 		// ×Ô¶¯±£´æ
 		autoSaveOption();
 	}

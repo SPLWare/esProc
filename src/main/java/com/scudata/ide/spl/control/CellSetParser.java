@@ -2,7 +2,6 @@ package com.scudata.ide.spl.control;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.HashMap;
 
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.ColCell;
@@ -13,6 +12,7 @@ import com.scudata.cellset.datamodel.RowCell;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
+import com.scudata.ide.common.GM;
 
 /**
  * 网格分析器
@@ -334,17 +334,8 @@ public class CellSetParser {
 	 * @return
 	 */
 	public Font getFont(int row, int col, float scale) {
-		int size = GC.font.getSize();
-		size = StringUtils.getScaledFontSize(size, scale);
-		Font font = fontMap.get(size);
-		if (font == null) {
-			font = new Font(GC.font.getFontName(), GC.font.getStyle(), size);
-			fontMap.put(size, font);
-		}
-		return font;
+		return GM.getScaleFont(scale);
 	}
-
-	private HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
 
 	/**
 	 * 取单元格字体名称
@@ -356,7 +347,7 @@ public class CellSetParser {
 	 * @return
 	 */
 	public String getFontName(int row, int col) {
-		return "Dialog";
+		return GC.font.getFontName();
 	}
 
 	/**
@@ -369,7 +360,7 @@ public class CellSetParser {
 	 * @return
 	 */
 	public int getFontSize(int row, int col) {
-		return ConfigOptions.iFontSize.intValue();
+		return GC.font.getSize();
 	}
 
 	/**

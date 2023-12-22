@@ -74,13 +74,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 * Take over the console
 	 */
 	public static void holdConsole() {
-		Font font;
-		if (StringUtils.isValidString(ConfigOptions.sFontName)) {
-			font = new Font(ConfigOptions.sFontName, Font.PLAIN,
-					ConfigOptions.iFontSize.intValue());
-		} else {
-			font = GC.font;
-		}
+		Font font = GC.font;
 		if (GV.console == null) {
 			JTextArea jta = new JTextArea();
 			jta.setFont(font);

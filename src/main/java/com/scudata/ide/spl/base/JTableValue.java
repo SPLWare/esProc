@@ -901,17 +901,8 @@ public class JTableValue extends JTableEx {
 	}
 
 	public Font getScaleFont() {
-		int size = GC.font.getSize();
-		size = StringUtils.getScaledFontSize(size, scale);
-		Font font = fontMap.get(size);
-		if (font == null) {
-			font = new Font(GC.font.getFontName(), GC.font.getStyle(), size);
-			fontMap.put(size, font);
-		}
-		return font;
+		return GM.getScaleFont(scale);
 	}
-
-	private HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
 
 	/**
 	 * 设置记录到表格的一行

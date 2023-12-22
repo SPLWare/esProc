@@ -7,6 +7,7 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -3980,4 +3982,21 @@ public class GM {
 				optionType, messageType, null, options, initialValue);
 	}
 
+	/**
+	 * 按显示比例获取字体
+	 * @param scale
+	 * @return
+	 */
+	public static Font getScaleFont(float scale) {
+		int size = GC.font.getSize();
+		size = StringUtils.getScaledFontSize(size, scale);
+		Font font = fontMap.get(size);
+		if (font == null) {
+			font = new Font(GC.font.getFontName(), GC.font.getStyle(), size);
+			fontMap.put(size, font);
+		}
+		return font;
+	}
+
+	public static HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
 }

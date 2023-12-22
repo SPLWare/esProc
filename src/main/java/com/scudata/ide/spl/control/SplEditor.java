@@ -1920,8 +1920,7 @@ public class SplEditor {
 					Color bc = parser.getBackColor(row, col);
 					Color fc = parser.getForeColor(row, col);
 					buf.append(" bgcolor=" + color2Html(bc));
-					buf.append(" style=\"font-size:"
-							+ parser.getFontSize(row, col) + "px");
+					buf.append(" style=\"font-size:" + GC.font.getSize() + "px");
 					buf.append(";color:" + color2Html(fc));
 					buf.append("\">");
 					String text = parser.getDispText(row, col);

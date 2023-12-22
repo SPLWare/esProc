@@ -29,6 +29,7 @@ import com.scudata.common.CellLocation;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
+import com.scudata.ide.common.GM;
 import com.scudata.ide.common.StringSplit;
 
 /**
@@ -258,12 +259,11 @@ public class ControlUtilsBase {
 	public static void drawHeader(Graphics g, int x, int y, int w, int h,
 			String label, float scale, Color backColor, byte selectState,
 			boolean editable) {
-		int fontSize = StringUtils.getScaledFontSize(ConfigOptions.iFontSize.intValue(), scale);
 		Color fontColor = Color.black;
 		if (backColor.equals(Color.gray)) {
 			fontColor = Color.white;
 		}
-		Font font = new Font(ConfigOptions.sFontName, Font.PLAIN, fontSize);
+		Font font = GM.getScaleFont(scale);
 		switch (selectState) {
 		case GC.SELECT_STATE_CELL:
 			if (ConfigOptions.getHeaderColor() != null) {
