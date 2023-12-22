@@ -1,5 +1,6 @@
 package com.scudata.ide.spl;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -12,7 +13,6 @@ import com.scudata.common.CellLocation;
 import com.scudata.common.IByteMap;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.ToolBarPropertyBase;
@@ -50,16 +50,27 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 * @param isRefresh ÊÇ·ñË¢ÐÂ
 	 */
 	public void setTextEditorText(String newText, boolean isRefresh) {
-		if (textEditorFont != GC.font) {
-			textEditor.setFont(GC.font);
-		}
-
 		if (!isRefresh && !GV.isCellEditing) {
 			return;
 		}
 		try {
 			preventAction = true;
 			textEditor.setPreventChange(true);
+
+			try {
+				if (GVSpl.splEditor != null) {
+					SplControl control = GVSpl.splEditor.getComponent();
+					if (control != null) {
+						Font font = GM.getScaleFont(control.scale);
+						if (textEditorFont != font) {
+							textEditorFont = font;
+							textEditor.setFont(font);
+						}
+					}
+				}
+			} catch (Exception e) {
+			}
+
 			try {
 				textEditor.setText(newText);
 			} catch (Exception e) {

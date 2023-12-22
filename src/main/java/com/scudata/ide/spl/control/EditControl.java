@@ -43,11 +43,11 @@ public class EditControl extends SplControl {
 		CornerListener listener = new CornerListener(this, editable);
 		panel.addMouseListener(listener);
 		panel.addMouseWheelListener(mouseWheelListener);
-		MouseWheelListener[] listeners = getMouseWheelListeners();
-		if (listeners != null) {
-			for (MouseWheelListener l : listeners)
-				panel.addMouseWheelListener(l);
-		}
+		// MouseWheelListener[] listeners = getMouseWheelListeners();
+		// if (listeners != null) {
+		// for (MouseWheelListener l : listeners)
+		// panel.addMouseWheelListener(l);
+		// }
 		return panel;
 	}
 
@@ -63,11 +63,11 @@ public class EditControl extends SplControl {
 		headerPanel.addMouseMotionListener(listener);
 		headerPanel.addKeyListener(listener);
 		headerPanel.addMouseWheelListener(mouseWheelListener);
-		MouseWheelListener[] listeners = getMouseWheelListeners();
-		if (listeners != null) {
-			for (MouseWheelListener l : listeners)
-				headerPanel.addMouseWheelListener(l);
-		}
+		// MouseWheelListener[] listeners = getMouseWheelListeners();
+		// if (listeners != null) {
+		// for (MouseWheelListener l : listeners)
+		// headerPanel.addMouseWheelListener(l);
+		// }
 		return headerPanel;
 	}
 
@@ -83,11 +83,11 @@ public class EditControl extends SplControl {
 		panel.addMouseMotionListener(listener);
 		panel.addKeyListener(listener);
 		panel.addMouseWheelListener(mouseWheelListener);
-		MouseWheelListener[] listeners = getMouseWheelListeners();
-		if (listeners != null) {
-			for (MouseWheelListener l : listeners)
-				panel.addMouseWheelListener(l);
-		}
+		// MouseWheelListener[] listeners = getMouseWheelListeners();
+		// if (listeners != null) {
+		// for (MouseWheelListener l : listeners)
+		// panel.addMouseWheelListener(l);
+		// }
 		return panel;
 	}
 
@@ -103,22 +103,35 @@ public class EditControl extends SplControl {
 		contentPanel.addMouseListener(listener);
 		contentPanel.addMouseMotionListener(listener);
 		contentPanel.addKeyListener(listener);
+		mouseWheelListener.setMouseWheelListeners(getMouseWheelListeners());
 		contentPanel.addMouseWheelListener(mouseWheelListener);
-		MouseWheelListener[] listeners = getMouseWheelListeners();
-		if (listeners != null) {
-			for (MouseWheelListener l : listeners)
-				contentPanel.addMouseWheelListener(l);
-		}
 		DropTarget target = new DropTarget(contentPanel, new EditDropListener());
 		contentPanel.setDropTarget(target);
 		contentPanel.setFocusTraversalKeysEnabled(false);
 		return contentPanel;
 	}
 
-	private MouseWheelListener mouseWheelListener = new MouseWheelListener() {
+	private ScaleListener mouseWheelListener = new ScaleListener() {
+
+	};
+
+	class ScaleListener implements MouseWheelListener {
+		MouseWheelListener[] listeners;
+
+		public ScaleListener() {
+		}
+
+		public void setMouseWheelListeners(MouseWheelListener[] listeners) {
+			this.listeners = listeners;
+		}
 
 		public void mouseWheelMoved(MouseWheelEvent e) {
 			if (!e.isControlDown()) {
+				if (listeners != null) {
+					for (MouseWheelListener mwl : listeners) {
+						mwl.mouseWheelMoved(e);
+					}
+				}
 				return;
 			}
 			int percent = (int) (scale * 100);
@@ -148,8 +161,7 @@ public class EditControl extends SplControl {
 			}
 			e.consume();
 		}
-
-	};
+	}
 
 	/**
 	 * 创建SPL网格面板
