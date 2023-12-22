@@ -1554,6 +1554,7 @@ public class JTableValue extends JTableEx {
 		setFont(scaleFont);
 		JTableHeader tableHeader = getTableHeader();
 		tableHeader.setFont(scaleFont);
+		tableHeader.repaint();
 		for (int c = 0; c < getColumnCount(); c++) {
 			setColWidth(c, getOriginColWidth(c), !hasIndexCol || c != 0);
 		}
@@ -1571,6 +1572,7 @@ public class JTableValue extends JTableEx {
 				}
 			}
 		}
+		this.repaint();
 	}
 
 	private boolean hasIndexCol;
@@ -1716,8 +1718,8 @@ public class JTableValue extends JTableEx {
 					isSelected, hasFocus, row, column);
 			c.setBackground(table.getBackground());
 			c.setForeground(table.getForeground());
+			c.setFont(getScaleFont());
 			if (c instanceof JLabel) {
-				c.setFont(getScaleFont());
 				((JLabel) c).setText((String) value);
 				((JLabel) c).setHorizontalAlignment(JLabel.CENTER);
 				((JLabel) c).setIcon(GM

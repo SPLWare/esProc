@@ -131,6 +131,7 @@ public class GMSpl extends GM {
 			}
 			if (oldRowHeight != ConfigOptions.fRowHeight
 					|| oldFont.getSize() != GC.font.getSize()
+					|| oldFont.getStyle() != GC.font.getStyle()
 					|| !oldFont.getFontName().equals(GC.font.getFontName())) {
 				// 选项修改了字体、字号或者行高
 				GVSpl.panelValue.tableValue.refreshOptions();
