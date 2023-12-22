@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.InputMethodEvent;
@@ -364,6 +365,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @return 面板的尺寸
 	 */
 	public Dimension getPreferredSize() {
+		float scale = 1.0f;
+		if (control != null) {
+			scale = control.scale;
+		}
 		/* Undo时没有重新构建面板造成endCol跟实际有可能不符 */
 		if (endCol > cellSet.getColCount()) {
 			endCol = cellSet.getColCount();
@@ -374,11 +379,17 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		/* 不符End */
 		int width = 0;
 		for (int col = startCol; col <= cellSet.getColCount(); col++) {
-			width += parser.getColWidth(col);
+			if (!parser.isColVisible(col)) {
+				continue;
+			}
+			width += parser.getColWidth(col, scale);
 		}
 		int height = 0;
 		for (int row = startRow; row <= cellSet.getRowCount(); row++) {
-			height += parser.getRowHeight(row);
+			if (!parser.isRowVisible(row)) {
+				continue;
+			}
+			height += parser.getRowHeight(row, scale);
 		}
 		return new Dimension(width + 2, height + 2);
 	}
@@ -389,10 +400,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param row int
 	 * @return int
 	 */
-	public int getRowOffset(int row) {
+	public int getRowOffset(int row, float scale) {
 		int h = 0;
 		for (int r = 1; r < row; r++) {
-			h += parser.getRowHeight(r);
+			if (!parser.isRowVisible(r)) {
+				continue;
+			}
+			h += parser.getRowHeight(r, scale);
 		}
 		return h;
 	}
@@ -403,10 +417,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param col
 	 * @return
 	 */
-	public int getColOffset(int col) {
+	public int getColOffset(int col, float scale) {
 		int w = 0;
 		for (int c = 1; c < col; c++) {
-			w += parser.getColWidth(c);
+			if (!parser.isColVisible(c)) {
+				continue;
+			}
+			w += parser.getColWidth(c, scale);
 		}
 		return w;
 	}
@@ -419,6 +436,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		float scale = 1.0f;
+		if (control != null) {
+			scale = control.scale;
+		}
 		int rows = cellSet.getRowCount() + 1;
 		int cols = cellSet.getColCount() + 1;
 		if (cols != cellX[0].length || rows != cellX.length) {
@@ -459,7 +479,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				if (!parser.isRowVisible(i)) {
 					continue;
 				}
-				int rh = parser.getRowHeight(i);
+				int rh = parser.getRowHeight(i, scale);
 				if (y + rh > displayWin.y) {
 					break;
 				}
@@ -475,7 +495,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				if (!parser.isColVisible(i)) {
 					continue;
 				}
-				int rw = parser.getColWidth(i);
+				int rw = parser.getColWidth(i, scale);
 				if (x + rw > displayWin.x) {
 					break;
 				}
@@ -505,9 +525,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					continue;
 				}
 
-				int colWidth = parser.getColWidth(col);
+				int colWidth = parser.getColWidth(col, scale);
 				int width = colWidth;
-				int height = parser.getRowHeight(row);
+				int height = parser.getRowHeight(row, scale);
 				if (displayWin != null && x + width <= displayWin.x) {
 					x += colWidth;
 					continue;
@@ -533,7 +553,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					drawText(g, row, col, x, y, width, height, scale);
 				}
 
-				drawFlag(g, x, y, parser, row, col);
+				drawFlag(g, x, y, parser, row, col, scale);
 				// draw border
 				CellBorder.setEnv(g, borderStyle, row, col,
 						parser.getRowCount(), parser.getColCount(), isEditing);
@@ -567,12 +587,18 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 									row, col);
 							if (refCellColor != null) {
 								g.setColor(refCellColor);
+								Stroke oldStroke = ((Graphics2D) g).getStroke();
+								float lineSize = 2.0f;
+								lineSize *= control.scale;
+								((Graphics2D) g).setStroke(new BasicStroke(
+										lineSize));
 								g.drawRect(cellX[row][col], cellY[row][col],
 										cellW[row][col], cellH[row][col]);
-								g.drawRect(cellX[row][col] + 1,
-										cellY[row][col] + 1,
-										cellW[row][col] - 2,
-										cellH[row][col] - 2);
+								// g.drawRect(cellX[row][col] + 1,
+								// cellY[row][col] + 1,
+								// cellW[row][col] - 2,
+								// cellH[row][col] - 2);
+								((Graphics2D) g).setStroke(oldStroke);
 								g.setPaintMode();
 							}
 						}
@@ -605,7 +631,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 				x += colWidth;
 			}
-			y += parser.getRowHeight(row);
+			y += parser.getRowHeight(row, scale);
 		}
 
 		if (this.control != null && ConfigOptions.bDispOutCell.booleanValue()) {
@@ -616,9 +642,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 						continue;
 					}
 					// draw cell content
-					int height = parser.getRowHeight(row);
-					int w = parser.getColWidth(col);
-					int pw = getPaintableWidth(row, col);
+					int height = parser.getRowHeight(row, scale);
+					int w = parser.getColWidth(col, scale);
+					int pw = getPaintableWidth(row, col, scale);
 					int px = cellX[row][col];
 					int py = cellY[row][col];
 					int halign = parser.getHAlign(row, col);
@@ -754,12 +780,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		int r = control.getActiveCell().getRow();
 		int c = control.getActiveCell().getCol();
 		if (ConfigOptions.bDispOutCell.booleanValue()) {
-			int ew = getEditableWidth(editingText, r, c);
+			int ew = getEditableWidth(editingText, r, c, control.scale);
 			if (srcRect.width < ew) {
 				editingText += "a"; // 提前加个字符宽度
 			}
 		}
-		CellRect rect = getEditorBounds(editingText, r, c);
+		CellRect rect = getEditorBounds(editingText, r, c, control.scale);
 		int w = rect.getRowCount();
 		int h = rect.getColCount();
 		if (h < srcRect.height) {
@@ -826,13 +852,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param cc 列号
 	 * @return
 	 */
-	public int getPaintableWidth(int cr, int cc) {
-		int w = parser.getColWidth(cc);
+	public int getPaintableWidth(int cr, int cc, float scale) {
+		int w = parser.getColWidth(cc, scale);
 
 		String drawText = ControlUtils.getCellText(cellSet, cr, cc, true);
 		int indent = ConfigOptions.iIndent.intValue();
-		float cw = parser.getColWidth(cc) - indent;
-		float ch = parser.getRowHeight(cr);
+		float cw = parser.getColWidth(cc, scale) - indent;
+		float ch = parser.getRowHeight(cr, scale);
 		float textH = ControlUtils.getStringHeight(drawText, cw, GC.font);
 		if (ch > textH) {
 			return w;
@@ -841,19 +867,23 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		byte halign = parser.getHAlign(cr, cc);
 		if (halign == IStyle.HALIGN_LEFT) {
 			for (int c = cc + 1; c <= cellSet.getColCount(); c++) {
+				if (!parser.isColVisible(c))
+					continue;
 				NormalCell nc = (NormalCell) cellSet.getCell(cr, c);
 				if (StringUtils.isValidString(nc.getExpString())) {
 					break;
 				}
-				w += parser.getColWidth(c);
+				w += parser.getColWidth(c, scale);
 			}
 		} else if (halign == IStyle.HALIGN_RIGHT) {
 			for (int c = cc - 1; c >= 1; c--) {
+				if (!parser.isColVisible(c))
+					continue;
 				NormalCell nc = (NormalCell) cellSet.getCell(cr, c);
 				if (StringUtils.isValidString(nc.getExpString())) {
 					break;
 				}
-				w += parser.getColWidth(c);
+				w += parser.getColWidth(c, scale);
 			}
 		}
 
@@ -868,20 +898,23 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param col         列号
 	 * @return
 	 */
-	public int getEditableWidth(String editingText, int row, int col) {
-		int w = parser.getColWidth(col);
+	public int getEditableWidth(String editingText, int row, int col,
+			float scale) {
+		int w = parser.getColWidth(col, scale);
 
 		if (ConfigOptions.bDispOutCell.booleanValue()) {
 			int textWidth = ControlUtils
 					.getStringMaxWidth(editingText, GC.font);
 
 			for (int c = col + 1; c <= cellSet.getColCount(); c++) {
+				if (!parser.isColVisible(c))
+					continue;
 				NormalCell nc = (NormalCell) cellSet.getCell(row, c);
 				if (StringUtils.isValidString(nc.getExpString())
 						|| w > textWidth + 5) {
 					break;
 				}
-				w += parser.getColWidth(c);
+				w += parser.getColWidth(c, scale);
 			}
 		}
 		return w;
@@ -896,15 +929,19 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param maxW 最大宽度
 	 * @return
 	 */
-	private int getEditableHeight(String text, int row, int col, int maxW) {
-		int h = parser.getRowHeight(row);
+	private int getEditableHeight(String text, int row, int col, int maxW,
+			float scale) {
+		int h = parser.getRowHeight(row, scale);
 		// 编辑控件本身要占宽度,多留出5个点
 		float textH = ControlUtils.getStringHeight(text, maxW - 5, GC.font);
 		for (int r = row + 1; r <= cellSet.getRowCount(); r++) {
+			if (!parser.isRowVisible(r)) {
+				continue;
+			}
 			if (h > textH + 3) {
 				break;
 			}
-			h += parser.getRowHeight(r);
+			h += parser.getRowHeight(r, scale);
 		}
 		return h;
 	}
@@ -949,14 +986,20 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		}
 		int width = 0;
 		for (int c = col; c <= endCol; c++) {
+			if (!parser.isColVisible(c)) {
+				continue;
+			}
 			if (c >= drawStartCol) {
-				width += parser.getColWidth(c);
+				width += parser.getColWidth(c, control.scale);
 			}
 		}
 		int height = 0;
 		for (int r = row; r <= endRow; r++) {
+			if (!parser.isRowVisible(r)) {
+				continue;
+			}
 			if (r >= drawStartRow) {
-				height += parser.getRowHeight(r);
+				height += parser.getRowHeight(r, control.scale);
 			}
 		}
 
@@ -964,7 +1007,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return;
 		}
 		row = Math.max(drawStartRow, row);
-		((Graphics2D) g).setStroke(new BasicStroke(3.0f));
+		float lineSize = 3.0f;
+		lineSize *= control.scale;
+		((Graphics2D) g).setStroke(new BasicStroke(lineSize));
 		g.setColor(Color.BLACK);
 		g.setXORMode(Color.lightGray);
 		final int LINE_WIDTH = 3;
@@ -1022,16 +1067,16 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param col    列号
 	 */
 	public static void drawFlag(Graphics g, int x, int y, CellSetParser parser,
-			int row, int col) {
+			int row, int col, float scale) {
 		PgmNormalCell cell = (PgmNormalCell) parser.getCell(row, col);
-		int maxFlagSize = Math.min(parser.getRowHeight(row),
-				parser.getColWidth(col));
+		int maxFlagSize = Math.min(parser.getRowHeight(row, scale),
+				parser.getColWidth(col, scale));
 		int flagSize = Math.min(maxFlagSize, GC.FLAG_SIZE_SMALL);
 		Color oldColor = g.getColor();
 		if (StringUtils.isValidString(cell.getTip())) {
 			g.setColor(Color.white);
 			g.setXORMode(new Color(51, 153, 0));
-			int w = parser.getColWidth(col);
+			int w = parser.getColWidth(col, scale);
 			int[] x1 = new int[] { x + w - flagSize, x + w, x + w };
 			int[] y1 = new int[] { y, y, y + flagSize };
 
@@ -1040,8 +1085,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		if (cell.isResultCell()) {
 			g.setColor(Color.white);
 			g.setXORMode(Color.BLUE);
-			int h = parser.getRowHeight(row);
-			int w = parser.getColWidth(col);
+			int h = parser.getRowHeight(row, scale);
+			int w = parser.getColWidth(col, scale);
 			int[] x1 = new int[] { x + w - flagSize, x + w, x + w };
 			int[] y1 = new int[] { y + h, y + h, y + h - flagSize };
 
@@ -1106,7 +1151,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 */
 	private void drawText(String text, Graphics g, int row, int col, int x,
 			int y, int w, int h, float scale) {
-		Font font = parser.getFont(row, col);
+		Font font = parser.getFont(row, col, scale);
 		byte halign = parser.getHAlign(row, col);
 		byte valign = parser.getVAlign(row, col);
 
@@ -1133,8 +1178,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			}
 
 			boolean underLine = parser.isUnderline(row, col);
+			int indent = ConfigOptions.iIndent.intValue();
+			indent = (int) Math.floor(indent * scale);
 			ControlUtils.drawText(g, text, x, y, w, h, underLine, halign,
-					valign, font, c);
+					valign, font, c, indent);
 		} finally {
 			g.setPaintMode();
 		}
@@ -1337,7 +1384,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			}
 			editor.requestFocus();
 			text = ControlUtils.getCellText(cellSet, row, col, isEditing);
-			CellRect rect = getEditorBounds(text, row, col);
+			CellRect rect = getEditorBounds(text, row, col, control.scale);
 			editor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
 					rect.getRowCount(), rect.getColCount());
 			spEditor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
@@ -1378,7 +1425,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		editor.setBackground(bkcolor == null ? new JTextPane().getBackground()
 				: bkcolor);
 		editor.setForeground(parser.getForeColor(row, col));
-		editor.setFont(parser.getFont(row, col));
+		editor.setFont(parser.getFont(row, col, control.scale));
 		spEditor.setBounds(spEditor.getBounds());
 		spEditor.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
 	}
@@ -1394,9 +1441,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param col  列号
 	 * @return
 	 */
-	public CellRect getEditorBounds(String text, int row, int col) {
+	public CellRect getEditorBounds(String text, int row, int col, float scale) {
 		int x = cellX[row][col], y = cellY[row][col], w = getEditableWidth(
-				text, row, col);
+				text, row, col, scale);
 		if (onlyDrawCellInWin) {
 			final int BORDER_SIZE = 0;
 			Rectangle displayWin = jsp.getViewport().getViewRect();
@@ -1408,7 +1455,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 						- BORDER_SIZE;
 			}
 		}
-		int h = getEditableHeight(text, row, col, w);
+		int h = getEditableHeight(text, row, col, w, scale);
 		if (onlyDrawCellInWin) {
 			final int BORDER_SIZE = 0;
 			Rectangle displayWin = jsp.getViewport().getViewRect();

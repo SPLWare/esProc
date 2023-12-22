@@ -49,13 +49,15 @@ public class SplControlListener implements EditorListener {
 	 * 右键点击事件
 	 */
 	public void rightClicked(MouseEvent e, int clickPlace) {
-		editor.getSplListener().rightClicked(e.getComponent(), e.getX(), e.getY());
+		editor.getSplListener().rightClicked(e.getComponent(), e.getX(),
+				e.getY());
 	}
 
 	/**
 	 * 选择区域
 	 */
-	public void regionsSelect(Vector<Object> vectRegion, Vector<Integer> selectedRows, Vector<Integer> selectedColumns,
+	public void regionsSelect(Vector<Object> vectRegion,
+			Vector<Integer> selectedRows, Vector<Integer> selectedColumns,
 			boolean selectedAll, boolean keyEvent) {
 
 		editor.selectedRects.clear();
@@ -79,7 +81,8 @@ public class SplControlListener implements EditorListener {
 		} else {
 			editor.selectState = GCSpl.SELECT_STATE_CELL;
 		}
-		editor.getSplListener().selectStateChanged(editor.selectState, keyEvent);
+		editor.getSplListener()
+				.selectStateChanged(editor.selectState, keyEvent);
 	}
 
 	/**
@@ -161,13 +164,15 @@ public class SplControlListener implements EditorListener {
 	 * @param newText 文本
 	 * @return
 	 */
-	public static AtomicCell getCellHeightCmd(SplControl control, int row, int col, String newText) {
+	public static AtomicCell getCellHeightCmd(SplControl control, int row,
+			int col, String newText) {
 		// 冲出单元格显示时不自动调整行高，希望看到的就是一行代码
 		if (!ConfigOptions.bAutoSizeRowHeight.booleanValue()) {
 			return null;
 		}
 		CellSet ics = control.cellSet;
-		float w = control.getContentPanel().getEditableWidth(newText, row, col);
+		float w = control.getContentPanel().getEditableWidth(newText, row, col,
+				control.scale);
 		float h = ics.getRowCell(row).getHeight();
 		float textH = ControlUtils.getStringHeight(newText, w, GC.font) + 7;
 		if (h < textH) {

@@ -3233,6 +3233,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GCSpl.iFUNC_ASSIST:
 			splEditor.dialogFuncEditor();
 			break;
+		case GCSpl.iZOOM:
+			splEditor.dialogZoom();
+			break;
 		case GCSpl.iDRAW_CHART:
 			GVSpl.panelValue.tableValue.drawChart();
 			break;
@@ -3483,11 +3486,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GVSpl.panelSplWatch.setCellSet(sheet.splControl.cellSet);
 					GVSpl.panelSplWatch.watch();
 					GVSpl.panelValue.setCellSet(sheet.splControl.cellSet);
-					// if (GVSpl.searchDialog != null
-					// && GVSpl.searchDialog.isVisible()) {
-					// if (splEditor != null)
-					// GVSpl.searchDialog.setConfig();
-					// }
+					GVSpl.panelValue.tableValue
+							.initScale(sheet.splControl.cellSet);
 				}
 			});
 		}

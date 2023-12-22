@@ -1,14 +1,10 @@
 package com.scudata.ide.spl.control;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import javax.swing.JViewport;
 
 import com.scudata.common.CellLocation;
-import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.control.ControlUtilsBase;
 
 /**
@@ -47,14 +43,14 @@ public class ControlUtils extends ControlUtilsBase {
 		// fieldArea.x = control.cellX[col];
 		CellSetParser parser = new CellSetParser(control.cellSet);
 		// if (fieldArea.x == 0)
-		fieldArea.x = parser.getColsWidth(control, 1, col - 1, false) + 1;
+		fieldArea.x = parser.getColsWidth(control, 1, col - 1, control.scale) + 1;
 		// if (row >= control.cellY.length) {
 		// fieldArea.y = control.cellY[row - 1];
 		// } else {
 		// fieldArea.y = control.cellY[row];
 		// }
 		// if (fieldArea.y == 0)
-		fieldArea.y = parser.getRowsHeight(control, 1, row - 1, false) + 1;
+		fieldArea.y = parser.getRowsHeight(control, 1, row - 1, control.scale) + 1;
 		if (row == 0) {
 			fieldArea.width = control.cellW[col];
 			fieldArea.height = 20;
@@ -91,28 +87,6 @@ public class ControlUtils extends ControlUtilsBase {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * 绘制文本
-	 * 
-	 * @param g         画板
-	 * @param text      文本
-	 * @param x         X坐标
-	 * @param y         Y坐标
-	 * @param w         宽度
-	 * @param h         高度
-	 * @param underLine 是否有下划线
-	 * @param halign    水平对齐
-	 * @param valign    垂直对齐
-	 * @param font      字体
-	 * @param c         前景色
-	 */
-	public static void drawText(Graphics g, String text, int x, int y, int w,
-			int h, boolean underLine, byte halign, byte valign, Font font,
-			Color c) {
-		ControlUtils.drawText(g, text, x, y, w, h, underLine, halign, valign,
-				font, c, ConfigOptions.iIndent.intValue());
 	}
 
 }

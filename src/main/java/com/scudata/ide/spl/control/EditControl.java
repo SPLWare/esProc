@@ -1,10 +1,14 @@
 package com.scudata.ide.spl.control;
 
 import java.awt.dnd.DropTarget;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
 import com.scudata.cellset.datamodel.CellSet;
+import com.scudata.ide.spl.GCSpl;
+import com.scudata.ide.spl.GVSpl;
 
 /**
  * 网格控件
@@ -38,6 +42,12 @@ public class EditControl extends SplControl {
 		JPanel panel = new CornerPanel(this, editable);
 		CornerListener listener = new CornerListener(this, editable);
 		panel.addMouseListener(listener);
+		panel.addMouseWheelListener(mouseWheelListener);
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		if (listeners != null) {
+			for (MouseWheelListener l : listeners)
+				panel.addMouseWheelListener(l);
+		}
 		return panel;
 	}
 
@@ -52,6 +62,12 @@ public class EditControl extends SplControl {
 		headerPanel.addMouseListener(listener);
 		headerPanel.addMouseMotionListener(listener);
 		headerPanel.addKeyListener(listener);
+		headerPanel.addMouseWheelListener(mouseWheelListener);
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		if (listeners != null) {
+			for (MouseWheelListener l : listeners)
+				headerPanel.addMouseWheelListener(l);
+		}
 		return headerPanel;
 	}
 
@@ -66,6 +82,12 @@ public class EditControl extends SplControl {
 		panel.addMouseListener(listener);
 		panel.addMouseMotionListener(listener);
 		panel.addKeyListener(listener);
+		panel.addMouseWheelListener(mouseWheelListener);
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		if (listeners != null) {
+			for (MouseWheelListener l : listeners)
+				panel.addMouseWheelListener(l);
+		}
 		return panel;
 	}
 
@@ -75,18 +97,59 @@ public class EditControl extends SplControl {
 	 * @return 内容面板
 	 */
 	ContentPanel createContentView() {
-		ContentPanel panel = newContentPanel(cellSet);
-		CellSelectListener listener = new CellSelectListener(this, panel,
-				editable);
-		panel.addMouseListener(listener);
-		panel.addMouseMotionListener(listener);
-		panel.addKeyListener(listener);
-		DropTarget target = new DropTarget(panel, new EditDropListener());
-		panel.setDropTarget(target);
-		panel.setFocusTraversalKeysEnabled(false);
-
-		return panel;
+		ContentPanel contentPanel = newContentPanel(cellSet);
+		CellSelectListener listener = new CellSelectListener(this,
+				contentPanel, editable);
+		contentPanel.addMouseListener(listener);
+		contentPanel.addMouseMotionListener(listener);
+		contentPanel.addKeyListener(listener);
+		contentPanel.addMouseWheelListener(mouseWheelListener);
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		if (listeners != null) {
+			for (MouseWheelListener l : listeners)
+				contentPanel.addMouseWheelListener(l);
+		}
+		DropTarget target = new DropTarget(contentPanel, new EditDropListener());
+		contentPanel.setDropTarget(target);
+		contentPanel.setFocusTraversalKeysEnabled(false);
+		return contentPanel;
 	}
+
+	private MouseWheelListener mouseWheelListener = new MouseWheelListener() {
+
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			if (!e.isControlDown()) {
+				return;
+			}
+			int percent = (int) (scale * 100);
+			int wr = e.getWheelRotation();
+			int newPercent;
+			if (wr < 0) { // 滚轮向上，放大
+				newPercent = GCSpl.DEFAULT_SCALES[GCSpl.DEFAULT_SCALES.length - 1];
+				for (int i = 0; i < GCSpl.DEFAULT_SCALES.length; i++) {
+					if (percent < GCSpl.DEFAULT_SCALES[i] - 7) {
+						newPercent = GCSpl.DEFAULT_SCALES[i];
+						break;
+					}
+				}
+			} else { // 缩小
+				newPercent = GCSpl.DEFAULT_SCALES[0];
+				for (int i = GCSpl.DEFAULT_SCALES.length - 1; i >= 0; i--) {
+					if (percent > GCSpl.DEFAULT_SCALES[i] + 7) {
+						newPercent = GCSpl.DEFAULT_SCALES[i];
+						break;
+					}
+				}
+			}
+			if (newPercent != percent) {
+				setScale(new Float(newPercent) / 100f);
+				if (GVSpl.splEditor != null)
+					GVSpl.splEditor.setDataChanged(true);
+			}
+			e.consume();
+		}
+
+	};
 
 	/**
 	 * 创建SPL网格面板

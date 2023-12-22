@@ -50,7 +50,8 @@ public class ColHeaderPanel extends JPanel {
 		parser = new CellSetParser(control.cellSet);
 		initCoords();
 		int h = (int) (GCSpl.DEFAULT_ROW_HEIGHT * control.scale);
-		setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), h + 1));
+		setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
+				h + 1));
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class ColHeaderPanel extends JPanel {
 			if (!parser.isColVisible(i)) {
 				control.cellW[i] = 0;
 			} else {
-				control.cellW[i] = (int) control.cellSet.getColCell(i).getWidth();
+				control.cellW[i] = parser.getColWidth(i, control.scale);
 			}
 		}
 	}
@@ -92,7 +93,8 @@ public class ColHeaderPanel extends JPanel {
 			control.cellW = new int[cols];
 		}
 		Rectangle r = control.getViewport().getViewRect();
-		HashSet<Integer> selectedCols = ControlUtils.listSelectedCols(control.getSelectedAreas());
+		HashSet<Integer> selectedCols = ControlUtils.listSelectedCols(control
+				.getSelectedAreas());
 		for (int i = 1; i < cols; i++) {
 			if (i == 1) {
 				control.cellX[i] = 1;
@@ -102,7 +104,7 @@ public class ColHeaderPanel extends JPanel {
 			if (!parser.isColVisible(i)) {
 				control.cellW[i] = 0;
 			} else {
-				control.cellW[i] = (int) control.cellSet.getColCell(i).getWidth();
+				control.cellW[i] = parser.getColWidth(i, control.scale);
 			}
 			if (control.cellX[i] + control.cellW[i] <= r.x) {
 				continue;
@@ -130,10 +132,12 @@ public class ColHeaderPanel extends JPanel {
 				w--;
 			}
 			if (w > 0) {
-				ControlUtils.drawHeader(g, x, 0, w, h, label, control.scale, bkColor, flag, editable);
+				ControlUtils.drawHeader(g, x, 0, w, h, label, control.scale,
+						bkColor, flag, editable);
 			}
 		}
-		setPreferredSize(new Dimension((int) getPreferredSize().getWidth(), h + 1));
+		setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
+				h + 1));
 		g.dispose();
 	}
 
@@ -144,7 +148,7 @@ public class ColHeaderPanel extends JPanel {
 		int width = 0;
 		for (int col = 1; col <= control.cellSet.getColCount(); col++) {
 			if (parser.isColVisible(col)) {
-				width += control.cellSet.getColCell(col).getWidth();
+				width += parser.getColWidth(col, control.scale);
 			}
 		}
 		int h = (int) (GCSpl.DEFAULT_ROW_HEIGHT * control.scale);

@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -95,7 +97,26 @@ public class PanelValue extends JPanel {
 		spValue = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		spValue.getViewport().add(tableValue);
+		spValue.addMouseListener(new MouseAdapter() {
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.getButton() != MouseEvent.BUTTON3)
+					return;
+				tableValue.rightClicked(e.getX(), e.getY(), -1, -1, e);
+			}
+		});
 		tableValue.addMWListener(spValue);
+		tableValue.getTableHeader().addMouseListener(new MouseAdapter() {
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.getButton() != MouseEvent.BUTTON3)
+					return;
+				int col = tableValue.columnAtPoint(e.getPoint());
+				tableValue.selectCol(col);
+				tableValue.rightClicked(e.getX(), e.getY(),
+						tableValue.getSelectedRow(), col, e);
+			}
+		});
 		add(spValue, BorderLayout.CENTER);
 		sbValue = new JScrollBar();
 		sbValue.addAdjustmentListener(new AdjustmentListener() {

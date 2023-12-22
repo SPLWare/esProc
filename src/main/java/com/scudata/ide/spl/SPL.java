@@ -294,9 +294,8 @@ public class SPL extends AppFrame {
 			splitMain.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 			final int POS_MAIN = new Double(0.25 * Toolkit.getDefaultToolkit()
 					.getScreenSize().getWidth()).intValue();
-			final int POS_DESK = new Double((1 - 0.25)
-					* Toolkit.getDefaultToolkit().getScreenSize().getWidth())
-					.intValue();
+			final int POS_DESK = new Double(0.7 * Toolkit.getDefaultToolkit()
+					.getScreenSize().getWidth()).intValue();
 			splitMain.setDividerLocation(POS_DESK - POS_MAIN);
 
 			splitCenter.setOneTouchExpandable(true);

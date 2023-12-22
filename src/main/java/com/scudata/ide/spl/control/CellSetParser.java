@@ -2,6 +2,7 @@ package com.scudata.ide.spl.control;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.HashMap;
 
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.ColCell;
@@ -332,9 +333,18 @@ public class CellSetParser {
 	 *            列号
 	 * @return
 	 */
-	public Font getFont(int row, int col) {
-		return GC.font;
+	public Font getFont(int row, int col, float scale) {
+		int size = GC.font.getSize();
+		size = StringUtils.getScaledFontSize(size, scale);
+		Font font = fontMap.get(size);
+		if (font == null) {
+			font = new Font(GC.font.getFontName(), GC.font.getStyle(), size);
+			fontMap.put(size, font);
+		}
+		return font;
 	}
+
+	private HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
 
 	/**
 	 * 取单元格字体名称
@@ -450,12 +460,9 @@ public class CellSetParser {
 	}
 
 	/**
-	 * 取行高
+	 * 取行高，不可视行返回0
 	 * 
 	 * @param row
-	 *            行号
-	 * @param scale
-	 *            显示比例
 	 * @return
 	 */
 	public int getRowHeight(int row, float scale) {
@@ -497,27 +504,6 @@ public class CellSetParser {
 	}
 
 	/**
-	 * 取列宽，不可视列返回0
-	 * 
-	 * @param col
-	 *            列号
-	 * @return
-	 */
-	public int getColWidth(int col) {
-		if (!isColVisible(col)) {
-			return 0;
-		}
-		ColCell cell = (ColCell) cellSet.getColCell(col);
-		float width = cell.getWidth();
-		int scale = 1;
-		int w = (int) Math.ceil(width * scale);
-		if (scale != 1.0) {
-			w += 1;
-		}
-		return w;
-	}
-
-	/**
 	 * 行是否可视
 	 * 
 	 * @param row
@@ -542,20 +528,6 @@ public class CellSetParser {
 	}
 
 	/**
-	 * 取行高，不可视行返回0
-	 * 
-	 * @param row
-	 * @return
-	 */
-	public int getRowHeight(int row) {
-		if (isRowVisible(row)) {
-			return (int) cellSet.getRowCell(row).getHeight();
-		} else {
-			return 0;
-		}
-	}
-
-	/**
 	 * 取多列宽度
 	 * 
 	 * @param control
@@ -564,19 +536,16 @@ public class CellSetParser {
 	 *            开始列
 	 * @param count
 	 *            列数
-	 * @param includeHideCol
-	 *            是否包含隐藏列宽
 	 * @return
 	 */
 	public int getColsWidth(SplControl control, int startCol, int count,
-			boolean includeHideCol) {
+			float scale) {
 		int width = 0;
 		for (int i = 0, col = startCol; i < count; i++, col++) {
-			if (includeHideCol) {
-				width += getColWidth(col, control.scale);
-			} else {
-				width += getColWidth(col);
+			if (!isColVisible(col)) {
+				continue;
 			}
+			width += getColWidth(col, scale);
 		}
 		return width;
 	}
@@ -590,19 +559,16 @@ public class CellSetParser {
 	 *            开始行
 	 * @param count
 	 *            行数
-	 * @param includeHideRow
-	 *            是否包含隐藏行高
 	 * @return
 	 */
 	public int getRowsHeight(SplControl control, int startRow, int count,
-			boolean includeHideRow) {
+			float scale) {
 		int height = 0;
 		for (int i = 0, row = startRow; i < count; i++, row++) {
-			if (includeHideRow) {
-				height += getRowHeight(row, control.scale);
-			} else {
-				height += getRowHeight(row);
+			if (!isRowVisible(row)) {
+				continue;
 			}
+			height += getRowHeight(row, scale);
 		}
 		return height;
 	}

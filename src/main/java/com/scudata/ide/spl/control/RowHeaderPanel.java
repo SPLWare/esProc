@@ -56,7 +56,8 @@ public class RowHeaderPanel extends JPanel {
 		this.parser = new CellSetParser(control.cellSet);
 		initCoords();
 		int w = getW(control);
-		setPreferredSize(new Dimension(w + 1, (int) getPreferredSize().getHeight()));
+		setPreferredSize(new Dimension(w + 1, (int) getPreferredSize()
+				.getHeight()));
 	}
 
 	/**
@@ -94,7 +95,8 @@ public class RowHeaderPanel extends JPanel {
 			if (!parser.isRowVisible(i)) {
 				control.cellH[i] = 0;
 			} else {
-				control.cellH[i] = (int) control.cellSet.getRowCell(i).getHeight();
+				control.cellH[i] = (int) control.cellSet.getRowCell(i)
+						.getHeight();
 			}
 		}
 	}
@@ -114,7 +116,9 @@ public class RowHeaderPanel extends JPanel {
 			initRowLocations(rows);
 		}
 		Rectangle r = control.getViewport().getViewRect();
-		HashSet<Integer> selectedRows = ControlUtils.listSelectedRows(control.getSelectedAreas());
+		HashSet<Integer> selectedRows = ControlUtils.listSelectedRows(control
+				.getSelectedAreas());
+		float scale = control.scale;
 		for (int i = 1; i < rows; i++) {
 			if (i == 1) {
 				control.cellY[i] = 1;
@@ -125,7 +129,7 @@ public class RowHeaderPanel extends JPanel {
 				control.cellH[i] = 0;
 				continue;
 			} else {
-				control.cellH[i] = (int) control.cellSet.getRowCell(i).getHeight();
+				control.cellH[i] = (int) parser.getRowHeight(i, scale);
 			}
 
 			if (control.cellY[i] + control.cellH[i] <= r.y) {
@@ -153,7 +157,8 @@ public class RowHeaderPanel extends JPanel {
 				y++;
 				h--;
 			}
-			ControlUtils.drawHeader(g, 0, y, w, h, label, control.scale, bkColor, flag, editable);
+			ControlUtils.drawHeader(g, 0, y, w, h, label, control.scale,
+					bkColor, flag, editable);
 			int subEnd = parser.getSubEnd(i);
 			String imgPath = "";
 			if (subEnd > i && i + 1 < rows) {
@@ -163,8 +168,8 @@ public class RowHeaderPanel extends JPanel {
 				else
 					imgPath += "rowexpand.gif";
 				Image img = GM.getImageIcon(imgPath).getImage();
-				g.drawImage(img, headWidth + (levelWidth - ICON_SIZE) / 2, y + (h - ICON_SIZE) / 2, ICON_SIZE,
-						ICON_SIZE, null);
+				g.drawImage(img, headWidth + (levelWidth - ICON_SIZE) / 2, y
+						+ (h - ICON_SIZE) / 2, ICON_SIZE, ICON_SIZE, null);
 			}
 
 			if (control.isBreakPointRow(i)) {
@@ -172,14 +177,16 @@ public class RowHeaderPanel extends JPanel {
 				g.drawImage(image, 0, y + h / 2 - 8, 16, 16, null);
 			}
 		}
-		setPreferredSize(new Dimension(w + 1, (int) getPreferredSize().getHeight()));
+		setPreferredSize(new Dimension(w + 1, (int) getPreferredSize()
+				.getHeight()));
 		g.dispose();
 	}
 
 	/**
 	 * 缓存图片
 	 */
-	final static BufferedImage BI = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
+	final static BufferedImage BI = new BufferedImage(5, 5,
+			BufferedImage.TYPE_INT_RGB);
 
 	/**
 	 * 每一层的宽度
@@ -207,7 +214,8 @@ public class RowHeaderPanel extends JPanel {
 		String label = String.valueOf(control.cellSet.getRowCount());
 		int w1 = g.getFontMetrics(g.getFont()).stringWidth(label) + 5;
 		int w2 = (int) (GCSpl.DEFAULT_ROWHEADER_WIDTH * control.scale);
-		return Math.max(w1, w2);
+		int w = Math.max(w1, w2);
+		return (int) (w * control.scale);
 	}
 
 	/**
@@ -225,9 +233,9 @@ public class RowHeaderPanel extends JPanel {
 	 */
 	public Dimension getPreferredSize() {
 		int height = 0;
-		for (int row = 1; row <= control.cellSet.getRowCount(); row++) {
+		for (int row = 1; row <= parser.getRowCount(); row++) {
 			if (parser.isRowVisible(row)) {
-				height += control.cellSet.getRowCell(row).getHeight();
+				height += parser.getRowHeight(row, control.scale);
 			}
 		}
 		int w = getW(control);

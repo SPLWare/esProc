@@ -156,6 +156,8 @@ public class GCSpl extends GC {
 	public static final String FUNC_ASSIST = "edit.funcassist";
 	/** 网格画布(G) */
 	public static final String CANVAS = "edit.canvas";
+	/** 缩放(L) */
+	public static final String ZOOM = "edit.zoom";
 	/** 查找(F) */
 	public static final String SEARCH = "edit.search";
 	/** 替换(R) */
@@ -241,6 +243,8 @@ public class GCSpl extends GC {
 	public static final short iEDIT_CHART = MENU_SPL + 191;
 	/** 函数辅助(A) */
 	public static final short iFUNC_ASSIST = MENU_SPL + 193;
+	/** 缩放(L) */
+	public static final short iZOOM = MENU_SPL + 194;
 	/** 查找(F) */
 	public static final short iSEARCH = MENU_SPL + 195;
 	/** 替换(R) */
@@ -372,4 +376,9 @@ public class GCSpl extends GC {
 	/** 对象名带限定符 */
 	public static final String ADD_TILDE = IdeSplMessage.get().getMessage(
 			"jtablevalue.addtilde");
+
+	public static final int[] DEFAULT_SCALES = new int[] { 10, 25, 40, 55, 70,
+			85, 100, 115, 130, 145, 160, 175, 190, 205, 220, 235, 250, 265,
+			280, 295, 310, 325, 340, 355, 370, 385, 400 };
+
 }

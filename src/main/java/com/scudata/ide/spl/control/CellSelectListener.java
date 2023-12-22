@@ -665,7 +665,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 					if (!parser.isColVisible(c))
 						continue;
 					preVisibleCol = c;
-					tmpWidth += parser.getColWidth(curCol, control.scale);
+					tmpWidth += parser.getColWidth(c, control.scale);
 					if (tmpWidth > PAGE_WIDTH) {
 						break;
 					}
@@ -687,7 +687,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 					if (!parser.isRowVisible(r))
 						continue;
 					preVisibleRow = r;
-					tmpHeight += parser.getRowHeight(curRow, control.scale);
+					tmpHeight += parser.getRowHeight(r, control.scale);
 					if (tmpHeight > PAGE_HEIGHT) {
 						break;
 					}
@@ -705,7 +705,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			final int PAGE_WIDTH = GM.getPageWidth(control.scale);
 			final int PAGE_HEIGHT = GM.getPageHeight(control.scale);
 			if (e.isControlDown()) {
-				int deltaW = cp.getColOffset(curCol)
+				int deltaW = cp.getColOffset(curCol, control.scale)
 						- control.getHorizontalScrollBar().getValue();
 				int subVisibleCol = curCol;
 				int colCount = control.cellSet.getColCount();
@@ -714,7 +714,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 					if (!parser.isColVisible(c))
 						continue;
 					subVisibleCol = c;
-					tmpWidth += parser.getColWidth(curCol, control.scale);
+					tmpWidth += parser.getColWidth(c, control.scale);
 					if (tmpWidth > PAGE_WIDTH) {
 						break;
 					}
@@ -731,7 +731,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 									subVisibleCol)));
 				}
 				control.getHorizontalScrollBar().setValue(
-						cp.getColOffset(subVisibleCol) - deltaW);
+						cp.getColOffset(subVisibleCol, control.scale) - deltaW);
 			} else {
 				int tmpHeight = parser.getRowHeight(curRow, control.scale);
 				int subVisibleRow = curRow;
@@ -1218,5 +1218,4 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			control.fireRightClicked(e, GC.SELECT_STATE_CELL);
 		}
 	}
-
 }

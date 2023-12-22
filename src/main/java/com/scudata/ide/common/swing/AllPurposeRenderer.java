@@ -98,6 +98,7 @@ public class AllPurposeRenderer implements TableCellRenderer {
 			textField.setBackground(table.getBackground());
 			textField.setForeground(table.getForeground());
 		}
+		textField.setFont(table.getFont());
 		textField.setOpaque(true);
 		textField.setValue(value);
 		if (isRefVal(value)) {

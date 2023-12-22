@@ -2,6 +2,7 @@ package com.scudata.ide.spl.base;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.HeadlessException;
 import java.awt.Point;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -43,11 +45,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
 import com.scudata.cellset.datamodel.NormalCell;
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
+import com.scudata.common.ByteMap;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
@@ -62,6 +67,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.IMultipath;
 import com.scudata.ide.common.AppendDataThread;
+import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.EditListener;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
@@ -76,8 +82,11 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextFieldReadOnly;
 import com.scudata.ide.spl.GCSpl;
 import com.scudata.ide.spl.GMSpl;
+import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.dialog.DialogDisplayChart;
 import com.scudata.ide.spl.dialog.DialogTextEditor;
+import com.scudata.ide.spl.dialog.DialogZoom;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.Variant;
 
@@ -173,11 +182,6 @@ public class JTableValue extends JTableEx {
 	private final short iFORMAT = 17;
 
 	/**
-	 * 行高
-	 */
-	private final int ROW_HEIGHT = 20;
-
-	/**
 	 * 行数
 	 */
 	private int rowCount = 0;
@@ -270,7 +274,7 @@ public class JTableValue extends JTableEx {
 		};
 		DropTarget dt = new DropTarget(this, dtl);
 		setDropTarget(dt);
-		setRowHeight(ROW_HEIGHT);
+		setRowHeight(getScaleRowHeight());
 		addMWListener(this);
 
 		this.addKeyListener(new KeyAdapter() {
@@ -321,6 +325,10 @@ public class JTableValue extends JTableEx {
 		});
 	}
 
+	private int getScaleRowHeight() {
+		return (int) (ConfigOptions.fRowHeight * scale);
+	}
+
 	/**
 	 * 设置编辑监听器
 	 * 
@@ -337,7 +345,7 @@ public class JTableValue extends JTableEx {
 	 */
 	private int getPageRows() {
 		int height = panelValue.spValue.getPreferredSize().height;
-		return height / ROW_HEIGHT + 1;
+		return height / getScaleRowHeight() + 1;
 	}
 
 	/**
@@ -381,6 +389,35 @@ public class JTableValue extends JTableEx {
 	public void addMWListener(JComponent com) {
 		com.addMouseWheelListener(new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
+				if (e.isControlDown()) { // 缩放
+					int percent = (int) (scale * 100);
+					int wr = e.getWheelRotation();
+					int newPercent;
+					if (wr < 0) { // 滚轮向上，放大
+						newPercent = GCSpl.DEFAULT_SCALES[GCSpl.DEFAULT_SCALES.length - 1];
+						for (int i = 0; i < GCSpl.DEFAULT_SCALES.length; i++) {
+							if (percent < GCSpl.DEFAULT_SCALES[i] - 7) {
+								newPercent = GCSpl.DEFAULT_SCALES[i];
+								break;
+							}
+						}
+					} else { // 缩小
+						newPercent = GCSpl.DEFAULT_SCALES[0];
+						for (int i = GCSpl.DEFAULT_SCALES.length - 1; i >= 0; i--) {
+							if (percent > GCSpl.DEFAULT_SCALES[i] + 7) {
+								newPercent = GCSpl.DEFAULT_SCALES[i];
+								break;
+							}
+						}
+					}
+					if (newPercent != percent) {
+						setScale(new Float(newPercent) / 100f);
+						if (GVSpl.splEditor != null)
+							GVSpl.splEditor.setDataChanged(true);
+					}
+					return;
+				}
+
 				if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 					int amount = e.getScrollAmount();
 					int rotation = e.getWheelRotation();
@@ -410,13 +447,16 @@ public class JTableValue extends JTableEx {
 		JPopupMenu pm = new JPopupMenu();
 		JMenuItem mItem;
 		int selectedCol = getSelectedColumn();
-		if (selectedCol > -1
-				&& (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
-			mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // 列格式编辑
-			mItem.setIcon(GM.getMenuImageIcon("blank"));
-			mItem.setName(String.valueOf(iFORMAT));
-			mItem.addActionListener(popAction);
-			pm.add(mItem);
+		if (m_type == TYPE_TABLE || m_type == TYPE_PMT
+				|| m_type == TYPE_SERIESPMT) {
+			if ((hasIndexCol && selectedCol > 0)
+					|| (!hasIndexCol && selectedCol > -1)) {
+				mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // 列格式编辑
+				mItem.setIcon(GM.getMenuImageIcon("blank"));
+				mItem.setName(String.valueOf(iFORMAT));
+				mItem.addActionListener(popAction);
+				pm.add(mItem);
+			}
 		}
 		mItem = new JMenuItem(LABEL_COPY_COLUMN); // 复制列名
 		mItem.setIcon(GM.getMenuImageIcon("blank"));
@@ -438,7 +478,17 @@ public class JTableValue extends JTableEx {
 				pm.add(mItem);
 			}
 		}
+		mItem = new JMenuItem(LABEL_ZOOM);
+		mItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dialogZoom();
+			}
+		});
+		pm.add(mItem);
+
 		pm.show(e.getComponent(), e.getX(), e.getY());
+		e.consume();
+
 	}
 
 	/** 复制列名 */
@@ -447,6 +497,9 @@ public class JTableValue extends JTableEx {
 	/** 查看长文本 */
 	public static final String LABEL_VIEW_TEXT = mm
 			.getMessage("dialogtexteditor.title1");
+
+	/** 缩放 */
+	public static final String LABEL_ZOOM = mm.getMessage("jtablevalue.zoom");
 
 	/**
 	 * 右键菜单事件监听
@@ -754,9 +807,8 @@ public class JTableValue extends JTableEx {
 					isSeq = true;
 					break;
 				}
-				int height = panelValue.spValue.getPreferredSize().height;
 				int startRow = index;
-				int count = height / ROW_HEIGHT + 1;
+				int count = getPageRows();
 				count = Math.max(DISP_ROWS, count);
 				int endRow = Math.min(rowCount, startRow + count);
 
@@ -799,12 +851,11 @@ public class JTableValue extends JTableEx {
 					}
 				}
 				if (isFirst) { // 自适应列宽
-					FontMetrics fm = getFontMetrics(getFont());
+					FontMetrics fm = getFontMetrics(GC.font);
 					int cc = getColumnCount();
 					int rc = getRowCount();
 					Object val;
 					for (int c = isSeq ? 1 : 0; c < cc; c++) {
-						TableColumn tc = getColumn(c);
 						int newWidth = 0;
 						for (int r = 0; r < rc; r++) {
 							val = data.getValueAt(r, c);
@@ -818,8 +869,8 @@ public class JTableValue extends JTableEx {
 						}
 						newWidth = Math
 								.min(MAX_COL_WIDTH, newWidth + WIDTH_GAP);
-						if (newWidth > tc.getWidth()) {
-							setColWidth(tc, newWidth);
+						if (newWidth > getOriginColWidth(c)) {
+							setColWidth(c, newWidth);
 						}
 					}
 				}
@@ -848,6 +899,19 @@ public class JTableValue extends JTableEx {
 			return isFinished;
 		}
 	}
+
+	public Font getScaleFont() {
+		int size = GC.font.getSize();
+		size = StringUtils.getScaledFontSize(size, scale);
+		Font font = fontMap.get(size);
+		if (font == null) {
+			font = new Font(GC.font.getFontName(), GC.font.getStyle(), size);
+			fontMap.put(size, font);
+		}
+		return font;
+	}
+
+	private HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
 
 	/**
 	 * 设置记录到表格的一行
@@ -1216,6 +1280,7 @@ public class JTableValue extends JTableEx {
 				}
 			}
 			setColumnModel();
+			hasIndexCol = false;
 			m_type = getValueType(aValue);
 			switch (m_type) {
 			case TYPE_TABLE:
@@ -1264,6 +1329,7 @@ public class JTableValue extends JTableEx {
 		removeAllRows();
 		data.setColumnCount(0);
 		data.getDataVector().clear();
+		originColWidthMap.clear();
 	}
 
 	/**
@@ -1371,6 +1437,7 @@ public class JTableValue extends JTableEx {
 	 * @return
 	 */
 	private int initSeries(Sequence series) {
+		hasIndexCol = true;
 		addColumn(TITLE_INDEX);
 		addColumn(TITLE_SERIES);
 		TableColumn tc;
@@ -1379,9 +1446,9 @@ public class JTableValue extends JTableEx {
 		tc.setCellRenderer(new AllPurposeRenderer(true));
 		final int INDEX_WIDTH = getIndexColWidth(series == null ? 0 : series
 				.length());
-		setColWidth(tc, INDEX_WIDTH, false);
+		setColWidth(COL_FIRST, INDEX_WIDTH, false);
 		tc = getColumn(TITLE_SERIES);
-		setColWidth(tc, 99999);
+		setColWidth(COL_FIRST + 1, 99999);
 		tc.setCellEditor(getAllPurposeEditor());
 		tc.setCellRenderer(new AllPurposeRenderer(true));
 		return series.length();
@@ -1468,6 +1535,55 @@ public class JTableValue extends JTableEx {
 	private final int MAX_COL_WIDTH = 300; // 列内容比较长时，最大显示的宽度
 	private final int WIDTH_GAP = 8;
 
+	private float scale = 1.0f;
+
+	public void initScale(PgmCellSet cellSet) {
+		float scale = 1.0f;
+		if (cellSet != null) {
+			ByteMap bm = cellSet.getCustomPropMap();
+			if (bm != null) {
+				scale = ((Number) bm.get(GC.TABLE_VALUE_SCALE)).floatValue();
+			}
+		}
+		originColWidthMap.clear();
+		setScale(scale);
+	}
+
+	/**
+	 * 选项修改了字体、字号或者行高
+	 */
+	public void refreshOptions() {
+		setScale(scale);
+	}
+
+	private void setScale(float newScale) {
+		this.scale = newScale;
+		setRowHeight(getScaleRowHeight());
+		Font scaleFont = getScaleFont();
+		setFont(scaleFont);
+		JTableHeader tableHeader = getTableHeader();
+		tableHeader.setFont(scaleFont);
+		for (int c = 0; c < getColumnCount(); c++) {
+			setColWidth(c, getOriginColWidth(c), !hasIndexCol || c != 0);
+		}
+		if (GVSpl.splEditor != null) {
+			SplControl control = GVSpl.splEditor.getComponent();
+			if (control != null) {
+				PgmCellSet cellSet = control.cellSet;
+				if (cellSet != null) {
+					ByteMap bm = cellSet.getCustomPropMap();
+					if (bm == null) {
+						bm = new ByteMap();
+						cellSet.setCustomPropMap(bm);
+					}
+					bm.put(GC.TABLE_VALUE_SCALE, scale);
+				}
+			}
+		}
+	}
+
+	private boolean hasIndexCol;
+
 	/**
 	 * 设置表格的列
 	 * 
@@ -1482,6 +1598,7 @@ public class JTableValue extends JTableEx {
 			boolean hasIndexCol) {
 		if (ds == null)
 			return;
+		this.hasIndexCol = hasIndexCol;
 		String nNames[] = ds.getFieldNames();
 		if (nNames != null) {
 			Vector<String> cols = new Vector<String>();
@@ -1500,7 +1617,7 @@ public class JTableValue extends JTableEx {
 			if (hasIndexCol) {
 				INDEX_WIDTH = getIndexColWidth(len);
 				tc = getColumn(TITLE_INDEX);
-				setColWidth(tc, INDEX_WIDTH, false);
+				setColWidth(COL_FIRST, INDEX_WIDTH, false);
 			} else {
 				INDEX_WIDTH = 0;
 			}
@@ -1511,22 +1628,19 @@ public class JTableValue extends JTableEx {
 			final int startCol = hasIndexCol ? 1 : 0;
 			for (int i = startCol; i < cc; i++) {
 				tc = getColumn(i);
-				int titleWidth = getFontMetrics(getFont()).stringWidth(
+				int titleWidth = getFontMetrics(GC.font).stringWidth(
 						getColumnName(i));
-				int colWidth = tc.getWidth();
 				if (isPK(pkIndex, i - startCol)) {
 					tc.setHeaderRenderer(new PKRenderer());
 					titleWidth += IMAGE_WIDTH;
 				}
 				titleWidth = Math.min(titleWidth + WIDTH_GAP, MAX_COL_WIDTH);
-				if (titleWidth > colWidth) {
-					setColWidth(tc, titleWidth);
-				}
+				setColWidth(i, Math.max(titleWidth, getOriginColWidth(i)));
 			}
 
 			int totalColWidth = 0;
 			for (int i = 0; i < cc; i++) {
-				totalColWidth += getColumn(i).getWidth();
+				totalColWidth += getOriginColWidth(i);
 			}
 			int width = getParent().getWidth();
 			if (totalColWidth < width && cc > 0) { // 如果所有列显示的下，将剩余宽度平均分配到各列
@@ -1538,22 +1652,20 @@ public class JTableValue extends JTableEx {
 					aveWidth = width / cc;
 				}
 				for (int i = hasIndexCol ? 1 : 0; i < cc; i++) {
-					tc = getColumn(i);
-					int newWidth = tc.getWidth() + aveWidth;
-					setColWidth(tc, newWidth);
+					int newWidth = getOriginColWidth(i) + aveWidth;
+					setColWidth(i, newWidth);
 				}
 			}
 		} catch (Throwable ex) {
 		}
 	}
 
-	/**
-	 * 设置列宽
-	 * @param tc
-	 * @param colWidth
-	 */
-	private void setColWidth(TableColumn tc, int colWidth) {
-		setColWidth(tc, colWidth, true);
+	private int getOriginColWidth(int col) {
+		TableColumn tc = getColumn(col);
+		int colWidth = tc.getWidth();
+		if (originColWidthMap.get(col) != null)
+			colWidth = originColWidthMap.get(col);
+		return colWidth;
 	}
 
 	/**
@@ -1561,12 +1673,40 @@ public class JTableValue extends JTableEx {
 	 * @param tc
 	 * @param colWidth
 	 */
-	private void setColWidth(TableColumn tc, int colWidth, boolean canResize) {
+	private void setColWidth(int col, int colWidth) {
+		setColWidth(col, colWidth, true);
+	}
+
+	/**
+	 * 设置列宽
+	 * @param tc
+	 * @param colWidth
+	 */
+	private void setColWidth(int col, int colWidth, boolean canResize) {
+		originColWidthMap.put(col, colWidth);
+		TableColumn tc = getColumn(col);
+		colWidth = (int) (colWidth * scale);
 		tc.setMinWidth(colWidth);
 		tc.setWidth(colWidth);
 		tc.setPreferredWidth(colWidth);
 		if (canResize)
 			tc.setMinWidth(0);
+	}
+
+	private Map<Integer, Integer> originColWidthMap = new HashMap<Integer, Integer>();
+
+	/**
+	 * 缩放对话框
+	 */
+	public void dialogZoom() {
+		DialogZoom dz = new DialogZoom();
+		dz.setScale(scale);
+		dz.setVisible(true);
+		if (dz.getOption() == JOptionPane.OK_OPTION) {
+			setScale(dz.getScale());
+			if (GVSpl.splEditor != null)
+				GVSpl.splEditor.setDataChanged(true);
+		}
 	}
 
 	/**
@@ -1586,6 +1726,7 @@ public class JTableValue extends JTableEx {
 			c.setBackground(table.getBackground());
 			c.setForeground(table.getForeground());
 			if (c instanceof JLabel) {
+				c.setFont(getScaleFont());
 				((JLabel) c).setText((String) value);
 				((JLabel) c).setHorizontalAlignment(JLabel.CENTER);
 				((JLabel) c).setIcon(GM
@@ -1622,12 +1763,12 @@ public class JTableValue extends JTableEx {
 	 */
 	private int getIndexColWidth(int len) {
 		if (len <= 9999) {
-			return 40;
+			return 45;
 		}
 		if (len <= 999999) {
-			return 60;
+			return 65;
 		}
-		return 80;
+		return 85;
 	}
 
 	/**

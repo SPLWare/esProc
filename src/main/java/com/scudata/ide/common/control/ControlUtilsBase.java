@@ -258,7 +258,7 @@ public class ControlUtilsBase {
 	public static void drawHeader(Graphics g, int x, int y, int w, int h,
 			String label, float scale, Color backColor, byte selectState,
 			boolean editable) {
-		int fontSize = (int) (ConfigOptions.iFontSize.intValue() * scale);
+		int fontSize = StringUtils.getScaledFontSize(ConfigOptions.iFontSize.intValue(), scale);
 		Color fontColor = Color.black;
 		if (backColor.equals(Color.gray)) {
 			fontColor = Color.white;

@@ -52,6 +52,7 @@ import com.scudata.ide.spl.UndoManager;
 import com.scudata.ide.spl.chart.DialogPlotEdit;
 import com.scudata.ide.spl.dialog.DialogCopyPresent;
 import com.scudata.ide.spl.dialog.DialogTextEditor;
+import com.scudata.ide.spl.dialog.DialogZoom;
 import com.scudata.ide.spl.etl.DialogFuncEdit;
 import com.scudata.ide.spl.etl.EtlConsts;
 import com.scudata.ide.spl.etl.ObjectElement;
@@ -552,7 +553,20 @@ public class SplEditor {
 		ac.setProperty(AtomicCell.CELL_EXP);
 		ac.setValue(exp);
 		executeCmd(ac);
-		return;
+	}
+
+	/**
+	 * 缩放对话框
+	 */
+	public void dialogZoom() {
+		DialogZoom dz = new DialogZoom();
+		dz.setScale(control.scale);
+		dz.setVisible(true);
+		if (dz.getOption() == JOptionPane.OK_OPTION) {
+			control.setScale(dz.getScale());
+			if (GVSpl.splEditor != null)
+				GVSpl.splEditor.setDataChanged(true);
+		}
 	}
 
 	/**
@@ -1031,7 +1045,8 @@ public class SplEditor {
 			if (!parser.isRowVisible(row)) {
 				continue;
 			}
-			float height = GMSpl.getMaxRowHeight(control.getCellSet(), row);
+			float height = GMSpl.getMaxRowHeight(control.getCellSet(), row,
+					control.scale);
 			RowCell cell = (RowCell) control.getCellSet().getRowCell(row);
 			AtomicCell ac = new AtomicCell(control, cell);
 			ac.setProperty(AtomicCell.ROW_HEIGHT);
@@ -1838,7 +1853,8 @@ public class SplEditor {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
 					// 设置列宽
-					buf.append(" width=" + parser.getColWidth(col) + "px");
+					buf.append(" width="
+							+ parser.getColWidth(col, control.scale) + "px");
 					buf.append(" align=\"center\"");
 					buf.append(" valign=\"center\"");
 					buf.append(" bgcolor=" + color2Html(Color.lightGray));
@@ -1856,8 +1872,8 @@ public class SplEditor {
 				if (!parser.isRowVisible(row))
 					continue;
 				buf.append(LINE_SEP);
-				buf.append(COL_SEP + "<tr height=" + parser.getRowHeight(row)
-						+ "px>");
+				buf.append(COL_SEP + "<tr height="
+						+ parser.getRowHeight(row, control.scale) + "px>");
 				if (copyHeader) {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
@@ -1880,7 +1896,8 @@ public class SplEditor {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
 					if (isFirstRow) { // 设置列宽
-						buf.append(" width=" + parser.getColWidth(col) + "px");
+						buf.append(" width="
+								+ parser.getColWidth(col, control.scale) + "px");
 					}
 					int halign = parser.getHAlign(row, col);
 					buf.append(" align=");

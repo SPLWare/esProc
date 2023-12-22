@@ -120,12 +120,20 @@ public class GMSpl extends GM {
 			return;
 		case GC.iOPTIONS:
 			boolean showDB = ConfigOptions.bShowDBStruct;
+			float oldRowHeight = ConfigOptions.fRowHeight;
+			Font oldFont = GC.font;
 			new com.scudata.ide.spl.dialog.DialogOptions().setVisible(true);
 			((SPL) GV.appFrame).refreshOptions();
 			if (showDB != ConfigOptions.bShowDBStruct) {
 				if (GVSpl.tabParam != null) {
 					GVSpl.tabParam.resetEnv();
 				}
+			}
+			if (oldRowHeight != ConfigOptions.fRowHeight
+					|| oldFont.getSize() != GC.font.getSize()
+					|| !oldFont.getFontName().equals(GC.font.getFontName())) {
+				// 选项修改了字体、字号或者行高
+				GVSpl.panelValue.tableValue.refreshOptions();
 			}
 			return;
 		case GCSpl.iSQLGENERATOR: {
@@ -387,7 +395,7 @@ public class GMSpl extends GM {
 	 *            行号
 	 * @return
 	 */
-	public static float getMaxRowHeight(CellSet cs, int row) {
+	public static float getMaxRowHeight(CellSet cs, int row, float scale) {
 		if (cs == null || cs.getRowCount() < row || row < 1) {
 			return -1;
 		}
@@ -406,7 +414,7 @@ public class GMSpl extends GM {
 			if (cellText == null) {
 				continue;
 			}
-			float width = parser.getColWidth(col);
+			float width = parser.getColWidth(col, scale);
 			temp = ControlUtils.getStringHeight(cellText, width, font);
 			if (maxHeight < temp) {
 				maxHeight = temp;

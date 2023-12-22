@@ -438,6 +438,10 @@ public class GC {
 	public static final byte CELLSET_EXPS = 11;
 	/** The current cell of the Cellset */
 	public static final byte CELLSET_ACTIVE_CELL = 12;
+	/** Cellset display scale */
+	public static final byte CELLSET_SCALE = 21;
+	/** JTableValue display scale */
+	public static final byte TABLE_VALUE_SCALE = 22;
 
 	/**
 	 * In order to distinguish it from general menus, esProc's menu items need
@@ -505,7 +509,7 @@ public class GC {
 	 */
 	public static final String SCHEMA_ALL = IdeCommonMessage.get().getMessage(
 			"public.all");
-	
+
 	public static final String LAST_DIR = "fileDirectory";
 
 }

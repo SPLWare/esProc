@@ -261,6 +261,10 @@ public class MenuSpl extends AppMenu {
 				ActionEvent.ALT_MASK, false);
 		menu.add(menuTemp);
 
+		menuTemp = newSplMenuItem(GCSpl.iZOOM, GCSpl.ZOOM, 'L', GC.NO_MASK,
+				false);
+		menu.add(menuTemp);
+
 		menu.addSeparator();
 		menu.add(newSplMenuItem(GCSpl.iSEARCH, GCSpl.SEARCH, 'F',
 				ActionEvent.CTRL_MASK, true));
@@ -469,7 +473,8 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
 				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
 				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
-				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
+				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iZOOM,
+				GCSpl.iSEARCH,
 				GCSpl.iREPLACE,
 				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,

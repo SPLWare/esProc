@@ -21,8 +21,10 @@ import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Area;
+import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.GC;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.ControlBase;
@@ -1034,8 +1036,8 @@ public abstract class SplControl extends ControlBase {
 			JScrollBar hBar = getHorizontalScrollBar();
 			JScrollBar vBar = getVerticalScrollBar();
 
-			hBar.setValue(cp.getColOffset(newArea.getBeginCol()));
-			vBar.setValue(cp.getRowOffset(newArea.getBeginRow()));
+			hBar.setValue(cp.getColOffset(newArea.getBeginCol(), scale));
+			vBar.setValue(cp.getRowOffset(newArea.getBeginRow(), scale));
 
 		}
 		fireRegionSelect(true);
@@ -1072,6 +1074,12 @@ public abstract class SplControl extends ControlBase {
 	 */
 	public void setCellSet(PgmCellSet cellSet) {
 		this.cellSet = cellSet;
+		ByteMap bm = cellSet.getCustomPropMap();
+		if (bm != null) {
+			scale = ((Number) bm.get(GC.CELLSET_SCALE)).floatValue();
+		} else {
+			scale = 1.0f;
+		}
 		draw();
 	}
 
@@ -1674,4 +1682,21 @@ public abstract class SplControl extends ControlBase {
 		cellW = null;
 		cellH = null;
 	}
+
+	public void setScale(float newScale) {
+		this.scale = newScale;
+		Boolean isEditable = null;
+		if (contentView != null)
+			isEditable = contentView.isEditable();
+		draw();
+		if (isEditable != null)
+			contentView.setEditable(isEditable);
+		ByteMap bm = this.cellSet.getCustomPropMap();
+		if (bm == null) {
+			bm = new ByteMap();
+			this.cellSet.setCustomPropMap(bm);
+		}
+		bm.put(GC.CELLSET_SCALE, scale);
+	}
+
 }

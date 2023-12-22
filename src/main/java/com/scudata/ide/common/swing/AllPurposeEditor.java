@@ -51,6 +51,7 @@ public class AllPurposeEditor extends DefaultCellEditor implements KeyListener,
 		tf.addKeyListener(this);
 		tf.addFocusListener(this);
 		tf.addMouseListener(this);
+		textField.setFont(parent.getFont());
 		tf.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.parent = parent;
 		this.setClickCountToStart(1);
