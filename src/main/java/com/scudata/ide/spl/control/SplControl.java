@@ -1074,11 +1074,13 @@ public abstract class SplControl extends ControlBase {
 	 */
 	public void setCellSet(PgmCellSet cellSet) {
 		this.cellSet = cellSet;
+		scale = 1.0f;
 		ByteMap bm = cellSet.getCustomPropMap();
 		if (bm != null) {
-			scale = ((Number) bm.get(GC.CELLSET_SCALE)).floatValue();
-		} else {
-			scale = 1.0f;
+			Object scaleObj = bm.get(GC.CELLSET_SCALE);
+			if (scaleObj != null) {
+				scale = ((Number) scaleObj).floatValue();
+			}
 		}
 		draw();
 	}

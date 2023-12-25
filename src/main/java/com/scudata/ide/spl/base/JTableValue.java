@@ -1533,7 +1533,9 @@ public class JTableValue extends JTableEx {
 		if (cellSet != null) {
 			ByteMap bm = cellSet.getCustomPropMap();
 			if (bm != null) {
-				scale = ((Number) bm.get(GC.TABLE_VALUE_SCALE)).floatValue();
+				Object scaleObj = bm.get(GC.TABLE_VALUE_SCALE);
+				if (scaleObj != null)
+					scale = ((Number) scaleObj).floatValue();
 			}
 		}
 		originColWidthMap.clear();
