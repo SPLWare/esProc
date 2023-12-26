@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.scudata.common.CellLocation;
 import com.scudata.common.RQException;
+import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
@@ -292,11 +293,6 @@ public abstract class XlsFileObject extends Table {
 	public Object xlscell(CellLocation pos1, CellLocation pos2, Object sheet,
 			Object content, boolean isRowInsert, boolean isGraph, boolean isW,
 			boolean isP, boolean isN) throws Exception {
-		if (fileType != TYPE_NORMAL) {
-			// : xlsopen@r or @w does not support xlscell
-			throw new RQException("xlscell"
-					+ AppMessage.get().getMessage("filexls.rwcell"));
-		}
 		SheetObject sheetObject = getSheetObject(sheet, false);
 		SheetXls sx = (SheetXls) sheetObject;
 		int row1 = pos1.getRow();
@@ -369,4 +365,47 @@ public abstract class XlsFileObject extends Table {
 		return PRE_SHEET_NAME + index;
 	}
 
+	/**
+	 * 把xo中名为s的sheet移动到xo’，命名为s’；
+	 * xo’省略，表示sheet改名，s’也省略表示删除；
+	 * xo’未省略，s’省略表示用s的原名
+	 * @param s
+	 * @param s1
+	 * @param xo1
+	 * @param isCopy
+	 */
+	public void xlsmove(String s, String s1, XlsFileObject xo1, boolean isCopy)
+			throws Exception {
+		FileXls fileXls = (FileXls) this;
+		if (xo1 == null) {
+			if (s1 == null) { // 删除
+				int sheetIndex = fileXls.wb.getSheetIndex(s);
+				fileXls.wb.removeSheetAt(sheetIndex);
+				removeSheet(s);
+			} else {
+				if (isCopy) {// 工作簿内复制
+					fileXls.cloneSheet(s, s1);
+				} else { // 改名
+					rename(s, s1);
+				}
+			}
+		} else {
+			// 把xo中名为s的sheet移动或复制到xo’
+			FileXls fileXls1 = ((FileXls) xo1);
+			String toSheetName = StringUtils.isValidString(s1) ? s1 : s;
+			// 创建工作表，如果已经存在则删除
+			xo1.getSheetObject(toSheetName, true, true);
+			int fromSheetIndex = fileXls.wb.getSheetIndex(s);
+			int toSheetIndex = fileXls1.wb.getSheetIndex(toSheetName);
+			ExcelUtils.copySheet(fileXls.wb,
+					fileXls.wb.getSheetAt(fromSheetIndex), fileXls1.wb,
+					fileXls1.wb.getSheetAt(toSheetIndex));
+			// 移动时删除原sheet
+			if (!isCopy) {
+				int sheetIndex = fileXls.wb.getSheetIndex(s);
+				fileXls.wb.removeSheetAt(sheetIndex);
+				removeSheet(s);
+			}
+		}
+	}
 }

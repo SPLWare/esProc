@@ -469,6 +469,7 @@ public final class FunctionLib {
 		addMemberFunction("xlswrite", "com.scudata.expression.mfn.file.XlsWrite");
 		addMemberFunction("xlsclose", "com.scudata.expression.mfn.xo.XlsClose");
 		addMemberFunction("xlscell", "com.scudata.expression.mfn.xo.XlsCell");
+		addMemberFunction("xlsmove", "com.scudata.expression.mfn.xo.XlsMove");
 		
 		addFunction("T", "com.scudata.expression.fn.T");
 		addFunction("E", "com.scudata.expression.fn.E");

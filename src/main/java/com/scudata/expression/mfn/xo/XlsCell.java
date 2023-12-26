@@ -10,6 +10,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.excel.ExcelUtils;
+import com.scudata.excel.XlsFileObject;
 import com.scudata.expression.IParam;
 import com.scudata.expression.XOFunction;
 import com.scudata.resources.AppMessage;
@@ -214,6 +215,13 @@ public class XlsCell extends XOFunction {
 							"excel.graphwithb"));
 			}
 		}
+
+		if (file.getFileType() != XlsFileObject.TYPE_NORMAL) {
+			// : xlsopen@r or @w does not support xlscell
+			throw new RQException("xlscell"
+					+ AppMessage.get().getMessage("filexls.rwcell"));
+		}
+
 		try {
 			return file.xlscell(pos1, pos2, s, matrix, isRowInsert, isGraph,
 					isW, isP, isN);

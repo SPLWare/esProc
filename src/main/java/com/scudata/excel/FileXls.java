@@ -8,7 +8,6 @@ import java.io.PushbackInputStream;
 
 import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -16,7 +15,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.scudata.common.MessageManager;
@@ -36,7 +34,7 @@ public class FileXls extends XlsFileObject {
 	/**
 	 * Workbook object
 	 */
-	private Workbook wb = null;
+	protected Workbook wb = null;
 	/**
 	 * FileObject
 	 */
@@ -417,4 +415,20 @@ public class FileXls extends XlsFileObject {
 		isClosed = true;
 	}
 
+	/**
+	 * 克隆一个工作表s，并命名为s1
+	 * @param s
+	 * @param s1
+	 */
+	public void cloneSheet(String s, String s1) {
+		int sheetIndex = wb.getSheetIndex(s);
+		Sheet sheet = wb.cloneSheet(sheetIndex);
+		BaseRecord sheetInfo = this.getRecord(sheetIndex + 1);
+		int targetSheetIndex = wb.getSheetIndex(sheet);
+		wb.setSheetName(targetSheetIndex, s1);
+		this.insert(
+				targetSheetIndex + 1,
+				new Object[] { s1, sheetInfo.getFieldValue(1),
+						sheetInfo.getFieldValue(2) });
+	}
 }
