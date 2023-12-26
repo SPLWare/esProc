@@ -12,6 +12,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.cursor.UpdateMergeCursor;
 import com.scudata.dw.Cursor;
 import com.scudata.dw.IDWCursor;
 import com.scudata.dw.IPhyTable;
@@ -124,6 +125,8 @@ public class CreateCursor extends PhyTableFunction {
 			for (ICursor cursor : cursors) {
 				setOptionX(cursor, opt);
 			}
+		} else if (cs instanceof UpdateMergeCursor) {
+			((UpdateMergeCursor) cs).setOption(opt);
 		}
 	}
 	

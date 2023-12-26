@@ -3,6 +3,7 @@ package com.scudata.dm.cursor;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dw.IDWCursor;
 import com.scudata.util.Variant;
 
 /**
@@ -895,5 +896,23 @@ public class UpdateMergeCursor extends ICursor {
 	 */
 	public String[] getSortFields() {
 		return cursors[0].getSortFields();
+	}
+	
+	/**
+	 * 设置属性 （目前用于@x）
+	 * @param opt
+	 */
+	public void setOption(String opt) {
+		if (cs1 instanceof IDWCursor) {
+			((IDWCursor) cs1).setOption(opt);
+		} else if (cs1 instanceof UpdateMergeCursor) {
+			((UpdateMergeCursor) cs1).setOption(opt);
+		}
+		
+		if (cs2 instanceof IDWCursor) {
+			((IDWCursor) cs2).setOption(opt);
+		} else if (cs2 instanceof UpdateMergeCursor) {
+			((UpdateMergeCursor) cs2).setOption(opt);
+		}
 	}
 }
