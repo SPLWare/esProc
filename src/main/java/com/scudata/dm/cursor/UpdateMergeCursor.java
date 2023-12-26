@@ -903,16 +903,13 @@ public class UpdateMergeCursor extends ICursor {
 	 * @param opt
 	 */
 	public void setOption(String opt) {
-		if (cs1 instanceof IDWCursor) {
-			((IDWCursor) cs1).setOption(opt);
-		} else if (cs1 instanceof UpdateMergeCursor) {
-			((UpdateMergeCursor) cs1).setOption(opt);
-		}
-		
-		if (cs2 instanceof IDWCursor) {
-			((IDWCursor) cs2).setOption(opt);
-		} else if (cs2 instanceof UpdateMergeCursor) {
-			((UpdateMergeCursor) cs2).setOption(opt);
+		ICursor []cursors = this.cursors;
+		int count = cursors.length;
+		for (int i = 0; i < count; ++i) {
+			ICursor cs = cursors[i];
+			if (cs instanceof IDWCursor) {
+				((IDWCursor) cs).setOption(opt);
+			}
 		}
 	}
 }
