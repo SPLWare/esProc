@@ -98,7 +98,8 @@ public class XlsMove extends XOFunction {
 		ExcelUtils.checkSheetName(s);
 		ExcelUtils.checkSheetName(s1);
 
-		if (!StringUtils.isValidString(s1) && isCopy) {
+		// 同工作簿没有s'不能用复制选项
+		if (xo1 == null && !StringUtils.isValidString(s1) && isCopy) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("xlsmove"
 					+ mm.getMessage("function.invalidParam"));
