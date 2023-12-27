@@ -25,6 +25,8 @@ public class UpdateMergeCursor extends ICursor {
 	private int cur1; // 游标1当前记录在缓存数据中的索引
 	private int cur2; // 游标2当前记录在缓存数据中的索引
 	
+	private boolean isSubCursor = false; // 是否是子游标，子游标需要保留删除的记录
+	
 	/**
 	 * 构建组表及其更新分表组成的游标
 	 * @param cursors 游标数组
@@ -46,6 +48,14 @@ public class UpdateMergeCursor extends ICursor {
 		init();
 	}
 	
+	boolean isSubCursor() {
+		return isSubCursor;
+	}
+
+	void setSubCursor(boolean isSubCursor) {
+		this.isSubCursor = isSubCursor;
+	}
+
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
 	public void resetContext(Context ctx) {
@@ -71,7 +81,9 @@ public class UpdateMergeCursor extends ICursor {
 			// 如果游标数多于两个，则后面的游标先归并成一个游标
 			ICursor []subs = new ICursor[count - 1];
 			System.arraycopy(cursors, 1, subs, 0, count - 1);
-			cs2 = new UpdateMergeCursor(subs, fields, deleteField, ctx);
+			UpdateMergeCursor subCursor = new UpdateMergeCursor(subs, fields, deleteField, ctx);
+			subCursor.setSubCursor(true);
+			cs2 = subCursor;
 		}
 		
 		data1 = cs1.fuzzyFetch(FETCHCOUNT);
@@ -413,6 +425,7 @@ public class UpdateMergeCursor extends ICursor {
 
 	// 单字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int field, int deleteField, Sequence table) {
+		boolean isSubCursor = this.isSubCursor;
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
 		int cur1 = this.cur1;
@@ -445,7 +458,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else if (cmp == 0) {
-					if (Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
+					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
 						++count;
 						table.add(r2);
 					}
@@ -563,6 +576,7 @@ public class UpdateMergeCursor extends ICursor {
 
 	// 多字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int []fields, int deleteField, Sequence table) {
+		boolean isSubCursor = this.isSubCursor;
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
 		int cur1 = this.cur1;
@@ -595,7 +609,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else if (cmp == 0) {
-					if (Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
+					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
 						++count;
 						table.add(r2);
 					}
