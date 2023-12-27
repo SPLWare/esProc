@@ -1,12 +1,17 @@
 package com.scudata.ide.spl;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
+import com.scudata.app.common.Segment;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
@@ -125,6 +130,19 @@ public class Esprocx {
 		}
 		return filePath;
 	}
+	
+	public static String getConfigValue(String key) {
+		try {
+			String configFile = getAbsolutePath("bin\\config.txt");
+			FileReader fr = new FileReader(configFile);
+			BufferedReader br = new BufferedReader(fr);
+			String segValue = br.readLine();
+			Segment seg = new Segment(segValue);
+			return seg.get(key);
+		} catch (Exception x) {
+		}
+		return null;
+	}
 
 	/**
 	 * 
@@ -160,7 +178,27 @@ public class Esprocx {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-
+		
+		String init = getConfigValue("init");
+		if(StringUtils.isValidString(init)) {
+			StringTokenizer st = new StringTokenizer(init);
+			while(st.hasMoreElements()) {
+				String token = st.nextToken();
+				int dot = token.lastIndexOf('.');
+				if(dot>0) {
+					String clsName = token.substring(0,dot);
+					String method = token.substring(dot+1);
+					try {
+						Class clz = Class.forName(clsName);
+						Method m = clz.getMethod(method, null);
+						m.invoke(clz, null);
+						Logger.info("Initial "+token+" ok.");
+					} catch (Throwable t) {
+						Logger.info(t);
+					}
+				}
+			}
+		}
 	}
 
 	static int finishedWorkers = 0;
