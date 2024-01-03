@@ -1,8 +1,24 @@
 package com.scudata.excel;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.PaneInformation;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.scudata.common.CellLocation;
 import com.scudata.common.RQException;
@@ -397,9 +413,8 @@ public abstract class XlsFileObject extends Table {
 			xo1.getSheetObject(toSheetName, true, true);
 			int fromSheetIndex = fileXls.wb.getSheetIndex(s);
 			int toSheetIndex = fileXls1.wb.getSheetIndex(toSheetName);
-			ExcelUtils.copySheet(fileXls.wb,
-					fileXls.wb.getSheetAt(fromSheetIndex), fileXls1.wb,
-					fileXls1.wb.getSheetAt(toSheetIndex));
+			copySheet(fileXls.wb, fileXls.wb.getSheetAt(fromSheetIndex),
+					fileXls1.wb, fileXls1.wb.getSheetAt(toSheetIndex), styleMap);
 			// 移动时删除原sheet
 			if (!isCopy) {
 				int sheetIndex = fileXls.wb.getSheetIndex(s);
@@ -407,5 +422,255 @@ public abstract class XlsFileObject extends Table {
 				removeSheet(s);
 			}
 		}
+	}
+
+	/**
+	 * xlsmove使用，避免生成重复的样式
+	 */
+	private Map<Integer, CellStyle> styleMap = new HashMap<Integer, CellStyle>();
+
+	/**
+	 * 复制sheet到另一个excel工作簿
+	 * @param fromWorkbook
+	 * @param fromSheet
+	 * @param toWorkbook
+	 * @param toSheet
+	 * @param styleMap 避免生成重复的样式，每个xo持有一个
+	 */
+	private static void copySheet(Workbook fromWorkbook, Sheet fromSheet,
+			Workbook toWorkbook, Sheet toSheet, Map<Integer, CellStyle> styleMap) {
+		boolean fromXlsx = fromSheet instanceof XSSFSheet;
+		boolean toXlsx = toSheet instanceof XSSFSheet;
+		boolean isSameFileType = fromXlsx == toXlsx;
+		// 公式计算
+		toSheet.setForceFormulaRecalculation(fromSheet
+				.getForceFormulaRecalculation());
+		// 条件表达式
+		SheetConditionalFormatting scf = fromSheet
+				.getSheetConditionalFormatting();
+		SheetConditionalFormatting toSheetConditionFormat = toSheet
+				.getSheetConditionalFormatting();
+		for (int i = 0; i < scf.getNumConditionalFormattings(); i++) {
+			toSheetConditionFormat.addConditionalFormatting(scf
+					.getConditionalFormattingAt(i));
+		}
+		// 冻结行列信息
+		PaneInformation paneInformation = fromSheet.getPaneInformation();
+		if (Objects.nonNull(paneInformation)) {
+			toSheet.createFreezePane(
+					paneInformation.getHorizontalSplitPosition(),
+					paneInformation.getVerticalSplitPosition(),
+					paneInformation.getHorizontalSplitTopRow(),
+					paneInformation.getVerticalSplitLeftColumn());
+		}
+		// 合并单元格
+		int numMergedRegions = fromSheet.getNumMergedRegions();
+		for (int i = 0; i < numMergedRegions; i++) {
+			CellRangeAddress mergedRegion = fromSheet.getMergedRegion(i);
+			toSheet.addMergedRegion(mergedRegion.copy());
+		}
+		// 增加列宽
+		int physicalNumberOfCells = fromSheet.getRow(0)
+				.getPhysicalNumberOfCells();
+		for (int i = 0; i < physicalNumberOfCells; i++) {
+			toSheet.setColumnWidth(i, 256 * 20);
+		}
+
+		// 设置行
+		int maxColumnNum = 0;
+		for (int i = fromSheet.getFirstRowNum(), lastRow = fromSheet
+				.getLastRowNum(); i <= lastRow; i++) {
+			Row fromRow = fromSheet.getRow(i);
+			Row toRow = toSheet.createRow(i);
+			if (fromRow == null) {
+				continue;
+			}
+			// 行高
+			toRow.setHeight(fromRow.getHeight());
+			// 行隐藏
+			toRow.setZeroHeight(fromRow.getZeroHeight());
+			// 行号
+			toRow.setRowNum(fromRow.getRowNum());
+			// 行格式
+			CellStyle fromRowStyle = fromRow.getRowStyle();
+			CellStyle toRowStyle = cloneCellStyle(fromWorkbook, fromRowStyle,
+					toWorkbook, styleMap, isSameFileType);
+			if (toRowStyle != null)
+				toRow.setRowStyle(toRowStyle);
+
+			// 获取当前行最大列数
+			int jn = fromRow.getFirstCellNum() < 0 ? 0 : fromRow
+					.getFirstCellNum();
+			int lastCol = fromRow.getLastCellNum();
+			if (lastCol > maxColumnNum) {
+				maxColumnNum = lastCol;
+			}
+			// 设置格
+			for (int j = jn; j <= lastCol; j++) {
+				Cell fromCell = fromRow.getCell(j);
+				Cell toCell = toRow.createCell(j);
+				if (fromCell == null) {
+					continue;
+				}
+				// 设置单元格样式
+				CellStyle fromCellStyle = fromCell.getCellStyle();
+				CellStyle toCellStyle = cloneCellStyle(fromWorkbook,
+						fromCellStyle, toWorkbook, styleMap, isSameFileType);
+				if (toCellStyle != null)
+					toCell.setCellStyle(toCellStyle);
+				// 设置格值
+				switch (fromCell.getCellType()) {
+				case NUMERIC:
+					if (DateUtil.isCellDateFormatted(fromCell)) {
+						Date date1 = fromCell.getDateCellValue();
+						toCell.setCellValue(date1);
+					} else {
+						double cellValue1 = fromCell.getNumericCellValue();
+						toCell.setCellValue(cellValue1);
+					}
+					break;
+				case STRING:
+					toCell.setCellValue(fromCell.getStringCellValue());
+					break;
+				case BLANK:
+					break;
+				case ERROR:
+					toCell.setCellValue(fromCell.getErrorCellValue());
+					break;
+				case BOOLEAN:
+					toCell.setCellValue(fromCell.getBooleanCellValue());
+					break;
+				case FORMULA:
+					toCell.setCellFormula(fromCell.getCellFormula());
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		// 设置列
+		for (int i = 0; i <= maxColumnNum; i++) {
+			// 设置列宽
+			toSheet.setColumnWidth(i, fromSheet.getColumnWidth(i));
+			// 列隐藏
+			toSheet.setColumnHidden(i, fromSheet.isColumnHidden(i));
+
+			if (fromSheet.isColumnBroken(i))
+				toSheet.setColumnBreak(i);
+		}
+	}
+
+	/**
+	 * 克隆样式
+	 * @param fromWorkbook 源工作簿
+	 * @param fromStyle 源样式
+	 * @param toWorkbook 目标工作簿
+	 * @param styleMap 存储相同样式防止多次创建
+	 * @param isSameFileType 工作簿是否相同格式（XLS,XLSX）
+	 * @return
+	 */
+	private static CellStyle cloneCellStyle(Workbook fromWorkbook,
+			CellStyle fromStyle, Workbook toWorkbook,
+			Map<Integer, CellStyle> styleMap, boolean isSameFileType) {
+		if (fromStyle == null)
+			return null;
+
+		int stHashCode = fromStyle.hashCode();
+		CellStyle toStyle = styleMap.get(stHashCode);
+		if (toStyle == null) {
+			toStyle = toWorkbook.createCellStyle();
+			if (isSameFileType) {
+				toStyle.cloneStyleFrom(fromStyle);
+			} else {
+				copyCellStyle(fromWorkbook, fromStyle, toWorkbook, toStyle);
+			}
+			styleMap.put(stHashCode, toStyle);
+		}
+		return toStyle;
+	}
+
+	/**
+	 * XLS和XLSX之间不支持cloneStyle，需要自己复制
+	 * @param fromWorkbook
+	 * @param fromStyle
+	 * @param toWorkbook
+	 * @param toStyle
+	 */
+	private static void copyCellStyle(Workbook fromWorkbook,
+			CellStyle fromStyle, Workbook toWorkbook, CellStyle toStyle) {
+		// 水平垂直对齐方式
+		toStyle.setAlignment(fromStyle.getAlignment());
+		toStyle.setVerticalAlignment(fromStyle.getVerticalAlignment());
+
+		// 边框和边框颜色
+		toStyle.setBorderBottom(fromStyle.getBorderBottom());
+		toStyle.setBorderLeft(fromStyle.getBorderLeft());
+		toStyle.setBorderRight(fromStyle.getBorderRight());
+		toStyle.setBorderTop(fromStyle.getBorderTop());
+		toStyle.setTopBorderColor(fromStyle.getTopBorderColor());
+		toStyle.setBottomBorderColor(fromStyle.getBottomBorderColor());
+		toStyle.setRightBorderColor(fromStyle.getRightBorderColor());
+		toStyle.setLeftBorderColor(fromStyle.getLeftBorderColor());
+
+		// 背景和前景
+		toStyle.setFillBackgroundColor(fromStyle.getFillBackgroundColor());
+		toStyle.setFillForegroundColor(fromStyle.getFillForegroundColor());
+
+		toStyle.setDataFormat(fromStyle.getDataFormat());
+		toStyle.setFillPattern(fromStyle.getFillPattern());
+
+		if (fromStyle instanceof HSSFCellStyle) {
+			HSSFCellStyle style = (HSSFCellStyle) fromStyle;
+			Font fromFont = style.getFont(fromWorkbook);
+			Font toFont = copyFont(toWorkbook, fromFont);
+			toStyle.setFont(toFont);
+		} else if (fromStyle instanceof XSSFCellStyle) {
+			XSSFCellStyle style = (XSSFCellStyle) fromStyle;
+			Font fromFont = style.getFont();
+			Font toFont = copyFont(toWorkbook, fromFont);
+			toStyle.setFont(toFont);
+		}
+
+		toStyle.setHidden(fromStyle.getHidden());
+		toStyle.setIndention(fromStyle.getIndention());// 首行缩进
+		toStyle.setLocked(fromStyle.getLocked());
+		toStyle.setQuotePrefixed(fromStyle.getQuotePrefixed());
+		toStyle.setRotation(fromStyle.getRotation());// 旋转
+		toStyle.setWrapText(fromStyle.getWrapText());
+		toStyle.setShrinkToFit(fromStyle.getShrinkToFit());
+	}
+
+	/**
+	 * 复制字体，跨XLS,XLSX无法clone字体
+	 * @param workbook
+	 * @param fromFont
+	 * @return
+	 */
+	private static Font copyFont(Workbook workbook, Font fromFont) {
+		boolean isBold = fromFont.getBold();
+		short color = fromFont.getColor();
+		short fontHeight = fromFont.getFontHeight();
+		String fontName = fromFont.getFontName();
+		boolean isItalic = fromFont.getItalic();
+		boolean isStrikeout = fromFont.getStrikeout();
+		short typeOffset = fromFont.getTypeOffset();
+		byte underline = fromFont.getUnderline();
+
+		Font toFont = workbook.findFont(isBold, color, fontHeight, fontName,
+				isItalic, isStrikeout, typeOffset, underline);
+		if (toFont == null) {
+			toFont = workbook.createFont();
+			toFont.setBold(isBold);
+			toFont.setColor(color);
+			toFont.setFontHeight(fontHeight);
+			toFont.setFontName(fontName);
+			toFont.setItalic(isItalic);
+			toFont.setStrikeout(isStrikeout);
+			toFont.setTypeOffset(typeOffset);
+			toFont.setUnderline(underline);
+		}
+
+		return toFont;
 	}
 }
