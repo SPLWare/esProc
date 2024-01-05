@@ -7,9 +7,11 @@ import java.lang.Process;
 
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.JobSpace;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -104,11 +106,11 @@ public class SystemExec extends Function {
 		try {
 			Runtime runtime = Runtime.getRuntime();
 			Process process;
-		   if (cmds == null) {
-			   process = runtime.exec(cmd);
-		   } else {
-			   process = runtime.exec(cmds);
-		   }
+			if (cmds == null) {
+				process = runtime.exec(cmd);
+			} else {
+				process = runtime.exec(cmds);
+			}
 
 			StringBuffer errBuf = new StringBuffer(1024);
 			StringBuffer outBuf = new StringBuffer(1024);
@@ -117,13 +119,65 @@ public class SystemExec extends Function {
 			g1.start();
 			g2.start();
 
-			if (option == null || option.indexOf('p') == -1) {
+			boolean isWait = true, isOut = false, isAll = false;
+			if (option != null) {
+				if (option.indexOf('p') != -1) {
+					isWait = false;
+				} else {
+					if (option.indexOf('a') != -1) {
+						isAll = true;
+					} else if (option.indexOf('o') != -1) {
+						isOut = true;
+					}
+				}
+			}
+			
+			if (isWait) {
 				int n = process.waitFor();
 				g1.join();
 				g2.join();
-				if (g1.buf.length() > 0) Logger.info(g1.buf);
-				if (g2.buf.length() > 0) Logger.info(g2.buf);
-				return new Integer(n);
+				
+				if (isAll) {
+					String error = null;
+					if (errBuf.length() > 0) {
+						error = errBuf.toString();
+						Logger.info(error);
+					}
+					
+					String out = null;
+					if (outBuf.length() > 0) {
+						out = outBuf.toString();
+						Logger.info(out);
+					}
+					
+					Sequence result = new Sequence(3);
+					result.add(ObjectCache.getInteger(n));
+					result.add(out);
+					result.add(error);
+					return result;
+				} else if (isOut) {
+					if (errBuf.length() > 0) {
+						Logger.info(errBuf);
+					}
+					
+					if (outBuf.length() > 0) {
+						String out = outBuf.toString();
+						Logger.info(out);
+						return out;
+					} else {
+						return null;
+					}
+				} else {
+					if (errBuf.length() > 0) {
+						Logger.info(errBuf);
+					}
+					
+					if (outBuf.length() > 0) {
+						Logger.info(outBuf);
+					}
+					
+					return ObjectCache.getInteger(n);
+				}
 			} else {
 				return Boolean.TRUE;
 			}
