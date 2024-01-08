@@ -31,6 +31,7 @@ public class MergeCursor extends ICursor {
 	private int groupFieldCount; // 分组字段数
 	private Sequence resultCache; // 缓存结果
 	private boolean isEnd = false; // 是否取数完毕
+	private boolean isGroupOne; // 每组是否只取一条
 	
 	/**
 	 * 构建有效归并游标
@@ -87,6 +88,7 @@ public class MergeCursor extends ICursor {
 			
 			//groupOption = opt;
 			this.groupFieldCount = groupFieldCount;
+			isGroupOne = opt != null && opt.indexOf('1') != -1;
 			return this;
 		} else {
 			return super.group(function, exps, opt, ctx);
@@ -228,7 +230,11 @@ public class MergeCursor extends ICursor {
 				fetchGroups(nextPath, group);
 			}
 			
-			resultCache.add(group);
+			if (isGroupOne) {
+				resultCache.add(group.getMem(1));
+			} else {
+				resultCache.add(group);
+			}
 		} else if (seqs[path] > 0) {
 			BaseRecord r1 = (BaseRecord)group.getMem(1);
 			BaseRecord r2 = (BaseRecord)tables[path].getMem(seqs[path]);
@@ -252,7 +258,12 @@ public class MergeCursor extends ICursor {
 					fetchGroups(nextPath, newGroup);
 				}
 				
-				resultCache.add(newGroup);
+				if (isGroupOne) {
+					resultCache.add(newGroup.getMem(1));
+				} else {
+					resultCache.add(newGroup);
+				}
+				
 				fetchGroups(path, group);
 			}
 		} else if (nextPath < seqs.length) {
