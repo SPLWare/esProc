@@ -414,7 +414,8 @@ public abstract class XlsFileObject extends Table {
 			int fromSheetIndex = fileXls.wb.getSheetIndex(s);
 			int toSheetIndex = fileXls1.wb.getSheetIndex(toSheetName);
 			copySheet(fileXls.wb, fileXls.wb.getSheetAt(fromSheetIndex),
-					fileXls1.wb, fileXls1.wb.getSheetAt(toSheetIndex), styleMap);
+					fileXls1.wb, fileXls1.wb.getSheetAt(toSheetIndex),
+					moveStyleMap);
 			// 移动时删除原sheet
 			if (!isCopy) {
 				int sheetIndex = fileXls.wb.getSheetIndex(s);
@@ -425,9 +426,9 @@ public abstract class XlsFileObject extends Table {
 	}
 
 	/**
-	 * xlsmove使用，避免生成重复的样式
+	 * 避免生成重复的样式，同一工作簿的每次xlsmove都使用同一个样式表，否则会造成xlsx转xls时有的样式没复制过来
 	 */
-	private Map<Integer, CellStyle> styleMap = new HashMap<Integer, CellStyle>();
+	private Map<Integer, CellStyle> moveStyleMap = new HashMap<Integer, CellStyle>();
 
 	/**
 	 * 复制sheet到另一个excel工作簿
@@ -437,7 +438,7 @@ public abstract class XlsFileObject extends Table {
 	 * @param toSheet
 	 * @param styleMap 避免生成重复的样式，每个xo持有一个
 	 */
-	private static void copySheet(Workbook fromWorkbook, Sheet fromSheet,
+	private void copySheet(Workbook fromWorkbook, Sheet fromSheet,
 			Workbook toWorkbook, Sheet toSheet, Map<Integer, CellStyle> styleMap) {
 		boolean fromXlsx = fromSheet instanceof XSSFSheet;
 		boolean toXlsx = toSheet instanceof XSSFSheet;
@@ -570,7 +571,7 @@ public abstract class XlsFileObject extends Table {
 	 * @param isSameFileType 工作簿是否相同格式（XLS,XLSX）
 	 * @return
 	 */
-	private static CellStyle cloneCellStyle(Workbook fromWorkbook,
+	private CellStyle cloneCellStyle(Workbook fromWorkbook,
 			CellStyle fromStyle, Workbook toWorkbook,
 			Map<Integer, CellStyle> styleMap, boolean isSameFileType) {
 		if (fromStyle == null)
@@ -583,6 +584,7 @@ public abstract class XlsFileObject extends Table {
 			if (isSameFileType) {
 				toStyle.cloneStyleFrom(fromStyle);
 			} else {
+				// poi不支持xlsx和xls之间的复制，需要自己实现
 				copyCellStyle(fromWorkbook, fromStyle, toWorkbook, toStyle);
 			}
 			styleMap.put(stHashCode, toStyle);
@@ -597,8 +599,8 @@ public abstract class XlsFileObject extends Table {
 	 * @param toWorkbook
 	 * @param toStyle
 	 */
-	private static void copyCellStyle(Workbook fromWorkbook,
-			CellStyle fromStyle, Workbook toWorkbook, CellStyle toStyle) {
+	private void copyCellStyle(Workbook fromWorkbook, CellStyle fromStyle,
+			Workbook toWorkbook, CellStyle toStyle) {
 		// 水平垂直对齐方式
 		toStyle.setAlignment(fromStyle.getAlignment());
 		toStyle.setVerticalAlignment(fromStyle.getVerticalAlignment());
@@ -647,7 +649,7 @@ public abstract class XlsFileObject extends Table {
 	 * @param fromFont
 	 * @return
 	 */
-	private static Font copyFont(Workbook workbook, Font fromFont) {
+	private Font copyFont(Workbook workbook, Font fromFont) {
 		boolean isBold = fromFont.getBold();
 		short color = fromFont.getColor();
 		short fontHeight = fromFont.getFontHeight();
