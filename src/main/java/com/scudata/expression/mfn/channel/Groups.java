@@ -220,8 +220,13 @@ public class Groups extends ChannelFunction {
 		
 		// Éú³Énew²Ù×÷·û
 		if (senNames != null) {
+			int pkCount = 0;
+			if (!bopt && elen > 0) {
+				pkCount = elen;
+			}
+			
 			New op = new New(this, senExps, senNames, option);
-			channel.setResultNew(op);
+			channel.setResultNew(op, pkCount);
 		}
 		
 		return channel;

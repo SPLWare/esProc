@@ -6,6 +6,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 
@@ -21,6 +22,7 @@ public class Channel extends Operable implements IPipe {
 	
 	// 分组表达式里如果有sum(...)+sum(...)这样的汇总项会变成groups(...).new(...)，用于存放后面的new
 	protected New resultNew;
+	protected int pkCount; // 主键字段数
 	
 	/**
 	 * 构建管道
@@ -140,20 +142,32 @@ public class Channel extends Operable implements IPipe {
 	 * @return
 	 */
 	public Object result() {
-		if (result != null) {
-			Object val = result.result();
-			result = null;
-			if (resultNew != null) {
-				if (val instanceof Sequence) {
-					return resultNew.process((Sequence)val, ctx);
+		if (result == null) {
+			return null;
+		}
+		
+		Object val = result.result();
+		result = null;
+		
+		if (resultNew == null) {
+			return val;
+		} else {
+			if (val instanceof Sequence) {
+				Sequence table = resultNew.process((Sequence)val, ctx);
+				if (pkCount > 0 && table instanceof Table) {
+					String []pks = new String[pkCount];
+					for (int i = 1; i <= pkCount; ++i) {
+						pks[i - 1] = "#" + i;
+					}
+					
+					((Table)table).setPrimary(pks);
+					return table;
 				} else {
-					return val;
+					return table;
 				}
 			} else {
 				return val;
 			}
-		} else {
-			return null;
 		}
 	}
 	
@@ -293,9 +307,11 @@ public class Channel extends Operable implements IPipe {
 	/**
 	 * groups运算如果汇总字段不是单纯的聚合表达，最后需要再new一下
 	 * @param op new操作
+	 * @param pkCount
 	 */
-	public void setResultNew(New op) {
+	public void setResultNew(New op, int pkCount) {
 		resultNew = op;
+		this.pkCount = pkCount;
 	}
 	
 	/**

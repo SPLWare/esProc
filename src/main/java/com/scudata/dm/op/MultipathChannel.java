@@ -454,10 +454,21 @@ public class MultipathChannel extends Channel {
 			}
 			
 			Table value = groupsResult.combineGroupsResult(groupsResults, ctx);
-			if (resultNew != null) {
-				return resultNew.process(value, ctx);
-			} else {
+			if (resultNew == null) {
 				return value;
+			} else {
+				Sequence table = resultNew.process(value, ctx);
+				if (pkCount > 0 && table instanceof Table) {
+					String []pks = new String[pkCount];
+					for (int i = 1; i <= pkCount; ++i) {
+						pks[i - 1] = "#" + i;
+					}
+					
+					((Table)table).setPrimary(pks);
+					return table;
+				} else {
+					return table;
+				}
 			}
 		} else if (result instanceof TotalResult) {
 			int count = channels.length;

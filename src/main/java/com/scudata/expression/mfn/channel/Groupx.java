@@ -194,7 +194,12 @@ public class Groupx extends ChannelFunction {
 		
 		channel.groupx(exps, names, tempExps, tempNames, option, capacity);
 		if (op != null) {
-			channel.setResultNew(op);
+			int pkCount = 0;
+			if (!bopt && elen > 0) {
+				pkCount = elen;
+			}
+			
+			channel.setResultNew(op, pkCount);
 		}
 		
 		return channel;
