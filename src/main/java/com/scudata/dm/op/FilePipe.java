@@ -13,7 +13,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 文件管道，用于把接收到的数据保存到文件中
+ * 文件管道，用于把接收到的数据保存到可分段集文件中
  * @author RunQian
  *
  */
@@ -41,7 +41,7 @@ public class FilePipe implements IPipe, IResource {
 				ctx.addResource(this);
 			}
 			
-			writer = new BFileWriter(fo, "a");
+			writer = new BFileWriter(fo, "az");
 			DataStruct ds = seq.dataStruct();
 			if (ds == null) {
 				MessageManager mm = EngineMessage.get();
