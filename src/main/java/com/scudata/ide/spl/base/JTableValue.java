@@ -1125,9 +1125,23 @@ public class JTableValue extends JTableEx {
 	 *            单元格名称
 	 */
 	public void setValue1(Object value, String id) {
+		setValue1(value, id, false);
+	}
+
+	/**
+	 * 立即设置单元格值，不考虑锁定状态
+	 * 
+	 * @param value
+	 *            单元格值
+	 * @param id
+	 *            单元格名称
+	 * @param isRefresh 是否刷新
+	 */
+	public void setValue1(Object value, String id, boolean isRefresh) {
 		if (id != null && id.equals(getCellId())) {
 			if (value == originalValue) {
-				return;
+				if (isRefresh) // 刷新触发的设置
+					return;
 			}
 		}
 		this.originalValue = value;

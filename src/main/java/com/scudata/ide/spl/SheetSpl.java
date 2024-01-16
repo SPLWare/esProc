@@ -639,10 +639,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 					String oldId = GVSpl.panelValue.tableValue.getCellId();
 					if (nc.getCellId().equals(oldId)) { // refresh
-						setValue(nc, false);
+						setValue(nc, false, !refreshParams);
 					} else {
 						lockOtherCell = true;
-						setValue(nc, true);
+						setValue(nc, true, !refreshParams);
 					}
 					String cellId = nc.getCellId();
 					GVSpl.panelValue.setDebugTime(cellId,
@@ -665,7 +665,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 									.getCell(cellId);
 							boolean isValChanged = isValueChanged(cellId);
 							if (isValChanged)
-								setValue(lockCell, false);
+								setValue(lockCell, false, isRefreshState);
 						} catch (Exception e) {
 						}
 					}
@@ -876,7 +876,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
 						col);
 				if (nc != null) {
-					setValue(nc, false);
+					setValue(nc, false, false);
 				}
 			} catch (Exception x) {
 				showException(x);
@@ -1169,13 +1169,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 设置单元格值
 	 * @param value
 	 * @param caseLock 是否考虑锁定状态
+	 * @param isRefresh 是否刷新
 	 */
-	protected void setValue(INormalCell nc, boolean caseLock) {
+	protected void setValue(INormalCell nc, boolean caseLock, boolean isRefresh) {
 		Object value = nc.getValue();
 		if (caseLock) {
 			GVSpl.panelValue.tableValue.setValue(value, nc.getCellId());
 		} else {
-			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
+			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId(),
+					isRefresh);
 		}
 	}
 
