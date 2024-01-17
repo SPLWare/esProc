@@ -56,7 +56,7 @@ public class FilePipe implements IPipe, IResource {
 		}
 		
 		try {
-			writer.write(seq);
+			writer.writeBlock(seq);
 		} catch (IOException e) {
 			throw new RQException(e);
 		}
@@ -76,6 +76,12 @@ public class FilePipe implements IPipe, IResource {
 	 */
 	public void close() {
 		if (writer != null) {
+			try {
+				writer.writeHeader(false);
+			} catch (IOException e) {
+				throw new RQException(e);
+			}
+			
 			writer.close();
 			writer = null;
 		}

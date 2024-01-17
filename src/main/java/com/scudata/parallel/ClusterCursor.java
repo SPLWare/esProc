@@ -203,7 +203,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
 			CursorProxy cursor = (CursorProxy)rm.getProxy(cursorProxyId.intValue());
-			long result = cursor.getCursor().skip(count.intValue());
+			long result = cursor.getCursor().skip(count.longValue());
 			return new Response(new Long(result));
 		} catch (Exception e) {
 			Response response = new Response();

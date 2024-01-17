@@ -69,7 +69,7 @@ public class BFileWriter {
 	}
 	
 	// 写文件头
-	private void writeHeader(boolean isGroup) throws IOException {
+	public void writeHeader(boolean isGroup) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		writer.position(0);
 		writer.write('r');
@@ -766,6 +766,54 @@ public class BFileWriter {
 		}
 
 		this.totalRecordCount += len;		
+	}
+	
+	/**
+	 * 写成带分段信息的数据
+	 * @param data
+	 * @throws IOException
+	 */
+	public void writeBlock(Sequence data) throws IOException {
+		RandomObjectWriter writer = this.writer;
+		boolean isTable = data.getMem(1) instanceof BaseRecord;
+		long []blocks = this.blocks;
+		int blockCount = blocks.length;
+		int lastBlock = this.lastBlock;
+		long blockRecordCount = this.blockRecordCount;
+		long lastRecordCount = this.lastRecordCount;
+		int fcount = ds.getFieldCount();
+		int len = data.length();
+		
+		for (int i = 1; i <= len; ++i) {
+			if (lastRecordCount == blockRecordCount) {
+				blocks[lastBlock++] = writer.position();
+				lastRecordCount = 0;
+				if (lastBlock == blockCount) {
+					blockRecordCount += blockRecordCount;
+					lastBlock = blockCount / 2;
+					for (int b = 0, j = 1; b < lastBlock; ++b, j += 2) {
+						blocks[b] = blocks[j];
+					}
+				}
+			}
+			
+			lastRecordCount++;
+			if (isTable) {
+				BaseRecord r = (BaseRecord)data.getMem(i);
+				Object []vals = r.getFieldValues();
+				for (int f = 0; f < fcount; ++f) {
+					writer.writeObject(vals[f]);
+				}
+			} else {
+				writer.writeObject(data.getMem(i));
+			}
+		}
+		
+		blocks[lastBlock] = writer.position();
+		this.totalRecordCount += len;
+		this.lastBlock = lastBlock;
+		this.blockRecordCount = blockRecordCount;
+		this.lastRecordCount = lastRecordCount;
 	}
 	
 	/**
