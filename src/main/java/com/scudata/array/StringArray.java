@@ -2847,11 +2847,11 @@ public class StringArray implements IArray {
 	}
 	
 	/**
-	 * 对数组元素从小到大做排名，取前count名的位置
+	 * 对数组元素从小到大做排序，取前count个的位置
 	 * @param count 如果count小于0则取后|count|名的位置
 	 * @param isAll count为正负1时，如果isAll取值为true则取所有排名第一的元素的位置，否则只取一个
 	 * @param isLast 是否从后开始找
-	 * @param ignoreNull
+	 * @param ignoreNull 是否忽略空元素
 	 * @return IntArray
 	 */
 	public IntArray ptop(int count, boolean isAll, boolean isLast, boolean ignoreNull) {
@@ -3218,6 +3218,278 @@ public class StringArray implements IArray {
 		}
 	}
 	
+	/**
+	 * 对数组元素从小到大做排名，取前count名的位置
+	 * @param count 如果count小于0则从大到小做排名
+	 * @param ignoreNull 是否忽略空元素
+	 * @param iopt 是否按去重方式做排名
+	 * @return IntArray
+	 */
+	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
+		int size = this.size;
+		if (size == 0 || count == 0) {
+			return new IntArray(0);
+		}
+		
+		String []datas = this.datas;		
+		if (count > 0) {
+			// 取最小的count个元素的位置
+			int next = count + 1;
+			StringArray valueArray = new StringArray(next);
+			IntArray posArray = new IntArray(next);
+
+			if (iopt) {
+				int curCount = 0;
+				for (int i = 1; i <= size; ++i) {
+					if (datas[i] != null) {
+						if (curCount < count) {
+							int index = valueArray.binarySearch(datas[i]);
+							if (index < 1) {
+								curCount++;
+								index = -index;
+							}
+							
+							valueArray.insert(index, datas[i]);
+							posArray.insertInt(index, i);
+						} else {
+							int curSize = valueArray.size();
+							int cmp = compareTo(i, valueArray, curSize);
+							if (cmp < 0) {
+								int index = valueArray.binarySearch(datas[i]);
+								if (index < 1) {
+									index = -index;
+									
+									// 删除最后相同的成员
+									String value = valueArray.getString(curSize);
+									valueArray.removeLast();
+									posArray.removeLast();
+									for (int j = curSize - 1; j >= count; --j) {
+										if (valueArray.getString(j).compareTo(value) == 0) {
+											valueArray.removeLast();
+											posArray.removeLast();
+										} else {
+											break;
+										}
+									}
+								}
+								
+								valueArray.insert(index, datas[i]);
+								posArray.insertInt(index, i);
+							} else if (cmp == 0) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							}
+						}
+					} else if (!ignoreNull) {
+						if (curCount < count) {
+							if (curCount == 0 || !valueArray.isNull(1)) {
+								curCount++;
+							}
+							
+							valueArray.insert(1, null);
+							posArray.insertInt(1, i);
+						} else {
+							if (valueArray.isNull(1)) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							} else {
+								// 删除最后相同的成员
+								int curSize = valueArray.size();
+								String value = valueArray.getString(curSize);
+								valueArray.removeLast();
+								posArray.removeLast();
+								for (int j = curSize - 1; j >= count; --j) {
+									if (valueArray.getString(j).compareTo(value) == 0) {
+										valueArray.removeLast();
+										posArray.removeLast();
+									} else {
+										break;
+									}
+								}
+								
+								valueArray.insert(1, null);
+								posArray.insertInt(1, i);
+							}
+						}
+					}
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (datas[i] != null) {
+						int curSize = valueArray.size();
+						if (curSize < count) {
+							int index = valueArray.binarySearch(datas[i]);
+							if (index < 1) {
+								index = -index;
+							}
+							
+							valueArray.insert(index, datas[i]);
+							posArray.insertInt(index, i);
+						} else {
+							int cmp = compareTo(i, valueArray, curSize);
+							if (cmp < 0) {
+								int index = valueArray.binarySearch(datas[i]);
+								if (index < 1) {
+									index = -index;
+								}
+								
+								valueArray.insert(index, datas[i]);
+								posArray.insertInt(index, i);
+								
+								if (valueArray.memberCompare(count, curSize + 1) != 0) {
+									// 删除最后相同的成员
+									String value = valueArray.getString(curSize + 1);
+									valueArray.removeLast();
+									posArray.removeLast();
+									for (int j = curSize; j > count; --j) {
+										if (valueArray.getString(j).compareTo(value) == 0) {
+											valueArray.removeLast();
+											posArray.removeLast();
+										} else {
+											break;
+										}
+									}
+								}
+							} else if (cmp == 0) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							}
+						}
+					} else if (!ignoreNull) {
+						int curSize = valueArray.size();
+						if (curSize < count) {
+							valueArray.insert(1, null);
+							posArray.insertInt(1, i);
+						} else {
+							if (valueArray.isNull(curSize)) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							} else {
+								valueArray.insert(1, null);
+								posArray.insertInt(1, i);
+								
+								if (valueArray.memberCompare(count, curSize + 1) != 0) {
+									// 删除最后相同的成员
+									String value = valueArray.getString(curSize + 1);
+									valueArray.removeLast();
+									posArray.removeLast();
+									for (int j = curSize; j > count; --j) {
+										if (valueArray.getString(j).compareTo(value) == 0) {
+											valueArray.removeLast();
+											posArray.removeLast();
+										} else {
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			return posArray;
+		} else {
+			// 取最大的count个元素的位置
+			count = -count;
+			int next = count + 1;
+			StringArray valueArray = new StringArray(next);
+			IntArray posArray = new IntArray(next);
+
+			if (iopt) {
+				int curCount = 0;
+				for (int i = 1; i <= size; ++i) {
+					if (datas[i] != null) {
+						if (curCount < count) {
+							int index = valueArray.descBinarySearch(datas[i]);
+							if (index < 1) {
+								curCount++;
+								index = -index;
+							}
+							
+							valueArray.insert(index, datas[i]);
+							posArray.insertInt(index, i);
+						} else {
+							int curSize = valueArray.size();
+							int cmp = compareTo(i, valueArray, curSize);
+							if (cmp > 0) {
+								int index = valueArray.descBinarySearch(datas[i]);
+								if (index < 1) {
+									index = -index;
+									
+									// 删除最后相同的成员
+									String value = valueArray.getString(curSize);
+									valueArray.removeLast();
+									posArray.removeLast();
+									for (int j = curSize - 1; j >= count; --j) {
+										if (valueArray.getString(j).compareTo(value) == 0) {
+											valueArray.removeLast();
+											posArray.removeLast();
+										} else {
+											break;
+										}
+									}
+								}
+								
+								valueArray.insert(index, datas[i]);
+								posArray.insertInt(index, i);
+							} else if (cmp == 0) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							}
+						}
+					}
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (datas[i] != null) {
+						int curSize = valueArray.size();
+						if (curSize < count) {
+							int index = valueArray.descBinarySearch(datas[i]);
+							if (index < 1) {
+								index = -index;
+							}
+							
+							valueArray.insert(index, datas[i]);
+							posArray.insertInt(index, i);
+						} else {
+							int cmp = compareTo(i, valueArray, curSize);
+							if (cmp > 0) {
+								int index = valueArray.descBinarySearch(datas[i]);
+								if (index < 1) {
+									index = -index;
+								}
+								
+								valueArray.insert(index, datas[i]);
+								posArray.insertInt(index, i);
+								
+								if (valueArray.memberCompare(count, curSize + 1) != 0) {
+									// 删除最后相同的成员
+									String value = valueArray.getString(curSize + 1);
+									valueArray.removeLast();
+									posArray.removeLast();
+									for (int j = curSize; j > count; --j) {
+										if (valueArray.getString(j).compareTo(value) == 0) {
+											valueArray.removeLast();
+											posArray.removeLast();
+										} else {
+											break;
+										}
+									}
+								}
+							} else if (cmp == 0) {
+								valueArray.add(datas[i]);
+								posArray.addInt(i);
+							}
+						}
+					}
+				}
+			}
+			
+			return posArray;
+		}
+	}
+
 	public void setSize(int size) {
 		this.size = size;
 	}

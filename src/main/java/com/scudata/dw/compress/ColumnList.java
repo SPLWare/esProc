@@ -980,6 +980,17 @@ public class ColumnList implements IArray {
 		return null;
 	}
 	
+	/**
+	 * 对数组元素从小到大做排名，取前count名的位置
+	 * @param count 如果count小于0则从大到小做排名
+	 * @param ignoreNull 是否忽略空元素
+	 * @param iopt 是否按去重方式做排名
+	 * @return IntArray
+	 */
+	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
+		return null;
+	}
+	
 	public void setSize(int size) {
 		// TODO Auto-generated method stub
 		

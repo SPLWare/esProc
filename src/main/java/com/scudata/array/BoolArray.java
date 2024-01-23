@@ -4314,14 +4314,25 @@ public class BoolArray implements IArray {
 	}
 
 	/**
-	 * 对数组元素从小到大做排名，取前count名的位置
+	 * 对数组元素从小到大做排序，取前count个的位置
 	 * @param count 如果count小于0则取后|count|名的位置
 	 * @param isAll count为正负1时，如果isAll取值为true则取所有排名第一的元素的位置，否则只取一个
 	 * @param isLast 是否从后开始找
-	 * @param ignoreNull
+	 * @param ignoreNull 是否忽略空元素
 	 * @return IntArray
 	 */
 	public IntArray ptop(int count, boolean isAll, boolean isLast, boolean ignoreNull) {
+		throw new RuntimeException();
+	}
+	
+	/**
+	 * 对数组元素从小到大做排名，取前count名的位置
+	 * @param count 如果count小于0则从大到小做排名
+	 * @param ignoreNull 是否忽略空元素
+	 * @param iopt 是否按去重方式做排名
+	 * @return IntArray
+	 */
+	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
 		throw new RuntimeException();
 	}
 

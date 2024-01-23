@@ -41,13 +41,21 @@ public class Top extends Gather {
 	private boolean isPositive = true; // n是否是正数
 	private boolean isOne = false; // 是否有@1选项
 	private boolean isSame = false; // 是否取所有最大或最小的
+	private boolean isRank = false; // 是否用排名方式取前几
+	private boolean isDistinct = false; // 是否按去重方式算排名
 	
 	private Comparator<Object> comparator;
 	private int expIndex = -1; // 比较表达式的字段索引
 
 	public void prepare(Context ctx) {
-		if (option != null && option.indexOf('1') != -1) {
-			isOne = true;
+		if (option != null) {
+			if (option.indexOf('1') != -1) isOne = true;
+			if (option.indexOf('i') != -1) {
+				isRank = true;
+				isDistinct = true;
+			} else if (option.indexOf('r') != -1) {
+				isRank = true;
+			}
 		}
 		
 		if (param == null) {
@@ -173,19 +181,15 @@ public class Top extends Gather {
 	}
 	
 	public Expression getRegatherExpression(int q) {
-		String str;
-		if (isOne) {
-			if (isPositive) {
-				str = "top@1(";
-			} else {
-				str = "top@1(-";
-			}
+		String str = "top@2";
+		if (option != null) {
+			str += option;
+		}
+		
+		if (isPositive) {
+			str += "(";
 		} else {
-			if (isPositive) {
-				str = "top@2(";
-			} else {
-				str = "top@2(-";
-			}
+			str += "(-";
 		}
 		
 		if (exp == null) { // top(n,0) -> top(n,0,#q)
@@ -241,11 +245,11 @@ public class Top extends Gather {
 	}
 
 	public boolean needFinish() {
-		return !isSame || getExp != null;
+		return !isSame || getExp != null || isRank;
 	}
 	
 	public boolean needFinish1() {
-		return !isSame || getExp != null;
+		return !isSame || getExp != null || isRank;
 	}
 
 	public Object finish1(Object val) {
@@ -258,7 +262,21 @@ public class Top extends Gather {
 	
 	public IArray finish(IArray array) {
 		int size = array.size();
-		if (isSame) {
+		if (isRank) {
+			for (int i = 1; i <= size; ++i) {
+				RankArray rankArray = (RankArray)array.get(i);
+				ObjectArray valueArray = rankArray.getValueArray();
+				
+				if (getExp != null) {
+					for (int v = 1, vcount = valueArray.size(); v <= vcount; ++v) {
+						Object []tmp = (Object[])valueArray.get(v);
+						valueArray.set(v, tmp[1]);
+					}
+				}
+				
+				array.set(i, new Sequence(valueArray));
+			}
+		} else if (isSame) {
 			for (int i = 1; i <= size; ++i) {
 				Sequence seq = (Sequence)array.get(i);
 				if (seq != null) {
@@ -319,9 +337,20 @@ public class Top extends Gather {
 	}
 	
 	public Object finish(Object val) {
-		if (val == null) return null;
-		
-		if (isSame) {
+		if (val == null) {
+			return null;
+		} else if (isRank) {
+			ObjectArray array = ((RankArray)val).getValueArray();
+			
+			if (getExp != null) {
+				for (int i = 1, size = array.size(); i <= size; ++i) {
+					Object []tmp = (Object[])array.get(i);
+					array.set(i, tmp[1]);
+				}
+			}
+			
+			return new Sequence(array);
+		} else if (isSame) {
 			if (val instanceof Sequence) {
 				Sequence seq = (Sequence)val;
 				for (int i = 1, size = seq.length(); i <= size; ++i) {
@@ -573,9 +602,20 @@ public class Top extends Gather {
 	}
 	
 	public Object gather(Context ctx) {
-		if (count == 0) return null;
-		
-		if (isSame) {
+		if (count == 0) {
+			return null;
+		} else if (isRank) {
+			RankArray array = new RankArray(count, isDistinct);
+			if (getExp == null) {
+				Object obj = exp.calculate(ctx);
+				addToRankArray(array, obj, comparator);
+			} else {
+				Object obj = getExp.calculate(ctx);
+				addToRankArray(array, obj, exp, ctx, comparator);
+			}
+			
+			return array;
+		} else if (isSame) {
 			Sequence seq = new Sequence();
 			if (getExp == null) {
 				Object obj = exp.calculate(ctx);
@@ -623,7 +663,18 @@ public class Top extends Gather {
 	}
 
 	public Object gather(Object oldValue, Context ctx) {
-		if (isSame) {
+		if (isRank) {
+			RankArray array = (RankArray)oldValue;
+			if (getExp == null) {
+				Object obj = exp.calculate(ctx);
+				addToRankArray(array, obj, comparator);
+			} else {
+				Object obj = getExp.calculate(ctx);
+				addToRankArray(array, obj, exp, ctx, comparator);
+			}
+			
+			return array;
+		} else if (isSame) {
 			Sequence seq;
 			if (oldValue != null) {
 				seq = (Sequence)oldValue;
@@ -926,7 +977,48 @@ public class Top extends Gather {
 	 * @return IArray 结果数组
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
-		if (isSame) {
+		if (isRank) {
+			Comparator<Object> comparator = this.comparator;
+			Expression exp = this.exp;
+			if (result == null) {
+				result = new ObjectArray(Env.INITGROUPSIZE);
+			}
+			
+			if (getExp == null) {
+				IArray array;
+				if (exp != null) {
+					array = exp.calculateAll(ctx);
+				} else {
+					Sequence topSequence = ctx.getComputeStack().getTopSequence();
+					array = topSequence.getMems();
+				}
+				
+				for (int i = 1, len = array.size(); i <= len; ++i) {
+					if (result.size() < resultSeqs[i]) {
+						RankArray rankArray = new RankArray(count, isDistinct);
+						addToRankArray(rankArray, array.get(i), comparator);
+						result.add(rankArray);
+					} else {
+						RankArray rankArray = (RankArray)result.get(resultSeqs[i]);
+						addToRankArray(rankArray, array.get(i), comparator);
+					}
+				}
+			} else {
+				IArray array = getExp.calculateAll(ctx);
+				for (int i = 1, len = array.size(); i <= len; ++i) {
+					if (result.size() < resultSeqs[i]) {
+						RankArray rankArray = new RankArray(count, isDistinct);
+						addToRankArray(rankArray, array.get(i), exp, ctx, comparator);
+						result.add(rankArray);
+					} else {
+						RankArray rankArray = (RankArray)result.get(resultSeqs[i]);
+						addToRankArray(rankArray, array.get(i), exp, ctx, comparator);
+					}
+				}
+			}
+			
+			return result;
+		} else if (isSame) {
 			if (getExp != null) {
 				return topAll(result, resultSeqs, ctx);
 			} else if (isPositive) {
@@ -1156,7 +1248,23 @@ public class Top extends Gather {
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
-		if (isSame) {
+		if (isRank) {
+			Comparator<Object> comparator = this.comparator;
+			for (int i = 1, len = result2.size(); i <= len; ++i) {
+				if (seqs[i] != 0) {
+					RankArray rankArray1 = (RankArray)result.get(seqs[i]);
+					RankArray rankArray2 = (RankArray)result2.get(i);
+					if (rankArray1 == null) {
+						result.set(seqs[i], rankArray2);
+					} else if (rankArray2 != null) {
+						ObjectArray valueArray = rankArray2.getValueArray();
+						for (int v = 1, vcount = valueArray.size(); v <= vcount; ++v) {
+							rankArray1.add(valueArray.get(v), comparator);
+						}
+					}
+				}
+			}
+		} else if (isSame) {
 			if (getExp != null) {
 				topAll(result, result2, seqs, ctx);
 			} else if (isPositive) {
@@ -1204,6 +1312,50 @@ public class Top extends Gather {
 					}
 				}
 			}
+		}
+	}
+	private static void addToRankArray(RankArray array, Object obj, Comparator<Object> comparator) {
+		if (obj != null) {
+			array.add(obj, comparator);
+		}
+	}
+	
+	private static void addToRankArray(RankArray array, Object obj, 
+			Expression exp, Context ctx, Comparator<Object> comparator) {
+		ComputeStack stack = ctx.getComputeStack();
+		try {
+			if (obj instanceof Sequence) {
+				Sequence tmpSeq = (Sequence)obj;
+				Current current = new Current(tmpSeq);
+				stack.push(current);
+				
+				for (int i = 1, len = tmpSeq.length(); i <= len; ++i) {
+					current.setCurrent(i);
+					Object val = exp.calculate(ctx);
+					
+					if (val != null) {
+						Object []vals = new Object[2];
+						vals[0] = exp.calculate(ctx);
+						vals[1] = current.getCurrent();
+						array.add(vals, comparator);
+					}
+				}
+			} else if (obj instanceof BaseRecord) {
+				stack.push((BaseRecord)obj);
+				Object val = exp.calculate(ctx);
+				
+				if (val != null) {
+					Object []vals = new Object[2];
+					vals[0] = val;
+					vals[1] = obj;
+					array.add(vals, comparator);
+				}
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("top" + mm.getMessage("function.invalidParam"));
+			}
+		} finally {
+			stack.pop();
 		}
 	}
 }

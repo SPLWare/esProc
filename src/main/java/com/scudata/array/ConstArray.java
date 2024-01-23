@@ -2862,6 +2862,21 @@ public class ConstArray implements IArray {
 		}
 	}
 	
+	/**
+	 * 对数组元素从小到大做排名，取前count名的位置
+	 * @param count 如果count小于0则从大到小做排名
+	 * @param ignoreNull 是否忽略空元素
+	 * @param iopt 是否按去重方式做排名
+	 * @return IntArray
+	 */
+	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
+		if (size == 0 || (data == null && ignoreNull)) {
+			return new IntArray(0);
+		}
+		
+		return new IntArray(1, size);
+	}
+	
 	public void setSize(int size) {
 		this.size = size;
 	}

@@ -3005,14 +3005,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private IntArray topIndex(int count, Expression exp, String opt, Context ctx) {
-		boolean isAll = true, ignoreNull = true;
+		boolean isAll = true, ignoreNull = true, isRank = false, isDistinct = false;
 		if (opt != null) {
 			if (opt.indexOf('1') != -1) isAll = false;
 			if (opt.indexOf('0') != -1) ignoreNull = false;
+			if (opt.indexOf('i') != -1) {
+				isRank = true;
+				isDistinct = true;
+			} else if (opt.indexOf('r') != -1) {
+				isRank = true;
+			}
 		}
 		
 		if (exp == null) {
-			return getMems().ptop(count, isAll, false, ignoreNull);
+			if (isRank) {
+				return getMems().ptopRank(count, ignoreNull, isDistinct);
+			} else {
+				return getMems().ptop(count, isAll, false, ignoreNull);
+			}
 		} else if (exp.isConstExpression()) {
 			int len = length();
 			if (len == 0) {
@@ -3035,7 +3045,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		} else {
 			Sequence values = calc(exp, ctx);
-			return values.getMems().ptop(count, isAll, false, ignoreNull);
+			if (isRank) {
+				return values.getMems().ptopRank(count, ignoreNull, isDistinct);
+			} else {
+				return values.getMems().ptop(count, isAll, false, ignoreNull);
+			}
 		}
 	}
 
