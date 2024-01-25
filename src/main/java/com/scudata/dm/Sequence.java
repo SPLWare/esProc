@@ -6902,25 +6902,39 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 如果有n选项则返回删除的元素，否则返回当前序列
 	 */
 	public Object delete(int index, String opt) {
+		// 越界不再报错
 		int oldLen = length();
-		if (index > oldLen || index == 0) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
+		if (index > 0 && index <= oldLen) {
+			if (opt == null || opt.indexOf('n') == -1) {
+				getMems().remove(index);
+				rebuildIndexTable();
+				return this;
+			} else {
+				Object obj = getMems().get(index);
+				getMems().remove(index);
+				rebuildIndexTable();
+				return obj;
+			}
 		} else if (index < 0) {
 			index += oldLen + 1;
-			if (index < 1) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(index - oldLen - 1 + mm.getMessage("engine.indexOutofBound"));
+			if (index > 0) {
+				if (opt == null || opt.indexOf('n') == -1) {
+					getMems().remove(index);
+					rebuildIndexTable();
+					return this;
+				} else {
+					Object obj = getMems().get(index);
+					getMems().remove(index);
+					rebuildIndexTable();
+					return obj;
+				}
 			}
 		}
 		
 		if (opt == null || opt.indexOf('n') == -1) {
-			getMems().remove(index);
 			return this;
 		} else {
-			Object obj = getMems().get(index);
-			getMems().remove(index);
-			return obj;
+			return null;
 		}
 	}
 
@@ -6930,19 +6944,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 返回被删除的元素
 	 */
 	public void delete(int index) {
+		// 越界不再报错
 		int oldLen = length();
-		if (index > oldLen || index == 0) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
+		if (index > 0 && index <= oldLen) {
+			getMems().remove(index);
 		} else if (index < 0) {
 			index += oldLen + 1;
-			if (index < 1) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(index - oldLen - 1 + mm.getMessage("engine.indexOutofBound"));
+			if (index > 0) {
+				getMems().remove(index);
 			}
 		}
-		
-		getMems().remove(index);
 	}
 
 	/**
@@ -6960,6 +6971,63 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 把索引序列按从小到大排序转成索引数组
+	 * @param totalCount 源序列的成员数，用于索引是负数时表示从后数
+	 * @return int[]
+	 */
+	public int[] toIndexArray(int totalCount) {
+		IArray mems = getMems();
+		if (!mems.isNumberArray()) {
+			return null;
+		}
+		
+		int size = mems.size();
+		int[] values = new int[size];
+		int count = 0;
+
+		for (int i = 1; i <= size; ++i) {
+			int index = mems.getInt(i);
+			if (index > 0 && index <= totalCount) {
+				values[count++] = index;
+			} else if (index < 0) {
+				index += totalCount + 1;
+				if (index > 0) {
+					values[count++] = index;
+				}
+			}
+		}
+
+		// 对索引进行排序
+		Arrays.sort(values, 0, count);
+		int repeatCount = 0;
+		for (int i = 1; i < count; ++i) {
+			if (values[i] == values[i - 1]) {
+				repeatCount++;
+			}
+		}
+		
+		if (repeatCount > 0) {
+			int resultCount = count - repeatCount;
+			int []result = new int[resultCount];
+			result[0] = values[0];
+			
+			for (int i = 1, q = 1; i < count; ++i) {
+				if (values[i] != values[i - 1]) {
+					result[q++] = values[i];
+				}
+			}
+			
+			return result;
+		} else if (count == size) {
+			return values;
+		} else {
+			int []result = new int[count];
+			System.arraycopy(values, 0, result, 0, count);
+			return result;
+		}
+	}
+	
+	/**
 	 * 按位置删除多个元素
 	 * @param sequence Sequence 元素索引或元素构成的序列
 	 * @param opt String n 返回被删的元素构成的序列
@@ -6973,11 +7041,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		int[] index = null;
-		try {
-			index = sequence.toIntArray();
-		} catch (RQException e) {
-		}
+		int srcCount = length();
+		int[] index = sequence.toIndexArray(srcCount);
 
 		if (index == null) {
 			Sequence tmp = diff(sequence, false);
@@ -6988,28 +7053,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return sequence;
 			}
 		} else {
-			int oldCount = length();
-			int delCount = index.length;
-			for (int i = 0; i < delCount; ++i) {
-				if (index[i] > oldCount || index[i] == 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(index[i] + mm.getMessage("engine.indexOutofBound"));
-				} else if (index[i] < 0) {
-					index[i] += oldCount + 1;
-					if (index[i] < 1) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(index[i] - oldCount - 1 + mm.getMessage("engine.indexOutofBound"));
-					}
-				}
-			}
-
-			// 对索引进行排序
-			Arrays.sort(index);
-			
 			if (opt == null || opt.indexOf('n') == -1) {
 				getMems().remove(index);
 				return this;
 			} else {
+				int delCount = index.length;
 				IArray mems = getMems();
 				Sequence result = new Sequence(delCount);
 				for (int i = 0; i < delCount; ++i) {

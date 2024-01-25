@@ -1665,11 +1665,11 @@ public class Table extends Sequence {
 
 	/**
 	 * 删除多条记录
-	 * @param series Sequence 位置序列或记录序列
+	 * @param sequence Sequence 位置序列或记录序列
 	 * @param opt String n 返回被删的元素构成的序列
 	 */
-	public Sequence delete(Sequence series, String opt) {
-		if (series == null || series.length() == 0) {
+	public Sequence delete(Sequence sequence, String opt) {
+		if (sequence == null || sequence.length() == 0) {
 			if (opt == null || opt.indexOf('n') == -1) {
 				return this;
 			} else {
@@ -1677,18 +1677,12 @@ public class Table extends Sequence {
 			}
 		}
 
-		int[] index = null;
-		try {
-			index = series.toIntArray();
-		} catch (RQException e) {
-		}
-
-		IArray mems = getMems();
-		int oldCount = mems.size();
+		int srcCount = length();
+		int[] index = sequence.toIndexArray(srcCount);
 		int delCount = 0;
 
 		if (index == null) {
-			IArray delMems = series.getMems();
+			IArray delMems = sequence.getMems();
 			int count = delMems.size();
 			index = new int[count];
 
@@ -1717,28 +1711,16 @@ public class Table extends Sequence {
 				System.arraycopy(index, 0, tmp, 0, delCount);
 				index = tmp;
 			}
+	
+			// 对索引进行排序
+			Arrays.sort(index);
 		} else {
 			delCount = index.length;
-			for (int i = 0; i < delCount; ++i) {
-				if (index[i] > oldCount || index[i] == 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(index[i] + mm.getMessage("engine.indexOutofBound"));
-				} else if (index[i] < 0) {
-					index[i] += oldCount + 1;
-					if (index[i] < 1) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(index[i] - oldCount - 1 + mm.getMessage("engine.indexOutofBound"));
-					}
-				}
-			}
 		}
 
-		// 对索引进行排序
-		Arrays.sort(index);
-
+		IArray mems = getMems();
 		if (opt == null || opt.indexOf('n') == -1) {
 			mems.remove(index);
-			
 			rebuildIndexTable();
 			return this;
 		} else {
@@ -1748,29 +1730,11 @@ public class Table extends Sequence {
 			}
 			
 			mems.remove(index);
-			
 			rebuildIndexTable();
 			return result;
 		}
 	}
 	
-	public void delete(int index) {
-		int oldLen = length();
-		if (index > oldLen || index == 0) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
-		} else if (index < 0) {
-			index += oldLen + 1;
-			if (index < 1) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(index - oldLen - 1 + mm.getMessage("engine.indexOutofBound"));
-			}
-		}
-		
-		mems.remove(index);
-		rebuildIndexTable();
-	}
-
 	/**
 	 * 把序表src的字段值赋给此序表记录的相应字段
 	 * @param pos int 记录开始位置，从1开始计数，0表示追加，越界自动补，小于0则从后数
