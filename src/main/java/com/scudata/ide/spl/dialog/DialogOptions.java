@@ -144,7 +144,7 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 多标签控件
 	 */
-	private JTabbedPane tabMain = new JTabbedPane();
+	protected JTabbedPane tabMain = new JTabbedPane();
 
 	/**
 	 * 数据库连接超时时间
@@ -1153,7 +1153,6 @@ public class DialogOptions extends JDialog {
 		panelNormal.add(jp1);
 
 		// Env
-		JPanel panelGrid = new JPanel();
 		JPanel panelSpl = new JPanel();
 		panelSpl.setLayout(new BorderLayout());
 		JPanel panelSplGrid = new JPanel();
@@ -1302,7 +1301,6 @@ public class DialogOptions extends JDialog {
 			tabMain.add(panelSpl, mm.getMessage("dialogoptions.panel2")); // 集算器
 		}
 
-		panelGrid.setLayout(new BorderLayout());
 		this.addWindowListener(new DialogOptions_this_windowAdapter(this));
 		this.getContentPane().add(tabMain, BorderLayout.CENTER);
 		this.getContentPane().add(jPanelButton, BorderLayout.EAST);

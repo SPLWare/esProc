@@ -249,6 +249,8 @@ public class ConfigOptions {
 	 */
 	public static Boolean bFuncNotice = Boolean.TRUE;
 
+	public static String sQvsConfigFile = null;
+
 	/** HTML */
 	public static final int COPY_HTML = 0;
 	/** TEXT */
@@ -331,6 +333,7 @@ public class ConfigOptions {
 		options.put("iUndoCount", iUndoCount);
 
 		options.put("bFuncNotice", bFuncNotice);
+		options.put("sQvsConfigFile", sQvsConfigFile);
 		// options.put("bCheckUpdate", bCheckUpdate);
 		options.put("bNoticeExpiration", bNoticeExpiration);
 	}
@@ -559,6 +562,8 @@ public class ConfigOptions {
 				sBackupDirectory = val;
 			} else if (option.equalsIgnoreCase("sAutoOpenFileNames")) {
 				sAutoOpenFileNames = val;
+			} else if (option.equalsIgnoreCase("sQvsConfigFile")) {
+				sQvsConfigFile = val;
 			}
 		}
 	}

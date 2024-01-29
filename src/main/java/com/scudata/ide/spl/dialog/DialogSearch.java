@@ -278,7 +278,7 @@ public class DialogSearch extends JDialog {
 		this.isReplace = replace;
 		// this.splControl = (EditControl) editor.getComponent();
 		resetDropItems();
-		if (replace) {
+		if (!replace) {
 			setTitle(splMM.getMessage("dialogsearch.title")); // ≤È’“
 		} else {
 			setTitle(splMM.getMessage("dialogsearch.replace")); // ÃÊªª
