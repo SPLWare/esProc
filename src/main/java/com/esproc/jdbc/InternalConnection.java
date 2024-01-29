@@ -17,23 +17,18 @@ import java.sql.Statement;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 import com.scudata.app.config.RaqsoftConfig;
-import com.scudata.common.DBSession;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
-import com.scudata.dm.JobSpace;
-import com.scudata.dm.JobSpaceManager;
-import com.scudata.dm.ParamList;
 import com.scudata.dm.Table;
 import com.scudata.parallel.UnitClient;
 
@@ -73,11 +68,6 @@ public class InternalConnection implements Connection, Serializable {
 	protected int driverMajorVersion, driverMinorVersion;
 
 	/**
-	 * The esProc context
-	 */
-	private Context ctx;
-
-	/**
 	 * The ID of the statement
 	 */
 	private int stMaxId = 0;
@@ -108,11 +98,6 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	private Map<String, Class<?>> typeMap;
 
-	/**
-	 * The JobSpace object
-	 */
-	private JobSpace jobSpace = null;
-
 	protected List<String> hostNames = null;
 
 	/**
@@ -135,53 +120,12 @@ public class InternalConnection implements Connection, Serializable {
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
-		resetContext();
 	}
 
-	/**
-	 * Generate connection ID
-	 * 
-	 * @return int
-	 */
-	protected synchronized int nextStatementId() {
-		JDBCUtil.log("InternalConnection-1");
-		if (stMaxId == Integer.MAX_VALUE)
-			stMaxId = 1;
-		stMaxId++;
-		return stMaxId;
-	}
-
-	/**
-	 * Get the RaqsoftConfig object
-	 * 
-	 * @return RaqsoftConfig
-	 */
-	public RaqsoftConfig getRaqsoftConfig() {
-		return raqsoftConfig;
-	}
-
-	/**
-	 * Reset context
-	 */
-	public void resetContext() {
-		ctx = new Context();
-		ctx.setJobSpace(getJobSpace());
+	public void initContextConnect(Context ctx) {
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
 		}
-	}
-
-	/**
-	 * Get the JobSpace
-	 * 
-	 * @return JobSpace
-	 */
-	private synchronized JobSpace getJobSpace() {
-		if (jobSpace == null) {
-			String uuid = UUID.randomUUID().toString();
-			jobSpace = JobSpaceManager.getSpace(uuid);
-		}
-		return jobSpace;
 	}
 
 	/**
@@ -208,6 +152,28 @@ public class InternalConnection implements Connection, Serializable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Generate connection ID
+	 * 
+	 * @return int
+	 */
+	protected synchronized int nextStatementId() {
+		JDBCUtil.log("InternalConnection-1");
+		if (stMaxId == Integer.MAX_VALUE)
+			stMaxId = 1;
+		stMaxId++;
+		return stMaxId;
+	}
+
+	/**
+	 * Get the RaqsoftConfig object
+	 * 
+	 * @return RaqsoftConfig
+	 */
+	public RaqsoftConfig getRaqsoftConfig() {
+		return raqsoftConfig;
 	}
 
 	/**
@@ -299,15 +265,6 @@ public class InternalConnection implements Connection, Serializable {
 	public void setUrl(String url) {
 		JDBCUtil.log("InternalConnection-53");
 		this.url = url;
-	}
-
-	/**
-	 * Get the esProc context
-	 * 
-	 * @return Context
-	 */
-	public Context getCtx() {
-		return ctx;
 	}
 
 	/**
@@ -560,8 +517,10 @@ public class InternalConnection implements Connection, Serializable {
 				}
 			}
 		} else {
-			t = JDBCUtil.getColumns(tableNamePattern, columnNamePattern,
-					getCtx());
+			// 创建上下文给查询列名使用，不是用于SPL计算的Context
+			Context ctx = new Context();
+			initContextConnect(ctx);
+			t = JDBCUtil.getColumns(tableNamePattern, columnNamePattern, ctx);
 		}
 		ArrayList<Object> paramList = new ArrayList<Object>();
 		paramList.add(t);
@@ -726,42 +685,7 @@ public class InternalConnection implements Connection, Serializable {
 				stats.get(i).close();
 			}
 		}
-		/* Close automatically opened connections */
-		Map<String, DBSession> map = ctx.getDBSessionMap();
-		if (map != null) {
-			Iterator<String> iter = map.keySet().iterator();
-			while (iter.hasNext()) {
-				String name = iter.next().toString();
-				DBSession sess = ctx.getDBSession(name);
-				if (sess == null || sess.isClosed())
-					continue;
-				Object o = ctx.getDBSession(name).getSession();
-				if (o != null && o instanceof java.sql.Connection) {
-					try {
-						((java.sql.Connection) o).close();
-					} catch (Exception e) {
-						Logger.warn(e.getMessage(), e);
-					}
-				}
-			}
-		}
-		/* Close the connection opened by the user through an expression */
-		ParamList pl = ctx.getParamList();
-		for (int i = 0; i < pl.count(); i++) {
-			Object o = pl.get(i).getValue();
-			if (o != null && o instanceof java.sql.Connection) {
-				try {
-					((java.sql.Connection) o).close();
-				} catch (Exception e) {
-					Logger.warn(e.getMessage(), e);
-				}
-			}
-		}
-		/* Close the JobSpace */
-		if (jobSpace != null) {
-			jobSpace.closeResource();
-			JobSpaceManager.closeSpace(jobSpace.getID());
-		}
+
 		closeUnitClient();
 		closed = true;
 	}

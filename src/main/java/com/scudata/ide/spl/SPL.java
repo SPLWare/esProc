@@ -1539,7 +1539,14 @@ public class SPL extends AppFrame {
 				UIManager.setLookAndFeel(UIManager
 						.getSystemLookAndFeelClassName());
 			}
-			initGlobalFontSetting(new Font("Dialog", Font.PLAIN, 12));
+			int fontSize = GC.font.getSize();
+			// 太大或太小影响布局
+			if (fontSize > 14)
+				fontSize = 14;
+			if (fontSize < 11)
+				fontSize = 11;
+			Font font = new Font("Dialog", Font.PLAIN, fontSize);
+			initGlobalFontSetting(font);
 		} catch (Throwable x) {
 			GM.outputMessage(x);
 		}

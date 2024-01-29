@@ -5,16 +5,22 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.DBSession;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
+import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
+import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.parallel.Request;
@@ -78,6 +84,21 @@ public abstract class InternalStatement implements java.sql.Statement {
 	protected int queryTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT;
 
 	/**
+	 * The esProc context
+	 */
+	private Context ctx;
+
+	/**
+	 * The JobSpace object
+	 */
+	private JobSpace jobSpace = null;
+
+	/**
+	 * 是否关闭状态
+	 */
+	private boolean isClosed = false;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param con The connection object
@@ -86,6 +107,36 @@ public abstract class InternalStatement implements java.sql.Statement {
 	public InternalStatement(int id) {
 		JDBCUtil.log("InternalStatement-1");
 		this.id = id;
+		initContext();
+	}
+
+	/**
+	 * Reset context
+	 */
+	public void initContext() {
+		ctx = new Context();
+		ctx.setJobSpace(getJobSpace());
+		InternalConnection connt = getConnection();
+		try {
+			if (connt == null || connt.isClosed())
+				return;
+		} catch (SQLException e) {
+			return;
+		}
+		connt.initContextConnect(ctx);
+	}
+
+	/**
+	 * Get the JobSpace
+	 * 
+	 * @return JobSpace
+	 */
+	private synchronized JobSpace getJobSpace() {
+		if (jobSpace == null) {
+			String uuid = UUID.randomUUID().toString();
+			jobSpace = JobSpaceManager.getSpace(uuid);
+		}
+		return jobSpace;
 	}
 
 	public abstract InternalConnection getConnection();
@@ -137,6 +188,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	protected Object executeJDBC(final ArrayList<?> parameters,
 			final boolean isUpdate) throws SQLException {
+		if (isClosed)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.statementclosed"));
 		try {
 			ex = null;
 			isCanceled = false;
@@ -193,8 +247,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			sql = JDBCUtil.trimSql(sql);
 			byte sqlType = getJdbcSqlType(sql);
 
-			// 重新创建计算上下文
-			Context ctx = con.getCtx();
 			boolean isOnlyServer = con.isOnlyServer();
 			RaqsoftConfig config = con.getConfig();
 			String gateway = null;
@@ -414,12 +466,52 @@ public abstract class InternalStatement implements java.sql.Statement {
 		this.result = null;
 		this.set = null;
 
+		/* Close automatically opened connections */
+		if (ctx != null) {
+			Map<String, DBSession> map = ctx.getDBSessionMap();
+			if (map != null) {
+				Iterator<String> iter = map.keySet().iterator();
+				while (iter.hasNext()) {
+					String name = iter.next().toString();
+					DBSession sess = ctx.getDBSession(name);
+					if (sess == null || sess.isClosed())
+						continue;
+					Object o = ctx.getDBSession(name).getSession();
+					if (o != null && o instanceof java.sql.Connection) {
+						try {
+							((java.sql.Connection) o).close();
+						} catch (Exception e) {
+							Logger.warn(e.getMessage(), e);
+						}
+					}
+				}
+			}
+			/* Close the connection opened by the user through an expression */
+			ParamList pl = ctx.getParamList();
+			for (int i = 0; i < pl.count(); i++) {
+				Object o = pl.get(i).getValue();
+				if (o != null && o instanceof java.sql.Connection) {
+					try {
+						((java.sql.Connection) o).close();
+					} catch (Exception e) {
+						Logger.warn(e.getMessage(), e);
+					}
+				}
+			}
+		}
+		/* Close the JobSpace */
+		if (jobSpace != null) {
+			jobSpace.closeResource();
+			JobSpaceManager.closeSpace(jobSpace.getID());
+		}
+
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
 		connt.closeStatement(this);
+		isClosed = true;
 	}
 
 	/**
@@ -528,6 +620,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"error.conclosed"));
 			}
+			if (isClosed)
+				throw new SQLException(JDBCMessage.get().getMessage(
+						"error.statementclosed"));
+
 			UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
 			if (uc != null) {
 				try {
@@ -619,6 +715,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
+		if (isClosed)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.statementclosed"));
 		if (set != null)
 			set.close();
 		if (result == null)
@@ -666,6 +765,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
+		if (isClosed)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.statementclosed"));
 		if (result == null)
 			return false;
 		if (result instanceof PgmCellSet) {
