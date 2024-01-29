@@ -26,7 +26,6 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
-import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.Table;
@@ -101,6 +100,11 @@ public class InternalConnection implements Connection, Serializable {
 	protected List<String> hostNames = null;
 
 	/**
+	 * 连接持有的父Context
+	 */
+	private Context parentCtx = new Context();;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param drv
@@ -120,9 +124,14 @@ public class InternalConnection implements Connection, Serializable {
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
+		initContextConnect(parentCtx);
 	}
 
-	public void initContextConnect(Context ctx) {
+	public Context getParentContext() {
+		return parentCtx;
+	}
+
+	private void initContextConnect(Context ctx) {
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
 		}
@@ -147,9 +156,9 @@ public class InternalConnection implements Connection, Serializable {
 				if (isf != null)
 					ctx.setDBSession(name, isf.getSession());
 			} catch (Exception e) {
-				Logger.debug("Auto connect database [" + name + "] failed: "
+				Logger.error("Auto connect database [" + name + "] failed: "
 						+ e.getMessage());
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 	}
@@ -516,9 +525,8 @@ public class InternalConnection implements Connection, Serializable {
 			}
 		} else {
 			// 创建上下文给查询列名使用，不是用于SPL计算的Context
-			Context ctx = new Context();
-			initContextConnect(ctx);
-			t = JDBCUtil.getColumns(tableNamePattern, columnNamePattern, ctx);
+			t = JDBCUtil.getColumns(tableNamePattern, columnNamePattern,
+					parentCtx);
 		}
 		ArrayList<Object> paramList = new ArrayList<Object>();
 		paramList.add(t);

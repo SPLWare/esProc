@@ -123,7 +123,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 		} catch (SQLException e) {
 			return;
 		}
-		connt.initContextConnect(ctx);
+		ctx.setParent(connt.getParentContext());
 	}
 
 	/**
