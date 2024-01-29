@@ -41,8 +41,8 @@ public class JdbcManager {
 			switch (req.getAction()) {
 			case Request.JDBC_CONNECT:
 				connId = UnitServer.nextId();
-				String spaceId = (String) req.getAttr(Request.CONNECT_spaceID);
-				connProxy = new ConnectionProxy(cpm, connId, spaceId);
+//				String spaceId = (String) req.getAttr(Request.CONNECT_spaceID);
+				connProxy = new ConnectionProxy(cpm, connId);
 				cpm.addProxy(connProxy);
 				res.setResult(connId);
 				break;

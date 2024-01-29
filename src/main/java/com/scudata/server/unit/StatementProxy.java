@@ -6,7 +6,9 @@ import java.util.Map;
 
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
+import com.scudata.common.UUID;
 import com.scudata.dm.Context;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.parallel.ITask;
@@ -24,6 +26,7 @@ import com.scudata.server.IProxy;
  *
  */
 public class StatementProxy extends IProxy implements ITask {
+	String spaceId;
 	String cmd = null;
 	ArrayList params = null;
 
@@ -50,7 +53,9 @@ public class StatementProxy extends IProxy implements ITask {
 		}
 		Logger.debug("StatementProxy cmd:\r\n" + cmd);
 		this.params = params;
-		this.ctx = cp.getContext();
+		this.ctx = new Context(cp.getContext());
+		spaceId = UUID.randomUUID().toString();
+		ctx.setJobSpace(JobSpaceManager.getSpace(spaceId));
 		task = new JdbcTask(cmd, params, ctx, envParams);
 		access();
 	}
@@ -137,7 +142,9 @@ public class StatementProxy extends IProxy implements ITask {
 	 * 关闭当前代理器
 	 */
 	public void close() {
+		JobSpaceManager.closeSpace(spaceId);
 		TaskManager.delTask(getId());
+		ctx = null;
 	}
 
 	/**

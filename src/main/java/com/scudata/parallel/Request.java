@@ -191,7 +191,7 @@ public class Request implements Serializable {
 
 	// JDBC接口
 	public static final int JDBC_CONNECT = 1 + TYPE_JDBC; // 获取连接号，产生连接代理，返回值：整数，连接号
-	public static final String CONNECT_spaceID = "connect spaceId";// spaceId
+//	public static final String CONNECT_spaceID = "connect spaceId";// spaceId
 
 	public static final int JDBC_PREPARE = 2 + TYPE_JDBC; // prepareStatement,返回值：整数，statement号
 	public static final String PREPARE_connID = "prepare connId";// connId

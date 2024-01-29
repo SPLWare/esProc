@@ -325,9 +325,7 @@ public class InternalConnection implements Connection, Serializable {
 						unitClient.setConnectTimeout(timeoutMS);
 						if (unitClient.isAlive()) {
 							try {
-								// 参数好像没用？
-								unitConnectionId = unitClient.JDBCConnect(UUID
-										.randomUUID().toString());
+								unitConnectionId = unitClient.JDBCConnect();
 							} catch (Exception e) {
 								throw new SQLException(e.getMessage(), e);
 							}

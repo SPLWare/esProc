@@ -567,9 +567,9 @@ public class UnitClient implements Serializable {
 	}
 
 	// JDBC函数接口部分
-	public int JDBCConnect(String spaceId) throws Exception {
+	public int JDBCConnect() throws Exception {
 		Request req = new Request(Request.JDBC_CONNECT);
-		req.setAttr(Request.CONNECT_spaceID, spaceId);
+//		req.setAttr(Request.CONNECT_spaceID, spaceId);
 
 		Response res = sendByNewSocket(req);
 		if (res.getException() != null) {
