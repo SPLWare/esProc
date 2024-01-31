@@ -1,5 +1,6 @@
 package com.scudata.expression.fn.datetime;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -44,7 +45,31 @@ public class DateTime extends Function {
 					//throw new RQException("datetime " + e.getMessage());
 				}
 			} else if (result1 instanceof Number) {
-				return new java.sql.Timestamp(((Number)result1).longValue());
+				return new Timestamp(((Number)result1).longValue());
+			} else if (result1 instanceof Timestamp) {
+				if (option != null) {
+					if (option.indexOf('s') != -1) {
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime((Date)result1);
+						calendar.set(Calendar.MILLISECOND, 0);
+						return new Timestamp(calendar.getTimeInMillis());
+					} else if (option.indexOf('m') != -1) {
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime((Date)result1);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+						return new Timestamp(calendar.getTimeInMillis());
+					} else if (option.indexOf('h') != -1) {
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime((Date)result1);
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+						return new Timestamp(calendar.getTimeInMillis());
+					}
+				}
+
+				return result1;
 			} else if (result1 instanceof Date) {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime((Date)result1);
@@ -71,7 +96,7 @@ public class DateTime extends Function {
 					calendar.set(Calendar.MILLISECOND, 0);
 				}
 
-				return new java.sql.Timestamp(calendar.getTimeInMillis());
+				return new Timestamp(calendar.getTimeInMillis());
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("datetime" + mm.getMessage("function.paramTypeError"));
@@ -93,7 +118,7 @@ public class DateTime extends Function {
 					if (result2 instanceof String) {
 						try {
 							DateFormat df = DateFormatFactory.get().getFormat((String)result2);
-							return new java.sql.Timestamp(df.parse((String)result1).getTime());
+							return new Timestamp(df.parse((String)result1).getTime());
 						} catch (ParseException e) {
 							return null;
 							//throw new RQException("datetime " + e.getMessage());
@@ -118,13 +143,13 @@ public class DateTime extends Function {
 						//calendar.setLenient(false);
 						calendar.set(ds.year(date), ds.month(date) - 1, ds.day(date),
 									 ds.hour(time), ds.minute(time), ds.second(time));
-						return new java.sql.Timestamp(calendar.getTimeInMillis());
+						return new Timestamp(calendar.getTimeInMillis());
 					} else if (result2 == null) {
 						DateFactory ds = DateFactory.get();
 						Calendar calendar = Calendar.getInstance();
 						//calendar.setLenient(false);
 						calendar.set(ds.year(date), ds.month(date) - 1, ds.day(date), 0, 0, 0);
-						return new java.sql.Timestamp(calendar.getTimeInMillis());
+						return new Timestamp(calendar.getTimeInMillis());
 					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("datetime" + mm.getMessage("function.paramTypeError"));
@@ -168,7 +193,7 @@ public class DateTime extends Function {
 				
 				try {
 					DateFormat df = DateFormatFactory.get().getFormat(format, locale);
-					return new java.sql.Timestamp(df.parse((String)result1).getTime());
+					return new Timestamp(df.parse((String)result1).getTime());
 				} catch (ParseException e) {
 					return null;
 					//throw new RQException("datetime " + e.getMessage());
@@ -233,7 +258,7 @@ public class DateTime extends Function {
 			//calendar.setLenient(false);
 			calendar.set(year, month - 1, day, hour, minute, second);
 			calendar.set(Calendar.MILLISECOND, 0);
-			return new java.sql.Timestamp(calendar.getTimeInMillis());
+			return new Timestamp(calendar.getTimeInMillis());
 		} else if (size == 5) {
 			// datetime(ym,d,h,m,s)	ym是6位数是解释为年月
 			IParam sub1 = param.getSub(0);
@@ -292,7 +317,7 @@ public class DateTime extends Function {
 			Calendar calendar = Calendar.getInstance();
 			//calendar.setLenient(false);
 			calendar.set(year, month - 1, day, hour, minute, second);
-			return new java.sql.Timestamp(calendar.getTimeInMillis());
+			return new Timestamp(calendar.getTimeInMillis());
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("datetime" + mm.getMessage("function.invalidParam"));

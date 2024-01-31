@@ -52,6 +52,14 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
+	 * 取分段游标的起始值，如果有分段字段则返回分段字段的值，没有则返回维字段的值
+	 * @return 分段游标首条记录的分段字段的值，如果当前段数为0则返回null
+	 */
+	public Object[] getSegmentStartValues(String option) {
+		return cursors[0].getSegmentStartValues(option);
+	}
+	
+	/**
 	 * 附加有序分组运算
 	 * @param function 对应的函数
 	 * @param exps 分组表达式数组
