@@ -1149,6 +1149,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	protected boolean isValueChanged(String cellId) {
 		INormalCell lockCell = splControl.cellSet.getCell(cellId);
+		if (lockCell == null)
+			return false;
 		Object oldVal = GVSpl.panelValue.tableValue.getOriginalValue();
 		Object newVal = null;
 		try {
@@ -1172,6 +1174,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param isRefresh ÊÇ·ñË¢ÐÂ
 	 */
 	protected void setValue(INormalCell nc, boolean caseLock, boolean isRefresh) {
+		if (nc == null)
+			return;
 		Object value = nc.getValue();
 		if (caseLock) {
 			GVSpl.panelValue.tableValue.setValue(value, nc.getCellId());
