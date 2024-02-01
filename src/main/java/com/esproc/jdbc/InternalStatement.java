@@ -416,7 +416,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 		}
 		if (isGrid) { // 执行网格时总是重新创建上下文
 			ctx = ctx.newComputeContext();
-			setContextDBSessions(ctx);
 		}
 		return ctx;
 	}
