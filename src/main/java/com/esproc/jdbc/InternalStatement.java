@@ -116,6 +116,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 	public void initContext() {
 		ctx = new Context();
 		ctx.setJobSpace(getJobSpace());
+		setContextDBSessions(ctx);
+	}
+
+	private void setContextDBSessions(Context ctx) {
 		InternalConnection connt = getConnection();
 		try {
 			if (connt == null || connt.isClosed())
@@ -123,7 +127,22 @@ public abstract class InternalStatement implements java.sql.Statement {
 		} catch (SQLException e) {
 			return;
 		}
-		ctx.setParent(connt.getParentContext());
+		Context parentCtx = connt.getParentContext();
+		if (parentCtx == null)
+			return;
+		Map<String, DBSession> dbSessionMap = parentCtx.getDBSessionMap();
+		if (dbSessionMap == null)
+			return;
+		try {
+			Iterator<String> dbNames = dbSessionMap.keySet().iterator();
+			while (dbNames.hasNext()) {
+				String dbName = dbNames.next();
+				DBSession dbSession = dbSessionMap.get(dbName);
+				ctx.setDBSession(dbName, dbSession);
+			}
+		} catch (Exception ex) {
+			Logger.error(ex);
+		}
 	}
 
 	/**
@@ -395,8 +414,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 			sql = sql.substring(1);
 			isGrid = AppUtil.isGrid(sql);
 		}
-		if (isGrid) {
+		if (isGrid) { // 执行网格时总是重新创建上下文
 			ctx = ctx.newComputeContext();
+			setContextDBSessions(ctx);
 		}
 		return ctx;
 	}
