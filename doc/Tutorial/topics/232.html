@@ -114,9 +114,9 @@ external table. For example:</span></p>
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>$(esProcOdbc)
-  select Date, count(ID) as Count, sum(Quantity) as Sum from
-  Order_Electronics.txt group by 1</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>$(esProcOdbc) select
+  Date, count(ID) as Count, sum(Quantity) as Sum from Order_Electronics.txt
+  group by 1</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -153,7 +153,7 @@ the result:</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image927.png" v:shapes="_x0000_i2009"></span></p>
+src="Tutorial.files/image924.png" v:shapes="_x0000_i2011"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>The simple SQL statement in A2 groups data by Date using the group
@@ -166,7 +166,7 @@ in a simple SQL statement. Here¡¯s the result set in A2:</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=234
-src="Tutorial.files/image928.png" v:shapes="_x0000_i2010"></span></p>
+src="Tutorial.files/image925.png" v:shapes="_x0000_i2012"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>In A3¡¯s simple SQL statement, instead of a field name, the group by
@@ -176,14 +176,14 @@ expression in the select part. This will get the same result as A2.</span></p>
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>A4¡¯ query uses the <i style='mso-bidi-font-style:normal'>having</i>
 clause after <i style='mso-bidi-font-style:normal'>group by</i> to get records
-where the sum(Quantity) value is greater than 110,000 from the result set, omits
-<i>as</i> and uses the <i style='mso-bidi-font-style:normal'>order by</i>
+where the sum(Quantity) value is greater than 110,000 from the result set,
+omits <i>as</i> and uses the <i style='mso-bidi-font-style:normal'>order by</i>
 clause at the end to sort the result set by Sum in ascending order. Here¡¯s the
 query result:</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=234
-src="Tutorial.files/image929.png" v:shapes="_x0000_i2011"></span></p>
+src="Tutorial.files/image926.png" v:shapes="_x0000_i2013"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>A simple SQL statement can<i style='mso-bidi-font-style:normal'>
@@ -303,11 +303,11 @@ results are as follows</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=121
-src="Tutorial.files/image930.png" v:shapes="_x0000_i2012"></span></p>
+src="Tutorial.files/image927.png" v:shapes="_x0000_i2014"></span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=234
-src="Tutorial.files/image931.png" v:shapes="_x0000_i2013"></span></p>
+src="Tutorial.files/image928.png" v:shapes="_x0000_i2015"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>A3 <i style='mso-bidi-font-style:normal'>joins</i> the two external
@@ -316,14 +316,14 @@ the result:</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=462 height=221
-src="Tutorial.files/image932.png" v:shapes="_x0000_i2014"></span></p>
+src="Tutorial.files/image929.png" v:shapes="_x0000_i2016"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>A4 uses a left join to get the following result:</span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=234
-src="Tutorial.files/image933.png" v:shapes="_x0000_i2015"></span></p>
+src="Tutorial.files/image930.png" v:shapes="_x0000_i2017"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>An external table can be defined by a <i style='mso-bidi-font-style:
@@ -438,7 +438,7 @@ complete</span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=462 height=221
-src="Tutorial.files/image934.png" v:shapes="_x0000_i2016"></span></p>
+src="Tutorial.files/image931.png" v:shapes="_x0000_i2018"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="233.html">Next</a></div>

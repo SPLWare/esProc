@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ftp_mget()</title>
+<title>ftp_cd()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,111 +13,56 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="ftp_mkdir"></a><span lang=EN-US>ftp_mget()<a name="ftp_mget"></a></span></h2></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US>ftp_cd()<a name="ftp_cd"></a><a name="cs_select_x"></a></span></h2></div>
+	<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Download
-multiple files from a FTP server.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Set the remote
+working directory/directories on the FTP server.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>ftp_mget(</span></b><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>client,serverFolder,localFolder,multiServerFiles</span></i><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>)</span></b></p>
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>ftp_cd(</span></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>client,remotePath</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>)</span></b></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This is an
-external library function <span style='mso-bidi-font-style:italic'>(See <a
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>External library
+function <span style='mso-bidi-font-style:italic'>(See <a
 href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span>.
-When parameter serverFolder is a relative path, it is relative to the current
-working directory; when it is preceded by a slash sign (/), it is an absolute
-path. When the parameter is absent, the comma must be retained. If the
-parameter is an empty string or is absent, the folder path is relative to the
-current working directory.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When parameter
-localFolder is a relative path, it is relative to the path configured in esProc
-Options -&gt; Main directory. When the parameter is absent, the comma must be
-retained. If the parameter is an empty string or is absent, the folder path is
-relative to the path configured in esProc Options -&gt; Main directory.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>For a wildcard
-character, the question mark (?) signifies a single character, an asterisk (*)
-signifies any character, and double asterisk (**) signifies any character plus
-a directory.</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@f</span></b><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Overwrite a namesake file</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@t</span></b></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Skip a namesake file</span></p>
-  </td>
- </tr>
-</table>
+The parameter <i style='mso-bidi-font-style:normal'>remotePath</i> can be
+omitted when there’s only one remote working directory.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=113 valign=top style='width:84.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=86 valign=top style='width:64.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>client</span></i></p>
   </td>
-  <td width=450 valign=top style='width:337.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=472 valign=top style='width:354.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US>An FTP client object</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=113 valign=top style='width:84.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>serverFolder</span></i></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=86 valign=top style='width:64.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>remotePath</span></i></p>
   </td>
-  <td width=450 valign=top style='width:337.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A server folder</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=113 valign=top style='width:84.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>localFolder</span></i></p>
-  </td>
-  <td width=450 valign=top style='width:337.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A local folder</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=113 valign=top style='width:84.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>multiServerFiles</span></i></p>
-  </td>
-  <td width=450 valign=top style='width:337.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Wildcard-specified server files; can be
-  duplicated</span></p>
+  <td width=472 valign=top style='width:354.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The path name of a remote working
+  directory; when it is omitted, the remote working directory on the FTP server
+  is by default regarded as the root directory.</span></p>
   </td>
  </tr>
 </table>
@@ -127,21 +72,24 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:16.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>&nbsp;</span></b></p>
   </td>
-  <td width=328 valign=top style='width:246.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=313 valign=top style='width:234.55pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
+  <td width=207 valign=top style='width:155.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -150,15 +98,17 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
+  <td width=313 valign=top style='width:234.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_open(&quot;192.168.75.1&quot;:21,&quot;Administrator&quot;,&quot;admin&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ftp_open(&quot;192.168.75.1&quot;:21,&quot;Administrator&quot;,&quot;admin&quot;)</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
+  <td width=207 valign=top style='width:155.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -167,113 +117,56 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
+  <td width=313 valign=top style='width:234.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_cd(A1,&quot;/
-  WorkingDirectory</span></b><span lang=EN-US style='font-size:8.0pt'> </span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ftp_cd(A1,&quot;/folder1&quot;)</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
+  <td width=207 valign=top style='width:155.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Set <i style='mso-bidi-font-style:normal'>/folder1</i>
+  as the remote working directoy</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
+  <td width=313 valign=top style='width:234.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mget@f(A1,&quot;folder1&quot;,&quot;G:/download&quot;,&quot;*.doc&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ftp_put(A1,&quot;test.txt&quot;,&quot;G:/Test.txt&quot;)</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
+  <td width=207 valign=top style='width:155.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Download files suffixed by <i
-  style='mso-bidi-font-style:normal'>doc</i> under <i style='mso-bidi-font-style:
-  normal'>folder1</i> directory to <i style='mso-bidi-font-style:normal'>G:/download</i>
-  directory while overwriting namesake files</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
+  <td width=313 valign=top style='width:234.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mget@f(A1,&quot;folder1&quot;,&quot;G:/download&quot;,&quot;*.xls&quot;,&quot;*.xlsx&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&gt;ftp_close(A1)</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Download files suffixed by <i
-  style='mso-bidi-font-style:normal'>xls </i>and<i style='mso-bidi-font-style:
-  normal'> xlsx</i> under <i style='mso-bidi-font-style:normal'>folder1</i>
-  directory to <i style='mso-bidi-font-style:normal'>G:/download</i> directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
-  </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mget@f(A1,&quot;folder1&quot;,&quot;G:/download&quot;,&quot;**&quot;)</span></b></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Download all files under <i
-  style='mso-bidi-font-style:normal'>folder1</i> directory to <i
-  style='mso-bidi-font-style:normal'>G:/download</i> directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
-  </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mget@t(A1,&quot;folder2&quot;,&quot;G:/download&quot;,&quot;*.docx&quot;)</span></b></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Download files suffixed by <i
-  style='mso-bidi-font-style:normal'>docx</i> under <i style='mso-bidi-font-style:
-  normal'>folder2</i> directory to <i style='mso-bidi-font-style:normal'>G:/download</i>
-  directory while skipping namesake files</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
-  </td>
-  <td width=328 valign=top style='width:246.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ftp_close(A1)</span></b></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;mso-border-left-alt:
+  <td width=207 valign=top style='width:155.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -284,11 +177,10 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Related function:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US><a  href="ftpmput.html#ftp_mput">ftp_mput()</a></span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US><a  href="ftpput.html#ftp_put">ftp_put()</a></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
+style='mso-fareast-font-family:黑体;color:blue'><a  href="ftpdir.html#ftp_dir">ftp_<span
+style='mso-bookmark:_Hlt499910419'>d</span>ir()</a><a
+name="_Hlt499910419"></a></span></u></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="367.html">Next</a></div>
@@ -296,7 +188,7 @@ lang=EN-US><a  href="ftpput.html#ftp_put">ftp_put()</a></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

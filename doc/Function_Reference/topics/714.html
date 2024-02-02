@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>pseudo()</title>
+<title>product()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,1408 +13,139 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>pseudo()<a
-name="pseudo_pd_n"></a></span></h3></div>
-	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name=product></a><span lang=EN-US>product()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US>Generate a pseudo table definition object.</span><span
-lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>Return the
+product of a set of numbers.</span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Syntax:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><i><span
-lang=EN-US style='font-family:"Times New Roman",serif'>pseudo</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>(</span></span><span
-class=var1><span lang=EN-US>pd,n</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-generates a pseudo table definition object by specifying the definition record <i>pd</i>.
-By setting up parameter <i>n</i>, you can get a multicursor from the pseudo
-table object; <i>n</i> is the number of subcursors in a multicursor.<span
-style='color:black'></span></span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Parameter:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=891
- style='margin-left:26.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>pd</span></span></p>
-  </td>
-  <td width=850 colspan=3 valign=top style='width:637.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=T-Bold><span lang=EN-US style='font-weight:
-  normal'>The pseudo table definition record, which is a table sequence record
-  having the specified structure. Fields of the record and their descriptions
-  are listed below:</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>file</span></p>
-  </td>
-  <td width=784 colspan=2 valign=top style='width:588.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Source of data in the pseudo table, which
-  can be a composite table or a multizone composite table. This attribute is indispensable.
-  The file path can be a relative path, which is relative to the main
-  directory, or an absolute path.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>zone</span></p>
-  </td>
-  <td width=784 colspan=2 valign=top style='width:588.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A <b>list of zone table numbers</b> when
-  attribute file is a multizone composite table.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>var</span></p>
-  </td>
-  <td width=784 colspan=2 valign=top style='width:588.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The table sequence/in-memory table
-  variable name; an <b>in-memory pseudo table</b> will be generated when
-  attribute file isn’t defined.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>date</span></p>
-  </td>
-  <td width=784 colspan=2 valign=top style='width:588.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US>Zone column expression</span></b><span
-  lang=EN-US>, which is valid only for a multizone composite table and which is
-  generally a date, time or datetime field. In a multizone composite table,
-  data is stored in multiple zone tables according to a time type field, and
-  each zone table stores data in a certain period of time; such a time type
-  field is called zone column expression, which is defined to make data
-  filtering more convenient.<span class=T-Bold></span></span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>It is
-  required that </span><b style='mso-bidi-font-weight:normal'><span lang=EN-US>date</span></b><span
-  lang=EN-US style='mso-bidi-font-weight:bold'> field be ordered by the
-  multiple files that are involved, but it is not required that the field be
-  ordered in each single file; the interval of data values in each file is
-  recorded when creating the pseudo table, and the target file will be
-  automatically located during the query or filtering.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>column</span></p>
-  </td>
-  <td width=784 colspan=2 valign=top style='width:588.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=T-Bold><span lang=EN-US style='font-weight:
-  normal'>User-defined field definition, which is one or more table sequence
-  records having the specified structure. Fields of the record and their
-  descriptions are listed below:</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'><a
-  name="_Hlk152815425"></a>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span class=var1><span
-  lang=EN-US style='color:black'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'><span
-  style='mso-bookmark:_Hlk152815425'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><u><span
-  lang=EN-US style='mso-bidi-font-style:italic'><span style='text-decoration:
-   none'>&nbsp;</span></span></u></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span lang=EN-US>name</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span lang=EN-US>The
-  name of a <b>real field</b>, which is a field of the physical table; we
-  define pseudo table fields according to this attribute.</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span lang=EN-US>We
-  can use a <b>pseudo field</b> in the filtering expression; the pseudo table
-  will convert the pseudo field computation to a real field computation, during
-  which the pseudo field involved and the conversion method are defined through
-  the other attributes; compute the pseudo field if they cannot be converted.
-  For append/update operation, the corresponding real field values will be
-  computed according to the related attributes.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'><span
-  style='mso-bookmark:_Hlk152815425'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span class=var1><span
-  lang=EN-US style='color:black'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'><span
-  style='mso-bookmark:_Hlk152815425'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><u><span
-  lang=EN-US style='mso-bidi-font-style:italic'><span style='text-decoration:
-   none'>&nbsp;</span></span></u></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span lang=EN-US>alias</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlk152815425'><span lang=EN-US>The
-  list of pseudo field aliases. When its value is a string, it is alias of the
-  binary dimension pseudo field or the real field; can set up multiple values
-  to represent multiple aliases; when its value is an expression, return the
-  result of computing the current expression.<b style='mso-bidi-font-weight:
-  normal'></b></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlk152815425'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><u><span lang=EN-US style='mso-bidi-font-style:italic'><span
-   style='text-decoration:none'>&nbsp;</span></span></u></p>
-  </td>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>enum</span></p>
-  </td>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enumerated pseudo field name, whose
-  values are members of a list. You can use ==, != and contain in an enum
-  filtering expression.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><u><span lang=EN-US style='mso-bidi-font-style:italic'><span
-   style='text-decoration:none'>&nbsp;</span></span></u></p>
-  </td>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>list</span></p>
-  </td>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The list of values of enumerated pseudo
-  field. Real field values are ordinal numbers and pseudo field values are
-  members of this list.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><u><span lang=EN-US style='mso-bidi-font-style:italic'><span
-   style='text-decoration:none'>&nbsp;</span></span></u></p>
-  </td>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>bits</span></p>
-  </td>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Binary dimension pseudo field names. In
-  order to reduce storage usage, we can use a binary field (whose value is 1 or
-  0) to store Boolean field values; when there are many binary fields, we can
-  use a binary dimension field to store them; a binary dimension field can
-  store 32 binary fields at most. The definition arranges fields under Bools from
-  low order to high order. Values of each field are bool value true or false.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>&nbsp;</span></span></p>
-  </td>
-  <td width=66 valign=top style='width:49.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><u><span lang=EN-US style='mso-bidi-font-style:italic'><span
-   style='text-decoration:none'>&nbsp;</span></span></u></p>
-  </td>
-  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>exp</span></p>
-  </td>
-  <td width=718 valign=top style='width:19.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The expression of a real field’s alias
-  used for append/update <i>operation</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>The <b>expression</b> of a redundant
-  field. When no pseudo field name is specified but there is attribute exp in
-  an expression, just take the redundant field as value of exp.</span></p>
-  <p class=MsoNormal><span lang=EN-US>Use this expression to compute the current
-  field during the append/update operation.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>n</span></span></p>
-  </td>
-  <td width=850 colspan=3 valign=top style='width:637.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Number of subcursors in a multicursor;
-  get a unicursor by default</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Option:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:<span
+class=code><span style='mso-ansi-font-size:14.0pt;line-height:200%;font-family:
+"Times New Roman",serif;mso-fareast-font-family:宋体'></span></span></span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:24.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=48 valign=top style='width:36.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@v</span></span><span
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=151 valign=top style='width:113.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>product(</span></b><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>x<sub>i</sub></span></i><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>,…</span></i><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>)</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=151 valign=top style='width:113.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>product(</span></span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>The function
+multiplies the members of [<i style='mso-bidi-font-style:normal'>x<sub>1</sub></i></span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>,</span></i></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US> x<sub>2</sub></span></i><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>,…</span></i></span><span
+lang=EN-US>], where any member that is not a number will be ignored.</span></p>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=803 valign=top style='width:602.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enable to use pure-table-sequence based
-  column-wise computation on a pseudo table generated from a composite table</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x<sub>i</sub></span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An expression</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>Pseudo table object</span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:雅黑;color:#333333;
-mso-font-kerning:0pt'>Example:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:black'>When data source of the pseudo table is a
-composite table:</span><span lang=EN-US style='color:#333333'></span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=296 valign=top style='width:221.65pt;border:solid #A6A6A6 1.0pt;
+  <td width=227 valign=top style='width:170.2pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=361 valign=top style='width:271.0pt;border:none;mso-border-left-alt:
+  <td width=274 valign=top style='width:205.85pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=227 style='width:170.2pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file).record([&quot;D:/file/pseudo/app.ctx&quot;])</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=product(17,3,5)</span></b></p>
   </td>
-  <td width=361 valign=top style='width:271.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Define a pseudo table definition record,
-  where the pseudo table’s data source is a composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1)</span></span></p>
-  </td>
-  <td width=361 style='width:271.0pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=274 style='width:205.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span lang=EN-US>255.0</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=29 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=227 style='width:170.2pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.import()</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=product(4,&quot;b&quot;,12,2)</span></b></p>
   </td>
-  <td width=361 valign=top style='width:271.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get a table sequence from the pseudo
-  table</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:black'>When data source of the pseudo table is a
-multizone composite table:</span><span lang=EN-US style='color:#333333'></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=371 valign=top style='width:278.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file,zone,date).record([&quot;pseudo/OrderInfo.ctx&quot;,[1,2],&quot;OTime&quot;])</span></span></p>
-  </td>
-  <td width=371 valign=top style='width:278.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=344 height=45
-  src="Function_Reference.files/image1878.jpg" v:shapes="_x0000_i2399"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Define a pseudo table definition record,
-  where the pseudo table’s data source is a multizone composite table; OTime
-  field in the two zone tables <i>1.OrderInfo.ctx</i> and <i>1.OrderInfo.ctx</i>
-  is time type; the field corresponds data in the year 2020 and 2021</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1)</span></span></p>
-  </td>
-  <td width=371 style='width:278.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=274 style='width:205.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.select(OTime&gt;date(2020,12,20))</span></span></p>
-  </td>
-  <td width=371 valign=top style='width:278.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Filter data according to the zone column
-  and the program automatically gets data from the corresponding zone table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.import()</span></span></p>
-  </td>
-  <td width=371 valign=top style='width:278.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return the filtering result as a table
-  sequence</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Setting
-parameter <i>n</i>:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=255 valign=top style='width:191.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file).record([&quot;emp.ctx&quot;])</span></span></p>
-  </td>
-  <td width=255 valign=top style='width:191.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1,3)</span></span></p>
-  </td>
-  <td width=255 style='width:191.15pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object where
-  parameter </span><span class=var1><span lang=EN-US style='color:black'>n</span></span><span
-  lang=EN-US> is 3</span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=296 valign=top style='width:221.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.cursor()</span></span></p>
-  </td>
-  <td width=255 valign=top style='width:191.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get a multicursor having 3 subcursors
-  from the pseudo table</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When using @v
-option:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=705
- style='margin-left:16.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file).record([&quot;Emp.ctx&quot;])</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo@v(A1)</span></span></p>
-  </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object from a
-  composite table and use @v option to enable pure-table-sequence-based,
-  column-wise computation</span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.cursor()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a column-wise cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.import()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pure table sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.memory()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a column-wise, in-memory table</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>For an in-memory
-pseudo table:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=705
- style='margin-left:16.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>&gt;tab=demo.query(&quot;select * from
-  CITIES&quot;)</span></b><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get CITIES table and store it in variable
-  tab</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=create(var).record([&quot;tab&quot;])</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use an in-memory table to define a pseudo
-  table</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=pseudo(A2)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A3.select(STATEID==3)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get the information where STATEID is 3 from
-  the pseudo table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=25 valign=top style='width:18.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=312 valign=top style='width:233.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A4.import()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=386 height=123
-  src="Function_Reference.files/image1880.jpg" v:shapes="_x0000_i2400"></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#333333'>Define
-pseudo table’s user-defined fields:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>Below is data in <i>emps.ctx</i>:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=436 height=213
-src="Function_Reference.files/image1882.jpg" v:shapes="_x0000_i2401"></span><span
-lang=EN-US style='color:#333333'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US>In the data file, the range of DeptID field values is 1-5, which
-corresponds to five departments &#8211; Sales, Technology, R&amp;D, Financial and Admin.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US>Bools field stores data of two binary fields &#8211; Gender and Married.
-In field Gender, 0 represents male and 1 represents female; In field Married, 0
-represents single and 1 represents married. Bools field values are results of
-computing <a href="http://d.raqsoft.com.cn:6999/esproc/func/bits0.html#bits">bits</a>(Gender,Married).<span
-style='color:#333333'></span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1247
- style='margin-left:17.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=738 valign=top style='width:553.85pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=488 valign=top style='width:366.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=738 valign=top style='width:553.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file,column).record([&quot;pseudo/emps.ctx&quot;,[{name:&quot;DeptID&quot;,enum:&quot;Dept&quot;,list:[&quot;Sales&quot;,&quot;Technology&quot;,&quot;R&amp;D&quot;,&quot;Financial&quot;,&quot;Admin&quot;]},</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:&quot;Bools&quot;,bits:[&quot;IfMarried&quot;,&quot;IfLady&quot;]}]])</span></span></p>
-  </td>
-  <td width=488 valign=top style='width:366.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Bools Define a pseudo table definition
-  record, which contains a enumerated pseudo field Dept and a binary dimeniosn
-  pseudo field</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=420 height=169
-  src="Function_Reference.files/image1884.jpg" v:shapes="_x0000_i2402"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=738 valign=top style='width:553.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1)</span></span></p>
-  </td>
-  <td width=488 style='width:366.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=738 valign=top style='width:553.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.import(DeptID,Dept)</span></span></p>
-  </td>
-  <td width=488 valign=top style='width:366.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>DeptID field values 1-5 correspond to <span
-  style='mso-spacerun:yes'>&nbsp;</span>[&quot;Sales&quot;,&quot;Technology&quot;,&quot;R&amp;D&quot;,&quot;Financial&quot;,&quot;Admin&quot;]
-  respectively</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=241 height=117
-  src="Function_Reference.files/image1886.jpg" v:shapes="_x0000_i2403"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=738 valign=top style='width:553.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.import(Gender,Married,IfMarried,IfLady)</span></span></p>
-  </td>
-  <td width=488 valign=top style='width:366.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>View the correspondence between Gender/Married
-  and IfLady/IfMarried:</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=383 height=127
-  src="Function_Reference.files/image1888.jpg" v:shapes="_x0000_i2404"></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#333333'>Define
-pseudo table’s user-defined fields &#8211; the redundant field:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>Below is data of <i>Details.ctx</i>: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=812 height=283
-src="Function_Reference.files/image1889.png" v:shapes="_x0000_i2405"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US>custInfoComment is a redundant field that stores values of custInfo.comment
-field:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1299
- style='margin-left:27.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=create(file,column).record([&quot;pseudo/Details.ctx&quot;,[{name:&quot;custInfoComment&quot;,exp:&quot;custInfo.comment&quot;}]])</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Define exp:&quot;custInfo.comment&quot; for
-  the pseudo table and its corresponding real field custInfoComment <span
-  style='mso-no-proof:yes'><img border=0 width=508 height=126
-  src="Function_Reference.files/image1891.jpg" v:shapes="_x0000_i2406"></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=pseudo(A1)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 style='width:477.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a pseudo table object</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A2.select(pos(custInfo.comment,&quot;risk&quot;))</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>As the filtering condition contains an
-  expression, instead of retrieving custInfo records and then their fields,
-  custInfo will be replaced by the real field custInfoComment</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A3.import()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>Import the
-  filttering result</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=636 height=127
-  src="Function_Reference.files/image1893.jpg" v:shapes="_x0000_i2407"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=file(&quot;pseudo/details_new.btx&quot;).cursor@b(id,ddate,device,amt,bools,custInfo)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>Below is data of
-  <i>details_new.btx</i>:</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=568 height=215
-  src="Function_Reference.files/image1895.jpg" v:shapes="_x0000_i2408"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A2.append(A5)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>Append A5’s data
-  to A2, during which the program will automatically convert and generate custInfoComment</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=644 valign=top style='width:483.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A3.import()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=636 valign=top style='width:477.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>Data of <i>details.ctx</i>
-  after data appending:</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-no-proof:yes'><img border=0 width=599 height=214
-  src="Function_Reference.files/image1897.jpg" v:shapes="_x0000_i2409"></span><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#333333'>Define
-pseudo table’s user-defined fields &#8211; field aliases:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>Below is data of </span><i><span lang=EN-US
-style='mso-no-proof:yes'>Events.ctx</span></i><span lang=EN-US
-style='color:#333333'>: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333;mso-no-proof:yes'><img border=0 width=761 height=290
-src="Function_Reference.files/image1899.jpg" v:shapes="_x0000_i2410"></span><span
-lang=EN-US style='color:#333333'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>Each row of data is an event. Each event
-stores eventType and the corresponding property information eventInfo.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>eventType field values are </span><span
-lang=EN-US>1-3, which correspond to </span><span lang=EN-US style='mso-font-kerning:
-0pt'>appInstall</span><span lang=EN-US>, appStart and </span><span lang=EN-US
-style='mso-font-kerning:0pt'>append</span><span lang=EN-US>.<span
-style='color:#333333'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>eventInfo contains records that also contain
-multiple fields for storing different properties. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US style='color:#333333'>s1, s2, f1 and dt1 are real fields that store the
-properties of the three types of events.</span><span lang=EN-US
-style='mso-font-kerning:0pt'> s1 stores three string properties of the three
-types of events &#8211; browser, page and page; s2 stores three string properties of
-the three types of events &#8211; device, title and title</span><span lang=EN-US
-style='color:#333333'>; </span><span lang=EN-US style='mso-font-kerning:0pt'>f1
-stores two numeric properties &#8211; reward and amount, for appInstall event and
-append event;</span><span lang=EN-US style='color:#333333'> dt1 stores two
-datetime porperties &#8211; dt and dt for </span><span lang=EN-US style='mso-font-kerning:
-0pt'>appInstall event and append event.</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1554
- style='margin-left:38.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(file,column).record([&quot;pseudo/Events.ctx&quot;,[{name:&quot;eventType&quot;,alias:null,enum:&quot;eventTypeString&quot;,list:[&quot;appInstall&quot;,&quot;appStart&quot;,&quot;appEnd&quot;],exp:null},</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:&quot;s1&quot;,alias:[&quot;browser&quot;,&quot;appStart_page&quot;,&quot;appEnd_page&quot;],enum:null,list:null,exp:&quot;case(eventType,1:eventInfo.browser,2:eventInfo.page,3:eventInfo.page)&quot;},</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:&quot;s2&quot;,alias:[&quot;device&quot;,&quot;appStart_title&quot;,&quot;appEnd_title&quot;],enum:null,list:null,exp:&quot;case(eventType,1:eventInfo.device,2:eventInfo.title,3:eventInfo.title)&quot;},</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:&quot;f1&quot;,alias:[&quot;reward&quot;,&quot;amount&quot;],enum:null,list:null,exp:&quot;case(eventType,1:eventInfo.reward,3:eventInfo.amount)&quot;},</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>{name:&quot;dt1&quot;,alias:[&quot;appStart_dt&quot;,&quot;appEnd_dt&quot;],enum:null,list:null,exp:&quot;case(eventType,2:eventInfo.dt,3:eventInfo.dt)&quot;}]])</span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=563 height=167
-  src="Function_Reference.files/image1901.jpg" v:shapes="_x0000_i2411"></span></p>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>在虚表的定义中</span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";color:black;mso-font-kerning:0pt'>为每个真字段配置多个有业务含义的别名。</span></p>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>真字段</span><span lang=EN-US> s1 </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>的三个别名</span><span lang=EN-US>
-  &quot;browser&quot;,&quot;appStart_page&quot;,&quot;appEnd_page&quot;</span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>，以及对应的计算式</span><span lang=EN-US>
-  exp:&quot;case(eventType, 1:eventInfo.browser, 2: eventInfo.page, 3:
-  eventInfo.page)&quot;</span><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>。</span></p>
-  <p class=MsoNormal><span lang=EN-US>eventType </span><span style='font-family:
-  宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>取值如果不是</span><span
-  lang=EN-US> 1</span><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>、</span><span lang=EN-US>2 </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>或者</span><span lang=EN-US> 3</span><span style='font-family:
-  宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>，真字段</span><span
-  lang=EN-US> s1 </span><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>应该为</span><span lang=EN-US> null</span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>。所以这里不能写成</span><span lang=EN-US> case(eventType,
-  1:eventInfo.browser;eventInfo.page)</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>。</span></p>
-  <p class=MsoNormal><span lang=EN-US>s2</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>、</span><span
-  lang=EN-US>f1</span><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>、</span><span lang=EN-US>dt1 </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>的写法和</span><span lang=EN-US> s1 </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>类似。</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=pseudo(A1)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 style='width:492.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>生成虚表对象</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A2.select(eventTypeString==&quot;appInstall&quot;
-  &amp;&amp; browser==&quot;firefox&quot;)</span></b><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";color:black;background:white'>过滤条件中出现了字段别名，</span><span
-  lang=EN-US style='color:black;background:white'>SPL </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";color:black;background:white'>并不会取出</span><span lang=EN-US
-  style='color:black;background:white'> eventInfo </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";color:black;background:white'>的记录再取其中的字段，而是自动替换成真实字段</span><span
-  lang=EN-US style='color:black;background:white'> s1</span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";color:black;background:white'>，用冗余字段的值完成后续计算。</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A3.import(id,eventTypeString,browser,reward)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";mso-no-proof:yes'>取出过滤结果</span><span
-  lang=EN-US style='mso-no-proof:yes'></span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=378 height=51
-  src="Function_Reference.files/image1903.jpg" v:shapes="_x0000_i2412"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=file(&quot;pseudo/events_new.btx&quot;).cursor@b(id,eventTypeString,eventInfo)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>events_new.btx</span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-no-proof:yes'>数据如下：</span><span lang=EN-US
-  style='mso-no-proof:yes'></span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=383 height=131
-  src="Function_Reference.files/image1905.jpg" v:shapes="_x0000_i2413"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A2.append(A5)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>追加数据。<span style='color:black;
-  background:white'>系统会根据</span></span><span lang=EN-US style='color:black;
-  background:white'>eventTypeString</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-  color:black;background:white'>，</span><span lang=EN-US style='color:black;
-  background:white'>eventInfo</span><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman";color:black;
-  background:white'>自动生成</span><span lang=EN-US style='color:black;background:
-  white'> s1</span><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";color:black;background:white'>、</span><span
-  lang=EN-US style='color:black;background:white'>f1 </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";color:black;background:white'>等。</span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US></span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=879 valign=top style='width:659.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=A2.import()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=656 valign=top style='width:492.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";mso-no-proof:yes'>追加数据后的</span><span
-  lang=EN-US style='mso-no-proof:yes'>Events.ctx</span><span style='font-family:
-  宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-  mso-no-proof:yes'>：</span><span lang=EN-US style='mso-no-proof:yes'></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='mso-no-proof:yes'><img border=0 width=655 height=233
-  src="Function_Reference.files/image1907.jpg" v:shapes="_x0000_i2414"></span><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
+  <p class=MsoNormal><span lang=EN-US>96.0</span></p>
   </td>
  </tr>
 </table>
@@ -1425,7 +156,7 @@ datetime porperties &#8211; dt and dt for </span><span lang=EN-US style='mso-fon
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="713.html">pseudo()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

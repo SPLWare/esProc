@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>kafka_open()</title>
+<title>joinx()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,256 +13,1017 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>kafka_open()<a
-name="kafka_open"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=joinx></a><span
+lang=EN-US>joinx()</span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>Connect to Kafka server.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Join table
+sequences retrieved from a series of cursors. </span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b><span class=var1><span lang=EN-US></span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Syntax:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>kafka_open</span></span><span
-class=var1><span lang=EN-US>(filename or fileObject, topic,..., partitionSize)</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-font-style:italic'>joinx</span></b><span
+lang=EN-US style='mso-bidi-font-style:italic'>(<i>cs<sub>i</sub></i>:<i>F<sub>i</sub></i>,<i>x<sub>j</sub></i>,..;…)</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b><span lang=EN-US> </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The external library function <span style='mso-bidi-font-style:italic'>(See
-<a href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>) </span>connects
-to Kafka server, and stores attribute parameter <i>properties</i> in the
-configuration file with extension.<i>properties</i>. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+applies MERGE algorithm over a resulting set generated from a series of ordered
+cursors <i>cs<sub>i</sub></i> and returns a new cursor. If parameter<span
+style='color:black'> <i style='mso-bidi-font-style:normal'>x<sub>j </sub></i></span>is
+omitted, join the cursors according to their primary keys; if parameter<span
+style='color:black'> <i style='mso-bidi-font-style:normal'>x<sub>j </sub></i></span>is
+present but there isn’t any primary key, perform the join based on values of<span
+style='color:black'> <i style='mso-bidi-font-style:normal'>x<sub>j</sub></i>. </span>The
+function can be also used to join multiple multicursors where each one must
+have the same number of parallel cursors or subcursor. Parameter <i>cs<sub>i</sub></i>
+can be a table sequence.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameter:</span></b><span lang=EN-US
-style='font-size:14.0pt'> </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Supposing
+multiple cursors <i>cs<sub>i</sub></i> are already ordered by join
+field/expression</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'> <i>x<sub>j</sub></i></span><span lang=EN-US style='color:black'>,
+</span><span lang=EN-US>the function performs a join between them on the
+condition that<span style='color:black'> </span></span><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>x<sub>j</sub></span></i><span
+lang=EN-US style='color:black'>’s </span><span lang=EN-US>value is equivalent
+to the value of<span style='color:black'> </span></span><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:
+黑体;color:black'>x</span></i><i style='mso-bidi-font-style:normal'><sub><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>1 </span></sub></i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>f</span><span
+lang=EN-US>ield and returns a cursor consisting of </span><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:
+黑体;color:black'>F</span></i><sub><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-fareast-font-family:黑体;color:black'>i</span></sub><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>,….</span><span lang=EN-US
+style='color:black'> </span><span lang=EN-US>fields<span style='color:black'>. </span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-fareast-font-family:黑体;color:black'>F</span></i><sub><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;
+color:black'>i</span></sub><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>,….</span><span lang=EN-US> are referencing fields that reference
+the records of the cursors </span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>cs<sub>i</sub></span></i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>. </span><span
+lang=EN-US>Note<span style='color:black'>: </span></span><span class=var1><span
+lang=EN-US style='color:black'>x</span></span><span class=a5><span lang=EN-US
+style='color:black'>j</span></span><span lang=EN-US style='color:black'>… </span><span
+lang=EN-US>only supports the ascending order.</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'></span></p>
+
+<p class=af6 style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-family:"Times New Roman",serif'>Regardless
+of the number of cursors being joined, the equivalence determination is
+conducted according to cursor <i style='mso-bidi-font-style:normal'>cs<sub>1</sub></i>’s
+<i style='mso-bidi-font-style:normal'>x<sub>1</sub></i> field. Therefore, it is
+a one-to-many relationship. </span></p>
+
+<p class=af6 style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-family:"Times New Roman",serif'>This
+is a delayed function.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Option:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'></span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>topic</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@f</span></b><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Query one or more specified <i>topic</i>s</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Full join. If no matching records are
+  found, then use nulls to correspond.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>filename</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@1</span></b><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The attribute parameter file with the
-  extension .<i>properties</i>, which contains the send key, value encoding and
-  message decoding; all of them should correspond to each other one by one</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Left join. Note that it is the number
+  “1”, instead of letter “l”. </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>fileObject</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span></p>
   </td>
-  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A file object</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Perform a join according to positions,
+  while ignoring the parameter <i>x</i></span><i><sub><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>j</span></sub></i><span lang=EN-US>.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=86 valign=top style='width:64.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>partitionSize</span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@i</span></span></p>
   </td>
-  <td width=482 valign=top style='width:361.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:5.25pt;text-indent:-5.25pt;mso-char-indent-count:
-  -.5'><span lang=EN-US>The number of partitions in a <i>topic</i>; if a corresponding
-  topic already exists, ignore the parameter, which means SPL does not support
-  changing the partition size in a topic </span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Used only to filter A1<i
+  style='mso-bidi-font-style:normal'> cs<sub><span style='mso-bidi-font-style:
+  italic'>1</span></sub></i> and ignore parameter <i style='mso-bidi-font-style:
+  normal'>F<sub>i</sub></i>; do not work with @f@1 options.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@d</span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Used only to filter <i style='mso-bidi-font-style:
+  normal'>cs<sub><span style='mso-bidi-font-style:italic'>1</span></sub></i> to
+  retain records that cannot be found and ignore parameter <i style='mso-bidi-font-style:
+  normal'>F<sub>i</sub></i>; do not work with @f@1 options.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value: </span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Parameter:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A connection object</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>cs<sub>i</sub></span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Cursors/table sequences being joined.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>F</span></i><i><sub><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>i</span></sub></i><span class=var1><span
+  lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name of the result table sequence.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><i><sub><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>j</span></sub></i><span class=var1><span
+  lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Join field/expression.</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b><span lang=EN-US style='font-size:
-14.0pt'> </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Return
+value:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=DA style='mso-bidi-font-size:10.5pt;mso-ansi-language:DA'>Cursor</span><span
+lang=FR style='mso-bidi-font-size:10.5pt;mso-ansi-language:FR'></span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Example:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:等线'></span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
   </td>
-  <td width=322 valign=top style='width:241.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
   </td>
-  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(&quot;D://kafka.properties&quot;,&quot;topic-test&quot;)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select
+  top 10 EID,NAME,DEPT,GENDER from EMPLOYEE &quot; )</span></b></p>
   </td>
-  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect topic-test’s configuration file <i>kafka.properties</i>
-  to Kafka server using a topic</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor, whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=240 height=174
+  src="Function_Reference.files/image1411.jpg" v:shapes="_x0000_i2006"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(file(&quot;D://kafka.properties&quot;),&quot;topic-test&quot;,3)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,RELATION,GENDER,AGE
+  from FAMILY &quot; )</span></b></p>
   </td>
-  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect topic-test’s configuration file <i>kafka.properties</i>
-  to Kafka server using a file object</span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor, whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=302 height=161
+  src="Function_Reference.files/image1413.jpg" v:shapes="_x0000_i2007"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:29.95pt'>
-  <td width=24 valign=top style='width:18.15pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
   </td>
-  <td width=322 valign=top style='width:241.15pt;border-top:none;border-left:
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_close(A1)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx(A1:Emp,EID;A2:Family,EID)</span></b></p>
   </td>
-  <td width=217 valign=top style='width:162.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:29.95pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>A normal join that discards every non-matching
+  record, during which each field value in the result set points to a record in
+  the original cursor.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=267 height=188
+  src="Function_Reference.files/image1415.jpg" v:shapes="图片_x0020_167"></span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Below
-is the content of D://kafka.properties:</span></b></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>##produce<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Join by the primary key:</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>bootstrap.servers=192.168.0.1:9092</span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
+  top 10 EID,NAME,DEPT,GENDER from EMPLOYEE &quot; ).keys(EID).cursor()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor where the table’s primary key is
+  EID and whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=240 height=174
+  src="Function_Reference.files/image1411.jpg" v:shapes="图片_x0020_181"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,RELATION,GENDER,AGE from
+  FAMILY &quot; ).keys(EID)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a table sequence whose key is EID and
+  whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=302 height=161
+  src="Function_Reference.files/image1416.jpg" v:shapes="图片_x0020_182"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx(A1:Emp;A2:Family)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Join by the primary key.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=136 height=169
+  src="Function_Reference.files/image1418.jpg" v:shapes="图片_x0020_184"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>producer.type=sync<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>request.required.acks=1<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use @f option to
+perform full join:</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>serializer.class=kafka.serializer.DefaultEncoder<span
-style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,DEPT,GENDER from EMPLOYEE
+  where EID&gt;2 and EID&lt;10&quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=279 height=133
+  src="Function_Reference.files/image1420.jpg" v:shapes="图片_x0020_171"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,RELATION,GENDER,AGE
+  from FAMILY &quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=302 height=161
+  src="Function_Reference.files/image1421.jpg" v:shapes="图片_x0020_169"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx@f(A1:Emp,EID;A2:Family,EID)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @f option to enable a full join that records
+  a field as null when no matching value can be found.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=239 height=191
+  src="Function_Reference.files/image1423.jpg" v:shapes="图片_x0020_172"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>key.serializer=org.apache.kafka.common.serialization.StringSerializer<span
-style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>value.serializer=org.apache.kafka.common.serialization.StringSerializer<span
-style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use @1 to
+perform left join:</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,DEPT,GENDER from EMPLOYEE where
+  EID&gt;2 and EID&lt;10&quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=279 height=133
+  src="Function_Reference.files/image1424.jpg" v:shapes="_x0000_i2015"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,RELATION,GENDER,AGE
+  from FAMILY &quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=302 height=161
+  src="Function_Reference.files/image1425.jpg" v:shapes="_x0000_i2016"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx@1(A1:Emp,EID;A2:Family,EID)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @1 option to enable left join based on the
+  first cursor and that records a value that does not have a matching value in
+  another cursor as null.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=296 height=148
+  src="Function_Reference.files/image1427.jpg" v:shapes="图片_x0020_176"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>##consume<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>group.id=test </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use @p option to
+perform position-based join:</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>zookeeper.session.timeout.ms=1000<span
-style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,DEPT,GENDER from EMPLOYEE
+  where EID&gt;2 and EID&lt;10&quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=279 height=133
+  src="Function_Reference.files/image1424.jpg" v:shapes="图片_x0020_177"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,RELATION,GENDER,AGE
+  from FAMILY &quot; )</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=302 height=161
+  src="Function_Reference.files/image1421.jpg" v:shapes="图片_x0020_178"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx@p(A1:Emp,EID;A2:Family,EID)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @p option to perform position-based join.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=300 height=115
+  src="Function_Reference.files/image1429.jpg" v:shapes="图片_x0020_180"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>zookeeper.sync.time.ms=200<span style='mso-spacerun:yes'>&nbsp;
-</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal align=left style='text-align:left;mso-layout-grid-align:
-none;text-autospace:none'><span lang=EN-US>auto.commit.interval.ms=500</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use @i option to
+enable a filtering operation only:</span></p>
 
-<p class=MsoNormal align=left style='text-align:left;mso-layout-grid-align:
-none;text-autospace:none'><span lang=EN-US># Manual mode;
-auto.commit.interval.ms is invalid</span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,DEPT,GENDER from
+  EMPLOYEE&quot; ).sortx(DEPT)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=244 height=157
+  src="Function_Reference.files/image1431.jpg" v:shapes="_x0000_i2021"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 5 *<span
+  style='mso-spacerun:yes'>&nbsp; </span>from DEPARTMENT &quot; ).sort(DEPT)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a table sequence whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=187 height=97
+  src="Function_Reference.files/image1433.jpg" v:shapes="图片_x0020_189"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx@i(A1,DEPT;A2,DEPT)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @i option to filter cursor A1, during which
+  records that match A2 are retained.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=249 height=75
+  src="Function_Reference.files/image1435.jpg" v:shapes="图片_x0020_190"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>enable.auto.commit=false<span style='mso-spacerun:yes'>&nbsp;
-</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>auto.offset.reset=earliest </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use @d option to
+enable a filtering operation opposite to @i:</span></p>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>key.deserializer=org.apache.kafka.common.serialization.StringDeserializer<span
-style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1002
+ style='margin-left:20.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a cursor whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=244 height=157
+  src="Function_Reference.files/image1436.jpg" v:shapes="图片_x0020_191"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 5 *<span
+  style='mso-spacerun:yes'>&nbsp; </span>from DEPARTMENT &quot; ).sort(DEPT)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Return a table sequence whose data is as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=187 height=97
+  src="Function_Reference.files/image1433.jpg" v:shapes="图片_x0020_192"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=joinx@d(A1,DEPT;A2,DEPT)</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @d option to filter cursor A1, during which
+  records that do not match A2 are retained.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=564 valign=top style='width:423.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.fetch()</span></b></p>
+  </td>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Fetch data from cursor A3:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=248 height=103
+  src="Function_Reference.files/image1438.jpg" v:shapes="图片_x0020_194"></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US>value.deserializer=org.apache.kafka.common.serialization.StringDeserializer<br>
-<br>
-<b style='mso-bidi-font-weight:normal'>Explanations of user-defined coding and
-decoding:<br>
-</b>Put the jar containing encoding and decoding information in<i>
-exlib\KafkaCil</i> directory, as shown below:<br>
-</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=554 height=99
-src="Function_Reference.files/image1417.jpg" v:shapes="_x0000_i2028"></span><span
-lang=EN-US><br>
-In <i>raq-kafa-cil-2.11.jar</i>, the encoding file is <i>EncodeingSequence.class</i>,
-the decoding file is <i>DecodeingSequence.class</i>, and their corresponding
-record object is Sequence.<br style='mso-special-character:line-break'>
-<br style='mso-special-character:line-break'>
-</span><span lang=EN-US style='color:black;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>&nbsp;</span></b></p>
 
-<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt;mso-bidi-font-weight:
-bold'>Below are configurations of user-defined encoding and decoding in <i>.properties</i>
-file:<br>
-key.serializer=org.apache.kafka.common.serialization.StringSerializer<span
-style='mso-spacerun:yes'>&nbsp; </span><br>
-</span><span lang=EN-US>value.serializer=com.raqsoft.lib.kafka.EncodeingSequence</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Related
+function:</span></b></p>
 
-<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>key.deserializer=org.apache.kafka.common.serialization.StringDeserializer<span
-style='mso-spacerun:yes'>&nbsp;
-</span>value.deserializer=com.raqsoft.lib.kafka.DecodeingSequence</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
+style='mso-fareast-font-family:黑体;color:blue'><a  href="joinaifixi.html#join">join<span
+style='mso-bookmark:_Hlt415040789'><span style='mso-fareast-font-family:宋体'>(</span></span><span
+style='mso-fareast-font-family:宋体'>)</span></a><a
+name="_Hlt415040789"></a></span><a name="_left()"></a><a name="_lcm()"></a><span
+lang=EN-US style='color:blue'></span></u></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="539.html">Next</a></div>
@@ -270,7 +1031,7 @@ style='mso-spacerun:yes'>&nbsp;
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="537.html">joinx()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

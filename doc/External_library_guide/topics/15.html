@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>2.13 Kafka</title>
+<title>2.13 InfluxDB</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,89 +15,244 @@
 	<div id="centent">
 	<div id="centent-title"><h2 style='mso-list:l2 level2 lfo1'><span lang=EN-US
 style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.13<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Kafka</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1. </span><span
-lang=EN-US>The directory containing files of this external library is: <i
-style='mso-bidi-font-style:normal'>installation
-directory\esProc\extlib\KafkaCli</i>. The Raqsoft core jar for this external
-library is <i>scu-kafka-cli-2.10.jar</i></span><span lang=EN-US
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>InfluxDB</span></h2></div>
+	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Users can access
+the InfluxDB external library through the interface embedded in esProc
+designer. To deploy the external library, you:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>1. The directory
+containing files of this external library is: <i style='mso-bidi-font-style:
+normal'>installation directory\</i></span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'> esProc\extlib\</span><span
+lang=EN-US>Influxdb</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Cli</span></i><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>. </span><span lang=EN-US>The Raqsoft core
+jar for this external library is <i>scu-influxdb-cli-2.10</i></span><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>.jar</span></i><span lang=EN-US
 style='mso-bidi-font-size:10.5pt'>.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>commons-math3-3.6.1.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>kafka_2.12-2.8.0.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>log4j-1.2.17</span><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'>.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>kafka-clients-2.8.0.</span><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'>jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>slf4j-api-1.7.25</span><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'>.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>slf4j-log4j12-1.7.25</span><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'>.jar</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-language:AR'>Note</span></b><span lang=EN-US style='mso-bidi-language:
-AR'>: The third-party jars are encapsulated in the package and users can choose
-appropriate ones for specific scenarios.</span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The external
+library zip file contains necessary third-party jars used by InfluxDB 1.x. They
+are as follows:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+style='mso-bidi-language:AR'>animal-sniffer-annotations-1.17.jar</span></p>
 
-<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2.</span><span
-lang=EN-US style='mso-bidi-language:AR'> A JRE version <i style='mso-bidi-font-style:
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>commons-lang-2.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>commons-math3-3.6.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>converter-moshi-2.8.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-java-2.21.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>kotlin-stdlib-1.3.70.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>kotlin-stdlib-common-1.3.70.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>logging-interceptor-4.9.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>moshi-1.9.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>okhttp-3.14.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>okio-2.6.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>retrofit-2.8.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>For InfluxDB
+2.x, just replace the third-party jars with those in <i>\</i></span><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>esProc\extlib\</span><span
+lang=EN-US>InfluxdbCli\v2.x</span></i><span lang=EN-US> under installation
+directory:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>adapter-rxjava2-2.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>animal-sniffer-annotations-1.17.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>annotations-13.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>apiguardian-api-1.1.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>assertj-core-3.16.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>byte-buddy-1.10.20.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>byte-buddy-agent-1.10.20.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>commons-csv-1.8.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>commons-lang-2.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>converter-gson-2.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>converter-moshi-2.8.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>converter-scalars-2.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>gson-2.8.8.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>gson-fire-1.8.4.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>hamcrest-2.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>hamcrest-core-1.3.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-client-core-5.0.0-SNAPSHOT.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-client-java-5.0.0-SNAPSHOT.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-client-test-5.0.0-SNAPSHOT.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-client-utils-5.0.0-SNAPSHOT.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>influxdb-java-2.21.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>jsr305-3.0.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-4.13.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-jupiter-api-5.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-jupiter-engine-5.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-platform-commons-1.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-platform-engine-1.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-platform-launcher-1.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-platform-runner-1.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>junit-platform-suite-api-1.6.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>kotlin-stdlib-1.5.10.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>kotlin-stdlib-common-1.3.70.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>logging-interceptor-4.9.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>mockito-core-3.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>mockito-junit-jupiter-3.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>mockwebserver-4.7.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>moshi-1.9.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>objenesis-3.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>okhttp-4.7.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>okio-2.6.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>opentest4j-1.2.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>reactive-streams-1.0.3.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>retrofit-2.9.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>rxjava-2.2.19.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>swagger-annotations-1.6.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>toml4j-0.7.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-language:AR'>Note</span></b><span
+lang=EN-US style='mso-bidi-language:AR'>: Users can choose appropriate ones for
+specific scenarios.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>2. A JRE version <i style='mso-bidi-font-style:
 normal'>1.7</i> or above is required. Users need to install a higher version if
 the esProc built-in JRE version does not meet the requirements, and then
 configure java_home in <i>config.txt</i> under installation directory <i>\esProc\bin</i>.
-Just skip this step if the JRE version is adequate.</span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>3. </span><span lang=EN-US
-style='mso-bidi-language:AR'>Users can manually change the size of memory if
-the default size isn’t large enough for needs. Two ways to manage memory under
-Windows are available: Change the memory settings in <i style='mso-bidi-font-style:
-normal'>config.txt</i> when starting esProc through the executable file; and in
-the <i style='mso-bidi-font-style:normal'>.bat</i> file when starting the
-application through the batch file. Under Linux, change the memory size in the <i
-style='mso-bidi-font-style:normal'>.sh</i> file.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Below is the
-method of changing memory settings in <i style='mso-bidi-font-style:normal'>config.txt</i>
-under Windows:</span></p>
-
-<p class=MsoNormal><span lang=EN-US>java_home=C:\ProgramFiles\Java\JDK1.7.0_11;esproc_port=48773;jvm_args=-Xms256m-XX:PermSize=256M-XX:MaxPermSize=512M-Xmx9783m-Duser.language=zh</span></p>
+Just skip this step if the JRE version is adequate.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
+lang=EN-US style='mso-bidi-language:AR'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>4. esProc provides functions </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-language:
-AR'>kafka_open()</span></i><span lang=EN-US style='mso-bidi-language:AR'>, <i
-style='mso-bidi-font-style:normal'>kafka_close()</i>, <i style='mso-bidi-font-style:
-normal'>kafka_poll(),kafka_send()</i> and <i style='mso-bidi-font-style:normal'>kafka_commit()</i></span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-11.0pt'> </span></i><span lang=EN-US style='mso-bidi-language:AR'>for using</span><span
-lang=EN-US> Kafka. Look them up in </span><b style='mso-bidi-font-weight:normal'><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>Help</span></b><b style='mso-bidi-font-weight:
-normal'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>】</span></b><span lang=EN-US>-</span><b
-style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
-lang=EN-US>Function reference</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>】</span></b><span lang=EN-US>to find their uses.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-language:AR'>3. esProc provides functions </span><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>influx_open()</span></i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>, <i>influx_close()</i>, <i>influx_query()influx_insert()</i>,
+<i>influx2_open()</i>, <i>influx2_close()</i>, <i>influx2_delete()</i>, <i>influx2_query()</i>
+and <i>influx2_rest</i><i style='mso-bidi-font-style:normal'> </i></span><span
+lang=EN-US style='mso-bidi-language:AR'>to open, close, query and insert data
+to InfluxDB database. Look them up in </span><b><span style='font-family:宋体;
+mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+mso-bidi-language:AR'>【</span></b><b><span lang=EN-US style='mso-bidi-language:
+AR'>Help</span></b><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>】</span></b><b><span
+lang=EN-US style='mso-bidi-language:AR'>-</span></b><b><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+mso-bidi-language:AR'>【</span></b><b><span lang=EN-US style='mso-bidi-language:
+AR'>Function reference</span></b><b><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-language:
+AR'>】</span></b><span lang=EN-US style='mso-bidi-language:AR'>to find their
+uses.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="16.html">Next</a></div>
@@ -110,12 +265,9 @@ style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-f
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

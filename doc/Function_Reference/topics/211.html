@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.cursor( x:C,…;wi,...;mcs )</title>
+<title>A.cursor@m( mcs,K:K’,... )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,1977 +13,241 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="T_cursor_x_C_w_mcs"></a><span lang=EN-US style='mso-bidi-font-weight:
-bold'>T.cursor(<i style='mso-bidi-font-style:normal'>x:C,…;wi,...;mcs</i>)</span><span
-lang=EN-US style='mso-bidi-font-weight:bold'></span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph;tab-stops:-179.95pt'><span
+style='mso-bookmark:A_cursor2'><a name="A_cursor_mcs"></a><a
+name="_Hlt132145017"></a><span style='mso-bookmark:A_cursor_mcs'><span
+lang=EN-US>A.cursor@m(<i>mcs,K:K’,...</i>)</span></span></span><a
+name="A_cursor_m_mcs_K_K"></a></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Synchronously segment an entity table/in-memory table/multizone
-composite table according to a multicursor and return a multicursor.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Generate a
+multicursor segmented synchronously as an existing multicursor using a
+specified sequence.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-style:italic'>T.</span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>cursor</span><span
-lang=EN-US>(x:<i>C,…;wi,...;mcs</i>)</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US>A.</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-style:
+italic'>cursor@m</span></b><span lang=EN-US style='mso-bidi-font-style:italic'>(<i>mcs</i>,<i>K</i>:<i>K‘</i>,...)</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function synchronously segments entity table/in-memory table/multizone
-composite table <i style='mso-bidi-font-style:normal'>T</i> according to
-multicursor <i style='mso-bidi-font-style:normal'>mcs</i>, during which <i
-style='mso-bidi-font-style:normal'>T</i>’s first field and <i style='mso-bidi-font-style:
-normal'>mcs</i>’s first field will be matched, and returns a multicursor. When <i>T</i>
-is a multizone composite table, merge zone tables by their dimensions. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+divides ordered sequence <i>A</i> into multiple segments according to
+multicursor </span><span class=var1><span lang=EN-US>mcs</span></span><span
+lang=EN-US> and returns a multicursor. Parameters </span><span class=var1><span
+lang=EN-US>K</span></span><span lang=EN-US> and </span><span class=var1><span
+lang=EN-US>K’ </span></span><span lang=EN-US>are segmentation keys of </span><span
+class=var1><span lang=EN-US>A</span></span><span lang=EN-US> and </span><span
+class=var1><span lang=EN-US>mcs</span></span><span lang=EN-US> respectively.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'></span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
+  <td width=57 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
   </td>
-  <td width=964 valign=top style='width:722.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An entity table/in-memory table/multizone
-  composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>x</span></i></p>
-  </td>
-  <td width=964 valign=top style='width:722.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Expression</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>C</span></i><b><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
-  </td>
-  <td width=964 valign=top style='width:722.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Column alias </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>wi</span></i></p>
-  </td>
-  <td width=964 valign=top style='width:722.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition; retrieve the whole
-  set when this parameter is absent; separate multiple conditions by comma(s)
-  and their relationships are AND. Besides regular filtering expressions, you
-  can also use the following five types of syntax in a filtering condition,
-  where <i>K</i> is a field in the entity table:</span></p>
-  <p class=MsoNormal><span lang=EN-US>1</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i><span
-  lang=EN-US>K=w</span></i></p>
-  <p class=MsoNormal><i><span lang=EN-US>w</span></i><span lang=EN-US> usually
-  uses expression <i>T<sub>i</sub></i>.find(<i>K</i>) or <i>T<sub>i</sub></i>.pfind(<i>K</i>),
-  where <i>T<sub>i</sub></i> is a table sequence. When value of w is null or
-  false, the corresponding record in the entity table will be filtered away;
-  when w is expression <i>T<sub>i</sub></i>.find(<i>K</i>) and the
-  to-be-selected fields <i>C,...</i> contain <i>K</i>, <i>T<sub>i</sub></i></span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>’</span><span lang=EN-US>s referencing field will be
-  assigned to <i>K</i>; when <i>w</i> is expression <i>T<sub>i</sub></i>.pfind(<i>K</i>)
-  and the to-be-selected fields <i>C,...</i> contain <i>K</i>, ordinal numbers
-  of <i>K</i> values in <i>T<sub>i</sub></i> will be assigned to <i>K</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>2</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i><span
-  lang=EN-US>(K1=w1,</span></i><i><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><span
-  lang=EN-US>K<sub>i</sub>=w<sub>i</sub>,w)</span></i></p>
-  <p class=MsoNormal><i><span lang=EN-US>K<sub>i</sub>=w<sub>i</sub></span></i><span
-  lang=EN-US> is an assignment expression. Generally, parameter <i>w<sub>i</sub></i>
-  can use expression <i>T<sub>i</sub></i>.find(<i style='mso-bidi-font-style:
-  normal'>K<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>)
-  or <i>T<sub>i</sub></i>.pfind(<i>K</i>), where <i>T<sub>i</sub></i> is a
-  table sequence; when <i>w<sub>i</sub></i> is expression <i>T<sub>i</sub></i>.find(<i>K<sub>i</sub></i>)
-  and the to-be-selected fields <i>C,...</i> contain <i>K<sub>i</sub></i>, <i>T<sub>i</sub></i>’s
-  referencing field will be assigned to <i>K<sub>i</sub></i> correspondingly;
-  when <i>w<sub>i</sub></i> is expression <i>T<sub>i</sub></i>.pfind(<i>K<sub>i</sub></i>)
-  and the to-be-selected fields <i>C,...</i> contain <i>K<sub>i</sub></i>,
-  ordinal numbers of <i>K<sub>i</sub></i> values in <i>T<sub>i</sub></i> will
-  be assigned to <i>K<sub>i</sub></i>.</span></p>
-  <p class=MsoNormal><i><span lang=EN-US>w</span></i><span lang=EN-US> is a
-  filter expression; you can reference <i>K<sub>i</sub> </i>in <i>w</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>3</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i><span
-  lang=EN-US>K:T<sub>i</sub></span></i></p>
-  <p class=MsoNormal><span lang=EN-US>Ti is a table sequence. Compare <i>K<sub>i</sub></i>
-  value in the entity table with key values of <i>T<sub>i</sub></i> and discard
-  records whose <i>K<sub>i</sub></i> value does not match; when the
-  to-be-selected fields <i>C,...</i> contain<i> K</i>, <i>T<sub>i</sub></i>’s
-  referencing field will be assigned to <i>K</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>4</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i><span
-  lang=EN-US>K:T<sub>i</sub>:null</span></i></p>
-  <p class=MsoNormal><span lang=EN-US>Filter away all records that satisfy <i>K</i>:<i>
-  T<sub>i</sub></i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>5</span><span style='font-family:宋体;
-  mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>．</span><i><span
-  lang=EN-US>K:T<sub>i</sub>:#</span></i></p>
-  <p class=MsoNormal><span lang=EN-US>Locate records according to ordinal
-  numbers, compare ordinal numbers of records in table sequence <i>T<sub>i</sub></i>
-  according to the entity table’s <i>K</i> values, and discard non-matching
-  records; when the to-be-selected fields <i>C,...</i> contain K, <i>T<sub>i</sub></i>’s
-  referencing field will be assigned to <i>K</i>.</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>mcs</span></i><i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></i></p>
-  </td>
-  <td width=964 valign=top style='width:722.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A multicursor generated from an entity
-  table</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=954
- style='margin-left:15.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=42 valign=top style='width:31.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@k</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=912 valign=top style='width:684.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal'>Perform
-  matching using the multicursor’s first field of the key</span></span><i><span
-  lang=EN-US></span></i></p>
+  <td width=452 valign=top style='width:339.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An ordered sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=42 valign=top style='width:31.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@v</span></span></p>
+  <td width=57 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>mcs</span></span></p>
   </td>
-  <td width=912 valign=top style='width:684.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal'>Generate
-  a pure table sequence-based column-wise cursor, which has higher performance
-  than regular cursors</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=42 valign=top style='width:31.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@x</span></span></p>
-  </td>
-  <td width=912 valign=top style='width:684.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal'>Automatically
-  close the entity table after data is fetched from the cursor</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=42 valign=top style='width:31.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@o</span></span></p>
-  </td>
-  <td width=912 valign=top style='width:684.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal'>Do
-  not merge zone tables but retrieve data according to the order of zone tables
-  when </span></span><i><span lang=EN-US>T</span></i><span class=var1><span
-  lang=EN-US style='font-style:normal'> is a multizone composite table</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=42 valign=top style='width:31.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=160><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>@w</span></b></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=912 valign=top style='width:684.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Used on a multizone composite table;</span></p>
-  <p class=MsoNormal><span lang=EN-US>Perform update merge; when zone tables
-  share a same key value, ignore the record contained in the zone table with a
-  smaller number; segmentation is performed according to the way zone table 1
-  is split; retrieve a zone table after the first one wholly if they are small
-  enough;</span></p>
-  <p class=MsoNormal><span lang=EN-US>Handle the deletion mark and do not
-  return records with a deletion mark to the cursor; but if the key value of a
-  record with the deletion mark is unique in the multizone composite table,
-  just retain it;</span></p>
-  <p class=MsoNormal><span lang=EN-US>This option enables retrieving key
-  field(s) as well as the deletion mark field, if there is one, forcefully</span><span
-  class=var1><span lang=EN-US style='font-style:normal'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b><span
-lang=EN-US style='font-size:14.0pt;line-height:200%'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A multicursor</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=779
- style='margin-left:16.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>for 100</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=to(10000).new(#:k1,rand():c1).sort@o(k1)<a
-  name="_Hlt85554148"></a></span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=224 height=273
-  src="Function_Reference.files/image477.png" v:shapes="_x0000_i1332"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=to(10000).new(#:k1,rand(10000):c2).sort@o(k1)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=155 height=255
-  src="Function_Reference.files/image478.png" v:shapes="图片_x0020_173"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=to(10000).new(#:k1,rand()*1000:c3).sort@o(k1)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=204 height=272
-  src="Function_Reference.files/image479.png" v:shapes="图片_x0020_174"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.cursor()</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.cursor()</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A4.cursor()</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\cs1.ctx&quot;)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a composite table file</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A8.create(#k1,c1) </span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create the composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A9.append(A5)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in A5’s cursor to the base
-  table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A9.attach(table1,c2)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create attached table <i>table1 </i>on
-  base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A11.append(A6)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in A6’s cursor to <i>table1</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A11.cursor@m(;;2)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Segment the attached table and return a
+  <td width=452 valign=top style='width:339.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>A
   multicursor</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A9.attach(table2,c3)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create attached table <i>table2 </i>on
-  base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A14.append(A7)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in A7’s cursor to <i>table2</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
-  </td>
-  <td width=378 valign=top style='width:10.0cm;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A14.cursor@v(;;A13)</span></span></p>
-  </td>
-  <td width=380 valign=top style='width:285.15pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Segment <i>table2 </i>according to A13’s
-  multicursor</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><a name="_Hlt513765948"></a><a name="T_cursor_x_C_w_mcs1"></a><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>When <i>T</i> is a multizone composite
-table:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1170
- style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME from<span
-  style='mso-spacerun:yes'>&nbsp; </span>employee&quot;)</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <td width=57 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>K</span></span></p>
   </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=file(&quot;emp.ctx&quot;)</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a composite table file</span></p>
+  <td width=452 valign=top style='width:339.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>A</span></i><span lang=EN-US>’s
+  segmentation key</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=57 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>K’</span></span></p>
   </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A2.create@y(#EID,NAME)</span></b><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create the composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A3.append(A1)</span></b><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in A1’s cursor to the
-  composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A4.cursor@m(;;3)</span></b><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a multicursor having 3
-  subcursors according to the composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,GENDER,SALARY&nbsp;
-  from<span style='mso-spacerun:yes'>&nbsp; </span>employee&quot;)</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=file(&quot;emp.ctx&quot;:[1,2])</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a homo-name files group</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A7.create@y(#EID,NAME,GENDER,SALARY;if(GENDER==&quot;F&quot;,1,2))</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create a multizone composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A8.append@x(A6)</span></b><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in A6’s cursor to the multizone
-  composite table and its content is as follows:</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=561 height=441
-  src="Function_Reference.files/image480.png" v:shapes="图片_x0020_120"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A8.cursor(EID,NAME,GENDER,SALARY;SALARY&gt;5000;A5)</span></b><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>Split A8’s multizone composite table synchronously according to
-  A5’s multicursor, perform merge by default and return a cursor as follows:<span
-  style='mso-no-proof:yes'></span></span></p>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US style='mso-no-proof:yes'><img border=0 width=295 height=273
-  src="Function_Reference.files/image482.jpg" v:shapes="_x0000_i1336"></span><span
-  lang=EN-US style='font-size:12.0pt;font-family:宋体;mso-font-kerning:0pt'></span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'>We can see that
-  data in two zone tables are merged by their dimensions</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
-  <td width=15 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=579 valign=top style='width:434.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A8.cursor@o(EID,NAME,GENDER,SALARY;SALARY&gt;5000;A5)</span></b></p>
-  </td>
-  <td width=576 valign=top style='width:432.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>With @o option, do not perform merge but
-  retrieve data from zone tables in order</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=302 height=281
-  src="Function_Reference.files/image484.jpg" v:shapes="_x0000_i1337"></span></p>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>The upper half of the table is data in zone table 1 and the lower
-  half is that in zone table 2</span></p>
+  <td width=452 valign=top style='width:339.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>mcs</span></i><span lang=EN-US>’s
+  segmentation key</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Option:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Use special
-types of filtering conditions:</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=66 valign=top style='width:49.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>@p</span></span></p>
+  </td>
+  <td width=856 valign=top style='width:641.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Ignore
+  parameters </span><span class=var1><span lang=EN-US>K</span></span><span
+  lang=EN-US> and </span><span class=var1><span lang=EN-US>K’ </span></span><span
+  lang=EN-US style='mso-bidi-font-style:italic'>and divide ordered sequence </span><span
+  class=var1><span lang=EN-US>A</span></span><span lang=EN-US style='mso-bidi-font-style:
+  italic'> by comparing and matching the first fields of </span><span
+  class=var1><span lang=EN-US>mcs</span></span><span lang=EN-US> and </span><span
+  class=var1><span lang=EN-US>A</span></span><span lang=EN-US style='mso-bidi-font-style:
+  italic'></span></p>
+  </td>
+ </tr>
+</table>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1113
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US style='font-style:normal'>Multicursor</span></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border:solid #A6A6A6 1.0pt;
+  <td width=454 valign=top style='width:340.8pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
   宋体'>A</span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1</span></span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
+  <td width=454 valign=top style='width:340.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;emp.ctx&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=to(10000).new(#:c1,rand():c2).sort(c1)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2</span></span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
+  <td width=454 valign=top style='width:340.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.cursor@m(3)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Open the composite table file</span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a multicursor having three
+  subcursors from A1’s table sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>3</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>3</span></span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
+  <td width=454 valign=top style='width:340.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.import()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=to(10000).new(#:k1,rand(10000):k2,rand()*1000:k3).sort(k1)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>As no parameters are present, return all
-  data in the entity table</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=319 height=396
-  src="Function_Reference.files/image451.png" v:shapes="_x0000_i1338"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a table sequence ordered by k1</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>4</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>4</span></span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
+  <td width=454 valign=top style='width:340.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;emp1.ctx&quot;).open().cursor@m(;;2)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor@m(A2,k1:c1)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a multicursor</span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a multicursor segmented
+  synchronously as A2’s multicursor, whose segmentation key is c1, based on
+  A3’s table sequence, whose segmentation key is k1<span style='mso-bidi-font-style:
+  italic'></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=23 valign=top style='width:17.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>5</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>5</span></span></p>
   </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
+  <td width=454 valign=top style='width:340.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=5.new(~:ID,~*~:Num).keys(ID)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor@mp(A2)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
   </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
+  <td width=834 valign=top style='width:625.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a table sequence using ID as the
-  key</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=136 height=125
-  src="Function_Reference.files/image452.png" v:shapes="_x0000_i1339"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>6</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;EID=A5.find(EID);A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>=<i
-  style='mso-bidi-font-style:normal'>w </i><span style='mso-bidi-font-style:
-  italic'>filtering</span><i style='mso-bidi-font-style:normal'> </i><span
-  style='mso-bidi-font-style:italic'>mode; in this case </span><i
-  style='mso-bidi-font-style:normal'>w </i>is<i style='mso-bidi-font-style:
-  normal'> T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.find(<i
-  style='mso-bidi-font-style:normal'>K</i>) and entity table records making EID=A4.find(EID)
-  get null or false are discarded; EID is the selected field, to which table
-  sequence A5’s referencing field is assigned</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=163 height=213
-  src="Function_Reference.files/image453.png" v:shapes="_x0000_i1340"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>7</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;EID=A5.pfind(EID);A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>=<i
-  style='mso-bidi-font-style:normal'>w </i><span style='mso-bidi-font-style:
-  italic'>filtering</span><i style='mso-bidi-font-style:normal'> </i><span
-  style='mso-bidi-font-style:italic'>mode; in this case </span><i
-  style='mso-bidi-font-style:normal'>w </i>is<i style='mso-bidi-font-style:
-  normal'> T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i
-  style='mso-bidi-font-style:normal'>K</i>) and entity table records making EID=A4.pfind(EID)
-  get null or false are discarded; EID is the selected field, to which its
-  ordinal numbers in table sequence A5 are assigned</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=154 height=126
-  src="Function_Reference.files/image454.png" v:shapes="_x0000_i1341"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>8</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;EID:A5;A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>:<i
-  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
-  italic'>i </span></sub></i><span style='mso-bidi-font-style:italic'>filtering</span><i
-  style='mso-bidi-font-style:normal'> </i><span style='mso-bidi-font-style:
-  italic'>mode; compare the entity table’s EID values with the table sequence’s
-  key values and discard entity table records that cannot match</span></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=168 height=128
-  src="Function_Reference.files/image455.png" v:shapes="_x0000_i1342"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>9</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(NAME,SALARY;EID:A5;A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>This is a case where <i style='mso-bidi-font-style:
-  normal'>K</i> isn’t selected; EID isn’t the selected field, so only filtering
-  is performed</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=140 height=122
-  src="Function_Reference.files/image456.png" v:shapes="_x0000_i1343"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>10</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;EID:A5:null;A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use <i style='mso-bidi-font-style:normal'>K</i>:<i
-  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
-  italic'>i</span></sub></i>:null filtering mode; <span style='mso-bidi-font-style:
-  italic'>compare the entity table’s EID values with the table sequence’s key
-  values and discard entity table records that can match</span></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=186 height=336
-  src="Function_Reference.files/image457.png" v:shapes="_x0000_i1344"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>11</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;EID:A5:#;A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use<i style='mso-bidi-font-style:normal'>
-  K</i>:<i style='mso-bidi-font-style:normal'>T<sub><span style='color:black;
-  mso-bidi-font-style:italic'>i</span></sub></i>:# filtering mode; compare with
-  ordinal numbers of table sequence’s records according to the entity table’s
-  EID values, and discard records that cannot match</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=135 height=124
-  src="Function_Reference.files/image458.png" v:shapes="_x0000_i1345"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>12</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).query(&quot;select
-  top 2<span style='mso-spacerun:yes'>&nbsp; </span>NAME,GENDER<span
-  style='mso-spacerun:yes'>&nbsp; </span>from employee&quot;).keys(NAME)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence using NAME as the
-  key</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=191 height=66
-  src="Function_Reference.files/image459.png" v:shapes="_x0000_i1346"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;mso-yfti-lastrow:yes'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>13</span></span></p>
-  </td>
-  <td width=606 valign=top style='width:454.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor(EID,NAME;(EID=A5.find(EID),NAME=A12.find(NAME),EID!=null&amp;&amp;NAME!=null);A4)</span></b></p>
-  </td>
-  <td width=489 valign=top style='width:366.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use (<i style='mso-bidi-font-style:normal'>K<sub><span
-  style='color:black;mso-bidi-font-style:italic'>1</span></sub></i>=<i
-  style='mso-bidi-font-style:normal'>w<sub><span style='color:black;mso-bidi-font-style:
-  italic'>1</span></sub></i>,</span><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>K<sub><span
-  style='color:black;mso-bidi-font-style:italic'>i</span></sub></span></i><span
-  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
-  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>,<i
-  style='mso-bidi-font-style:normal'>w</i>) filtering mode; return records that
-  meet all conditions</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=423 height=154
-  src="Function_Reference.files/image485.jpg" v:shapes="_x0000_i1347"></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>Use @w option to perform update merge:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:15.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>&nbsp;</span></b></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-font-weight:
-  bold'>A</span></span></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME from<span
-  style='mso-spacerun:yes'>&nbsp; </span>employee&quot;)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;e-mcs.ctx&quot;)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Generate a composite table file</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.create@y(#EID,NAME)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create the composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.append(A1)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A1’s data to the composite
-  table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.cursor@m(;;3)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a 3-subcursor multicursor based on
-  the composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,GENDER<span
-  style='mso-spacerun:yes'>&nbsp; </span>from employee&quot;)<span
-  style='mso-spacerun:yes'>&nbsp; </span></span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor whose content is as
-  follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=207 height=249
-  src="Function_Reference.files/image486.jpg" v:shapes="图片_x0020_96"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ec.ctx&quot;:[1,2])</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Define a homo-name files group: <i>1.ec.ctx</i>
-  and <i>2.ec.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A7.create@y(#EID,NAME,GENDER;if(GENDER==&quot;F&quot;,1,2))</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a multizone composite table, set
-  EID as its key and put records where GENDER is F to <i>1.ec.ctx</i> and the
-  other records to <i>2.ec.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A8.append@ix(A6)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A6’s data to A8’s multizone
-  composite table </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(EID,NAME,GENDER).record([1,&quot;AAA&quot;,&quot;M&quot;]).cursor()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor whose content is as
-  follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=211 height=46
-  src="Function_Reference.files/image467.jpg" v:shapes="图片_x0020_95"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ec.ctx&quot;:[3])</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A11.create@y(#EID,NAME,GENDER;3)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Add a new zone table <i>3.ec.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A12.append@i(A10)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A10’s data to zone table <i>3.ec.ctx</i>;
-  now both zone table <i>1.ec.ctx</i> and zone table <i>3.ec.ctx</i> have a
-  records whose primary key is [1]</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ec.ctx&quot;:[1,2,3]).open()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Open multizone composite table <i>ec.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A14.cursor(;;A5).fetch()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Split A14’s multizone composite table
-  synchronously according to multicursor A5, and return a cursor as follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=201 height=281
-  src="Function_Reference.files/image468.png" v:shapes="图片_x0020_97"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A14.cursor@w(;;A5).fetch()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Use @w option to perform update merge and
-  return a cursor as follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=204 height=250
-  src="Function_Reference.files/image469.png" v:shapes="图片_x0020_98"></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>Use @w option to recognize deletion mark:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:15.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>&nbsp;</span></b></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-font-weight:
-  bold'>A</span></span></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME from<span
-  style='mso-spacerun:yes'>&nbsp; </span>employee&quot;)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;e-mcs.ctx&quot;)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Generate a composite table file</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.create@y(#EID,NAME)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create the composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.append(A1)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A1’s data to the composite
-  table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.cursor@m(;;3)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a 3-subcursor multicursor based on
-  the composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,GENDER<span
-  style='mso-spacerun:yes'>&nbsp; </span>from employee&quot;)<span
-  style='mso-spacerun:yes'>&nbsp; </span></span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.derive(false:Defiled)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A7.new(EID,Defiled,NAME,GENDER)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor whose content is as
-  follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=259 height=271
-  src="Function_Reference.files/image471.jpg" v:shapes="图片_x0020_102"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ecd.ctx&quot;:[1,2])</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Define a homo-name files group: <i>1.ec.ctx</i>
-  and <i>2.ec.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A9.create@yd(#EID,Defiled,NAME,GENDER;if(GENDER==&quot;F&quot;,1,2))</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a multizone composite table, set
-  EID as its key, use @d option to make Defiled as the deletion mark field, and
-  put records where GENDER is F to <i>1.ed.ctx</i> and the other records to <i>2.ed.ctx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A10.append@ix(A8)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A8’s data to A10’s
-  multizone composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(EID,Defiled,NAME,GENDER).record([2,true,,,0,true,,]).cursor()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a cursor whose content is as
-  follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=257 height=68
-  src="Function_Reference.files/image487.jpg" v:shapes="图片_x0020_101"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ecd.ctx&quot;:[3])</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A13.create@yd(#EID,Defiled,NAME,GENDER;3)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Add a new zone table <i>3.ecd.ctx</i>,
-  where Defiled is the deletion mark field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A14.append@i(A12)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Append cursor A1’s records to zone table <i>3.ecd.ctx</i>,where
-  the deletion mark field value for record whose primary key is 2 is true and
-  the record whose primary key value is 0 is new to the zone table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;ecd.ctx&quot;:[1,2,3]).open()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:17;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A16.cursor(;;A5)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Split A16’s multizone composite table
-  synchronously according to multicursor A5, and return a multicursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:18;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>18</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A17.fetch()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Fetch data from cursor A17</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=281 height=298
-  src="Function_Reference.files/image474.png" v:shapes="图片_x0020_99"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:19;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>19</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A16.cursor@w(;;A5)</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Use @w option to split composite table <i>ecd.ctx</i>
-  into multiple segments according to multicursor A5, return the segmented
-  composite table as a multicursor, recognize the deletion mark &#8211; that is,
-  won’t return the record whose primary key value is 2 to the result
-  multicursor, and retain the record whose primary key value is unique though
-  it is marked by a deletion mark &#8211; that is, return the record whose primary
-  key value is 0 to the result multicursor; below is content of the
-  multicursor:</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:20;mso-yfti-lastrow:yes;height:16.4pt'>
-  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>20</span></span></p>
-  </td>
-  <td width=468 valign=top style='width:351.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A19.fetch()</span></b></p>
-  </td>
-  <td width=381 valign=top style='width:285.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Fetch data from cursor A19</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=285 height=269
-  src="Function_Reference.files/image488.jpg" v:shapes="图片_x0020_100"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a multicursor segmented
+  synchronously as A2’s multicursorbased on A3’s table sequence; as @p option
+  is present, perform the segmentation by comparing and matching the first
+  fields of A3 and A2, and in this case segmentation key parameters are not
+  needed in the expression<span style='mso-bidi-font-style:italic'></span></span></p>
   </td>
  </tr>
 </table>
@@ -1994,7 +258,7 @@ types of filtering conditions:</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="201.html">cursor()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="206.html">cursor()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

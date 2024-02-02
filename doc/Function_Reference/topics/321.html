@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .find()</title>
+<title>fill()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,39 +13,31 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_find"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.find()</span></h3></div>
+	<div id="centent-title"><h2><a name="P_fill"></a><a name="_fill()"></a><a name=fill></a><span
+lang=EN-US>fill()</span></h2></div>
 	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Find a record
-according to its primary key value.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a new
+string by concatenating strings together.<b style='mso-bidi-font-weight:normal'></b></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>A</span></span><i><span lang=EN-US>.</span></i><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>find</span></span><span
-lang=EN-US>(</span><span class=var1><span lang=EN-US>k</span></span><span
-lang=EN-US>)<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>fill(</span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>s,n</span></i><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span></span><span
-lang=EN-US>The function finds records from a record sequence/table sequence
-whose primary key values are <i style='mso-bidi-font-style:normal'>k</i>. </span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Use
-the index table if there is one</span><span lang=EN-US>.</span></span><span
-lang=EN-US> When parameter </span><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US> has a time key, among records that have same basic key values and
-where the time key value is not greater than the specified k value, find the
-record whose time key value is the largest. If there isn’t time key value in
-the primary key, take the time calculated through now() function, which is the
-latest time.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get a new string
+</span><span class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+italic'>by concatenating </span><span lang=EN-US>n</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
+strings together</span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US></span></b></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Parameter: </span></p>
@@ -54,61 +46,21 @@ latest time.</span></p>
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.5pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var1><span lang=EN-US>A</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A record sequence/table sequence </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var1><span lang=EN-US>k</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Primary
-  key, which will be written as a sequence if it is a multi-field primary key.</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Option:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>@b</span></span></p>
-  </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enable the binary search. <i
-  style='mso-bidi-font-style:normal'>A</i> must be ordered by the primary key;
-  otherwise, the result will be <span style='mso-bidi-font-style:italic'>wrong.
-  T</span>he index table will be ignored.</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Source strings for generating a new
+  string</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>@k</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enable to find multiple records; return
-  members of <i style='mso-bidi-font-style:normal'>A</i> matching the sequence
-  of key values specified by parameter<i style='mso-bidi-font-style:normal'> k</i><span
-  style='mso-bidi-font-style:italic'>; by default, the function returns the
-  first-found record whose primary key is</span><i style='mso-bidi-font-style:
-  normal'> k</i></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Number of source strings that constitute
+  the new string</span></p>
   </td>
  </tr>
 </table>
@@ -116,296 +68,39 @@ latest time.</span></p>
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Return value: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Records</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>String</span></p>
 
 <p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example: </span></p>
+14.0pt;line-height:200%'>Example:</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=164 valign=top style='width:123.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>fill(&quot;1
+  &quot;,10)</span></span><span class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=212 valign=top style='width:159.1pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
+  <td width=381 valign=top style='width:286.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;1 1 1 1 1 1 1 1 1 1
+  &quot;</span></span><b><span lang=EN-US></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=164 valign=top style='width:123.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>fill(&quot;a
+  b&quot;,10)</span></span></p>
   </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=277 height=98
-  src="Function_Reference.files/image660.jpg" v:shapes="_x0000_i1460"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.keys(NAME,DEPT)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.find([&quot;Alexis&quot;,&quot;Sales&quot;])</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=267 height=34
-  src="Function_Reference.files/image662.jpg" v:shapes="_x0000_i1461"></span><span
-  lang=zh-CN style='mso-fareast-font-family:黑体;mso-ansi-language:#0400;
-  mso-fareast-language:#0400'></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>A</span></span><span
-  lang=EN-US> sequence is used since the key contains two fields </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>This table sequence is ordered by the </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>EID</span></span><span
-  lang=EN-US> field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.keys(EID)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.find@b(3)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=355 height=46
-  src="Function_Reference.files/image664.jpg" v:shapes="_x0000_i1462"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@b</span></span><span
-  lang=EN-US> is used to enable the binary search in order to speed up the
-  computation</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.find@k(2,15,69,220)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=366 height=70
-  src="Function_Reference.files/image666.jpg" v:shapes="图片_x0020_629"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @k option,
-  the function returns members matching the specified key values</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.find(2,15,69,220)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=365 height=29
-  src="Function_Reference.files/image668.jpg" v:shapes="图片_x0020_420"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Return
-  the record whose primary key value is matched as @k option is absent</span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  EID,NAME,STATE,HIREDATE from EMPLOYEE where GENDER='M'&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
-  style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=335 height=86
-  src="Function_Reference.files/image670.jpg" v:shapes="图片_x0020_305"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.keys@t(STATE,HIREDATE)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>Set STATE as the basic key and HIREDATE as the
-  time key</span></span><span lang=EN-US style='mso-bidi-font-weight:bold'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.find([&quot;Florida&quot;,date(&quot;2006-03-12&quot;)])</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=366 height=31
-  src="Function_Reference.files/image672.jpg" v:shapes="_x0000_i1466"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Among
-  records where STATE is “Florida” and HIREDATE is earlier than 2006-03-12,
-  find the one whose time key value is the latest</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=212 valign=top style='width:159.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.find(&quot;Florida&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:266.15pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=334 height=45
-  src="Function_Reference.files/image674.jpg" v:shapes="_x0000_i1467"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Calculate
-  the time key value using now(), which is the latest date</span></p>
+  <td width=381 valign=top style='width:286.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;a ba ba ba ba ba ba ba ba
+  ba b&quot;</span></span></p>
   </td>
  </tr>
 </table>
-
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related function: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="apfindk.html#A_pfind"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.pfin<span style='mso-bookmark:_Hlt346092710'>d</span><span
-style='mso-bookmark:_Hlt414981655'><span style='mso-bookmark:_Hlt342555476'>(</span></span>)</span><span
-style='mso-bookmark:"_A\.group\(\)"'></span><span style='mso-bookmark:"_A\.groups\(\)"'></span><span
-style='mso-bookmark:"_A\.group\(\)_1"'></span></a><a
-name="_A.group()_1"></a><a name="_A.groups()"></a><a name="_A.group()"></a><a
-name="_Hlt342555476"></a><a name="_Hlt414981655"></a><a name="_Hlt346092710"></a></span></i><a
-name="_Fintrate()"></a><a name="mdb_find"></a><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:15.0pt'></span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="322.html">Next</a></div>
@@ -413,7 +108,7 @@ normal'><span lang=EN-US style='font-size:15.0pt'></span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="320.html">find()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

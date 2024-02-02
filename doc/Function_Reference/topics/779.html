@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>cs.reset()</title>
+<title>T .rename()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,46 +13,319 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="_Hlt500948491"></a><a name="cs_reset"></a><span lang=EN-US
-style='mso-bidi-font-style:italic'>cs.reset()</span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph;tab-stops:18.0pt'><a
+name="T_rename"></a><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-size:15.0pt;line-height:172%'>T</span></i><span lang=EN-US
+style='font-size:15.0pt;line-height:172%'>.rename()</span></h3></div>
+	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Reset a cursor
-by moving it back to the beginning. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>Rename the fields in a table sequence/(multizone)
+entity table.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>cs.reset()</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>T</span></span><span class=code><span lang=EN-US style='font-family:
+"Times New Roman",serif'>.rename</span></span><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'> </span></i><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>(</span></span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>F</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>,<i>F'</i></span><span lang=EN-US
+style='mso-bidi-font-style:italic'>,…</span><b><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>)</span></b></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-resets a cursor by moving it back to the beginning when it traverses cursor data
-to the end.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The function renames <i>F </i>field <i>F'</i><span
+style='mso-bidi-font-style:italic'>, or renames a composite table’s attached
+table and returns a table sequence with renamed <span class=var1>T</span> fields</span>.</span><span
+lang=EN-US style='mso-bidi-font-weight:bold'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Note: Cursors
-returned from certain functions are irreversible, including <a
-href="mailto:db.cursor@x(),%20f.cursor@x()">db.cursor@x(), f.cursor@x()</a>,
-cs.groupx(), cs.sortx(), cs.joinx() and </span><span lang=EN-US
-style='font-family:"Helvetica Neue";color:#333333;mso-bidi-font-weight:bold'>cursor</span><span
-lang=EN-US style='font-family:"Helvetica Neue";color:#333333'>(<i>dfx</i>,…).</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameter:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A field name; ignore the parameter if the
+  field name does not exist in </span><span class=var1><span lang=EN-US>T</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F'</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The modified field name; when omitted,
+  the original field names will be deleted and replaced by _1, _2…</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Table sequence/entity table/multizone
+  entity table</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>Table sequence</span></p>
+
+<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=595
+ style='margin-left:6.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default style='text-align:justify;text-justify:inter-ideograph'><span
+  class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:12.0pt;
+  font-family:"Times New Roman",serif;color:windowtext'>=demo.query(&quot;select
+  * from EMPLOYEE&quot;) </span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=314 height=70
+  src="Function_Reference.files/image2072.jpg" v:shapes="_x0000_i2530"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default style='text-align:justify;text-justify:inter-ideograph'><span
+  class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:12.0pt;
+  font-family:"Times New Roman",serif;color:windowtext'>=A1.rename(EID:ID) </span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=313 height=26
+  src="Function_Reference.files/image2074.jpg" v:shapes="图片_x0020_376"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><a name="_replace()_1"></a><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default><span class=code><span lang=EN-US style='font-size:10.5pt;
+  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif;color:windowtext'>=file(&quot;D:\\emp1.ctx&quot;)</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default><span class=code><span lang=EN-US style='font-size:10.5pt;
+  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif;color:windowtext'>=A3.open()</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open a composite table</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=207 height=181
+  src="Function_Reference.files/image2076.jpg" v:shapes="_x0000_i2532"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default><span class=code><span lang=EN-US style='font-size:10.5pt;
+  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif;color:windowtext'>=A4.rename(EID:EID2)</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Rename EID field EID2 </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default><span class=code><span lang=EN-US style='font-size:10.5pt;
+  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif;color:windowtext'>=A5.cursor().fetch()</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=154 height=195
+  src="Function_Reference.files/image2078.jpg" v:shapes="_x0000_i2533"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=15 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>7</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=240 valign=top style='width:180.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=Default><span class=code><span lang=EN-US style='font-size:10.5pt;
+  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.rename(SURNAME:Sname,NAME1:name)</span></span><span class=code><span
+  lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:
+  "Times New Roman",serif;color:windowtext'></span></span></p>
+  </td>
+  <td width=340 valign=top style='width:255.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400'>Ignore
+  field name NAME1 because it does not exist in A1</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=321 height=87
+  src="Function_Reference.files/image2080.jpg" v:shapes="_x0000_i2534"></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:13.0pt;margin-right:0cm;margin-bottom:
+13.0pt;margin-left:0cm;mso-pagination:lines-together;page-break-after:avoid;
+mso-outline-level:3'><a name="_cs.rename()12131214"></a><a name="cs_rename"><span
+style='mso-bookmark:"_cs\.rename\(\)12131214"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:16.0pt;mso-bidi-font-size:10.0pt'>cs.rename()</span></b></span></a><a
+name="cs_rename_f_f"></a><span style='mso-bookmark:"_cs\.rename\(\)12131214"'></span><span
+style='mso-bookmark:"_cs\.rename\(\)12131214"'></span><span
+style='mso-bookmark:"_cs\.rename\(\)12131214"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:16.0pt;mso-bidi-font-size:10.0pt'></span></b></span></p>
+
+<span style='mso-bookmark:"_cs\.rename\(\)12131214"'></span>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US>Rename a field of a cursor.</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
+style='mso-bidi-font-weight:bold'>cs</span></i><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>.rename(</span></b><i><span lang=EN-US>F</span></i><span
+lang=EN-US style='mso-bidi-font-style:italic'>:<i>F'</i>,…</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>)</span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span lang=EN-US>The function renames <i style='mso-bidi-font-style:
+normal'>F </i>field in cursor </span><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>cs</span></i><span lang=EN-US> <i style='mso-bidi-font-style:normal'>F'</i>,.
+</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>F</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:15.0pt'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><i><span lang=EN-US>F'</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>New
+  name of the field; If omitted, delete the original names and name the fields _1,2...</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>cs</span></i></p>
   </td>
@@ -62,32 +335,31 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:12.0pt'>Cursor</span><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
+mso-bidi-font-size:12.0pt'></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The cursor
-itself</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:13.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=586
+ style='margin-left:19.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=248 valign=top style='width:186.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=224 valign=top style='width:168.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>A</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
   </td>
   <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -95,118 +367,69 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=248 valign=top style='width:186.15pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select
-  * from scores&quot;) </span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></p>
+  <p class=MsoNormal><b><span lang=EN-US>=demo.cursor(&quot;select
+  EID,NAME,GENDER from employee&quot;)</span></b></p>
   </td>
   <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Return retrieved data as a cursor</span></p>
+  <p class=MsoNormal><span lang=EN-US>Return a cursor</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=248 valign=top style='width:186.15pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.fetch()</span></b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.rename(EID,NAME,GENDER)</span></b></p>
   </td>
   <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Fetch data from the cursor</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=215 height=112
-  src="Function_Reference.files/image2014.jpg" v:shapes="_x0000_i2484"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Following is content of the table whose
+  fields are renamed:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=177 height=142
+  src="Function_Reference.files/image2082.jpg" v:shapes="_x0000_i2535"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Since
+  parameter is omitted, delete the original field names and name them _1, _2,
+  _3</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
   </td>
-  <td width=248 valign=top style='width:186.15pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.fetch()</span></b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.rename(EID:ID,GENDER:SEX).fetch()</span></b></p>
   </td>
   <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return null because A1’s cursor has come
-  to the end of the data</span><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>4</span></b></p>
-  </td>
-  <td width=248 valign=top style='width:186.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.reset()</span></b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
-  </td>
-  <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Move the cursor back to the beginning</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=16 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=248 valign=top style='width:186.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.fetch()</span></b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
-  </td>
-  <td width=322 valign=top style='width:241.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Fetch data out of the cursor; returned result is
-  the same as A2</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Rename EID field ID, GENDER field SEX,
+  and return result as follows:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=185 height=140
+  src="Function_Reference.files/image2084.jpg" v:shapes="_x0000_i2536"></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Related function:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US><a  href="csskipnx.html#cs_skip">cs.skip()</a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="780.html">Next</a></div>
@@ -214,7 +437,7 @@ lang=EN-US><a  href="csskipnx.html#cs_skip">cs.skip()</a></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="778.html">reset()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="778.html">rename()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

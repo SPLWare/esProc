@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>return xi</title>
+<title>report_run()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,247 +13,374 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="return_xi"></a><span lang=EN-US>return</span><span class=var1><span
-lang=EN-US style='font-size:14.0pt;line-height:150%;font-weight:normal;
-mso-bidi-font-weight:bold;font-style:normal;mso-bidi-font-style:italic'> </span></span><span
-lang=EN-US style='mso-bidi-font-style:italic'>xi</span><span
-class=MsoFootnoteReference><span lang=EN-US></span></span></h2></div>
-	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><a name="report_run"></a><a name="_Hlt490810517"></a><a name="_Hlt490810599"></a><a
+name="_Hlt490810659"></a><span style='mso-bookmark:report_run'><span
+lang=EN-US><a name="_Hlt490810859"></a>report_run()</span></span><span
+style='mso-bookmark:report_run'></span><span
+style='mso-bookmark:report_run'></span></h2></div>
+	<span style='mso-bookmark:report_run'></span>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Return the
-result <i style='mso-bidi-font-style:normal'>xi</i>,…. of executing a routine
-or a subroutine. Then the main program will terminate the execution to free up
-the resource.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Compute a report
+file.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>return</span></span><span
-lang=EN-US> <i style='mso-bidi-font-style:normal'>x<sub>i</sub></i></span><span
-class=var1><span lang=EN-US></span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>report_run</span></b><span
+lang=EN-US>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>rpt</span></i><span
+lang=EN-US>, </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>paramValue</span></i><span
+lang=EN-US>:</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>paramName</span></i><span
+lang=EN-US>,....)</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>With </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>return</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>, </span></span><span lang=EN-US>program will return the
-result </span><span class=var1><span lang=EN-US>xi</span></span><span
-lang=EN-US>. The program will by default return the last calculation cell value
-if no return/end statement appears when it is executed.Generally speaking, the
-returned result is a table sequence, a pure record sequence, or a cursor. Table
-sequence and pure record sequence are used as the esProc data set for a report,
-and cursor is used for the parallel program.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
 
-<p class=af4 style='text-align:justify;text-justify:inter-ideograph;text-indent:
-0cm;mso-char-indent-count:0;line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
+library function <span style='mso-bidi-font-style:italic'>(See The Programmer’s
+Guide to RaqReport <a href="http://doc.raqsoft.com/esproc/ext/">External
+Library Guide</a>) </span>performs computation over a report file.</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:17.75pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US>&nbsp;</span></span></p>
+  <td width=100 valign=top style='width:75.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>rpt</span></i></p>
   </td>
-  <td width=207 valign=top style='width:155.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=170 valign=top style='width:127.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>B</span></span></p>
-  </td>
-  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=445 valign=top style='width:333.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A report object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:17.75pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <td width=100 valign=top style='width:75.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>paramValue</span></i></p>
   </td>
-  <td width=207 valign=top style='width:155.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  NAME,GENDER from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=170 valign=top style='width:127.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:16.3pt'>
-  <td width=24 valign=top style='width:17.75pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.3pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=207 valign=top style='width:155.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.3pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(GENDER==&quot;M&quot;)</span></span></p>
-  </td>
-  <td width=170 valign=top style='width:127.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.3pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(GENDER==&quot;F&quot;)</span></span></p>
-  </td>
-  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.3pt'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>A2</span></p>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=102 height=104
-  src="Function_Reference.files/image2044.jpg" v:shapes="图片_x0020_1179"></span></p>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>A3</span></p>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=106 height=109
-  src="Function_Reference.files/image2046.jpg" v:shapes="_x0000_i2509"></span><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:71.2pt'>
-  <td width=24 valign=top style='width:17.75pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:71.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=207 valign=top style='width:155.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:71.2pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>return
-  A2,</span></span><span class=Char10><span lang=EN-US> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>B2</span></span></p>
-  </td>
-  <td width=170 valign=top style='width:127.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:71.2pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:71.2pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A3</span></span><span
-  lang=EN-US> returns the two result sets: A2<span style='color:black'> and B2</span>.
-  When this esProc file is used for report creation, the two result sets can be
-  used as data sources of the report</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af4 style='text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=right style='text-align:right'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=276 valign=top style='width:207.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=right style='text-align:right'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=231 valign=top style='width:172.9pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
-  </td>
-  <td width=276 valign=top style='width:207.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://abc.txt&quot;)</span></span></p>
-  </td>
-  <td width=231 valign=top style='width:172.9pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=445 valign=top style='width:333.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Report parameter value; can be absent</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <td width=100 valign=top style='width:75.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>paramName</span></i></p>
   </td>
-  <td width=276 valign=top style='width:207.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.cursor()</span></span></p>
-  </td>
-  <td width=231 valign=top style='width:172.9pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get a cursor with retrieved data</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
+  <td width=445 valign=top style='width:333.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-font-style:italic'>Parameter name; by default, write values in the
+  order of parameters in the report</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=100 valign=top style='width:75.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>ds</span></span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=276 valign=top style='width:207.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>return
-  A2</span></span></p>
+  <td width=445 valign=top style='width:333.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A table sequence object; can be absent</span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
   </td>
-  <td width=231 valign=top style='width:172.9pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A3</span></span><span
-  lang=EN-US> returns the cursor in </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A2</span></span><span lang=EN-US>.
-  When using this esProc file in a parallel program, only the cursor created on
-  the basis of binary file object sequence will be returned for the use in main
-  program.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=100 valign=top style='width:75.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>dsName</span></span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=445 valign=top style='width:333.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Dataset name; by default, correspond table
+  sequence objects and the original data sets in the report file one by one;
+  the colon </span><span class=var1><span lang=EN-US>dsName</span></span><span
+  lang=EN-US> before should not be omitted</span><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
+  height:15.75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:15.0pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&gt;report_config(&quot;config\\raqsoftConfigReport.xml&quot;)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_open(&quot;D:\\test.rpx&quot;)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:15.0pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_run(A2)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute the report file <i
+  style='mso-bidi-font-style:normal'>test.rpx</i> that doesn’t have any
+  parameters</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_open(&quot;D:\\test1.rpx&quot;)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=303 height=70
+  src="Function_Reference.files/image2086.jpg" v:shapes="图片_x0020_1812"></span></p>
+  <p class=MsoNormal><span lang=EN-US>The report file <i style='mso-bidi-font-style:
+  normal'>test1.rpx</i> has 3 parameters </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>5</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_run(A4,&quot;abc&quot;:&quot;arg1&quot;,12:&quot;arg2&quot;,&quot;2016-01-02&quot;:&quot;arg3&quot;)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute a report file having several parameters</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_run(A4,&quot;abc&quot;:,12:,&quot;2016-01-02&quot;:)</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>As the report parameter names are
+  omitted, the parameter values are set in its original order, with the colon
+  retained</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>7</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=report_open(&quot;D:\\stu.rpx&quot;)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Report <i>stu.rpx</i> uses SCORES table
+  in demo database; data set name is ds1</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>8</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>9</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A8.query(&quot;select
+  * from SCORES where SCORE&lt;60&quot;)</span></b><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>10</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=report_run(A7;A9:&quot;ds1&quot;)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Take data of table sequence A9 as the
+  report data set ds1’s result set</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes;height:15.75pt'>
+  <td width=17 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>11</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=218 valign=top style='width:163.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=report_run(A7;A9:)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=304 valign=top style='width:227.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>When parameter <i>dsName</i> is absent,
+  write values in the order of data sets in the report</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Related function:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a  href="reportconfig.html#report_config">report_confi<span
+style='mso-bookmark:_Hlt490810702'>g</span>()</a><a
+name="_Hlt490810702"></a></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a  href="reportopen.html#report_open">report_op<span
+style='mso-bookmark:_Hlt490810723'>e</span>n()<span style='mso-fareast-font-family:
+宋体'></span></a><a name="_Hlt490810723"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="785.html">Next</a></div>
@@ -261,7 +388,7 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</spa
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

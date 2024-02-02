@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>webhdfs()</title>
+<title>union()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,68 +13,84 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>webhdfs()<a name=webhdfs></a></span></h2></div>
-	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>union()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>Implement an operation on file
-data, such as download and upload.</span><span lang=EN-US style='font-size:
-14.0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-weight:bold'>Compute the union of sequence-type
+members in a sequence.</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b><span
-lang=EN-US> </span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Synatax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
-style='mso-fareast-font-family:黑体'>webhdfs(</span></b><i><span lang=EN-US>url</span></i><span
-lang=EN-US>,<i>localFile</i></span><b><span lang=EN-US style='mso-fareast-font-family:
-黑体'>)</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span class=var1><span lang=EN-US>A</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.union(x)</span></span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=ae style='text-indent:21.0pt;mso-char-indent-count:2.0;mso-pagination:
-widow-orphan'><span lang=EN-US style='font-size:10.5pt;font-weight:normal;
-mso-bidi-font-weight:bold'>The external library function <span
-style='mso-bidi-font-style:italic'>(See <a
-href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span></span><span
-lang=EN-US style='mso-bidi-font-style:italic'> </span><span lang=EN-US
-style='font-size:10.5pt;font-weight:normal;mso-bidi-font-weight:bold'>implements
-any operations within HDFS and WebHDFS.</span><span lang=EN-US
-style='font-size:10.5pt;font-weight:normal'></span></p>
+<p class=MsoNormal style='text-indent:21.75pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+gets union of sub-sequences of sequence <i style='mso-bidi-font-style:normal'>A</i>.
+It retains only one of the duplicate members in different sub-sequences, and
+does not treat members having same values in one sub-sequence as duplicates.</span></p>
+
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>When parameter </span><span
+class=var1><span lang=EN-US>x</span></span><span lang=EN-US> is present, the
+function first computes the expression with each member of sequence <i
+style='mso-bidi-font-style:normal'>A</i> and then perform the union.</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></p>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=86 valign=top style='width:64.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>url</span></i></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=429 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>URL of the target file<i></i></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A sequence <span style='mso-bidi-font-weight:
+  bold'>whose members are sequences</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=86 valign=top style='width:64.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>localFile</span></i></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=429 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The target file; can be omitted</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An expression that returns a sequence;
+  cannot be omitted when members of <i style='mso-bidi-font-style:normal'>A</i>
+  are table sequences or record sequences</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b><b><span
-lang=EN-US style='font-size:12.0pt'> </span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Return
+value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Operation
-successful or failed</span></p>
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>A sequence </span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i>A</i> is
+a sequence:</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:22.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
@@ -82,146 +98,209 @@ successful or failed</span></p>
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=266 valign=top style='width:199.35pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></p>
+  <td width=180 valign=top style='width:134.65pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
   </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=562 valign=top style='width:421.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
   </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=180 style='width:134.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,3,4,5],[3,7,8]].union()</span></span></p>
+  </td>
+  <td width=562 style='width:421.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=webhdfs(&quot;http://localhost:50070/webhdfs/v1/test/z1.zip?op=CREATE&amp;user.name=root&quot;,&quot;D:/z1.zip&quot;)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload folder <i>D:/z1.zip</i></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[1,2,3,4,5,7,8];
+  members having same value</span></span><span lang=EN-US> <span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;3&quot;</span></span>
+  appears only once</span><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:
+  10.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
   <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
   </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=180 style='width:134.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,2],[3,4,4],[4]].union()</span></span></p>
+  </td>
+  <td width=562 style='width:421.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=webhdfs(&quot;http://localhost:50070/webhdfs/v1/test/f2.png?op=CREATE&amp;user.name=root&amp;overwrite=true&quot;,&quot;</span></b></p>
-  <p class=MsoNormal><b><span lang=EN-US>D:/f2.png&quot;)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload folder <i>D:/f2.png</i>, and force
-  an overwriting when a namesake folder already exists</span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[1,2,2,3,4,4]</span></span><span
+  lang=EN-US>; there are two member &quot;4&quot; in the second sub-sequence,
+  which are not treated as duplicates, so both are retained in the union result</span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
   <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
   </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=180 style='width:134.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[[1,2,2],[2,2,2,3],[2]].union()</span></span></p>
+  </td>
+  <td width=562 style='width:421.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=webhdfs(&quot;http://localhost:50070/webhdfs/v1/test/f3.txt?op=APPEND&amp;user.name=root&quot;,&quot;D:/f4.txt&quot;)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data in <i>D:/f4.txt</i> to <i>f3.txt</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>4</span></b></p>
-  </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>=webhdfs(&quot;http://localhost:50070/webhdfs/v1/test/f5.xlsx?op=OPEN&amp;user.name=root&quot;,&quot;D:/f5.xlsx&quot;)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Download<i> f5.xlsx</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=webhdfs(&quot;http://localhost:50070/webhdfs/v1/test/?op=LISTSTATUS&amp;user.name=root&quot;)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Get a list of files under <i>/test/</i>
-  directory and return result as a JSON string</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>6</span></b></p>
-  </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=json(A5)</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Convert A5’s JSON string into a
-  multilevel, nested table sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>7</span></b></p>
-  </td>
-  <td width=266 valign=top style='width:199.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A6.FileStatuses.FileStatus</span></b></p>
-  </td>
-  <td width=246 valign=top style='width:184.15pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>List detailed information of the files</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt'><img border=0 width=416 height=154
-  src="Function_Reference.files/image2369.jpg" v:shapes="_x0000_i2732"></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[1,2,2,2,3]</span></span><span
+  lang=EN-US>; as there are three member <span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;2&quot;</span></span> in
+  the second sub-sequence, the final result also has three <span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&quot;2&quot;s</span></span></span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i>A</i> is
+a table sequence or a record sequence:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=392 valign=top style='width:293.7pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>A</span></span></p>
+  </td>
+  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>1</span></span></p>
+  </td>
+  <td width=392 valign=top style='width:293.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
+  * from STUDENTS where ID&gt;3&quot;)</span></b><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal'></span></span></p>
+  </td>
+  <td width=359 style='width:269.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=304 height=103
+  src="Function_Reference.files/image542.png" v:shapes="_x0000_i2764"></span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></p>
+  </td>
+  <td width=392 valign=top style='width:293.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
+  * from STUDENTS1&quot;)</span></b><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal'></span></span></p>
+  </td>
+  <td width=359 style='width:269.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=303 height=103
+  src="Function_Reference.files/image543.png" v:shapes="图片_x0020_1414"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>3</span></span></p>
+  </td>
+  <td width=392 valign=top style='width:293.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[A1,A2].union(~.(NAME))</span></span></p>
+  </td>
+  <td width=359 style='width:269.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>[&quot;Lauren&quot;,&quot;Michael&quot;,&quot;John&quot;,&quot;Nicholas&quot;,&quot;Emily&quot;,&quot;Elizabeth&quot;,&quot;Sean&quot;],
+  where &quot;Lauren&quot;</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal'> is a duplicate in both NAME sequences of [A1,A2], so
+  only one is retained</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US> </span></b></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="942.html">Next</a></div>
@@ -229,7 +308,7 @@ style='mso-spacerun:yes'>&nbsp;</span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

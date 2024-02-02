@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>mnorm()</title>
+<title>mfind()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,42 +13,47 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>mnorm()<a name=mnorm></a></span></h2></div>
+	<div id="centent-title"><h2><span lang=EN-US>mfind()<a name=mfind></a></span></h2></div>
 	<p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:black;mso-font-kerning:0pt'>Description:</span></b></p>
+color:#333333;mso-font-kerning:0pt'>Description:</span></b><span lang=EN-US
+style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
 
 <p class=MsoNormal align=left style='text-align:left;text-indent:21.0pt;
-line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US>Normalize a
-matrix or a multidimensional matrix, during which the center value is 0 and the
-standard deviation is 1.</span><span lang=EN-US style='color:#333333;
-mso-font-kerning:0pt'></span></p>
+line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US>Search for
+positions of non-zero members in a vector or matrix.</span><span lang=EN-US
+style='color:#333333;mso-font-kerning:0pt'></span></p>
 
 <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:black;mso-font-kerning:0pt'>Syntax:</span></b></p>
+color:#333333;mso-font-kerning:0pt'>Syntax:</span></b></p>
 
 <p class=MsoNormal align=left style='text-align:left;text-indent:21.1pt;
-line-height:21.0pt;mso-pagination:widow-orphan'><b><span lang=EN-US>mnorm</span></b><span
+line-height:21.0pt;mso-pagination:widow-orphan'><b><span lang=EN-US>mfind</span></b><span
 lang=EN-US>(<i>A</i>, <i>n</i>)</span><span lang=EN-US style='color:#333333;
 mso-font-kerning:0pt'></span></p>
 
 <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:black;mso-font-kerning:0pt'>Note:</span></b></p>
+color:#333333;mso-font-kerning:0pt'>Note:</span></b></p>
 
-<p class=MsoNormal align=left style='text-align:left;text-indent:21.0pt;
-line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US>An external
-library function <span style='mso-bidi-font-style:italic'>(See <a
-href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>) </span>where
-parameter <i>n</i> is the ordinal number of level on which the summarization is
-performed. If <i>n</i> is absent, the desired dimension is the first one whose
-size is not 1 in matrix <i>A</i>.</span><span lang=EN-US style='color:#333333;
-mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><span lang=EN-US>The external library function <span
+style='mso-bidi-font-style:italic'>(See <a
+href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>)</span>
+searches for positions of the first <i>n</i> non-zero members in vector or
+matrix <i>A</i>. It gets the position of the first non-zero member when
+parameter <i>n</i> is absent. If the total number of non-zero members is fewer
+than <i>n</i>, it returns positions of all non-zero, non-null members.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><span lang=EN-US>Search column by column when <i>A</i> is a
+matrix and return ordinal numbers of positions of non-zero members in the
+matrix.</span><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
 
 <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:black;mso-font-kerning:0pt'>Parameter:</span></b></p>
+color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -60,48 +65,25 @@ color:black;mso-font-kerning:0pt'>Parameter:</span></b></p>
   <p class=MsoNormal align=left style='text-align:left;text-indent:4.9pt;
   line-height:21.0pt;mso-pagination:widow-orphan'><i><span lang=EN-US>A</span></i></p>
   <p class=MsoNormal align=left style='text-align:left;text-indent:4.9pt;
-  line-height:21.0pt;mso-pagination:widow-orphan'><i><span lang=EN-US>n</span></i><span
-  lang=EN-US style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+  line-height:21.0pt;mso-pagination:widow-orphan'><i><span lang=EN-US>n</span></i></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:28.5pt'>
-  <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-  mso-pagination:widow-orphan'><span lang=EN-US>A matrix or a multidimensional
+  <p class=MsoNormal align=left style='text-align:left;text-indent:4.9pt;
+  line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
+  style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'>A vector or a
   matrix</span></p>
-  <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-  mso-pagination:widow-orphan'><span lang=EN-US>A positive integer</span></p>
+  <p class=MsoNormal align=left style='text-align:left;text-indent:4.9pt;
+  line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
+  style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'>A positive
+  integer</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:black;mso-font-kerning:0pt'>Option: </span></b><span lang=EN-US
-style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:10.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
-  height:28.5pt'>
-  <td width=47 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-  mso-pagination:widow-orphan'><span lang=EN-US>@s</span></p>
-  </td>
-  <td width=464 valign=top style='width:347.85pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-  mso-pagination:widow-orphan'><span lang=EN-US>Handle the normalization using
-  a statistical method where n-1 is the divisor</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Return value:</span></b><b><span
-lang=EN-US style='font-size:12.0pt;color:#333333;mso-font-kerning:0pt'></span></b></p>
+color:#333333;mso-font-kerning:0pt'>Return value:</span></b></p>
 
 <p class=MsoNormal align=left style='text-align:left;text-indent:21.0pt;
 line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
@@ -109,8 +91,7 @@ style='color:#333333;mso-font-kerning:0pt'>A sequence</span></p>
 
 <p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
 mso-pagination:widow-orphan'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Example:</span></b><span lang=EN-US
-style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+color:#333333;mso-font-kerning:0pt'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:25.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -150,34 +131,12 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm;height:49.8pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>[[11,12,13],[21,22,23],[31,32,33]]</span></p>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>[0,,5,2,0,2,1,0]</span></p>
   </td>
   <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
   height:49.8pt'>
-  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
-   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
-   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
-    width=32><p class='MsoNormal'>&nbsp;</td>
-   </tr>
-   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=98
-    src="Function_Reference.files/image1451.jpg" v:shapes="图片_x0020_888"></span></p>
-    </td>
-   </tr>
-  </table>
   <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'></span></p>
+  font-weight:normal'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:59.15pt'>
@@ -192,7 +151,7 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm(A1,1)</span></p>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mfind(A1)</span></p>
   </td>
   <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
   height:59.15pt'>
@@ -201,7 +160,7 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
     width=32><p class='MsoNormal'>&nbsp;</td>
@@ -209,18 +168,18 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=71
-    src="Function_Reference.files/image1551.jpg" v:shapes="图片_x0020_889"></span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'><img border=0 width=331 height=50
+    src="Function_Reference.files/image1588.jpg" v:shapes="图片_x0020_875"></span></p>
     </td>
    </tr>
   </table>
   <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalize matrix A1’s first level, that is, normalization
-  by column</span></p>
+  font-weight:normal'>Return position of the first non-zero member as parameter
+  <i>n</i> is absent</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:59.15pt'>
@@ -235,17 +194,18 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm(A1,
-  2)</span></p>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mfind(A1,3)</span></p>
   </td>
   <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
   height:59.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
+  font-weight:normal'>Retrun positions of the first non-zero members</span></p>
   <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
    style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
    <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
     width=32><p class='MsoNormal'>&nbsp;</td>
@@ -253,18 +213,17 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=71
-    src="Function_Reference.files/image1552.jpg" v:shapes="图片_x0020_890"></span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'><img border=0 width=331 height=99
+    src="Function_Reference.files/image1589.jpg" v:shapes="图片_x0020_876"></span></p>
     </td>
    </tr>
   </table>
   <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalize matrix A1’s second level, that is,
-  normalization by row</span></p>
+  font-weight:normal'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:59.15pt'>
@@ -279,16 +238,20 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm(A1)</span></p>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mfind(A1,10)</span></p>
   </td>
   <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
   height:59.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'><img border=0 width=331 height=120
+  src="Function_Reference.files/image1590.jpg" v:shapes="图片_x0020_877"></span><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
+  font-weight:normal'></span></p>
   <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
    style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
    <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
     width=32><p class='MsoNormal'>&nbsp;</td>
@@ -296,21 +259,41 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=71
-    src="Function_Reference.files/image1553.jpg" v:shapes="图片_x0020_891"></span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
    </tr>
   </table>
   <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalize matrix A1’s first level since parameter <i>n</i>
-  is absent</span></p>
+  font-weight:normal'>Return positions of all non-zero members since the number
+  of them in matrix A1 is fewer than <i>n</i> (here is 10)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:59.15pt'>
+  <td width=42 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
+  <p class=TabLabel><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.5pt'>5</span></b></p>
+  </td>
+  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:59.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>[[1,0,2],[0,0,2],[0,4,7]]</span></p>
+  </td>
+  <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:59.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
+  font-weight:normal'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:59.15pt'>
   <td width=42 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
@@ -322,7 +305,7 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm@s(A1)</span></p>
+  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mfind(A5,3)</span></p>
   </td>
   <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
   height:59.15pt'>
@@ -331,7 +314,7 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
     width=32><p class='MsoNormal'>&nbsp;</td>
@@ -339,149 +322,19 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
    <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
     <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
     </td>
     <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
     <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=71
-    src="Function_Reference.files/image1554.jpg" v:shapes="图片_x0020_892"></span></p>
+    lang=EN-US style='mso-bidi-font-size:10.5pt'><img border=0 width=331 height=99
+    src="Function_Reference.files/image1591.jpg" v:shapes="图片_x0020_878"></span></p>
     </td>
    </tr>
   </table>
   <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalization using the statistical method</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:101.9pt'>
-  <td width=42 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:101.9pt'>
-  <p class=TabLabel><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-size:10.5pt'>7</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:101.9pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>[[[111,112,113],[121,122,123],[131,132,133]],[[211,212,213],[221,222,223],[231,232,233]]]</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:101.9pt'>
-  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
-   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
-   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
-    width=32><p class='MsoNormal'>&nbsp;</td>
-   </tr>
-   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=155
-    src="Function_Reference.files/image1456.jpg" v:shapes="图片_x0020_893"></span></p>
-    </td>
-   </tr>
-  </table>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Define a three-dimension matrix whose two members are 3*3
-  matrices</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:59.15pt'>
-  <td width=42 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabLabel><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-size:10.5pt'>8</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm(A6,
-  1)</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:59.15pt'>
-  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
-   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
-   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
-    width=32><p class='MsoNormal'>&nbsp;</td>
-   </tr>
-   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=53
-    src="Function_Reference.files/image1555.jpg" v:shapes="图片_x0020_894"></span></p>
-    </td>
-   </tr>
-  </table>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalize matrix A6’s first level, that is, normalization
-  on the two member matrices in alignment</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:59.15pt'>
-  <td width=42 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabLabel><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-size:10.5pt'>9</span></b></p>
-  </td>
-  <td width=186 valign=top style='width:139.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>=mnorm(A6,
-  2)</span></p>
-  </td>
-  <td width=265 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:59.15pt'>
-  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
-   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
-   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
-    width=32><p class='MsoNormal'>&nbsp;</td>
-   </tr>
-   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-    <td width=10 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-    </td>
-    <td width=32 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
-    <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-    lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=331 height=54
-    src="Function_Reference.files/image1556.jpg" v:shapes="图片_x0020_895"></span></p>
-    </td>
-   </tr>
-  </table>
-  <p class=TabCode><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>Normalize matrix A6’s second level, that is,
-  normalization each of the two member matrices by column</span></p>
+  font-weight:normal'>As parameter <i>A </i>is a matrix, search for the first
+  three non-zero members by column and the result are “1”,“4”,”2”, whose
+  ordinal numbers of positions are 1,6,7</span></p>
   </td>
  </tr>
 </table>
@@ -492,7 +345,7 @@ style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

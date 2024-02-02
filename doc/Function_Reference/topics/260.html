@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>end s</title>
+<title>dynadb.table()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,266 +13,283 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="end_s"><span lang=EN-US>end s</span></a></h2></div>
-	<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
+宋体'>dynadb.table()<a name="dynadb_table"></a></span></h2></div>
+	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Log the error
-message.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create or delete
+a Dynamodb table.</span></p>
 
-<p class=ae style='line-height:200%'><span lang=PT-BR style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-ansi-language:PT-BR'>Syntax:</span></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US>end</span></b><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-weight:
-bold'> s</span></i><span lang=PT-BR style='mso-ansi-language:PT-BR'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
+style='mso-fareast-font-family:黑体'>dynadb.table(</span></b><i><span lang=EN-US
+style='mso-fareast-font-family:黑体'>tableName,partitonKey,type1,sortKey,type2</span></i><b><span
+lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
 
-<p class=ae style='line-height:200%'><span lang=PT-BR style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-ansi-language:PT-BR'>Note:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
+style='mso-fareast-font-family:黑体'>dynadb.table@d(</span></b><i><span
+lang=EN-US style='mso-fareast-font-family:黑体'>tableName</span></i><b><span
+lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=PT-BR
-style='mso-ansi-language:PT-BR'>Execute abnormal termination deliberately,
-throw and log the error message <i style='mso-bidi-font-style:normal'>s; </i></span><span
-lang=EN-US>Without </span><i style='mso-bidi-font-style:normal'><span
-lang=PT-BR style='mso-ansi-language:PT-BR'>s</span></i><span lang=PT-BR
-style='mso-ansi-language:PT-BR'>, execute normal termination.</span></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=ae style='line-height:200%'><span lang=PT-BR style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-ansi-language:PT-BR'>Parameter:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>External library
+function <span style='mso-bidi-font-style:italic'>(See <a
+href="http://doc.raqsoft.com/esproc/ext/">External Library Guide</a>).</span> </span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Parameter <i>tableName</i>
+and parameter <i>partitionKey</i> should be present at creation; return the
+table name if the creation succeeds and return false if the creation fails. The
+deletion operation only needs option @d and parameter <i>tableName </i>and
+returns a Boolean value.</span></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=617
+ style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>tableName</span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Error message</span></p>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Table name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>partitionKey</span></i></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The main partition key</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>type1/type2</span></i></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Data types S, N and B, which represent
+  string, number and binary respectively; default type is S; when <i>type2</i>
+  is present, <i>type1</i> cannot be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>sortKey</span></i></p>
+  </td>
+  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The sorting key, which can be omitted at
+  table creation</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Option: </span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:10.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@d</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=731 valign=top style='width:548.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Perform table deletion</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Boolean value/String</span></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=648
+ style='margin-left:22.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <td width=324 valign=top style='width:242.9pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>B</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border-top:solid #A6A6A6 1.0pt;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:none;
-  mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>C</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[12,23,45,1,11,21]</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
+  &quot;us-east-2&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[]</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>B1 is </span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>[12,23,45]</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>for
-  A1</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp1&quot;,&quot;pid&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create <i>emp1</i> table, where the main
+  partition key is pid and date type is S</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp2&quot;,&quot;pid&quot;,&quot;N&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>if
-  A2&gt;10</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create <i>emp2</i> table, where the main
+  partition key is pid and date type is N</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp3&quot;,&quot;pid&quot;,&quot;fname&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;B1=B1|A2</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create <i>emp3</i> table, where the main
+  partition key is pid, sorting key is fname and date type is S</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>5</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp4&quot;,
+  &quot;pid&quot;,&quot;N&quot;,&quot;fname&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>Else</span></span></p>
-  </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create <i>emp4</i> table, where the data
+  type of pid is N and that of fname is S</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>6</span></b></p>
   </td>
-  <td width=104 valign=top style='width:78.3pt;border-top:none;border-left:
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp5&quot;,&quot;pid&quot;,&quot;fname&quot;,&quot;S&quot;)</span></b></p>
   </td>
-  <td width=85 valign=top style='width:63.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Creation of <i>emp5</i> fails; pid’s data
+  type cannot be omitted when setting data type for fname</span></p>
   </td>
-  <td width=95 valign=top style='width:70.9pt;border:none;border-bottom:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>end
-  &quot;small&quot;</span></span></p>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>7</span></b></p>
   </td>
-  <td width=227 valign=top style='width:6.0cm;border:none;border-left:solid #A6A6A6 1.0pt;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>Prompt and log an error message </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&quot;error
-  small&quot; </span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif;font-weight:normal'>if value in A1 is not greater
-  than 10. Terminate the program normally if no </span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&quot;small&quot; </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>is detected.</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=A1.table(&quot;emp6&quot;,&quot;pid&quot;,&quot;N&quot;,&quot;fname&quot;,&quot;S&quot;)</span></b></p>
+  </td>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create <i>emp6</i> table, where the data
+  type of pid is N and that of fname is S</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>8</span></b></p>
+  </td>
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=MsoHyperlink><b><span lang=EN-US
+  style='color:windowtext'>=A1.table@d</span></b></span><b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>(&quot;dept&quot;)</span></b></p>
+  </td>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Delet <i>dept</i> table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>9</span></b></p>
+  </td>
+  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>&gt;A1.close()</span></b></p>
+  </td>
+  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
@@ -283,7 +300,7 @@ style='mso-ansi-language:PT-BR'>, execute normal termination.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="48.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
