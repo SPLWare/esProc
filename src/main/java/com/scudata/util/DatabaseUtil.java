@@ -1,6 +1,7 @@
 package com.scudata.util;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -2393,6 +2394,11 @@ public class DatabaseUtil {
 			// added by bd, 2023.10.17, 添加对java.time.LocalDateTime的处理，这是一个不含时区信息的日期时间数据
 			LocalDateTime ldt = (LocalDateTime) obj;
 			ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+			return Timestamp.from(zdt.toInstant());
+		} else if (obj instanceof LocalDate) {
+			// added by bd, 2023.2.3, 添加对java.time.LocalDate的处理，这是一个不含时区信息的日期数据
+			LocalDate ldt = (LocalDate) obj;
+			ZonedDateTime zdt = ldt.atStartOfDay(ZoneId.systemDefault());
 			return Timestamp.from(zdt.toInstant());
 		} else if (dbType == DBTypes.ORACLE && oracleTIMESTAMP != null && oracleTIMESTAMP.isInstance(obj)) {
 			return TranOracle.tran(TYPE_ORACLE_TIMESTAMP, obj);
