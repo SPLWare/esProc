@@ -62,12 +62,6 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		// } catch (Exception x) {
 		// Logger.error(x);
 		// }
-		/*
-		 * When the execution of the grid was stopped, a FunctionLib class
-		 * initialization error occurred occasionally. So it is initialized when
-		 * the IDE starts.
-		 */
-		FunctionLib.isFnName("");
 	}
 
 	/**
