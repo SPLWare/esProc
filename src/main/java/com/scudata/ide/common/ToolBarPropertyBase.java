@@ -195,7 +195,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		setEnabled(false, false);
 		initProperties();
 		textEditor.setEditable(true);
-		textEditor.setFont(GC.font);
+		setEditorFont(GC.font);
 		textEditor.setToolTipText(mm.getMessage("toolbarproperty.cellexp"));
 		KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
 		textEditor.getInputMap().put(enter, "none");
@@ -244,6 +244,15 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 				KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK
 						+ InputEvent.SHIFT_DOWN_MASK),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
+	}
+
+	/**
+	 * …Ë÷√±‡º≠∆˜◊÷ÃÂ
+	 * @param font
+	 */
+	protected void setEditorFont(Font font) {
+		textEditorFont = font;
+		textEditor.setFont(font);
 	}
 
 	public void init() {

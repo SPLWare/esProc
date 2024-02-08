@@ -41,8 +41,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	public AppFrame() {
 		super("");
 		/*
-		 * CTRL-F9 in swing is meaningful. In order to give the shortcut key to
-		 * execute the function, log out the default function of swing.
+		 * CTRL-F9在swing中被占用了。这里注销swing中已经注册的功能，为了后面在菜单中注册上执行功能
 		 */
 		try {
 			UIManager.put("Desktop.ancestorInputMap",
@@ -51,17 +50,6 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		} catch (Exception ex) {
 			Logger.error(ex);
 		}
-		/* Load custom functions */
-		// 改为在raqsoftConfig.xml中配置和加载了
-		// String relativePath = "/config/customFunctions.properties";
-		// try {
-		// InputStream is = GM.getFileInputStream(relativePath);
-		// if (is != null) {
-		// FunctionLib.loadCustomFunctions(is);
-		// }
-		// } catch (Exception x) {
-		// Logger.error(x);
-		// }
 	}
 
 	/**

@@ -63,8 +63,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 					if (control != null) {
 						Font font = GM.getScaleFont(control.scale);
 						if (textEditorFont != font) {
-							textEditorFont = font;
-							textEditor.setFont(font);
+							setEditorFont(font);
 						}
 					}
 				}
