@@ -298,14 +298,12 @@ public class ISelect extends FileFunction {
 		
 	/**
 	 * 从数据文件中，取得记录表达式的值，在values中的记录。
-	 * 
 	 * @param fo			数据文件对象
 	 * @param exp			表达式
 	 * @param values		参考值
 	 * @param separator		若fo为文本文件，该变量为分隔符.
 	 * @param opt			文件读写参数
 	 * @param isMultiId		是否多ID
-	 * 
 	 * @return				用取得的记录组成的table
 	 */
 	private static Table iselect_t(FileObject fo, Expression exp, Sequence values, 
@@ -396,7 +394,10 @@ public class ISelect extends FileFunction {
 						importer = tmp;
 					}
 					
-					if (isMultiId && low>=high) break;
+					if (isMultiId && low == high) {
+						break;
+					}
+					
 					importer.seek(mid);
 					Object []objs = importer.readLine();
 					if (objs == null) { // 到达结尾
@@ -411,6 +412,7 @@ public class ISelect extends FileFunction {
 							start = low;
 							continue;
 						}
+						
 						if (isMultiId){
 							if (cmp < 0) {
 								low = mid + 1;
@@ -447,14 +449,11 @@ public class ISelect extends FileFunction {
 								break;
 							}
 						}
-					}/* else {
-						low = mid + 1;
-						start = low;
-					}*/
+					}
 				}
+				
 				if (isMultiId && isExist){
-					start = iselect_i(importer, table,
-							low, exp, rec, key, fcount, size, ctx);
+					start = iselect_i(importer, table, low, exp, rec, key, fcount, size, ctx);
 				}
 
 				if (start >= size) {
@@ -473,25 +472,21 @@ public class ISelect extends FileFunction {
 		return table;
 	}
 	
-	private static long iselect_i(LineImporter importer, Table table,long pos,
-			Expression exp, BaseRecord rec, Object key, int fcount, long size, Context ctx)
-					throws IOException {
-		long lastpos;
-		while (true)
-		{
-			lastpos = pos;
-			if(pos+2 >= size) break;
-			importer.seek(pos);			
+	private static long iselect_i(LineImporter importer, Table table,long pos, Expression exp, 
+			BaseRecord rec, Object key, int fcount, long size, Context ctx) throws IOException {
+		importer.seek(pos);			
+		
+		while (true) {
+			long lastpos = importer.getCurrentPosition();
 			Object []objs = importer.readLine();
-			pos = importer.getCurrentPosition()-2;
 			if (objs == null) { // 到达结尾
 				return importer.getCurrentPosition();
 			}
-			rec.setStart(0, objs);
 
-			//if (field >= objs.length) return importer.getCurrentPosition();
 			try {
-				if (0 == Variant.compare(rec.calc(exp, ctx), key)){
+				rec.setStart(0, objs);
+				if (Variant.compare(rec.calc(exp, ctx), key) == 0){
+					lastpos = importer.getCurrentPosition();
 					if (objs.length <= fcount) {
 						table.newLast(objs);
 					} else {
@@ -502,13 +497,12 @@ public class ISelect extends FileFunction {
 					}
 					
 				} else {
-					break;
+					return lastpos - 2;
 				}
 			} catch (RQException e) {
 				return importer.getCurrentPosition();
 			}
 		}
-		return lastpos;
 	}
 		
 	/**
@@ -527,9 +521,10 @@ public class ISelect extends FileFunction {
 	 */
 	private static long iselect_t(FileObject fo, Expression exp, Object value, 
 			byte[] separator, String opt, boolean isStart, Context ctx) {
-		boolean isTitle = false;
+		boolean isTitle = false, isKey = true;
 		if (opt != null) {
 			if (opt.indexOf('t') != -1) isTitle = true;
+			if (opt.indexOf('r') != -1) isKey = false;
 		}
 
 		IFile file = fo.getFile();
@@ -584,10 +579,70 @@ public class ISelect extends FileFunction {
 					} else if (cmp > 0) {
 						high = mid - 1;
 					} else {
-						if (isStart) {
-							return mid;
+						if (isKey) {
+							if (isStart) {
+								return mid;
+							} else {
+								return importer.getCurrentPosition() - 2;
+							}
+						} else if (isStart) {
+							// 找到最前面相等的
+							high = mid;
+							while (low < high) {
+								mid = (low + high) >> 1;
+								pos = importer.getCurrentPosition();
+								if (pos > mid) {
+									importer.close();
+									LineImporter tmp = new LineImporter(file.getInputStream(), charset, separator, opt, 1024);
+									tmp.copyProperty(importer);
+									importer = tmp;
+								}
+							
+								importer.seek(mid);
+								objs = importer.readLine();
+								rec.setStart(0, objs);
+								cmp = Variant.compare(rec.calc(exp, ctx), value);
+								
+								if (cmp < 0) {
+									low = mid + 1;
+								} else {
+									high = mid;
+								}
+							}
+							
+							return low;
 						} else {
-							return importer.getCurrentPosition() - 2;
+							// 找到最后一条相等的
+							long result = importer.getCurrentPosition() - 2;
+							low = mid;
+							while (low < high) {
+								mid = (low + high) >> 1;
+								pos = importer.getCurrentPosition();
+								if (pos > mid) {
+									importer.close();
+									LineImporter tmp = new LineImporter(file.getInputStream(), charset, separator, opt, 1024);
+									tmp.copyProperty(importer);
+									importer = tmp;
+								}
+							
+								importer.seek(mid);
+								objs = importer.readLine();
+								if (objs == null) {
+									break;
+								}
+								
+								rec.setStart(0, objs);
+								cmp = Variant.compare(rec.calc(exp, ctx), value);
+								
+								if (cmp > 0) {
+									high = mid;
+								} else {
+									low = mid + 1;
+									result = importer.getCurrentPosition() - 2;
+								}
+							}
+							
+							return result;
 						}
 					}
 				}
