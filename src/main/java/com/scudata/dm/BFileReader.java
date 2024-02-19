@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.BFileCursor;
@@ -983,36 +985,72 @@ public class BFileReader {
 	 * @param ctx		上下文变量
 	 * @return			返回筛选出的记录
 	 */
-	public ICursor iselect(Expression exp, Sequence values,
-			String []fields, Context ctx) {
+	public ICursor iselect(Expression exp, Sequence values, String []fields, Context ctx) {
 		if (exp == null) {
 			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
 			return new MemoryCursor(null);
 		}
 		
-		
 		// 多字段表达式，走另外的流程，可以大幅提高效率
 		//  输入表达式是否式多字符串
 		String[] fieldNames = exp.toFields();
-		if (fieldNames != null) {
-			try {
-				open(1024);
+		
+		try {
+			open(1024);
+			
+			if (blocks == null) {
+				// 不分段集文件采用顺序查找
+				Sequence result = readAll();
+				Sequence fieldValues = result.calc(exp, ctx);
+				IArray valueArray = fieldValues.getMems();
+				IntArray seqArray = null;
+				
+				for (int i = 1, len = values.length(); i <= len; ++i) {
+					IntArray array = valueArray.indexOfAll(values.getMem(i), 1, true, true);
+					if (seqArray == null) {
+						seqArray = array;
+					} else {
+						seqArray.addAll(array);
+					}
+				}
+				
+				if (seqArray == null || seqArray.size() == 0) {
+					return new MemoryCursor(null);
+				}
+
+				result = result.get(new Sequence(seqArray));
+				MemoryCursor cs = new MemoryCursor(result);
+				if (fields != null) {
+					int fcount = fields.length;
+					Expression []exps = new Expression[fcount];
+					for (int f = 0; f < fcount; ++f) {
+						exps[f] = new Expression(fields[f]);
+					}
+					
+					cs.newTable(null, exps, fields, null, ctx);
+				}
+				
+				return cs;
+			}
+			
+			if (fieldNames != null) {
 				for (String name : fieldNames) {
 					if (ds.getFieldIndex(name) == -1) {
 						fieldNames = null;
 						break;
 					}
 				}
+			}
+		} catch (IOException e) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist", file.getFileName()));
+		} finally {
+			try {
+				close();
 			} catch (IOException e) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("file.fileNotExist", file.getFileName()));
-			} finally {
-				try {
-					close();
-				} catch (IOException e) {
-				}
 			}
 		}
+		
 				
 		if (fieldNames != null) {
 			return iselectFields(fieldNames, values, fields, ctx);
@@ -1032,8 +1070,7 @@ public class BFileReader {
 	 * @return	返回筛选出的数据集cursor
 	 * 
 	*/
-	public ICursor iselectFields(String[] refFields, Sequence values,
-			String []fields, Context ctx) {
+	public ICursor iselectFields(String[] refFields, Sequence values, String []fields, Context ctx) {
 		// 查找对应列的索引
 		int fcount = ds.getFieldCount();
 		int[] selFields = new int[fcount];
@@ -1406,6 +1443,49 @@ public class BFileReader {
 		
 		try {
 			open(1024);
+
+			if (blocks == null) {
+				// 不分段集文件采用顺序查找
+				Sequence result = readAll();
+				Sequence values = result.calc(exp, ctx);
+				int len = values.length();
+				int start = -1;
+				for (int i = 1; i <= len; ++i) {
+					if (Variant.compare(values.getMem(i), startVal) >= 0) {
+						start = i;
+						break;
+					}
+				}
+				
+				if (start == -1) {
+					return new MemoryCursor(null);
+				}
+				
+				int end = -1;
+				for (int i = len; i >= 1; --i) {
+					if (Variant.compare(values.getMem(i), endVal) <= 0) {
+						end = i;
+						break;
+					}
+				}
+				
+				if (end < start) {
+					return new MemoryCursor(null);
+				}
+
+				MemoryCursor cs = new MemoryCursor(result, start, end + 1);
+				if (fields != null) {
+					int fcount = fields.length;
+					Expression []exps = new Expression[fcount];
+					for (int f = 0; f < fcount; ++f) {
+						exps[f] = new Expression(fields[f]);
+					}
+					
+					cs.newTable(null, exps, fields, null, ctx);
+				}
+				
+				return cs;
+			}
 		} catch (IOException e) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileNoExist", file.getFileName()));

@@ -1175,7 +1175,7 @@ public class DateArray implements IArray {
 		Date date = (Date)elem;
 		if (isSorted) {
 			int end = size;
-			if (isFromHead) {
+			if (!isFromHead) {
 				end = start;
 				start = 1;
 			}

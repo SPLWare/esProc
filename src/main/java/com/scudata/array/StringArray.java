@@ -1156,7 +1156,7 @@ public class StringArray implements IArray {
 		String str = (String)elem;
 		if (isSorted) {
 			int end = size;
-			if (isFromHead) {
+			if (!isFromHead) {
 				end = start;
 				start = 1;
 			}

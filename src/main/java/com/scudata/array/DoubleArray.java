@@ -1768,7 +1768,7 @@ public class DoubleArray implements NumberArray {
 		Number number = (Number)elem;
 		if (isSorted) {
 			int end = size;
-			if (isFromHead) {
+			if (!isFromHead) {
 				end = start;
 				start = 1;
 			}

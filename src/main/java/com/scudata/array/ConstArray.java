@@ -613,7 +613,7 @@ public class ConstArray implements IArray {
 	public IntArray indexOfAll(Object elem, int start, boolean isSorted, boolean isFromHead) {
 		if (size > 0 && Variant.isEquals(data, elem)) {
 			int end = size;
-			if (isFromHead) {
+			if (!isFromHead) {
 				end = start;
 				start = 1;
 			}

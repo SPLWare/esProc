@@ -1006,7 +1006,7 @@ public class ObjectArray implements IArray {
 
 		if (isSorted) {
 			int end = size;
-			if (isFromHead) {
+			if (!isFromHead) {
 				end = start;
 				start = 1;
 			}
