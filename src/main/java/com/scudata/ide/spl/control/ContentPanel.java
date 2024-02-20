@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -435,6 +436,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if (g instanceof Graphics2D) {
+			// ¿¹¾â³Ý
+			((Graphics2D) g).setRenderingHint(
+					RenderingHints.KEY_TEXT_ANTIALIASING,
+					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+		}
 		float scale = 1.0f;
 		if (control != null) {
 			scale = control.scale;

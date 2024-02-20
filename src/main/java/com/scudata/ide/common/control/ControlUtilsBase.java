@@ -625,8 +625,8 @@ public class ControlUtilsBase {
 	public static int drawText(Graphics g, String text, int x, int y, int w,
 			int h, boolean underLine, byte halign, byte valign, Font font,
 			Color c, int indent) {
-		return ControlUtilsBase.drawText(g, text, x, y, w, h, underLine,
-				halign, valign, font, c, indent, true);
+		return drawText(g, text, x, y, w, h, underLine, halign, valign, font,
+				c, indent, true);
 	}
 
 	/**
@@ -864,8 +864,8 @@ public class ControlUtilsBase {
 			g2d.drawLine(x, y + 2, x + w, y + 2);
 			g2d.setStroke(bsOld);
 		}
-
-		drawString(g, font, text, x, y);
+		int xx[] = calcCharactersX2(text, x, font, w, false);
+		drawString(g, text, xx, y);
 	}
 
 	/**
@@ -873,8 +873,6 @@ public class ControlUtilsBase {
 	 * 
 	 * @param g
 	 *            画布
-	 * @param f
-	 *            字体
 	 * @param text
 	 *            要绘制的文本
 	 * @param x
@@ -882,8 +880,151 @@ public class ControlUtilsBase {
 	 * @param y
 	 *            Y坐标
 	 */
-	private static void drawString(Graphics g, Font f, String text, int x, int y) {
-		g.drawString(text, x, y);
+	private static void drawString(Graphics g, String text, int[] xx, int y) {
+		// g.drawString(text, x, y);
+		// 遇到当前字体无法显示的字符，尝试切换成Dialog字体来显示
+		Font fontOld = g.getFont();
+		int[] codePoints = getCodePoints(text);
+		int count = codePoints.length;
+		boolean isDialogFont = isDialogFont(fontOld);
+		Font fontDialog = null;
+
+		for (int i = 0; i < count; i++) {
+			boolean changeFont = false;
+			if (!isDialogFont) { // 已经是Dialog就不换了
+				if (!fontOld.canDisplay(codePoints[i])) {
+					changeFont = true;
+					if (fontDialog == null) {
+						fontDialog = getDialogFont(fontOld);
+					}
+					if (fontDialog.canDisplay(codePoints[i]))
+						g.setFont(fontDialog);
+				}
+			}
+			g.drawString(new String(codePoints, i, 1), xx[i], y);
+			if (changeFont) {
+				g.setFont(fontOld);
+			}
+		}
+	}
+
+	public static int[] getCodePoints(String text) {
+		if (text == null)
+			return null;
+		// return text.codePoints().toArray(); // 1.8的接口
+		int count = text.codePointCount(0, text.length());
+		int len = text.length();
+		int[] codePoints = new int[count];
+		int index = 0;
+		for (int i = 0; i < len; i++) {
+			int codePoint = text.codePointAt(i);
+			codePoints[index] = codePoint;
+			char[] bytes = Character.toChars(codePoint);
+			i += bytes.length - 1;
+			index++;
+		}
+		return codePoints;
+	}
+
+	public static boolean isDialogFont(Font font) {
+		return "Dialog".equals(font.getFontName());
+	}
+
+	public static Font getDialogFont(Font font) {
+		return new Font("Dialog", font.getStyle(), font.getSize());
+	}
+
+	/**
+	 * 考虑扩展字体，还有字体不支持字符时切换字体的情况。
+	 * 
+	 * @param text
+	 * @param x
+	 * @param font
+	 * @param width
+	 * @param scatter
+	 * @return
+	 */
+	public static int[] calcCharactersX2(String text, int x, Font font,
+			int width, boolean scatter) {
+		Graphics dispg = getDisplayG();
+		FontMetrics fm = dispg.getFontMetrics(font);
+		int[] codePoints = getCodePoints(text);
+		int count = codePoints.length;
+		boolean isDialogFont = isDialogFont(font);
+		int[] xx = new int[count];
+		Font fontDialog = null;
+		FontMetrics fmDialog = null;
+		for (int i = 0; i < count; i++) {
+			xx[i] = x;
+			if (!isDialogFont) {
+				if (!font.canDisplay(codePoints[i])) {
+					if (fontDialog == null) {
+						fontDialog = getDialogFont(font);
+						fmDialog = dispg.getFontMetrics(fontDialog);
+					}
+					if (fontDialog.canDisplay(codePoints[i])) {
+						x += fmDialog.charWidth(codePoints[i]);
+						continue;
+					}
+				}
+			}
+			x += fm.charWidth(codePoints[i]);
+		}
+		if (count == 1) {
+			return xx;
+		}
+		int textWidth = x - xx[0];
+		if (scatter && (textWidth < width)) {
+			int more = width - textWidth;
+			int gap = count - 1;// 空隙比文字少1
+			int each = more / gap;
+			int left = more % gap;
+			if (each > 0) {
+				for (int i = 1; i < count; i++) {
+					increaseX(xx, i, each);
+				}
+			}
+			// 将余数均摊到各空隙
+			int dx = 1;
+			while (left > 0) {
+				increaseX(xx, dx, 1);
+				left--;
+				if (left == 0) {
+					break;
+				}
+
+				increaseX(xx, count - dx, 1);
+				left--;
+				if (left == 0) {
+					break;
+				}
+				dx++;
+			}
+		}
+		return xx;
+	}
+
+	private static void increaseX(int[] coords, int index, int num) {
+		for (int i = index; i < coords.length; i++) {
+			coords[i] += num;
+		}
+	}
+
+	private static ThreadLocal tlDisplayG = new ThreadLocal() {
+		protected synchronized Object initialValue() {
+			BufferedImage bi = new BufferedImage(10, 10,
+					BufferedImage.TYPE_INT_RGB);
+			return bi.getGraphics();
+		}
+	};
+
+	public static Graphics getDisplayG() {
+		if (tlDisplayG == null) {// 某些 麒麟机器时， 报变量null错误，加个判断 2021年7月29日
+			BufferedImage bi = new BufferedImage(10, 10,
+					BufferedImage.TYPE_INT_RGB);
+			return bi.getGraphics();
+		}
+		return (Graphics) tlDisplayG.get();
 	}
 
 	/**
@@ -917,7 +1058,8 @@ public class ControlUtilsBase {
 		while (text.endsWith("\n")) {
 			text = text.substring(0, text.length() - 1);
 		}
-		g.drawString(text, x, y);
+		int xx[] = calcCharactersX2(text, x, g.getFont(), w, false);
+		drawString(g, text, xx, y);
 		if (underLine) {
 			Graphics2D g2d = (Graphics2D) g;
 			Stroke bsOld = g2d.getStroke();

@@ -1140,8 +1140,10 @@ public class JTableValue extends JTableEx {
 	public void setValue1(Object value, String id, boolean isRefresh) {
 		if (id != null && id.equals(getCellId())) {
 			if (value == originalValue) {
-				if (isRefresh) // 刷新触发的设置
+				if (isRefresh) { // 刷新触发的设置
+					refreshValueButton();
 					return;
+				}
 			}
 		}
 		this.originalValue = value;
@@ -1569,7 +1571,9 @@ public class JTableValue extends JTableEx {
 		Font scaleFont = getScaleFont();
 		setFont(scaleFont);
 		JTableHeader tableHeader = getTableHeader();
-		tableHeader.setFont(scaleFont);
+		Font headerFont = new Font("Dialog", scaleFont.getStyle(),
+				scaleFont.getSize());
+		tableHeader.setFont(headerFont);
 		tableHeader.repaint();
 		for (int c = 0; c < getColumnCount(); c++) {
 			setColWidth(c, getOriginColWidth(c), !hasIndexCol || c != 0);
