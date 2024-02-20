@@ -243,7 +243,11 @@ public class MergeCursor extends ICursor {
 			} else {
 				resultCache.add(group);
 			}
-		} else if (seqs[path] > 0) {
+			
+			return;
+		}
+		
+		while (seqs[path] > 0) {
 			BaseRecord r1 = (BaseRecord)group.getMem(1);
 			BaseRecord r2 = (BaseRecord)tables[path].getMem(seqs[path]);
 			
@@ -251,13 +255,9 @@ public class MergeCursor extends ICursor {
 			int cmp = r2.compare(r1, fields);
 			if (cmp == 0) {
 				getGroupData(path, group);
-				if (nextPath < seqs.length) {
-					fetchGroups(nextPath, group);
-				}
+				break;
 			} else if (cmp > 0) {
-				if (nextPath < seqs.length) {
-					fetchGroups(nextPath, group);
-				}
+				break;
 			} else {
 				Sequence newGroup = new Sequence();
 				getGroupData(path, newGroup);
@@ -271,10 +271,10 @@ public class MergeCursor extends ICursor {
 				} else {
 					resultCache.add(newGroup);
 				}
-				
-				fetchGroups(path, group);
 			}
-		} else if (nextPath < seqs.length) {
+		}
+		
+		if (nextPath < seqs.length) {
 			fetchGroups(nextPath, group);
 		}
 	}
