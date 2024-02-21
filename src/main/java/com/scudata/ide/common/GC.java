@@ -365,10 +365,6 @@ public class GC {
 	 */
 	public static Font font = new Font("Dialog", Font.PLAIN, 12);
 	/**
-	 * For clarity, use spaces to increase indentation.
-	 */
-	public static final String STR_INDENT = " ";
-	/**
 	 * The color of the pseudo field column
 	 */
 	public static final Color ALIAS_COLOR = new Color(235, 235, 255);

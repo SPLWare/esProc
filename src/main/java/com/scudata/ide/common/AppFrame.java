@@ -21,7 +21,6 @@ import javax.swing.plaf.FontUIResource;
 
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
-import com.scudata.expression.FunctionLib;
 
 /**
  * The base class of the IDE main interface
@@ -56,7 +55,8 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 * Take over the console
 	 */
 	public static void holdConsole() {
-		Font font = GC.font;
+		Font font = GC.font; // new Font("Dialog", GC.font.getStyle(),
+								// GC.font.getSize());
 		if (GV.console == null) {
 			JTextArea jta = new JTextArea();
 			jta.setFont(font);

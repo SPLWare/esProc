@@ -1,13 +1,19 @@
 package com.scudata.ide.common.swing;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.scudata.cellset.IStyle;
+import com.scudata.ide.common.control.ControlUtilsBase;
 
 /**
  * 支持下划线的标签控件
@@ -20,10 +26,15 @@ public class JLabelUnderLine extends JLabel {
 	 * 下划线颜色
 	 */
 	private Color underLineColor = Color.BLUE;
+
 	/**
-	 * 显示值
+	 * 值
 	 */
-	String codeText = null;
+	Object value = null;
+	/**
+	 * 显示串
+	 */
+	String dispText = null;
 
 	/**
 	 * 构造函数
@@ -35,18 +46,16 @@ public class JLabelUnderLine extends JLabel {
 	}
 
 	/**
-	 * 设置显示值
+	 * 设置值
 	 * 
-	 * @param value
-	 *            显示值
+	 * @param value 值
 	 */
 	public void setValue(Object value) {
-		if (value != null && !"".equals(value) && value instanceof String) {
-			// 只有非空字符串才有codeText
-			codeText = value.toString();
-		} else {
-			codeText = null;
-		}
+		this.value = value;
+	}
+
+	public void setDispText(String dispText) {
+		this.dispText = dispText;
 	}
 
 	/**
@@ -70,65 +79,40 @@ public class JLabelUnderLine extends JLabel {
 	/**
 	 * 绘制
 	 */
-	public void paint(Graphics g) {
-		super.paint(g);
-
-		if (null == codeText)
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g); // 绘制除了文本和下划线以外的
+		int width = getWidth();
+		if (width <= 0)
 			return;
-
-		FontMetrics fm = getFontMetrics(getFont());
-		Rectangle r = g.getClipBounds();
-		int xoffset = 0, yoffset = 0, pointX = 0, pointY = 0, point2X = 0, point2Y = 0;
-		int xoffset1 = getWidth();
-		int topGap = 0;
-		Insets inserts = getInsets();
-		if (inserts != null) {
-			xoffset = inserts.left;
-			yoffset = inserts.bottom;
-			xoffset1 -= inserts.right;
-			topGap = inserts.top;
+		if (g instanceof Graphics2D) {
+			// 抗锯齿
+			((Graphics2D) g).setRenderingHint(
+					RenderingHints.KEY_TEXT_ANTIALIASING,
+					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
 		}
-
-		if (null != this.getBorder()
-				&& null != this.getBorder().getBorderInsets(this)) {
-			inserts = this.getBorder().getBorderInsets(this);
-			xoffset = inserts.left;
-			yoffset = inserts.bottom;
-			xoffset1 -= inserts.right;
-			topGap = inserts.top;
-		}
-		pointY = point2Y = r.height - yoffset - fm.getDescent();
-		if (pointY < topGap + fm.getHeight() - fm.getDescent()) {
-			return;
-		}
-		final int GAP = getFontMetrics(getFont()).stringWidth(" ");
-		String dispText = getText();
-		if (dispText.length() == codeText.length()) {
-			dispText = " " + dispText;
-		}
-		int stringWidth = getFontMetrics(getFont()).stringWidth(dispText) - GAP;
-		int halign = this.getHorizontalAlignment();
-		// 左边总是从最边缘画，人为加个间隔
-		switch (halign) {
+		// 绘制下划线使用的
+		float underLineSize = 0.75f;
+		// underLineSize *= control.scale;
+		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
+		boolean underLine = value != null && value instanceof String;
+		byte halign;
+		switch (getHorizontalAlignment()) {
 		case JLabel.LEFT:
-			pointX = xoffset + GAP;
-			break;
-		case JLabel.RIGHT:
-			pointX = xoffset1 - stringWidth - GAP;
+			halign = IStyle.HALIGN_LEFT;
 			break;
 		case JLabel.CENTER:
-			pointX = (getWidth() - stringWidth) / 2;
+			halign = IStyle.HALIGN_CENTER;
 			break;
 		default:
-			return;
+			halign = IStyle.HALIGN_RIGHT;
+			break;
 		}
-		point2X = pointX + stringWidth;
-
-		if (null != underLineColor) {
-			g.setColor(underLineColor);
-		}
-
-		g.drawLine(pointX, pointY, point2X, point2Y);
+		FontMetrics fm = getFontMetrics(getFont());
+		int indent = fm.stringWidth(" ");
+		ControlUtilsBase.drawText(g, dispText, 0, 0, getWidth(), getHeight(),
+				underLine, halign, IStyle.VALIGN_MIDDLE, getFont(),
+				getForeground(), indent, false);
 	}
-
 }

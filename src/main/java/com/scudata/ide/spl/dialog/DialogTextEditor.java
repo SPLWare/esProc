@@ -1,6 +1,7 @@
 package com.scudata.ide.spl.dialog;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -23,9 +24,10 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.ConfigOptions;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
+import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
@@ -173,7 +175,17 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 		panelCenter.add(spEditor, BorderLayout.CENTER);
 		this.getContentPane().add(panelCenter, BorderLayout.CENTER);
 		textEditor.setEditable(true);
-		textEditor.setFont(GC.font);
+		try {
+			if (GVSpl.splEditor != null) {
+				SplControl control = GVSpl.splEditor.getComponent();
+				if (control != null) {
+					Font font = GM.getScaleFont(control.scale);
+					textEditor.setFont(new Font("Dialog", font.getStyle(), font
+							.getSize()));
+				}
+			}
+		} catch (Exception e) {
+		}
 
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

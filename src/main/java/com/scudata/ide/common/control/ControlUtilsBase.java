@@ -10,7 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -704,7 +703,7 @@ public class ControlUtilsBase {
 			} else if (valign == IStyle.VALIGN_BOTTOM) {
 				y1 = y + h - descent;
 			}
-			outText(g, text, x1, y1, fw, underLine, font, c);
+			outText(g, text, x1, y1, fw, underLine, font, c, descent);
 			return fw;
 		} else {
 			int lineH = fm.getHeight();
@@ -847,7 +846,7 @@ public class ControlUtilsBase {
 	 *            Color，前景色
 	 */
 	public static void outText(Graphics g, String text, int x, int y, int w,
-			boolean underLine, Font font, Color c) {
+			boolean underLine, Font font, Color c, int descent) {
 		if (text == null || text.length() == 0) {
 			return;
 		}
@@ -856,16 +855,11 @@ public class ControlUtilsBase {
 		}
 		g.setColor(c);
 		g.setFont(font);
+		int stringWidth = drawString(g, text, x, y, w);
 		if (underLine) {
-			Graphics2D g2d = (Graphics2D) g;
-			Stroke bsOld = g2d.getStroke();
-			g2d.setStroke(new BasicStroke(0.75f));
-			g2d.setPaintMode();
-			g2d.drawLine(x, y + 2, x + w, y + 2);
-			g2d.setStroke(bsOld);
+			g.setPaintMode();
+			g.drawLine(x, y + descent, x + stringWidth, y + descent);
 		}
-		int xx[] = calcCharactersX2(text, x, font, w, false);
-		drawString(g, text, xx, y);
 	}
 
 	/**
@@ -879,7 +873,16 @@ public class ControlUtilsBase {
 	 *            X坐标
 	 * @param y
 	 *            Y坐标
+	 * @param w 宽度
 	 */
+	public static int drawString(Graphics g, String text, int x, int y, int w) {
+		Vector v = calcCharactersX2(text, x, g.getFont(), w);
+		int[] xx = (int[]) v.get(0);
+		int strWidth = (int) v.get(1);
+		drawString(g, text, xx, y);
+		return strWidth;
+	}
+
 	private static void drawString(Graphics g, String text, int[] xx, int y) {
 		// g.drawString(text, x, y);
 		// 遇到当前字体无法显示的字符，尝试切换成Dialog字体来显示
@@ -941,11 +944,10 @@ public class ControlUtilsBase {
 	 * @param x
 	 * @param font
 	 * @param width
-	 * @param scatter
 	 * @return
 	 */
-	public static int[] calcCharactersX2(String text, int x, Font font,
-			int width, boolean scatter) {
+	public static Vector calcCharactersX2(String text, int x1, Font font,
+			int width) {
 		Graphics dispg = getDisplayG();
 		FontMetrics fm = dispg.getFontMetrics(font);
 		int[] codePoints = getCodePoints(text);
@@ -954,8 +956,9 @@ public class ControlUtilsBase {
 		int[] xx = new int[count];
 		Font fontDialog = null;
 		FontMetrics fmDialog = null;
+		int x2 = x1;
 		for (int i = 0; i < count; i++) {
-			xx[i] = x;
+			xx[i] = x2;
 			if (!isDialogFont) {
 				if (!font.canDisplay(codePoints[i])) {
 					if (fontDialog == null) {
@@ -963,55 +966,21 @@ public class ControlUtilsBase {
 						fmDialog = dispg.getFontMetrics(fontDialog);
 					}
 					if (fontDialog.canDisplay(codePoints[i])) {
-						x += fmDialog.charWidth(codePoints[i]);
+						x2 += fmDialog.charWidth(codePoints[i]);
 						continue;
 					}
 				}
 			}
-			x += fm.charWidth(codePoints[i]);
+			x2 += fm.charWidth(codePoints[i]);
 		}
-		if (count == 1) {
-			return xx;
-		}
-		int textWidth = x - xx[0];
-		if (scatter && (textWidth < width)) {
-			int more = width - textWidth;
-			int gap = count - 1;// 空隙比文字少1
-			int each = more / gap;
-			int left = more % gap;
-			if (each > 0) {
-				for (int i = 1; i < count; i++) {
-					increaseX(xx, i, each);
-				}
-			}
-			// 将余数均摊到各空隙
-			int dx = 1;
-			while (left > 0) {
-				increaseX(xx, dx, 1);
-				left--;
-				if (left == 0) {
-					break;
-				}
-
-				increaseX(xx, count - dx, 1);
-				left--;
-				if (left == 0) {
-					break;
-				}
-				dx++;
-			}
-		}
-		return xx;
+		Vector v = new Vector();
+		v.add(xx);
+		v.add(x2 - x1);
+		return v;
 	}
 
-	private static void increaseX(int[] coords, int index, int num) {
-		for (int i = index; i < coords.length; i++) {
-			coords[i] += num;
-		}
-	}
-
-	private static ThreadLocal tlDisplayG = new ThreadLocal() {
-		protected synchronized Object initialValue() {
+	private static ThreadLocal<Graphics> tlDisplayG = new ThreadLocal<Graphics>() {
+		protected synchronized Graphics initialValue() {
 			BufferedImage bi = new BufferedImage(10, 10,
 					BufferedImage.TYPE_INT_RGB);
 			return bi.getGraphics();
@@ -1024,7 +993,7 @@ public class ControlUtilsBase {
 					BufferedImage.TYPE_INT_RGB);
 			return bi.getGraphics();
 		}
-		return (Graphics) tlDisplayG.get();
+		return tlDisplayG.get();
 	}
 
 	/**
@@ -1058,15 +1027,10 @@ public class ControlUtilsBase {
 		while (text.endsWith("\n")) {
 			text = text.substring(0, text.length() - 1);
 		}
-		int xx[] = calcCharactersX2(text, x, g.getFont(), w, false);
-		drawString(g, text, xx, y);
+		int stringWidth = drawString(g, text, x, y, w);
 		if (underLine) {
-			Graphics2D g2d = (Graphics2D) g;
-			Stroke bsOld = g2d.getStroke();
-			g2d.setStroke(bstroke);
-			g2d.setPaintMode();
-			g2d.drawLine(x, y + descent, x + w, y + descent);
-			g2d.setStroke(bsOld);
+			g.setPaintMode();
+			g.drawLine(x, y + descent, x + stringWidth, y + descent);
 		}
 	}
 

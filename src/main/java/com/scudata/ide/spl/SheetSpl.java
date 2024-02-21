@@ -636,7 +636,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				if (nc != null) {
 					IByteMap values = splEditor.getProperty();
 					GV.toolBarProperty.refresh(selectState, values);
-					GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 					String oldId = GVSpl.panelValue.tableValue.getCellId();
 					if (nc.getCellId().equals(oldId)) { // refresh
 						setValue(nc, false, !refreshParams);
@@ -645,6 +644,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						setValue(nc, true, !refreshParams);
 					}
 					String cellId = nc.getCellId();
+					GVSpl.panelValue.tableValue.setCellId(cellId);
 					GVSpl.panelValue.setDebugTime(cellId,
 							getCellDebugTime(cellId));
 					Object[] cellInterval = getCellInterval();

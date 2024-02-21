@@ -1141,7 +1141,6 @@ public class JTableValue extends JTableEx {
 		if (id != null && id.equals(getCellId())) {
 			if (value == originalValue) {
 				if (isRefresh) { // 刷新触发的设置
-					refreshValueButton();
 					return;
 				}
 			}

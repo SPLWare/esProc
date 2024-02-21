@@ -513,6 +513,11 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			drawStartCol = i;
 		}
 
+		// 绘制下划线使用的
+		float underLineSize = 0.75f;
+		underLineSize *= control.scale;
+		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
+
 		drawEndRow = endRow;
 		drawEndCol = endCol;
 		int tmpX = x;

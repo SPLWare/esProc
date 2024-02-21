@@ -12,11 +12,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
-import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.ConfigOptions;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.util.Variant;
 
@@ -128,13 +126,6 @@ public class AllPurposeRenderer implements TableCellRenderer {
 				strText = GM.renderValueText(value);
 			}
 		}
-		if (StringUtils.isValidString(strText)) { // 缩进临时用一个空格
-			if (isNumber) {
-				strText += GC.STR_INDENT;
-			} else {
-				strText = GC.STR_INDENT + strText;
-			}
-		}
 		if (value != null) {
 			if (value instanceof BigDecimal) {
 				textField.setForeground(ConfigOptions.COLOR_DECIMAL);
@@ -144,9 +135,9 @@ public class AllPurposeRenderer implements TableCellRenderer {
 				if (!hasIndex || column > 0)
 					textField.setForeground(ConfigOptions.COLOR_INTEGER);
 			}
-			textField.setText(strText);
+			textField.setDispText(strText);
 		} else {
-			textField.setText(DISP_NULL);
+			textField.setDispText(DISP_NULL);
 			textField.setHorizontalAlignment(JTextField.CENTER);
 			textField.setForeground(ConfigOptions.COLOR_NULL);
 		}
