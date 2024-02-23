@@ -396,11 +396,6 @@ public class ControlUtilsBase {
 	}
 
 	/**
-	 * Graphics
-	 */
-	public static Graphics fg = null;
-
-	/**
 	 * Get the display height of the string
 	 * 
 	 * @param text
@@ -430,11 +425,7 @@ public class ControlUtilsBase {
 	 */
 	public static float getStringHeight(String text, float fixedWidth,
 			Font font, float maxH) {
-		if (fg == null) {
-			BufferedImage bi = new BufferedImage(50, 50,
-					BufferedImage.TYPE_INT_RGB);
-			fg = (Graphics2D) bi.getGraphics();
-		}
+		Graphics fg = getDisplayGraphics();
 		FontMetrics fm = fg.getFontMetrics(font);
 		return getStringHeight(fm, text, fixedWidth, maxH);
 	}
@@ -509,11 +500,7 @@ public class ControlUtilsBase {
 	 * @return
 	 */
 	public static int getStringMaxWidth(String text, Font font, int indent) {
-		if (fg == null) {
-			BufferedImage bi = new BufferedImage(50, 50,
-					BufferedImage.TYPE_INT_RGB);
-			fg = (Graphics2D) bi.getGraphics();
-		}
+		Graphics fg = getDisplayGraphics();
 		FontMetrics fm = fg.getFontMetrics(font);
 		return getStringMaxWidth(fm, text, font, indent);
 	}
@@ -947,7 +934,7 @@ public class ControlUtilsBase {
 	 */
 	public static Vector calcCharactersX2(String text, int x1, Font font,
 			int width) {
-		Graphics dispg = getDisplayG();
+		Graphics dispg = getDisplayGraphics();
 		FontMetrics fm = dispg.getFontMetrics(font);
 		int[] codePoints = getCodePoints(text);
 		int count = codePoints.length;
@@ -986,7 +973,7 @@ public class ControlUtilsBase {
 		}
 	};
 
-	public static Graphics getDisplayG() {
+	public static Graphics getDisplayGraphics() {
 		if (tlDisplayG == null) {// 某些 麒麟机器时， 报变量null错误，加个判断 2021年7月29日
 			BufferedImage bi = new BufferedImage(10, 10,
 					BufferedImage.TYPE_INT_RGB);
