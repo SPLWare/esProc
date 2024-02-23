@@ -1,6 +1,5 @@
 package com.scudata.ide.common.control;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -297,7 +296,7 @@ public class ControlUtilsBase {
 
 		g.setColor(fontColor);
 
-		int fontW = g.getFontMetrics(font).stringWidth(label);
+		int fontW = stringWidth(g.getFontMetrics(font), label);
 		g.setFont(font);
 		g.drawString(label, x + (w - fontW) / 2, y + h / 2 + 5);
 	}
@@ -580,7 +579,7 @@ public class ControlUtilsBase {
 		int w = 0, len;
 		for (int i = 0; i < wrapString.size(); i++) {
 			String line = (String) wrapString.get(i);
-			len = fm.stringWidth(line);
+			len = stringWidth(fm, line);
 			if (i == 0) {
 				len += indent;
 			}
@@ -674,7 +673,7 @@ public class ControlUtilsBase {
 		} else if (halign == IStyle.HALIGN_RIGHT) {
 			w = w - indent;
 		}
-		int fw = fm.stringWidth(text);
+		int fw = stringWidth(fm, text);
 		int ascent = fm.getAscent();
 		int descent = fm.getDescent();
 
@@ -740,7 +739,7 @@ public class ControlUtilsBase {
 					break;
 				}
 				String wrapedText = (String) al.get(i);
-				fw = fm.stringWidth(wrapedText);
+				fw = stringWidth(fm, wrapedText);
 				int x1 = x;
 				if (halign == IStyle.HALIGN_CENTER) {
 					x1 = x + (w - fw) / 2;
@@ -748,7 +747,8 @@ public class ControlUtilsBase {
 					x1 = x + w - fw;
 				}
 				int y1 = yy + ascent;
-				drawText(g, wrapedText, x1, y1, fw, descent, underLine);
+				// drawText(g, wrapedText, x1, y1, fw, descent, underLine);
+				outText(g, wrapedText, x1, y1, fw, underLine, font, c, descent);
 				maxW = Math.max(maxW, fw);
 				yy += lineH;
 			}
@@ -798,7 +798,7 @@ public class ControlUtilsBase {
 	/**
 	 * 记住字符的宽度，加速绘图速度
 	 */
-	private static HashMap<Short, Integer> fmWidthBuf = new HashMap<Short, Integer>();
+	private static HashMap<String, Integer> fmWidthBuf = new HashMap<String, Integer>();
 
 	/**
 	 * 获取字符串的显示宽度
@@ -810,7 +810,7 @@ public class ControlUtilsBase {
 	 * @return 宽度
 	 */
 	public static int stringWidth(FontMetrics fm, String text) {
-		short key = (short) (fm.hashCode() + text.hashCode());
+		String key = fm.hashCode() + "," + text.hashCode();
 		Integer val = fmWidthBuf.get(key);
 		int width;
 		if (val == null) {
@@ -824,9 +824,7 @@ public class ControlUtilsBase {
 	}
 
 	/**
-	 * 绘制文本，处理下划线,如果是PDF输出，则连pdfCell一起传进来
-	 * 目前的所谓的图形方式〔即直接往g上面draw〕和Pdf的文字方式〔即调用PDFCell自己的draw〕的区别为：
-	 * 图形方式占用的空间大，文字输出则仅仅没有斜体，下划线通过自己画线两者都支持
+	 * 绘制文本，处理下划线
 	 * 
 	 * @param g
 	 *            Graphics,当前输出的图形句柄
@@ -844,6 +842,7 @@ public class ControlUtilsBase {
 	 *            Font，字体
 	 * @param c
 	 *            Color，前景色
+	 * @param descent
 	 */
 	public static void outText(Graphics g, String text, int x, int y, int w,
 			boolean underLine, Font font, Color c, int descent) {
@@ -997,11 +996,6 @@ public class ControlUtilsBase {
 	}
 
 	/**
-	 * 为了不重复创建对象，使用静态变量
-	 */
-	private static BasicStroke bstroke = new BasicStroke(0.75f);
-
-	/**
 	 * 绘制文本，处理下划线
 	 * 
 	 * @param g
@@ -1019,20 +1013,21 @@ public class ControlUtilsBase {
 	 * @param underLine
 	 *            是否有下划线
 	 */
-	private static void drawText(Graphics g, String text, int x, int y, int w,
-			int descent, boolean underLine) {
-		if (text == null || text.length() == 0) {
-			return;
-		}
-		while (text.endsWith("\n")) {
-			text = text.substring(0, text.length() - 1);
-		}
-		int stringWidth = drawString(g, text, x, y, w);
-		if (underLine) {
-			g.setPaintMode();
-			g.drawLine(x, y + descent, x + stringWidth, y + descent);
-		}
-	}
+	// private static void drawText(Graphics g, String text, int x, int y, int
+	// w,
+	// int descent, boolean underLine) {
+	// if (text == null || text.length() == 0) {
+	// return;
+	// }
+	// while (text.endsWith("\n")) {
+	// text = text.substring(0, text.length() - 1);
+	// }
+	// int stringWidth = drawString(g, text, x, y, w);
+	// if (underLine) {
+	// g.setPaintMode();
+	// g.drawLine(x, y + descent, x + stringWidth, y + descent);
+	// }
+	// }
 
 	/**
 	 * 空列表
@@ -1097,7 +1092,7 @@ public class ControlUtilsBase {
 				text = StringUtils.replace(text, "\\n", "\n");
 				text = StringUtils.replace(text, "\t", "        ");
 
-				if (text.indexOf('\n') < 0 && fm.stringWidth(text) < w) {
+				if (text.indexOf('\n') < 0 && stringWidth(fm, text) < w) {
 					wrapedString = new ArrayList<String>();
 					wrapedString.add(text);
 					if (maxRow > 0 && wrapedString.size() > maxRow) {
