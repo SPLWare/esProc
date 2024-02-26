@@ -864,7 +864,7 @@ public class ControlUtilsBase {
 	public static int drawString(Graphics g, String text, int x, int y, int w) {
 		Vector v = calcCharactersX2(text, x, g.getFont(), w);
 		int[] xx = (int[]) v.get(0);
-		int strWidth = (int) v.get(1);
+		int strWidth = ((Integer) v.get(1)).intValue();
 		drawString(g, text, xx, y);
 		return strWidth;
 	}
