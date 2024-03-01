@@ -20,6 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -110,7 +111,8 @@ public class SheetHandler extends DefaultHandler {
 	/**
 	 * The queue used to cache data
 	 */
-	private ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(500);
+	private ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(
+			ICursor.FETCHCOUNT);
 	/**
 	 * Is there a header row
 	 */
@@ -189,7 +191,7 @@ public class SheetHandler extends DefaultHandler {
 			if (ds != null && row != -1) {
 				if (newRow - row > 1) {
 					try {
-						for (int i = 0, count = newRow - row - 1; i < count; i++) {
+						for (int i = 0, count = newRow - row; i < count; i++) {
 							que.put(new Object[ds.getFieldCount()]);
 						}
 					} catch (InterruptedException e) {
@@ -342,7 +344,7 @@ public class SheetHandler extends DefaultHandler {
 				if (style != null && style.trim().length() > 0) {
 					CellStyle cellStyle = styles.getStyleAt(Integer
 							.parseInt(style));
-					if (ExcelUtils.isValidExcelDate(d)) {
+					if (DateUtil.isValidExcelDate(d)) {
 						short i = cellStyle.getDataFormat();
 						String f = cellStyle.getDataFormatString();
 						if (ExcelUtils.isADateFormat(i, f)) {

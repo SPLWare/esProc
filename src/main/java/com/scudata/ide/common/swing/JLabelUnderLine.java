@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
@@ -94,7 +92,6 @@ public class JLabelUnderLine extends JLabel {
 		}
 		// 绘制下划线使用的
 		float underLineSize = 0.75f;
-		// underLineSize *= control.scale;
 		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
 		boolean underLine = value != null && value instanceof String;
 		byte halign;

@@ -232,7 +232,7 @@ public class XlsxSExporter implements IExcelTool {
 			Object value = items[currCol];
 			if (value instanceof Date) {
 				if (value instanceof Time) {
-					cell.setCellValue(ExcelUtils.getTimeDouble((Time) value));
+					cell.setCellValue(ExcelUtils.getExcelTimeDouble((Time) value));
 				} else {
 					cell.setCellValue((Date) value);
 				}

@@ -43,6 +43,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.ide.common.GM;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -202,178 +203,74 @@ public class ExcelUtils {
 	 * @return
 	 */
 	public static boolean isCellDateFormatted(Cell cell, DataFormat df) {
-		if (df == null)
-			return isCellDateFormatted(cell);
-
 		if (cell == null)
 			return false;
-
 		double d = cell.getNumericCellValue();
-		if (isValidExcelDate(d)) {
+		if (DateUtil.isValidExcelDate(d)) {
 			CellStyle style = cell.getCellStyle();
-			short i = style.getDataFormat();
-			if (isInternalDateFormat(i))
-				return true;
-			String pattern = df.getFormat(i);
-			return ExcelUtils.hasYMDHMS(pattern);
-
-		}
-		return false;
-	}
-
-	/**
-	 * Whether the excel cell is in date format.
-	 * 
-	 * @param cell Cell
-	 * @return
-	 */
-	private static boolean isCellDateFormatted(Cell cell) {
-		if (cell == null)
-			return false;
-		boolean bDate = false;
-
-		double d = cell.getNumericCellValue();
-		if (isValidExcelDate(d)) {
-			CellStyle style = cell.getCellStyle();
-			int i = style.getDataFormat();
-			String f = style.getDataFormatString();
-			bDate = isADateFormat(i, f);
-		}
-		return bDate;
-	}
-
-	/**
-	 * Whether date format characters are included in the pattern
-	 * 
-	 * @param pattern String
-	 * @return
-	 */
-	private static boolean hasYMDHMS(String pattern) {
-		if (pattern == null)
-			return false;
-		int len = pattern.length(), i = 0;
-		while (i < len) {
-			char ch = pattern.charAt(i);
-			switch (ch) {
-			case '\\': // Escape character in Excel
-				i += 2;
-				break;
-			case '\"': // Normal text
-				while (++i < len) {
-					if (pattern.charAt(i) == '\"') {
-						i++;
-						break;
-					}
-				}
-				break;
-			case '[': // Format string identifier
-				while (++i < len) {
-					if (pattern.charAt(i) == ']') {
-						i++;
-						break;
-					}
-				}
-				break;
-			case 'a': // Week
-				if (i <= len - 3 && pattern.charAt(i + 1) == 'a'
-						&& pattern.charAt(i + 2) == 'a')
-					return true;
-				i++;
-				break;
-			case 'y':
-			case 'm':
-			case 'd':
-			case 'h':
-			case 's':
-				return true;
-			default:
-				i++;
+			short formatIndex = style.getDataFormat();
+			String formatString = null;
+			if (df != null) {
+				formatString = df.getFormat(formatIndex);
 			}
+			if (formatString == null) {
+				formatString = style.getDataFormatString();
+			}
+			return isADateFormat(formatIndex, formatString);
 		}
 		return false;
 	}
 
 	/**
-	 * Whether the double value is an excel date
-	 * 
-	 * @param value
-	 * @return
-	 */
-	public static boolean isValidExcelDate(double value) {
-		return (value > -Double.MIN_VALUE);
-	}
-
-	/**
-	 * Whether the format string is a date format.
+	 * 是否日期时间格式
 	 * 
 	 * @param formatIndex
 	 * @param formatString
 	 * @return
 	 */
 	public static boolean isADateFormat(int formatIndex, String formatString) {
-		// First up, is this an internal date format?
-		if (isInternalDateFormat(formatIndex)) {
+		// POI的方法也是不断改进的，尽量还是用原生方法
+		if (DateUtil.isADateFormat(formatIndex, formatString))
+			return true;
+		// 一些特殊的中文日期时间格式单独判断一下
+		if (isChineseDateFormat(formatIndex, formatString)) {
 			return true;
 		}
-
-		// If we didn't get a real string, it can't be
-		if (formatString == null || formatString.length() == 0) {
-			return false;
-		}
-
-		String fs = formatString;
-
-		// Translate \- into just -, before matching
-		fs = fs.replaceAll("\\\\-", "-");
-		// And \, into ,
-		fs = fs.replaceAll("\\\\,", ",");
-		// And '\ ' into ' '
-		fs = fs.replaceAll("\\\\ ", " ");
-
-		// If it end in ;@, that's some crazy dd/mm vs mm/dd
-		// switching stuff, which we can ignore
-		fs = fs.replaceAll(";@", "");
-
-		// If it starts with [$-...], then could be a date, but
-		// who knows what that starting bit is all about
-		fs = fs.replaceAll("^\\[\\$\\-.*?\\]", "");
-
-		// If it starts with something like [Black] or [Yellow],
-		// then it could be a date
-		fs = fs.replaceAll("^\\[[a-zA-Z]+\\]", "");
-
-		// Otherwise, check it's only made up, in any case, of:
-		// y m d h s - / , . :
-		// optionally followed by AM/PM
-		if (fs.matches("^[yYmMdDhHsS0\\-/,. :]+[ampAMP/]*$")) {
-			return true;
-		}
-
 		return false;
 	}
 
 	/**
-	 * Whether the serial number of the format is a date format
+	 * 特殊处理一些中文日期时间格式
+	 * @param formatIndex
+	 * @param formatString
+	 * @return
+	 */
+	private static boolean isChineseDateFormat(int formatIndex,
+			String formatString) {
+		if (!GM.isChineseLanguage())
+			return false;
+		if (isChineseInternalDateFormat(formatIndex))
+			return true;
+		// If we didn't get a real string, it can't be
+		if (formatString == null || formatString.length() == 0) {
+			return false;
+		}
+		if (formatString.startsWith("reserved-0x"))
+			return true;
+		return false;
+	}
+
+	/**
+	 * 中文日期时间格式的编号
 	 * 
 	 * @param formatIndex
 	 * @return
 	 */
-	public static boolean isInternalDateFormat(int formatIndex) {
+	private static boolean isChineseInternalDateFormat(int formatIndex) {
+		// 有些中文格式的编号，需要进一步确认
 		switch (formatIndex) {
-		// Internal Date Formats as described on page 427 in
-		// Microsoft Excel Dev's Kit...
-		case 0x0e:
-		case 0x0f:
-		case 0x10:
-		case 0x11:
-		case 0x12:
-		case 0x13:
-		case 0x14:
-		case 0x15:
-		case 0x16:
-		case 0x2d:
-		case 0x2e:
-		case 0x2f:
+		case 0x37:
+		case 0x38:
 		case 0x39:
 		case 0x3a:
 			return true;
@@ -410,13 +307,8 @@ public class ExcelUtils {
 			return TYPE_DATETIME;
 		}
 		if (format >= 201 && format <= 211)
-			return 1;
+			return TYPE_TIME;
 		if (sformat != null) {
-			/*
-			 * There are many cells that are not in the above range, but are not
-			 * in the date format. Make a simple judgment based on the format
-			 * string.
-			 */
 			String s = sformat.toLowerCase();
 			if (s.indexOf("y") < 0 && s.indexOf("d") < 0) {
 				return TYPE_TIME;
@@ -1064,7 +956,7 @@ public class ExcelUtils {
 	 * @param time Time
 	 * @return
 	 */
-	public static double getTimeDouble(Time time) {
+	public static double getExcelTimeDouble(Time time) {
 		final double DAY_SECONDS = 86400.0d;
 		int hh = time.getHours();
 		int mm = time.getMinutes();
