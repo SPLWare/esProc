@@ -94,6 +94,10 @@ abstract public class Gather extends Function {
 	 * @return »ã×ÜÖµ
 	 */
 	public Object gather(Sequence seq, Context ctx) {
+		if (seq == null || seq.length() == 0) {
+			return null;
+		}
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(seq, 1);
 		stack.push(current);
