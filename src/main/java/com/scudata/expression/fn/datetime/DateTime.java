@@ -143,12 +143,14 @@ public class DateTime extends Function {
 						//calendar.setLenient(false);
 						calendar.set(ds.year(date), ds.month(date) - 1, ds.day(date),
 									 ds.hour(time), ds.minute(time), ds.second(time));
+						calendar.set(Calendar.MILLISECOND, 0);
 						return new Timestamp(calendar.getTimeInMillis());
 					} else if (result2 == null) {
 						DateFactory ds = DateFactory.get();
 						Calendar calendar = Calendar.getInstance();
 						//calendar.setLenient(false);
 						calendar.set(ds.year(date), ds.month(date) - 1, ds.day(date), 0, 0, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
 						return new Timestamp(calendar.getTimeInMillis());
 					} else {
 						MessageManager mm = EngineMessage.get();
@@ -317,6 +319,7 @@ public class DateTime extends Function {
 			Calendar calendar = Calendar.getInstance();
 			//calendar.setLenient(false);
 			calendar.set(year, month - 1, day, hour, minute, second);
+			calendar.set(Calendar.MILLISECOND, 0);
 			return new Timestamp(calendar.getTimeInMillis());
 		} else {
 			MessageManager mm = EngineMessage.get();
