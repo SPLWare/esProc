@@ -145,8 +145,12 @@ public class PanelValue extends JPanel {
 		panelAction.add(panelCursor, GM.getGBC(0, 0, true));
 		panelAction.add(panelDebug, GM.getGBC(1, 0, true));
 
+		panelSouth.setMinimumSize(new Dimension(1, 1));
+
 		panelSouth.add(CARD_DEBUG, panelAction);
-		panelSouth.add(CARD_EMPTY, new JPanel());
+		JPanel panelEmpty = new JPanel();
+		panelEmpty.setMinimumSize(new Dimension(1, 1));
+		panelSouth.add(CARD_EMPTY, panelEmpty);
 		cl.show(panelSouth, CARD_EMPTY);
 		panelSouth.setVisible(false);
 		this.add(panelSouth, BorderLayout.SOUTH);

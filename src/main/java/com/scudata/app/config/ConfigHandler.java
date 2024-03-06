@@ -110,6 +110,18 @@ public class ConfigHandler extends DefaultHandler {
 				}
 			}
 
+			String sCacheEnabled = attributes
+					.getValue(ConfigConsts.CACHE_ENABLED);
+			if (StringUtils.isValidString(sCacheEnabled)) {
+				try {
+					boolean cacheEnabled = Boolean.parseBoolean(sCacheEnabled);
+					rs.setCacheEnabled(cacheEnabled);
+				} catch (Exception ex) {
+					Logger.debug("Invalid " + ConfigConsts.CACHE_ENABLED + ": "
+							+ sCacheEnabled);
+				}
+			}
+
 			if (config.getRemoteStoreList() == null) {
 				config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
 			}

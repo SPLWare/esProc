@@ -730,6 +730,7 @@ public class GM {
 		chooser.setFileView(new ImageFileView());
 		chooser.setMultiSelectionEnabled(multiSelect);
 		chooser.setAcceptAllFileFilterUsed(useAllFileFilter);
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
 		String[] extArr;
 		boolean isMuiltExts = false;

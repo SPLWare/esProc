@@ -366,8 +366,10 @@ public class ConfigWriter {
 							ConfigConsts.MIN_FREE_SPACE,
 							rs.getMinFreeSpace() + "",
 							ConfigConsts.BLOCK_BUFFER_SIZE,
-							rs.getBlockBufferSize() + "", ConfigConsts.OPTION,
-							rs.getOption() }));
+							rs.getBlockBufferSize() + "",
+							ConfigConsts.CACHE_ENABLED,
+							String.valueOf(rs.isCacheEnabled()),
+							ConfigConsts.OPTION, rs.getOption() }));
 			endEmptyElement(ConfigConsts.REMOTE_STORE);
 		}
 		level = 3;

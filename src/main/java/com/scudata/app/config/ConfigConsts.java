@@ -155,6 +155,8 @@ public class ConfigConsts {
 	public static String MIN_FREE_SPACE = "minFreeSpace";
 	/** Block buffer size */
 	public static String BLOCK_BUFFER_SIZE = "blockBufferSize";
+	/** Cache Enabled */
+	public static String CACHE_ENABLED = "cacheEnabled";
 	/** Option JSON */
 	public static String OPTION = "option";
 
