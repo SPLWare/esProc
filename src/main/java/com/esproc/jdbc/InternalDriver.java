@@ -235,7 +235,17 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @throws SQLException
 	 */
 	protected InternalConnection newConnection() throws SQLException {
-		return new InternalConnection(this, config, hostNames);
+		InternalConnection con = new InternalConnection(this, config, hostNames) {
+
+			private static final long serialVersionUID = 1L;
+
+			public void close() throws SQLException {
+				super.close();
+				reduceConnectionCount();
+			}
+		};
+		addConnectionCount();
+		return con;
 	}
 
 	protected Map<String, String> getPropertyMap(String url, Properties info) {
@@ -301,7 +311,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	protected synchronized void initConfig(RaqsoftConfig rc, String sconfig)
 			throws SQLException {
-		if (rc != null) {
+		if (rc != null) { // DQL API¼ÓÔØµÄ
 			this.config = rc;
 			try {
 				ConfigUtil.setConfig(Env.getApplication(),
@@ -320,7 +330,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * 
 	 * @throws SQLException
 	 */
-	protected void loadConfig(String sconfig) throws SQLException {
+	protected boolean loadConfig(String sconfig) throws SQLException {
 		if (config != null) {
 			if (StringUtils.isValidString(sconfig))
 				if (currentConfig == null
@@ -328,7 +338,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					Logger.info(JDBCMessage.get().getMessage(
 							"server.configloadonce"));
 				}
-			return;
+			return false;
 		}
 		InputStream is = null;
 		String fileName = sconfig;
@@ -404,6 +414,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
@@ -445,6 +456,22 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			}
 		}
 		return in;
+	}
+
+	protected int connectionCount = 0;
+
+	protected Object countLock = new Object();
+
+	protected void addConnectionCount() {
+		synchronized (countLock) {
+			connectionCount = connectionCount + 1;
+		}
+	}
+
+	protected void reduceConnectionCount() {
+		synchronized (countLock) {
+			connectionCount = connectionCount - 1;
+		}
 	}
 
 	private static final String KEY_CONFIG = "config";

@@ -102,7 +102,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * 连接持有的父Context
 	 */
-	private Context parentCtx = new Context();;
+	private Context parentCtx = new Context();
 
 	/**
 	 * Constructor
