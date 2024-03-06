@@ -257,10 +257,7 @@ public class DataBlockType {
 		if (end - start > 16) {
 			Object obj1 = data.get(start);
 			Object obj2 = data.get(start + 1);
-			if (obj1 == null || obj2 == null) {
-				increasing = false;
-			}
-			if (increasing && obj1 instanceof Integer && obj2 instanceof Integer) {
+			if (obj1 != null && obj2 != null && obj1 instanceof Integer && obj2 instanceof Integer) {
 				int lastVal = (Integer) obj2;
 				int stepVal = (Integer) obj2 - (Integer) obj1;
 				for (int i = start + 2; i <= end; ++i) {
@@ -277,6 +274,8 @@ public class DataBlockType {
 						break;
 					}
 				}
+			} else {
+				increasing = false;
 			}
 			
 			if (increasing) {
@@ -355,6 +354,8 @@ public class DataBlockType {
 						break;
 					}
 				}
+			} else {
+				Increasing = false;
 			}
 			
 			if (Increasing) {
