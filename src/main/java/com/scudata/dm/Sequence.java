@@ -4949,6 +4949,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Object result;
 		if (isSorted) {
+			if (isAll) {
+				DataStruct ds = null;
+				if (this instanceof Table) {
+					ds = dataStruct();
+				} else {
+					Object val = getMem(1);
+					if (val instanceof BaseRecord) {
+						ds = ((BaseRecord)val).dataStruct();
+					}
+				}
+				
+				Regions regions = binarySelect(exp.getHome(), ds, ctx);
+				if (regions != null) {
+					ArrayList<Region> list = regions.getRegionList();
+					int total = 0;
+					for (Region region : list) {
+						total += region.end - region.start + 1;
+					}
+					
+					IntArray resultArray = new IntArray(total);
+					for (Region region : list) {
+						for (int i = region.start, end = region.end; i <= end; ++i) {
+							resultArray.pushInt(i);
+						}
+					}
+					
+					return new Sequence(resultArray);
+				}
+			}
+
 			// 表达式的返回值为整形且有序
 			result = pselect0(exp, isAll, isFirst, isInsertPos, 1, size, ctx);
 		} else {
