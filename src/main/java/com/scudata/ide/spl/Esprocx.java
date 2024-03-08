@@ -47,6 +47,7 @@ import com.scudata.util.Variant;
  */
 public class Esprocx {
 	static RaqsoftConfig config;
+	static Object remoteStore;
 
 	public static void loadDataSource(Context ctx) throws Exception {
 		// 加载系统数据源
@@ -191,7 +192,7 @@ public class Esprocx {
 					try {
 						Class clz = Class.forName(clsName);
 						Method m = clz.getMethod(method, null);
-						m.invoke(clz, null);
+						remoteStore = m.invoke(clz, null);
 						Logger.info("Initial "+token+" ok.");
 					} catch (Throwable t) {
 						Logger.info(t);
@@ -201,6 +202,20 @@ public class Esprocx {
 		}
 	}
 
+	public static void closeRemoteStore(Object remoteStore) {
+		if (remoteStore == null)
+			return;
+		try {
+			Class clz = Class.forName("com.scudata.ecloud.ide.GMCloud");
+			Method m = clz.getMethod("closeRemoteStore", Object.class);
+			m.invoke(clz, remoteStore);
+			Logger.info("Remote store is closed.");
+		} catch (ClassNotFoundException ex) {
+		} catch (Throwable t) {
+			Logger.error(t);
+		}
+	}
+	
 	static int finishedWorkers = 0;
 
 	/**
@@ -225,6 +240,11 @@ public class Esprocx {
 		}
 	}
 
+	private static void exit() {
+		closeRemoteStore(remoteStore);
+		System.exit(0);
+	}
+	
 	/**
 	 * 使用跟IDE相同的配置以及注册码在Dos窗口执行一个dfx 
 	 * 用多线程n同时并发执行当前的dfx。 
@@ -286,7 +306,7 @@ public class Esprocx {
 		if (!debug && args.length == 0) {
 			System.err.println(usage);
 			Thread.sleep(3000);
-			System.exit(0);
+			exit();
 		}
 
 		String arg = "", dfxFile = null;
@@ -397,7 +417,7 @@ public class Esprocx {
 				} else if (arg.toLowerCase().startsWith("-help")
 						|| arg.startsWith("-?")) {
 					System.err.println(usage);
-					System.exit(0);
+					exit();
 				}
 			}
 		}
@@ -436,13 +456,13 @@ public class Esprocx {
 							System.err.println("Unsupported file:"
 									+ fo.getFileName());
 							Thread.sleep(3000);
-							System.exit(0);
+							exit();
 						}
 					} else {
 						System.err.println("Unsupported file:"
 								+ fo.getFileName());
 						Thread.sleep(3000);
-						System.exit(0);
+						exit();
 					}
 
 					String argstr = fileArgs.toString();
@@ -501,7 +521,7 @@ public class Esprocx {
 			Logger.error(x.getMessage(), x);
 		}
 
-		System.exit(0);
+		exit();
 	}
 
 	/**

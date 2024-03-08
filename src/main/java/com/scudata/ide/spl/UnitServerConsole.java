@@ -808,8 +808,11 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		}
 
 	}
+	
+	public void quit() {}
 
 	void jBQuit_actionPerformed(ActionEvent e) {
+		quit();
 		this.dispose();
 		if (!startedByWeb) {
 			System.exit(0);
