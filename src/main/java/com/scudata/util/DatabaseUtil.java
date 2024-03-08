@@ -248,6 +248,8 @@ public class DatabaseUtil {
 			}
 			Table table = populate(rs, dbCharset, tranContent, toCharset, dbType, addTable, null, false, recordLimit,
 					opt);
+			// edited by bd, 2024.3.8, 增加@c选项，处理字段名中的表名及特殊符号
+			boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 			if (opt != null && opt.indexOf("t") > -1) {
 				String[] fields = null;
 				ResultSetMetaData rsmd = rs.getMetaData();
@@ -261,11 +263,27 @@ public class DatabaseUtil {
 				if (sql.indexOf(" as ") < 0) {
 					fields = new String[colCount];
 					String[][] tableCols = new String[colCount][];
-					for (int c = 1; c <= colCount; ++c) {
-						String colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-						fields[c - 1] = colName;
-						String[] tCol = { colName };
-						tableCols[c - 1] = tCol;
+					if (cleanFieldName) {
+						ArrayList<String> oldcns = new ArrayList<String>(colCount);
+						ArrayList<String> cns = new ArrayList<String>(colCount);
+						for (int c = 1; c <= colCount; ++c) {
+							String colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
+							cleanFieldName(colName, oldcns, cns);
+						}
+						for (int c = 0; c < colCount; ++c) {
+							String colName = cns.get(c);
+							fields[c] = colName;
+							String[] tCol = { colName };
+							tableCols[c] = tCol;
+						}
+					}
+					else {
+						for (int c = 1; c <= colCount; ++c) {
+							String colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
+							fields[c - 1] = colName;
+							String[] tCol = { colName };
+							tableCols[c - 1] = tCol;
+						}
 					}
 				} else {
 					String selCols = sql.substring(sql.indexOf("select") + 6, sql.indexOf("from")).trim();
@@ -992,10 +1010,40 @@ public class DatabaseUtil {
 			bb = toCharset.equalsIgnoreCase(dbCharset) || dbCharset == null;
 		}
 
+		// edited by bd, 2024.3.8, 增加@c选项，处理字段名中的表名及特殊符号
+		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		if (table == null) {
 			int[] colTypes = new int[colCount];
 			String[] colNames = new String[colCount];
 
+			if (cleanFieldName) {
+				ArrayList<String> oldcns = new ArrayList<String>(colCount);
+				ArrayList<String> cns = new ArrayList<String>(colCount);
+				for (int c = 1; c <= colCount; ++c) {
+					String colName;
+					try {
+						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						cleanFieldName(colName, oldcns, cns);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				for (int c = 0; c < colCount; ++c) {
+					String colName = cns.get(c);
+					colNames[c] = colName;
+				}
+			}
+			else {
+				for (int c = 1; c <= colCount; ++c) {
+					String colName;
+					try {
+						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						colNames[c - 1] = colName;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			for (int c = 1; c <= colCount; ++c) {
 				try {
 					if (addTable) {
@@ -1006,11 +1054,13 @@ public class DatabaseUtil {
 						} else {
 							tn += "_";
 						}
-						colNames[c - 1] = tn
-								+ tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-					} else {
-						colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						//colNames[c - 1] = tn
+						//		+ tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						colNames[c - 1] = tn + colNames[c-1];
 					}
+					//else {
+						//colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+					//}
 					colTypes[c - 1] = rsmd.getColumnType(c);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -1088,16 +1138,37 @@ public class DatabaseUtil {
 
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int colCount = rsmd.getColumnCount();
+		// edited by bd, 2024.3.8, 增加@c选项，处理字段名中的表名及特殊符号
+		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		if (table == null) {
 			int[] colTypes = new int[colCount];
 			String[] colNames = new String[colCount];
-			for (int c = 1; c <= colCount; ++c) {
-				try {
-					colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-				} catch (Exception e) {
-					e.printStackTrace();
+			if (cleanFieldName) {
+				ArrayList<String> oldcns = new ArrayList<String>(colCount);
+				ArrayList<String> cns = new ArrayList<String>(colCount);
+				for (int c = 1; c <= colCount; ++c) {
+					try {
+						String colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						cleanFieldName(colName, oldcns, cns);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					colTypes[c - 1] = rsmd.getColumnType(c);
 				}
-				colTypes[c - 1] = rsmd.getColumnType(c);
+				for (int c = 0; c < colCount; ++c) {
+					String colName = cns.get(c);
+					colNames[c] = colName;
+				}
+			}
+			else {
+				for (int c = 1; c <= colCount; ++c) {
+					try {
+						colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					colTypes[c - 1] = rsmd.getColumnType(c);
+				}
 			}
 			table = new Table(colNames);
 		}
@@ -1159,10 +1230,32 @@ public class DatabaseUtil {
 		int[] colTypes = new int[colCount];
 		String[] colNames = new String[colCount];
 
+		// edited by bd, 2024.3.8, 增加@c选项，处理字段名中的表名及特殊符号
+		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		try {
-			for (int c = 1; c <= colCount; ++c) {
-				colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-				colTypes[c - 1] = rsmd.getColumnType(c);
+			if (cleanFieldName) {
+				ArrayList<String> oldcns = new ArrayList<String>(colCount);
+				ArrayList<String> cns = new ArrayList<String>(colCount);
+				for (int c = 1; c <= colCount; ++c) {
+					String colName;
+					try {
+						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+						cleanFieldName(colName, oldcns, cns);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					colTypes[c - 1] = rsmd.getColumnType(c);
+				}
+				for (int c = 0; c < colCount; ++c) {
+					String colName = cns.get(c);
+					colNames[c] = colName;
+				}
+			}
+			else {
+				for (int c = 1; c <= colCount; ++c) {
+					colNames[c - 1] = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
+					colTypes[c - 1] = rsmd.getColumnType(c);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1803,9 +1896,31 @@ public class DatabaseUtil {
 						int[] colTypes = new int[colCount];
 						String[] colNames = new String[colCount];
 						// added by bdl, 2012.10.18, 表名和字段名的转码
-						for (int c = 1; c <= colCount; ++c) {
-							colNames[c - 1] = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-							colTypes[c - 1] = rsmd.getColumnType(c);
+						// edited by bd, 2024.3.8, 增加@c选项，处理字段名中的表名及特殊符号
+						boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
+						if (cleanFieldName) {
+							ArrayList<String> oldcns = new ArrayList<String>(colCount);
+							ArrayList<String> cns = new ArrayList<String>(colCount);
+							for (int c = 1; c <= colCount; ++c) {
+								String colName;
+								try {
+									colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
+									cleanFieldName(colName, oldcns, cns);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								colTypes[c - 1] = rsmd.getColumnType(c);
+							}
+							for (int c = 0; c < colCount; ++c) {
+								String colName = cns.get(c);
+								colNames[c] = colName;
+							}
+						}
+						else {
+							for (int c = 1; c <= colCount; ++c) {
+								colNames[c - 1] = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
+								colTypes[c - 1] = rsmd.getColumnType(c);
+							}
 						}
 						table = new Table(colNames);
 					}
@@ -2410,7 +2525,7 @@ public class DatabaseUtil {
 
 		return obj;
 	}
-
+	
 	private static String tranName(String name, boolean needTranContent, String dbCharset, String toCharset,
 			boolean bb, String opt)
 			throws Exception {
@@ -2429,6 +2544,51 @@ public class DatabaseUtil {
 			result = result.toLowerCase();
 		}
 		return result;
+	}
+
+	// edited by bd, 2024.3.7, 添加字段名整理，opt中包含f选项时，去除最后一个小数点前部分，重名则不去除把小数点换为下划线
+	private static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns) {
+		String result = name;
+		oldcns.add(result);
+		int ploc = result.lastIndexOf(".");
+		if (ploc > -1) {
+			String result2 = result.substring(ploc +1);
+			if (result2.length()<1) {
+				result2 = result;
+			}
+			else {
+				// 查重
+				ploc = cns.indexOf(result2);
+				if (ploc > -1) {
+					result2 = oldcns.get(ploc);
+					result2 = removeSpecialSymbols(result2, 0);
+					cns.set(ploc, result2);
+					result2 = result;
+				}
+			}
+			result = result2;
+		}
+		result = removeSpecialSymbols(result, 0);
+		cns.add(result);
+	}
+	
+	private static String removeSpecialSymbols(String str, int start) {
+		int strlen = str == null ? 0 : str.length();
+		StringBuffer result = new StringBuffer(strlen);
+		int i = start;
+		while (i < strlen) {
+			char ch = str.charAt(i);
+			if (ch == '.' || ch == '-' || ch == '\'' || ch == '\"' || ch == '(' || ch == ')' || 
+					ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '~' || ch == '+' || 
+					ch == '*' || ch == '/' || ch == '^' || ch == '%' || ch == '$' || ch == '=' || 
+					ch == '&' || ch == '|' || ch == '!') {
+				result.append('_');
+			}
+			else {
+				result.append(ch);
+			}
+		}
+		return result.toString();
 	}
 
 	private static String[] getKeyNames(Connection conn, String tableName) {
@@ -3725,7 +3885,6 @@ public class DatabaseUtil {
 			boolean addTable = false;
 			if (opt != null && opt.indexOf("f") > -1) {
 				addTable = true;
-
 			}
 			boolean oneRecord = false;
 			if (opt != null && opt.indexOf("1") > -1) {
