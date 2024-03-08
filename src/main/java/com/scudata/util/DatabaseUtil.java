@@ -2587,6 +2587,7 @@ public class DatabaseUtil {
 			else {
 				result.append(ch);
 			}
+			i++;
 		}
 		return result.toString();
 	}
