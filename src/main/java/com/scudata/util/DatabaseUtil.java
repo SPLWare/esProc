@@ -268,7 +268,7 @@ public class DatabaseUtil {
 						ArrayList<String> cns = new ArrayList<String>(colCount);
 						for (int c = 1; c <= colCount; ++c) {
 							String colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-							cleanFieldName(colName, oldcns, cns);
+							cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 						}
 						for (int c = 0; c < colCount; ++c) {
 							String colName = cns.get(c);
@@ -1023,7 +1023,7 @@ public class DatabaseUtil {
 					String colName;
 					try {
 						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns);
+						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1149,7 +1149,7 @@ public class DatabaseUtil {
 				for (int c = 1; c <= colCount; ++c) {
 					try {
 						String colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns);
+						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1240,7 +1240,7 @@ public class DatabaseUtil {
 					String colName;
 					try {
 						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns);
+						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1905,7 +1905,7 @@ public class DatabaseUtil {
 								String colName;
 								try {
 									colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-									cleanFieldName(colName, oldcns, cns);
+									cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -2547,7 +2547,7 @@ public class DatabaseUtil {
 	}
 
 	// edited by bd, 2024.3.7, 添加字段名整理，opt中包含f选项时，去除最后一个小数点前部分，重名则不去除把小数点换为下划线
-	private static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns) {
+	private static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns, String tabName) {
 		String result = name;
 		oldcns.add(result);
 		int ploc = result.lastIndexOf(".");
@@ -2567,6 +2567,11 @@ public class DatabaseUtil {
 				}
 			}
 			result = result2;
+		}
+		ploc = cns.indexOf(result);
+		if (ploc > -1) {
+			// added by bd, 2024.3.12, 去除可能存在的表名后，再次查重，重复的话在新字段前加上表名
+			result = tabName + "_" + result;
 		}
 		result = removeSpecialSymbols(result, 0);
 		cns.add(result);
