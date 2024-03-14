@@ -501,7 +501,8 @@ public class ConfigHandler extends DefaultHandler {
 	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		if (qName.equalsIgnoreCase(ConfigConsts.JNDI_LIST)) {
+		if (qName.equalsIgnoreCase(ConfigConsts.JNDI_LIST)
+				|| qName.equalsIgnoreCase(ConfigConsts.SPRING_DB_LIST)) {
 			activeNode = SERVER;
 			return;
 		}
@@ -603,7 +604,6 @@ public class ConfigHandler extends DefaultHandler {
 				}
 				unitList.add(value);
 			}
-
 		}
 	}
 
