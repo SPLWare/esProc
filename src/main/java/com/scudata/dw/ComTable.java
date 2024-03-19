@@ -16,6 +16,7 @@ import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IFile;
 import com.scudata.dm.LongArray;
+import com.scudata.dm.NonLocalFile;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
@@ -179,6 +180,9 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		
 		File file = fo.getLocalFile().file();
+		if (file == null) {
+			file = new NonLocalFile(fo.getFileName(), fo);
+		}
 		RandomAccessFile raf = ifile.getRandomAccessFile();
 
 		raf.seek(6);
