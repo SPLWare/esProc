@@ -268,7 +268,7 @@ public class DatabaseUtil {
 						ArrayList<String> cns = new ArrayList<String>(colCount);
 						for (int c = 1; c <= colCount; ++c) {
 							String colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-							cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
+							DatabaseUtil.cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 						}
 						for (int c = 0; c < colCount; ++c) {
 							String colName = cns.get(c);
@@ -1023,7 +1023,7 @@ public class DatabaseUtil {
 					String colName;
 					try {
 						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
+						DatabaseUtil.cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1149,7 +1149,7 @@ public class DatabaseUtil {
 				for (int c = 1; c <= colCount; ++c) {
 					try {
 						String colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
+						DatabaseUtil.cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1240,7 +1240,7 @@ public class DatabaseUtil {
 					String colName;
 					try {
 						colName = tranName(rsmd.getColumnLabel(c), needTranContent, dbCharset, toCharset, bb, opt);
-						cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
+						DatabaseUtil.cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1905,7 +1905,7 @@ public class DatabaseUtil {
 								String colName;
 								try {
 									colName = tranName(rsmd.getColumnLabel(c), tranContent, dbCharset, toCharset, bb, opt);
-									cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
+									DatabaseUtil.cleanFieldName(colName, oldcns, cns, rsmd.getTableName(c));
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -2547,31 +2547,31 @@ public class DatabaseUtil {
 	}
 
 	// edited by bd, 2024.3.7, 添加字段名整理，opt中包含f选项时，去除最后一个小数点前部分，重名则不去除把小数点换为下划线
-	private static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns, String tabName) {
+	public static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns, String tabName) {
 		String result = name;
-		oldcns.add(result);
-		int ploc = result.lastIndexOf(".");
-		if (ploc > -1) {
-			String result2 = result.substring(ploc +1);
+		String prefix = tabName == null ? "." : tabName + ".";
+		int prelen = prefix.length();
+		if (result.startsWith(prefix)) {
+			oldcns.add(name);
+			String result2 = result.substring(prelen);
 			if (result2.length()<1) {
+				// 除了前缀无字段名
 				result2 = result;
-			}
-			else {
-				// 查重
-				ploc = cns.indexOf(result2);
-				if (ploc > -1) {
-					result2 = oldcns.get(ploc);
-					result2 = removeSpecialSymbols(result2, 0);
-					cns.set(ploc, result2);
-					result2 = result;
-				}
 			}
 			result = result2;
 		}
-		ploc = cns.indexOf(result);
-		if (ploc > -1) {
-			// added by bd, 2024.3.12, 去除可能存在的表名后，再次查重，重复的话在新字段前加上表名
-			result = tabName + "_" + result;
+		else {
+			// 无前缀, oldcns中记录添加前缀的字段名
+			name = prefix+name;
+			oldcns.add(name);
+		}
+		// 做了去除前缀处理后，查重，出现重名的话，重名的字段都获取含表名的字段名
+		int loc = cns.indexOf(result);
+		if (loc > -1) {
+			result = oldcns.get(loc);
+			result = removeSpecialSymbols(result, 0);
+			cns.set(loc, result);
+			result = name;
 		}
 		result = removeSpecialSymbols(result, 0);
 		cns.add(result);
