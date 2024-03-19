@@ -1016,8 +1016,10 @@ public abstract class SplControl extends ControlBase {
 			this.setRowHeaderView(rowHeaderView);
 		}
 		contentView = createContentView();
-		this.getViewport().setView(contentView);
-		this.getViewport().setAutoscrolls(true);
+		if (contentView != null) {
+			this.getViewport().setView(contentView);
+			this.getViewport().setAutoscrolls(true);
+		}
 	}
 
 	/**
@@ -1686,13 +1688,39 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	public void setScale(float newScale) {
+		float oldScale = scale;
+		// Boolean isEditable = null;
+		// if (contentView != null) {
+		// isEditable = contentView.isEditable();
+		// }
 		this.scale = newScale;
-		Boolean isEditable = null;
-		if (contentView != null)
-			isEditable = contentView.isEditable();
-		draw();
-		if (isEditable != null)
-			contentView.setEditable(isEditable);
+
+		// draw时会重新创建网格面板，改成刷新
+		// draw();
+		if (colHeaderView != null) {
+			Point pCol = getViewport().getViewPosition();
+			pCol.setLocation(pCol.getX() * scale / oldScale, pCol.getY()
+					* scale / oldScale);
+			this.setColumnHeaderView(colHeaderView);
+			this.getColumnHeader().setViewPosition(pCol);
+		}
+		if (rowHeaderView != null) {
+			Point pRow = getViewport().getViewPosition();
+			pRow.setLocation(pRow.getX() * scale / oldScale, pRow.getY()
+					* scale / oldScale);
+			this.setRowHeaderView(rowHeaderView);
+			this.getRowHeader().setViewPosition(pRow);
+		}
+		if (contentView != null) {
+			Point pContent = getViewport().getViewPosition();
+			pContent.setLocation(pContent.getX() * scale / oldScale,
+					pContent.getY() * scale / oldScale);
+			this.getViewport().setView(contentView);
+			this.getViewport().setViewPosition(pContent);
+		}
+
+		// if (isEditable != null)
+		// contentView.setEditable(isEditable);
 		ByteMap bm = this.cellSet.getCustomPropMap();
 		if (bm == null) {
 			bm = new ByteMap();
