@@ -442,8 +442,10 @@ public class DBCursor extends ICursor {
 				throw new RQException(mm.getMessage("error.sqlException", name,
 						sql));
 			}
+			//added by bd, 2024.3.18, 添加@c选项，清理字段名，处理字段名中可能存在的表名，以及特殊字符
+			boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 			// edited by bdl, 2010.4.29, 如果有@t操作，返回库序表
-			DataStruct ds = crtateDataStruct(rs, db.isLower());
+			DataStruct ds = crtateDataStruct(rs, db.isLower(), cleanFieldName);
 			if (opt != null && opt.indexOf("t") > -1) {
 				String[] fields = null;
 				int colCount = rsmd.getColumnCount();
@@ -531,9 +533,13 @@ public class DBCursor extends ICursor {
 	 * 
 	 * @param rs
 	 *            ResultSet 结果数据集
+	 * @param lowercase
+	 *            boolean 结果数据集
+	 * @param cleanFieldName
+	 *            added by bd, 2024.3.18, boolean 结果数据集
 	 * @return DataStruct
 	 */
-	private DataStruct crtateDataStruct(ResultSet rs, boolean lowercase) 
+	private DataStruct crtateDataStruct(ResultSet rs, boolean lowercase, boolean cleanFieldName) 
 			throws SQLException, UnsupportedEncodingException {
 		if (rs == null) {
 			return null;
@@ -544,18 +550,42 @@ public class DBCursor extends ICursor {
 		int[] colTypes = new int[colCount];
 		String[] colNames = new String[colCount];
 
-		for (int c = 1; c <= colCount; ++c) {
-			//edited by bd, 2016.8.29, 不应该用Name，而是Lable，否则别名设不进去
-			//colNames[c - 1] = rsmd.getColumnName(c);
-			//edited by bd, 2019.7.19, 添加了游标支持connect@l，允许返回字段名为小写
-			if (lowercase) {
-				colNames[c - 1] = rsmd.getColumnLabel(c).toLowerCase();
+		if (cleanFieldName) {
+			ArrayList<String> oldcns = new ArrayList<String>(colCount);
+			ArrayList<String> cns = new ArrayList<String>(colCount);
+			for (int c = 1; c <= colCount; ++c) {
+				//edited by bd, 2016.8.29, 不应该用Name，而是Lable，否则别名设不进去
+				//edited by bd, 2019.7.19, 添加了游标支持connect@l，允许返回字段名为小写
+				String cn = null;
+				if (lowercase) {
+					cn = rsmd.getColumnLabel(c).toLowerCase();
+				}
+				else {
+					cn = rsmd.getColumnLabel(c);
+				}
+				
+				colTypes[c - 1] = rsmd.getColumnType(c);
+				DatabaseUtil.cleanFieldName(cn, oldcns, cns, rsmd.getTableName(c));
 			}
-			else {
-				colNames[c - 1] = rsmd.getColumnLabel(c);
+			for (int c = 0; c < colCount; ++c) {
+				String colName = cns.get(c);
+				colNames[c] = colName;
 			}
-			
-			colTypes[c - 1] = rsmd.getColumnType(c);
+		}
+		else {
+			for (int c = 1; c <= colCount; ++c) {
+				//edited by bd, 2016.8.29, 不应该用Name，而是Lable，否则别名设不进去
+				//colNames[c - 1] = rsmd.getColumnName(c);
+				//edited by bd, 2019.7.19, 添加了游标支持connect@l，允许返回字段名为小写
+				if (lowercase) {
+					colNames[c - 1] = rsmd.getColumnLabel(c).toLowerCase();
+				}
+				else {
+					colNames[c - 1] = rsmd.getColumnLabel(c);
+				}
+				
+				colTypes[c - 1] = rsmd.getColumnType(c);
+			}
 		}
 
 		if (tranContent
