@@ -188,11 +188,14 @@ public class IndexCursor extends ICursor {
 		}
 		ds = new DataStruct(fields);
 		int colCount = fields.length;
-		try {
-			raf = new RandomAccessFile(table.groupTable.file, "rw");
-		} catch (FileNotFoundException e) {
-			throw new RQException(e.getMessage(), e);
-		}
+//		try {
+//			raf = new RandomAccessFile(table.groupTable.file, "rw");
+//		} catch (FileNotFoundException e) {
+//			throw new RQException(e.getMessage(), e);
+//		}
+		
+		raf = table.groupTable.raf;
+		
 		bytes = new byte[BUFFER_SIZE];
 		rowDataReader = new BufferReader(table.getStructManager(), bytes);
 		allCount = table.getColNames().length;
@@ -949,9 +952,9 @@ public class IndexCursor extends ICursor {
 					reader.close();
 				}
 			}
-			if (raf != null) {
-				raf.close();
-			}
+//			if (raf != null) {
+//				raf.close();
+//			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
