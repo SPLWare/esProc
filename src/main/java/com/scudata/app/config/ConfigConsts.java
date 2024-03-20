@@ -156,7 +156,7 @@ public class ConfigConsts {
 	/** Block buffer size */
 	public static String BLOCK_BUFFER_SIZE = "blockBufferSize";
 	/** Cache Enabled */
-	public static String CACHE_ENABLED = "cacheEnabled";
+	// public static String CACHE_ENABLED = "cacheEnabled";
 	/** Option JSON */
 	public static String OPTION = "option";
 

@@ -14,7 +14,7 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 	private String cachePath; // 缓存路径
 	private long minFreeSpace = 0;// 最小空闲空间
 	private int blockBufferSize = 0;// 缓存块大小
-	private boolean cacheEnabled = true; // 启用缓存，默认启用
+	// private boolean cacheEnabled = true; // 启用缓存，默认启用，option中有
 	private String option; // JSON格式
 
 	public RemoteStoreConfig() {
@@ -89,20 +89,20 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 	public void setBlockBufferSize(int blockBufferSize) {
 		this.blockBufferSize = blockBufferSize;
 	}
-	
+
 	/**
 	 * @return the cacheEnabled
 	 */
-	public boolean isCacheEnabled() {
-		return cacheEnabled;
-	}
+	// public boolean isCacheEnabled() {
+	// return cacheEnabled;
+	// }
 
 	/**
 	 * @param cacheEnabled the cacheEnabled to set
 	 */
-	public void setCacheEnabled(boolean cacheEnabled) {
-		this.cacheEnabled = cacheEnabled;
-	}
+	// public void setCacheEnabled(boolean cacheEnabled) {
+	// this.cacheEnabled = cacheEnabled;
+	// }
 
 	/**
 	 * @return the option
@@ -131,7 +131,7 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		rs.setCachePath(cachePath);
 		rs.setMinFreeSpace(minFreeSpace);
 		rs.setBlockBufferSize(blockBufferSize);
-		rs.setCacheEnabled(cacheEnabled);
+		// rs.setCacheEnabled(cacheEnabled);
 		return rs;
 	}
 
@@ -144,7 +144,7 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		out.writeObject(cachePath);
 		out.writeLong(minFreeSpace);
 		out.writeInt(blockBufferSize);
-		out.writeBoolean(cacheEnabled);
+		// out.writeBoolean(cacheEnabled);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException,
@@ -157,9 +157,7 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		cachePath = (String) in.readObject();
 		minFreeSpace = in.readLong();
 		blockBufferSize = in.readInt();
-		cacheEnabled = in.readBoolean();
+		// cacheEnabled = in.readBoolean();
 	}
-
-	
 
 }

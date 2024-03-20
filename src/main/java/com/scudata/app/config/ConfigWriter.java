@@ -367,9 +367,24 @@ public class ConfigWriter {
 							rs.getMinFreeSpace() + "",
 							ConfigConsts.BLOCK_BUFFER_SIZE,
 							rs.getBlockBufferSize() + "",
-							ConfigConsts.CACHE_ENABLED,
-							String.valueOf(rs.isCacheEnabled()),
-							ConfigConsts.OPTION, rs.getOption() }));
+					// option里有缓存设置了
+					// ConfigConsts.CACHE_ENABLED,
+					// String.valueOf(rs.isCacheEnabled()),
+					// ConfigConsts.OPTION, rs.getOption()
+					}));
+			String option = rs.getOption();
+			if (option != null) {
+				option = option.trim();
+				StringBuffer sb = new StringBuffer(separator);
+				for (int i = 0; i < level + 1; i++) {
+					sb.append(tab);
+				}
+				sb.append(option);
+				String optionOut = sb.toString();
+				handler.characters(optionOut.toCharArray(), 0,
+						optionOut.length());
+			}
+			appendTab();
 			endEmptyElement(ConfigConsts.REMOTE_STORE);
 		}
 		level = 3;

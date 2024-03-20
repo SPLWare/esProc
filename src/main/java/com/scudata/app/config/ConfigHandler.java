@@ -83,6 +83,7 @@ public class ConfigHandler extends DefaultHandler {
 			RemoteStoreConfig rs = new RemoteStoreConfig();
 			rs.setName(attributes.getValue(ConfigConsts.NAME));
 			rs.setType(attributes.getValue(ConfigConsts.TYPE));
+			// 这里兼容一下之前的option
 			rs.setOption(attributes.getValue(ConfigConsts.OPTION));
 			rs.setCachePath(attributes.getValue(ConfigConsts.CACHE_PATH));
 
@@ -110,17 +111,17 @@ public class ConfigHandler extends DefaultHandler {
 				}
 			}
 
-			String sCacheEnabled = attributes
-					.getValue(ConfigConsts.CACHE_ENABLED);
-			if (StringUtils.isValidString(sCacheEnabled)) {
-				try {
-					boolean cacheEnabled = Boolean.parseBoolean(sCacheEnabled);
-					rs.setCacheEnabled(cacheEnabled);
-				} catch (Exception ex) {
-					Logger.debug("Invalid " + ConfigConsts.CACHE_ENABLED + ": "
-							+ sCacheEnabled);
-				}
-			}
+			// String sCacheEnabled = attributes
+			// .getValue(ConfigConsts.CACHE_ENABLED);
+			// if (StringUtils.isValidString(sCacheEnabled)) {
+			// try {
+			// boolean cacheEnabled = Boolean.parseBoolean(sCacheEnabled);
+			// rs.setCacheEnabled(cacheEnabled);
+			// } catch (Exception ex) {
+			// Logger.debug("Invalid " + ConfigConsts.CACHE_ENABLED + ": "
+			// + sCacheEnabled);
+			// }
+			// }
 
 			if (config.getRemoteStoreList() == null) {
 				config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
@@ -574,6 +575,11 @@ public class ConfigHandler extends DefaultHandler {
 				config.setCustomFunctionFile(value);
 			} else if (qName.equalsIgnoreCase(ConfigConsts.SERIAL_NO)) {
 				config.setEsprocSerialNo(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORE)) {
+				RemoteStoreConfig rs = getActiveRemoteStoreConfig();
+				if (rs != null) {
+					rs.setOption(value);
+				}
 			}
 		} else if (activeNode == RUNTIME_LOGGER) {
 			if (qName.equalsIgnoreCase(ConfigConsts.LEVEL)) {
@@ -661,6 +667,13 @@ public class ConfigHandler extends DefaultHandler {
 		if (dbList == null || dbList.isEmpty())
 			return null;
 		return (SpringDBConfig) dbList.get(dbList.size() - 1);
+	}
+
+	protected RemoteStoreConfig getActiveRemoteStoreConfig() {
+		List<RemoteStoreConfig> rsList = config.getRemoteStoreList();
+		if (rsList == null || rsList.isEmpty())
+			return null;
+		return (RemoteStoreConfig) rsList.get(rsList.size() - 1);
 	}
 
 	/**
