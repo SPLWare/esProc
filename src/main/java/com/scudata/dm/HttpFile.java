@@ -147,7 +147,7 @@ public class HttpFile implements IFile {
 	            if( params != null ) {
 		            OutputStream os = conn.getOutputStream();
 		            //jdk中调用conn.getOutputStream()方法时，会强行将传参方法改为post，要使用get方法传参，则要使用下面这段反射程序将conn的方法修改为get
-		            if( "GET".equalsIgnoreCase( sendParamMethod ) ) {
+		            if( !"POST".equalsIgnoreCase( sendParamMethod ) ) {
 		            	List<Field> fields = new ArrayList<Field>() ;
 		                Class tempClass = conn.getClass();
 		                while( tempClass != null ) {//当父类为null的时候说明到达了最上层的父类(Object类).
@@ -157,7 +157,7 @@ public class HttpFile implements IFile {
 		                for (Field field : fields) {
 		                    if("method".equals(field.getName())){
 		                        field.setAccessible(true);
-		                        field.set(conn,"GET");
+		                        field.set(conn,sendParamMethod.toUpperCase());
 		                    }
 		                }
 		            }
