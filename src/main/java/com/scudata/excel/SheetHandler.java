@@ -1,6 +1,5 @@
 package com.scudata.excel;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -362,27 +361,7 @@ public class SheetHandler extends DefaultHandler {
 						}
 					}
 				}
-				try {
-					BigDecimal big = new BigDecimal(d);
-					String v = big.toString();
-					int pos = v.indexOf(".");
-					if (pos >= 0) {
-						boolean allZero = true;
-						pos++;
-						while (pos < v.length()) {
-							if (v.charAt(pos) != '0') {
-								allZero = false;
-								break;
-							}
-							pos++;
-						}
-						if (allZero)
-							v = v.substring(0, v.indexOf("."));
-					}
-					rowData[col] = new Integer(v);
-				} catch (Exception e) {
-					rowData[col] = new Double(d);
-				}
+				rowData[col] = ExcelUtils.getNumericCellValue(d);
 			} catch (Exception ex) {
 				rowData[col] = lastContents;
 			}

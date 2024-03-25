@@ -653,28 +653,7 @@ public class ExcelUtils {
 						date = new Timestamp(dd.getTime());
 					return date;
 				} else {
-					try {
-						BigDecimal big = new BigDecimal(
-								cell.getNumericCellValue());
-						String v = big.toString();
-						int pos = v.indexOf(".");
-						if (pos >= 0) {
-							boolean allZero = true;
-							pos++;
-							while (pos < v.length()) {
-								if (v.charAt(pos) != '0') {
-									allZero = false;
-									break;
-								}
-								pos++;
-							}
-							if (allZero)
-								v = v.substring(0, v.indexOf("."));
-						}
-						return PgmNormalCell.parseConstValue(v);
-					} catch (Exception e) {
-						return new Double(d);
-					}
+					return getNumericCellValue(cell.getNumericCellValue());
 				}
 			}
 		} catch (Exception e) {
@@ -685,6 +664,30 @@ public class ExcelUtils {
 				}
 		}
 		return null;
+	}
+
+	public static Object getNumericCellValue(double d) {
+		try {
+			BigDecimal big = new BigDecimal(d);
+			String v = big.toString();
+			int pos = v.indexOf(".");
+			if (pos >= 0) {
+				boolean allZero = true;
+				pos++;
+				while (pos < v.length()) {
+					if (v.charAt(pos) != '0') {
+						allZero = false;
+						break;
+					}
+					pos++;
+				}
+				if (allZero)
+					v = v.substring(0, v.indexOf("."));
+			}
+			return PgmNormalCell.parseConstValue(v);
+		} catch (Exception e) {
+			return new Double(d);
+		}
 	}
 
 	/**
