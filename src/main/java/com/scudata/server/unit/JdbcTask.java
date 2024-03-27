@@ -64,6 +64,8 @@ public class JdbcTask {
 	}
 
 	public static Object checkResult(Object r) throws Exception {
+		if(r==null)
+			return null;
 		if (r instanceof ICursor) {// 游标不必实现序列化，会产生远程游标
 			return r;
 		}

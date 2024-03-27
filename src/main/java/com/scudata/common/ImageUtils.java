@@ -83,36 +83,35 @@ public class ImageUtils
  * @param scale
  */
 	public static void drawFixedImage(Graphics g,Image srcImg,byte mode,int x, int y,int fixW, int fixH){
+		Shape oldClip = g.getClip();
 		switch(mode){
 		case BackGraphConfig.MODE_FILL:
 			g.drawImage(srcImg, x, y, fixW, fixH, null);
 			break;
 		case BackGraphConfig.MODE_NONE:
 			drawFixImage(g, srcImg, x, y, x+fixW, y+fixH);
-//			Image bkImage = srcImg;
-//			int biW = bkImage.getWidth(null);
-//			int biH = bkImage.getHeight(null);
-//			boolean needCut = false;
-//			int width = fixW;
-//			int height = fixH;
-//								
-//			if(biW>width){
-//				biW = width;
-//				needCut = true;
-//			}
-//			if(biH>height){
-//				biH = height;
-//				needCut = true;
-//			}
-//			if(needCut){
-//				bkImage = ImageUtils.cutImage(bkImage, biW, biH);
-//			}
-//			g.drawImage(bkImage, x, y, biW, biH, null);
 			break;
 		case BackGraphConfig.MODE_TILE:
-			
+			int x1 = x, y1=y;
+			int x2 = x+fixW, y2 = y+fixH;
+			int iw = srcImg.getWidth(null);
+			int ih = srcImg.getHeight(null);
+			while (x1 < x2) {
+				y1 = y;
+				while (y1 < y2) {
+					int clipx = Math.max(x, x1);
+					int clipy = Math.max(y, y1);
+					g.setClip(clipx, clipy, Math.min(iw, x2 - clipx),
+							Math.min(ih, y2 - clipy));
+					g.drawImage(srcImg, x1, y1, iw, ih, null);
+					y1 += ih;
+				}
+				x1 += iw;
+			}
 			break;
 		}
+		g.setClip(oldClip);
+
 	}
 	
 	/**
