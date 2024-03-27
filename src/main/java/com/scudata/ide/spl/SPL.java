@@ -487,44 +487,10 @@ public class SPL extends AppFrame {
 		this.addWindowListener(new PRJX_this_windowAdapter(this));
 		this.addComponentListener(new ComponentAdapter() {
 
-			public void componentMoved(ComponentEvent e) {
-				if (!GV.getFuncWindow().isDisplay()) {
-					return;
-				}
-				if (thread == null) {
-					thread = new ControlThread();
-				}
-				SwingUtilities.invokeLater(thread);
-			}
-
 			public void componentResized(ComponentEvent e) {
-				GV.toolBarProperty.resetTextWindow(resizeFuncWin, true);
 				GV.toolWin.refresh();
 			}
 		});
-	}
-
-	/** 线程对象 */
-	private ControlThread thread = null;
-	private static boolean resizeFuncWin = false;
-
-	/**
-	 * 使用线程解决函数窗口移动时卡顿问题
-	 */
-	class ControlThread extends Thread {
-		public void run() {
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					if (resizeFuncWin) {
-						GV.toolBarProperty.resetTextWindow(resizeFuncWin, true);
-						resizeFuncWin = false;
-					} else {
-						GV.toolWin.refresh();
-						resizeFuncWin = true;
-					}
-				}
-			});
-		}
 	}
 
 	/**

@@ -3479,7 +3479,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 								getEnvParamList());
 						return;
 					}
-					((ToolBarProperty) GV.toolBarProperty).init();
+					GV.toolBarProperty.init();
 					if (isSheetChanged) {
 						sheet.refreshParams();
 					} else {

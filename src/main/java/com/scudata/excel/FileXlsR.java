@@ -43,10 +43,6 @@ public class FileXlsR extends XlsFileObject {
 	 * XSSFReader object
 	 */
 	private XSSFReader xssfReader = null;
-	/**
-	 * Whether the file is closed
-	 */
-	private boolean isClosed = false;
 
 	/**
 	 * Constructor

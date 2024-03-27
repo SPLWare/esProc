@@ -21,11 +21,13 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.scudata.common.CellLocation;
+import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.IResource;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -36,7 +38,7 @@ import com.scudata.resources.AppMessage;
  * Excel file object base class
  *
  */
-public abstract class XlsFileObject extends Table {
+public abstract class XlsFileObject extends Table implements IResource {
 	/** Memory mode */
 	public static final byte TYPE_NORMAL = 0;
 	/** Streaming read */
@@ -78,6 +80,11 @@ public abstract class XlsFileObject extends Table {
 	 * Prefix of sheet name
 	 */
 	public final static String PRE_SHEET_NAME = "Sheet";
+
+	/**
+	 * Whether the file object is closed
+	 */
+	protected boolean isClosed = false;
 
 	/**
 	 * Constructor
@@ -359,6 +366,15 @@ public abstract class XlsFileObject extends Table {
 				r.set(COL_NAME, newSheetName);
 				break;
 			}
+		}
+	}
+
+	public void close() {
+		try {
+			if (!isClosed)
+				xlsclose();
+		} catch (IOException e) {
+			Logger.error(e);
 		}
 	}
 

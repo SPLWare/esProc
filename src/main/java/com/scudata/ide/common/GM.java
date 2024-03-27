@@ -103,9 +103,6 @@ import com.scudata.dm.KeyWord;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.common.dialog.DialogMaxmizable;
-import com.scudata.ide.common.function.FuncInfo;
-import com.scudata.ide.common.function.FuncOption;
-import com.scudata.ide.common.function.FuncParam;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
@@ -3320,107 +3317,6 @@ public class GM {
 			textEditor.setCaretPosition(pos + text.length());
 		} catch (Throwable t) {
 		}
-	}
-
-	/**
-	 * Get the description of the function
-	 * 
-	 * @param fi FuncInfo
-	 * @return
-	 */
-	public static String getFuncDesc(FuncInfo fi) {
-		return getFuncDesc(fi, null, null, -1);
-	}
-
-	/**
-	 * Get the description of the function
-	 * 
-	 * @param fi          FuncInfo
-	 * @param efo         The option under the cursor
-	 * @param activeParam Current parameter
-	 * @param paramPos    The position of the cursor in the parameter
-	 * @return
-	 */
-	public static String getFuncDesc(FuncInfo fi, String efo,
-			FuncParam activeParam, int paramPos) {
-		StringBuffer desc = new StringBuffer();
-		final String blankStr = "&nbsp;&nbsp;";
-		desc.append(fi.getDesc());
-		ArrayList<FuncOption> options = fi.getOptions();
-		FuncOption fo;
-		if (options != null && options.size() > 0) {
-			desc.append("<br>");
-			desc.append(IdeCommonMessage.get().getMessage("gm.funcopt"));
-			desc.append(":");
-			String optDesc;
-			for (int i = 0; i < options.size(); i++) {
-				fo = options.get(i);
-				optDesc = "(" + fo.getOptionChar() + ") " + fo.getDescription();
-				if (StringUtils.isValidString(efo)) {
-					if (efo.indexOf(fo.getOptionChar()) > -1) {
-						/* Bold current option */
-						optDesc = "<b>" + optDesc + "</b>";
-					}
-				}
-				desc.append("<br>");
-				desc.append(blankStr);
-				desc.append(optDesc);
-			}
-		}
-		ArrayList<FuncParam> params = fi.getParams();
-		if (params != null) {
-			desc.append("<br>");
-			desc.append(IdeCommonMessage.get().getMessage("gm.funcparam") + ":");
-			FuncParam fp;
-			boolean isActiveParam;
-			String paramDesc, paramValue;
-			int optPos;
-			char activeOptChar;
-			for (int i = 0; i < params.size(); i++) {
-				fp = params.get(i);
-				isActiveParam = activeParam != null
-						&& fp.getDesc().equals(activeParam.getDesc());
-				desc.append("<br>");
-				desc.append(blankStr);
-				paramDesc = fp.getDesc();
-				activeOptChar = '@';
-				if (isActiveParam) {
-					/* Bold current param */
-					paramDesc = "<b>" + paramDesc + "</b>";
-					paramValue = activeParam.getParamValue();
-					optPos = paramValue.indexOf("@");
-					if (optPos > -1 && paramPos > optPos) {
-						/* The cursor is on the parameter option */
-						activeOptChar = paramValue.charAt(paramPos - 1);
-					}
-				}
-				desc.append((i + 1) + ". " + paramDesc);
-				options = fp.getOptions();
-				if (options != null) {
-					desc.append("<br>");
-					desc.append(blankStr);
-					desc.append(blankStr);
-					desc.append(IdeCommonMessage.get().getMessage("gm.funcopt")
-							+ ":");
-					String charDesc;
-					for (int j = 0; j < options.size(); j++) {
-						fo = (FuncOption) options.get(j);
-						charDesc = "(" + fo.getOptionChar() + ") "
-								+ fo.getDescription();
-						if (fo.getOptionChar().equals(activeOptChar + "")) {
-							/* Bold current option */
-							charDesc = "<b>" + charDesc + "</b>";
-						}
-						desc.append("<br>");
-						desc.append(blankStr);
-						desc.append(blankStr);
-						desc.append(blankStr);
-						desc.append(charDesc);
-					}
-				}
-			}
-		}
-		return desc.toString();
 	}
 
 	/**

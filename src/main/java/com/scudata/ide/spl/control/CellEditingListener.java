@@ -208,6 +208,9 @@ public class CellEditingListener implements KeyListener {
 				break;
 			}
 			if (e.isAltDown()) {
+				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// 来自工具栏命令
+					e.consume();
+				}
 				return;
 			}
 			JTextComponent tau = getSource(e);
@@ -223,6 +226,9 @@ public class CellEditingListener implements KeyListener {
 				break;
 			}
 			if (e.isAltDown()) {
+				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// 来自工具栏命令
+					e.consume();
+				}
 				return;
 			}
 			JTextComponent tad = getSource(e);

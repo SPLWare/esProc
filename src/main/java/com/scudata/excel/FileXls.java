@@ -52,10 +52,6 @@ public class FileXls extends XlsFileObject {
 	 */
 	private boolean isXls = true;
 	/**
-	 * Whether the file object is closed
-	 */
-	private boolean isClosed = false;
-	/**
 	 * FormulaEvaluator
 	 */
 	private FormulaEvaluator evaluator;

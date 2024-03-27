@@ -8,12 +8,8 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.regex.Matcher;
@@ -36,7 +32,6 @@ import com.scudata.common.IByteMap;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
-import com.scudata.ide.common.control.FuncWindow;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTextPaneEx;
 import com.scudata.ide.common.swing.ToolbarGradient;
@@ -199,27 +194,8 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		textEditor.setToolTipText(mm.getMessage("toolbarproperty.cellexp"));
 		KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
 		textEditor.getInputMap().put(enter, "none");
-
-		textEditor.addKeyListener(funcListener);
-		textEditor.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				FuncWindow funcWindow = GV.getFuncWindow();
-				funcWindow.caretPositionChanged(textEditor, getContext());
-			}
-		});
-
 		textEditor.getDocument().addDocumentListener(new DocTextListener(this));
 
-		textEditor.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-			}
-
-			public void focusLost(FocusEvent e) {
-				FuncWindow funcWindow = GV.getFuncWindow();
-				funcWindow.setFuncEnabled(false);
-				funcWindow.hideWindow();
-			}
-		});
 		jBExt.setMaximumSize(BT_SIZE);
 		jBExt.setMinimumSize(BT_SIZE);
 		jBExt.setPreferredSize(BT_SIZE);
@@ -232,8 +208,6 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		jBExt.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_shiftdown.gif"));
 		ActionListener extListener = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// isExt = !isExt;
-				resetTextWindow();
 				setToolBarExpand();
 			}
 		};
@@ -256,7 +230,6 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	}
 
 	public void init() {
-		GV.getFuncWindow();
 	}
 
 	/**
@@ -340,58 +313,6 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	private void resetGBC(GridBagConstraints gbc) {
 		gbc.insets = new Insets(0, 0, 0, 0);
 	}
-
-	/**
-	 * Function KeyListener
-	 */
-	protected KeyListener funcListener = new KeyAdapter() {
-		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				if (e.isAltDown() || e.isShiftDown()) {
-					return;
-				} else if (e.isControlDown()) {
-					GM.addText(textEditor, "\n");
-					textEdited(e);
-				} else {
-					enterPressed(e);
-				}
-				e.consume();
-			} else if (e.getKeyCode() == KeyEvent.VK_TAB) {
-				tabPressed();
-			} else if (e.isAltDown()) {
-				if (e.getKeyCode() == KeyEvent.VK_UP
-						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
-					e.consume();
-				}
-			}
-		}
-
-		public void keyReleased(KeyEvent e) {
-			FuncWindow funcWindow = GV.getFuncWindow();
-			if (e.isAltDown()) {
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					if (funcWindow.isDisplay()) {
-						funcWindow.showNextFunc(textEditor);
-					} else {
-						funcWindow.setFuncEnabled(true);
-						resetTextWindow();
-					}
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					funcWindow.setFuncEnabled(false);
-					funcWindow.hideWindow();
-				}
-				e.consume();
-			} else if (e.isControlDown()
-					&& (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_SHIFT)) {
-				return;
-			} else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-				editCancel();
-				return;
-			} else if (e.getKeyCode() != KeyEvent.VK_ALT) {
-				funcWindow.caretPositionChanged(textEditor, getContext());
-			}
-		}
-	};
 
 	/**
 	 * 回车事件
@@ -518,49 +439,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		return textEditor.getText();
 	}
 
-	/**
-	 * Reset text window
-	 */
-	public void resetTextWindow() {
-		resetTextWindow(false);
-	}
-
-	/**
-	 * Reset text window
-	 * 
-	 * @param resizeFuncWin
-	 *            Resize the function window
-	 */
-	public void resetTextWindow(boolean resizeFuncWin) {
-		resetTextWindow(resizeFuncWin, false);
-	}
-
-	/**
-	 * Reset text window
-	 * 
-	 * @param resizeFuncWin
-	 *            Resize the function window
-	 * @param frameResize
-	 *            Frame resized
-	 */
-	public void resetTextWindow(boolean resizeFuncWin, boolean frameResize) {
-		Rectangle srcRect = spEditor.getBounds();
-		int x = GV.appFrame.getX() + GM.getAbsolutePos(spEditor, true) + 5;
-		int y = GM.getAbsolutePos(spEditor, false) + 2;
-		int w = (int) srcRect.getWidth() - 3;
-		int h;
-		h = srcRect.height;
-		textEditor.setBorder(null);
-		FuncWindow funcWindow = GV.getFuncWindow();
-		if (funcWindow.isFuncEnabled()) {
-			funcWindow.setPosition(x, y + h + 10, w);
-			funcWindow.caretPositionChanged(textEditor, getContext(),
-					resizeFuncWin);
-		} else {
-			funcWindow.hideWindow();
-		}
-	}
-
+	
 	/**
 	 * Edit button mouse click event
 	 * 
@@ -604,31 +483,13 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		setEnabled(enabled, true);
 	}
 
-	private void setEnabled(boolean enabled, boolean caseFuncWindow) {
+	protected void setEnabled(boolean enabled, boolean caseFuncWindow) {
 		super.setEnabled(enabled);
 		cellName.setEnabled(enabled);
 		spEditor.setEnabled(enabled);
 		textEditor.setEnabled(enabled);
 		btEdit.setEnabled(enabled);
 		jBExt.setEnabled(enabled);
-
-		if (enabled) {
-			resetTextWindow();
-		} else {
-			try {
-				preventAction = true;
-				cellName.setText(null);
-				textEditor.setText("");
-				if (caseFuncWindow) {
-					FuncWindow funcWindow = GV.getFuncWindow();
-					funcWindow.setFuncEnabled(false);
-					funcWindow.hideWindow();
-				}
-			} catch (Exception ex) {
-			} finally {
-				preventAction = false;
-			}
-		}
 	}
 
 	// 类名:SpeedButton

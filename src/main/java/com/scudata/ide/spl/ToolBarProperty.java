@@ -77,7 +77,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				// 先把异常信息屏蔽了。
 			}
 			textEditor.initRefCells(false);
-			resetTextWindow();
+			textChanged();
 		} finally {
 			preventAction = false;
 			textEditor.setPreventChange(false);
@@ -185,10 +185,13 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		GV.isCellEditing = false;
 		try {
 			String text = textEditor.getText();
-			resetTextWindow();
+			textChanged();
 			GVSpl.splEditor.setEditingText(text);
 		} catch (Exception ex) {
 		}
+	}
+
+	protected void textChanged() {
 	}
 
 	/**

@@ -38,7 +38,7 @@ public class XlsOpen extends FileFunction {
 
 		if (param == null) {
 			// 返回Excel文件对象
-			return xlsOpen(isR, isW);
+			return xlsOpen(null, isR, isW, ctx);
 		}
 
 		String pwd = null;
@@ -64,23 +64,12 @@ public class XlsOpen extends FileFunction {
 			}
 		}
 		try {
-			return xlsOpen(pwd, isR, isW);
+			return xlsOpen(pwd, isR, isW, ctx);
 		} catch (RQException e) {
 			throw e;
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		}
-	}
-
-	/**
-	 * 创建xo文件对象
-	 * 
-	 * @param isR
-	 * @param isW
-	 * @return
-	 */
-	private XlsFileObject xlsOpen(boolean isR, boolean isW) {
-		return xlsOpen(null, isR, isW);
 	}
 
 	/**
@@ -93,9 +82,12 @@ public class XlsOpen extends FileFunction {
 	 * @param isW
 	 * @return
 	 */
-	private XlsFileObject xlsOpen(String pwd, boolean isR, boolean isW) {
+	private XlsFileObject xlsOpen(String pwd, boolean isR, boolean isW,
+			Context ctx) {
 		if (isR) {
-			return new FileXlsR(file, pwd);
+			FileXlsR xo = new FileXlsR(file, pwd);
+			ctx.addResource(xo);
+			return xo;
 		}
 		byte type;
 		if (isW) {
@@ -103,6 +95,8 @@ public class XlsOpen extends FileFunction {
 		} else {
 			type = XlsFileObject.TYPE_NORMAL;
 		}
-		return new FileXls(file, pwd, type);
+		FileXls xo = new FileXls(file, pwd, type);
+		ctx.addResource(xo);
+		return xo;
 	}
 }

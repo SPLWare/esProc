@@ -5,7 +5,6 @@ import java.util.Locale;
 
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.ide.common.control.CellSelection;
-import com.scudata.ide.common.control.FuncWindow;
 import com.scudata.ide.common.dialog.DialogMemory;
 import com.scudata.ide.spl.base.FileTree;
 
@@ -104,24 +103,6 @@ public class GV {
 	 * Whether the cell is being edited
 	 */
 	public static boolean isCellEditing = false;
-
-	/**
-	 * Function window
-	 */
-	private static FuncWindow funcWindow = null;
-
-	/**
-	 * Get function window
-	 * 
-	 * @return
-	 */
-	public static FuncWindow getFuncWindow() {
-		if (funcWindow == null) {
-			funcWindow = new FuncWindow();
-			funcWindow.setVisible(true);
-		}
-		return funcWindow;
-	}
 
 	/**
 	 * RaqsoftConfig object
