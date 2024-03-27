@@ -63,7 +63,7 @@ public class Append extends PhyTableFunction {
 					return tg;
 				}
 				
-				if (cursor instanceof MultipathCursors) {
+				if (option != null && option.indexOf('p') != -1 && cursor instanceof MultipathCursors) {
 					parallelAppend((MultipathCursors) cursor, ctx);
 				} else {
 					table.append(cursor, option);
