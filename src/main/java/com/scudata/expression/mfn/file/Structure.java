@@ -79,8 +79,7 @@ public class Structure extends FileFunction {
 				return seq;
 			}
 			
-			File f = file.getLocalFile().file();
-			PhyTable table = ComTable.openBaseTable(f, ctx);
+			PhyTable table = ComTable.openBaseTable(file, ctx);
 			
 			Integer partition = file.getPartition();
 			if (partition != null && partition.intValue() > 0) {
