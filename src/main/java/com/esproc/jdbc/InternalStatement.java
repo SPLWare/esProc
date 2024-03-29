@@ -642,13 +642,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 			if (isClosed)
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"error.statementclosed"));
-
-			UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
-			if (uc != null) {
-				try {
-					uc.JDBCCancel(connt.getUnitConnectionId(), unitStateId);
-				} catch (Exception e) {
-					throw new SQLException(e.getMessage(), e);
+			if (connt.isOnlyServer()) {
+				UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
+				if (uc != null) {
+					try {
+						uc.JDBCCancel(connt.getUnitConnectionId(), unitStateId);
+					} catch (Exception e) {
+						throw new SQLException(e.getMessage(), e);
+					}
 				}
 			}
 			AppUtil.destroyThread(execThread);
