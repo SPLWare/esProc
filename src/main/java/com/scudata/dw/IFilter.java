@@ -149,4 +149,10 @@ public abstract class IFilter implements Comparable<IFilter> {
 	public Expression getExp() {
 		return exp;
 	}
+	
+	public void deepOptimize(Context ctx) {
+		if (exp != null) {
+			exp.deepOptimize(ctx);
+		}
+	}
 }

@@ -33,7 +33,7 @@ public class ColumnFilter extends IFilter {
 		super(column, priority);
 		this.operator = operator;
 		this.rightValue = rightValue;
-		this.exp = new Expression(node);
+		initExp();
 	}
 
 	public boolean match(Object value) {

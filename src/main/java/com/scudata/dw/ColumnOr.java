@@ -130,4 +130,8 @@ public class ColumnOr extends IFilter {
 			}
 		}
 	}
+	
+	public void deepOptimize(Context ctx) {
+		filter.deepOptimize(ctx);
+	}
 }

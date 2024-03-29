@@ -1,5 +1,6 @@
 package com.scudata.dw;
 
+import com.scudata.dm.Context;
 import com.scudata.expression.Expression;
 import com.scudata.expression.operator.Or;
 
@@ -33,10 +34,26 @@ public class LogicOr extends IFilter {
 		return left.match(minValue, maxValue) || right.match(minValue, maxValue);
 	}
 	
+	public int isValueRangeMatch(Context ctx) {
+		int ret = left.isValueRangeMatch(ctx);
+		if (ret == 1) {
+			return 1;
+		} else if (ret == -1) {
+			return right.isValueRangeMatch(ctx);
+		} else {
+			int ret2 = right.isValueRangeMatch(ctx);
+			if (ret2 == 1) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+	}
+	
 	public void initExp() {
-		Or and = new Or();
-		and.setLeft(left.exp.getHome());
-		and.setRight(right.exp.getHome());
-		exp = new Expression(and);
+		Or or = new Or();
+		or.setLeft(left.exp.getHome());
+		or.setRight(right.exp.getHome());
+		exp = new Expression(or);
 	}
 }

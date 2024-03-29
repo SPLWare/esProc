@@ -53,6 +53,24 @@ public class LogicAnd extends IFilter {
 		return right.calculateAnd(ctx, tempResult);
 	}
 	
+	public int isValueRangeMatch(Context ctx) {
+		int ret = left.isValueRangeMatch(ctx);
+		if (ret < 0) {
+			return -1;
+		} else {
+			int ret2 = right.isValueRangeMatch(ctx);
+			if (ret2 == -1) {
+				return -1;
+			}
+			
+			if (ret == 1 && ret2 == 1) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+	}
+	
 	public void initExp() {
 		And and = new And();
 		left.initExp();
