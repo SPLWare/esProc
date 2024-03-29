@@ -11,6 +11,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -24,8 +25,12 @@ import com.scudata.util.Variant;
  */
 public class Elapse extends Function {
 	public Node optimize(Context ctx) {
-		param.optimize(ctx);
-		return this;
+		boolean opt = param.optimize(ctx);
+		if (opt && param.getSub(0) != null) {
+			return new Constant(calculate(ctx));
+		} else {
+			return this;
+		}
 	}
 
 	/**
