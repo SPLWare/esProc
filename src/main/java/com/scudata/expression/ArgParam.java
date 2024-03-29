@@ -30,6 +30,15 @@ public class ArgParam extends Node {
 			resultList.addVariable(param.getName(), param.getValue());
 		}
 	}
+	
+	/**
+	 * 对节点做优化，常数表达式先算成常数
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		return new Constant(calculate(ctx));
+	}
 
 	public Object calculate(Context ctx) {
 		return param.getValue();

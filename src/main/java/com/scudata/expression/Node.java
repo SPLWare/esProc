@@ -232,6 +232,15 @@ public abstract class Node {
 	public Node optimize(Context ctx) {
 		return this;
 	}
+	
+	/**
+	 * 对节点做深度优化（包括单元格和参数引用），常数表达式先算成常数
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node deepOptimize(Context ctx) {
+		return optimize(ctx);
+	}
 
 	/**
 	 * 对当前节点进行赋值

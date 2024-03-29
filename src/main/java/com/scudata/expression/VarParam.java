@@ -22,6 +22,15 @@ public class VarParam extends Node {
 	public VarParam(Param param) {
 		this.param = param;
 	}
+	
+	/**
+	 * 对节点做深度优化（包括单元格和参数引用），常数表达式先算成常数
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node deepOptimize(Context ctx) {
+		return new Constant(calculate(ctx));
+	}
 
 	public Object calculate(Context ctx) {
 		return param.getValue();

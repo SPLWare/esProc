@@ -286,6 +286,14 @@ public class Expression {
 	public void optimize(Context ctx) {
 		home = home.optimize(ctx);
 	}
+	
+	/**
+	 * 表达式深度优化（包括单元格和参数引用）
+	 * @param ctx 运算报表时的上下文环境变量
+	 */
+	public void deepOptimize(Context ctx) {
+		home = home.deepOptimize(ctx);
+	}
 
 	/**
 	 * 返回是否包含指定参数
