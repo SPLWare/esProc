@@ -1443,12 +1443,12 @@ public class ColPhyTable extends PhyTable {
 					if (tableMaxValues != null) {
 						int cmp = Variant.compareArrays(vals, tableMaxValues, sortedColCount);
 						if (cmp < 0) {
-							//hasPrimaryKey = false;//不再处理主键
+							hasPrimaryKey = false;
 							isSorted = false;
 							maxValues = null;
 						} else if (cmp == 0){
 							if (hasPrimaryKey) {
-								//hasPrimaryKey = false;//不再处理主键
+								hasPrimaryKey = false;
 							}
 						} else {
 							System.arraycopy(vals, 0, tableMaxValues, 0, sortedColCount);
