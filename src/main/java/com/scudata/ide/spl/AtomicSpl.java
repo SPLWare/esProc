@@ -401,6 +401,8 @@ public class AtomicSpl implements IAtomicCmd {
 				// 有首格的是CellSelection类型
 				CellSelection cs = (CellSelection) value;
 				Matrix oldMatrix = getMatrixCells(control.cellSet, cs.rect);
+				int rowOff = cs.rect.getBeginRow() - rect.getBeginRow();
+				int colOff = cs.rect.getBeginCol() - rect.getBeginCol();
 				rect = cs.rect;
 				newMatrix = cs.matrix;
 				CellSet cellSet = control.cellSet;
@@ -450,8 +452,8 @@ public class AtomicSpl implements IAtomicCmd {
 						}
 						nc = (NormalCell) newMatrix.get(r, c);
 						if (cs.isAdjustSelf()) {
-							control.cellSet.adjustCell(control.cellSet, nc, 1,
-									0);
+							control.cellSet.adjustCell(control.cellSet, nc,
+									rowOff, colOff);
 						}
 						control.cellSet.setCell(rect.getBeginRow() + row,
 								(int) (rect.getBeginCol() + col), nc);
