@@ -330,19 +330,11 @@ public class GCSpl extends GC {
 	public static final String TOOL = "tool";
 	/** 网格常量(N) */
 	public static final String CONST = "program.const";
-	/** 命令行执行网格 */
-	public static final String EXEC_CMD = "tool.execcmd";
-	/** Sql生成器(Q) */
-	public static final String SQLGENERATOR = "program.sqlgenerator";
 	/** 在文件中查找替换 */
 	public static final String FILE_REPLACE = "tool.filereplace";
 
 	/** 网格常量(N) */
 	public static final short iCONST = MENU_SPL + 301;
-	/** 命令行执行网格 */
-	public static final short iEXEC_CMD = MENU_SPL + 311;
-	/** Sql生成器(Q) */
-	public static final short iSQLGENERATOR = MENU_SPL + 321;
 	/** 在文件中查找替换 */
 	public static final short iFILE_REPLACE = MENU_SPL + 341;
 

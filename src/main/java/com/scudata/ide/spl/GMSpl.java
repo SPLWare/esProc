@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.scudata.app.common.AppConsts;
@@ -38,7 +37,6 @@ import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
 import com.scudata.ide.common.DBTypeEx;
-import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
@@ -49,13 +47,10 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.common.dialog.DialogDataSource;
 import com.scudata.ide.common.dialog.DialogFileReplace;
 import com.scudata.ide.common.dialog.DialogMemory;
-import com.scudata.ide.common.dialog.DialogSQLEditor;
-import com.scudata.ide.common.dialog.DialogSelectDataSource;
 import com.scudata.ide.spl.control.CellSetParser;
 import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.dialog.DialogAbout;
-import com.scudata.ide.spl.dialog.DialogExecCmd;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 public class GMSpl extends GM {
@@ -137,23 +132,7 @@ public class GMSpl extends GM {
 				GVSpl.panelValue.tableValue.refreshOptions();
 			}
 			return;
-		case GCSpl.iSQLGENERATOR: {
-			DialogSelectDataSource dsds = new DialogSelectDataSource(
-					DialogSelectDataSource.TYPE_SQL);
-			dsds.setVisible(true);
-			if (dsds.getOption() != JOptionPane.OK_OPTION) {
-				return;
-			}
-			DataSource ds = dsds.getDataSource();
-			try {
-				DialogSQLEditor dse = new DialogSQLEditor(ds);
-				dse.setCopyMode();
-				dse.setVisible(true);
-			} catch (Throwable ex) {
-				GM.showException(ex);
-			}
-			return;
-		}
+
 		case GCSpl.iFILE_REPLACE:
 			DialogFileReplace dfr = new DialogFileReplace(GV.appFrame) {
 				private static final long serialVersionUID = 1L;
@@ -213,13 +192,6 @@ public class GMSpl extends GM {
 			// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
 			// dfe.setVisible(true);
 			// return;
-		}
-		if (cmd == GCSpl.iEXEC_CMD) {
-			if (GV.appSheet == null) {
-				DialogExecCmd dec = new DialogExecCmd();
-				dec.setVisible(true);
-				return;
-			}
 		}
 		// sheet commands
 		GV.appSheet.executeCmd(cmd);

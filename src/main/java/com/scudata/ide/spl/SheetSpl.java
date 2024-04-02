@@ -46,7 +46,6 @@ import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.DfxManager;
 import com.scudata.dm.Env;
-import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
@@ -80,7 +79,6 @@ import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.EditControl;
 import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.control.SplEditor;
-import com.scudata.ide.spl.dialog.DialogExecCmd;
 import com.scudata.ide.spl.dialog.DialogFTP;
 import com.scudata.ide.spl.dialog.DialogOptionPaste;
 import com.scudata.ide.spl.dialog.DialogSearch;
@@ -3302,18 +3300,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				splEditor.executeCmd(ar);
 				refresh();
 			}
-			break;
-		case GCSpl.iEXEC_CMD:
-			int option = querySave(JOptionPane.YES_NO_CANCEL_OPTION);
-			if (option == JOptionPane.CANCEL_OPTION)
-				return;
-			DialogExecCmd dec = new DialogExecCmd();
-			if (StringUtils.isValidString(filePath)) {
-				FileObject fo = new FileObject(filePath, "s", new Context());
-				if (fo.isExists())
-					dec.setSplFile(filePath);
-			}
-			dec.setVisible(true);
 			break;
 		}
 	}

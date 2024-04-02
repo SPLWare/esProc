@@ -288,14 +288,6 @@ public class MenuSpl extends AppMenu {
 		menu.addSeparator();
 		menu.add(newCommonMenuItem(GC.iDATA_SOURCE, GC.DATA_SOURCE, 'S',
 				GC.NO_MASK, true));
-		JMenuItem miCmd = newSplMenuItem(GCSpl.iEXEC_CMD, GCSpl.EXEC_CMD, 'C',
-				GC.NO_MASK, true);
-		boolean isWin = GM.isWindowsOS();
-		miCmd.setVisible(isWin);
-		miCmd.setEnabled(isWin);
-		menu.add(miCmd);
-		menu.add(newSplMenuItem(GCSpl.iSQLGENERATOR, GCSpl.SQLGENERATOR, 'Q',
-				GC.NO_MASK, true));
 
 		JMenuItem miRep = newSplMenuItem(GCSpl.iFILE_REPLACE,
 				GCSpl.FILE_REPLACE, 'R', GC.NO_MASK);
@@ -487,7 +479,7 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE, GCSpl.iBREAKPOINTS,
 				GCSpl.iDRAW_CHART,
 
-				GC.iPROPERTY, GCSpl.iCONST, GCSpl.iEXEC_CMD };
+				GC.iPROPERTY, GCSpl.iCONST };
 		return menus;
 	}
 

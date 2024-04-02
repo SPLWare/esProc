@@ -209,7 +209,8 @@ public class DialogSelectDataSource extends JDialog {
 		spODBC.setDividerSize(8);
 		spODBC.setDividerLocation(175);
 		if (type != TYPE_DQL) {
-			tabMain.add(spODBC, "ODBC");
+			if (GM.isWindowsOS())
+				tabMain.add(spODBC, "ODBC");
 		}
 		spODBC.add(jScrollPane2, JSplitPane.TOP);
 		JPanel panelBottom = new JPanel(new GridBagLayout());
@@ -256,10 +257,14 @@ public class DialogSelectDataSource extends JDialog {
 		if (code.size() > 0) {
 			listDS.setSelectedIndex(0);
 		}
-
-		ArrayList dsList = ODBCUtil.getDataSourcesName(ODBCUtil.SYS_DSN
-				| ODBCUtil.USER_DSN);
-		listODBC.setListData(dsList.toArray());
+		if (GM.isWindowsOS()) {
+			ArrayList dsList = ODBCUtil.getDataSourcesName(ODBCUtil.SYS_DSN
+					| ODBCUtil.USER_DSN);
+			listODBC.setListData(dsList.toArray());
+			if (dsList.size() > 0) {
+				listODBC.setSelectedIndex(0);
+			}
+		}
 		listODBC.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (preventChange) {
@@ -268,9 +273,6 @@ public class DialogSelectDataSource extends JDialog {
 				odbcChanged();
 			}
 		});
-		if (dsList.size() > 0) {
-			listODBC.setSelectedIndex(0);
-		}
 		odbcChanged();
 	}
 
