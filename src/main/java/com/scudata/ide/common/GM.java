@@ -525,6 +525,19 @@ public class GM {
 
 	/**
 	 * Select file dialog
+	 * @param fileExts
+	 * @param useAllFileFilter
+	 * @param oldName
+	 * @return
+	 */
+	public static File dialogSelectFile(String fileExts,
+			boolean useAllFileFilter, String oldFileName) {
+		return dialogSelectFile(fileExts, GV.lastDirectory, "", oldFileName,
+				GV.appFrame, useAllFileFilter);
+	}
+
+	/**
+	 * Select file dialog
 	 * 
 	 * @param fileExts
 	 * @param useAllFileFilter
