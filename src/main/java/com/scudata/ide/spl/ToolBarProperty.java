@@ -146,20 +146,20 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				return;
 			}
 
-			setCellName("");
+			String cellId = "";
 			if (GVSpl.splEditor != null) {
 				CellRect rect = GVSpl.splEditor.getSelectedRect();
 				if (rect != null) {
-					String rectText = GMSpl.getCellID(rect.getBeginRow(),
+					cellId = GMSpl.getCellID(rect.getBeginRow(),
 							rect.getBeginCol());
 					if (rect.getRowCount() > 1 || rect.getColCount() > 1) {
-						rectText += "-"
+						cellId += "-"
 								+ GMSpl.getCellID(rect.getEndRow(),
 										rect.getEndCol());
 					}
-					setCellName(rectText);
 				}
 			}
+			setCellName(cellId);
 
 			Object o;
 			o = values.get(AtomicCell.CELL_EXP);
