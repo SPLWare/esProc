@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -12,7 +11,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
-import com.scudata.dm.Param;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -21,6 +19,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergesCursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
@@ -2646,23 +2645,47 @@ public class RowPhyTable extends PhyTable {
 		}
 		
 		String []keys = getAllSortedColNames();
-		String key0 = keys[0];
-		Object obj = values.get(1);
-		if (obj instanceof Sequence) {
-			IArray mem = values.getMems();
-			Sequence newSeq = new Sequence(mem.size());
-			IArray newMem = newSeq.getMems();
-			for (int i = 1; i < mem.size(); i++) {
-				Sequence seq = (Sequence) mem.get(i);
-				Object obj1 = seq.get(1);
-				newMem.set(i, obj1);
+		int keyCount = keys.length;
+		Expression exp;
+		Sequence keyValues = values;
+		
+		if (keyCount == 1) {
+			exp = new Expression("null.contain(" + keys[0] + ")"); 
+			Object obj = values.getMem(1);
+			int valueLen = values.length();
+			if (valueLen == 0) {
+				return null;
 			}
-			values = newSeq;
+			if (obj instanceof Sequence) {
+				Sequence seq = (Sequence)obj;
+				int dimCount = seq.length();
+				if (dimCount > keyCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("find" + mm.getMessage("function.invalidParam"));
+				}
+				
+				keyValues = new Sequence();
+				for (int i = 1; i <= valueLen; ++i) {
+					seq = (Sequence)values.getMem(i);
+					keyValues.add(seq.getMem(1));
+				}
+			}
+		} else {
+			String str = "null.contain([";
+			for (int i = 0; i < keyCount; i++) {
+				str += keys[i];
+				if (i != keyCount - 1) {
+					str += ",";
+				}
+			}
+			str += "])";
+			exp = new Expression(str); 
 		}
+
 		Context ctx = new Context();
-		ctx.addParam(new Param("values", Param.VAR, values));
-		Expression exp = new Expression("values.contain(" + key0 + ")"); 
+		exp.getHome().setLeft(new Constant(keyValues));
 		Sequence result = cursor(selFields, exp, ctx).fetch();
+		if (result == null) return null;
 		Table table = new Table(result.dataStruct());
 		table.addAll(result);
 		return table;
