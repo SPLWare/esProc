@@ -138,38 +138,41 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		if (GVSpl.cmdSender == this) {
 			return;
 		}
-		preventAction = true;
-		initProperties();
-		setEnabled(true);
-		if (values == null || values.size() == 0) {
-			preventAction = false;
-			return;
-		}
-
-		if (GVSpl.splEditor != null) {
-			CellRect rect = GVSpl.splEditor.getSelectedRect();
-			if (rect != null) {
-				String rectText = GMSpl.getCellID(rect.getBeginRow(),
-						rect.getBeginCol());
-				if (rect.getRowCount() > 1 || rect.getColCount() > 1) {
-					rectText += "-"
-							+ GMSpl.getCellID(rect.getEndRow(),
-									rect.getEndCol());
-				}
-				cellName.setText(rectText);
+		try {
+			preventAction = true;
+			setEnabled(true);
+			if (values == null || values.size() == 0) {
+				initProperties();
+				return;
 			}
-		}
 
-		Object o;
-		o = values.get(AtomicCell.CELL_EXP);
-		if (StringUtils.isValidString(o)) {
-			setTextEditorText((String) o, true);
-		} else {
-			setTextEditorText("", true);
-		}
+			setCellName("");
+			if (GVSpl.splEditor != null) {
+				CellRect rect = GVSpl.splEditor.getSelectedRect();
+				if (rect != null) {
+					String rectText = GMSpl.getCellID(rect.getBeginRow(),
+							rect.getBeginCol());
+					if (rect.getRowCount() > 1 || rect.getColCount() > 1) {
+						rectText += "-"
+								+ GMSpl.getCellID(rect.getEndRow(),
+										rect.getEndCol());
+					}
+					setCellName(rectText);
+				}
+			}
 
-		preventAction = false;
-		this.selectState = selectState;
+			Object o;
+			o = values.get(AtomicCell.CELL_EXP);
+			if (StringUtils.isValidString(o)) {
+				setTextEditorText((String) o, true);
+			} else {
+				setTextEditorText("", true);
+			}
+
+			this.selectState = selectState;
+		} finally {
+			preventAction = false;
+		}
 	}
 
 	/**

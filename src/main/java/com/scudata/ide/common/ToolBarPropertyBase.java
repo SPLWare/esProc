@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -160,7 +159,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 					if (StringUtils.isValidString(error))
 						GM.messageDialog(GV.appFrame, error);
 					if (!hasSet)
-						cellName.setText(getActiveCellId());
+						setCellName(getActiveCellId());
 				} catch (Exception ex) {
 				}
 			}
@@ -218,6 +217,13 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 				KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK
 						+ InputEvent.SHIFT_DOWN_MASK),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
+	}
+
+	protected void setCellName(String cellId) {
+		try {
+			cellName.setText(cellId);
+		} catch (Exception ex) {
+		}
 	}
 
 	/**
@@ -439,7 +445,6 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		return textEditor.getText();
 	}
 
-	
 	/**
 	 * Edit button mouse click event
 	 * 
@@ -470,8 +475,8 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	 */
 	protected void initProperties() {
 		try {
-			cellName.setText("");
-			textEditor.setText("");
+			setCellName("");
+			setTextEditorText("");
 		} catch (Exception ex) {
 		}
 	}
