@@ -303,8 +303,6 @@ public class Esprocx {
 		if (lang.equalsIgnoreCase("en")) {
 			usage = usageEn;
 		}
-		System.err.println(args.length);
-		
 		if (!debug && args.length == 0) {
 			System.err.println(usage);
 			Thread.sleep(3000);
