@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>call path/spl( … )</title>
+<title>call()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,538 +13,307 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_call_path/dfx(…)"></a><span lang=EN-US>call path/spl(<i
-style='mso-bidi-font-style:normal'>…</i>)<a name="call_path_spl"></a></span></h2></div>
-	<p class=ae style='line-height:200%'><span lang=EN-US>Description:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=call></a><a
+name="_A.countif()"></a><span lang=EN-US>call()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span><span
+style='mso-bookmark:_Hlt161066090'></span></h2></div>
+	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Description:</span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Search for a program file locally via esProc JDBC and execute it. If
-the file can’t be found, then search the server. </span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Call
+a script file and return the first result set. </span></span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Syntax:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Syntax:</span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US>call</span></b><span
-lang=EN-US style='mso-bidi-font-weight:bold'> <i style='mso-bidi-font-style:
-normal'>path</i>/<i style='mso-bidi-font-style:normal'>spl</i>(…)</span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>call(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>spl</span></span><span
+lang=EN-US>,<span class=var0>arg1</span>,…</span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Note:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Note:</span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The function calls a script file to execute it while
-passing in parameters …. It first searches the local cellset files with
-absolute or relative search paths for the desired one. If the file can’t be
-found locally, then search the server (configure the server list in the <i
-style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i> file). Once the
-computation is completed, the function returns a sequence composed of members
-of the result set; if there are multiple result sets, then return a sequence
-composed of these result sets. </span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function calls script
+file <i>.</i></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>dfx</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>/</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-bidi-font-style:normal'>.splx/.spl</span></span><span lang=EN-US>
+while passing in the parameter <span class=var0><span style='mso-bidi-font-style:
+normal'>arg1</span></span><span class=var0><span style='font-style:normal'>,</span></span>…,
+returns the first value that <i style='mso-bidi-font-style:normal'>dfx</i>
+returns, and ends the invocation. It is a non-cellset function and so can be
+used outside the cellset. The function will automatically use the @s option to
+search for the <i>.</i><i style='mso-bidi-font-style:normal'>dfx</i></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>/</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-bidi-font-style:normal'>.splx/.spl</span></span><i style='mso-bidi-font-style:
+normal'><span lang=EN-US> </span></i><span lang=EN-US>among the file names with
+non-absolute paths in a specified order: Class path -&gt; Search path -&gt; Main
+path. The default main path is the current path. </span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>This is similar to calling a stored procedure in the
-normal database driver. During execution, use </span><span class=var1><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>con</span></span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>.prepareCall()</span></i></span><span
-lang=EN-US> to call a statement in which the parameters can be written directly
-or set with </span><span class=var1><span lang=EN-US>st</span></span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>.setObject()</span></i></span><span
-lang=EN-US>. Once the statement is generated, use </span><span class=var1><span
-lang=EN-US>st</span></span><span class=code><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>.execute()</span></i></span><span
-lang=EN-US> to execute it and return the result set. </span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>When calling </span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>the
-function</span></span><span lang=EN-US>, values arg1,... will be assigned to
-the </span><span class=var1><span lang=EN-US style='font-style:normal'>script
-file’</span></span><span class=var1><span lang=EN-US style='font-style:normal;
-mso-bidi-font-style:italic'>s</span></span><span lang=EN-US> parameters in
-turn, rather than according to the parameter names in </span><span class=var1><span
-lang=EN-US style='font-style:normal'>its</span></span><span lang=EN-US>
-parameter list. </span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When calling the </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>call</span></span><span lang=EN-US>
+function, parameters <i style='mso-bidi-font-style:normal'>arg1</i>,... will be
+assigned to <i>.</i></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>dfx</span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+mso-bidi-font-style:italic'>/</span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US style='mso-bidi-font-style:
+normal'>.splx/.spl</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>’s
+parameters</span></span><span lang=EN-US> in order, which is irrelevant to the
+parameter names in <i>.</i></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>dfx</span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+mso-bidi-font-style:italic'>/</span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US style='mso-bidi-font-style:
+normal'>.splx/.spl</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>’s</span></span><span
+lang=EN-US> parameter list.</span></span></p>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Parameter:</span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Parameter:</span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>spl</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  script file or scrpt file object in the format of <i>.</i></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='mso-bidi-font-style:normal'>dfx</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>/</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='mso-bidi-font-style:normal'>.splx/.spl</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var0><span
+  lang=EN-US>arg1</span></span><span lang=EN-US>,</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>…</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameters</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Option:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:9.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>path</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>@r</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  relative search path or absolute search path of a file. The default setting
-  is the relative search path when this parameter isn’t specified.</span><span
-  lang=EN-US> </span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Disable
+  the default buffer call</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>spl</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>@n</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A script file <i>.splx/.spl/.dfx</i>,
-  whose extension is determined according to the order of .splx/.spl/.dfx</span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='color:black'>Generate a new task space and execute the script file
+  using a new thread, and return the task space without waiting for the result
+  to return; usually, the option is used to execute a script file that performs
+  timed tasks or loop operations</span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>…</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Parameter. Use comma to separate the
-  multiple parameters. The parameter names are irrelevant to the acceptance of
-  the values, which, instead, will be assigned to the parameters in order. </span></p>
-  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span lang=EN-US>Example:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Example:</span></span></p>
 
-<p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><span
-lang=EN-US>Below are the contents of the cellset file <i style='mso-bidi-font-style:
-normal'>test.dfx</i>, in which </span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>StuId</span></span><span
-lang=EN-US> and </span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif;font-weight:normal'>Class</span></span><span
-lang=EN-US> are the cellset parameters.</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Below
+are the contents of script file<i style='mso-bidi-font-style:normal'>
+C:\\test.dfx</i> where <i style='mso-bidi-font-style:normal'>arg1</i> is the
+cellset parameter:</span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 align=left
- style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
- mso-border-alt:solid #A6A6A6 .5pt;mso-table-overlap:never;mso-table-lspace:
- 9.0pt;margin-left:6.75pt;mso-table-rspace:9.0pt;margin-right:6.75pt;
- mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;
- mso-table-left:left;mso-table-top:.05pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span lang=EN-US>&nbsp;</span></p>
+  <td width=26 valign=top style='width:19.3pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
-  <td width=436 valign=top style='width:327.3pt;border:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=532 valign=top style='width:398.9pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
-  mso-element-frame-hspace:9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:
-  paragraph;mso-element-anchor-horizontal:column;mso-element-top:.05pt;
-  mso-height-rule:exactly'><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:19.3pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
-  <td width=436 valign=top style='width:327.3pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=532 valign=top style='width:398.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=connect(&quot;demo&quot;)</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=connect(&quot;demo&quot;).query(&quot;select
+  * from Students1 where Age&gt;?&quot;,arg1)</span></span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=26 valign=top style='width:19.3pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
-  <td width=436 valign=top style='width:327.3pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=532 valign=top style='width:398.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from SCORES where STUDENTID=? and CLASS=?&quot;,StuId,Class)</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>return A1</span></span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=436 valign=top style='width:327.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.sum(SCORE)</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=436 valign=top style='width:327.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1.close()</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=18 valign=top style='width:13.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=436 valign=top style='width:327.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
-  mso-element-wrap:around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
-  column;mso-element-top:.05pt;mso-height-rule:exactly'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>return A3</span></span></p>
-  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=25 valign=top style='width:18.55pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=197 valign=top style='width:147.9pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=609 valign=top style='width:456.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=25 valign=top style='width:18.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=197 style='width:147.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=call(&quot;C:\\test.dfx&quot;,15)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=609 style='width:456.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Call
+  the script file and return the first returned value. Query the data of
+  students who are above 15 years old<span style='mso-bidi-font-weight:bold'>.</span>
+  </span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=25 valign=top style='width:18.55pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>2</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=197 style='width:147.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=call(file(&quot;C:\\test.dfx&quot;),15)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=609 style='width:456.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>One
+  parameter is the script file object and return same result as A1 does<span
+  style='mso-bidi-font-weight:bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=af4CxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:0cm;mso-char-indent-count:0'><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Note: </span></b></span></p>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>Test code is as follows:</span></b></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><b><span lang=EN-US
-style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>public</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> </span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>void</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>
-testDataServer() {</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>Connection
-con = </span><b><span lang=EN-US style='font-size:10.0pt;color:#7F0055;
-mso-font-kerning:0pt'>null</span></b><span lang=EN-US style='font-size:10.0pt;
-color:black;mso-font-kerning:0pt'>;</span><span lang=EN-US style='font-size:
-10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>java.sql.PreparedStatement
-st;</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>try</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>{</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>Class.<i>forName</i>(</span><span
-lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;com.esproc.jdbc.InternalDriver&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>con=
-DriverManager.<i>getConnection</i>(</span><span lang=EN-US style='font-size:
-10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;jdbc:esproc:local://&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Call
-the stored procedure in which <i style='mso-bidi-font-style:normal'>test</i> is
-the name of the dfx file</span><span lang=EN-US style='font-size:10.0pt;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st
-=con.prepareCall(</span><span lang=EN-US style='font-size:10.0pt;color:#2A00FF;
-mso-font-kerning:0pt'>&quot;call test(?,?)&quot;</span><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Set
-the first parameter</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st.setObject(1,</span><span
-lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;4&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span></p>
-
-<p class=MsoNormal style='text-indent:60.0pt;mso-char-indent-count:6.0;
-line-height:16.0pt;mso-line-height-rule:exactly;mso-layout-grid-align:none;
-text-autospace:none'><span lang=EN-US style='font-size:10.0pt;color:#3F7F5F;
-mso-font-kerning:0pt'>// Set the second parameter</span><span lang=EN-US
-style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st.setObject(2,</span><span
-lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;Class
-one&quot;</span><span lang=EN-US style='font-size:10.0pt;color:black;
-mso-font-kerning:0pt'>);</span><span lang=EN-US style='font-size:10.0pt;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>//
-Execute stored procedure</span><span lang=EN-US style='font-size:10.0pt;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st.execute();</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Get
-result set</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>ResultSet
-set = st.getResultSet();</span><span lang=EN-US style='font-size:10.0pt;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Print
-results</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>printRs(set);<span
-style='mso-tab-count:1'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// The following
-statement gets same result as the above-mentioned calling method has</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st
-=con.prepareCall(</span><span lang=EN-US style='font-size:10.0pt;color:#2A00FF;
-mso-font-kerning:0pt'>&quot;call test(4,\&quot;Class one\&quot;)&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st.execute();</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>set
-= st.getResultSet();</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>printRs(set);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>catch</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>(Exception
-e){</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>System.</span><i><span
-lang=EN-US style='font-size:10.0pt;color:#0000C0;mso-font-kerning:0pt'>out</span></i><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>.println(e);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>finally</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>{</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Close
-the connection</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>if</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> (con!=</span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>null</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>) {</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>try</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> {</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:5'>&nbsp; </span>con.close();</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>catch</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>(Exception
-e) {</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:5'>&nbsp; </span>System.</span><i><span
-lang=EN-US style='font-size:10.0pt;color:#0000C0;mso-font-kerning:0pt'>out</span></i><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>.println(e);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:1'>&nbsp; </span>}</span></p>
+<p class=af4CxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:0cm;mso-char-indent-count:0'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Use the comma to separate the multiple results returned. E.g. return
+A1,B2. <b style='mso-bidi-font-weight:normal'></b></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="125.html">Next</a></div>
@@ -552,7 +321,7 @@ style='mso-tab-count:1'>&nbsp; </span>}</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="52.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

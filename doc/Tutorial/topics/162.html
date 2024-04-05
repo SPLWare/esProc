@@ -301,21 +301,27 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs =
 st.getResultSet()</span></i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>;</span></p>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>This cellset file uses a parameter, so, to call the
-cellset, use </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>&quot;call
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>This cellset file uses a parameter. So, to call the cellset, use </span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>&quot;call
 createTable2(?)&quot;</span></i></span><span class=T-CodeChar><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>, in which ?
-represents the parameter needing to be get assigned. The method of <i
-style='mso-bidi-font-style:normal'>st.setObject()</i> needs to be used to pass
-in the value of the parameter. With multiple parameters, values are assigned
-according to their order, instead of their names. This cellset file will list
-employees whose birthdays are on the day specified by the parameter. Note that
-the month starts with 0 when the date is set in the Calendar class. The printed
-out result is as follows:</span></span><span lang=EN-US> <b style='mso-bidi-font-weight:
-normal'></b></span></p>
+style='font-family:"Times New Roman",serif;font-weight:normal'>, where ?
+represents the parameter to be get assigned. In this case, method <i
+style='mso-bidi-font-style:normal'>st.setObject()</i> should be used to pass in
+value of the parameter. With multiple parameters, values are assigned in order,
+and the input values are not related to names of the cellset parameters. We can
+also set value for a specified parameter. To do this, we can modify the above
+statement as <i style='mso-bidi-font-style:normal'>st.setObject(&quot;Date&quot;,
+calendar.getTime())</i>. This cellset file will list employees whose birthdays
+are on the day specified by the parameter. Note that the month starts with 0
+when we set the date in the Calendar class. The print out result is as follows:
+</span></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:

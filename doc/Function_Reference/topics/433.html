@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hdfs_write()</title>
+<title>hdfs_file()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,326 +13,293 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><a name="hive_client"><span lang=EN-US
-style='mso-fareast-font-family:宋体'>hdfs_write()</span></a><a name="hdfs_write"></a><span
-style='mso-bookmark:hive_client'></span><span
-style='mso-bookmark:hive_client'></span><span
-style='mso-bookmark:hive_client'><span lang=EN-US style='mso-fareast-font-family:
-宋体'></span></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></span></p>
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="hdfs_file"><span
+lang=EN-US>hdfs_file()</span></a></span><span
+style='mso-bookmark:_Hlt161066090'></span><span
+style='mso-bookmark:_Hlt161066090'></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:hive_client'><span
-lang=EN-US>Upload data to the specified location in HDFS.</span></span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Open a specified directory and return an HDFS file flow.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:
+</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:hive_client'><b><span
-lang=EN-US style='mso-fareast-font-family:黑体'>hdfs_write(</span></b></span><span
-style='mso-bookmark:hive_client'><i><span lang=EN-US style='mso-fareast-font-family:
-黑体'>hd,file,A/cs,x:F</span></i></span><span style='mso-bookmark:hive_client'><b><span
-lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>hdfs_file(</span></b></span><span style='mso-bookmark:_Hlt161066090'><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i><span lang=EN-US>,</span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>file:cs</span></span><span
+lang=EN-US> </span></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>)</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:
+</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:hive_client'><span
-lang=EN-US>The external library function <span style='mso-bidi-font-style:italic'>(See
-</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
-style='mso-bookmark:hive_client'><span lang=EN-US style='mso-bidi-font-style:
-italic'>External Library Guide</span></span><span style='mso-bookmark:hive_client'></span></a><span
-style='mso-bookmark:hive_client'><span lang=EN-US style='mso-bidi-font-style:
-italic'>) </span><span lang=EN-US>uploads a table sequence, a record sequence
-or a cursor to the specified location in HDFS.</span></span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-fareast-font-family:等线'>The external library function </span><span
+lang=EN-US style='mso-bidi-font-style:italic'>(See </span></span><a
+href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>) </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+等线'>returns an HDFS file flow. The file extension determines the compression
+method; support writing data in a stream style into a non-segmental file, but
+there is no such a restriction on reading data in.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Parameter:</span></b></span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'>Parameter:</span></b></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=617
- style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><i><span
-  lang=EN-US>hd</span></i></span></p>
+  <td width=66 valign=top style='width:49.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><var><span
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=501 valign=top style='width:375.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
   lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
-  italic'>An</span></var></span><span style='mso-bookmark:hive_client'><var><span
+  italic'>An</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
   lang=EN-US style='mso-bidi-language:AR'> hd</span></var></span><span
-  style='mso-bookmark:hive_client'><var><span lang=EN-US style='mso-bidi-language:
+  style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
   AR;mso-bidi-font-style:italic'> </span></var></span><span style='mso-bookmark:
-  hive_client'><var><span lang=EN-US style='mso-bidi-language:AR;font-style:
+  _Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:AR;font-style:
   normal'>connection</span></var></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><i><span
-  lang=EN-US>file</span></i></span></p>
+  <td width=66 valign=top style='width:49.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>file</span></i></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>The
-  location and name of the file to be loaded to HDFS; can be .txt file or .csv
-  file</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=501 valign=top style='width:375.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  name of the to-be-loaded Hadoop file</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><i><span
-  lang=EN-US>A/cs</span></i></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=66 valign=top style='width:49.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>cs</span></span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>A
-  table sequence/record sequence/cursor; do not support a random access file,
-  such as .btx</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=501 valign=top style='width:375.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  charset embedded in JVM; by default it is the default value for a virtual
+  machine</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><i><span
-  lang=EN-US>x</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>The
-  field(s) to be uploaded; upload all fields when the parameter is absent</span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=116 valign=top style='width:86.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><i><span
-  lang=EN-US>F</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=501 valign=top style='width:375.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>The
-  result field name(s) in the form of string; use original field names when the
-  parameter is absent</span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Option: </span></b></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
+value: </span></b></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=584
- style='margin-left:10.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@a</span></span></span><span
-  style='mso-bookmark:hive_client'><span class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=514 valign=top style='width:385.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Appen-write;
-  the to-be-appended content should have same structure as the original file
-  content, otherwise error will be reported; ignore @t option when the target
-  file already has content; overwrite the original file by default</span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@t</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=514 valign=top style='width:385.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Write
-  the field name information (titles) to the target file as the first row</span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
- </tr>
-</table>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File
+object</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:hive_client'><span
-lang=EN-US>Boolean value</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=648
- style='margin-left:22.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:hive_client'></span>
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:hive_client'><span lang=EN-US>&nbsp;</span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:hive_client'><b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>A</span></b></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:hive_client'></span>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_open(&quot;hdfs://localhost:9000&quot;)</span></code></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=hdfs_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Connect
-  to hdfs</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
+  to the HDFS file system.</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=file(&quot;D:\\tmp\\emp.txt&quot;).import@t()</span></code></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=hdfs_file(A1,&quot;/user/stu.txt&quot;:&quot;GBK&quot;)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Return
-  a table sequence</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Read
+  the HDFS file and return a file object.</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>=hdfs_write@t(A1,&quot;/test1.txt&quot;,A2)</span></b></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.read@n()</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Upload
-  all fields of A2’s table sequence to <i>test1.txt</i> </span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Read
+  the content of the file object as a string and return it.</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>4</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=file(&quot;D:\\tmp\\employee.xls&quot;).xlsimport@t().cursor()</span></code></span><span
-  style='mso-bookmark:hive_client'><b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.import@t()</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Return
-  a cursor</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Read
+  the content of the file object as the records to form a table sequence and
+  return it.</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>5</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>=hdfs_write@a(A1,&quot;/test1.txt&quot;,A4)</span></b></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.cursor().fetch ()</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Upload
-  all fields of A4’s cursor to <i>test1.txt</i></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+  a cursor based on a file object and fetch records from the cursor.</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
   lang=EN-US style='mso-fareast-font-family:黑体'>6</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=324 valign=top style='width:242.9pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=253 valign=top style='width:190.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>=hdfs_write@t(A1,&quot;/test2.txt&quot;,A2,EID,ENAME:name)</span></b></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=hdfs_close(A1)</span></b></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
-  <td width=300 valign=top style='width:225.1pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:hive_client'><span lang=EN-US>Upload
-  specified fields of A2’s table sequence to <i>test2.txt</i></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=312 valign=top style='width:233.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
+  the HDFS connection.</span></span></p>
   </td>
-  <span style='mso-bookmark:hive_client'></span>
+  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 	</div>
@@ -342,7 +309,7 @@ style='font-size:14.0pt'>Example:</span></b></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="50.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="52.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
