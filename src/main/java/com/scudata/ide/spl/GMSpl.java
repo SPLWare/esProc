@@ -561,12 +561,13 @@ public class GMSpl extends GM {
 	public static final String KEY_PRINT_GC_HEAP = "-XX:+PrintHeapAtGC";
 
 	private static String[] getJVMArgs() {
+		// config.txt都采用同样格式
 		String str;
-		if (GM.isWindowsOS()) {
-			str = getConfigValue(KEY_JVM);
-		} else {
-			str = readConfigTxt();
-		}
+		// if (GM.isWindowsOS()) {
+		str = getConfigValue(KEY_JVM);
+		// } else {
+		// str = readConfigTxt();
+		// }
 		if (str == null)
 			return null;
 		List<String> jvmArgs = new ArrayList<String>();
@@ -650,11 +651,12 @@ public class GMSpl extends GM {
 			}
 			buf.append(arg);
 		}
-		if (GM.isWindowsOS()) {
-			setConfigValue(KEY_JVM, buf.toString());
-		} else {
-			writeConfigTxt(buf.toString());
-		}
+		// config.txt都采用同样格式
+		// if (GM.isWindowsOS()) {
+		setConfigValue(KEY_JVM, buf.toString());
+		// } else {
+		// writeConfigTxt(buf.toString());
+		// }
 	}
 
 	/**
