@@ -4233,6 +4233,18 @@ public class ColPhyTable extends PhyTable {
 		list.toArray(columns);
 		DataStruct ds = new DataStruct(selFields);
 		
+		//判断是否主键被选出
+		boolean hasKey = true;
+		for (int i = 0; i < dimCount; ++i) {
+			if (ds.getFieldIndex(cols[i].getColName()) == -1) {
+				hasKey = false;
+				break;
+			}
+		}
+		if (hasKey) {
+			ds.setPrimary(getSortedColNames());
+		}
+		
 		BlockLinkReader rowCountReader = getSegmentReader();
 		BlockLinkReader []colReaders = new BlockLinkReader[colCount];
 		ObjectReader []segmentReaders = new ObjectReader[colCount];
