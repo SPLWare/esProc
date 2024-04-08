@@ -30,11 +30,12 @@ public class DFXCursor extends ICursor {
 		this.ctx = ctx;
 		this.useCache = useCache;
 		
-		JobSpace js = new JobSpace("tmp");
-		pcs.getContext().setJobSpace(js);
-		if (ctx != null) {
-			ctx.addResource(this);
-		}
+		// 2024/4/8 使用当前任务的JobSpace？
+		//JobSpace js = new JobSpace("tmp");
+		//pcs.getContext().setJobSpace(js);
+		//if (ctx != null) {
+		//	ctx.addResource(this);
+		//}
 	}
 	
 	/**
@@ -208,8 +209,9 @@ public class DFXCursor extends ICursor {
 	public synchronized void close() {
 		super.close();
 		if (pcs != null) {
-			if (ctx != null) ctx.removeResource(this);
-			pcs.getContext().getResourceManager().closeResource();
+			// 2024/4/8 使用当前任务的JobSpace？
+			//if (ctx != null) ctx.removeResource(this);
+			//pcs.getContext().getResourceManager().closeResource();
 			
 			if (useCache) {
 				pcs.reset();
