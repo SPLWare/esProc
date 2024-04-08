@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
@@ -344,7 +345,14 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		String fileName = sconfig;
 		try {
 			if (StringUtils.isValidString(sconfig)) {
-				LocalFile lf = new LocalFile(sconfig, "s");
+				sconfig = sconfig.trim();
+				if (sconfig.startsWith("\"") && sconfig.endsWith("\"")) {
+					sconfig = Escape.removeEscAndQuote(sconfig, '"');
+				} else if (sconfig.startsWith("'") && sconfig.endsWith("'")) {
+					sconfig = sconfig.substring(1, sconfig.length() - 1);
+				}
+				fileName = sconfig;
+				LocalFile lf = new LocalFile(fileName, "s");
 				is = lf.getInputStream();
 			} else {
 				is = findResource(CONFIG_FILE);
