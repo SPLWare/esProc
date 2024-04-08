@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 
 import com.scudata.dm.FileObject;
-import com.scudata.dm.LocalFile;
 
 
 /**
@@ -23,9 +22,10 @@ public final class FileSyncManager {
 	 * @return Object 用于同步对象
 	 */
 	public static Object getSyncObject(FileObject fo) {
-		LocalFile lf = fo.getLocalFile();
-		File file = lf.file();
-		return getSyncObject(file);
+		//LocalFile lf = fo.getLocalFile();
+		//File file = lf.file();
+		//return getSyncObject(file);
+		return fo;
 	}
 	
 	/**

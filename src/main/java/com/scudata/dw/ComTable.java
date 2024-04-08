@@ -38,7 +38,7 @@ abstract public class ComTable implements IBlockStorage {
 	// 补文件后缀由_SF改为.ext
 	public static final String SF_SUFFIX = ".ext"; //补文件后缀
 	protected static int MIN_BLOCK_SIZE = 1024 * 4;
-	
+	protected FileObject fileObject;
 	protected File file;
 	protected RandomAccessFile raf;
 	protected PhyTable baseTable;
@@ -183,8 +183,8 @@ abstract public class ComTable implements IBlockStorage {
 		if (file == null) {
 			file = new NonLocalFile(fo.getFileName(), fo);
 		}
+		
 		RandomAccessFile raf = ifile.getRandomAccessFile();
-
 		raf.seek(6);
 		
 		if (raf.length() == 0) {
@@ -192,15 +192,20 @@ abstract public class ComTable implements IBlockStorage {
 			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 		
+		ComTable comTable;
 		int flag = raf.read(); 
+		
 		if (flag == 'r') {
-			return new RowComTable(file, raf, ctx);
+			comTable = new RowComTable(file, raf, ctx);
 		} else if (flag == 'c' || flag == 'C'){
-			return new ColComTable(file, raf, ctx);
+			comTable = new ColComTable(file, raf, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
+		
+		comTable.setFileObject(fo);
+		return comTable;
 	}
 	
 	/**
@@ -277,6 +282,7 @@ abstract public class ComTable implements IBlockStorage {
 			comTable.setPartition(partition);
 		}
 		
+		comTable.setFileObject(fo);
 		return comTable.getBaseTable();
 	}
 
@@ -414,6 +420,14 @@ abstract public class ComTable implements IBlockStorage {
 	
 	public File getFile() {
 		return file;
+	}
+
+	public FileObject getFileObject() {
+		return fileObject;
+	}
+
+	public void setFileObject(FileObject fileObject) {
+		this.fileObject = fileObject;
 	}
 
 	/**
@@ -1316,7 +1330,9 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	Object getSyncObject() {
-		if (file != null) {
+		if (fileObject != null) {
+			return FileSyncManager.getSyncObject(fileObject);
+		} else if (file != null) {
 			return FileSyncManager.getSyncObject(file);
 		} else {
 			return raf;

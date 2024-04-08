@@ -118,6 +118,7 @@ public class Create extends FileFunction {
 				table = new ColComTable(file, cols, distribute, opt, blockSize, ctx);
 			}
 			
+			table.setFileObject(fo);
 			table.setPartition(partition);
 			return table.getBaseTable();
 		} catch (IOException e) {
