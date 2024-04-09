@@ -7,6 +7,7 @@ import com.scudata.dm.Context;
 import com.scudata.excel.ExcelUtils;
 import com.scudata.excel.XlsFileObject;
 import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 import com.scudata.expression.XOFunction;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
@@ -120,6 +121,20 @@ public class XlsMove extends XOFunction {
 			throw new RQException(e.getMessage(), e);
 		}
 		return null;
+	}
+
+	/**
+	 * 对节点做优化
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			// 对参数做优化
+			param.optimize(ctx);
+		}
+
+		return this;
 	}
 
 }

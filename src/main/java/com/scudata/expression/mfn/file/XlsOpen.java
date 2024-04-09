@@ -8,6 +8,7 @@ import com.scudata.excel.FileXlsR;
 import com.scudata.excel.XlsFileObject;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
@@ -73,6 +74,20 @@ public class XlsOpen extends FileFunction {
 	}
 
 	/**
+	 * 对节点做优化
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			// 对参数做优化
+			param.optimize(ctx);
+		}
+
+		return this;
+	}
+
+	/**
 	 * 创建xo文件对象
 	 * 
 	 * @param pwd
@@ -99,4 +114,5 @@ public class XlsOpen extends FileFunction {
 		ctx.addResource(xo);
 		return xo;
 	}
+
 }

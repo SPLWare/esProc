@@ -15,6 +15,7 @@ import com.scudata.excel.ExcelUtils;
 import com.scudata.excel.XlsxSImporter;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
@@ -253,7 +254,7 @@ public class XlsImport extends FileFunction {
 				ExcelTool importer = new ExcelTool(in, isXlsx, pwd);
 				return importer.fileXlsImport(fields, start, end, s, opt);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
 			try {
@@ -271,4 +272,17 @@ public class XlsImport extends FileFunction {
 		}
 	}
 
+	/**
+	 * 对节点做优化
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			// 对参数做优化
+			param.optimize(ctx);
+		}
+
+		return this;
+	}
 }

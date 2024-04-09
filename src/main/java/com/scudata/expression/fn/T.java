@@ -11,6 +11,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -40,7 +41,7 @@ public class T extends Function {
 		boolean isOldParam = false;
 		IParam fnParam, fieldParam = null, sParam = null;
 		String fields = null;
-		
+
 		if (param.getType() == IParam.Semicolon) {
 			int subParamCount = param.getSubSize();
 			if (subParamCount == 3) { // T(fn,A;Fi,…;s)
@@ -316,6 +317,20 @@ public class T extends Function {
 		}
 		Expression exp = new Expression(cs, ctx, buf.toString());
 		return exp.calculate(ctx);
+	}
+
+	/**
+	 * 对节点做优化
+	 * @param ctx 计算上下文
+	 * @param Node 优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			// 对参数做优化
+			param.optimize(ctx);
+		}
+
+		return this;
 	}
 
 	/** 未知 */
