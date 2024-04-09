@@ -369,6 +369,10 @@ public class DataBlockType {
 				hasNull = true;
 				continue;
 			}
+			if (obj instanceof Integer) {
+				obj = ((Integer)obj).longValue();
+				data.set(i, obj);
+			}
 			if (!(obj instanceof Long)) {
 				return new DataBlockType(OBJECT, hasNull);
 			}
