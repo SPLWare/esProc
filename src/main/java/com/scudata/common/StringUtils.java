@@ -1807,10 +1807,10 @@ public class StringUtils {
 			return pre;
 		}
 		int index = 1;
-		while (names.contains(pre + "_" + index)) {
+		while (names.contains(pre + index)) {
 			index++;
 		}
-		return pre + "_" + index;
+		return pre + index;
 	}
 
 	public final static boolean matches(byte[] value, int pos1, int len1, byte[] fmt) {
