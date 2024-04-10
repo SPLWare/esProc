@@ -148,6 +148,9 @@ public class SPL extends AppFrame {
 	 */
 	private String[] startDsNames = null;
 
+	protected JTabbedPane jTPLeft = new JTabbedPane();
+	protected JTabbedPane jTPRight = new JTabbedPane();
+
 	/**
 	 * ×ÊÔ´Ê÷¿Ø¼þ
 	 */
@@ -304,9 +307,7 @@ public class SPL extends AppFrame {
 			splitCenter.setRightComponent(desk);
 
 			lastLeftLocation = 0;
-			JTabbedPane jTPLeft = new JTabbedPane();
 			jTPLeft.setMinimumSize(new Dimension(0, 0));
-			JTabbedPane jTPRight = new JTabbedPane();
 			jTPRight.setMinimumSize(new Dimension(0, 0));
 
 			jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);

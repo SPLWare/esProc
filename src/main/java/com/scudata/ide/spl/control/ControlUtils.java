@@ -1,6 +1,11 @@
 package com.scudata.ide.spl.control;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.util.Map;
 
 import javax.swing.JViewport;
 
@@ -89,4 +94,24 @@ public class ControlUtils extends ControlUtilsBase {
 		return null;
 	}
 
+	/**
+	 * ¿¹¾â³Ý
+	 * ²Î¿¼https://docs.oracle.com/en/java/javase/22/docs/api/java.desktop/java/awt/doc-files/DesktopProperties.html
+	 * @param g
+	 */
+	public static void setGraphicsRenderingHints(Graphics g) {
+		if (g instanceof Graphics2D) {
+			Graphics2D g2D = (Graphics2D) g;
+			Toolkit tk = Toolkit.getDefaultToolkit();
+			Object hints = tk.getDesktopProperty("awt.font.desktophints");
+			if (hints != null && hints instanceof Map<?, ?>) {
+				g2D.addRenderingHints((Map<?, ?>) hints);
+			} else {
+				g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+						RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+				g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+			}
+		}
+	}
 }

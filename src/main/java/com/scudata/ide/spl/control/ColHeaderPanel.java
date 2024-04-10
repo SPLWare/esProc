@@ -84,6 +84,7 @@ public class ColHeaderPanel extends JPanel {
 	 * @param g 面板中的图形对象
 	 */
 	public void paintComponent(Graphics g) {
+		ControlUtils.setGraphicsRenderingHints(g);
 		int h = (int) (GCSpl.DEFAULT_ROW_HEIGHT * control.scale);
 		g.clearRect(0, 0, 999999, h + 1);
 

@@ -107,6 +107,7 @@ public class RowHeaderPanel extends JPanel {
 	 * @param g »­²¼
 	 */
 	public void paintComponent(Graphics g) {
+		ControlUtils.setGraphicsRenderingHints(g);
 		int w = getW(control);
 		int levelWidth = getLevelWidth(control);
 		int headWidth = w - levelWidth;
