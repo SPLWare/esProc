@@ -132,8 +132,8 @@ public class DataBlockType {
 			type = new DataBlockType(OBJECT, false);
 		}
 		
-		if (type.type == INT8 || type.type == LONG8) {
-			return type;//长度8时不用检查字典
+		if (type.type == INT8 || type.type == LONG8 || type.type == INC_BLOCK) {
+			return type;//长度8时，或者是递增块时不用检查字典
 		}
 		
 		DataBlockType dictType = checkDict(seq, start, end);
@@ -641,7 +641,7 @@ public class DataBlockType {
 		case 0:
 			return "Unknown";
 		default:
-			return "Object";	
+			return "Object : " + type;	
 		}
 	}
 	
