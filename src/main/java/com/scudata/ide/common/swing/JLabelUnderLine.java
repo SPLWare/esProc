@@ -5,13 +5,13 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.scudata.cellset.IStyle;
 import com.scudata.ide.common.control.ControlUtilsBase;
+import com.scudata.ide.spl.control.ControlUtils;
 
 /**
  * 支持下划线的标签控件
@@ -82,14 +82,7 @@ public class JLabelUnderLine extends JLabel {
 		int width = getWidth();
 		if (width <= 0)
 			return;
-		if (g instanceof Graphics2D) {
-			// 抗锯齿
-			((Graphics2D) g).setRenderingHint(
-					RenderingHints.KEY_TEXT_ANTIALIASING,
-					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-		}
+		ControlUtils.setGraphicsRenderingHints(g);
 		// 绘制下划线使用的
 		float underLineSize = 0.75f;
 		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
