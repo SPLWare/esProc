@@ -42,12 +42,7 @@ public class EditControl extends SplControl {
 		JPanel panel = new CornerPanel(this, editable);
 		CornerListener listener = new CornerListener(this, editable);
 		panel.addMouseListener(listener);
-		panel.addMouseWheelListener(mouseWheelListener);
-		// MouseWheelListener[] listeners = getMouseWheelListeners();
-		// if (listeners != null) {
-		// for (MouseWheelListener l : listeners)
-		// panel.addMouseWheelListener(l);
-		// }
+		panel.addMouseWheelListener(getMouseWheelListener());
 		return panel;
 	}
 
@@ -62,12 +57,7 @@ public class EditControl extends SplControl {
 		headerPanel.addMouseListener(listener);
 		headerPanel.addMouseMotionListener(listener);
 		headerPanel.addKeyListener(listener);
-		headerPanel.addMouseWheelListener(mouseWheelListener);
-		// MouseWheelListener[] listeners = getMouseWheelListeners();
-		// if (listeners != null) {
-		// for (MouseWheelListener l : listeners)
-		// headerPanel.addMouseWheelListener(l);
-		// }
+		headerPanel.addMouseWheelListener(getMouseWheelListener());
 		return headerPanel;
 	}
 
@@ -82,12 +72,7 @@ public class EditControl extends SplControl {
 		panel.addMouseListener(listener);
 		panel.addMouseMotionListener(listener);
 		panel.addKeyListener(listener);
-		panel.addMouseWheelListener(mouseWheelListener);
-		// MouseWheelListener[] listeners = getMouseWheelListeners();
-		// if (listeners != null) {
-		// for (MouseWheelListener l : listeners)
-		// panel.addMouseWheelListener(l);
-		// }
+		panel.addMouseWheelListener(getMouseWheelListener());
 		return panel;
 	}
 
@@ -103,17 +88,25 @@ public class EditControl extends SplControl {
 		contentPanel.addMouseListener(listener);
 		contentPanel.addMouseMotionListener(listener);
 		contentPanel.addKeyListener(listener);
-		mouseWheelListener.setMouseWheelListeners(getMouseWheelListeners());
-		contentPanel.addMouseWheelListener(mouseWheelListener);
+		// mouseWheelListener.setMouseWheelListeners(getMouseWheelListeners());
+		contentPanel.addMouseWheelListener(getMouseWheelListener());
 		DropTarget target = new DropTarget(contentPanel, new EditDropListener());
 		contentPanel.setDropTarget(target);
 		contentPanel.setFocusTraversalKeysEnabled(false);
 		return contentPanel;
 	}
 
-	private ScaleListener mouseWheelListener = new ScaleListener() {
+	private ScaleListener mouseWheelListener = null;
 
-	};
+	private synchronized ScaleListener getMouseWheelListener() {
+		if (mouseWheelListener == null) {
+			mouseWheelListener = new ScaleListener();
+			mouseWheelListener.setMouseWheelListeners(getMouseWheelListeners());
+		}
+		return mouseWheelListener;
+	}
+
+	// private ScaleListener mouseWheelListener = new ScaleListener();
 
 	class ScaleListener implements MouseWheelListener {
 		MouseWheelListener[] listeners;
