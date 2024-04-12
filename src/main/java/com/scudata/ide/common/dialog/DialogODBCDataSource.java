@@ -186,8 +186,8 @@ public class DialogODBCDataSource extends JDialog {
 	public DataSource get() {
 		DBConfig config = new DBConfig();
 		config.setName(jDSName.getText());
-		config.setDBCharset(ODBC_CHARSET);
-		config.setClientCharset(ODBC_CHARSET);
+		// config.setDBCharset(ODBC_CHARSET);
+		// config.setClientCharset(ODBC_CHARSET);
 		config.setDriver(ODBC_DRIVER);
 		config.setUrl(ODBC_URL + (String) jODBCName.getSelectedItem());
 		config.setUser(jUser.getText());

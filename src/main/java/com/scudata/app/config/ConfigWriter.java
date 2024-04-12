@@ -236,18 +236,24 @@ public class ConfigWriter {
 						writeExtendedDBElement(key, value);
 					}
 				}
+				boolean needTrans = false;
 				if (StringUtils.isValidString(dbConfig.getDBCharset())) {
+					needTrans = true;
 					writeNameValueElement(ConfigConsts.DB_CHARSET,
 							dbConfig.getDBCharset());
 				}
 				if (StringUtils.isValidString(dbConfig.getClientCharset())) {
+					needTrans = true;
 					writeNameValueElement(ConfigConsts.DB_CLIENT_CHARSET,
 							dbConfig.getClientCharset());
 				}
-				writeNameValueElement(ConfigConsts.DB_TRANS_CONTENT,
-						String.valueOf(dbConfig.getNeedTranContent()));
-				writeNameValueElement(ConfigConsts.DB_TRANS_SENTENCE,
-						String.valueOf(dbConfig.getNeedTranSentence()));
+				if (needTrans || dbConfig.getNeedTranContent()
+						|| dbConfig.getNeedTranSentence()) {
+					writeNameValueElement(ConfigConsts.DB_TRANS_CONTENT,
+							String.valueOf(dbConfig.getNeedTranContent()));
+					writeNameValueElement(ConfigConsts.DB_TRANS_SENTENCE,
+							String.valueOf(dbConfig.getNeedTranSentence()));
+				}
 				writeNameValueElement(ConfigConsts.DB_CASE_SENTENCE,
 						String.valueOf(dbConfig.isCaseSentence()));
 				level = 3;
