@@ -1976,7 +1976,7 @@ public class JTableValue extends JTableEx {
 				return;
 			}
 		}
-		if (newValue.equals(value)) { // 钻取的元素是本身时
+		if (newValue == value) { // 钻取的元素是本身时
 			return;
 		}
 		redo.clear();
