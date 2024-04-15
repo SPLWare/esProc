@@ -2,6 +2,7 @@ package com.scudata.dm;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -28,6 +29,7 @@ public class BFileWriter {
 	private boolean isBlock; // 是否生成有分段信息的集文件
 	private RandomOutputStream ros;
 	private RandomObjectWriter writer; // 用于写出对象
+	private ObjectWriter normalWriter; // 用于写出不可分段集文件
 	private DataStruct ds; // 文件的数据结构
 	
 	private long []blocks; // 每一块的结束位置
@@ -238,6 +240,14 @@ public class BFileWriter {
 		if (writer != null) {
 			try {
 				writer.close();
+				writer = null;
+			} catch (IOException e) {
+				throw new RQException(e);
+			}
+		} else if (normalWriter != null) {
+			try {
+				normalWriter.close();
+				normalWriter = null;
 			} catch (IOException e) {
 				throw new RQException(e);
 			}
@@ -924,5 +934,80 @@ public class BFileWriter {
 		}
 		
 		this.totalRecordCount += len;		
+	}
+	
+	/**
+	 * 准备写不可分段集文件
+	 * @throws IOException
+	 */
+	public void prepareWriteNormal(DataStruct ds) throws IOException {
+		this.ds = ds;
+		OutputStream os = file.getOutputStream(false);
+		normalWriter = new ObjectWriter(os);
+		normalWriter.write('r');
+		normalWriter.write('q');
+		normalWriter.write('t');
+		normalWriter.write('b');
+		normalWriter.write('x');
+		
+		normalWriter.write(TYPE_NORMAL);
+		normalWriter.writeInt32(0); // 保留
+		normalWriter.writeLong64(totalRecordCount);
+		normalWriter.writeStrings(ds.getFieldNames());
+	}
+
+	/**
+	 * 用输出流导出不可分段集文件
+	 * @param data
+	 */
+	public void exportNormal(Sequence data) {
+		if (data == null || data.length() == 0) {
+			file.delete();
+			return;
+		}
+		
+		totalRecordCount = data.length();
+		ds = data.dataStruct();
+		if (ds == null) {
+			ds = new DataStruct(new String[]{S_FIELDNAME});
+		}
+		
+		try {
+			prepareWriteNormal(ds);
+			writeNormal(data);
+		} catch (Exception e) {
+			if (e instanceof RQException) {
+				throw (RQException)e;
+			} else {
+				throw new RQException(e);
+			}
+		} finally {
+			close();
+		}
+	}
+	
+	/**
+	 * 用输出流写出不可分段集文件
+	 * @param data
+	 */
+	public void writeNormal(Sequence data) throws IOException {
+		ObjectWriter writer = this.normalWriter;
+		int fcount = ds.getFieldCount();
+		int len = data.length();
+		
+		boolean isTable = data.getMem(1) instanceof BaseRecord;
+		if (isTable) {
+			for (int i = 1; i <= len; ++i) {
+				BaseRecord r = (BaseRecord)data.getMem(i);
+				Object []vals = r.getFieldValues();
+				for (int f = 0; f < fcount; ++f) {
+					writer.writeObject(vals[f]);
+				}
+			}
+		} else {
+			for (int i = 1; i <= len; ++i) {
+				writer.writeObject(data.getMem(i));
+			}
+		}
 	}
 }
