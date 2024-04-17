@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -24,7 +23,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -158,9 +156,9 @@ public class SPL extends AppFrame {
 
 	protected JPanel jPFileTree = new JPanel(new BorderLayout());
 
-	protected JPanel jPFileTreeMessage = new JPanel(new GridBagLayout());
+	// protected JPanel jPFileTreeMessage = new JPanel(new GridBagLayout());
 
-	protected JLabel jLFileTreeMessage = new JLabel();
+	// protected JLabel jLFileTreeMessage = new JLabel();
 
 	/**
 	 * 集算器资源管理器
@@ -310,10 +308,11 @@ public class SPL extends AppFrame {
 			jTPLeft.setMinimumSize(new Dimension(0, 0));
 			jTPRight.setMinimumSize(new Dimension(0, 0));
 
-			jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);
-			jPFileTree.add(jPFileTreeMessage, BorderLayout.SOUTH);
-			jPFileTreeMessage.add(jLFileTreeMessage, GM.getGBC(0, 0, true));
-			jPFileTreeMessage.setVisible(false);
+			initFileTree();
+			// jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);
+			// jPFileTree.add(jPFileTreeMessage, BorderLayout.SOUTH);
+			// jPFileTreeMessage.add(jLFileTreeMessage, GM.getGBC(0, 0, true));
+			// jPFileTreeMessage.setVisible(false);
 			jTPLeft.addTab(mm.getMessage("public.file"), jPFileTree);
 
 			jTPRight.addTab(mm.getMessage("dfx.tabvalue"), panelValue);
@@ -428,6 +427,10 @@ public class SPL extends AppFrame {
 			GM.showException(e);
 			exit();
 		}
+	}
+
+	protected void initFileTree() {
+		jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);
 	}
 
 	/**
@@ -681,6 +684,13 @@ public class SPL extends AppFrame {
 			autoSaveThread.stopThread();
 
 		try {
+			if (!exitCustom())
+				return false;
+		} catch (Throwable x) {
+			GM.showException(x);
+		}
+
+		try {
 			if (splitCenter.getLeftComponent() == null) {
 				ConfigOptions.iConsoleLocation = new Integer(-1);
 			} else {
@@ -708,12 +718,6 @@ public class SPL extends AppFrame {
 					ds.close();
 				}
 			}
-		} catch (Throwable x) {
-			GM.showException(x);
-		}
-		try {
-			if (!exitCustom())
-				return false;
 		} catch (Throwable x) {
 			GM.showException(x);
 		}

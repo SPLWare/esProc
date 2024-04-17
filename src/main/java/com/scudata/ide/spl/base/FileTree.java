@@ -1,6 +1,7 @@
 package com.scudata.ide.spl.base;
 
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -75,6 +76,7 @@ public class FileTree extends JTree {
 	 */
 	public FileTree() {
 		super();
+		this.setMinimumSize(new Dimension(1, 1));
 		this.root = new FileTreeNode("", FileTreeNode.TYPE_ROOT);
 		this.localRoot = new FileTreeNode("", FileTreeNode.TYPE_LOCAL);
 		this.root.setDir(true);
@@ -239,7 +241,7 @@ public class FileTree extends JTree {
 
 	}
 
-	protected void treeNodeWillExpand(FileTreeNode node) {
+	public void treeNodeWillExpand(FileTreeNode node) {
 		if (node != null && !node.isLoaded()) {
 			// 根据节点类型，调用刷新加载节点的方法
 			if (node.getType() == FileTreeNode.TYPE_LOCAL) {
@@ -356,7 +358,7 @@ public class FileTree extends JTree {
 	 * @param fileName
 	 * @return
 	 */
-	protected boolean isValidFile(byte type, String fileName) {
+	public boolean isValidFile(byte type, String fileName) {
 		return AppUtil.isSPLFile(fileName);
 	}
 
@@ -499,8 +501,15 @@ public class FileTree extends JTree {
 			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo
 					.booleanValue();
 			refreshLocal();
+			closeActiveNode();
 			break;
 		}
+	}
+
+	/**
+	 * 当前结点关闭
+	 */
+	protected void closeActiveNode() {
 	}
 
 	/**
@@ -525,7 +534,7 @@ public class FileTree extends JTree {
 	 * 
 	 * @param node
 	 */
-	protected void openFile(FileTreeNode node) {
+	public void openFile(FileTreeNode node) {
 		Object o = node.getUserObject();
 		if (o == null)
 			return;

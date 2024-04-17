@@ -906,20 +906,30 @@ public class AppUtil {
 			return null;
 		PgmCellSet cs = null;
 		BufferedInputStream bis = null;
+		InputStream is = null;
 		try {
 			FileObject fo = new FileObject(filePath, "s");
-			bis = new BufferedInputStream(fo.getInputStream());
+			is = fo.getInputStream();
+			bis = new BufferedInputStream(is);
 			if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
 				cs = readSPL(bis);
 			} else {
 				cs = CellSetUtil.readPgmCellSet(bis);
 			}
+			if (cs != null) {
+				cs.setName(filePath);
+			}
 		} finally {
 			if (bis != null)
-				bis.close();
-		}
-		if (cs != null) {
-			cs.setName(filePath);
+				try {
+					bis.close();
+				} catch (Exception ex) {
+				}
+			if (is != null)
+				try {
+					is.close();
+				} catch (Exception ex) {
+				}
 		}
 		return cs;
 	}

@@ -201,6 +201,8 @@ public class ConfigOptions {
 	 */
 	public static Integer iConsoleLocation = new Integer(-1);
 
+	public static Integer iFileLocation = new Integer(-1);
+
 	/**
 	 * The color of the cell value type
 	 */
@@ -325,6 +327,8 @@ public class ConfigOptions {
 		options.put("bAutoShowTip", bAutoShowTip);
 		options.put("iDBRecordCount", iDBRecordCount);
 		options.put("iConsoleLocation", iConsoleLocation);
+		options.put("iFileLocation", iFileLocation);
+
 		options.put("bShowHttpConfig", bShowHttpConfig);
 		options.put("iHttpPort", iHttpPort);
 		options.put("iLocale", iLocale);
@@ -482,6 +486,8 @@ public class ConfigOptions {
 				iUndoCount = ii;
 			} else if (option.equalsIgnoreCase("iAutoSaveMinutes")) {
 				iAutoSaveMinutes = ii;
+			} else if (option.equalsIgnoreCase("iFileLocation")) {
+				iFileLocation = ii;
 			}
 		} else if (type.equalsIgnoreCase("f")) {
 			Float ii = Float.valueOf(val);
