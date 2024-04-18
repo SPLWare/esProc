@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PushbackInputStream;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
@@ -125,7 +126,7 @@ public class FileXls extends XlsFileObject {
 			initTableInfo();
 		} catch (RQException e) {
 			throw e;
-		} catch (OLE2NotOfficeXmlFileException e) {
+		} catch (OLE2NotOfficeXmlFileException e) { // xlsx格式
 			if (pwd == null) {
 				// Excel文件是XLS格式，或者是加密文件。
 				throw new RQException(AppMessage.get().getMessage(
@@ -134,6 +135,16 @@ public class FileXls extends XlsFileObject {
 				// Excel文件是XLS格式。
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.ole2pwd"), e);
+			}
+		} catch (EncryptedDocumentException e) { // xls格式
+			if (pwd == null) {
+				// Excel文件是加密文件，请输入密码。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.xlsnopwd"), e);
+			} else {
+				// Excel文件的密码不正确。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.xlsinvalidpwd"), e);
 			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);

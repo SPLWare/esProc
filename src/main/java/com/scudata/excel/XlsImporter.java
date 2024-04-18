@@ -2,6 +2,7 @@ package com.scudata.excel;
 
 import java.io.InputStream;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -58,6 +59,16 @@ public class XlsImporter implements IExcelTool {
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
+		} catch (EncryptedDocumentException e) { // xls格式
+			if (pwd == null) {
+				// Excel文件是加密文件，请输入密码。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.xlsnopwd"), e);
+			} else {
+				// Excel文件的密码不正确。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.xlsinvalidpwd"), e);
+			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage());
 		} finally {
