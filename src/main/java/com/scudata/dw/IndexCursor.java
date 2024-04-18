@@ -1,8 +1,6 @@
 package com.scudata.dw;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,7 +22,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IndexCursor extends ICursor {
-	private int BUFFER_SIZE = 1024 * 64;
+	private int BUFFER_SIZE = 1024 * 4;
 	
 	private PhyTable table;
 	private String []fields;//È¡³ö×Ö¶Î
@@ -37,9 +35,9 @@ public class IndexCursor extends ICursor {
 	private ObjectReader []segmentReaders;
 	private ColumnMetaData []columns;
 	
-	private RandomAccessFile raf;
-	private byte []bytes;
-	private BufferReader rowDataReader;
+	//private RandomAccessFile raf;
+	//private byte []bytes;
+	private ObjectReader rowDataReader;
 	private int allCount;
 	private int []serialBytesLen;
 	
@@ -193,11 +191,9 @@ public class IndexCursor extends ICursor {
 //		} catch (FileNotFoundException e) {
 //			throw new RQException(e.getMessage(), e);
 //		}
-		
-		raf = table.groupTable.raf;
-		
-		bytes = new byte[BUFFER_SIZE];
-		rowDataReader = new BufferReader(table.getStructManager(), bytes);
+//		bytes = new byte[BUFFER_SIZE];
+//		rowDataReader = new BufferReader(table.getStructManager(), bytes);
+		rowDataReader = new ObjectReader(table.getRowReader(true), BUFFER_SIZE);
 		allCount = table.getColNames().length;
 		
 		DataStruct srcDs = table.getDataStruct();
@@ -347,26 +343,109 @@ public class IndexCursor extends ICursor {
 		return this.posArr[index][0];
 	}
 	
-	private void readBytes(long pos, byte []bytes) throws IOException {
-		raf.seek(pos);
-		int offset = (int) (pos % this.blockSize);
-		int rest = blockSize - IBlockStorage.POS_SIZE - offset;
-		if (rest < BUFFER_SIZE) {
-			raf.readFully(bytes, 0, rest);
-			byte[] nextPos = new byte[IBlockStorage.POS_SIZE];
-			raf.readFully(nextPos);
-			pos = (((long)(nextPos[0] & 0xff) << 32) +
-					((long)(nextPos[1] & 0xff) << 24) +
-					((nextPos[2] & 0xff) << 16) +
-					((nextPos[3] & 0xff) <<  8) +
-					(nextPos[4] & 0xff));
-			raf.seek(pos);
-			raf.readFully(bytes, rest, BUFFER_SIZE - rest);
-		} else {
-			raf.readFully(bytes);
-		}
-	}
+//	private void readBytes(long pos, byte []bytes) throws IOException {
+//		raf.seek(pos);
+//		int offset = (int) (pos % this.blockSize);
+//		int rest = blockSize - IBlockStorage.POS_SIZE - offset;
+//		if (rest < BUFFER_SIZE) {
+//			raf.readFully(bytes, 0, rest);
+//			byte[] nextPos = new byte[IBlockStorage.POS_SIZE];
+//			raf.readFully(nextPos);
+//			pos = (((long)(nextPos[0] & 0xff) << 32) +
+//					((long)(nextPos[1] & 0xff) << 24) +
+//					((nextPos[2] & 0xff) << 16) +
+//					((nextPos[3] & 0xff) <<  8) +
+//					(nextPos[4] & 0xff));
+//			raf.seek(pos);
+//			raf.readFully(bytes, rest, BUFFER_SIZE - rest);
+//		} else {
+//			raf.readFully(bytes);
+//		}
+//	}
 	
+//	private Object[] getRowRecordValues() throws IOException {
+//		int baseCount = 0;
+//		int colCount = this.fields.length;
+//		Object []values;
+//		Object []baseValues;
+//		Object[] objs = null;
+//		if (findex != null) {
+//			objs = new Object[colCount];
+//		}
+//		
+//		byte []bytes = this.bytes;
+//		long pos;
+//		if (!isPrimaryTable) {
+//			baseCount = baseTable.getColNames().length;
+//			int baseKeyCount = baseTable.getSortedColNames().length;
+//			if (needBaseTable) {
+//				baseValues = new Object[baseCount];
+//				pos = posArr[index][1];
+//				readBytes(pos, bytes);
+//				BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+//				serialBytesLen = baseTable.getSerialBytesLen();
+//				rowDataReader.skipObject();//Î±ºÅ
+//				for (int f = 0; f < baseCount; ++f) {
+//					baseValues[f] = rowDataReader.readObject();
+//				}
+//				for (int f = 0; f < colCount; ++f) {
+//					if (isBaseIndex[f]) {
+//						objs[f] = baseValues[findex[f]];
+//					}
+//				}
+//				rowDataReader.close();
+//			}
+//			pos = posArr[index][2];
+//			readBytes(pos, bytes);
+//			BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+//			rowDataReader.skipObject();//Î±ºÅ
+//			rowDataReader.skipObject();//µ¼ÁÐ
+//			
+//			allCount = table.getColNames().length;
+//			values = new Object[allCount + baseKeyCount];
+//			serialBytesLen = table.getSerialBytesLen();
+//			if (serialBytesLen != null) {
+//				for (int f = 0; f < allCount; ++f) {
+//					values[f + baseKeyCount] = rowDataReader.readObject();
+//				}
+//			} else {
+//				for (int f = 0; f < allCount; ++f) {
+//					values[f + baseKeyCount] = rowDataReader.readObject();
+//				}
+//			}
+//			for (int f = 0; f < colCount; ++f) {
+//				if (!isBaseIndex[f]) {
+//					objs[f] = values[findex[f]];
+//				}
+//			}
+//		} else {
+//			pos = posArr[index][1];
+//			readBytes(pos, bytes);
+//			BufferReader rowDataReader = this.rowDataReader;
+//			rowDataReader.reset();
+//			rowDataReader.skipObject();//Î±ºÅ
+//			
+//			values = new Object[allCount];
+//			if (serialBytesLen != null) {
+//				for (int f = 0; f < allCount; ++f) {
+//					values[f] = rowDataReader.readObject();
+//				}
+//			} else {
+//				for (int f = 0; f < allCount; ++f) {
+//					values[f] = rowDataReader.readObject();
+//				}
+//			}
+//			if (findex != null) {
+//				for (int f = 0; f < colCount; ++f) {
+//					objs[f] = values[findex[f]];
+//				}
+//			} else {
+//				objs = values;
+//			}
+//		}
+//		return objs;
+//	}
+
 	private Object[] getRowRecordValues() throws IOException {
 		int baseCount = 0;
 		int colCount = this.fields.length;
@@ -377,7 +456,6 @@ public class IndexCursor extends ICursor {
 			objs = new Object[colCount];
 		}
 		
-		byte []bytes = this.bytes;
 		long pos;
 		if (!isPrimaryTable) {
 			baseCount = baseTable.getColNames().length;
@@ -385,8 +463,12 @@ public class IndexCursor extends ICursor {
 			if (needBaseTable) {
 				baseValues = new Object[baseCount];
 				pos = posArr[index][1];
-				readBytes(pos, bytes);
-				BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+				//readBytes(pos, bytes);
+				//BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+				
+				ObjectReader rowDataReader = this.rowDataReader;
+				rowDataReader.seek(pos);
+				
 				serialBytesLen = baseTable.getSerialBytesLen();
 				rowDataReader.skipObject();//Î±ºÅ
 				for (int f = 0; f < baseCount; ++f) {
@@ -400,8 +482,12 @@ public class IndexCursor extends ICursor {
 				rowDataReader.close();
 			}
 			pos = posArr[index][2];
-			readBytes(pos, bytes);
-			BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+//			readBytes(pos, bytes);
+//			BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
+			
+			ObjectReader rowDataReader = this.rowDataReader;
+			rowDataReader.seek(pos);
+			
 			rowDataReader.skipObject();//Î±ºÅ
 			rowDataReader.skipObject();//µ¼ÁÐ
 			
@@ -424,9 +510,13 @@ public class IndexCursor extends ICursor {
 			}
 		} else {
 			pos = posArr[index][1];
-			readBytes(pos, bytes);
-			BufferReader rowDataReader = this.rowDataReader;
-			rowDataReader.reset();
+//			readBytes(pos, bytes);
+//			BufferReader rowDataReader = this.rowDataReader;
+			
+			ObjectReader rowDataReader = this.rowDataReader;
+			rowDataReader.seek(pos);
+			
+			//rowDataReader.reset();
 			rowDataReader.skipObject();//Î±ºÅ
 			
 			values = new Object[allCount];
@@ -449,7 +539,7 @@ public class IndexCursor extends ICursor {
 		}
 		return objs;
 	}
-
+	
 	private Object[] getRecordValues() throws IOException {
 		if (isRealValue) {
 			Object[] objs = new Object[fcount];
@@ -603,9 +693,9 @@ public class IndexCursor extends ICursor {
 	}
 	
 	public void setRowBufferSize(int maxRecordLen) {
-		BUFFER_SIZE = maxRecordLen;
-		bytes = new byte[BUFFER_SIZE];
-		rowDataReader = new BufferReader(table.getStructManager(), bytes);
+//		BUFFER_SIZE = maxRecordLen;
+//		bytes = new byte[BUFFER_SIZE];
+//		rowDataReader = new BufferReader(table.getStructManager(), bytes);
 	}
 
 	protected Sequence get(int n) {
@@ -955,6 +1045,9 @@ public class IndexCursor extends ICursor {
 //			if (raf != null) {
 //				raf.close();
 //			}
+			if (rowDataReader != null) {
+				rowDataReader.close();
+			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {

@@ -2612,6 +2612,9 @@ public class PhyTableIndex implements ITableIndex {
 			}
 			Sequence series;
 			Object obj = left.calculate(ctx);
+			if (obj == null) {
+				return null;
+			}
 			if (obj instanceof Sequence) {
 				series = (Sequence) obj;
 			} else {

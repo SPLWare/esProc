@@ -1408,6 +1408,10 @@ abstract public class ComTable implements IBlockStorage {
 		return partition;
 	}
 	
+	public void setRaf(RandomAccessFile raf) {
+		this.raf = raf;
+	}
+	
 	public RandomAccessFile getRaf() {
 		return raf;
 	}
