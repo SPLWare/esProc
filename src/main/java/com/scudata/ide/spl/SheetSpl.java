@@ -394,6 +394,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (isSplFile) {
 			int index = filePath.lastIndexOf(".");
 			fileExt = filePath.substring(index + 1);
+			// 不支持另存为dfx文件了，跟splx一样的
+			if (fileExt.equalsIgnoreCase(AppConsts.FILE_DFX)) {
+				fileExt = AppConsts.FILE_SPLX;
+			}
 		}
 		String path = filePath;
 		if (stepInfo != null && isStepStop) {
@@ -405,8 +409,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			path = path.substring(0, index);
 		}
 		GM.saveAsExt = fileExt;
-		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS,
-				GV.lastDirectory,
+		// 取消另存为dfx类型了
+		String fileExts = AppConsts.FILE_SPLX + "," + AppConsts.FILE_SPL; // AppConsts.SPL_FILE_EXTS
+		File saveFile = GM.dialogSelectFile(fileExts, GV.lastDirectory,
 				IdeCommonMessage.get().getMessage("public.saveas"), path,
 				GV.appFrame);
 		GM.saveAsExt = null;
