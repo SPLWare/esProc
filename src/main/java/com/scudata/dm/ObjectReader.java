@@ -510,7 +510,9 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		int b = read2();
 		int t1 = b & 0xF0;
 
-		if (t1 == ObjectWriter.STRING4 || t1 == ObjectWriter.STRING5) {
+		if (t1 == ObjectWriter.STRING4_ASSIC || t1 == ObjectWriter.STRING5_ASSIC) {
+			return readStringAssic(b & 0x1F);
+		} else if (t1 == ObjectWriter.STRING4 || t1 == ObjectWriter.STRING5) {
 			return readString(b & 0x1F);
 		} else if (t1 == ObjectWriter.DIGIT4) {
 			return readDigits(b & 0x0F);
@@ -627,6 +629,17 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		return new String(charBuffer, 0, seq);
 	}
 
+	private String readStringAssic(int size) throws IOException {
+		String str;
+		if (size == 0) return "";
+		if (size == 1) 
+			str = ObjectCache.getString(buffer[index]);
+		else
+			str = new String(buffer, index, size);
+		index += size;
+		return str;
+	}
+	
 	/**
 	 * 读一个长整数，如果已结束则抛出异常
 	 * @return long
@@ -997,6 +1010,9 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		case ObjectWriter.STRING4:
 		case ObjectWriter.STRING5:
 			return readString(b & 0x1F);
+		case ObjectWriter.STRING4_ASSIC:
+		case ObjectWriter.STRING5_ASSIC:
+			return readStringAssic(b & 0x1F);
 		case ObjectWriter.DIGIT4:
 			return readDigits(b & 0x0F);
 		case ObjectWriter.HEX4:
@@ -1040,6 +1056,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			break;
 		case ObjectWriter.STRING4:
 		case ObjectWriter.STRING5:
+		case ObjectWriter.STRING4_ASSIC:
+		case ObjectWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case ObjectWriter.DIGIT4:

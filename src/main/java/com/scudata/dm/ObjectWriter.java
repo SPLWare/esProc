@@ -68,7 +68,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	static final int DIGIT4 = 0xB0; // 长度小于等于30的数字串
 	static final int STRING4 = 0xC0;
 	static final int STRING5 = 0xD0;
-	
+	static final int STRING4_ASSIC = 0xE0;//
+	static final int STRING5_ASSIC = 0xF0;
 
 
 	// 块开始标志，连续16个0xFF
