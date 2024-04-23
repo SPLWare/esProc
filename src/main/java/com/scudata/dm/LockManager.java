@@ -15,7 +15,7 @@ public final class LockManager {
 	 * @param key 锁值
 	 * @param ms 等待毫秒数，小于0表示永不超时
 	 * @param ctx 计算上下文
-	 * @return 如果成功返回锁值，失败返回0
+	 * @return 如果成功true，失败返回false
 	 */
 	public final static Object lock(Object key, long ms, Context ctx) {
 		LockObject lock;
@@ -28,9 +28,9 @@ public final class LockManager {
 		}
 		
 		if (lock.lock(ms, ctx)) {
-			return key;
+			return Boolean.TRUE;
 		} else {
-			return 0;
+			return Boolean.FALSE;
 		}
 	}
 	
