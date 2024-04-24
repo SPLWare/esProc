@@ -149,7 +149,13 @@ abstract public class ComTable implements IBlockStorage {
 			throw new RQException(mm.getMessage("file.fileNotExist", file.getAbsolutePath()));
 		}
 		
-		RandomAccessFile raf = new RandomAccessFile(file, "rw");
+		RandomAccessFile raf;
+		if (file.canWrite()) {
+			raf = new RandomAccessFile(file, "rw");
+		} else {
+			raf = new RandomAccessFile(file, "r");
+		}
+		
 		try {
 			raf.seek(6);
 			

@@ -774,7 +774,11 @@ public class LocalFile implements IFile {
 	public RandomAccessFile getRandomAccessFile() {
 		File file = file();
 		try {
-			return new RandomAccessFile(file, "rw");
+			if (file.canWrite()) {
+				return new RandomAccessFile(file, "rw");
+			} else {
+				return new RandomAccessFile(file, "r");
+			}
 		} catch (FileNotFoundException e) {
 			throw new RQException(e.getMessage(), e);
 		}
