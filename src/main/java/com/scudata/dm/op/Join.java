@@ -600,7 +600,7 @@ public class Join extends Operation {
 		int fkCount = exps.length;
 		
 		if (fkCount == 1) {
-			if (codes[0].getMems() instanceof ColumnList) {
+			if (indexTables[0] instanceof CompressIndexTable) {
 				return join_i_1_c(data, ctx);
 			} else {
 				return join_i_1(data, ctx);
