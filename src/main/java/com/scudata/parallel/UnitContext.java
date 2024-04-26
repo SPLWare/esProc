@@ -12,8 +12,9 @@ import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
+import com.scudata.common.ScudataLogger;
 import com.scudata.common.StringUtils;
-import com.scudata.common.Logger.FileHandler;
+import com.scudata.common.ScudataLogger.FileHandler;
 import com.scudata.common.SplServerConfig;
 import com.scudata.dm.Env;
 import com.scudata.ide.common.GM;
@@ -247,8 +248,8 @@ public class UnitContext {
 			fp.mkdirs();
 		}
 		logFile = f.getAbsolutePath();
-		FileHandler lfh = Logger.newFileHandler(logFile);
-		Logger.addFileHandler(lfh);
+		FileHandler lfh = ScudataLogger.newFileHandler(logFile);
+		ScudataLogger.addFileHandler(lfh);
 
 		// 固定节点机的临时目录到： start.home/nodes/[ip_port]/temp目录下
 		String path = "nodes/" + UnitClient.getHostPath(host) + "_" + port + "/temp";
@@ -299,8 +300,8 @@ public class UnitContext {
 				fp.mkdirs();
 			}
 			logFile = f.getAbsolutePath();
-			FileHandler lfh = Logger.newFileHandler(logFile);
-			Logger.addFileHandler(lfh);
+			FileHandler lfh = ScudataLogger.newFileHandler(logFile);
+			ScudataLogger.addFileHandler(lfh);
 		}
 
 		// Server 配置

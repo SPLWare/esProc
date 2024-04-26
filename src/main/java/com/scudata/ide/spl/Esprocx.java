@@ -17,7 +17,8 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.CellLocation;
 import com.scudata.common.Logger;
-import com.scudata.common.Logger.FileHandler;
+import com.scudata.common.ScudataLogger;
+import com.scudata.common.ScudataLogger.FileHandler;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
@@ -173,8 +174,8 @@ public class Esprocx {
 					fp.mkdirs();
 				}
 				String path = f.getAbsolutePath();
-				FileHandler lfh = Logger.newFileHandler(path);
-				Logger.addFileHandler(lfh);
+				FileHandler lfh = ScudataLogger.newFileHandler(path);
+				ScudataLogger.addFileHandler(lfh);
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();

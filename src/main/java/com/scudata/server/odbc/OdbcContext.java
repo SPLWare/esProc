@@ -19,8 +19,9 @@ import org.xml.sax.SAXException;
 import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.ConfigWriter;
 import com.scudata.common.Logger;
+import com.scudata.common.ScudataLogger;
 import com.scudata.common.StringUtils;
-import com.scudata.common.Logger.FileHandler;
+import com.scudata.common.ScudataLogger.FileHandler;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.parallel.XmlUtil;
@@ -106,8 +107,8 @@ public class OdbcContext extends ConfigWriter {
 			fp.mkdirs();
 		}
 		String logFile = f.getAbsolutePath();
-		FileHandler lfh = Logger.newFileHandler(logFile);
-		Logger.addFileHandler(lfh);
+		FileHandler lfh = ScudataLogger.newFileHandler(logFile);
+		ScudataLogger.addFileHandler(lfh);
 		
 		buf = XmlUtil.getAttribute(root, "timeout");
 		if (StringUtils.isValidString(buf)) {
