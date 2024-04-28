@@ -36,6 +36,7 @@ import com.scudata.ide.common.dialog.DialogResourceSearch;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.FreeConstraints;
 import com.scudata.ide.common.swing.FreeLayout;
+import com.scudata.ide.spl.GMSpl;
 
 /**
  * 关于对话框
@@ -132,8 +133,8 @@ public class DialogAbout extends JDialog {
 	 */
 	protected JPanel jPButton = new JPanel();
 
-	public static final int DIALOG_HEIGHT = 360;
-	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 440 : 450;;
+	public static final int DIALOG_HEIGHT = GM.isChineseLanguage() ? 360 : 290;
+	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 440 : 460;;
 	public static final int ROW_HEIGHT = 25;
 
 	/**
@@ -422,11 +423,13 @@ public class DialogAbout extends JDialog {
 			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY,
 					BOTTOM_L2, -1));
 		}
-		bottomY += ROW_HEIGHT;
-		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1,
-				-1));
-		panelTop.add(jLTel2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2,
-				-1));
+		if (isTelVisible()) {
+			bottomY += ROW_HEIGHT;
+			panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY,
+					BOTTOM_L1, -1));
+			panelTop.add(jLTel2, new FreeConstraints(BOTTOM_X2, bottomY,
+					BOTTOM_L2, -1));
+		}
 		placeBottom(BOTTOM_X1, BOTTOM_X2, bottomY + ROW_HEIGHT);
 		jPButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		jPButton.add(jBJDK);
@@ -452,6 +455,10 @@ public class DialogAbout extends JDialog {
 		};
 		jBClose.addKeyListener(searchResource);
 		this.getContentPane().addKeyListener(searchResource);
+	}
+
+	protected boolean isTelVisible() {
+		return GMSpl.isChineseLanguage();
 	}
 
 	/**
