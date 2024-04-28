@@ -2,13 +2,14 @@ package com.scudata.common;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
-import org.slf4j.LoggerFactory;
+import com.scudata.app.common.AppUtil;
 
 
 /**
- * 使用SLF4J API-2.0.1实现日志输出
+ * 使用SLF4J API-2.0.1实现日志输出,也支持不置入slf4j,将直接使用ScudataLogger
  * @author Joancy
  *
  */
@@ -27,8 +28,40 @@ public class Logger {
 	public static int iWARNING = ScudataLogger.iWARNING;
 	public static int iINFO = ScudataLogger.iINFO;
 	public static int iDEBUG = ScudataLogger.iDEBUG;
+	
+	public static boolean isExistSLF4J = detectSLF4J(); 
 
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger(Logger.class);
+
+	private static boolean detectSLF4J() {
+		try {
+			Class cls = Class.forName("org.slf4j.LoggerFactory");
+			return true;
+		}catch(Exception x) {
+			return false;
+		}
+	}
+	
+	private static void slf4jLog(int level,String msg) {
+		try {
+			Class<?> factoryClazz = Class.forName("org.slf4j.LoggerFactory");
+			Method getLogger = factoryClazz.getMethod("getLogger", String.class);
+			Object logger = getLogger.invoke(null,"ScudataLogger");
+
+			//			Object logger = AppUtil.invokeMethod(cls, "getLogger", new Object[] {"ScudataLogger"});
+			
+			String method="debug";
+			if(level==iINFO) {
+				method = "info";
+			}else if(level==iWARNING) {
+				method="warn";
+			}else if(level==iSEVERE) {
+				method="error";
+			}
+			AppUtil.invokeMethod(logger, method, new Object[] {msg});
+		}catch(Exception x) {
+			x.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 列出所有支持的日志级别的文本串写法，可用于界面编辑等。
@@ -85,22 +118,22 @@ public class Logger {
 	 * @param msg 待记录的日志消息，通常用于加深或者补充异常的详细描述
 	 * @param t	对应的详细异常
 	 */
-	public static void error(Object msg, Throwable t) {
-		severe(msg,t);
-	}
-	public static void severe(Object msg, Throwable t) {
-		logger.error(toString(msg, t));
-	}
-
-	/**
-	 * 简单记录代码中的严重消息
-	 * @param msg	待记录的消息，该消息如果是文本串，则记录文本串；如果是异常类，则会调用相应的severe(msg,t)方法
-	 */
 	public static void error(Object msg) {
 		severe(msg);
 	}
+	public static void error(Object msg, Throwable t) {
+		severe(msg,t);
+	}
+
 	public static void severe(Object msg) {
 		severe(msg,null);
+	}
+	public static void severe(Object msg, Throwable t) {
+		if(isExistSLF4J) {
+			slf4jLog(iSEVERE,toString(msg,t));
+		}else {
+			ScudataLogger.severe(msg, t);
+		}
 	}
 
 	/**
@@ -108,20 +141,11 @@ public class Logger {
 	 * @param msg
 	 */
 	public static void warn(Object msg) {
-		warn(msg,null);
+		warning(msg);
 	}
 
 	public static void warn(Object msg, Throwable t) {
-		logger.warn(toString(msg,t));
-	}
-
-	/**
-	 * 详细记录一个警告消息以及相应异常
-	 * @param msg	待记录的消息
-	 * @param t	对应的详细异常
-	 */
-	public static void warning(Object msg, Throwable t) {
-		warn(msg,t);
+		warning(msg,t);
 	}
 
 	/**
@@ -129,8 +153,21 @@ public class Logger {
 	 * @param msg	待记录的消息
 	 */
 	public static void warning(Object msg) {
-		warn(msg);
+		warning(msg,null);
 	}
+	/**
+	 * 详细记录一个警告消息以及相应异常
+	 * @param msg	待记录的消息
+	 * @param t	对应的详细异常
+	 */
+	public static void warning(Object msg, Throwable t) {
+		if(isExistSLF4J) {
+			slf4jLog(iWARNING,toString(msg,t));
+		}else {
+			ScudataLogger.warning(msg, t);
+		}
+	}
+
 
 	/**
 	 * 详细记录一个普通消息以及相应异常
@@ -138,7 +175,11 @@ public class Logger {
 	 * @param t	对应的详细异常
 	 */
 	public static void info(Object msg, Throwable t) {
-		logger.info(toString(msg, t));
+		if(isExistSLF4J) {
+			slf4jLog(iINFO,toString(msg,t));
+		}else {
+			ScudataLogger.info(msg, t);
+		}
 	}
 
 	/**
@@ -155,7 +196,11 @@ public class Logger {
 	 * @param t	对应的详细异常
 	 */
 	public static void debug(Object msg, Throwable t) {
-		logger.debug(toString( msg, t));
+		if(isExistSLF4J) {
+			slf4jLog(iDEBUG,toString(msg,t));
+		}else {
+			ScudataLogger.debug(msg, t);
+		}
 	}
 
 	/**

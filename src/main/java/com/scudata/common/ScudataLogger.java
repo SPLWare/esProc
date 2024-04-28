@@ -232,6 +232,9 @@ public class ScudataLogger {
  * @throws Exception 格式错误时抛出异常
  */
 	public static void setPropertyConfig(Properties p) throws Exception {
+		if(Logger.isExistSLF4J) {
+			return;
+		}
 		logger.clearHandlers();
 
 		String key = "Logger";
