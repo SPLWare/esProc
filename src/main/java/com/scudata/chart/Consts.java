@@ -226,6 +226,7 @@ public class Consts {
   public static final byte IMAGE_PNG = (byte) 3;
   public static final byte IMAGE_FLASH = (byte) 4;
   public static final byte IMAGE_SVG = (byte) 5;
+  public static final byte IMAGE_TIFF = (byte) 6;
   
   //堆积类型
   public final static int STACK_NONE = 0; //不堆积

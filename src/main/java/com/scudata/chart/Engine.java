@@ -692,6 +692,9 @@ public class Engine {
 		case Consts.IMAGE_PNG:
 			bytes = ImageUtils.writePNG(bi);
 			break;
+		case Consts.IMAGE_TIFF:
+			bytes = ImageUtils.writeGIF(bi);
+			break;
 		}
 		return bytes;
 	}

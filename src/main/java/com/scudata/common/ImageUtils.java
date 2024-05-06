@@ -225,6 +225,16 @@ public class ImageUtils
 		return out.toByteArray();
 	}
 
+	public static void writeTIFF( RenderedImage img, OutputStream out ) throws IOException {
+		ImageIO.write( img, "tiff", out );
+	}
+
+	public static byte[] writeTIFF( RenderedImage img ) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream( 2048 );
+		writeTIFF( img, out );
+		return out.toByteArray();
+	}
+
 	/*public static void main(String[] args) throws Exception {
 		//Image i1 = new ImageIcon("d:\\a.gif").getImage();
 
