@@ -243,4 +243,12 @@ public class MemoryFile implements IFile {
 	public RandomAccessFile getRandomAccessFile() {
 		return null;
 	}
+	
+	/**
+	 * 返回是否是云文件
+	 * @return true：是云文件，false：不是云文件
+	 */
+	public boolean isCloudFile() {
+		return false;
+	}
 }

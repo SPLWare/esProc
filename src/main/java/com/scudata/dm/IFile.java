@@ -87,4 +87,10 @@ public interface IFile {
 	 * @return RandomAccessFile
 	 */
 	RandomAccessFile getRandomAccessFile();
+	
+	/**
+	 * 返回是否是云文件
+	 * @return true：是云文件，false：不是云文件
+	 */
+	public boolean isCloudFile();
 }

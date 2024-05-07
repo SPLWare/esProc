@@ -783,4 +783,12 @@ public class LocalFile implements IFile {
 			throw new RQException(e.getMessage(), e);
 		}
 	}
+	
+	/**
+	 * 返回是否是云文件
+	 * @return true：是云文件，false：不是云文件
+	 */
+	public boolean isCloudFile() {
+		return false;
+	}
 }

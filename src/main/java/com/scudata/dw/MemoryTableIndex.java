@@ -11,8 +11,6 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Env;
-import com.scudata.dm.HashArrayIndexTable;
 import com.scudata.dm.HashIndexTable;
 import com.scudata.dm.IndexTable;
 import com.scudata.dm.Record;
@@ -39,8 +37,6 @@ import com.scudata.expression.operator.NotSmaller;
 import com.scudata.expression.operator.Or;
 import com.scudata.expression.operator.Smaller;
 import com.scudata.resources.EngineMessage;
-import com.scudata.thread.MultithreadUtil;
-import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
 /**
