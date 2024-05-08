@@ -146,7 +146,9 @@ public class ScudataLogger {
 		}
 		String message = (msg == null ? null : msg.toString());
 		sb.append(message);
-		sb.append(lineSeparator);
+		if(!message.endsWith(lineSeparator)) {
+			sb.append(lineSeparator);
+		}
 		if (t != null) {
 			try {
 				StringWriter sw = new StringWriter();
