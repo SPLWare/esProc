@@ -126,7 +126,11 @@ public class Logger {
 	}
 
 	public static void severe(Object msg) {
-		severe(msg,null);
+		if(msg instanceof Throwable) {
+			severe(msg,(Throwable)msg);
+		}else {
+			severe(msg,null);
+		}
 	}
 	public static void severe(Object msg, Throwable t) {
 		if(isExistSLF4J) {
@@ -145,7 +149,11 @@ public class Logger {
 	}
 
 	public static void warn(Object msg, Throwable t) {
-		warning(msg,t);
+		if(msg instanceof Throwable) {
+			warning(msg,(Throwable)msg);
+		}else {
+			warning(msg,null);
+		}
 	}
 
 	/**
@@ -187,7 +195,11 @@ public class Logger {
 	 * @param msg	待记录的消息
 	 */
 	public static void info(Object msg) {
-		info(msg, null);
+		if(msg instanceof Throwable) {
+			info(msg,(Throwable)msg);
+		}else {
+			info(msg,null);
+		}
 	}
 
 	/**
@@ -208,7 +220,11 @@ public class Logger {
 	 * @param msg	待记录的消息
 	 */
 	public static void debug(Object msg) {
-		debug(msg, null);
+		if(msg instanceof Throwable) {
+			debug(msg,(Throwable)msg);
+		}else {
+			debug(msg,null);
+		}
 	}
 
 	/**
