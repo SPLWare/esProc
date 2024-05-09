@@ -74,6 +74,7 @@ public class ColComTable extends ComTable {
 			throws IOException {
 		this(file, colNames, distribute, opt, null, ctx);
 	}
+	
 	/**
 	 * 创建组表
 	 * @param file 表文件
@@ -86,6 +87,22 @@ public class ColComTable extends ComTable {
 	 */
 	public ColComTable(File file, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) 
 			throws IOException {
+		this(file, null, colNames, distribute, opt, blockSize, ctx);
+	}
+	
+	/**
+	 * 创建组表
+	 * @param file 表文件
+	 * @param raf 指定的raf
+	 * @param colNames 列名称
+	 * @param distribute 分布表达式
+	 * @param opt u：不压缩数据，p：按第一字段分段
+	 * @param blockSize 区块大小
+	 * @param ctx 上下文
+	 * @throws IOException
+	 */
+	public ColComTable(File file, RandomAccessFile raf, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) 
+			throws IOException {
 		file.delete();
 		File parent = file.getParentFile();
 		if (parent != null) {
@@ -94,7 +111,11 @@ public class ColComTable extends ComTable {
 		}
 		
 		this.file = file;
-		this.raf = new RandomAccessFile(file, "rw");
+		if (raf == null) {
+			this.raf = new RandomAccessFile(file, "rw");
+		} else {
+			this.raf = raf;
+		}
 		this.ctx = ctx;
 		if (ctx != null) {
 			ctx.addResource(this);
