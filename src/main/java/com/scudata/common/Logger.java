@@ -261,6 +261,14 @@ public class Logger {
 	public static void setLevel(String level) {
 		ScudataLogger.setLevel(level);
 	}
+	
+	/**
+	 * 设置当前日志的类型
+	 * @param logType ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
+	 */
+	public static void setLogType(String logType){
+		
+	}
 
 	/**
 	 * 获取当前日志记录级别

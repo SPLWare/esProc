@@ -289,6 +289,16 @@ public class ConfigUtil {
 
 		if (loadRuntime) {
 			if (setLogLevel) {
+				String sType = config.getLogType();
+				try {
+					if (sType != null) {
+						Logger.setLogType(sType);
+					}
+				} catch (Exception ex) {
+					Logger.error("Invalid " + ConfigConsts.LOG_TYPE + ":"
+							+ sType + ".");
+				}
+
 				String sLevel = config.getLogLevel();
 				try {
 					if (sLevel != null) {

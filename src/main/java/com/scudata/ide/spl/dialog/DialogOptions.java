@@ -726,6 +726,7 @@ public class DialogOptions extends JDialog {
 
 		String sLogType = (String) jCBLogType.x_getSelectedItem();
 		GV.config.setLogType(sLogType);
+		Logger.setLogType(sLogType);
 
 		ConfigOptions.save(!isUnit);
 		try {

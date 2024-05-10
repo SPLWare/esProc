@@ -19,7 +19,7 @@ public class ConfigConsts {
 	/** Use Logger */
 	public static final String LOG_DEFAULT = "default";
 	/** Use slf */
-	public static final String LOG_SLF = "slf";
+	public static final String LOG_SLF = "slf4j";
 
 	/**
 	 * Root node
