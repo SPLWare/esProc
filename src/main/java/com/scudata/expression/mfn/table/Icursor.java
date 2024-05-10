@@ -67,21 +67,38 @@ public class Icursor extends TableFunction {
 			
 			if (param.getSubSize() == 3) {
 				sub = param.getSub(2);
-				if (sub != null) {
-					Object obj = sub.getLeafExpression().calculate(ctx);
-					if (!(obj instanceof Number)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
-					}
-
-					segCount = ((Number)obj).intValue();
+				//这里是对多路的处理，仍保留注释
+//				if (sub != null) {
+//					Object obj = sub.getLeafExpression().calculate(ctx);
+//					if (!(obj instanceof Number)) {
+//						MessageManager mm = EngineMessage.get();
+//						throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
+//					}
+//
+//					segCount = ((Number)obj).intValue();
+//				}
+				int size = sub.getSubSize();
+				if (size == 0) {
+					I = (String) sub.getLeafExpression().getIdentifierName();
+				} else {
+					I = null;
 				}
 			}
 			
 			param = param.getSub(1);
 			if (param == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+				//没有过滤时
+				if (fields == null) {
+					return srcTable.cursor();
+				} else {
+					int len = fields.length;
+					Expression[] exps = new Expression[len];
+					for (int i = 0; i < len; i++) {
+						exps[i] = new Expression(fields[i]);
+					}
+					return srcTable.cursor().newTable(this, exps, fields, null, ctx);
+				}
+				
 			}
 
 		}

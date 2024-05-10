@@ -84,6 +84,10 @@ public class RowComTable extends ComTable {
 	 * @throws IOException
 	 */
 	public RowComTable(File file, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) throws IOException {
+		this(file, null, colNames, distribute, opt, blockSize, ctx);
+	}
+	
+	public RowComTable(File file, RandomAccessFile raf, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) throws IOException {
 		file.delete();
 		File parent = file.getParentFile();
 		if (parent != null) {
@@ -92,7 +96,11 @@ public class RowComTable extends ComTable {
 		}
 
 		this.file = file;
-		this.raf = new RandomAccessFile(file, "rw");
+		if (raf == null) {
+			this.raf = new RandomAccessFile(file, "rw");
+		} else {
+			this.raf = raf;
+		}
 		this.ctx = ctx;
 		ctx.addResource(this);
 		

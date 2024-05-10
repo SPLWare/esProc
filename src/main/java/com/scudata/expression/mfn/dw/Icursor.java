@@ -21,7 +21,8 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Icursor extends PhyTableFunction {
-	public Object calculate(Context ctx) {		IParam param = this.param;
+	public Object calculate(Context ctx) {		
+		IParam param = this.param;
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("icursor" + mm.getMessage("function.missingParam"));
