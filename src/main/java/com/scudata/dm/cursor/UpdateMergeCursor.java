@@ -25,7 +25,7 @@ public class UpdateMergeCursor extends ICursor {
 	private int cur1; // 游标1当前记录在缓存数据中的索引
 	private int cur2; // 游标2当前记录在缓存数据中的索引
 	
-	private boolean isSubCursor = false; // 是否是子游标，子游标需要保留删除的记录
+	//private boolean isSubCursor = false; // 是否是子游标，子游标需要保留删除的记录
 	
 	/**
 	 * 构建组表及其更新分表组成的游标
@@ -48,14 +48,6 @@ public class UpdateMergeCursor extends ICursor {
 		init();
 	}
 	
-	boolean isSubCursor() {
-		return isSubCursor;
-	}
-
-	void setSubCursor(boolean isSubCursor) {
-		this.isSubCursor = isSubCursor;
-	}
-
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
 	public void resetContext(Context ctx) {
@@ -82,7 +74,6 @@ public class UpdateMergeCursor extends ICursor {
 			ICursor []subs = new ICursor[count - 1];
 			System.arraycopy(cursors, 1, subs, 0, count - 1);
 			UpdateMergeCursor subCursor = new UpdateMergeCursor(subs, fields, deleteField, ctx);
-			subCursor.setSubCursor(true);
 			cs2 = subCursor;
 		}
 		
@@ -423,9 +414,41 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 
+	// 返回false表示删除记录，true表示保留记录
+	private boolean merge(BaseRecord r1, BaseRecord r2, int deleteField) {
+		Boolean b1 = (Boolean)r1.getNormalFieldValue(deleteField);
+		Boolean b2 = (Boolean)r2.getNormalFieldValue(deleteField);
+		
+		if (b1 == null) { // 增加
+			if (b2 == null) {
+				return true; // 加+加-->加
+			} else if (b2.booleanValue()) { // 删除
+				return false; // 加+删-->清
+			} else {
+				r2.setNormalFieldValue(deleteField, null); // 加+改-->加
+				return true;
+			}
+		} else if (b1.booleanValue()) { // 删除
+			if (b2 == null) {
+				r2.setNormalFieldValue(deleteField, Boolean.FALSE); // 删+加-->改
+			}
+			
+			// 删+删-->删
+			// 删+改-->改
+			return true;
+		} else { // 修改
+			if (b2 == null) {
+				r2.setNormalFieldValue(deleteField, b1); // 改+加-->改
+			}
+			
+			// 改+删-->删
+			// 改+改-->改
+			return true;
+		}
+	}
+	
 	// 单字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int field, int deleteField, Sequence table) {
-		boolean isSubCursor = this.isSubCursor;
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
 		int cur1 = this.cur1;
@@ -458,7 +481,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else if (cmp == 0) {
-					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
+					if (merge(r1, r2, deleteField)) {
 						++count;
 						table.add(r2);
 					}
@@ -502,10 +525,8 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else {
-					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-						table.add(r2);
-					}
+					++count;
+					table.add(r2);
 					
 					if (cur2 == len2) {
 						data2 = cs2.fetch(FETCHCOUNT);
@@ -545,43 +566,20 @@ public class UpdateMergeCursor extends ICursor {
 			}
 		} else if (count < n && cur2 != 0) {
 			int len2 = data2.length();
-			if (isSubCursor) {
-				while (count < n) {
-					++count;
-					table.add(data2.getMem(cur2));
-					
-					if (cur2 < len2) {
-						cur2++;
+			while (count < n) {
+				++count;
+				table.add(data2.getMem(cur2));
+				
+				if (cur2 < len2) {
+					cur2++;
+				} else {
+					data2 = cs2.fetch(FETCHCOUNT);
+					if (data2 != null && data2.length() > 0) {
+						cur2 = 1;
+						len2 = data2.length();
 					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
-					}
-				}
-			} else {
-				while (count < n) {
-					BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
-					if (Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-						table.add(data2.getMem(cur2));
-					}
-					
-					if (cur2 < len2) {
-						cur2++;
-					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
+						cur2 = 0;
+						break;
 					}
 				}
 			}
@@ -601,7 +599,6 @@ public class UpdateMergeCursor extends ICursor {
 
 	// 多字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int []fields, int deleteField, Sequence table) {
-		boolean isSubCursor = this.isSubCursor;
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
 		int cur1 = this.cur1;
@@ -634,7 +631,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else if (cmp == 0) {
-					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
+					if (merge(r1, r2, deleteField)) {
 						++count;
 						table.add(r2);
 					}
@@ -678,10 +675,8 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else {
-					if (isSubCursor || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-						table.add(r2);
-					}
+					++count;
+					table.add(r2);
 					
 					if (cur2 == len2) {
 						data2 = cs2.fetch(FETCHCOUNT);
@@ -721,43 +716,20 @@ public class UpdateMergeCursor extends ICursor {
 			}
 		} else if (count < n && cur2 != 0) {
 			int len2 = data2.length();
-			if (isSubCursor) {
-				while (count < n) {
-					++count;
-					table.add(data2.getMem(cur2));
-					
-					if (cur2 < len2) {
-						cur2++;
+			while (count < n) {
+				++count;
+				table.add(data2.getMem(cur2));
+				
+				if (cur2 < len2) {
+					cur2++;
+				} else {
+					data2 = cs2.fetch(FETCHCOUNT);
+					if (data2 != null && data2.length() > 0) {
+						cur2 = 1;
+						len2 = data2.length();
 					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
-					}
-				}
-			} else {
-				while (count < n) {
-					BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
-					if (Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-						table.add(data2.getMem(cur2));
-					}
-					
-					if (cur2 < len2) {
-						cur2++;
-					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
+						cur2 = 0;
+						break;
 					}
 				}
 			}
