@@ -36,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import com.scudata.app.common.AppConsts;
+import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.IStyle;
@@ -1017,7 +1018,7 @@ public class DialogOptions extends JDialog {
 		jLabelLogType.setText("日志类型");
 		jCBLogType.x_setData(ConfigOptions.codeLogTypes(),
 				ConfigOptions.dispLogTypes());
-		jCBLogType.x_setSelectedCodeItem(Logger.DEBUG);
+		jCBLogType.x_setSelectedCodeItem(ConfigConsts.LOG_DEFAULT);
 		// Normal
 		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
 		panelNormal.add(jPIdeOpt);
