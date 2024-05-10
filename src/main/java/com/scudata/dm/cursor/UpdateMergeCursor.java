@@ -785,7 +785,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else if (cmp == 0) {
-					if (deleteField == -1 || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
+					if (deleteField == -1 || merge(r1, r2, deleteField)) {
 						++count;
 					}
 					
@@ -828,10 +828,7 @@ public class UpdateMergeCursor extends ICursor {
 						r1 = (BaseRecord)data1.getMem(++cur1);
 					}
 				} else {
-					if (deleteField == -1 || Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-					}
-
+					++count;
 					if (cur2 == len2) {
 						data2 = cs2.fetch(FETCHCOUNT);
 						if (data2 != null && data2.length() > 0) {
@@ -868,41 +865,19 @@ public class UpdateMergeCursor extends ICursor {
 			}
 		} else if (count < n && cur2 != 0) {
 			int len2 = data2.length();
-			if (deleteField == -1) {
-				while (count < n) {
-					++count;
-					
-					if (cur2 < len2) {
-						cur2++;
+			while (count < n) {
+				++count;
+				
+				if (cur2 < len2) {
+					cur2++;
+				} else {
+					data2 = cs2.fetch(FETCHCOUNT);
+					if (data2 != null && data2.length() > 0) {
+						cur2 = 1;
+						len2 = data2.length();
 					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
-					}
-				}
-			} else {
-				while (count < n) {
-					BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
-					if (Variant.isFalse(r2.getNormalFieldValue(deleteField))) {
-						++count;
-					}
-					
-					if (cur2 < len2) {
-						cur2++;
-					} else {
-						data2 = cs2.fetch(FETCHCOUNT);
-						if (data2 != null && data2.length() > 0) {
-							cur2 = 1;
-							len2 = data2.length();
-						} else {
-							cur2 = 0;
-							break;
-						}
+						cur2 = 0;
+						break;
 					}
 				}
 			}
