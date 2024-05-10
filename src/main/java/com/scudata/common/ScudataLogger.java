@@ -234,9 +234,9 @@ public class ScudataLogger {
  * @throws Exception 格式错误时抛出异常
  */
 	public static void setPropertyConfig(Properties p) throws Exception {
-		if(Logger.isExistSLF4J) {
-			return;
-		}
+//		if(Logger.isUseSLF4J()) {
+//			throw new Exception("ScudataLogger is using slf4j frame, properties is not usable.");
+//		}
 		logger.clearHandlers();
 
 		String key = "Logger";
@@ -462,8 +462,10 @@ public class ScudataLogger {
 			filePath = pattern + "_" + currentMark + ".log";
 		}
 		if(!bufFiles.contains(filePath)) {
-			System.err
-					.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+			if(!Logger.isUseSLF4J()) {//使用框架时，设置的日志配置便用不上了
+				System.err.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+			}
+			
 			bufFiles.add(filePath);
 			if(bufFiles.size()>1024) {
 				bufFiles.clear();

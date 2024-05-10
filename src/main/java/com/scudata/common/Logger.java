@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 import com.scudata.app.common.AppUtil;
+import com.scudata.app.config.ConfigConsts;
 
 
 /**
@@ -29,10 +30,12 @@ public class Logger {
 	public static int iINFO = ScudataLogger.iINFO;
 	public static int iDEBUG = ScudataLogger.iDEBUG;
 	
-	public static boolean isExistSLF4J = detectSLF4J(); 
+	private static String logType = ConfigConsts.LOG_DEFAULT;
 
-
-	private static boolean detectSLF4J() {
+	public static boolean isUseSLF4J() {
+		if(logType.equals(ConfigConsts.LOG_DEFAULT)) {
+			return false;
+		}
 		try {
 			Class cls = Class.forName("org.slf4j.LoggerFactory");
 			return true;
@@ -133,7 +136,7 @@ public class Logger {
 		}
 	}
 	public static void severe(Object msg, Throwable t) {
-		if(isExistSLF4J) {
+		if(isUseSLF4J()) {
 			slf4jLog(iSEVERE,toString(msg,t));
 		}else {
 			ScudataLogger.severe(msg, t);
@@ -169,7 +172,7 @@ public class Logger {
 	 * @param t	对应的详细异常
 	 */
 	public static void warning(Object msg, Throwable t) {
-		if(isExistSLF4J) {
+		if(isUseSLF4J()) {
 			slf4jLog(iWARNING,toString(msg,t));
 		}else {
 			ScudataLogger.warning(msg, t);
@@ -183,7 +186,7 @@ public class Logger {
 	 * @param t	对应的详细异常
 	 */
 	public static void info(Object msg, Throwable t) {
-		if(isExistSLF4J) {
+		if(isUseSLF4J()) {
 			slf4jLog(iINFO,toString(msg,t));
 		}else {
 			ScudataLogger.info(msg, t);
@@ -208,7 +211,7 @@ public class Logger {
 	 * @param t	对应的详细异常
 	 */
 	public static void debug(Object msg, Throwable t) {
-		if(isExistSLF4J) {
+		if(isUseSLF4J()) {
 			slf4jLog(iDEBUG,toString(msg,t));
 		}else {
 			ScudataLogger.debug(msg, t);
@@ -266,8 +269,8 @@ public class Logger {
 	 * 设置当前日志的类型
 	 * @param logType ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
 	 */
-	public static void setLogType(String logType){
-		
+	public static void setLogType(String type){
+		logType = type;
 	}
 
 	/**
