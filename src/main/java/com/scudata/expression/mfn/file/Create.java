@@ -125,4 +125,11 @@ public class Create extends FileFunction {
 			throw new RQException(e.getMessage(), e);
 		}
 	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		if (obj instanceof FileObject) {
+			return !((FileObject)obj).getFile().isCloudFile();
+		}
+		return false;
+	}
 }
