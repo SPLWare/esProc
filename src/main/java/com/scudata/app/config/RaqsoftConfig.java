@@ -54,6 +54,12 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private List<String> autoConnectList = null;
 	/** Log level */
 	private String logLevel = null;
+	/** 
+	 * Log type
+	 * ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
+	 * 不配置时设置为ConfigConsts.LOG_DEFAULT
+	 */
+	private String logType = ConfigConsts.LOG_DEFAULT;
 	/** Parallel number */
 	private String parallelNum = null;
 	/** Cursor Parallel number */
@@ -397,6 +403,24 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void setLogLevel(String logLevel) {
 		this.logLevel = logLevel;
+	}
+
+	/**
+	 * Get Log type
+	 * 
+	 * @return
+	 */
+	public String getLogType() {
+		return logType;
+	}
+
+	/**
+	 * Set Log type
+	 * 
+	 * @param logType
+	 */
+	public void setLogType(String logType) {
+		this.logType = logType;
 	}
 
 	/**
@@ -799,6 +823,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			config.setAutoConnectList(cloneAutoConnectList);
 		}
 		config.setLogLevel(logLevel);
+		config.setLogType(logType);
 		config.setParallelNum(parallelNum);
 		config.setCursorParallelNum(cursorParallelNum);
 		config.setBlockSize(blockSize);
@@ -862,7 +887,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(6);
+		out.writeByte(7);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -899,6 +924,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(pwdClass);
 		out.writeObject(remoteStoreList);
 		out.writeObject(defaultRemoteStore);
+		out.writeObject(logType);
 	}
 
 	/**
@@ -955,6 +981,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		if (version > 5) {
 			remoteStoreList = (List<RemoteStoreConfig>) in.readObject();
 			defaultRemoteStore = (String) in.readObject();
+		}
+		if (version > 6) {
+			logType = (String) in.readObject();
 		}
 	}
 

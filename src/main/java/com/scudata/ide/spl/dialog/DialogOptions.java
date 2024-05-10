@@ -238,6 +238,16 @@ public class DialogOptions extends JDialog {
 	private JComboBoxEx jCBLevel = new JComboBoxEx();
 
 	/**
+	 * 日志类型标签
+	 */
+	private JLabel jLabelLogType = new JLabel();
+
+	/**
+	 * 日志类型下拉框
+	 */
+	private JComboBoxEx jCBLogType = new JComboBoxEx();
+
+	/**
 	 * JAVA虚拟机内存标签
 	 */
 	private JLabel jLXmx = new JLabel(mm.getMessage("dialogoptions.xmx"));
@@ -436,10 +446,11 @@ public class DialogOptions extends JDialog {
 			initUI();
 			load();
 			int dialogWidth = 830;
+			int dialogHeight = 560;
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
-			setSize(dialogWidth, 560);
+			setSize(dialogWidth, dialogHeight);
 			if (isUnit) {
 				ConfigOptions.bWindowSize = Boolean.FALSE;
 			}
@@ -548,6 +559,7 @@ public class DialogOptions extends JDialog {
 		jLabel9.setText(mm.getMessage("dialogoptions.second")); // 秒
 		jLabelNote.setText(mm.getMessage("dialogoptions.attention")); // 注意：常规选项里面蓝色的选项需要重新启动IDE才能生效。
 		jLabelLevel.setText(mm.getMessage("dialogoptions.loglevel")); // 日志级别
+		jLabelLogType.setText(mm.getMessage("dialogoptions.logtype")); // 日志类型
 		jCBDispOutCell.setText(mm.getMessage("dialogoptions.dispoutcell")); // 内容冲出单元格显示
 		jCBAutoSizeRowHeight.setText(mm
 				.getMessage("dialogoptions.autosizerowheight")); // 自动调整行高
@@ -710,6 +722,10 @@ public class DialogOptions extends JDialog {
 		String sLogLevel = (String) jCBLevel.x_getSelectedItem();
 		GV.config.setLogLevel(sLogLevel);
 		Logger.setLevel(sLogLevel);
+
+		String sLogType = (String) jCBLogType.x_getSelectedItem();
+		GV.config.setLogType(sLogType);
+
 		ConfigOptions.save(!isUnit);
 		try {
 			ConfigUtilIde.writeConfig(!isUnit);
@@ -830,6 +846,7 @@ public class DialogOptions extends JDialog {
 		jCBAdjustNoteCell.setSelected(Env.isAdjustNoteCell());
 
 		jCBLevel.x_setSelectedCodeItem(Logger.getLevelName(Logger.getLevel()));
+		jCBLogType.x_setSelectedCodeItem(GV.config.getLogType());
 		jCBLNF.x_setSelectedCodeItem(LookAndFeelManager
 				.getValidLookAndFeel(ConfigOptions.iLookAndFeel));
 		jSConnectTimeout.setValue(ConfigOptions.iConnectTimeout);
@@ -996,6 +1013,11 @@ public class DialogOptions extends JDialog {
 		jCBLevel.x_setData(ConfigOptions.dispLevels(),
 				ConfigOptions.dispLevels());
 		jCBLevel.x_setSelectedCodeItem(Logger.DEBUG);
+
+		jLabelLogType.setText("日志类型");
+		jCBLogType.x_setData(ConfigOptions.codeLogTypes(),
+				ConfigOptions.dispLogTypes());
+		jCBLogType.x_setSelectedCodeItem(Logger.DEBUG);
 		// Normal
 		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
 		panelNormal.add(jPIdeOpt);
@@ -1021,33 +1043,47 @@ public class DialogOptions extends JDialog {
 		// labelFontName.setForeground(Color.blue);
 
 		jCBFontName = new JComboBox(GM.getFontNames());
+		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
+		fl1.setHgap(0);
+		JPanel jPanelTimeout = new JPanel();
+		jPanelTimeout.setLayout(fl1);
+		jPanelTimeout.add(jSConnectTimeout);
+		jPanelTimeout.add(jLabel9); // 秒
+
 		boolean isHighVersionJDK = false;
 		String javaVersion = System.getProperty("java.version");
 		if (javaVersion.compareTo("1.9") > 0) {
 			isHighVersionJDK = true;
 		}
-		if (!isHighVersionJDK) {
+		if (!isHighVersionJDK) { // SubstanceUI不支持高版本JDK
 			panelMid.add(jLabel22, GM.getGBC(1, 1));
 			panelMid.add(jCBLNF, GM.getGBC(1, 2, true));
-			panelMid.add(jLabelLevel, GM.getGBC(1, 3));
-			panelMid.add(jCBLevel, GM.getGBC(1, 4, true));
-			panelMid.add(labelLocale, GM.getGBC(2, 1));
-			panelMid.add(jCBLocale, GM.getGBC(2, 2, true));
-			panelMid.add(labelFontName, GM.getGBC(2, 3));
-			panelMid.add(jCBFontName, GM.getGBC(2, 4, true));
-			panelMid.add(jLUndoCount, GM.getGBC(4, 1));
-			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
-		} else {
-			panelMid.add(jLabelLevel, GM.getGBC(1, 1));
-			panelMid.add(jCBLevel, GM.getGBC(1, 2, true));
 			panelMid.add(labelLocale, GM.getGBC(1, 3));
 			panelMid.add(jCBLocale, GM.getGBC(1, 4, true));
-			panelMid.add(labelFontName, GM.getGBC(2, 1));
-			panelMid.add(jCBFontName, GM.getGBC(2, 2, true));
-			panelMid.add(jLXmx, GM.getGBC(2, 3));
-			panelMid.add(jTFXmx, GM.getGBC(2, 4, true));
+			panelMid.add(jLabelLevel, GM.getGBC(2, 1));
+			panelMid.add(jCBLevel, GM.getGBC(2, 2, true));
+			panelMid.add(jLabelLogType, GM.getGBC(2, 3));
+			panelMid.add(jCBLogType, GM.getGBC(2, 4, true));
+			panelMid.add(labelFontName, GM.getGBC(3, 1));
+			panelMid.add(jCBFontName, GM.getGBC(3, 2, true));
+			panelMid.add(jLUndoCount, GM.getGBC(3, 3));
+			panelMid.add(jSUndoCount, GM.getGBC(3, 4, true));
+			panelMid.add(jLabelTimeout, GM.getGBC(4, 1));
+			panelMid.add(jPanelTimeout, GM.getGBC(4, 2, true));
+
+		} else {
+			panelMid.add(labelLocale, GM.getGBC(1, 1));
+			panelMid.add(jCBLocale, GM.getGBC(1, 2, true));
+			panelMid.add(labelFontName, GM.getGBC(1, 3));
+			panelMid.add(jCBFontName, GM.getGBC(1, 4, true));
+			panelMid.add(jLabelLevel, GM.getGBC(2, 1));
+			panelMid.add(jCBLevel, GM.getGBC(2, 2, true));
+			panelMid.add(jLabelLogType, GM.getGBC(2, 3));
+			panelMid.add(jCBLogType, GM.getGBC(2, 4, true));
 			panelMid.add(jLUndoCount, GM.getGBC(4, 1));
 			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
+			panelMid.add(jLabelTimeout, GM.getGBC(4, 3));
+			panelMid.add(jPanelTimeout, GM.getGBC(4, 4, true));
 		}
 		// 当撤销/重做的最大次数过大时，可能会占用更多的内存。
 		jLUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
@@ -1057,16 +1093,6 @@ public class DialogOptions extends JDialog {
 		jLUndoCount.setForeground(Color.BLUE);
 
 		// jLabel9.setPreferredSize(new Dimension(45, 25));
-
-		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
-		fl1.setHgap(0);
-		JPanel jPanelTimeout = new JPanel();
-		jPanelTimeout.setLayout(fl1);
-		jPanelTimeout.add(jSConnectTimeout);
-		jPanelTimeout.add(jLabel9); // 秒
-
-		panelMid.add(jLabelTimeout, GM.getGBC(4, 3));
-		panelMid.add(jPanelTimeout, GM.getGBC(4, 4, true));
 
 		JPanel panelVM = new JPanel(new GridLayout(3, 2));
 		panelVM.setBorder(BorderFactory.createTitledBorder(mm
@@ -1272,8 +1298,11 @@ public class DialogOptions extends JDialog {
 					panelOpt.add(jLabelLevel, GM.getGBC(7, 1));
 					panelOpt.add(jCBLevel, GM.getGBC(7, 2, true));
 
-					panelOpt.add(labelFontSize, GM.getGBC(7, 3));
-					panelOpt.add(jCBFontSize, GM.getGBC(7, 4, true));
+					panelOpt.add(jLabelLogType, GM.getGBC(7, 3));
+					panelOpt.add(jCBLogType, GM.getGBC(7, 4, true));
+
+					panelOpt.add(labelFontSize, GM.getGBC(8, 1));
+					panelOpt.add(jCBFontSize, GM.getGBC(8, 2, true));
 				}
 			}
 

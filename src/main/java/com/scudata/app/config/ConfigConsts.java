@@ -14,6 +14,14 @@ public class ConfigConsts {
 	public static final String LOAD_SERVER = "server";
 
 	/**
+	 * Log type constants
+	 */
+	/** Use Logger */
+	public static final String LOG_DEFAULT = "default";
+	/** Use slf */
+	public static final String LOG_SLF = "slf";
+
+	/**
 	 * Root node
 	 */
 	public static String CONFIG = "Config";
@@ -166,6 +174,8 @@ public class ConfigConsts {
 	public static String LOGGER = "Logger";
 	/** Log level */
 	public static String LEVEL = "Level";
+	/** Log type */
+	public static String LOG_TYPE = "Type";
 	/**
 	 * Initialize spl
 	 */

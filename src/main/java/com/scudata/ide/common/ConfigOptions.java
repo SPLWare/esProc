@@ -10,12 +10,14 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Vector;
 
+import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.cellset.IStyle;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
  * IDE options
@@ -711,6 +713,20 @@ public class ConfigOptions {
 			for (String levelName : levelNames)
 				levels.add(levelName);
 		return levels;
+	}
+
+	public static Vector<String> codeLogTypes() {
+		Vector<String> v = new Vector<String>();
+		v.add(ConfigConsts.LOG_DEFAULT);
+		v.add(ConfigConsts.LOG_SLF);
+		return v;
+	}
+
+	public static Vector<String> dispLogTypes() {
+		Vector<String> v = new Vector<String>();
+		v.add(IdeCommonMessage.get().getMessage("configoptions.ltdefault"));
+		v.add(IdeCommonMessage.get().getMessage("configoptions.ltslf"));
+		return v;
 	}
 
 	/**

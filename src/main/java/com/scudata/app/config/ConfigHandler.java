@@ -584,6 +584,9 @@ public class ConfigHandler extends DefaultHandler {
 		} else if (activeNode == RUNTIME_LOGGER) {
 			if (qName.equalsIgnoreCase(ConfigConsts.LEVEL)) {
 				config.setLogLevel(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.LOG_TYPE)) {
+				value = getValidLogType(value);
+				config.setLogType(value);
 			}
 		} else if (activeNode == INIT) {
 			if (version < 3) { // 兼容旧版本节点名为<dfx>
@@ -674,6 +677,15 @@ public class ConfigHandler extends DefaultHandler {
 		if (rsList == null || rsList.isEmpty())
 			return null;
 		return (RemoteStoreConfig) rsList.get(rsList.size() - 1);
+	}
+
+	private String getValidLogType(String typeStr) {
+		if (typeStr != null) {
+			if (ConfigConsts.LOG_SLF.equalsIgnoreCase(typeStr)) {
+				return ConfigConsts.LOG_SLF;
+			}
+		}
+		return ConfigConsts.LOG_DEFAULT;
 	}
 
 	/**

@@ -428,6 +428,7 @@ public class ConfigWriter {
 		startElement(ConfigConsts.LOGGER, null);
 		level = 3;
 		writeAttribute(ConfigConsts.LEVEL, config.getLogLevel());
+		writeAttribute(ConfigConsts.LOG_TYPE, config.getLogType());
 		level = 2;
 		endElement(ConfigConsts.LOGGER);
 	}
