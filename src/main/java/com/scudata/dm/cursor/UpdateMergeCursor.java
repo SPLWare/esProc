@@ -4,7 +4,6 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.IDWCursor;
-import com.scudata.util.Variant;
 
 /**
  * 用于组表及其更新分表做有序合并
