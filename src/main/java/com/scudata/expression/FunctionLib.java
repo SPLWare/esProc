@@ -558,10 +558,7 @@ public final class FunctionLib {
 		// 仓库
 		addFunction("memory", "com.scudata.expression.fn.parallel.Memory");
 		addMemberFunction("row", "com.scudata.expression.mfn.TableRow");
-		addMemberFunction("dup", "com.scudata.expression.mfn.table.Dup");
-		addMemberFunction("dup", "com.scudata.expression.mfn.cluster.Dup");
 		addMemberFunction("attach", "com.scudata.expression.mfn.dw.Attach");
-		addMemberFunction("attach", "com.scudata.expression.mfn.cluster.Attach");
 		addMemberFunction("append", "com.scudata.expression.mfn.dw.Append");
 		addMemberFunction("update", "com.scudata.expression.mfn.dw.Update");
 		addMemberFunction("update", "com.scudata.expression.mfn.dw.UpdateMemoryTable");
@@ -588,27 +585,9 @@ public final class FunctionLib {
 		addMemberFunction("alter", "com.scudata.expression.mfn.dw.Alter");
 		addMemberFunction("structure", "com.scudata.expression.mfn.file.Structure");
 		addMemberFunction("structure", "com.scudata.expression.mfn.file.FileGroupStructure");
-		
-		//集群
-		addMemberFunction("create", "com.scudata.expression.mfn.cluster.Create");
-		addMemberFunction("open", "com.scudata.expression.mfn.cluster.Open");
-		addMemberFunction("append", "com.scudata.expression.mfn.cluster.Append");
-		addMemberFunction("update", "com.scudata.expression.mfn.cluster.Update");
-		addMemberFunction("delete", "com.scudata.expression.mfn.cluster.Delete");
-		addMemberFunction("index", "com.scudata.expression.mfn.cluster.Index");
-		addMemberFunction("index", "com.scudata.expression.mfn.cluster.MemoryIndex");
-		addMemberFunction("cuboid", "com.scudata.expression.mfn.cluster.CreateCuboid");
-		addMemberFunction("reset", "com.scudata.expression.mfn.cluster.Reset");
 		addMemberFunction("memory", "com.scudata.expression.mfn.cursor.Memory");
-		addMemberFunction("memory", "com.scudata.expression.mfn.cluster.Memory");
-		addMemberFunction("cursor", "com.scudata.expression.mfn.cluster.CreateCursor");
-		addMemberFunction("cursor", "com.scudata.expression.mfn.cluster.CreateMemoryCursor");
-		addMemberFunction("new", "com.scudata.expression.mfn.cluster.New");
-		addMemberFunction("news", "com.scudata.expression.mfn.cluster.News");
-		addMemberFunction("derive", "com.scudata.expression.mfn.cluster.Derive");
-		addMemberFunction("icursor", "com.scudata.expression.mfn.cluster.Icursor");
-		addMemberFunction("cgroups", "com.scudata.expression.mfn.cluster.Cgroups");
-		
+		addMemberFunction("dup", "com.scudata.expression.mfn.table.Dup");
+				
 		// 统计图
 		addFunction("canvas", "com.scudata.expression.fn.CreateCanvas");
 		addMemberFunction("plot", "com.scudata.expression.mfn.canvas.Plot");
