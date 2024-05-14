@@ -30,7 +30,9 @@ public class Reset extends FileFunction {
 			IParam csParam = param.getSub(1);
 			if (csParam != null) {
 				obj = csParam.getLeafExpression().calculate(ctx);
-				if (obj instanceof ICursor) {
+				if (obj == null) {
+					//do nothing
+				} else if (obj instanceof ICursor) {
 					cs = (ICursor) obj;
 				} else if (obj instanceof Sequence) {
 					cs = new MemoryCursor((Sequence)obj);
