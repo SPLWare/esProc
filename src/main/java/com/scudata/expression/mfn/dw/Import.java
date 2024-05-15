@@ -14,6 +14,9 @@ import com.scudata.expression.PhyTableFunction;
 public class Import extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		ICursor cursor = CreateCursor.createCursor(table, param, option, ctx);
+		if (option != null && option.indexOf('x') != -1) {
+			CreateCursor.setOptionX(cursor, option);
+		}
 		return cursor.fetch();
 	}
 	
