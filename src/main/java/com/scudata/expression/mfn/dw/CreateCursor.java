@@ -276,6 +276,13 @@ public class CreateCursor extends PhyTableFunction {
 			ParamInfo2 pi = ParamInfo2.parse(fieldParam, "cursor", false, false);
 			exps = pi.getExpressions1();
 			names = pi.getExpressionStrs2();
+			
+			int len = exps.length;
+			for (int i = 0; i < len; i++) {
+				if (names[i] == null && exps[i] != null) {
+					names[i] = exps[i].getIdentifierName();
+				}
+			}
 		}
 		
 		if (mcs != null) {
