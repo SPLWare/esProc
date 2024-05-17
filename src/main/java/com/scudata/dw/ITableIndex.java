@@ -13,7 +13,7 @@ import com.scudata.expression.Expression;
 public interface ITableIndex {
 	public static final String INDEX_FIELD_NAMES[] = { "name", "hash", "keys", "field", "where" };
 	public static final String INDEX_FIELD_NAMES2[] = { "hash", "keys", "field", "where" };
-	public static final int TEMP_FILE_SIZE = 100 * 1024 * 1024;//排序时的缓冲文件大小
+	public static final int TEMP_FILE_SIZE = 50 * 1024 * 1024;//排序时的缓冲文件大小
 	public static int MIN_ICURSOR_REC_COUNT = 1000;//当小于这个值时不再进行交集，而是开始遍历
 	public static int MIN_ICURSOR_BLOCK_COUNT = 10;//当小于这个值时不再进行交集，而是开始遍历
 	public ICursor select(Expression exp, String []fields, String opt, Context ctx);

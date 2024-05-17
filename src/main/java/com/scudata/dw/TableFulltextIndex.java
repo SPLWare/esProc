@@ -650,12 +650,10 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 				}
 				
-				//如果长度不是3，则需要再过滤一下
-				if (fmtExp.length() != 3) {
-					Expression tempExp = new Expression("like@c(" + f + ",\"*" + fmtExp + "*\")");
-					Select select = new Select(tempExp, null);
-					cs.addOperation(select, ctx);
-				}
+				//需要再过滤一下
+				Expression tempExp = new Expression("like@c(" + f + ",\"*" + fmtExp + "*\")");
+				Select select = new Select(tempExp, null);
+				cs.addOperation(select, ctx);
 				return cs;
 			} else {
 				if (mrl == null) {
