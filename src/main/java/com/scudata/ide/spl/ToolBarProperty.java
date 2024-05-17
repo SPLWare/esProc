@@ -51,7 +51,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 */
 	public void setTextEditorText(String newText, boolean isRefresh) {
 		if (!isRefresh && !GV.isCellEditing) {
-			return;
+			return; // 当前正在编辑
 		}
 		try {
 			preventAction = true;

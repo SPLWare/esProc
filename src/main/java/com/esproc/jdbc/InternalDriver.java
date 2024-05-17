@@ -244,9 +244,16 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				super.close();
 				reduceConnectionCount();
 			}
+
+			public void checkExec() throws SQLException {
+				checkRunState();
+			}
 		};
 		addConnectionCount();
 		return con;
+	}
+
+	protected void checkRunState() throws SQLException {
 	}
 
 	protected Map<String, String> getPropertyMap(String url, Properties info) {

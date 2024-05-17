@@ -205,6 +205,8 @@ public class ConfigOptions {
 
 	public static Integer iFileLocation = new Integer(-1);
 
+	public static String sFileTip = null;
+
 	/**
 	 * The color of the cell value type
 	 */
@@ -337,6 +339,8 @@ public class ConfigOptions {
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
 		options.put("iUndoCount", iUndoCount);
+
+		options.put("sFileTip", sFileTip);
 
 		options.put("bFuncNotice", bFuncNotice);
 		options.put("sQvsConfigFile", sQvsConfigFile);
@@ -572,6 +576,8 @@ public class ConfigOptions {
 				sAutoOpenFileNames = val;
 			} else if (option.equalsIgnoreCase("sQvsConfigFile")) {
 				sQvsConfigFile = val;
+			} else if (option.equalsIgnoreCase("sFileTip")) {
+				sFileTip = val;
 			}
 		}
 	}

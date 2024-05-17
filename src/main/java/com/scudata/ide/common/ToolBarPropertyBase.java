@@ -475,9 +475,11 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	 */
 	protected void initProperties() {
 		try {
+			preventAction = true;
 			setCellName("");
-			setTextEditorText("");
+			textEditor.setText("");
 		} catch (Exception ex) {
+			preventAction = false;
 		}
 	}
 

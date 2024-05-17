@@ -276,7 +276,7 @@ public class SPL extends AppFrame {
 			// ToolBar
 			AppToolBar toolBase = null;
 			ToolBarPropertyBase toolBarProperty = null;
-			toolBase = GVSpl.getBaseTool();
+			toolBase = GVSpl.newBaseTool();
 			toolBarProperty = newToolBarProperty();
 			//
 			GV.appTool = toolBase;
@@ -447,7 +447,7 @@ public class SPL extends AppFrame {
 	 * @return
 	 */
 	protected AppMenu newMenuBase() {
-		return GVSpl.getBaseMenu();
+		return GVSpl.newBaseMenu();
 	}
 
 	/**
@@ -456,7 +456,7 @@ public class SPL extends AppFrame {
 	 * @return
 	 */
 	protected AppMenu newMenuSpl() {
-		return GVSpl.getSplMenu();
+		return GVSpl.newSplMenu();
 	}
 
 	/**
@@ -464,11 +464,11 @@ public class SPL extends AppFrame {
 	 * @return
 	 */
 	protected ToolBarPropertyBase newToolBarProperty() {
-		return GVSpl.getSplProperty();
+		return GVSpl.newSplProperty();
 	}
 
 	protected ToolBarSpl newToolBarSpl() {
-		return GVSpl.getSplTool();
+		return GVSpl.newSplTool();
 	}
 
 	/**
@@ -570,7 +570,7 @@ public class SPL extends AppFrame {
 		JInternalFrame[] frames = desk.getAllFrames();
 
 		if (frames.length == 0) {
-			changeMenuAndToolBar(newMenuBase(), GVSpl.getBaseTool());
+			changeMenuAndToolBar(newMenuBase(), GVSpl.newBaseTool());
 			GV.appMenu.setEnable(GV.appMenu.getMenuItems(), false);
 			GV.appTool.setBarEnabled(false);
 			GV.toolWin.setVisible(false);
@@ -763,6 +763,7 @@ public class SPL extends AppFrame {
 				return null;
 			}
 		}
+
 		ICellSet cs = null;
 		if (!StringUtils.isValidString(filePath)) { // 新建
 			String pre;
@@ -1614,7 +1615,7 @@ public class SPL extends AppFrame {
 	 * 取产品名称
 	 */
 	public String getProductName() {
-		return IdeSplMessage.get().getMessage("dfx.productname");
+		return IdeSplMessage.get().getMessage("spl.productname");
 	}
 
 	/**

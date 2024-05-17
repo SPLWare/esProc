@@ -256,7 +256,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	protected int getTopLabel1Width() {
-		return GM.isChineseLanguage() ? 80 : 115;
+		return GM.isChineseLanguage() ? 80 : 145;
 	}
 
 	protected int getBottomLabel1Width() {

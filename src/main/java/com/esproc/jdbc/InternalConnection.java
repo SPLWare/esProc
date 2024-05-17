@@ -35,7 +35,7 @@ import com.scudata.parallel.UnitClient;
  * Implementation of java.sql.Connection
  *
  */
-public class InternalConnection implements Connection, Serializable {
+public abstract class InternalConnection implements Connection, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -126,6 +126,8 @@ public class InternalConnection implements Connection, Serializable {
 		}
 		initContextConnect(parentCtx);
 	}
+
+	public abstract void checkExec() throws SQLException;
 
 	public Context getParentContext() {
 		return parentCtx;

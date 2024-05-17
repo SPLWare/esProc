@@ -10,6 +10,8 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import com.scudata.common.Logger;
+
 /**
  * To prevent starting multiple IDEs. Use TcpServer to check whether the IDE is
  * started.
@@ -60,7 +62,6 @@ public class TcpServer extends Thread {
 					byte[] buffer = new byte[1024];
 					int len = is.read(buffer);
 					String file = new String(buffer, 0, len);
-
 					if (file.equals("GetWindowTitle")) {
 						OutputStream os = s.getOutputStream();
 						String wTitle = ((JFrame) frame).getTitle();

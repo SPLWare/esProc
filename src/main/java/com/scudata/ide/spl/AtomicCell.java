@@ -14,6 +14,7 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplControl;
+import com.scudata.ide.spl.control.SplEditor;
 
 /**
  * 单元格的原子操作
@@ -272,7 +273,10 @@ public class AtomicCell implements IAtomicCmd {
 			v.add(new Area(nc.getRow(), nc.getCol(), nc.getRow(), nc.getCol()));
 			undoAn.selectedAreas = v;
 		}
-		ControlUtils.extractSplEditor(control).setSelectedAreas(selectedAreas);
+		SplEditor splEditor = ControlUtils.extractSplEditor(control);
+		if (splEditor != null) {
+			splEditor.setSelectedAreas(selectedAreas);
+		}
 		return undoAn;
 
 	}

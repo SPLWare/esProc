@@ -773,6 +773,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		preventChange = false;
 	}
 
+	public void setPreventChange(boolean preventChange) {
+		this.preventChange = preventChange;
+	}
+
 	/**
 	 * ÖØÖÃ±à¼­¿òµÄ±ß½ç
 	 */
@@ -844,10 +848,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				m_activeCell.getCol(), isEditing);
 		if (editor instanceof JTextComponent) {
 			int i = ((JTextComponent) editor).getCaretPosition();
-			preventChange = true;
-			((JTextComponent) editor).setText(text);
-			setCaret(i, text);
-			preventChange = false;
+			try {
+				preventChange = true;
+				((JTextComponent) editor).setText(text);
+				setCaret(i, text);
+			} finally {
+				preventChange = false;
+			}
 		}
 	}
 
@@ -1396,10 +1403,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			spEditor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
 					rect.getRowCount(), rect.getColCount());
 			preventChange = true;
-			undoExp = text;
-			((JTextComponent) editor).setText(text);
-			((JTextComponent) editor).setEditable(true);
-			preventChange = false;
+			try {
+				undoExp = text;
+				((JTextComponent) editor).setText(text);
+				((JTextComponent) editor).setEditable(true);
+			} finally {
+				preventChange = false;
+			}
 			GV.isCellEditing = true;
 			multiEditor.initRefCells(false);
 			break;
@@ -1516,22 +1526,27 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 */
 	public void undoEditor() {
 		String text = ((JTextComponent) editor).getText();
-		if (StringUtils.isValidString(text)) {
-			String newText = undoExp;
-			if (text.equals(undoExp)) {
-				newText = null;
-			}
-			((JTextComponent) editor).setText(newText);
-			((ToolBarProperty) GV.toolBarProperty).setTextEditorText(newText,
-					true);
-			undoExp = text;
-		} else {
-			if (StringUtils.isValidString(undoExp)) {
-				((JTextComponent) editor).setText(undoExp);
+		try {
+			preventChange = true;
+			if (StringUtils.isValidString(text)) {
+				String newText = undoExp;
+				if (text.equals(undoExp)) {
+					newText = null;
+				}
+				((JTextComponent) editor).setText(newText);
 				((ToolBarProperty) GV.toolBarProperty).setTextEditorText(
-						undoExp, true);
-				undoExp = null;
+						newText, true);
+				undoExp = text;
+			} else {
+				if (StringUtils.isValidString(undoExp)) {
+					((JTextComponent) editor).setText(undoExp);
+					((ToolBarProperty) GV.toolBarProperty).setTextEditorText(
+							undoExp, true);
+					undoExp = null;
+				}
 			}
+		} finally {
+			preventChange = false;
 		}
 	}
 

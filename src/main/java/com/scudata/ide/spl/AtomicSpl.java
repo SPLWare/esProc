@@ -28,6 +28,7 @@ import com.scudata.ide.common.control.CellSelection;
 import com.scudata.ide.spl.control.CellSetParser;
 import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplControl;
+import com.scudata.ide.spl.control.SplEditor;
 
 /**
  * 网格原子操作
@@ -1277,8 +1278,10 @@ public class AtomicSpl implements IAtomicCmd {
 					}
 				}
 			}
-			ControlUtils.extractSplEditor(control).setSelectedAreas(
-					selectedAreas);
+			SplEditor splEditor = ControlUtils.extractSplEditor(control);
+			if (splEditor != null) {
+				splEditor.setSelectedAreas(selectedAreas);
+			}
 		}
 		reverseCmd.setValue(oldValue);
 		return reverseCmd;

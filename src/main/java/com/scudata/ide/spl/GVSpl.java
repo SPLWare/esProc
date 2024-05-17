@@ -45,7 +45,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static AppMenu getSplMenu() {
+	public static AppMenu newSplMenu() {
 		appMenu = new MenuSpl();
 		return appMenu;
 	}
@@ -55,7 +55,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static ToolBarSpl getSplTool() {
+	public static ToolBarSpl newSplTool() {
 		appTool = new ToolBarSpl();
 		return (ToolBarSpl) appTool;
 	}
@@ -65,7 +65,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static ToolBarPropertyBase getSplProperty() {
+	public static ToolBarPropertyBase newSplProperty() {
 		toolBarProperty = new ToolBarProperty();
 		return toolBarProperty;
 	}
@@ -75,7 +75,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static AppMenu getBaseMenu() {
+	public static AppMenu newBaseMenu() {
 		appMenu = new MenuBase();
 		return appMenu;
 	}
@@ -85,7 +85,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static AppToolBar getBaseTool() {
+	public static AppToolBar newBaseTool() {
 		appTool = new ToolBarBase();
 		return appTool;
 	}

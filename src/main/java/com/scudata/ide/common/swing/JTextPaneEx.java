@@ -410,6 +410,8 @@ public class JTextPaneEx extends JTextPane {
 	public synchronized void initRefCells(boolean isUpdate) {
 		if (!matchEnabled)
 			return;
+		if (!isVisible())
+			return;
 		String text = getText();
 		if (text != null && text.length() > STYLE_MAX_LENGTH)
 			return;

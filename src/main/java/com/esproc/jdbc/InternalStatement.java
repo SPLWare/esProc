@@ -207,9 +207,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	protected Object executeJDBC(final ArrayList<?> parameters,
 			final boolean isUpdate) throws SQLException {
-		if (isClosed)
-			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.statementclosed"));
+		checkExec();
 		try {
 			ex = null;
 			isCanceled = false;
@@ -242,6 +240,18 @@ public abstract class InternalStatement implements java.sql.Statement {
 			return result;
 		}
 		return !isCanceled;
+	}
+
+	protected void checkExec() throws SQLException {
+		if (isClosed)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.statementclosed"));
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		}
+		connt.checkExec();
 	}
 
 	/**

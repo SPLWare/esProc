@@ -18,11 +18,13 @@ public class UndoManager {
 	/**
 	 * 撤销原子命令容器
 	 */
-	private LimitedStack undoContainer = new LimitedStack(ConfigOptions.iUndoCount);
+	private LimitedStack undoContainer = new LimitedStack(
+			ConfigOptions.iUndoCount);
 	/**
 	 * 重做原子命令容器
 	 */
-	private LimitedStack redoContainer = new LimitedStack(ConfigOptions.iUndoCount);
+	private LimitedStack redoContainer = new LimitedStack(
+			ConfigOptions.iUndoCount);
 	/**
 	 * 网格编辑器
 	 */
@@ -140,7 +142,10 @@ public class UndoManager {
 			vReverseCmds.add(revCmd);
 		}
 		editControl.resetCellSelection(null);
-		ControlUtils.extractSplEditor(editControl).resetSelectedAreas();
+		SplEditor splEditor = ControlUtils.extractSplEditor(editControl);
+		if (splEditor != null) {
+			splEditor.resetSelectedAreas();
+		}
 		// Undo操作后，光标所在格子值有可能变化，重新装载该位置文本
 		try {
 			editControl.validate();
@@ -176,5 +181,4 @@ public class UndoManager {
 			appThread.start();
 		}
 	}
-
 }

@@ -2793,11 +2793,16 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * √¸¡Ó÷¥––∫Û
 	 */
 	public void commandExcuted() {
-		splEditor.selectAreas(scrollActiveCellToVisible);
-		scrollActiveCellToVisible = true;
-		refresh();
-		splControl.repaint();
-		ControlUtils.clearWrapBuffer();
+		try {
+			splControl.getContentPanel().setPreventChange(true);
+			splEditor.selectAreas(scrollActiveCellToVisible);
+			scrollActiveCellToVisible = true;
+			refresh();
+			splControl.repaint();
+			ControlUtils.clearWrapBuffer();
+		} finally {
+			splControl.getContentPanel().setPreventChange(false);
+		}
 	}
 
 	/**
