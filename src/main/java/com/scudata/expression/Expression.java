@@ -1285,20 +1285,18 @@ public class Expression {
 	 * @return	返回对应类数组
 	 */
 	public static ArrayList<Object> getSpecFunc(Operator op, Class<?> base) {
-		
-		ArrayList<Object> classes = new ArrayList<Object>();
-		
+		ArrayList<Object> classes;
 		Node left = op.getLeft();
+		
 		if (ifIs(left, base)) {
+			classes = new ArrayList<Object>();
 			classes.add(left);
 		} else if (left instanceof Function){
-			ArrayList<Object> temp = getSpecFunc((Function)left, base);
-			temp.addAll(classes);
-			classes = temp;
+			classes = getSpecFunc((Function)left, base);
 		} else if (left instanceof Operator) {
-			ArrayList<Object> temp = getSpecFunc((Operator)left, base);
-			temp.addAll(classes);
-			classes = temp;
+			classes = getSpecFunc((Operator)left, base);
+		} else {
+			classes = new ArrayList<Object>();
 		}
 		
 		Node right = op.getRight();
@@ -1321,8 +1319,20 @@ public class Expression {
 	 * @return	返回对应类数组
 	 */
 	public static ArrayList<Object> getSpecFunc(Function fun, Class<?> base) {
-		
-		ArrayList<Object> funcs = new ArrayList<Object>();
+		ArrayList<Object> funcs;
+		Node left = fun.getLeft();
+		if (left == null) {
+			funcs = new ArrayList<Object>();
+		} else if (ifIs(left, base)) {
+			funcs = new ArrayList<Object>();
+			funcs.add(left);
+		} else if (left instanceof Function){
+			funcs = getSpecFunc((Function)left, base);
+		} else if (left instanceof Operator) {
+			funcs = getSpecFunc((Operator)left, base);
+		} else {
+			funcs = new ArrayList<Object>();
+		}
 		
 		IParam par = fun.getParam();
 		if (null == par)
