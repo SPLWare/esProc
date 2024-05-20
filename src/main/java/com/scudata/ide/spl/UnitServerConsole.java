@@ -15,12 +15,15 @@ import java.util.StringTokenizer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -41,6 +44,7 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.Console;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
@@ -67,7 +71,7 @@ import com.scudata.util.Variant;
  * @author Joancy
  *
  */
-public class UnitServerConsole extends JFrame implements StartUnitListener {
+public class UnitServerConsole extends AppFrame implements StartUnitListener {
 	private static final long serialVersionUID = 1L;
 	static {
 		try {
@@ -158,6 +162,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 
 		ImageIcon ii = getImageIcon();
 		setIconImage(ii.getImage());
+		GV.appFrame = this;
 
 		rqInit();
 		restLangText();
@@ -313,6 +318,9 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		t.start();
 	}
 
+	public void shutDown() {
+		doStop();
+	}
 	/**
 	 * 停止当前页面的服务器
 	 */
@@ -938,6 +946,41 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	public synchronized void serverStartFail() {
 		enableStart(true);
 		setServerStatus(false);
+	}
+
+	@Override
+	public String getProductName() {
+		return UNITSERVER;
+	}
+
+	@Override
+	public boolean exit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public JInternalFrame openSheetFile(String fileName) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void changeMenuAndToolBar(JMenuBar menu, JToolBar toolBar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean closeSheet(Object sheet) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean closeAll() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

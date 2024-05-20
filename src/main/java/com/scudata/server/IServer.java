@@ -13,10 +13,6 @@ import com.scudata.app.config.RaqsoftConfig;
  *
  */
 public interface IServer extends Runnable {
-	public static long devTimeout = 48*60*60*1000;//两天
-	public static long MAX_COUNT = 200;//最多允许跑200次计算
-	public static long startTime = System.currentTimeMillis();
-	
 	/**
 	 * 获取当前服务器的运行状态
 	 * @return 正在运行返回true，否则返回false

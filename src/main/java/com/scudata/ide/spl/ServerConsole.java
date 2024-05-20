@@ -45,7 +45,11 @@ import com.scudata.server.unit.UnitServer;
  * -a 启动所有服务
  */
 public class ServerConsole {
+	private static ArrayList<Object> runningServers = new ArrayList<Object>();
 
+	public static ArrayList<Object> getRunningServers(){
+		return runningServers;
+	}
 	/**
 	 * 节点机文件默认为config目录下；先找类路径，然后找start.home下的绝对路径
 	 * 
@@ -222,7 +226,6 @@ public class ServerConsole {
 	public static void doMain(String[] args,String usage) {
 		boolean init = true;
 		
-
 		String arg;
 		if (args.length == 1) { //
 			arg = args[0].trim();
@@ -363,6 +366,7 @@ public class ServerConsole {
 			try {
 				RaqsoftConfig rc = loadRaqsoftConfig();
 				UnitServer server = UnitServer.getInstance(host, port);
+				runningServers.add(server);
 				server.setRaqsoftConfig(rc);
 				server.run();
 			} catch (Exception x) {
@@ -374,6 +378,7 @@ public class ServerConsole {
 		if (isC) {
 			try {
 				UnitServer server = UnitServer.getInstance(host, port, cfgPath);
+				runningServers.add(server);
 				server.run();
 			} catch (Exception x) {
 				x.printStackTrace();
@@ -433,6 +438,7 @@ public class ServerConsole {
 		if (!isP && !isO && !isH) {
 			setDefaultLNF();
 			UnitServerConsole usc = new UnitServerConsole(null, 0);
+			runningServers.add(usc);
 			usc.setVisible(true);
 			return;
 		}
@@ -445,6 +451,7 @@ public class ServerConsole {
 		if (isP) {
 			try {
 				UnitServer server = UnitServer.getInstance(host, port);
+				runningServers.add(server);
 				server.setRaqsoftConfig(rc);
 				tp = new Thread(server);
 				tp.start();
@@ -457,6 +464,7 @@ public class ServerConsole {
 		if (isO) {
 			try {
 				OdbcServer server = OdbcServer.getInstance();
+				runningServers.add(server);
 				server.setRaqsoftConfig(rc);
 				to = new Thread(server);
 				to.start();
@@ -470,6 +478,7 @@ public class ServerConsole {
 		if (isH) {
 			try {
 				thServer = SplxServerInIDE.getInstance();
+				runningServers.add(thServer);
 				thServer.setRaqsoftConfig(rc);
 				thServer.start();
 			} catch (Throwable e) {
