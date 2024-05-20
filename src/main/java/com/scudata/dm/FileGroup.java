@@ -33,10 +33,17 @@ import com.scudata.resources.EngineMessage;
 public class FileGroup implements Externalizable {
 	private String fileName;
 	private int []partitions;
-
+	private FileObject[] files;
+	
 	public FileGroup(String fileName, int []partitions) {
 		this.fileName = fileName;
 		this.partitions = partitions;
+	}
+	
+	public FileGroup(FileObject[] files, String fileName, int []partitions) {
+		this.fileName = fileName;
+		this.partitions = partitions;
+		this.files = files;
 	}
 	
 	/**
@@ -89,11 +96,17 @@ public class FileGroup implements Externalizable {
 	public PhyTableGroup open(String opt, Context ctx) {
 		int pcount = partitions.length;
 		PhyTable []tables = new PhyTable[pcount];
-		
-		for (int i = 0; i < pcount; ++i) {
-			File file = Env.getPartitionFile(partitions[i], fileName);
-			tables[i] = ComTable.openBaseTable(file, ctx);
-			tables[i].getGroupTable().setPartition(partitions[i]);
+		if (files == null) {
+			for (int i = 0; i < pcount; ++i) {
+				File file = Env.getPartitionFile(partitions[i], fileName);
+				tables[i] = ComTable.openBaseTable(file, ctx);
+				tables[i].getGroupTable().setPartition(partitions[i]);
+			}
+		} else {
+			for (int i = 0; i < pcount; ++i) {
+				tables[i] = ComTable.openBaseTable(files[i], ctx);
+				tables[i].getGroupTable().setPartition(partitions[i]);
+			}
 		}
 		
 		return new PhyTableGroup(fileName, tables, partitions, opt, ctx);
