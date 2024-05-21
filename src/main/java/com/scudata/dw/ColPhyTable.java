@@ -23,6 +23,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergesCursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.cursor.UpdateIdCursor;
 import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
@@ -1569,6 +1570,12 @@ public class ColPhyTable extends PhyTable {
 	 * 以归并方式追加(暂不支持有附表的情况)
 	 */
 	public void append(ICursor cursor, String opt) throws IOException {
+		if (opt != null && opt.indexOf('w') != -1) {
+			int []keys = getDataStruct().getPKIndex();
+			int deleteField = this.getDeleteFieldIndex(null, null);
+			cursor = new UpdateIdCursor(cursor, keys, deleteField);
+		}
+		
 		if (isSorted && opt != null) {
 			if (opt.indexOf('y') != -1) {
 				Sequence data = cursor.fetch();

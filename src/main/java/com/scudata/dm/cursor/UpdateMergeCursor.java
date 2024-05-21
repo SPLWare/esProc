@@ -414,7 +414,7 @@ public class UpdateMergeCursor extends ICursor {
 	}
 
 	// 返回false表示删除记录，true表示保留记录
-	private boolean merge(BaseRecord r1, BaseRecord r2, int deleteField) {
+	public static boolean merge(BaseRecord r1, BaseRecord r2, int deleteField) {
 		Boolean b1 = (Boolean)r1.getNormalFieldValue(deleteField);
 		Boolean b2 = (Boolean)r2.getNormalFieldValue(deleteField);
 		
