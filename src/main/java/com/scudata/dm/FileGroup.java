@@ -12,6 +12,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
+import com.scudata.dm.cursor.UpdateIdCursor;
 import com.scudata.dm.cursor.UpdateMergeCursor;
 import com.scudata.dw.ColComTable;
 import com.scudata.dw.ColumnMetaData;
@@ -192,6 +193,7 @@ public class FileGroup implements Externalizable {
 		ICursor cs;
 		if (hasW) {
 			int deleteField = tableGroup.getDeleteFieldIndex(null, ds1.getFieldNames());
+			cursor = new UpdateIdCursor(cursor, ds1.getPKIndex(), deleteField);
 			cs = new UpdateMergeCursor(cursors, ds1.getPKIndex(), deleteField, ctx);
 		} else {
 			cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
