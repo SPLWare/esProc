@@ -763,7 +763,7 @@ abstract public class ComTable implements IBlockStorage {
 				// 归并或者连接游标
 				if (hasW) {
 					int deleteField = baseTable.getDeleteFieldIndex(null, ds1.getFieldNames());
-					cursor = new UpdateIdCursor(cursor, ds2.getPKIndex(), deleteField);
+					cursor = new UpdateIdCursor(cursor, ds1.getPKIndex(), deleteField);
 					ICursor[] cursors = new ICursor[] {cs, cursor};
 					cs = new UpdateMergeCursor(cursors, ds1.getPKIndex(), deleteField, ctx);
 				} else if (newBaseTable.hasPrimaryKey()) {
