@@ -128,7 +128,18 @@ public class Reset extends FileFunction {
 			}
 			
 			param = param.getSub(0);
-			if (param.getType() == IParam.Colon) {
+			if (param.isLeaf()) {
+				//f
+				obj = param.getLeafExpression().calculate(ctx);
+				if (obj instanceof FileObject) {
+					f = ((FileObject) obj).getLocalFile().file();
+				} else if (obj instanceof FileGroup) {
+					fg= (FileGroup) obj;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
+				}
+			} else if (param.getType() == IParam.Colon) {
 				//f:b
 				IParam sub0 = param.getSub(0);
 				if (sub0 != null) {
