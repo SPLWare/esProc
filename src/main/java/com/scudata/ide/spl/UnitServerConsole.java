@@ -318,9 +318,38 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		t.start();
 	}
 
-	public void shutDown() {
-		doStop();
+	private  void autoHaltServer(IServer server) {
+		Thread t = new Thread() {
+			public void run() {
+				server.shutDown();
+				while (server.isRunning()) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception x) {
+					}
+				}
+				if (server == unitServer) {// 停止分机时才清除环境
+					Env.clearParam();
+				}
+			}
+		};
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	public void shutDown() {
+		IServer[] servers = new IServer[] {unitServer,odbcServer,httpServer}; 
+		for(IServer server:servers) {
+			if(server==currentServer) continue;
+			autoHaltServer( server );
+		}
+		doStop();//最后停止当前页面的服务器，刷新界面状态
+	}
+	
 	/**
 	 * 停止当前页面的服务器
 	 */
@@ -937,8 +966,18 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		resetStatus(atPort);
 		setServerStatus(false);
 	}
+	
+	boolean disableStart = false;
+	public void disableStart() {
+		disableStart = true;
+		jBStart.setEnabled(false);
+	}
 
 	private void enableStart(boolean en) {
+		if(disableStart) {
+			jBStart.setEnabled(false);
+			return;
+		}
 		jBStart.setEnabled(en);
 		jBConfig.setEnabled(en);
 	}
