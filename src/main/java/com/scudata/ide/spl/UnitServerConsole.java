@@ -318,7 +318,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		t.start();
 	}
 
-	private  void autoHaltServer(IServer server) {
+	private  void autoHaltServer(final IServer server) {
 		Thread t = new Thread() {
 			public void run() {
 				server.shutDown();
