@@ -351,11 +351,10 @@ public final class SegmentSet {
 		}
 	}
 
-	private HashMap segs = new HashMap();
+	private LinkedHashMap segs = new LinkedHashMap();
 	private char delim = ';';
 	private boolean caseSensitive = false;
 	private boolean trimBlank = true;
-
 
 	public static void main(String[] args) {
 		SegmentSet ss = new SegmentSet("a = 13;;=343;=; Bc = 234;", true, ';', true);

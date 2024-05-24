@@ -134,7 +134,7 @@ public class DialogAbout extends JDialog {
 	protected JPanel jPButton = new JPanel();
 
 	public static final int DIALOG_HEIGHT = GM.isChineseLanguage() ? 360 : 290;
-	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 440 : 460;;
+	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 445 : 500;
 	public static final int ROW_HEIGHT = 25;
 
 	/**

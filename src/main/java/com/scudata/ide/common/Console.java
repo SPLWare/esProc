@@ -75,8 +75,10 @@ public class Console {
 					for (int r = 0; r < rows; r++) {
 						jta.append((String) rowBuffers.get(r));
 					}
-					int len = jta.getText().length();
-					jta.setCaretPosition(len);
+					if (jta.getText() != null) {
+						int len = jta.getText().length();
+						jta.setCaretPosition(len);
+					}
 					rowBuffers.setUnChanged();
 				}
 			}
@@ -137,6 +139,7 @@ public class Console {
 		byte LF = (byte) '\n';
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(17);
 		JTextArea jta = null;
+		final String SYS_RETURN = System.getProperty("line.separator", "\n");
 
 		public ConsoleOutputStream(JTextArea jta) {
 			this.jta = jta;
@@ -152,8 +155,7 @@ public class Console {
 		public void flush() throws IOException {
 			String output = baos.toString();
 			baos.reset();
-			String sysReturn = System.getProperty("line.separator", "\n");
-			if (("Yo" + sysReturn).equals(output))
+			if (("Yo" + SYS_RETURN).equals(output))
 				return;
 
 			synchronized (rowLock) {
