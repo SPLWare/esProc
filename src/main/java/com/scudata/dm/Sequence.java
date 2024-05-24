@@ -8852,7 +8852,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence group(String opt) {
-		boolean removeNull = false, isOrg = false, isNumber = false;
+		boolean removeNull = false, isOrg = false, isNumber = false, isSort = true;
 		if (opt != null) {
 			if (opt.indexOf('h') != -1) {
 				opt = opt.replace('h', 'o');
@@ -8862,6 +8862,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('0') != -1) removeNull = true;
 			if (opt.indexOf('o') != -1) isOrg = true;
 			if (opt.indexOf('n') != -1) isNumber = true;
+			if (opt.indexOf('u') != -1) isSort = false;
 		}
 		
 		Sequence seq = this;
@@ -8872,7 +8873,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (isNumber) {
 			return group_n(opt);
 		} else if (!isOrg) {
-			if (length() > SORT_HASH_LEN) {
+			if (!isSort || length() > SORT_HASH_LEN) {
 				return CursorUtil.hashGroup(seq, opt);
 			} else {
 				if (opt == null) {
