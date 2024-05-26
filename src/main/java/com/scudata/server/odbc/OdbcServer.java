@@ -170,7 +170,7 @@ public class OdbcServer implements IServer {
 				listener.serverStartFail();
 			}
 			if(x instanceof java.net.BindException){
-				System.out.println(ParallelMessage.get().getMessage("DfxServerInIDE.portbind",port));
+				System.out.println(ParallelMessage.get().getMessage("DfxServerInIDE.portbind",host+":"+port));
 			}else{
 				x.printStackTrace();
 			}
