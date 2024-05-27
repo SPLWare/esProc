@@ -5058,7 +5058,7 @@ public class DatabaseUtil {
 						if (compSeq != null && compSeq.length() > 0) {
 							//Logger.debug("Insert only, preparing insert new-records: "+insert_sql);
 							MessageManager mm = DataSetMessage.get();
-							Logger.debug(mm.getMessage("info.insertOnly"));
+							Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 							Expression[] keysParam = new Expression[primaryParams.size()];
 							primaryParams.toArray(keysParam);
 							Expression[] keysFields = new Expression[primaryFields.size()];
@@ -5072,7 +5072,7 @@ public class DatabaseUtil {
 						} else {
 							//Logger.debug("Insert-Only, preparing insert records: "+insert_sql);
 							MessageManager mm = DataSetMessage.get();
-							Logger.debug(mm.getMessage("info.insertOnly"));
+							Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 							executeBatchSql(srcSeq, insert_sql, insertParams, insertTypes, ctx, dbs, con, dbCharset,
 									tranSQL, dbType, dbName, batchSize);
 						}
@@ -5081,7 +5081,7 @@ public class DatabaseUtil {
 						if (compSeq != null && compSeq.length() > 0) {
 							//Logger.debug("Update-only, update changed-records: "+update_sql);
 							MessageManager mm = DataSetMessage.get();
-							Logger.debug(mm.getMessage("info.updateOnly"));
+							Logger.debug(mm.getMessage("info.updateOnly", update_sql));
 							Expression[] keysParam = new Expression[primaryParams.size()];
 							primaryParams.toArray(keysParam);
 							Expression[] keysFields = new Expression[primaryFields.size()];
@@ -5116,7 +5116,7 @@ public class DatabaseUtil {
 						primaryParams.toArray(keysParam);
 						//Logger.debug("Auto insert, preparing insert new-records: "+insert_sql);
 						MessageManager mm = DataSetMessage.get();
-						Logger.debug(mm.getMessage("info.autoInsert"));
+						Logger.debug(mm.getMessage("info.autoInsert", insert_sql));
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
 						Sequence insertSeq = diffSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
@@ -5125,8 +5125,8 @@ public class DatabaseUtil {
 						executeBatchSql(srcSeq, insert_sql, insertParams,
 								insertTypes, ctx, dbs, con, dbCharset, tranSQL, dbType, dbName, batchSize);
 						srcSeq.setMems(oldMems);
-						Logger.debug("Auto update, preparing update changed-records: "+update_sql);
-						Logger.debug(mm.getMessage("info.autoUpdate"));
+						//Logger.debug("Auto update, preparing update changed-records: "+update_sql);
+						Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
 						Sequence remainSeq = mergeDiffSequence(srcSeq, insertSeq, null, ctx);
 						// edited by bd, 2022.4.14, 更新时，主键如果为null，那判断时无法使用F=?，需要使用F is null，为此，需要把remainSeq中，主键为null的记录拆出来单独执行
 						srcSeq.setMems(remainSeq.getMems());
@@ -5159,7 +5159,7 @@ public class DatabaseUtil {
 						if (updateRecords.length() > 0) {
 							//Logger.debug("Auto update, preparing update records: "+update_sql);
 							MessageManager mm = DataSetMessage.get();
-							Logger.debug(mm.getMessage("info.autoUpdate"));
+							Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
 							//executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs, con,
 							//		dbCharset, tranSQL, dbType, dbName, batchSize);
 							executeDifferBatch(null, updateRecords, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
@@ -5168,7 +5168,7 @@ public class DatabaseUtil {
 						if (insertRecords.length() > 0) {
 							//Logger.debug("Auto insert, preparing insert records: "+update_sql);
 							MessageManager mm = DataSetMessage.get();
-							Logger.debug(mm.getMessage("info.autoInsert"));
+							Logger.debug(mm.getMessage("info.autoInsert", insert_sql));
 							executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize);
 						}
@@ -5613,13 +5613,13 @@ public class DatabaseUtil {
 					if (oClear || oInsert) {// 强制对每条记录执行insert，合法性由程序员保证，通常会配上a，先执行删除
 						//Logger.debug("Insert-only, preparing insert records: "+insert_sql);
 						MessageManager mm = DataSetMessage.get();
-						Logger.debug(mm.getMessage("info.insertOnly", table));
+						Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 						executeBatchSql(srcSeries, insert_sql, insertParams, insertTypes, ctx, dbs);
 						isAutoDetect = false;
 					} else if (opt.indexOf('u') > -1) {// 强制对每条记录执行update，合法性由程序员保证
 						//Logger.debug("Update-only, preparing update records: "+update_sql);
 						MessageManager mm = DataSetMessage.get();
-						Logger.debug(mm.getMessage("info.updateOnly", table));
+						Logger.debug(mm.getMessage("info.updateOnly", update_sql));
 						executeBatchSql(srcSeries, update_sql, updateParams, updateTypes, ctx, dbs);
 						isAutoDetect = false;
 					}
@@ -5645,13 +5645,13 @@ public class DatabaseUtil {
 					if (updateRecords.length() > 0) {
 						//Logger.debug("Auto update, preparing update records: "+update_sql);
 						MessageManager mm = DataSetMessage.get();
-						Logger.debug(mm.getMessage("info.updateOnly", table));
+						Logger.debug(mm.getMessage("info.updateOnly", update_sql));
 						executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs);
 					}
 					if (insertRecords.length() > 0) {
 						//Logger.debug("Auto insert, preparing insert records: "+insert_sql);
 						MessageManager mm = DataSetMessage.get();
-						Logger.debug(mm.getMessage("info.insertOnly", table));
+						Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 						executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs);
 					}
 				}
