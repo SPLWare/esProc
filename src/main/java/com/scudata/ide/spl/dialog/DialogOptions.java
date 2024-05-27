@@ -447,7 +447,7 @@ public class DialogOptions extends JDialog {
 			initUI();
 			load();
 			int dialogWidth = 830;
-			int dialogHeight = 560;
+			int dialogHeight = 590;
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
@@ -993,12 +993,10 @@ public class DialogOptions extends JDialog {
 		Vector<Byte> lnfCodes = LookAndFeelManager.listLNFCode();
 		Vector<String> lnfDisps = LookAndFeelManager.listLNFDisp();
 		jCBLNF.x_setData(lnfCodes, lnfDisps);
-		JPanel panelNormal = new JPanel();
 
 		// Button
 		JPanel jPanelButton = new JPanel();
 		VFlowLayout VFlowLayout1 = new VFlowLayout();
-		JPanel panelMid = new JPanel();
 		jPanelButton.setLayout(VFlowLayout1);
 		jBOK.setActionCommand("");
 		jBOK.setText("确定(O)");
@@ -1021,7 +1019,7 @@ public class DialogOptions extends JDialog {
 				ConfigOptions.dispLogTypes());
 		jCBLogType.x_setSelectedCodeItem(ConfigConsts.LOG_DEFAULT);
 		// Normal
-		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
+		JPanel panelNormal = new JPanel(new VFlowLayout(VFlowLayout.TOP));
 		panelNormal.add(jPIdeOpt);
 		jPIdeOpt.setLayout(ideOptLayout);
 		jPIdeOpt.add(jCBIdeConsole, null);
@@ -1038,10 +1036,6 @@ public class DialogOptions extends JDialog {
 		jPIdeOpt.add(jCBAutoTrimChar0, null);
 		jPIdeOpt.add(jCBAdjustNoteCell, null);
 
-		GridBagLayout gridBagLayout3 = new GridBagLayout();
-
-		panelMid.setLayout(gridBagLayout3);
-
 		// labelFontName.setForeground(Color.blue);
 
 		jCBFontName = new JComboBox(GM.getFontNames());
@@ -1057,6 +1051,7 @@ public class DialogOptions extends JDialog {
 		if (javaVersion.compareTo("1.9") > 0) {
 			isHighVersionJDK = true;
 		}
+		JPanel panelMid = new JPanel(new GridBagLayout());
 		if (!isHighVersionJDK) { // SubstanceUI不支持高版本JDK
 			panelMid.add(jLabel22, GM.getGBC(1, 1));
 			panelMid.add(jCBLNF, GM.getGBC(1, 2, true));
@@ -1102,7 +1097,7 @@ public class DialogOptions extends JDialog {
 		GridBagConstraints gbc;
 		gbc = GM.getGBC(5, 1, true, true);
 		gbc.gridwidth = 4;
-		panelMid.add(panelVM, gbc);
+		// panelMid.add(panelVM, gbc);
 
 		JPanel panelXmx = new JPanel(new GridBagLayout());
 		panelXmx.add(jLXmx, GM.getGBC(1, 1));
@@ -1175,6 +1170,7 @@ public class DialogOptions extends JDialog {
 		});
 
 		panelNormal.add(panelMid);
+		panelNormal.add(panelVM);
 		JPanel jp1 = new JPanel();
 		jp1.setLayout(new GridBagLayout());
 		jp1.add(jLabelNote, GM.getGBC(1, 1, true));
