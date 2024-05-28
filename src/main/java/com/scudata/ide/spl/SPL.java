@@ -1465,6 +1465,9 @@ public class SPL extends AppFrame {
 		return splashFile;
 	}
 
+	/**
+	 * Load ext librarys
+	 */
 	public static void loadExtLibs() {
 		if (GV.config != null) {
 			try {
