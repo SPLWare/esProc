@@ -543,7 +543,8 @@ public class JTextPaneEx extends JTextPane {
 	private synchronized void resetCAList(List<CA> cas) {
 		try {
 			preventChanged = true;
-			GVSpl.toolBarProperty.preventAction = true;
+			if (GVSpl.toolBarProperty != null)
+				GVSpl.toolBarProperty.preventAction = true;
 			for (CA ca : cas) {
 				doc.setCharacterAttributes(ca.offset, ca.length, ca.s,
 						ca.replace);
@@ -554,7 +555,8 @@ public class JTextPaneEx extends JTextPane {
 				}
 			});
 		} finally {
-			GVSpl.toolBarProperty.preventAction = false;
+			if (GVSpl.toolBarProperty != null)
+				GVSpl.toolBarProperty.preventAction = false;
 			preventChanged = false;
 		}
 	}

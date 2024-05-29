@@ -284,6 +284,9 @@ public class GMSpl extends GM {
 	 */
 	public static Vector<IAtomicCmd> getMoveRectCmd(SplEditor editor,
 			CellRect srcRect, CellRect tarRect) {
+		if (editor == null) {
+			return null;
+		}
 		if (srcRect.getColCount() == 0) {
 			return null;
 		}

@@ -130,13 +130,14 @@ public class CellEditingListener implements KeyListener {
 							SplEditor editor = ControlUtils
 									.extractSplEditor(control);
 							control.getContentPanel().revalidate();
-							editor.appendRows(1);
+							if (editor != null)
+								editor.appendRows(1);
 						}
 					}
 					control.scrollToArea(control.toDownCell());
 				}
-
-				GVSpl.panelValue.tableValue.setLocked(false);
+				if (GVSpl.panelValue != null)
+					GVSpl.panelValue.tableValue.setLocked(false);
 			}
 			break;
 		case KeyEvent.VK_ESCAPE:
@@ -309,14 +310,14 @@ public class CellEditingListener implements KeyListener {
 		}
 		return null;
 	}
-	
+
 	protected boolean isMatching() {
 		return false;
 	}
-	
-	protected void keyPressed(int keyCode){
+
+	protected void keyPressed(int keyCode) {
 	}
-	
+
 	protected void stopMatch() {
 	}
 

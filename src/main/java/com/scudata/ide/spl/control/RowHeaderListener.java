@@ -22,7 +22,8 @@ import com.scudata.ide.spl.GCSpl;
  * 行表头监听器
  *
  */
-public class RowHeaderListener implements MouseMotionListener, MouseListener, KeyListener {
+public class RowHeaderListener implements MouseMotionListener, MouseListener,
+		KeyListener {
 	/** 网格编辑控件 */
 	private SplControl control;
 
@@ -85,7 +86,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			return;
 		}
 		control.getRowHeader().getView().requestFocus();
-		final int row = ControlUtils.lookupHeaderIndex(e.getY(), control.cellY, control.cellH);
+		final int row = ControlUtils.lookupHeaderIndex(e.getY(), control.cellY,
+				control.cellH);
 		if (row < 0) {
 			return;
 		}
@@ -101,7 +103,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			}
 		}
 		if (e.getButton() == MouseEvent.BUTTON1 || !rowIsSelected) {
-			if (control.status != GCSpl.STATUS_CELLRESIZE || e.getButton() != MouseEvent.BUTTON1) {
+			if (control.status != GCSpl.STATUS_CELLRESIZE
+					|| e.getButton() != MouseEvent.BUTTON1) {
 				resizeStartRow = 0;
 				if (!e.isControlDown()) {
 					control.clearSelectedArea();
@@ -118,23 +121,28 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 				control.m_cornerSelected = false;
 				if (e.isShiftDown() && this.startSelectedRow > 0) {
 					control.m_selectedRows = new Vector<Integer>();
-					int start = row < this.startSelectedRow ? row : this.startSelectedRow;
-					int end = row < this.startSelectedRow ? this.startSelectedRow : row;
+					int start = row < this.startSelectedRow ? row
+							: this.startSelectedRow;
+					int end = row < this.startSelectedRow ? this.startSelectedRow
+							: row;
 					for (int i = start; i <= end; i++) {
 						control.addSelectedRow(new Integer(i));
 					}
-					control.addSelectedArea(new Area(start, (int) 1, end, (int) control.cellSet.getColCount()), false);
+					control.addSelectedArea(new Area(start, (int) 1, end,
+							(int) control.cellSet.getColCount()), false);
 				} else {
 					this.startSelectedRow = row;
 					control.addSelectedRow(new Integer(row));
-					control.addSelectedArea(new Area(row, (int) 1, row, (int) control.cellSet.getColCount()), false);
+					control.addSelectedArea(new Area(row, (int) 1, row,
+							(int) control.cellSet.getColCount()), false);
 				}
 				control.repaint();
 				control.fireRegionSelect(true);
 			} else if (e.getButton() == MouseEvent.BUTTON1) {
 				control.getContentPanel().submitEditor();
 				resizeStartY = e.getY();
-				resizeStartRow = ControlUtils.lookupHeaderIndex(resizeStartY, control.cellY, control.cellH);
+				resizeStartRow = ControlUtils.lookupHeaderIndex(resizeStartY,
+						control.cellY, control.cellH);
 				oldCellHeight = control.cellH[row] / control.scale;
 				tmpHeight = control.cellH[row];
 			}
@@ -155,7 +163,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			return;
 		}
 		int y = e.getY();
-		int row = ControlUtils.lookupHeaderIndex(y, control.cellY, control.cellH);
+		int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
+				control.cellH);
 		// 拖拽时，刷新控件造成拖不动，只要被拖拽了，就禁止活动格
 		if (activeCell != null && control.m_selectedRows != null
 				&& control.m_selectedRows.contains(activeCell.getRow())) {
@@ -169,8 +178,10 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 				Vector<Integer> willResizeRows = new Vector<Integer>();
 				willResizeRows.add(new Integer(row));
 				if (!control.m_selectedRows.isEmpty()) {
-					int r1 = ((Integer) control.m_selectedRows.get(0)).intValue();
-					int r2 = ((Integer) control.m_selectedRows.get(control.m_selectedRows.size() - 1)).intValue();
+					int r1 = ((Integer) control.m_selectedRows.get(0))
+							.intValue();
+					int r2 = ((Integer) control.m_selectedRows
+							.get(control.m_selectedRows.size() - 1)).intValue();
 					int selectedStartRow = Math.min(r1, r2);
 					int selectedEndRow = Math.max(r1, r2);
 					if (row >= selectedStartRow && row <= selectedEndRow) {
@@ -180,18 +191,21 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 				IRowCell rc = control.cellSet.getRowCell(row);
 				if (rc != null) {
 					rc.setHeight(oldCellHeight);
-					control.fireRowHeaderResized(willResizeRows, tmpHeight / control.scale);
+					control.fireRowHeaderResized(willResizeRows, tmpHeight
+							/ control.scale);
 				}
 			}
 		} else {
 			if (e.getX() > RowHeaderPanel.getHeaderW(control)) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					SplEditor editor = ControlUtils.extractSplEditor(control);
-					if (editor.expandRow(row)) {
+					if (editor != null && editor.expandRow(row)) {
 						control.contentView.initCellLocations();
-						((RowHeaderPanel) control.getRowHeaderPanel()).initRowLocations();
+						((RowHeaderPanel) control.getRowHeaderPanel())
+								.initRowLocations();
 						Vector<Object> newAreas = new Vector<Object>();
-						newAreas.add(new Area(row, (short) 1, row, (short) control.cellSet.getColCount()));
+						newAreas.add(new Area(row, (short) 1, row,
+								(short) control.cellSet.getColCount()));
 						editor.setSelectedAreas(newAreas);
 						editor.resetEditor();
 						control.setActiveCell(new CellLocation(row, 1));
@@ -224,16 +238,20 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 		// 双击行标题的格线，触发自动调整行高的功能
 		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
 			int y = e.getY();
-			int row = ControlUtils.lookupHeaderIndex(y, control.cellY, control.cellH);
+			int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
+					control.cellH);
 			if (row < 1) {
 				return;
 			}
-			if (y >= control.cellY[row] + control.cellH[row] - 2 && y <= control.cellY[row] + control.cellH[row]) {
+			if (y >= control.cellY[row] + control.cellH[row] - 2
+					&& y <= control.cellY[row] + control.cellH[row]) {
 				SplEditor editor = ControlUtils.extractSplEditor(control);
-				Vector<Integer> rows = new Vector<Integer>();
-				rows.add(new Integer(row));
-				editor.selectedRows = rows;
-				editor.adjustRowHeight();
+				if (editor != null) {
+					Vector<Integer> rows = new Vector<Integer>();
+					rows.add(new Integer(row));
+					editor.selectedRows = rows;
+					editor.adjustRowHeight();
+				}
 			}
 		}
 	}
@@ -254,7 +272,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			return;
 		}
 		int y = e.getY();
-		int row = ControlUtils.lookupHeaderIndex(y, control.cellY, control.cellH);
+		int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
+				control.cellH);
 		if (control.status == GCSpl.STATUS_NORMAL) {
 			if (row < 0) {
 				return;
@@ -269,8 +288,11 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			for (int i = start; i <= end; i++) {
 				control.addSelectedRow(new Integer(i));
 			}
-			control.addSelectedArea(new Area(start, 1, end, control.cellSet.getColCount()), true);
-			if (ControlUtils.scrollToVisible(control.getRowHeader(), control, row, (int) 0)) {
+			control.addSelectedArea(
+					new Area(start, 1, end, control.cellSet.getColCount()),
+					true);
+			if (ControlUtils.scrollToVisible(control.getRowHeader(), control,
+					row, (int) 0)) {
 				Point p1 = control.getRowHeader().getViewPosition();
 				Point p2 = control.getViewport().getViewPosition();
 				p2.y = p1.y;
@@ -312,18 +334,29 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			return;
 		}
 		int y = e.getY();
-		int row = ControlUtils.lookupHeaderIndex(y, control.cellY, control.cellH);
+		int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
+				control.cellH);
 		if (row < 0) {
 			control.status = GCSpl.STATUS_NORMAL;
-			control.getRowHeader().getView().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			control.getRowHeader()
+					.getView()
+					.setCursor(
+							Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			return;
 		}
-		if (y >= control.cellY[row] + control.cellH[row] - 2 && y <= control.cellY[row] + control.cellH[row]) {
+		if (y >= control.cellY[row] + control.cellH[row] - 2
+				&& y <= control.cellY[row] + control.cellH[row]) {
 			control.status = GCSpl.STATUS_CELLRESIZE;
-			control.getRowHeader().getView().setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+			control.getRowHeader()
+					.getView()
+					.setCursor(
+							Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
 		} else {
 			control.status = GCSpl.STATUS_NORMAL;
-			control.getRowHeader().getView().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			control.getRowHeader()
+					.getView()
+					.setCursor(
+							Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 
@@ -362,7 +395,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 				return;
 			}
 			int start = ((Integer) control.m_selectedRows.get(0)).intValue();
-			int end = ((Integer) control.m_selectedRows.get(control.m_selectedRows.size() - 1)).intValue();
+			int end = ((Integer) control.m_selectedRows
+					.get(control.m_selectedRows.size() - 1)).intValue();
 			if (this.startSelectedRow == start) {
 				end++;
 			} else {
@@ -380,8 +414,10 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			for (int i = start; i <= end; i++) {
 				control.addSelectedRow(new Integer(i));
 			}
-			control.addSelectedArea(new Area(start, (int) 1, end, (int) control.cellSet.getColCount()), true);
-			if (ControlUtils.scrollToVisible(control.getRowHeader(), control, end, (int) 0)) {
+			control.addSelectedArea(new Area(start, (int) 1, end,
+					(int) control.cellSet.getColCount()), true);
+			if (ControlUtils.scrollToVisible(control.getRowHeader(), control,
+					end, (int) 0)) {
 				Point p1 = control.getRowHeader().getViewPosition();
 				Point p2 = control.getViewport().getViewPosition();
 				p2.y = p1.y;
@@ -398,7 +434,8 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 				return;
 			}
 			start = ((Integer) control.m_selectedRows.get(0)).intValue();
-			end = ((Integer) control.m_selectedRows.get(control.m_selectedRows.size() - 1)).intValue();
+			end = ((Integer) control.m_selectedRows.get(control.m_selectedRows
+					.size() - 1)).intValue();
 			if (this.startSelectedRow == end) {
 				start--;
 			} else {
@@ -416,8 +453,10 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener, Ke
 			for (int i = start; i <= end; i++) {
 				control.addSelectedRow(new Integer(i));
 			}
-			control.addSelectedArea(new Area(start, (int) 1, end, (int) control.cellSet.getColCount()), true);
-			if (ControlUtils.scrollToVisible(control.getRowHeader(), control, start, (int) 0)) {
+			control.addSelectedArea(new Area(start, (int) 1, end,
+					(int) control.cellSet.getColCount()), true);
+			if (ControlUtils.scrollToVisible(control.getRowHeader(), control,
+					start, (int) 0)) {
 				Point p1 = control.getRowHeader().getViewPosition();
 				Point p2 = control.getViewport().getViewPosition();
 				p2.y = p1.y;

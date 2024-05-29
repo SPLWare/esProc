@@ -1356,7 +1356,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return;
 		}
 
-		if (!((SheetSpl) GV.appSheet).isCellSetEditable()) {
+		if (GV.appSheet != null
+				&& !((SheetSpl) GV.appSheet).isCellSetEditable()) {
 			if (editor != null && editor.isVisible()) {
 				editor.setVisible(false);
 			}

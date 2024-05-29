@@ -40,48 +40,48 @@ import com.scudata.ide.spl.SheetSpl;
 public class CellSelectListener implements MouseMotionListener, MouseListener,
 		KeyListener {
 	/** 编辑控件 */
-	private SplControl control;
+	protected SplControl control;
 
 	/** 内容面板 */
-	private ContentPanel cp;
+	protected ContentPanel cp;
 
 	/**
 	 * 是否可以编辑
 	 */
-	private boolean editable = true;
+	protected boolean editable = true;
 
 	/** 方向键向上 */
-	private final byte NEXT_TOP = 1;
+	protected final byte NEXT_TOP = 1;
 	/** 方向键向下 */
-	private final byte NEXT_BOTTOM = 2;
+	protected final byte NEXT_BOTTOM = 2;
 	/** 方向键向左 */
-	private final byte NEXT_LEFT = 3;
+	protected final byte NEXT_LEFT = 3;
 	/** 方向键向右 */
-	private final byte NEXT_RIGHT = 4;
+	protected final byte NEXT_RIGHT = 4;
 
 	/** 拖拽向上 */
-	private final byte FORWARD_UP = 0x1;
+	protected final byte FORWARD_UP = 0x1;
 	/** 拖拽向下 */
-	private final byte FORWARD_DOWN = 0x2;
+	protected final byte FORWARD_DOWN = 0x2;
 	/** 拖拽向左 */
-	private final byte FORWARD_LEFT = 0x4;
+	protected final byte FORWARD_LEFT = 0x4;
 	/** 拖拽向右 */
-	private final byte FORWARD_RIGHT = 0x8;
+	protected final byte FORWARD_RIGHT = 0x8;
 
 	/**
 	 * 拖拽的定时器
 	 */
-	private javax.swing.Timer dragTimer = null;
+	protected javax.swing.Timer dragTimer = null;
 
 	/**
 	 * 行号和列号
 	 */
-	private int row = 0, col = 0;
+	protected int row = 0, col = 0;
 
 	/**
 	 * 拖拽方向
 	 */
-	private byte forward = 0;
+	protected byte forward = 0;
 
 	/**
 	 * 监听器构造函数
@@ -317,7 +317,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * 
 	 * @param e
 	 */
-	private void whenCursorMoving(MouseEvent e) {
+	protected void whenCursorMoving(MouseEvent e) {
 		if (control.getActiveCell() == null) {
 			return;
 		}
@@ -344,7 +344,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param x
 	 * @param y
 	 */
-	private void holdDrag(int x, int y) {
+	protected void holdDrag(int x, int y) {
 		row = 0;
 		col = 0;
 		forward = 0;
@@ -458,7 +458,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param row 行号
 	 * @param col 列号
 	 */
-	private void scrollToArea(int row, int col) {
+	protected void scrollToArea(int row, int col) {
 		control.status = GC.STATUS_SELECTING;
 		Area area = new Area(control.getActiveCell().getRow(), control
 				.getActiveCell().getCol(), row, col);
@@ -514,9 +514,11 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			} else if (e.isShiftDown()) {
 				return;
 			} else if (e.isControlDown()) {
-				editor.hotKeyInsert(SplEditor.HK_CTRL_ENTER);
+				if (editor != null)
+					editor.hotKeyInsert(SplEditor.HK_CTRL_ENTER);
 			} else if (GM.isMacOS() && e.isMetaDown()) {
-				editor.hotKeyInsert(SplEditor.HK_CTRL_ENTER);
+				if (editor != null)
+					editor.hotKeyInsert(SplEditor.HK_CTRL_ENTER);
 			} else {
 				GVSpl.panelValue.tableValue.setLocked(false);
 				CellSetParser parser = new CellSetParser(control.cellSet);
@@ -539,7 +541,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 							.setActiveCell(new CellLocation(curRow, nextCol)));
 				} else {
 					if (curRow == ics.getRowCount()) {
-						editor.appendRows(1);
+						if (editor != null)
+							editor.appendRows(1);
 					} else { // 后面都是隐藏行
 						boolean allHide = true;
 						for (int r = curRow + 1; r <= ics.getRowCount(); r++) {
@@ -549,10 +552,12 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 							}
 						}
 						if (allHide) {
-							AtomicSpl cmd = editor.getInsertRow(false,
-									new CellRect(curRow, (int) 1, 1, (int) 1));
-							editor.executeCmd(cmd);
-							// editor.appendRows(1);
+							if (editor != null) {
+								AtomicSpl cmd = editor.getInsertRow(false,
+										new CellRect(curRow, (int) 1, 1,
+												(int) 1));
+								editor.executeCmd(cmd);
+							}
 						}
 					}
 					control.scrollToArea(control.toDownCell());
@@ -562,7 +567,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 		case KeyEvent.VK_BACK_SPACE:
 			if (GM.isMacOS()) {
 				if (!e.isAltDown() && !e.isMetaDown() && !e.isShiftDown()) {
-					editor.clear(SplEditor.CLEAR_EXP);
+					if (editor != null)
+						editor.clear(SplEditor.CLEAR_EXP);
 					break;
 				}
 				return;
@@ -859,9 +865,11 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			return;
 		case KeyEvent.VK_INSERT:
 			if (e.isControlDown()) {
-				editor.hotKeyInsert(SplEditor.HK_CTRL_INSERT);
+				if (editor != null)
+					editor.hotKeyInsert(SplEditor.HK_CTRL_INSERT);
 			} else if (e.isAltDown()) {
-				editor.hotKeyInsert(SplEditor.HK_ALT_INSERT);
+				if (editor != null)
+					editor.hotKeyInsert(SplEditor.HK_ALT_INSERT);
 			}
 			break;
 		case KeyEvent.VK_TAB:
@@ -873,7 +881,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 				isCtrlDown = true;
 			} else {
 				if (curCol == ics.getColCount()) {
-					editor.appendCols(1);
+					if (editor != null)
+						editor.appendCols(1);
 				}
 				control.scrollToArea(control.toRightCell());
 			}
@@ -885,7 +894,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 		case KeyEvent.VK_I:
 			if (GM.isMacOS()) {
 				if (e.isMetaDown() && !e.isControlDown() && !e.isAltDown()) {
-					editor.hotKeyInsert(SplEditor.HK_CTRL_INSERT);
+					if (editor != null)
+						editor.hotKeyInsert(SplEditor.HK_CTRL_INSERT);
 				}
 			} else {
 				if (e.isControlDown() && !e.isShiftDown() && !e.isAltDown()) {
@@ -899,19 +909,23 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			if (e.getKeyCode() == KeyEvent.VK_C && e.isAltDown()
 					&& !e.isControlDown()) {
 				if (e.isShiftDown()) {
-					if (editor.canCopyPresent()) {
-						editor.copyPresent();
-						break;
+					if (editor != null) {
+						if (editor.canCopyPresent()) {
+							editor.copyPresent();
+							break;
+						}
 					}
 				} else {
-					editor.altC();
+					if (editor != null)
+						editor.altC();
 					break;
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_V && e.isAltDown()
 					&& !e.isControlDown()) {
 				if (!e.isShiftDown()) {
-					editor.altV();
+					if (editor != null)
+						editor.altV();
 					break;
 				}
 			}
@@ -944,14 +958,14 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 是否按下了CTRL键
 	 */
-	private boolean isCtrlDown = false;
+	protected boolean isCtrlDown = false;
 
 	/**
 	 * 设置光标
 	 * 
 	 * @param cell
 	 */
-	private void setCursor(INormalCell cell) {
+	protected void setCursor(INormalCell cell) {
 		boolean isActive = false;
 		if (control.getActiveCell() != null) {
 			if (control.getActiveCell().getRow() == cell.getRow()
@@ -972,7 +986,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param connectRow int
 	 * @param upCol      int
 	 */
-	private void connectRowUpTo(int connectRow, int upCol) {
+	protected void connectRowUpTo(int connectRow, int upCol) {
 		int usedCols = getUsedCols(connectRow);
 		if (usedCols == 0) { // Ctrl-BackSpace光标乱的问题
 			usedCols = 1;
@@ -1000,7 +1014,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param row int
 	 * @return int
 	 */
-	private int getFirstNonEmptyColumn(int row) {
+	protected int getFirstNonEmptyColumn(int row) {
 		CellSet ics = control.getCellSet();
 		for (int c = 1; c <= ics.getColCount(); c++) {
 			NormalCell nc = (NormalCell) ics.getCell(row, c);
@@ -1018,7 +1032,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param direction byte
 	 * @return CellPosition
 	 */
-	private CellLocation getNextPos(CellLocation pos, byte direction) {
+	protected CellLocation getNextPos(CellLocation pos, byte direction) {
 		CellSet ics = control.getCellSet();
 		CellSetParser parser = new CellSetParser(ics);
 		int row = pos.getRow();
@@ -1099,7 +1113,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param row int
 	 * @return int
 	 */
-	private int getEmptyColumns(int row) {
+	protected int getEmptyColumns(int row) {
 		CellSet ics = control.getCellSet();
 		int colCount = (int) ics.getColCount();
 		for (int c = colCount; c >= 1; c--) {
@@ -1129,7 +1143,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param col
 	 * @return
 	 */
-	private int getEmptyRows(int col) {
+	protected int getEmptyRows(int col) {
 		CellSet ics = control.getCellSet();
 		int rowCount = ics.getRowCount();
 		for (int r = rowCount; r >= 1; r--) {
@@ -1148,7 +1162,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	 * @param tarRect 目标矩形区域
 	 * @return
 	 */
-	private boolean moveRect(CellRect srcRect, CellRect tarRect) {
+	protected boolean moveRect(CellRect srcRect, CellRect tarRect) {
 		return moveRect(srcRect, tarRect, true);
 	}
 

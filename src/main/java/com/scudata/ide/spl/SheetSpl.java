@@ -3171,7 +3171,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			dialogParameter();
 			break;
 		case GCSpl.iCTRL_BACK:
-			splControl.ctrlBackSpace();
+			splEditor.ctrlBackSpace();
 			break;
 		case GCSpl.iCLEAR:
 			splEditor.clear(SplEditor.CLEAR_EXP);
@@ -3180,7 +3180,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			splEditor.clear(SplEditor.CLEAR);
 			break;
 		case GCSpl.iCTRL_DELETE:
-			splControl.ctrlDelete();
+			splEditor.ctrlDelete();
 			break;
 		case GCSpl.iDELETE_COL:
 		case GCSpl.iDELETE_ROW:

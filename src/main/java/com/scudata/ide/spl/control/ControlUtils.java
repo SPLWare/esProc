@@ -25,6 +25,9 @@ public class ControlUtils extends ControlUtilsBase {
 	 * @return
 	 */
 	public static SplEditor extractSplEditor(SplControl control) {
+		if (control.m_editorListener == null
+				|| control.m_editorListener.isEmpty())
+			return null;
 		if (control.m_editorListener.get(0) instanceof SplControlListener) {
 			return ((SplControlListener) control.m_editorListener.get(0))
 					.getEditor();

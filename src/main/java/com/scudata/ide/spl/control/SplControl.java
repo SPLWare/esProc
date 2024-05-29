@@ -16,21 +16,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.text.JTextComponent;
 
 import com.scudata.cellset.ICellSet;
-import com.scudata.cellset.INormalCell;
-import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Area;
 import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
-import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GC;
-import com.scudata.ide.common.IAtomicCmd;
-import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.ControlBase;
 import com.scudata.ide.common.control.ControlUtilsBase;
-import com.scudata.ide.spl.AtomicSpl;
-import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.SheetSpl;
 
 /**
@@ -1480,160 +1473,6 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_selectedCols.clear();
 		fireRegionSelect(false);
-	}
-
-	/**
-	 * 删除左边格子，当前格在首列时移动到上一行最后有内容格子的最后。CTRL-BACKSPACE事件
-	 */
-	public void ctrlBackSpace() {
-		CellLocation activeCell = getActiveCell();
-		if (activeCell == null) {
-			return;
-		}
-		int curCol = activeCell.getCol();
-		int curRow = activeCell.getRow();
-		CellSet ics = getCellSet();
-
-		CellRect srcRect, tarRect;
-
-		if (curCol > 1) {
-			int moveCols = ics.getColCount() - curCol + 1;
-			srcRect = new CellRect(curRow, curCol, 1, moveCols);
-			tarRect = new CellRect(curRow, curCol - 1, 1, moveCols);
-			moveRect(srcRect, tarRect);
-		} else if (curRow > 1) {
-			int topUsedCols = getUsedCols(curRow - 1);
-			connectRowUpTo(curRow, topUsedCols + 1);
-		}
-
-	}
-
-	/**
-	 * 删除本格。只选中一个格子，而且后面为空时〔包含本格〕,将下一行接上来。CTRL-DELETE事件
-	 */
-	public void ctrlDelete() {
-		Area a = null;
-		CellRect rect = null;
-		if (getSelectedAreas().size() > 0) {
-			a = getSelectedArea(0);
-			rect = new CellRect(a);
-		}
-		CellLocation activeCell = getActiveCell();
-		if (activeCell == null) {
-			return;
-		}
-		CellSet ics = getCellSet();
-		int curCol = activeCell.getCol();
-		int curRow = activeCell.getRow();
-		int usedCols = getUsedCols(curRow);
-		CellRect srcRect, tarRect;
-
-		if ((a.getBeginRow() == a.getEndRow() && a.getBeginCol() == a
-				.getEndCol())
-				&& usedCols <= curCol
-				&& curRow < ics.getRowCount()) {
-			connectRowUpTo(curRow + 1, curCol);
-		} else {
-			int moveCols = ics.getColCount() - a.getEndCol();
-			srcRect = new CellRect(a.getBeginRow(), a.getEndCol() + 1,
-					rect.getRowCount(), moveCols);
-			tarRect = new CellRect(a.getBeginRow(), a.getBeginCol(),
-					rect.getRowCount(), moveCols);
-			moveRect(srcRect, tarRect);
-		}
-		this.contentView.reloadEditorText();
-	}
-
-	/**
-	 * 移动区域
-	 * 
-	 * @param srcRect 源区域
-	 * @param tarRect 目标区域
-	 * @return
-	 */
-	private boolean moveRect(CellRect srcRect, CellRect tarRect) {
-		return moveRect(srcRect, tarRect, true);
-	}
-
-	/**
-	 * 移动区域
-	 * 
-	 * @param srcRect        源区域
-	 * @param tarRect        目标区域
-	 * @param scrollToTarget 目标区域未显示时，是否滚动到目标区域使其显示
-	 * @return
-	 */
-	private boolean moveRect(CellRect srcRect, CellRect tarRect,
-			boolean scrollToTarget) {
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
-				ControlUtils.extractSplEditor(this), srcRect, tarRect);
-		if (cmds == null) {
-			return false;
-		}
-		ControlUtils.extractSplEditor(this).executeCmd(cmds);
-		if (scrollToTarget) {
-			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(),
-					tarRect.getBeginCol())));
-		}
-		return true;
-	}
-
-	/**
-	 * 获取指定行中使用的列（非空）
-	 * 
-	 * @param row 行号
-	 * @return
-	 */
-	private int getUsedCols(int row) {
-		CellSet ics = getCellSet();
-		int colCount = ics.getColCount();
-		return colCount - getEmptyColumns(row);
-	}
-
-	/**
-	 * 获取指定行中空的列
-	 * 
-	 * @param row 行号
-	 * @return
-	 */
-	private int getEmptyColumns(int row) {
-		CellSet ics = getCellSet();
-		int colCount = ics.getColCount();
-		for (int c = colCount; c >= 1; c--) {
-			INormalCell nc = ics.getCell(row, c);
-			if (StringUtils.isValidString(nc.getExpString())) {
-				return colCount - c;
-			}
-		}
-		return colCount;
-	}
-
-	/**
-	 * 将connnectRow连接到上一行的upCol位置
-	 * 
-	 * @param connectRow int
-	 * @param upCol      int
-	 */
-	private void connectRowUpTo(int connectRow, int upCol) {
-		int usedCols = getUsedCols(connectRow);
-		if (usedCols == 0) {
-			usedCols = 1;
-		}
-		CellRect srcRect = new CellRect(connectRow, (int) 1, 1, usedCols);
-		CellRect tarRect = new CellRect(connectRow - 1, upCol, 1, usedCols);
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
-				ControlUtils.extractSplEditor(this), srcRect, tarRect);
-		if (cmds != null && !cmds.isEmpty()) {
-			AtomicSpl cmd = new AtomicSpl(this);
-			cmd.setType(AtomicSpl.REMOVE_ROW);
-			CellRect rect = new CellRect(connectRow, (int) 1, 1,
-					(int) cellSet.getColCount());
-			cmd.setRect(rect);
-			cmds.add(cmd);
-			ControlUtils.extractSplEditor(this).executeCmd(cmds);
-			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(),
-					tarRect.getBeginCol())));
-		}
 	}
 
 	/**

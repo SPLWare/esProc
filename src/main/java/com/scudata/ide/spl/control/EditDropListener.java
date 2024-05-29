@@ -116,7 +116,9 @@ public class EditDropListener implements DropTargetListener {
 			// nc.setValue(GM.getOptionTrimChar0Value(data));
 		}
 		SplEditor editor = ControlUtils.extractSplEditor(control);
-		editor.executeCmd(ac);
+		if (editor != null) {
+			editor.executeCmd(ac);
+		}
 
 		control.setActiveCell(pos);
 		control.setSelectedArea(new Area(pos.getRow(), pos.getCol(), pos

@@ -98,7 +98,7 @@ public class EditControl extends SplControl {
 
 	private ScaleListener mouseWheelListener = null;
 
-	private synchronized ScaleListener getMouseWheelListener() {
+	protected synchronized ScaleListener getMouseWheelListener() {
 		if (mouseWheelListener == null) {
 			mouseWheelListener = new ScaleListener();
 			mouseWheelListener.setMouseWheelListeners(getMouseWheelListeners());
