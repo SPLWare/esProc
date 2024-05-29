@@ -517,7 +517,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 				if (editor != null)
 					editor.hotKeyInsert(SplEditor.HK_CTRL_ENTER);
 			} else {
-				GVSpl.panelValue.tableValue.setLocked(false);
+				if (GVSpl.panelValue != null)
+					GVSpl.panelValue.tableValue.setLocked(false);
 				CellSetParser parser = new CellSetParser(control.cellSet);
 				PgmNormalCell cell;
 				int nextCol = -1;
@@ -538,8 +539,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 							.setActiveCell(new CellLocation(curRow, nextCol)));
 				} else {
 					if (curRow == ics.getRowCount()) {
-						if (editor != null)
-							editor.appendRows(1);
+						appendOneRow();
 					} else { // 后面都是隐藏行
 						boolean allHide = true;
 						for (int r = curRow + 1; r <= ics.getRowCount(); r++) {
@@ -878,8 +878,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 				isCtrlDown = true;
 			} else {
 				if (curCol == ics.getColCount()) {
-					if (editor != null)
-						editor.appendCols(1);
+					appendOneCol();
 				}
 				control.scrollToArea(control.toRightCell());
 			}
@@ -1228,5 +1227,17 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 		if (e.isPopupTrigger()) {
 			control.fireRightClicked(e, GC.SELECT_STATE_CELL);
 		}
+	}
+
+	protected void appendOneRow() {
+		SplEditor editor = ControlUtils.extractSplEditor(control);
+		if (editor != null)
+			editor.appendRows(1);
+	}
+
+	protected void appendOneCol() {
+		SplEditor editor = ControlUtils.extractSplEditor(control);
+		if (editor != null)
+			editor.appendCols(1);
 	}
 }

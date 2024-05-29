@@ -555,7 +555,7 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 在表格最后一列点击"tab"键在末列后增加一列时，更新表格列首的坐标和宽度
 	 */
-	private void updateCoords() {
+	protected void updateCoords() {
 		int cols = cellSet.getColCount() + 1;
 		if (cellX == null || cols != cellX.length) {
 			cellX = new int[cols];
@@ -1297,7 +1297,7 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 当插入列、改变列宽时，重设控件宽度
 	 */
-	private void resetControlWidth() {
+	protected void resetControlWidth() {
 		Point hp = this.getColumnHeader().getViewPosition();
 		Point p = this.getViewport().getViewPosition();
 		this.getColumnHeader().setView(this.createColHeaderView());
@@ -1310,7 +1310,7 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 当插入行、改变行高时，重设控件高度
 	 */
-	private void resetControlHeight() {
+	protected void resetControlHeight() {
 		Point hp = this.getRowHeader().getViewPosition();
 		Point p = this.getViewport().getViewPosition();
 		this.getRowHeader().setView(this.createRowHeaderView());
