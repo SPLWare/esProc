@@ -21,19 +21,19 @@ import com.scudata.ide.spl.GCSpl;
 public class RowHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	/** 网格编辑控件 */
-	private SplControl control;
+	protected SplControl control;
 	/**
 	 * 是否可以编辑
 	 */
-	private boolean editable = true;
+	protected boolean editable = true;
 	/**
 	 * 网格解析器
 	 */
-	CellSetParser parser;
+	protected CellSetParser parser;
 	/**
 	 * 图标的尺寸
 	 */
-	private final int ICON_SIZE = 12;
+	protected final int ICON_SIZE = 12;
 
 	/**
 	 * 行首格面板构造函数
@@ -81,7 +81,7 @@ public class RowHeaderPanel extends JPanel {
 	/**
 	 * 初始化坐标
 	 */
-	private void initCoords() {
+	protected void initCoords() {
 		int rows = control.cellSet.getRowCount() + 1;
 		if (control.cellY == null || rows != control.cellY.length) {
 			initRowLocations(rows);

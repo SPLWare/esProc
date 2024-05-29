@@ -72,7 +72,9 @@ public class CellEditingListener implements KeyListener {
 			}
 			if (e.isAltDown()) {
 				stopMatch();
-				((SheetSpl) GVSpl.appSheet).calcActiveCell(false);
+				if (GVSpl.appSheet != null
+						&& GVSpl.appSheet instanceof SheetSpl)
+					((SheetSpl) GVSpl.appSheet).calcActiveCell(false);
 				break;
 			} else if (e.isControlDown()) {
 				stopMatch();
@@ -90,7 +92,9 @@ public class CellEditingListener implements KeyListener {
 			} else if (e.isShiftDown()) {
 				stopMatch();
 				// 接受内容、执行（不论是否有实质改动）、显示结果并自动钉住、不移动光标
-				((SheetSpl) GVSpl.appSheet).calcActiveCell();
+				if (GVSpl.appSheet != null
+						&& GVSpl.appSheet instanceof SheetSpl)
+					((SheetSpl) GVSpl.appSheet).calcActiveCell();
 				break;
 			} else {
 				if (isMatching) {
@@ -127,11 +131,8 @@ public class CellEditingListener implements KeyListener {
 						CellSet ics = control.getCellSet();
 						if (curRow == ics.getRowCount()) {
 							control.getContentPanel().submitEditor();
-							SplEditor editor = ControlUtils
-									.extractSplEditor(control);
 							control.getContentPanel().revalidate();
-							if (editor != null)
-								editor.appendRows(1);
+							appendOneRow();
 						}
 					}
 					control.scrollToArea(control.toDownCell());
@@ -169,7 +170,8 @@ public class CellEditingListener implements KeyListener {
 				if (isMatching) {
 					stopMatch();
 				}
-				((SPL) GVSpl.appFrame).showNextSheet(isCtrlDown);
+				if (GVSpl.appFrame != null && GVSpl.appFrame instanceof SPL)
+					((SPL) GVSpl.appFrame).showNextSheet(isCtrlDown);
 				isCtrlDown = true;
 			} else {
 				if (isMatching) {
@@ -182,7 +184,7 @@ public class CellEditingListener implements KeyListener {
 				CellSet ics = control.getCellSet();
 				if (curCol == ics.getColCount()) {
 					control.getContentPanel().submitEditor();
-					ControlUtils.extractSplEditor(control).appendCols(1);
+					appendOneCol();
 				}
 				control.scrollToArea(control.toRightCell());
 			}
@@ -249,7 +251,8 @@ public class CellEditingListener implements KeyListener {
 			if (isMatching) {
 				stopMatch();
 			}
-			GVSpl.toolBarProperty.getWindowEditor().requestFocus();
+			if (GVSpl.toolBarProperty != null)
+				GVSpl.toolBarProperty.getWindowEditor().requestFocus();
 			break;
 		}
 		case KeyEvent.VK_Z: {
@@ -266,12 +269,13 @@ public class CellEditingListener implements KeyListener {
 			if (e.getKeyCode() == KeyEvent.VK_C && e.isAltDown()
 					&& !e.isControlDown()) {
 				if (e.isShiftDown()) {
-					if (editor.canCopyPresent()) {
+					if (editor != null && editor.canCopyPresent()) {
 						editor.copyPresent();
 						break;
 					}
 				} else {
-					editor.altC();
+					if (editor != null)
+						editor.altC();
 					break;
 				}
 			}
@@ -279,7 +283,8 @@ public class CellEditingListener implements KeyListener {
 					&& !e.isControlDown()) {
 				if (!e.isShiftDown()) {
 					if (GM.canPaste())
-						editor.altV();
+						if (editor != null)
+							editor.altV();
 					break;
 				}
 			}
@@ -321,4 +326,15 @@ public class CellEditingListener implements KeyListener {
 	protected void stopMatch() {
 	}
 
+	protected void appendOneRow() {
+		SplEditor editor = ControlUtils.extractSplEditor(control);
+		if (editor != null)
+			editor.appendRows(1);
+	}
+
+	protected void appendOneCol() {
+		SplEditor editor = ControlUtils.extractSplEditor(control);
+		if (editor != null)
+			editor.appendCols(1);
+	}
 }

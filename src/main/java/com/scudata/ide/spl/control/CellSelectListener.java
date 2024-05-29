@@ -502,9 +502,6 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 
 		CellRect srcRect, tarRect;
 		SplEditor editor = ControlUtils.extractSplEditor(control);
-		if (editor == null) {
-			return;
-		}
 
 		int key = e.getKeyCode();
 		switch (key) {

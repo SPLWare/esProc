@@ -65,34 +65,34 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 异或颜色
 	 */
-	private static Color XOR_COLOR = new Color(51, 0, 51);
+	public static Color XOR_COLOR = new Color(51, 0, 51);
 
 	/** 网格对象 */
 	CellSet cellSet;
 
 	/** 网格分析器 */
-	private CellSetParser parser;
+	protected CellSetParser parser;
 
 	/** 内容面板绘制的起始行 */
-	private int startRow;
+	protected int startRow;
 
 	/** 内容面板绘制的结束行 */
-	private int endRow;
+	protected int endRow;
 
 	/** 内容面板绘制的起始列 */
-	private int startCol;
+	protected int startCol;
 
 	/** 内容面板绘制的结束列 */
-	private int endCol;
+	protected int endCol;
 
 	/** 是否处于编辑状态 */
-	private boolean isEditing;
+	protected boolean isEditing;
 
 	/** 是否只画处于显示窗口大小内的内容 */
-	private boolean onlyDrawCellInWin;
+	protected boolean onlyDrawCellInWin;
 
 	/** 是否可编辑 */
-	private boolean editable;
+	protected boolean editable;
 
 	/** 容纳内容面板的滚动窗格 */
 	JScrollPane jsp;
@@ -133,7 +133,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 多行编辑器的滚动面板
 	 */
-	private JScrollPane spEditor;
+	protected JScrollPane spEditor;
 
 	/**
 	 * 是否阻止变化
@@ -143,7 +143,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 边框样式
 	 */
-	private BorderStyle borderStyle = new BorderStyle();
+	protected BorderStyle borderStyle = new BorderStyle();
 
 	/** 图形轮廓渲染器，虚线风格4f */
 	public static BasicStroke bs1 = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
@@ -155,17 +155,17 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 图形轮廓渲染器
 	 */
-	private BasicStroke bs = null;
+	protected BasicStroke bs = null;
 
 	/**
 	 * 正在编辑的单元格坐标
 	 */
-	private CellLocation editPos = null;
+	protected CellLocation editPos = null;
 
 	/**
 	 * 用于还原编辑文本
 	 */
-	private String undoExp = null;
+	protected String undoExp = null;
 
 	protected SheetSpl sheet;
 
@@ -735,7 +735,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param col 列号
 	 * @return
 	 */
-	private boolean isCellSelected(int row, int col) {
+	protected boolean isCellSelected(int row, int col) {
 		if (control == null) {
 			return false;
 		}
@@ -825,7 +825,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param caretPosition 光标位置
 	 * @param newText       新文本
 	 */
-	private void setCaret(int caretPosition, String newText) {
+	protected void setCaret(int caretPosition, String newText) {
 		int len = newText.length();
 		if (caretPosition > 0
 				&& caretPosition <= len
@@ -942,7 +942,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param maxW 最大宽度
 	 * @return
 	 */
-	private int getEditableHeight(String text, int row, int col, int maxW,
+	protected int getEditableHeight(String text, int row, int col, int maxW,
 			float scale) {
 		int h = parser.getRowHeight(row, scale);
 		// 编辑控件本身要占宽度,多留出5个点
@@ -964,7 +964,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * 
 	 * @param g
 	 */
-	private void drawSelectedRectBorder(Graphics g) {
+	protected void drawSelectedRectBorder(Graphics g) {
 		Area area = control.getSelectedArea(0);
 		if (area == null) {
 			return;
@@ -1143,7 +1143,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param h     高度
 	 * @param scale 显示比例
 	 */
-	private void drawText(Graphics g, int row, int col, int x, int y, int w,
+	protected void drawText(Graphics g, int row, int col, int x, int y, int w,
 			int h, float scale) {
 		String text = parser.getDispText(row, col);
 		drawText(text, g, row, col, x, y, w, h, scale);
@@ -1162,7 +1162,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param h     高度
 	 * @param scale 显示比例
 	 */
-	private void drawText(String text, Graphics g, int row, int col, int x,
+	protected void drawText(String text, Graphics g, int row, int col, int x,
 			int y, int w, int h, float scale) {
 		Font font = parser.getFont(row, col, scale);
 		byte halign = parser.getHAlign(row, col);
@@ -1203,7 +1203,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 将单元格坐标和高宽数组清零
 	 */
-	private void clearCoordinate() {
+	protected void clearCoordinate() {
 		for (int i = 0; i < cellX.length; i++) {
 			for (int j = 0; j < cellX[i].length; j++) {
 				cellX[i][j] = 0;
@@ -1315,7 +1315,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * 
 	 * @param caretPosition 光标位置
 	 */
-	private void initEditor(int caretPosition) {
+	protected void initEditor(int caretPosition) {
 		initEditor(caretPosition, MODE_PAINT);
 	}
 
@@ -1503,7 +1503,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param isPaint 是否刷新
 	 * @return
 	 */
-	private int submitEditor(boolean isPaint) {
+	protected int submitEditor(boolean isPaint) {
 		if (control == null || editor == null || !editor.isVisible()
 				|| control.getActiveCell() == null) {
 			return -1;

@@ -20,15 +20,15 @@ public class ColHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/** 网格控件 */
-	private SplControl control;
+	protected SplControl control;
 	/**
 	 * 是否可以编辑
 	 */
-	private boolean editable = true;
+	protected boolean editable = true;
 	/**
 	 * 网格解析器
 	 */
-	private CellSetParser parser;
+	protected CellSetParser parser;
 
 	/**
 	 * 列表头面板构造函数
@@ -57,7 +57,7 @@ public class ColHeaderPanel extends JPanel {
 	/**
 	 * 初始化坐标
 	 */
-	private void initCoords() {
+	protected void initCoords() {
 		int cols = control.cellSet.getColCount() + 1;
 		if (control.cellX == null || cols != control.cellX.length) {
 			control.cellX = new int[cols];
@@ -115,7 +115,7 @@ public class ColHeaderPanel extends JPanel {
 			}
 
 			Color bkColor = Color.lightGray;
-			String label = StringUtils.toExcelLabel(i);
+			String label = getColLabel(i);
 			byte flag = GC.SELECT_STATE_NONE;
 			if (selectedCols.contains(new Integer(i))) {
 				flag = GC.SELECT_STATE_CELL;
@@ -140,6 +140,10 @@ public class ColHeaderPanel extends JPanel {
 		setPreferredSize(new Dimension((int) getPreferredSize().getWidth(),
 				h + 1));
 		g.dispose();
+	}
+
+	protected String getColLabel(int col) {
+		return StringUtils.toExcelLabel(col);
 	}
 
 	/**
