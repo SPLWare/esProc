@@ -29,6 +29,8 @@ import com.scudata.resources.EngineMessage;
  * @b 无标题
  * @p 二层序列是转置的
  * @s x是序表时返回成回车/TAB分隔的串
+ * @1 转成单层序列，x是单值时返回[x]；x是二层序列返回x.conj()
+ * @2 x是单值时返回[[x]]
  */
 public class E extends Function {
 	/**
@@ -69,6 +71,42 @@ public class E extends Function {
 		boolean isB = opt != null && opt.indexOf("b") != -1;
 		boolean isP = opt != null && opt.indexOf("p") != -1;
 		boolean isS = opt != null && opt.indexOf("s") != -1;
+		boolean is1 = opt != null && opt.indexOf("1") != -1;
+		boolean is2 = opt != null && opt.indexOf("2") != -1;
+
+		if (is1) { // 转成单层序列
+			Sequence seq;
+			if (x instanceof Sequence) {
+				seq = (Sequence) x;
+				if (isSequence2(seq)) { // x是二层序列返回x.conj()
+					seq = seq.conj(null);
+				} else {
+					// 单层序列直接返回
+				}
+			} else { // x是单值时返回[x]
+				seq = new Sequence();
+				seq.add(x);
+			}
+			return seq;
+		}
+
+		if (is2) { // 转成二层序列
+			Sequence seq;
+			if (x instanceof Sequence) {
+				seq = (Sequence) x;
+				if (isSequence2(seq)) { // 二层序列直接返回
+					return x;
+				} else { // Excel参数不应该有单层序列，也处理一下吧
+					seqToSeq2(seq);
+				}
+			} else { // x是单值时返回[[x]]
+				seq = new Sequence();
+				Sequence memSeq = new Sequence();
+				memSeq.add(x);
+				seq.add(memSeq);
+			}
+			return seq;
+		}
 
 		if (x instanceof Number) { // excel日期时间的数值转成java日期时间
 			Date date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
@@ -85,14 +123,14 @@ public class E extends Function {
 			}
 			if (seq instanceof Table || seq.isPmt()) {
 				// x是序表/排列时，转换成二层序列。
-				seq = pmt2Sequence(seq, !isB);
+				seq = pmtToSequence(seq, !isB);
 				return seq;
-			} else if (isSeqSequence(seq)) {
+			} else if (isSequence2(seq)) {
 				// x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
 				if (isP) { // 二层序列是转置的
 					seq = ExcelUtils.transpose(seq);
 				}
-				seq = sequence2Pmt(seq, !isB);
+				seq = sequenceToTable(seq, !isB);
 				return seq;
 			} else {
 				MessageManager mm = EngineMessage.get();
@@ -112,7 +150,7 @@ public class E extends Function {
 				throw new RQException(FUNC_NAME
 						+ mm.getMessage("function.invalidParam"));
 			}
-			seq = pmt2Sequence(seq, !isB);
+			seq = pmtToSequence(seq, !isB);
 			return seq;
 		}
 
@@ -160,7 +198,7 @@ public class E extends Function {
 	 * @param hasTitle 是否有标题行
 	 * @return 二层序列
 	 */
-	private Sequence pmt2Sequence(Sequence pmt, boolean hasTitle) {
+	private Sequence pmtToSequence(Sequence pmt, boolean hasTitle) {
 		Sequence seq = new Sequence();
 		if (hasTitle) {
 			DataStruct ds = pmt.dataStruct();
@@ -168,7 +206,7 @@ public class E extends Function {
 				seq.add(new Sequence(ds.getFieldNames()));
 			}
 		}
-		
+
 		BaseRecord r;
 		for (int i = 1, len = pmt.length(); i <= len; i++) {
 			r = (BaseRecord) pmt.get(i);
@@ -184,7 +222,7 @@ public class E extends Function {
 	 * @param hasTitle 是否有标题行
 	 * @return 序表
 	 */
-	private Table sequence2Pmt(Sequence seq, boolean hasTitle) {
+	private Table sequenceToTable(Sequence seq, boolean hasTitle) {
 		Table t = null;
 		Sequence rowSeq;
 		int cc = 0;
@@ -240,22 +278,40 @@ public class E extends Function {
 	 * @param seq 序列
 	 * @return 是否二层序列
 	 */
-	private boolean isSeqSequence(Sequence seq) {
+	private boolean isSequence2(Sequence seq) {
 		if (seq == null)
 			return false;
 		Object obj;
-		boolean hasSequence = false;
+		boolean memIsSequence = false;
 		for (int i = 1, len = seq.length(); i <= len; i++) {
 			obj = seq.get(i);
 			if (obj != null) {
 				if (obj instanceof Sequence) {
-					hasSequence = true;
+					memIsSequence = true;
 				} else {
-					return false;
+					return false; // 非空成员不是序列返回false
 				}
 			}
 		}
-		return hasSequence;
+		return memIsSequence;
+	}
+
+	/**
+	 * 单层序列转为二层序列
+	 */
+	private void seqToSeq2(Sequence seq) {
+		Object obj;
+		Sequence memSeq;
+		for (int i = 1, len = seq.length(); i <= len; i++) {
+			obj = seq.get(i);
+			if (obj != null && obj instanceof Sequence) {
+				continue;
+			} else {
+				memSeq = new Sequence();
+				memSeq.add(obj);
+				seq.set(i, memSeq);
+			}
+		}
 	}
 
 	private static final String COL_SEP = "\t";
