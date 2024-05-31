@@ -71,8 +71,8 @@ public class EnvUtil {
 	 * @param rt Runtime
 	 */
 	public static void runGC(Runtime rt) {
-		for (int i = 0; i < 4; ++i) {
-			rt.runFinalization();
+		for (int i = 0; i < 2; ++i) {
+			//rt.runFinalization();
 			rt.gc();
 			Thread.yield();
 		}
