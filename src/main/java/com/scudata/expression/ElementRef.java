@@ -587,4 +587,8 @@ public class ElementRef extends Function {
 			}
 		}
 	}
+	
+	public Expression getExp() {
+		return exp;
+	}
 }

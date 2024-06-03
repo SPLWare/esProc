@@ -115,4 +115,8 @@ public class VarParam extends Node {
 	public boolean isMonotone() {
 		return true;
 	}
+	
+	public Param getParam() {
+		return param;
+	}
 }
