@@ -234,8 +234,13 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 					editor.selectedCols = cols;
 					editor.adjustColWidth();
 				}
+			} else {
+				mouseDoubleClicked(e, col);
 			}
 		}
+	}
+
+	public void mouseDoubleClicked(MouseEvent e, int col) {
 	}
 
 	/**

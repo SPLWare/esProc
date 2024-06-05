@@ -76,13 +76,15 @@ public class EditControl extends SplControl {
 		return panel;
 	}
 
+	protected ContentPanel contentPanel;
+
 	/**
 	 * 生成内容面板
 	 *
 	 * @return 内容面板
 	 */
 	ContentPanel createContentView() {
-		ContentPanel contentPanel = newContentPanel(cellSet);
+		contentPanel = newContentPanel(cellSet);
 		CellSelectListener listener = new CellSelectListener(this,
 				contentPanel, editable);
 		contentPanel.addMouseListener(listener);
