@@ -63,7 +63,7 @@ public abstract class IDWCursor extends ICursor {
 				cols = new ColumnMetaData[] {table.getColumn(segmentCol)};
 			}
 		} else {
-			ColumnMetaData[] tempCols = table.getSortedColumns();
+			ColumnMetaData[] tempCols = table.getAllSortedColumns();
 			int count = 0;
 			for (ColumnMetaData col : tempCols) {
 				if (ds.getFieldIndex(col.getColName()) != -1) {

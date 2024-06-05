@@ -73,4 +73,8 @@ public class Calc extends MemberFunction {
 			throw new RQException("()" + mm.getMessage("function.invalidParam"));
 		}
 	}
+
+	public Object getSrcObj() {
+		return srcObj;
+	}
 }
