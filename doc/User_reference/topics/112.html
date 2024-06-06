@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Find &amp; Replace</title>
+<title>SPL File</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,42 +13,255 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Find &amp;
-Replace</span></h1></div>
-	<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'><span
-style='mso-tab-count:1'>&nbsp; </span><span
-style='mso-spacerun:yes'>&nbsp;</span>Find the cellset files <i>.splx/.dfx</i>
-that contain the specified content under a specific directory and return
-related information including the eligible file paths. To search for the <i>.splx</i>/.<i>dfx</i>
-files where cells contain “demo” in the <i>D:\Desktop\DemoData</i> directory,
-for instance, we get the following results:</span></p>
+	<div id="centent-title"><h1><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>SPL File</span></h1></div>
+	<p class=MsoNormal style='text-indent:9.95pt;mso-char-indent-count:.95'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The cellset code can
+be stored as a text file with the extension <i>.spl</i>. You can open and
+execute a spl file in IDE or execute one at the command line. </span></p>
 
-<p class=MsoNormal style='text-indent:30.95pt;mso-char-indent-count:2.95'><span
+<p class=MsoNormal style='text-indent:9.95pt;mso-char-indent-count:.95'><span
 lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
-#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+#0400;mso-fareast-language:#0400'>Store the cellset content as a <i>.spl</i>
+file:</span><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
 
-<p class=MsoNormal style='text-indent:30.95pt;mso-char-indent-count:2.95'><span
-lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
-#0400;mso-fareast-language:#0400'><img border=0 width=391 height=285
-src="User_reference.files/image023.jpg" v:shapes="图片_x0020_7"></span><span
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:10.5pt;mso-char-indent-count:1.0'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Take the following <i>dfx</i>
+file as an example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=63 valign=top style='width:31.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=182 valign=top style='width:90.85pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>B</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=63 valign=top style='width:31.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>func</span></span></p>
+  </td>
+  <td width=182 valign=top style='width:90.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=63 valign=top style='width:31.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=182 valign=top style='width:90.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>return[1,2,3,4]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=63 valign=top style='width:31.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>=func(A1)</span></span></p>
+  </td>
+  <td width=182 valign=top style='width:90.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:10.5pt;mso-char-indent-count:1.0'><span lang=zh-CN
+style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
+mso-fareast-language:#0400'>Below is the content of corresponding SPL file:</span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:10.5pt;mso-char-indent-count:1.0'><span lang=zh-CN
+style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=337 height=116
+src="User_reference.files/image023.png" v:shapes="图片_x0020_12"></span></p>
+
+<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
+margin-left:0cm;text-indent:10.5pt;mso-char-indent-count:1.0'><span lang=zh-CN
+style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
+mso-fareast-language:#0400'>To open a <i>.spl</i> file:</span><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Use tab to separate columns and
+carriage return to delimit rows at the import of a SPL file. The beginning
+lines preceded by the pound sign (#) are for defining a parameter. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Here’s a SPL file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
+style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=318 height=140
+src="User_reference.files/image025.jpg" v:shapes="图片_x0020_13"></span><span
 lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
 
-<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
-margin-left:0cm'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'><span
-style='mso-tab-count:1'>&nbsp; </span>We can also
-replace the eligible text with something else. To replace “demo” in these <i>dfx</i>
-files with “DB1”, for instance, we get the following results:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>To open this SPL file:</span></p>
 
-<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
-margin-left:0cm;text-indent:31.5pt;mso-char-indent-count:3.0'><span lang=zh-CN
-style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
-mso-fareast-language:#0400'>&nbsp;</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>We define a cellset parameter:</span></p>
 
-<p class=MsoNormal style='margin-top:3.9pt;margin-right:0cm;margin-bottom:3.9pt;
-margin-left:0cm;text-indent:31.5pt;mso-char-indent-count:3.0'><span lang=zh-CN
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
 style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
-mso-fareast-language:#0400'><img border=0 width=394 height=285
-src="User_reference.files/image025.jpg" v:shapes="图片_x0020_6"></span></p>
+mso-fareast-language:#0400'><img border=0 width=407 height=82
+src="User_reference.files/image027.jpg" v:shapes="图片_x0020_14"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
+style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
+mso-fareast-language:#0400'>And get the following result:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=57 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=184 valign=top style='width:92.15pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>B</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=57 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>func</span></span></p>
+  </td>
+  <td width=184 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=57 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=184 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>return array</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=57 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:9.9pt;mso-char-indent-count:.94'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=156 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>=func(A1)</span></span></p>
+  </td>
+  <td width=184 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.1pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="113.html">Next</a></div>
@@ -61,7 +274,7 @@ src="User_reference.files/image025.jpg" v:shapes="图片_x0020_6"></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.8.1 Deploying and configuring Enterprise edition JDBC</title>
+<title>6.8.1 Downloading, installing and configuring JDBC Enterprise edition</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,46 +13,38 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:57.0pt;text-indent:-36.0pt;mso-list:l14 level3 lfo59'><span
+	<div id="centent-title"><h3 style='margin-left:57.0pt;text-indent:-36.0pt;mso-list:l15 level3 lfo43'><span
 class=23><span lang=EN-US style='font-family:"Times New Roman",serif;
 mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.8.1<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span></span><span
-class=23><span lang=EN-US style='font-family:"Times New Roman",serif'>Deploying
-and configuring Enterprise edition JDBC</span></span><span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><span
+class=23><span lang=EN-US style='font-family:"Times New Roman",serif'>Downloading,
+installing and configuring JDBC Enterprise edition</span></span><span
 class=23><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></h3></div>
-	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>If you already
-install the esProc Enterprise edition, you can find the complete QVS project,
-which is the esProc Enterprise edition multipurpose server, in esProc
-installation directory. The specific location is </span><span class=T-CodeChar><i><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-mso-bidi-font-weight:bold'>[installation directory]\esProc\esProc\q-server</span></i></span><span
-lang=EN-US>. In </span><span class=T-CodeChar><i><span lang=EN-US
+	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Download esProc
+Enterprise edition installer in <i><a
+href="http://www.raqsoft.com.cn/download/download-jsq">http://www.raqsoft.com.cn/download/download-jsq</a></i>
+and install it. After that, find the basic jars used by the Enterprise edition
+JDBC in </span><span class=T-CodeChar><i><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:bold'>[installation
+directory]\esProc\lib</span></i></span><span class=T-CodeChar><span lang=EN-US
 style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-bold'>[installation directory]\esProc\esProc\q-server</span></i></span><i><span
-lang=EN-US>\lib</span></i><span lang=EN-US> directory, there are esProc
-Enterprise edition server and the basic jars QJDBC needs; </span><span
-class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal;mso-bidi-font-weight:bold'>esproc-ent-xxxx.jar</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal;mso-bidi-font-weight:bold'>, which is</span></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-lang=EN-US style='mso-bidi-font-weight:bold'>unique to</span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-lang=EN-US>the esProc Enterprise edition, must be included. If you want to use
-the extended functionalities, such as database connection, in QJDBC, you should
-add the corresponding jars. You can find descriptions of different jars in <a
- href="jdbcbushu.html#Deploying_JDBC">Deploying JDBC</a>.</span></p>
+bold'>. Different from the other esProc editions, the jar file <i>esproc-ent-xxxx.jar</i>
+specifically used for the Enterprise edition is necessary. </span></span><span
+lang=EN-US>If you want to use the extended functionalities, add the functional
+jar </span><span class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>esproc-ext-xxxx.jar</span></i></span><span
+lang=EN-US>.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Besides the
-above mentioned xml file, </span><span class=T-CodeChar><i><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-bold'>[installation directory]\esProc\config\raqsoftConfig.xml</span></i></span><span
-lang=EN-US> is also used for deploying the QJDBC. The file can be found in </span><span
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Besides </span><span
+class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>[installation
+directory]\esProc\config\raqsoftConfig.xml</span></i></span><span lang=EN-US>,
+files used to deploy the JDBC Enterprise can also be found in </span><span
 class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal;mso-bidi-font-weight:bold'>q-server\webapps\qvs\WEB-INF\home</span></i></span><span
 lang=EN-US>. The two configuration files have similar content, but the latter
-is used for server loading and will not adjust itself when the esProc edition changes.
-You need to edit it yourself as needed.</span></p>
+is used for server loading and will not adjust itself when the esProc edition
+changes. You need to edit it yourself as needed.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Read <a
 href="https://c.scudata.com/article/1690773065281">Scudata Cloud Deployment</a>
@@ -64,13 +56,13 @@ to find more about esProc Enterprise edition server.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="178.html">6.8 Enterprise edition JDBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="178.html">6.8 JDBC Enterprise edition</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

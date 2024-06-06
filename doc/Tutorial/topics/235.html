@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.5.2 Returning results as needed</title>
+<title>9.3 XML data</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,394 +13,36 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>9.5.2 Returning results as needed</span></h3></div>
+	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
+mso-list:l27 level2 lfo49'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.3<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US>XML data</span></h2></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>The user-defined functions may or may not return results.
-For example: </span></span></p>
+lang=EN-US>The XML format is suitable to store tree-structured data. It is thus
+usually used to store configuration files. The format can also store data in
+string format. </span></p>
 
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static void distance3(Number loc1, Number loc2) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
-len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
-= Math.round(len*1000)/1000d;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>System.out.println(Double.toString(len));</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>When the computation with static method <b style='mso-bidi-font-weight:
-normal'>distance3</b> is completed, the result will only be printed out to the
-system console but won’t be returned. Such methods are similar to the
-executable cells in a cellset, and &gt; can be used when they are invoked. For
-example: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Let’s look at how to use XML data as the data source through a
+simple example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
  .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;invoke(test.Calc01.distance3,-12.3,15)</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Now the output data can be viewed in the console. To access the
-console, click <b style='mso-bidi-font-weight:normal'>Tool&gt;Options </b>on
-the menu bar, and check <b style='mso-bidi-font-weight:normal'>Console takeover</b>
-on the <b style='mso-bidi-font-weight:normal'>General</b> page. The result is
-as follows: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
-style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
-#0400;mso-fareast-language:#0400'><img border=0 width=470 height=90
-src="Tutorial.files/image935.png" v:shapes="_x0000_i2023"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>If a user-defined function uses parameters or returns
-result, it should use data types supported by esProc; otherwise, errors may
-occur during presentation or invocation. Following lists the commonly-used data
-types in esProc and their counterparts in Java: </span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:35.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:17.0pt;mso-height-rule:
-  exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Integer</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.Integer</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Long integer</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.Long</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Floating point number</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.Double</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Big decimal</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.math.BigInteger</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Real number</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.Number</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.Boolean</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>String</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.lang.String</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Date<span style='mso-tab-count:1'> </span></span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.sql.Date</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Time</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.sql.Time</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Datetime</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>java.sql.TimeStamp</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Sequence<span style='mso-tab-count:1'> </span></span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>com.scudata.dm.Sequence</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:17.0pt;mso-height-rule:exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Table sequence</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>com.scudata.dm.Table</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:17.0pt;mso-height-rule:
-  exactly'>
-  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.0pt'><span lang=EN-US>Binary data</span></p>
-  </td>
-  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:17.0pt;mso-height-rule:exactly'>
-  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>byte[]</span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>In the previous examples, all the returned results are of Double
-object, which corresponds to the floating point number in esProc; all
-parameters are Number data type, which corresponds to Real number in esProc.
-User-defined function can return results of different data types as needed. For
-instance, add another two user-defined functions to test.Calc01 to return
-results of different data types: </span></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static String distance4(Number loc1, Number loc2) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
-len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
-= Math.round(len*1000)/1000d;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-Double.toString(len);</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static Sequence distance5(Number loc1, Number loc2) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
-len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
-= Math.round(len*1000)/1000d;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>com.scudata.dm.Sequence
-result = new com.scudata.dm.Sequence();</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc1);</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc2);</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(Double.valueOf(len));</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-result;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>These two static methods are also used to compute the distance
-between two points in a numerical axis. <b style='mso-bidi-font-weight:normal'>distance4</b>
-returns a result of string type and <b style='mso-bidi-font-weight:normal'>distance5
-</b>returns a result in a form of a sequence storing the coordinates of the two
-points and the distance between them. The <b style='mso-bidi-font-weight:normal'>invoke</b>
-function is still used to invoke the two methods in a cellset: </span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
+  <td width=284 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -411,84 +53,311 @@ function is still used to invoke the two methods in a cellset: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance2,-12.3,15)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;data.xml&quot;)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance4,-12.3,15)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml(A1.read())</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
   style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance5,-12.3,15)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml(A1.read(), &quot;data&quot;)</span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>For the convenience of comparison, A1 calls <b style='mso-bidi-font-weight:
-normal'>distance2</b> used in the previous example. After the code is executed,
-results of A1~A3 are as follows:<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A1 reads string data from the <i style='mso-bidi-font-style:normal'>data.xml
+</i>file. Below is the file:</span></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;1&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;New
+York&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;8084316&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;32&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;2&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Los
+Angeles&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;3798981&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;5&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;3&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Chicago&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;2886251&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;13&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;1&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alabama&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AL&quot;&lt;/ABBR&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;2&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alaska&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:54.65pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AK&quot;&lt;/ABBR&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image936.png" v:shapes="_x0000_i2024"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image937.png" v:shapes="_x0000_i2025"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
-src="Tutorial.files/image938.png" v:shapes="_x0000_i2026"></span></p>
+lang=EN-US>The <i style='mso-bidi-font-style:normal'>xml</i> defines the
+highest level node <i style='mso-bidi-font-style:normal'>data</i> and stores
+data of two tables: <i style='mso-bidi-font-style:normal'>cities</i> and <i
+style='mso-bidi-font-style:normal'>state</i>. The node name for each record is
+the table name, under which fields and corresponding values are listed. A2
+reads a string from the file using the <b style='mso-bidi-font-weight:normal'>read</b>
+function and imports it with the<b style='mso-bidi-font-weight:normal'> xml()</b>
+function:</span></p>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Notice that the results of A1 and A2 are of different data types and
-are thus displayed differently. The return results of user-defined functions
-can be used for later computation. </span></p>
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=487 height=62
+src="Tutorial.files/image1972.jpg" v:shapes="_x0000_i2089"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The XML string will be parsed as one record. Double click each field
+to see the detailed data:</span></p>
+
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=748 height=293
+src="Tutorial.files/image1974.jpg" v:shapes="_x0000_i2090"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>cities</span></i><span
+lang=EN-US> and <i style='mso-bidi-font-style:normal'>state</i> are interpred
+as the two fields of the record. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>You can specify the node to be read in the <b style='mso-bidi-font-weight:
+normal'>xml()</b> function, as shown in A3. Here’s A4’s result:</span></p>
+
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=EN-US><img border=0 width=748 height=61
+src="Tutorial.files/image1976.jpg" v:shapes="图片_x0020_24"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The XML format supports using various ways to define the value of a
+node. For example:</span></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
+NAME=&quot;Alabama&quot; ABBR=&quot;AL&quot;&gt;1&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
+NAME=&quot; Alaska&quot; ABBR=&quot;AK&quot;&gt;2&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>We use the <b style='mso-bidi-font-weight:normal'>xml@s()</b>
+function to read this types of XML data:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:19.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=284 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>file(&quot;data2.xml&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml@s(A1.read())</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Here’s A2’s result:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=487 height=234
+src="Tutorial.files/image1978.jpg" v:shapes="_x0000_i2092"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="236.html">Next</a></div>
@@ -496,13 +365,13 @@ can be used for later computation. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="233.html">9.5 User-defined Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="229.html">Chapter 9 Heterogeneous Data Sources</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

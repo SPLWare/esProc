@@ -14,7 +14,7 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l29 level2 lfo38'><span lang=EN-US
+mso-list:l30 level2 lfo38'><span lang=EN-US
 style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.3<span
 style='font:7.0pt "Times New Roman"'> </span></span></span><span
 lang=EN-US>JDBC gateway</span></h2></div>
@@ -29,27 +29,27 @@ style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>When calling an esProc script via JDBC, we can create
 a SQL gateway by configuring a <i>splx/spl/</i><i style='mso-bidi-font-style:
-normal'>dfx</i> script file, and let it handle all the SQL statements to be executed
-in JDBC. The gateway script reads in the SQL statements and their parameters,
-handles database connection, and then executes SQL and returns results. Below
-is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</span></p>
+normal'>dfx</i> script file, and let it handle all the SQL statements to be
+executed in JDBC. The gateway script reads in the SQL statements and their
+parameters, handles database connection, and then executes SQL and returns
+results. Below is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
  .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -58,7 +58,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
+  <td width=284 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -69,7 +69,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -78,7 +78,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
@@ -86,7 +86,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=connect(&quot;demo&quot;)</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
@@ -96,7 +96,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -105,7 +105,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
@@ -113,7 +113,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>if args==null ||
   args.len()&lt;2</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -121,7 +121,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -130,14 +130,14 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
   14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>else</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -146,7 +146,7 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -155,14 +155,14 @@ is a gateway script <i style='mso-bidi-font-style:normal'>executeSQL.splx</i>:</
   mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
   style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
   14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -177,14 +177,14 @@ lang=EN-US>The <span style='mso-bidi-font-style:italic'>script</span> file uses
 two parameters:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=446 height=129
-src="Tutorial.files/image726.png" v:shapes="_x0000_i1814"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=669 height=194
+src="Tutorial.files/image1478.jpg" v:shapes="_x0000_i1817"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>The above two parameters are necessary. The first
-passes the SQL statements that have been input at the call of the esProc script.
-The second passes parameters input for executing the SQL statements.</span></p>
+passes the SQL statements that have been input at the call of the esProc
+script. The second passes parameters input for executing the SQL statements.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -297,12 +297,12 @@ of the query results<i style='mso-bidi-font-style:normal'> rs1</i> and <i
 style='mso-bidi-font-style:normal'>rs2</i>:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=328 height=153
-src="Tutorial.files/image727.png" v:shapes="_x0000_i1815"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=492 height=230
+src="Tutorial.files/image1480.jpg" v:shapes="_x0000_i1818"></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=370 height=140
-src="Tutorial.files/image728.png" v:shapes="_x0000_i1816"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=555 height=210
+src="Tutorial.files/image1482.jpg" v:shapes="_x0000_i1819"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -332,7 +332,7 @@ the server side.</span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

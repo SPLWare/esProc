@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.5 User-defined Functions</title>
+<title>9.1.3 Using esProc in Excel</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,30 +13,190 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
-mso-list:l26 level2 lfo44'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.5<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>User-defined Functions</span></h2></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-background:aqua;mso-highlight:aqua;font-weight:normal'>This section explains
-how to use user-defined functions in esProc. You can choose to skip this
-section if you are not a professional programmer. It won’t affect your learning
-about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></span></p>
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;mso-list:none;tab-stops:21.0pt'><span
+lang=EN-US>9.1.3 Using esProc in Excel</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>The
+features explained in this section only appear in esProc Desktop edition. Users
+using the other editions can choose to skip them.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The basic form of spl() function is spl(<i>exp</i>).
+Compute the expression in esProc and return the result. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=147
+src="Tutorial.files/image1931.jpg" v:shapes="图片_x0020_1733"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Enter =spl(&quot;=5.(rand(10))&quot;) in
+cell A1 in the above Excel file. The esProc expression &quot;=5.(rand(10))&quot;
+is a string headed by the equals sign. Then press <span class=T-Bold>Enter</span>,
+confirm the expression, and get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=147
+src="Tutorial.files/image1933.jpg" v:shapes="图片_x0020_1734"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>A random integer within 10 is entered into
+A1. Actually, the result of computing A1’s expression should have been a
+sequence. If you need to return the whole result, press <span class=T-Bold>Ctrl+Enter
+</span>while confirming the expression. Reselect cell A1 and press Ctrl+Enter
+at the same time to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1935.jpg" v:shapes="图片_x0020_1735"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Now A1’s expression is recomputed and the
+result sequence is entered to the Excel spreadsheet.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can add parameters to spl() function in
+the form of <span class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:
+bold'>spl(</span></i></span><span class=var0><span style='font-weight:normal;
+mso-bidi-font-weight:bold;font-style:normal;mso-bidi-font-style:italic'>exp</span></span><span
+class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:bold'>, </span></i></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold;
+font-style:normal;mso-bidi-font-style:italic'>arg1</span></span><span
+class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:bold'>,…)</span></i></span>,
+which is similar to the use of eval() function. We use quotation marks (?) to
+represent the parameters in the expression in order; or use <span class=T-Bold><span
+style='font-weight:normal;mso-bidi-font-weight:bold'>?</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>n</span></span><b>
+</b>to represent the n<sup>th</sup> parameter. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1937.jpg" v:shapes="图片_x0020_1736"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Compute the average score of two tests
+using spl() function in D2. The expression can also be written as =spl(&quot;(?1+?2)/2&quot;,A2,B2),
+which returns the following result after execution:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1939.jpg" v:shapes="图片_x0020_1737"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>If we select D2 at the left corner and
+drag it to D4, its expression will apply to the whole selected area, where
+parameters will be adjusted according to position:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1941.jpg" v:shapes="图片_x0020_1738"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When using esProc add-ins in Excel, we
+often use E() function to generate a table sequence. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1943.jpg" v:shapes="图片_x0020_1739"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When the parameter of spl() function is
+set up as a stretch of cells in the Excel file, data items in them will be
+transformed to a two-dimensional sequence and passed to esProc for computation.
+It is convenient to do this with E() function. To type in formula =spl(&quot;=E(?)&quot;,A1:B4)
+in D1 and press Ctrl+Enter to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1945.jpg" v:shapes="图片_x0020_1740"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When result of computing spl() function is
+entered, it overwrites the original data in the Excel spreadsheet. So, you need
+to pay special attention to it. The spl() function can perform more
+computations on the table sequence generated by E() function and get the
+expected result. To modify D2’s expression into =spl(&quot;=E(?).derive((#1+#2)/2:Avg)&quot;,A1:B4),
+for example, and press Ctrl+Enter to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=693 height=263
+src="Tutorial.files/image1947.jpg" v:shapes="图片_x0020_1741"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>There is another point. Different from
+Java, Excel uses its own format for datetime data. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=690 height=183
+src="Tutorial.files/image1949.jpg" v:shapes="图片_x0020_1757"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=690 height=183
+src="Tutorial.files/image1951.jpg" v:shapes="图片_x0020_1758"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>esProc gets a date data in a different
+format from that in Excel, which uses a unique datetime format. We can use <span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>E(</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span><span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>)</span>
+</span>function in a spl statement to convert an Excel date specified by <span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span>
+to a generally used format. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=690 height=183
+src="Tutorial.files/image1953.jpg" v:shapes="图片_x0020_1759"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=690 height=183
+src="Tutorial.files/image1955.jpg" v:shapes="图片_x0020_1760"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Note that results of both B1 and B2 are
+actually strings displayed in esProc, which are different from the Excel format
+date data. If you need to an Excel format date, just use <span class=T-Bold><span
+style='font-weight:normal;mso-bidi-font-weight:bold'>E(</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span><span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>)</span>
+</span>function again to convert a general format date specified by <span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span>
+to an Excel datetime, as shown below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=587 height=224
+src="Tutorial.files/image1957.jpg" v:shapes="图片_x0020_1761"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=587 height=224
+src="Tutorial.files/image1959.jpg" v:shapes="图片_x0020_1762"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The value of B3 is a number, which is the
+actual value for the Excel date. Once B3’s format is set as date, the date can
+be displayed normally:</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=587 height=224
+src="Tutorial.files/image1961.jpg" v:shapes="图片_x0020_1763"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>Besides the system-provided functions, esProc supports
-invoking user-defined functions to handle some special operations or the
-encapsulation of certain computations. This part briefly explains how to invoke
-user-defined functions with </span></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman",serif'>invoke</span></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'> function, and how to use parameter in a user-defined
-function and return result. </span></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman",serif'><span
-style='mso-spacerun:yes'>&nbsp;</span></span></span></p>
+lang=EN-US>Find more about executing Excel data handling in esProc in <a
+href="http://c.raqsoft.com/article/1651916536524">esProc Desktop and Excel Pro<span
+style='mso-bookmark:_Hlt165037721'><span style='mso-bookmark:_Hlt165037722'>c</span></span>essing</a><a
+name="_Hlt165037722"></a><a name="_Hlt165037721"></a>.</span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="234.html">Next</a></div>
@@ -44,17 +204,13 @@ style='mso-spacerun:yes'>&nbsp;</span></span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="226.html">Chapter9 Heterogeneous Data Sources</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="234.html">9.5.1 Basic method of invoking user-defined functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="235.html">9.5.2 Returning results as needed</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="236.html">9.5.3 Sequence type parameters</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="237.html">9.5.4 User-defined cursor</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="231.html">9.1.1 Using Excel file data</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

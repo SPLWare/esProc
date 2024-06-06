@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.1.2 Configuring clustered servers</title>
+<title>9.5.2 Returning results as needed</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,195 +15,480 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>10.1.2 Configuring clustered servers</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Run the <i style='mso-bidi-font-style:normal'>esprocs.exe</i>
-file under esProc installation directory’s <i style='mso-bidi-font-style:normal'>esProc\bin</i>
-path to launch or configure<span style='mso-spacerun:yes'>&nbsp;
-</span>clustered servers. The jars needed by the file will be automatically
-loaded under the installation directory. Note that the configuration files &#8211; <i
-style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i> and <i
-style='mso-bidi-font-style:normal'>unitServer.xml</i> &#8211; must be placed under
-the<i style='mso-bidi-font-style:normal'> esProc\config</i> path in esProc
-installation directory. The following window pops up after the server is
-started:</span></p>
+14.0pt;mso-bidi-font-size:10.0pt'>9.5.2 Returning results as needed</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>The user-defined functions may or may not return results.
+For example: </span></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=576 height=414
-src="Tutorial.files/image942.png" v:shapes="_x0000_i2030"></span></p>
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static void distance3(Number loc1, Number loc2) {</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>System.out.println(Double.toString(len));</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>During the execution of <i style='mso-bidi-font-style:normal'>esprocs.exe</i>,
-the window displays the loaded initial information, which is set in the
-configuration file<i style='mso-bidi-font-style:normal'> raqsoftConfig.xml.</i>
-Click<b style='mso-bidi-font-weight:normal'> Options</b> on the right-side menu
-to configure information of clustered servers. We have the following pop-up
-window and modify the main path:</span></p>
+lang=EN-US>When the computation with static method <b style='mso-bidi-font-weight:
+normal'>distance3</b> is completed, the result will only be printed out to the
+system console but won’t be returned. Such methods are similar to the
+executable cells in a cellset, and &gt; can be used when they are invoked. For
+example: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=340 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;invoke(test.Calc01.distance3,-12.3,15)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Now the output data can be viewed in the console. To access the
+console, click <b style='mso-bidi-font-weight:normal'>Tool&gt;Options </b>on
+the menu bar, and check <b style='mso-bidi-font-weight:normal'>Console takeover</b>
+on the <b style='mso-bidi-font-weight:normal'>General</b> page. The result is
+as follows: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=554 height=350
-src="Tutorial.files/image944.jpg" v:shapes="_x0000_i2031"></span></p>
+lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=705 height=135
+src="Tutorial.files/image2009.jpg" v:shapes="_x0000_i2108"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>On the page, you can configure main path, search path,
-date and time format, default charset, log level, number of bytes in the file
-buffer area and other information. For the <b style='mso-bidi-font-weight:normal'>Log
-Level</b>, there are OFF, SEVERE, WARNIGN, INFO, AND DEBUG, whose priorities
-decrese from left to right. The OFF level turns of any log output. The INFO
-level outputs information of levels on and below it, including SEVERE, WARNING
-and INFO. Other levels also output information in this way.</span></p>
+21.0pt'><span lang=EN-US>If a user-defined function uses parameters or returns
+result, it should use data types supported by esProc; otherwise, errors may
+occur during presentation or invocation. Following lists the commonly-used data
+types in esProc and their counterparts in Java: </span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The configuration information is the same as the
-configuration in esProc IDE. It can be viewed or modified in <b
-style='mso-bidi-font-weight:normal'>Tool&gt;Options&gt;Environment</b>:</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:30.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:17.0pt;mso-height-rule:
+  exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Integer</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Integer</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Long integer</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Long</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Floating point number</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Double</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Big decimal</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.math.BigInteger</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Real number</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Number</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Boolean</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>String</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.String</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Date<span style='mso-tab-count:1'> </span></span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.Date</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Time</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.Time</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Datetime</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.TimeStamp</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Sequence<span style='mso-tab-count:1'> </span></span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>com.scudata.dm.Sequence</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:17.0pt;mso-height-rule:exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Table sequence</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>com.scudata.dm.Table</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:17.0pt;mso-height-rule:
+  exactly'>
+  <td width=344 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Binary data</span></p>
+  </td>
+  <td width=350 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>byte[]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>In the previous examples, all the returned results are of Double
+object, which corresponds to the floating point number in esProc; all
+parameters are Number data type, which corresponds to Real number in esProc.
+User-defined function can return results of different data types as needed. For
+instance, add another two user-defined functions to test.Calc01 to return
+results of different data types: </span></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static String distance4(Number loc1, Number loc2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
+Double.toString(len);</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static Sequence distance5(Number loc1, Number loc2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>com.scudata.dm.Sequence
+result = new com.scudata.dm.Sequence();</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc1);</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc2);</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(Double.valueOf(len));</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
+result;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>These two static methods are also used to compute the distance
+between two points in a numerical axis. <b style='mso-bidi-font-weight:normal'>distance4</b>
+returns a result of string type and <b style='mso-bidi-font-weight:normal'>distance5
+</b>returns a result in a form of a sequence storing the coordinates of the two
+points and the distance between them. The <b style='mso-bidi-font-weight:normal'>invoke</b>
+function is still used to invoke the two methods in a cellset: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=340 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance2,-12.3,15)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=340 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance4,-12.3,15)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=340 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance5,-12.3,15)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>For the convenience of comparison, A1 calls <b style='mso-bidi-font-weight:
+normal'>distance2</b> used in the previous example. After the code is executed,
+results of A1~A3 are as follows:<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=554 height=344
-src="Tutorial.files/image945.jpg" v:shapes="_x0000_i2032"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=150 height=62
+src="Tutorial.files/image2011.jpg" v:shapes="_x0000_i2109"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=150 height=62
+src="Tutorial.files/image2013.jpg" v:shapes="_x0000_i2110"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=195 height=122
+src="Tutorial.files/image2015.jpg" v:shapes="_x0000_i2111"></span></p>
 
-<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>When exiting a clustered server from esProc IDE or changing
-configurations of a node, the current or modified configuration parameters will
-be saved in <i>raqsoftConfig.xml</i>. So, pay attention to the probable
-collision when modification is needed.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click<b style='mso-bidi-font-weight:normal'> Config</b>
-on the right-side menu to configure node information on<b style='mso-bidi-font-weight:
-normal'> Node</b> page:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=576 height=225
-src="Tutorial.files/image947.jpg" v:shapes="_x0000_i2033"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Temp file
-timeout</span></b><span lang=EN-US> sets the life span (Hours) for a temporary
-file. <b style='mso-bidi-font-weight:normal'>Check interval</b> is the number
-of seconds between two expiration checks, which must be a positive value or 0. <b
-style='mso-bidi-font-weight:normal'>Proxy</b> timeout is the agent life span,
-i.e. the remote cursor and task space’s life span (Hours). Do not perform
-expiration check if <b style='mso-bidi-font-weight:normal'>Temp file timeOut</b>
-or <b style='mso-bidi-font-weight:normal'>Proxy timeout </b>is set as 0.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Under <b style='mso-bidi-font-weight:normal'>Host list</b>,
-you can configure IP addresses and port numbers of <b style='mso-bidi-font-weight:
-normal'>all</b> nodes on the local machine that potentially can run servers. A
-server, at the launch, automatically searches the node list for an idle one
-that will be given an assignment to execute. The IP address should be real, and
-multiple IP addresses are allowed when there are network adapters. <b>Auto
-start server</b>, once selected, will automatically start clustered servers
-after the server cluster begins to run.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Under <b style='mso-bidi-font-weight:normal'>Host list</b>,<b
-style='mso-bidi-font-weight:normal'> Max task num</b> is the <b
-style='mso-bidi-font-weight:normal'>maximum number of tasks</b> a node is
-allowed to perform. For a same IP address, you can configure multiple nodes
-that access data in different <b>data zones</b>.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The Node Server’s <b style='mso-bidi-font-weight:normal'>Enable
-clients</b> tab offers the settings of client-side whitelist:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=554 height=122
-src="Tutorial.files/image949.jpg" v:shapes="_x0000_i2034"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Select <b style='mso-bidi-font-weight:normal'>Check
-clients</b> to configure an IP whitelist that can invoke clustered servers<b
-style='mso-bidi-font-weight:normal'> </b>under<b style='mso-bidi-font-weight:
-normal'> Clients hosts</b>. IP addresses that are not in the whitelist cannot
-invoke clustered servers for computations.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>When configurations for clustered servers are done,
-click <b style='mso-bidi-font-weight:normal'>OK</b> to automatically set the
-corresponding configuration file <i style='mso-bidi-font-style:normal'>unitServer.xml</i>,
-as shown below:</span></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
-version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;SERVER
-Version=&quot;3&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;TempTimeOut&gt;12&lt;/TempTimeOut&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Interval&gt;6&lt;/Interval&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ProxyTimeOut&gt;12&lt;/ProxyTimeOut&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Hosts&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt;
-mso-bidi-font-size:11.0pt'>&lt;Host ip=&quot;192.168.1.112&quot; <span
-style='mso-bidi-font-style:italic'>port=&quot;8281&quot; </span>maxTaskNum=&quot;3&quot;
-preferredTaskNum=&quot;4&quot;&gt;</span></i><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-size:9.0pt'></span></i></p>
-
-<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
-11.0pt'>&gt;</span><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Host&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Hosts&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;EnabledClients
-check=&quot;true&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Host
-start=&quot;</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>192.168.1.112</span></i><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Host&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/EnabledClients&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/SERVER&gt;</span></i></p>
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Notice that the results of A1 and A2 are of different data types and
+are thus displayed differently. The return results of user-defined functions
+can be used for later computation. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="242.html">Next</a></div>
@@ -211,13 +496,13 @@ style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="239.html">10.1 The Server Cluster</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="239.html">9.5 User-defined Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
