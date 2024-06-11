@@ -55,6 +55,11 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	private transient CellLocation activeCell = null;
 
 	/**
+	 * 支持列头多选
+	 */
+	protected boolean supportMultiSelect = true;
+
+	/**
 	 * 监听器构造函数
 	 * 
 	 * @param control 网格控件
@@ -111,7 +116,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 			if (control.status != GCSpl.STATUS_CELLRESIZE
 					|| e.getButton() != MouseEvent.BUTTON1) {
 				resizeStartCol = 0;
-				if (!e.isControlDown()) {
+				if (!e.isControlDown() || !supportMultiSelect) {
 					control.clearSelectedArea();
 					control.m_selectedCols.clear();
 				}

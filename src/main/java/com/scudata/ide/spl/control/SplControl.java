@@ -40,19 +40,19 @@ public abstract class SplControl extends ControlBase {
 	public PgmCellSet cellSet;
 
 	/** 在编辑时被选中的单元格区域 */
-	private Vector<Object> m_selectedAreas = new Vector<Object>();
+	public Vector<Object> m_selectedAreas = new Vector<Object>();
 
 	/** 当前单元格的位置 */
 	public CellLocation m_activeCell;
 
 	/** 单步执行时的当前位置 */
-	private CellLocation stepPosition;
+	public CellLocation stepPosition;
 
 	/** 断点 */
-	private ArrayList<CellLocation> breakPoints = new ArrayList<CellLocation>();
+	protected ArrayList<CellLocation> breakPoints = new ArrayList<CellLocation>();
 
 	/** 计算的坐标 */
-	private CellLocation calcPos;
+	protected CellLocation calcPos;
 
 	/** 编辑状态 */
 	int status;
@@ -90,7 +90,7 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 当前的鼠标动作是选择格子还是选中编辑格
 	 */
-	private boolean isSelectingCell = false;
+	public boolean isSelectingCell = false;
 
 	/**
 	 * 行表头和列表头面板

@@ -339,6 +339,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		return editable;
 	}
 
+	protected boolean isCellEditable(int row, int col) {
+		return editable;
+	}
+
 	/**
 	 * 设置网格对象
 	 * 
@@ -1171,7 +1175,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		Color c = parser.getForeColor(row, col);
 		if (control.isBreakPointCell(row, col)) {
 			c = Color.white;
-		} else if (!editable) {
+		} else if (!isCellEditable(row, col)) {
 			c = Color.darkGray;
 		}
 		try {
@@ -1336,6 +1340,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		initEditor(ca, mode);
 	}
 
+	protected void hideEditor() {
+		if (editor != null && editor.isVisible()) {
+			editor.setVisible(false);
+		}
+	}
+
 	/**
 	 * 初始化编辑框
 	 * 
@@ -1346,25 +1356,22 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		if (mode != MODE_PAINT) {
 			editPos = null;
 		}
-		if (!editable || control == null) {
-			if (editor != null && editor.isVisible()) {
-				editor.setVisible(false);
-			}
+		if (!editable || control == null || control.getActiveCell() == null) {
+			hideEditor();
 			return;
 		}
-		if (control.getActiveCell() == null) {
+		int row = control.getActiveCell().getRow();
+		int col = control.getActiveCell().getCol();
+		if (!isCellEditable(row, col)) {
+			hideEditor();
 			return;
 		}
 
 		if (GV.appSheet != null
 				&& !((SheetSpl) GV.appSheet).isCellSetEditable()) {
-			if (editor != null && editor.isVisible()) {
-				editor.setVisible(false);
-			}
+			hideEditor();
 			return;
 		}
-		int row = control.getActiveCell().getRow();
-		int col = control.getActiveCell().getCol();
 		if (row > cellSet.getRowCount() || col > cellSet.getColCount()) {
 			return;
 		}

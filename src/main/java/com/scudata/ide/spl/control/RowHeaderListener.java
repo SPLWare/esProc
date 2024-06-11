@@ -48,6 +48,11 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	private transient CellLocation activeCell = null;
 
 	/**
+	 * 支持行头多选
+	 */
+	protected boolean supportMultiSelect = true;
+
+	/**
 	 * 监听器构造函数
 	 * 
 	 * @param control 网格编辑控件
@@ -106,7 +111,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 			if (control.status != GCSpl.STATUS_CELLRESIZE
 					|| e.getButton() != MouseEvent.BUTTON1) {
 				resizeStartRow = 0;
-				if (!e.isControlDown()) {
+				if (!e.isControlDown() || !supportMultiSelect) {
 					control.clearSelectedArea();
 					control.m_selectedRows.clear();
 				}

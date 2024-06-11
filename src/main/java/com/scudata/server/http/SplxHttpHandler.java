@@ -465,6 +465,13 @@ public class SplxHttpHandler implements HttpHandler {
 				if( !hasContentType ) {
 					hs.add( "Content-Type", contentType );
 				}
+				
+				// ÷ß≥÷øÁ”Ú
+				hs.add("Access-Control-Allow-Origin", "*");
+				hs.add("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
+				hs.add("Access-Control-Allow-Headers", "*");
+				hs.add("Access-Control-Allow-Credentials", "true");
+				
 				if( status == 404 ) {
 					httpExchange.sendResponseHeaders( 404, -1 );
 				}

@@ -84,6 +84,11 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	protected byte forward = 0;
 
 	/**
+	 * 支持网格多选
+	 */
+	protected boolean supportMultiSelect = true;
+
+	/**
 	 * 监听器构造函数
 	 * 
 	 * @param control 编辑控件
@@ -163,7 +168,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 			if (!control.getSelectedAreas().isEmpty()) {
 				a = control.getSelectedArea(-1);
 			}
-			if (!e.isControlDown()) {
+			if (!e.isControlDown() || !supportMultiSelect) {
 				control.clearSelectedArea();
 			}
 			if (e.isShiftDown() && a != null) {
