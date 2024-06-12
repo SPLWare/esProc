@@ -21,10 +21,20 @@ git clone <git@github.com>:/USERNAME/esProc.git
 ## 2.2 Compile on your local machine
 
 You can use the common Java development tools to import esProc as a Maven project. Take Eclipse as an example, we import it to an existing Maven project.
+
+
 ![comimg001](https://img.raqsoft.com.cn/file/2024/06/a194059662b640f69e608fefb8d4b741_conimg001.png)
+
+
 Next, select the directory where the esProc project is stored.
+
+
 ![comimg002](https://img.raqsoft.com.cn/file/2024/06/25c2a1c96e7f42a598a817b5453fa833_conimg002.png)
+
+
 Click “Finish” button and wait for the project to load and compile automatically.
+
+
 ![comimg003](https://img.raqsoft.com.cn/file/2024/06/38632f82dd4a417c978e8249112b2541_conimg003.png)
 
 ## 2.3 Commit code
