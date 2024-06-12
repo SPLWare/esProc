@@ -16,24 +16,19 @@ Open<a href="https://github.com/SPLWare/esProc" target="_blank"> SPLWare/esProc 
 
 ### (2)Clone the remote repository to local
 
-git clone <git@github.com>:/USERNAME/esProc.git
+`git clone git@github.com:/USERNAME/esProc.git`
 
 ## 2.2 Compile on your local machine
 
 You can use the common Java development tools to import esProc as a Maven project. Take Eclipse as an example, we import it to an existing Maven project.
 
-
 ![comimg001](https://img.raqsoft.com.cn/file/2024/06/a194059662b640f69e608fefb8d4b741_conimg001.png)
-
 
 Next, select the directory where the esProc project is stored.
 
-
 ![comimg002](https://img.raqsoft.com.cn/file/2024/06/25c2a1c96e7f42a598a817b5453fa833_conimg002.png)
 
-
 Click “Finish” button and wait for the project to load and compile automatically.
-
 
 ![comimg003](https://img.raqsoft.com.cn/file/2024/06/38632f82dd4a417c978e8249112b2541_conimg003.png)
 
@@ -45,23 +40,23 @@ Before creating a Pull Request to merge code into the original esProc repository
 
 The remote repository named “origin” is the esProc repository that you forked to your own username. Next, you need to create a remote host of the original esProc repository and name it “upstream”.
 
-git remote add upstream <git@github.com>\:SPLWare/esProc.git
+`git remote add upstream git@github.com:SPLWare/esProc.git`
 
 Get the latest code in the original esProc repository.
 
-git pull upstream master
+`git pull upstream master`
 
 ### (2)Commit changes locally
 
-Before executing git commit, use git add \<file> to add the modified or newly added files. If you want to undo the changes to a file, use git checkout -- \<file>.
+Before executing git commit, use git add \<file> to add the modified or newly added files. If you want to undo the changes to a file, use `git checkout -- <file>.`
 
-Each git commit requires a commit comment to help others understand what changes were made in each commit. This can be done with git commit -m "My comment"
+Each git commit requires a commit comment to help others understand what changes were made in each commit. This can be done with `git commit -m "My comment"`
 
 ### (3)Push commits to a remote repository
 
 Push your local changes to GitHub, that is, <https://github.com/USERNAME/esProc>.
 
-git push origin master
+`git push origin master`
 
 ### (4)Merge a Pull Request (PR) to the full commits
 
