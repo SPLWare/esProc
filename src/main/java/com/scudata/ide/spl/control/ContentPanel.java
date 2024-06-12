@@ -1153,6 +1153,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		drawText(text, g, row, col, x, y, w, h, scale);
 	}
 
+	protected Color getCellColor(int row, int col) {
+		return null;
+	}
+
+	protected String getCellDispText(int row, int col) {
+		return null;
+	}
+
 	/**
 	 * 绘制单元格中显示的文本
 	 * 
@@ -1197,6 +1205,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			boolean underLine = parser.isUnderline(row, col);
 			int indent = ConfigOptions.iIndent.intValue();
 			indent = (int) Math.floor(indent * scale);
+			Color cellColor = getCellColor(row, col);
+			if (cellColor != null)
+				c = cellColor;
+			String dispText = getCellDispText(row, col);
+			if (dispText != null)
+				text = dispText;
 			ControlUtils.drawText(g, text, x, y, w, h, underLine, halign,
 					valign, font, c, indent);
 		} finally {
