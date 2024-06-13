@@ -9608,7 +9608,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object []vals;
 		String []names;
 		if (nexps == null) {
-			Sequence seq = calc(fexp, ctx).id(null);
+			Sequence seq = calc(fexp, ctx).id("u");
 			vals = seq.toArray();
 			int count = vals.length;
 			names = new String[count];
@@ -9770,7 +9770,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object []vals;
 		String []names;
 		if (nexps == null) {
-			Sequence seq = calc(fexp, ctx).id(null);
+			Sequence seq = calc(fexp, ctx).id("u");
 			vals = seq.toArray();
 			int count = vals.length;
 			names = new String[count];
