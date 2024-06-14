@@ -19,18 +19,18 @@ import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.resources.EngineMessage;
 
 /**
- * E(x) 
- * x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
- * x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
- * x是序表/排列时，转换成二层序列。
- * x是数值则按Excel规则的日期/时间。
- * x是日期/时间则转成数值。
+ * E(x) x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。 x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
+ * x是序表/排列时，转换成二层序列。 x是数值则按Excel规则的日期/时间。 x是日期/时间则转成数值。
  * 
  * @b 无标题
  * @p 二层序列是转置的
  * @s x是序表时返回成回车/TAB分隔的串
  * @1 转成单层序列，x是单值时返回[x]；x是二层序列返回x.conj()
  * @2 x是单值时返回[[x]]
+ * 
+ * E(null)时返回null，不报错。
+ * 当x不属于要转换类型时，E(x)返回x，不报错。
+ * 
  */
 public class E extends Function {
 	/**
@@ -40,9 +40,10 @@ public class E extends Function {
 		final String FUNC_NAME = "E";
 		String opt = option;
 		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(FUNC_NAME
-					+ mm.getMessage("function.missingParam"));
+			return null;
+			// MessageManager mm = EngineMessage.get();
+			// throw new RQException(FUNC_NAME
+			// + mm.getMessage("function.missingParam"));
 		}
 		IParam xParam;
 		if (param.getType() != IParam.Normal) {
@@ -53,9 +54,10 @@ public class E extends Function {
 			xParam = param;
 		}
 		if (xParam == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(FUNC_NAME
-					+ mm.getMessage("function.missingParam"));
+			return null;
+			// MessageManager mm = EngineMessage.get();
+			// throw new RQException(FUNC_NAME
+			// + mm.getMessage("function.missingParam"));
 		}
 		if (!xParam.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
@@ -64,9 +66,10 @@ public class E extends Function {
 		}
 		Object x = xParam.getLeafExpression().calculate(ctx);
 		if (x == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(FUNC_NAME
-					+ mm.getMessage("function.missingParam"));
+			return null;
+			// MessageManager mm = EngineMessage.get();
+			// throw new RQException(FUNC_NAME
+			// + mm.getMessage("function.missingParam"));
 		}
 		boolean isB = opt != null && opt.indexOf("b") != -1;
 		boolean isP = opt != null && opt.indexOf("p") != -1;
@@ -133,37 +136,42 @@ public class E extends Function {
 				seq = sequenceToTable(seq, !isB);
 				return seq;
 			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(FUNC_NAME
-						+ mm.getMessage("function.invalidParam"));
+				return x;
+				// MessageManager mm = EngineMessage.get();
+				// throw new RQException(FUNC_NAME
+				// + mm.getMessage("function.invalidParam"));
 			}
 		} else if (x instanceof String) {
 			// x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
 			if (!StringUtils.isValidString(x)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(FUNC_NAME
-						+ mm.getMessage("function.missingParam"));
+				return x;
+				// MessageManager mm = EngineMessage.get();
+				// throw new RQException(FUNC_NAME
+				// + mm.getMessage("function.missingParam"));
 			}
 			Sequence seq = importS((String) x, !isB);
 			if (seq == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(FUNC_NAME
-						+ mm.getMessage("function.invalidParam"));
+				return x;
+				// MessageManager mm = EngineMessage.get();
+				// throw new RQException(FUNC_NAME
+				// + mm.getMessage("function.invalidParam"));
 			}
 			seq = pmtToSequence(seq, !isB);
 			return seq;
 		}
-
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(FUNC_NAME
-				+ mm.getMessage("function.invalidParam"));
+		return x;
+		// MessageManager mm = EngineMessage.get();
+		// throw new RQException(FUNC_NAME
+		// + mm.getMessage("function.invalidParam"));
 	}
 
 	/**
 	 * 回车分隔行/TAB分隔列的串，转成序表
 	 * 
-	 * @param str      回车分隔行/TAB分隔列的串
-	 * @param hasTitle 是否有标题行
+	 * @param str
+	 *            回车分隔行/TAB分隔列的串
+	 * @param hasTitle
+	 *            是否有标题行
 	 * @return
 	 */
 	private Sequence importS(String str, boolean hasTitle) {
@@ -181,7 +189,8 @@ public class E extends Function {
 	/**
 	 * 序表转成回车/TAB分隔的串
 	 * 
-	 * @param t 序表
+	 * @param t
+	 *            序表
 	 * @return 回车/TAB分隔的串
 	 */
 	private String exportS(Table t, boolean hasTitle) {
@@ -194,8 +203,10 @@ public class E extends Function {
 	/**
 	 * 将序表或者排列，转换为二层序列
 	 * 
-	 * @param pmt      序表或者排列
-	 * @param hasTitle 是否有标题行
+	 * @param pmt
+	 *            序表或者排列
+	 * @param hasTitle
+	 *            是否有标题行
 	 * @return 二层序列
 	 */
 	private Sequence pmtToSequence(Sequence pmt, boolean hasTitle) {
@@ -218,8 +229,10 @@ public class E extends Function {
 	/**
 	 * 将二层序列转换为序表
 	 * 
-	 * @param seq      二层序列
-	 * @param hasTitle 是否有标题行
+	 * @param seq
+	 *            二层序列
+	 * @param hasTitle
+	 *            是否有标题行
 	 * @return 序表
 	 */
 	private Table sequenceToTable(Sequence seq, boolean hasTitle) {
@@ -275,7 +288,8 @@ public class E extends Function {
 	/**
 	 * 是否二层序列
 	 * 
-	 * @param seq 序列
+	 * @param seq
+	 *            序列
 	 * @return 是否二层序列
 	 */
 	private boolean isSequence2(Sequence seq) {
