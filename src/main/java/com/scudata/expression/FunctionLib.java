@@ -397,6 +397,7 @@ public final class FunctionLib {
 		addMemberFunction("rename", "com.scudata.expression.mfn.op.AttachRename");
 		addMemberFunction("rename", "com.scudata.expression.mfn.vdb.Rename");
 		addMemberFunction("alter", "com.scudata.expression.mfn.table.Alter");
+		addMemberFunction("alter", "com.scudata.expression.mfn.record.Alter");
 
 		// ²úÉú
 		addMemberFunction("create", "com.scudata.expression.mfn.sequence.Create");
