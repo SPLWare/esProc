@@ -405,6 +405,7 @@ public final class FunctionLib {
 		addMemberFunction("new", "com.scudata.expression.mfn.op.AttachNew");
 		addMemberFunction("derive", "com.scudata.expression.mfn.sequence.Derive");
 		addMemberFunction("derive", "com.scudata.expression.mfn.op.AttachDerive");
+		addMemberFunction("derive", "com.scudata.expression.mfn.record.Derive");
 		addMemberFunction("penum", "com.scudata.expression.mfn.sequence.PEnum");
 		addMemberFunction("align", "com.scudata.expression.mfn.sequence.Align");
 		addMemberFunction("enum", "com.scudata.expression.mfn.sequence.Enum");
