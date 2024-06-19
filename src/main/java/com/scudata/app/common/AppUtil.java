@@ -269,6 +269,8 @@ public class AppUtil {
 	public static boolean isGrid(String sql) {
 		if (sql == null || sql.trim().length() == 0)
 			return false;
+		if (sql.startsWith("#")) // 参数定义
+			return true;
 		final char rowSeparator = '\n';
 		if (sql.indexOf(rowSeparator) > -1)
 			return true;
@@ -304,13 +306,11 @@ public class AppUtil {
 	 */
 	public static Object execute(String src, Sequence args, Context ctx) {
 		PgmCellSet pcs = CellSetUtil.toPgmCellSet(src);
-
 		ComputeStack stack = ctx.getComputeStack();
-
 		try {
 			stack.pushArg(args);
-
 			pcs.setContext(ctx);
+			pcs.setParamToContext();
 			pcs.calculateResult();
 			return pcs;
 		} finally {
@@ -732,7 +732,7 @@ public class AppUtil {
 	 * @param spl
 	 * @return PgmCellSet
 	 */
-	private static PgmCellSet spl2CellSet(String spl) {
+	public static PgmCellSet spl2CellSet(String spl) {
 		PgmCellSet cellSet;
 		if (!StringUtils.isValidString(spl)) {
 			return null;

@@ -688,11 +688,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalConnection-14");
-		try {
-			throw new Throwable();
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
 		synchronized (stats) {
 			for (int i = 0; i < this.stats.size(); i++) {
 				stats.get(i).close();
