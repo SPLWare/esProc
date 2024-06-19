@@ -287,7 +287,7 @@ public class Groups extends Operation {
 				result.alter(alterFields, null);
 			}
 			
-			data = null;
+			data = new Sequence(); //null; 为了游标reset重复使用需要重新创建序列
 			return result;
 		} else if (tempResult != null) {
 			// @qs选项
