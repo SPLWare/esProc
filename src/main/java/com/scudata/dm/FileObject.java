@@ -1429,7 +1429,7 @@ public class FileObject implements Externalizable, IQueryable {
 			}
 			
 			File file = new File(fileName);
-			pcs.setName(file.getName());
+			pcs.setName(file.getPath());
 			return pcs;
 		} catch (Exception e) {
 			if (e instanceof RQException) {

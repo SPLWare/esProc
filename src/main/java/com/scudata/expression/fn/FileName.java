@@ -2,6 +2,7 @@ package com.scudata.expression.fn;
 
 import java.io.File;
 
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -50,9 +51,56 @@ public class FileName extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		if (option != null && option.indexOf('t') != -1) {
-			return createTempFile(param, ctx);
-		} else if (option != null && option.indexOf('p') != -1) {
+		boolean eopt = false, nopt = false, dopt = false, popt = false, sopt = false;
+		if (option != null) {
+			if (option.indexOf('t') != -1) {
+				return createTempFile(param, ctx);
+			}
+			
+			if (option.indexOf('e') != -1) eopt = true;
+			if (option.indexOf('n') != -1) nopt = true;
+			if (option.indexOf('d') != -1) dopt = true;
+			if (option.indexOf('p') != -1) popt = true;
+			if (option.indexOf('s') != -1) sopt = true;
+		}
+		
+		if (sopt) {
+			String pathName = null;
+			if (cs instanceof PgmCellSet) {
+				pathName = ((PgmCellSet)cs).getName();
+			}
+
+			if (pathName == null) {
+				return null;
+			}
+			
+			LocalFile lf = new LocalFile(pathName, null, ctx);
+			File file = lf.file();
+			if (eopt) {
+				String name = file.getName();
+				int dot = name.lastIndexOf('.');
+				if (dot == -1) {
+					return null;
+				} else {
+					return name.substring(dot + 1);
+				}
+			} else if (nopt) {
+				String name = file.getName();
+				int dot = name.lastIndexOf('.');
+				if (dot == -1) {
+					return name;
+				} else {
+					return name.substring(0, dot);
+				}
+			} else if (dopt) {
+				String str = file.getParent();
+				return LocalFile.removeMainPath(str, ctx);
+			} else if (popt) {
+				return file.getAbsolutePath();
+			} else {
+				return file.getName();
+			}
+		} else if (popt) {
 			String name = null;
 			if (param != null) {
 				Object obj = param.getLeafExpression().calculate(ctx);
@@ -89,9 +137,7 @@ public class FileName extends Function {
 
 		LocalFile lf = new LocalFile((String)obj, null, ctx);
 		File file = lf.file();
-		if (option == null) {
-			return file.getName();
-		} else if (option.indexOf('e') != -1) {
+		if (eopt) {
 			String name = file.getName();
 			int dot = name.lastIndexOf('.');
 			if (dot == -1) {
@@ -99,7 +145,7 @@ public class FileName extends Function {
 			} else {
 				return name.substring(dot + 1);
 			}
-		} else if (option.indexOf('n') != -1) {
+		} else if (nopt) {
 			String name = file.getName();
 			int dot = name.lastIndexOf('.');
 			if (dot == -1) {
@@ -107,7 +153,7 @@ public class FileName extends Function {
 			} else {
 				return name.substring(0, dot);
 			}
-		} else if (option.indexOf('d') != -1) {
+		} else if (dopt) {
 			String str = file.getParent();
 			return LocalFile.removeMainPath(str, ctx);
 		} else {
