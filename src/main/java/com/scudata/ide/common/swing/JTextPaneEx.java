@@ -1,6 +1,7 @@
 package com.scudata.ide.common.swing;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -194,7 +195,8 @@ public class JTextPaneEx extends JTextPane {
 	/**
 	 * 光标移动
 	 * 
-	 * @param caret 光标位置
+	 * @param caret
+	 *            光标位置
 	 */
 	public void caretChanged(int caret) {
 		if (!isVisible())
@@ -402,6 +404,14 @@ public class JTextPaneEx extends JTextPane {
 		return index == i;
 	}
 
+	public Point getLocationOnScreen() {
+		try {
+			return super.getLocationOnScreen();
+		} catch (Throwable t) {
+			return null;
+		}
+	}
+
 	/**
 	 * 初始化引用格
 	 * 
@@ -573,8 +583,10 @@ public class JTextPaneEx extends JTextPane {
 	/**
 	 * 取引用格颜色
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	public Color getRefCellColor(int row, int col) {

@@ -1357,6 +1357,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	protected void hideEditor() {
 		if (editor != null && editor.isVisible()) {
 			editor.setVisible(false);
+			spEditor.setVisible(false);
 		}
 	}
 
