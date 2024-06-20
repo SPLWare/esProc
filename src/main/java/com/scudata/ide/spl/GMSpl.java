@@ -447,9 +447,10 @@ public class GMSpl extends GM {
 	public static PgmCellSet readSPL(String filePath) throws Exception {
 		PgmCellSet cellSet = AppUtil.readSPL(filePath);
 		if (cellSet == null) {
-			return new PgmCellSet(ConfigOptions.iRowCount.intValue(),
+			cellSet = new PgmCellSet(ConfigOptions.iRowCount.intValue(),
 					ConfigOptions.iColCount.intValue());
 		}
+		cellSet.setName(filePath);
 		return cellSet;
 	}
 
@@ -586,6 +587,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 取JVM参数
+	 * 
 	 * @param keys
 	 * @return
 	 */
@@ -612,7 +614,9 @@ public class GMSpl extends GM {
 
 	/**
 	 * 设置JVM参数
-	 * @param map key:value
+	 * 
+	 * @param map
+	 *            key:value
 	 */
 	public static void setJVMArgs(Map<String, String> map) {
 		if (map == null)
@@ -664,6 +668,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 取配置文件的路径
+	 * 
 	 * @return
 	 */
 	private static String getConfigTxtFilePath() {
@@ -674,6 +679,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 读取bin/config.txt
+	 * 
 	 * @return
 	 */
 	private static String readConfigTxt() {
@@ -696,6 +702,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 写bin/config.txt
+	 * 
 	 * @param contentStr
 	 */
 	private static void writeConfigTxt(String contentStr) {
@@ -745,6 +752,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 取网格表达式
+	 * 
 	 * @param cellSet
 	 * @return
 	 */
@@ -765,6 +773,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 取变化的单元格表达式
+	 * 
 	 * @return 返回null表示无变化
 	 */
 	public static Map<String, String> getExpChangedMap(PgmCellSet cellSet,
@@ -832,6 +841,7 @@ public class GMSpl extends GM {
 
 	/**
 	 * 移动区域，用于在网格内剪切粘贴
+	 * 
 	 * @param cellSet
 	 * @param fromRect
 	 * @param toRect
