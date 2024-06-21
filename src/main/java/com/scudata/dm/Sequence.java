@@ -6773,6 +6773,56 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 按照记录字段进行排序（省内存）
+	 * @param exps 计算表达式
+	 * @param loc 语言
+	 * @param opt z: 降序，o：改变原序列
+	 * @param findex 字段索引
+	 * @param ctx 计算上下文环境
+	 * @return
+	 */
+	public Sequence sort(Expression []exps, String loc, String opt, int[] findex, Context ctx) {
+		if (length() == 0) {
+			if (this instanceof Table || (opt != null && opt.indexOf('o') != -1)) {
+				return this;
+			} else {
+				return new Sequence(0);
+			}
+		}
+		
+		boolean isDesc = false, isOrg = false, isNullLast = false;
+		if (opt != null) {
+			if (opt.indexOf('u') != -1) {
+				return sort_u(exps, ctx);
+			}
+
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
+		}
+		if (!isOrg) {
+			return sort(exps, loc, opt, ctx);
+		}
+		
+		Comparator<Object> comparator;
+		Collator collator = null;
+		if (loc != null && loc.length() != 0) {
+			Locale locale = parseLocale(loc);
+			collator = Collator.getInstance(locale);
+		}
+		
+		if (collator != null || isDesc || isNullLast) {
+			return sort(exps, loc, opt, ctx);
+		} else {
+			comparator = new RecordFieldComparator(findex);
+		}
+		
+		Object[] values = ((ObjectArray)mems).getDatas();
+		MultithreadUtil.sort(values, 1, values.length, comparator);
+		return this;
+	}
+	
+	/**
 	 * 按照多表达式和多顺序排序
 	 * @param exps Expression[] 表达式数组
 	 * @param orders int[] 顺序数组, 1升序, -1降序, 0原序

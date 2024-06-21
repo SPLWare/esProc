@@ -3345,39 +3345,6 @@ public class Cursor extends IDWCursor {
 		return isClosed;
 	}
 	
-	public int hashCode() {
-		ArrayList<String> vals = new ArrayList<String>(10);
-		File file = table.groupTable.getFile();
-		if (file != null) {
-			vals.add(file.getName());
-		}
-		
-		for (ColumnMetaData col : columns) {
-			vals.add(col.getColName());
-		}
-		String[] names = ds.getFieldNames();
-		for (String name : names) {
-			vals.add(name);
-		}
-		if (filter != null) {
-			vals.add(filter.toString());
-		}
-		int count = vals.size();
-		int hash = vals.get(0) != null ? vals.get(0).hashCode() : 0;
-		for (int i = 1; i < count; ++i) {
-			if (vals.get(i) != null) {
-				hash = 31 * hash + vals.get(i).hashCode();
-			} else {
-				hash = 31 * hash;
-			}
-		}
-		if (hash > 0) {
-			return hash;
-		} else {
-			return -hash;
-		}
-	}
-	
 	public boolean canSkipBlock() {
 		if (filters != null)
 			return true;

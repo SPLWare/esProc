@@ -1,8 +1,11 @@
 package com.scudata.expression.mfn.sequence;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
@@ -69,8 +72,40 @@ public class Sort extends SequenceFunction {
 			if (sign) {
 				return srcSequence.sort(sortExps, orders, loc, option, ctx);
 			} else {
+				int[] findex = isAllRecordFields(sortExps);
+				if (findex != null) {
+					return srcSequence.sort(sortExps, loc, option, findex, ctx);
+				}
 				return srcSequence.sort(sortExps, loc, option, ctx);
 			}
 		}
+	}
+	
+	/**
+	 * 检查比较是否都是记录的字段
+	 * @return
+	 */
+	private int[] isAllRecordFields(Expression[] exps) {
+		Sequence seq = srcSequence;
+		if (seq.length() == 0) {
+			return null;
+		}
+		
+		IArray mems = seq.getMems();
+		int fcount = exps.length;
+		
+		Object obj = mems.get(1);
+		if (!(obj instanceof BaseRecord)) {
+			return null;
+		}
+		BaseRecord record = (BaseRecord) obj;
+		int[] findex = new int[fcount];
+		for (int i = 0; i < fcount; i++) {
+			findex[i] = record.getFieldIndex(exps[i].getIdentifierName());
+			if (findex[i] == -1) {
+				return null;
+			}
+		}
+		return findex;
 	}
 }
