@@ -109,6 +109,26 @@ public final class KeyWord {
 	}
 	
 	/**
+	 * 判断标识符是否是当前序列成员引用（~n）
+	 * @param id 标识
+	 * @return true：是，false：不是
+	 */
+	public static boolean isElementId(String id) {
+		if (id == null || id.length() < 2 || !id.startsWith(CURRENTELEMENT)) {
+			return false;
+		}
+		
+		for (int i = 1, len = id.length(); i < len; ++i) {
+			char c = id.charAt(i);
+			if (c < '0' || c > '9') {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	/**
 	 * 取字段的序号，id是形如#1这样的字符串
 	 * @param id 字段的#n表示的串
 	 * @return 字段序号

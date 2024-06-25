@@ -712,6 +712,8 @@ public class Expression {
 			return new FieldId(id); // #n, r.#n
 		} else if (KeyWord.isCurrentCellSeq(id)) {
 			return new CurrentCellSeq(); // #@
+		} else if (KeyWord.isElementId(id)) {
+			return new CurrentElementId(id); // ~n
 		}
 
 		//–Œ»Áseries.select(...),series.field

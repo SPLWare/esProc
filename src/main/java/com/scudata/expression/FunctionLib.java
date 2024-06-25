@@ -373,7 +373,8 @@ public final class FunctionLib {
 		addMemberFunction("to", "com.scudata.expression.mfn.sequence.To");
 		addMemberFunction("range", "com.scudata.expression.mfn.sequence.Range");
 		addMemberFunction("pivot", "com.scudata.expression.mfn.sequence.Pivot");
-		
+		addMemberFunction("pivot0", "com.scudata.expression.mfn.sequence.Pivot0");
+
 		addMemberFunction("r", "com.scudata.expression.mfn.RowField");
 		addMemberFunction("median", "com.scudata.expression.mfn.sequence.Median");
 		addMemberFunction("bits", "com.scudata.expression.mfn.sequence.Bits");

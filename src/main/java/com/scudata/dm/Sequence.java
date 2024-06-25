@@ -66,6 +66,7 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.CursorUtil;
+import com.scudata.util.HashUtil;
 import com.scudata.util.MaxHeap;
 import com.scudata.util.MinHeap;
 import com.scudata.util.Variant;
@@ -9917,7 +9918,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Table unpivot(Expression[] gexps, String []gnames, String fname, String vname, 
 			Expression []nexps, Object []nameObjects, Context ctx) {
 		int len = length();
-		if (len == 0) return null;
+		if (len == 0) {
+			return null;
+		}
 
 		int keyCount = gexps == null ? 0 : gexps.length;
 		DataStruct ds = getFirstRecordDataStruct();
@@ -9999,6 +10002,430 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			stack.pop();
 		}
 		
+		return result;
+	}
+	
+	/**
+	 * 对排列做列转行（多个值列）
+	 * @param gexps 分组表达式数组
+	 * @param gnames 分组名数组
+	 * @param vexps 值表达式数组
+	 * @param newNames 结果集值字段名
+	 * @param ctx
+	 * @return
+	 */
+	public Table pivot0(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
+		if (length() == 0) {
+			return null;
+		}
+		
+		DataStruct ds = dataStruct();
+		Sequence table = this;
+		int gcount = gexps.length;
+		int vcount;
+		
+		if (ds == null) {
+			if (vexps == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+			}
+			
+			vcount = vexps.length;
+			Expression []exps = new Expression[gcount + vcount];
+			System.arraycopy(gexps, 0, exps, 0, gcount);
+			System.arraycopy(vexps, 0, exps, gcount, vcount);
+			table = newTable(null, exps, ctx);
+		} else {
+			boolean isOrder = true; // 分组字段和值字段是否是按顺序出现的
+			for (int i = 0; i < gcount; ++i) {
+				if (gexps[i].getFieldIndex(ds) != i) {
+					isOrder = false;
+					break;
+				}
+			}
+			
+			if (vexps == null) {
+				int fcount = ds.getFieldCount();
+				vcount = fcount - gcount;
+				if (!isOrder) {
+					int []cols = new int[fcount];
+					for (int i = 0; i < gcount; ++i) {
+						cols[i] = gexps[i].getFieldIndex(ds);
+					}
+					
+					Next:
+					for (int f = 0, q = gcount; f < fcount; ++f) {
+						for (int g = 0; g < gcount; ++g) {
+							if (cols[g] == f) {
+								continue Next;
+							}
+						}
+						
+						cols[q] = f;
+						q++;
+					}
+					
+					table = fieldsValues(cols);
+				}
+			} else {
+				vcount = vexps.length;
+				if (isOrder) {
+					for (int i = 0; i < vcount; ++i) {
+						if (vexps[i].getFieldIndex(ds) != gcount + i) {
+							isOrder = false;
+							break;
+						}
+					}
+				}
+				
+				if (!isOrder) {
+					Expression []exps = new Expression[gcount + vcount];
+					System.arraycopy(gexps, 0, exps, 0, gcount);
+					System.arraycopy(vexps, 0, exps, gcount, vcount);
+					table = newTable(null, exps, ctx);
+				}
+			}
+		}
+		
+		Sequence groups = table.group(gexps, "u", ctx);
+		int resultCount = groups.length();
+		int maxCount = 1;
+		for (int i = 1; i <= resultCount; ++i) {
+			Sequence seq = (Sequence)groups.getMem(i);
+			if (seq.length() > maxCount) {
+				maxCount = seq.length();
+			}
+		}
+		
+		int maxNewCount = maxCount * vcount;
+		String []totalNames = new String[gcount + maxNewCount];
+		for (int i = 0; i < gcount; ++i) {
+			if (gnames != null && gnames[i] != null) {
+				totalNames[i] = gnames[i];
+			} else {
+				totalNames[i] = gexps[i].getFieldName(ds);
+			}
+		}
+		
+		if (newNames != null) {
+			if (newNames.length >= maxNewCount) {
+				System.arraycopy(newNames, 0, totalNames, gcount, maxNewCount);
+			} else {
+				System.arraycopy(newNames, 0, totalNames, gcount, newNames.length);
+			}
+		}
+		
+		Table result = new Table(totalNames, resultCount);
+		int srcFieldCount = gcount + vcount;
+		
+		for (int i = 1; i <= resultCount; ++i) {
+			Sequence seq = (Sequence)groups.getMem(i);
+			BaseRecord r = (BaseRecord)seq.getMem(1);
+			BaseRecord newRecord = result.newLast();
+			newRecord.set(r);
+			
+			for (int j = 2, q = srcFieldCount, len = seq.length(); j <= len; ++j) {
+				r = (BaseRecord)seq.getMem(j);
+				for (int f = gcount; f < srcFieldCount; ++f, ++q) {
+					newRecord.setNormalFieldValue(q, r.getNormalFieldValue(f));
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 对排列做行转列（多个值列）
+	 * @param gexps 分组表达式数组
+	 * @param gnames 分组名数组
+	 * @param vexps 值表达式数组
+	 * @param newNames 结果集值字段名
+	 * @param ctx
+	 * @return
+	 */
+	public Table unpivot0(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
+		if (newNames == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+		}
+		
+		int len = length();
+		if (len == 0) {
+			return null;
+		}
+		
+		DataStruct ds = dataStruct();
+		Sequence table = this;
+		int gcount = gexps.length;
+		int vcount;
+		
+		if (ds == null) {
+			if (vexps == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+			}
+			
+			vcount = vexps.length;
+			Expression []exps = new Expression[gcount + vcount];
+			System.arraycopy(gexps, 0, exps, 0, gcount);
+			System.arraycopy(vexps, 0, exps, gcount, vcount);
+			table = newTable(null, exps, ctx);
+		} else {
+			boolean isOrder = true; // 分组字段和值字段是否是按顺序出现的
+			for (int i = 0; i < gcount; ++i) {
+				if (gexps[i].getFieldIndex(ds) != i) {
+					isOrder = false;
+					break;
+				}
+			}
+			
+			if (vexps == null) {
+				int fcount = ds.getFieldCount();
+				vcount = fcount - gcount;
+				if (!isOrder) {
+					int []cols = new int[fcount];
+					for (int i = 0; i < gcount; ++i) {
+						cols[i] = gexps[i].getFieldIndex(ds);
+					}
+					
+					Next:
+					for (int f = 0, q = gcount; f < fcount; ++f) {
+						for (int g = 0; g < gcount; ++g) {
+							if (cols[g] == f) {
+								continue Next;
+							}
+						}
+						
+						cols[q] = f;
+						q++;
+					}
+					
+					table = fieldsValues(cols);
+				}
+			} else {
+				vcount = vexps.length;
+				if (isOrder) {
+					for (int i = 0; i < vcount; ++i) {
+						if (vexps[i].getFieldIndex(ds) != gcount + i) {
+							isOrder = false;
+							break;
+						}
+					}
+				}
+				
+				if (!isOrder) {
+					Expression []exps = new Expression[gcount + vcount];
+					System.arraycopy(gexps, 0, exps, 0, gcount);
+					System.arraycopy(vexps, 0, exps, gcount, vcount);
+					table = newTable(null, exps, ctx);
+				}
+			}
+		}
+		
+		int newCount = newNames.length;
+		String []totalNames = new String[gcount + newCount];
+		for (int i = 0; i < gcount; ++i) {
+			if (gnames != null && gnames[i] != null) {
+				totalNames[i] = gnames[i];
+			} else {
+				totalNames[i] = gexps[i].getFieldName(ds);
+			}
+		}
+		
+		System.arraycopy(newNames, 0, totalNames, gcount, newCount);
+		int times = vcount / newCount;
+		Table result = new Table(totalNames, len * times);
+		int fcount = gcount + newCount;
+		Object []values = new Object[fcount];
+		
+		for (int i = 1; i <= len; ++i) {
+			BaseRecord r = (BaseRecord)table.getMem(i);
+			for (int f = 0; f < gcount; ++f) {
+				values[f] = r.getNormalFieldValue(f);
+			}
+			
+			for (int j = 0, q = gcount; j < times; ++j) {
+				boolean sign = false;
+				for (int f = gcount; f < fcount; ++f, ++q) {
+					values[f] = r.getNormalFieldValue(q);
+					if (values[f] != null) {
+						sign = true;
+					}
+				}
+				
+				if (sign) {
+					result.newLast(values);
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 对序列的序列做列转行（多个值列）
+	 * @param gexp 分组表达式
+	 * @param vexp 值表达式
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Sequence pivot0(Expression gexp, Expression vexp, Context ctx) {
+		int len = length();
+		if (len == 0) {
+			return null;
+		}
+		
+		HashUtil hashUtil = new HashUtil(len);
+		int []entries = new int[hashUtil.getCapacity()];
+		int []linkArray = new int[len + 1];
+		Object []keyValues = new Object[len + 1];
+		Sequence []results = new Sequence[len + 1];
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			Next:
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object key = gexp.calculate(ctx);
+				Object value = vexp.calculate(ctx);
+				int hash = hashUtil.hashCode(key);
+				int seq = entries[hash];
+				
+				while (seq != 0) {
+					if (Variant.isEquals(key, keyValues[seq])) {
+						if (value instanceof Sequence) {
+							results[seq].addAll((Sequence)value);
+						} else {
+							results[seq].add(value);
+						}
+						
+						continue Next;
+					} else {
+						seq = linkArray[seq];
+					}
+				}
+				
+				Sequence newGroup = new Sequence();
+				if (key instanceof Sequence) {
+					newGroup.addAll((Sequence)key);
+				} else {
+					newGroup.add(key);
+				}
+				
+				if (value instanceof Sequence) {
+					newGroup.addAll((Sequence)value);
+				} else {
+					newGroup.add(value);
+				}
+				
+				linkArray[i] = entries[hash];
+				entries[hash] = i;
+				keyValues[i] = key;
+				results[i] = newGroup;
+			}
+		} finally {
+			stack.pop();
+		}
+
+		int gcount = 0;
+		for (Sequence group : results) {
+			if (group != null) {
+				gcount++;
+			}
+		}
+		
+		Sequence result = new Sequence(gcount);
+		for (Sequence group : results) {
+			if (group != null) {
+				result.add(group);
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * 对序列的序列做行转列
+	 * @param gexp 组表达式
+	 * @param vexp 值序列表达式
+	 * @param k 转置后的值宽度
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Sequence unpivot0(Expression gexp, Expression vexp, int k, Context ctx) {
+		int len = length();
+		if (len == 0) {
+			return null;
+		}
+		
+		Sequence result = new Sequence(len * 2);
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object key = gexp.calculate(ctx);
+				Object value = vexp.calculate(ctx);
+				if (!(value instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("pivot0" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				Sequence valueSeq = (Sequence)value;
+				int curLen = valueSeq.length();
+				int q = 1;
+				
+				if (key instanceof Sequence) {
+					Sequence keySeq = (Sequence)key;
+					int keyCount = keySeq.length();
+					
+					for (int c = 0, count = curLen / k; c < count; ++c) {
+						Sequence tmp = new Sequence(k + keyCount);
+						tmp.addAll(keySeq);
+						boolean sign = false;
+						
+						for (int j = 0; j < k; ++j) {
+							Object v = valueSeq.getMem(q++);
+							tmp.add(v);
+							if (v != null) {
+								sign = true;
+							}
+						}
+						
+						if (sign) {
+							result.add(tmp);
+						}
+					}
+				} else {
+					for (int c = 0, count = curLen / k; c < count; ++c) {
+						Sequence tmp = new Sequence(k + 1);
+						tmp.add(key);
+						boolean sign = false;
+						
+						for (int j = 0; j < k; ++j) {
+							Object v = valueSeq.getMem(q++);
+							tmp.add(v);
+							if (v != null) {
+								sign = true;
+							}
+						}
+						
+						if (sign) {
+							result.add(tmp);
+						}
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+
 		return result;
 	}
 	
@@ -10562,8 +10989,43 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		return result;
 	}
+	
+	// 选出指定的多列创建新序表
+	public Table fieldsValues(int []cols) {
+		IArray mems = getMems();
+		int size = length();
+		if (size == 0) {
+			return null;
+		}
 
-	// 选出指定的多列构成的排列
+		DataStruct ds = ((BaseRecord)getMem(1)).dataStruct();
+		int fcount = cols.length;
+		String []fieldNames = new String[fcount];
+		
+		for (int i = 0; i < fcount; ++i) {
+			fieldNames[i] = ds.getFieldName(cols[i]);
+		}
+		
+		// 用字段名生成新排列
+		Table retTable = new Table(fieldNames, size);
+		for (int i = 1; i <= size; ++i) {
+			Object obj = mems.get(i);
+			if (!(obj instanceof BaseRecord)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+
+			BaseRecord cur = (BaseRecord)obj;
+			BaseRecord newRecord = retTable.newLast();
+			for (int f = 0; f < fcount; ++f) {
+				newRecord.setNormalFieldValue(f, cur.getFieldValue(cols[f]));
+			}
+		}
+
+		return retTable;
+	}
+	
+	// 选出指定的多列创建新序表
 	public Table fieldsValues(String[] fieldNames) {
 		IArray mems = getMems();
 		int size = length();
