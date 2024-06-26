@@ -355,6 +355,10 @@ abstract public class ComTable implements IBlockStorage {
 			if (sfGroupTable != null) {
 				sfGroupTable.close();
 			}
+			
+			if (ctx != null) {
+				ctx.removeResource(this);
+			}
 		} catch (IOException e) {
 			throw new RQException(e);
 		}
