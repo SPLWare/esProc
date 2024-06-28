@@ -2684,7 +2684,7 @@ public class Utils {
 	/**
 	 * 绘制极坐标系下一个点的步骤2
 	 * @param g 图形设备
-	 * @param point 点坐标(极坐标)
+	 * @param point 点坐标(数值坐标，此处为极坐标)
 	 * @param shape 点的形状，取值参考Consts.PT_XXX
 	 * @param radiusR 极轴上的业务半径计算过后的像素单位，俗称为轴上的业务半径
 	 * @param radiusA 角轴上的业务半径

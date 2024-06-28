@@ -816,7 +816,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/*
-	 * 计算对象值val在轴上长度； 有两种计算方式。
+	 * 计算【逻辑值】val在轴上长度【该长度用于组成坐标系的数值坐标】； 有两种计算方式。
 	 * 1：绝对长度 即val相对于轴刻度范围，所占有的长度，一般用于半径计算。
 	 * 枚举轴是val比系列宽度；日期轴是按val天算长度，数值轴则按val算长度；不分大小与1的情况； 
 	 * 2:刻度长度  即val作为刻度范围在轴上相对于轴原点的长度 

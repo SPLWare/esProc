@@ -253,7 +253,8 @@ public class Line extends Dot {
 				}
 				Object val1 = data1.get(index);
 				Object val2 = data2.get(index);
-				Point2D p = coor.getScreenPoint(val1, val2);
+				Point2D numericP = coor.getNumericPoint(val1, val2);
+				Point2D p = coor.getScreenPoint( numericP );
 				linePoints.add(p);
 			}
 			drawLine(1, linePoints, step);
@@ -368,7 +369,7 @@ public class Line extends Dot {
 		int size = pointSize();
 		
 		for (int i = 1; i <= size; i++) {
-			Point2D p = getScreenPoint(i,discardSeries);
+			Point2D p = getNumericPoint(i,discardSeries);
 			Shape shape = drawADot(i, p, step);
 			if(shape!=null){
 				String title = getTipTitle(i);

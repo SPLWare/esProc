@@ -66,9 +66,12 @@ public class PolarCoor implements ICoor {
 	 * 返回极坐标系下的数值点；其中 P.x = 极轴长度， P.y=角轴角度
 	 * @param val1 逻辑坐标1
 	 * @param val2 逻辑坐标2
-	 * @return Point 对应极坐标
+	 * @return Point 数值坐标
 	 */
 	public Point2D getPolarPoint(Object val1, Object val2) {
+		return getNumericPoint(val1,val2);
+	}
+	public Point2D getNumericPoint(Object val1, Object val2) {
 		double i1 = a1.getValueLen(val1);
 		double i2 = a2.getValueLen(val2);
 		double r,a;
@@ -87,12 +90,12 @@ public class PolarCoor implements ICoor {
 	 * @param polarPoint 极坐标点
 	 * @return 屏幕像素绝对坐标
 	 */
-	public Point2D getScreenPoint(Point2D polarPoint) {
+	public Point2D getScreenPoint(Point2D numericPoint) {
 		TickAxis polarAxis = (TickAxis) getPolarAxis();
 		TickAxis angleAxis = (TickAxis) getAngleAxis();
 		double r,a;
-		r = polarPoint.getX();
-		a = polarPoint.getY()+angleAxis.getBottomY();
+		r = numericPoint.getX();
+		a = numericPoint.getY()+angleAxis.getBottomY();
 		double radAngle = a * Math.PI / 180;
 		double x = polarAxis.getLeftX() + r * Math.cos(radAngle);
 		double y = polarAxis.getBottomY() - r * Math.sin(radAngle);
@@ -106,8 +109,8 @@ public class PolarCoor implements ICoor {
 	 * @return 屏幕像素绝对坐标
 	 */
 	public Point2D getScreenPoint(Object val1, Object val2) {
-		Point2D pDot = getPolarPoint(val1, val2);
-		return getScreenPoint(pDot);
+		Point2D nDot = getNumericPoint(val1, val2);
+		return getScreenPoint(nDot);
 	}
 
 	/**

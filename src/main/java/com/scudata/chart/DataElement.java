@@ -355,6 +355,16 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	protected Point2D getScreenPoint(int index, boolean discardSeries) {
+		Point2D p = getNumericPoint(index,discardSeries);
+		if (isPhysicalCoor()) {
+		} else {
+			ICoor coor = getCoor();
+			p = coor.getScreenPoint(p);
+		}
+		return p;
+	}
+
+	protected Point2D getNumericPoint(int index, boolean discardSeries) {
 		Point2D p;
 		if (isPhysicalCoor()) {
 			double vx = ((Number) data1.get(index)).doubleValue();
@@ -370,12 +380,11 @@ public abstract class DataElement extends LinkElement {
 				v1 = Column.discardSeries(v1);
 				v2 = Column.discardSeries(v2);
 			}
-
-			p = coor.getScreenPoint(v1, v2);
+			Point2D n = coor.getNumericPoint(v1, v2);
+			p = n;
 		}
 		return p;
 	}
-
 	/**
 	 * 采用线性插值算法
 	 * @param frameTime

@@ -74,9 +74,15 @@ public class CartesianCoor implements ICoor {
 	 * @param val2	对应2轴的逻辑值
 	 * @return Point2D 精度为double的物理坐标
 	 */
-	public Point2D getScreenPoint(Object val1, Object val2) {
+	public Point2D getNumericPoint(Object val1, Object val2) {
 		double i1 = a1.getValueLen(val1);
 		double i2 = a2.getValueLen(val2);
+		return new Point2D.Double(i1, i2);
+	}
+
+	public Point2D getScreenPoint(Point2D numericPoint) {
+		double i1 = numericPoint.getX();
+		double i2 = numericPoint.getY();
 		double x, y;
 		if (getXAxis() == a1) {
 			x = a1.getLeftX() + i1;
@@ -87,6 +93,9 @@ public class CartesianCoor implements ICoor {
 		}
 		return new Point2D.Double(x, y);
 	}
+	 public Point2D getScreenPoint(Object val1, Object val2) {
+		  return getScreenPoint(getNumericPoint(val1,val2));
+	  };
 
 	/**
 	 * 3d偏移坐标量,如果有枚举轴，则取枚举轴的thickRate，否则取axis1的该值；

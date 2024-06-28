@@ -151,7 +151,8 @@ public class Dot extends DataElement {
 
 	/*
 	 * 画点图元的一个数据点
-	 * 要绘制点p的坐标；注意，该点在直角系一定用getScreenPoint获取，极坐标系时，得是getPolarPoint。
+	 * 要绘制点p的【数值坐标】；
+	 * 注意，物理坐标系时，数值坐标已经等于 屏幕坐标。
 	 */
 	protected Shape drawADot(int index, Point2D p, int step) {
 		ICoor coor = getCoor();
@@ -159,68 +160,67 @@ public class Dot extends DataElement {
 		int shape = markerStyle.intValue(index);
 		Shape linkShape=null;
 		
-		if (isPhysicalCoor() || coor.isCartesianCoor()) {
-			double radiusx, radiusy, val;
-			if(isPhysicalCoor()){
-				val = radius1.doubleValue(index);
-				radiusx = e.getXPixel(val);
-				val = radius2.doubleValue(index);
-				radiusy = e.getXPixel(val);
-			}else{
-				CartesianCoor cc = (CartesianCoor) coor;
-				TickAxis ia = cc.getXAxis();
-				if (ia == cc.getAxis1()) {
+			if (isPhysicalCoor() || coor.isCartesianCoor()) {
+				double radiusx, radiusy, val;
+				if(isPhysicalCoor()){
 					val = radius1.doubleValue(index);
-					radiusx = ia.getValueRadius(val);
+					radiusx = e.getXPixel(val);
 					val = radius2.doubleValue(index);
-					radiusy = cc.getAxis2().getValueRadius(val);
-				} else {
-					val = radius1.doubleValue(index);
-					radiusy = ia.getValueRadius(val);
-					val = radius2.doubleValue(index);
-					radiusx = cc.getAxis2().getValueRadius(val);
+					radiusy = e.getXPixel(val);
+				}else{
+					CartesianCoor cc = (CartesianCoor) coor;
+					p = cc.getScreenPoint(p); 
+					TickAxis ia = cc.getXAxis();
+					if (ia == cc.getAxis1()) {
+						val = radius1.doubleValue(index);
+						radiusx = ia.getValueRadius(val);
+						val = radius2.doubleValue(index);
+						radiusy = cc.getAxis2().getValueRadius(val);
+					} else {
+						val = radius1.doubleValue(index);
+						radiusy = ia.getValueRadius(val);
+						val = radius2.doubleValue(index);
+						radiusx = cc.getAxis2().getValueRadius(val);
+					}
 				}
-			}
 
-			double rw = markerWeight.doubleValue(index);
-			int style = lineStyle.intValue(index);
-			float weight = lineWeight.floatValue(index);
-			// p = coor.getScreenPoint(v1, v2);
-			switch (step) {
-			case 1:
-				linkShape = Utils.drawCartesianPoint1(g, p, shape, radiusx, radiusy, rw,
-						style, weight,transparent);
-				break;
-			case 2:
-				ChartColor backColor = markerColor.chartColorValue(index);
-				Color foreColor = lineColor.colorValueNullAsDef(index);
-				Utils.drawCartesianPoint2(g, p, shape, radiusx, radiusy, rw,
-						style, weight, backColor, foreColor, transparent);
-				break;
-			case 3:
-				String txt = text.stringValue(index);
-				if (!StringUtils.isValidString(txt)) {
-					return null;
+				double rw = markerWeight.doubleValue(index);
+				int style = lineStyle.intValue(index);
+				float weight = lineWeight.floatValue(index);
+				switch (step) {
+				case 1:
+					linkShape = Utils.drawCartesianPoint1(g, p, shape, radiusx, radiusy, rw,
+							style, weight,transparent);
+					break;
+				case 2:
+					ChartColor backColor = markerColor.chartColorValue(index);
+					Color foreColor = lineColor.colorValueNullAsDef(index);
+					Utils.drawCartesianPoint2(g, p, shape, radiusx, radiusy, rw,
+							style, weight, backColor, foreColor, transparent);
+					break;
+				case 3:
+					String txt = text.stringValue(index);
+					if (!StringUtils.isValidString(txt)) {
+						return null;
+					}
+					double x = p.getX();
+					double y = p.getY();
+					// 数据点上的标示文字
+					x = p.getX();
+					if (radiusy > 0) {
+						y = p.getY() - radiusy;
+					} else {
+						y = p.getY() - rw;
+					}
+					String fontName = textFont.stringValue(index);
+					int fontStyle = textStyle.intValue(index);
+					int fontSize = textSize.intValue(index);
+					Font font = Utils.getFont(fontName, fontStyle, fontSize);
+					Color c = textColor.colorValue(index);
+					Utils.drawText(e, txt, x, y, font, c, fontStyle, 0,
+							Consts.LOCATION_CB, textOverlapping);
+					break;
 				}
-				double x = p.getX();
-				double y = p.getY();
-				// 数据点上的标示文字
-				x = p.getX();
-				if (radiusy > 0) {
-					y = p.getY() - radiusy;
-				} else {
-					y = p.getY() - rw;
-				}
-				String fontName = textFont.stringValue(index);
-				int fontStyle = textStyle.intValue(index);
-				int fontSize = textSize.intValue(index);
-				Font font = Utils.getFont(fontName, fontStyle, fontSize);
-				Color c = textColor.colorValue(index);
-				Utils.drawText(e, txt, x, y, font, c, fontStyle, 0,
-						Consts.LOCATION_CB, textOverlapping);
-				break;
-			}
-
 		} else {
 			// 极坐标系
 			PolarCoor pc = (PolarCoor) coor;
