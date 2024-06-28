@@ -371,12 +371,7 @@ public abstract class DataElement extends LinkElement {
 				v2 = Column.discardSeries(v2);
 			}
 
-			if (coor.isCartesianCoor()) {
-				p = coor.getScreenPoint(v1, v2);
-			} else {
-				PolarCoor pc = (PolarCoor) coor;
-				p = pc.getScreenPoint(v1, v2);
-			}
+			p = coor.getScreenPoint(v1, v2);
 		}
 		return p;
 	}
