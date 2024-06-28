@@ -375,7 +375,7 @@ public abstract class DataElement extends LinkElement {
 				p = coor.getScreenPoint(v1, v2);
 			} else {
 				PolarCoor pc = (PolarCoor) coor;
-				p = pc.getPolarPoint(v1, v2);
+				p = pc.getScreenPoint(v1, v2);
 			}
 		}
 		return p;
