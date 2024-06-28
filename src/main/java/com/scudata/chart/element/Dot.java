@@ -133,7 +133,7 @@ public class Dot extends DataElement {
 		int size = pointSize();
 		for (int i = 1; i <= size; i++) {
 			try {
-				Point2D p = getScreenPoint(i);
+				Point2D p = getNumericPoint(i,false);
 				Shape shape = drawADot(i, p, step);
 				if(shape!=null){
 					String title = getTipTitle(i);

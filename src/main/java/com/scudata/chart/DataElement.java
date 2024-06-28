@@ -328,9 +328,13 @@ public abstract class DataElement extends LinkElement {
 			// 后续的绘图代码都基于axis1来绘制，改动太麻烦，在这里，将axis1和axis2对调即可
 			if (enumData == data2) {
 				ICoor ic = getCoor();
-				ta = ic.getAxis2();
-				ic.setAxis2(ic.getAxis1());
-				ic.setAxis1(ta);
+				//如果用到相同的坐标系，则前面图元调整轴后，会导致后面的图元，找不到坐标系，
+//				此时只需忽略坐标系的调整，直接调整后方的data即可
+				if(ic!=null) {
+					ta = ic.getAxis2();
+					ic.setAxis2(ic.getAxis1());
+					ic.setAxis1(ta);
+				}
 
 				data2 = data1;
 				data1 = enumData;
