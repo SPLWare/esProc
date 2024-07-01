@@ -1,6 +1,6 @@
 package com.scudata.cellset.datamodel;
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 import java.util.List;
 
 import com.scudata.cellset.INormalCell;
@@ -22,7 +22,7 @@ import com.scudata.util.Variant;
 public class PgmNormalCell extends NormalCell {
 	private static final long serialVersionUID = 0x02010014;
 
-	transient protected WeakReference<Expression> expRef; // 表达式软引用，为了缓存表达式
+	transient protected SoftReference<Expression> expRef; // WeakReference表达式软引用，为了缓存表达式
 	transient private int sign = TYPE_BLANK_CELL; // 单元格类型
 	transient private Command command; // 如果此单元格为语句则对应相应的语句，否则为空
 	transient private boolean containMacro = false;;
@@ -151,7 +151,7 @@ public class PgmNormalCell extends NormalCell {
 				exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
 				
 				if (!containMacro()) {
-					expRef = new WeakReference<Expression>(exp);
+					expRef = new SoftReference<Expression>(exp);
 				}
 			}
 
@@ -164,7 +164,7 @@ public class PgmNormalCell extends NormalCell {
 				exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
 				
 				if (!containMacro()) {
-					expRef = new WeakReference<Expression>(exp);
+					expRef = new SoftReference<Expression>(exp);
 				}
 			}
 
@@ -181,7 +181,7 @@ public class PgmNormalCell extends NormalCell {
 				}
 
 				if (!containMacro()) {
-					expRef = new WeakReference<Expression>(exp);
+					expRef = new SoftReference<Expression>(exp);
 				}
 			}
 
@@ -193,7 +193,7 @@ public class PgmNormalCell extends NormalCell {
 				exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
 				
 				if (!containMacro()) {
-					expRef = new WeakReference<Expression>(exp);
+					expRef = new SoftReference<Expression>(exp);
 				}
 			}
 
@@ -246,13 +246,13 @@ public class PgmNormalCell extends NormalCell {
 			cs.setParseCurrent(row, col);
 			exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
 			if (!containMacro()) {
-				expRef = new WeakReference<Expression>(exp);
+				expRef = new SoftReference<Expression>(exp);
 			}
 		} else if ((sign & TYPE_CALCULABLE_BLOCK) != 0) { // ==
 			cs.setParseCurrent(row, col);
 			exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
 			if (!containMacro()) {
-				expRef = new WeakReference<Expression>(exp);
+				expRef = new SoftReference<Expression>(exp);
 			}
 		} else if ((sign & TYPE_EXECUTABLE_CELL) != 0) { // >
 			cs.setParseCurrent(row, col);
@@ -263,13 +263,13 @@ public class PgmNormalCell extends NormalCell {
 			}
 			
 			if (!containMacro()) {
-				expRef = new WeakReference<Expression>(exp);
+				expRef = new SoftReference<Expression>(exp);
 			}
 		} else if ((sign & TYPE_EXECUTABLE_BLOCK) != 0) { // >>
 			cs.setParseCurrent(row, col);
 			exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
 			if (!containMacro()) {
-				expRef = new WeakReference<Expression>(exp);
+				expRef = new SoftReference<Expression>(exp);
 			}
 		}
 
