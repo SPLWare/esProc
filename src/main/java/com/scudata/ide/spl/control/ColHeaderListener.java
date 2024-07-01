@@ -62,7 +62,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 监听器构造函数
 	 * 
-	 * @param control 网格控件
+	 * @param control
+	 *            网格控件
 	 */
 	public ColHeaderListener(SplControl control) {
 		this(control, true);
@@ -71,8 +72,10 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 监听器构造函数
 	 *
-	 * @param control  网格控件
-	 * @param editable 是否可以编辑
+	 * @param control
+	 *            网格控件
+	 * @param editable
+	 *            是否可以编辑
 	 */
 	public ColHeaderListener(SplControl control, boolean editable) {
 		this.control = control;
@@ -88,7 +91,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 按下鼠标左键时的处理
 	 *
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mousePressed(MouseEvent e) {
 		if (!editable) {
@@ -167,7 +171,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 鼠标左键释放时的处理
 	 *
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseReleased(MouseEvent e) {
 		if (!editable) {
@@ -203,8 +208,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 				IColCell cc = control.cellSet.getColCell(col);
 				if (cc != null) {
 					cc.setWidth(oldCellWidth);
-					control.fireColHeaderResized(willResizeCols, tmpWidth
-							/ control.scale);
+					resizeColWidth(willResizeCols, tmpWidth / control.scale);
 				}
 			}
 		} else {
@@ -219,6 +223,10 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 			}
 		};
 		SwingUtilities.invokeLater(t); // 延迟弹出，避免菜单在控件中被挡住
+	}
+
+	protected void resizeColWidth(Vector<Integer> willResizeCols, float newWidth) {
+		control.fireColHeaderResized(willResizeCols, newWidth);
 	}
 
 	/**
@@ -257,7 +265,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 按下鼠标左键并拖动鼠标时的处理
 	 *
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if (!editable) {
@@ -319,7 +328,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 鼠标移动时的处理
 	 *
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseMoved(MouseEvent e) {
 		if (!editable) {
@@ -372,7 +382,8 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 键盘被按下的处理 若按下的是shift+方向键，相应改变当前选中的列
 	 *
-	 * @param e 键盘事件
+	 * @param e
+	 *            键盘事件
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (!editable) {
