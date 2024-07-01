@@ -8945,32 +8945,64 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		IArray resultMems = result.getMems();
 		Object prev = mems.get(1);
 
-		if (opt.indexOf('1') == -1) {
-			Sequence group = new Sequence(7);
-			group.add(prev);
-			resultMems.add(group);
+		if (opt.indexOf('p') == -1) {
+			if (opt.indexOf('1') == -1) {
+				Sequence group = new Sequence(7);
+				group.add(prev);
+				resultMems.add(group);
 
-			for (int i = 2; i <= size; ++i) {
-				Object cur = mems.get(i);
-				if (Variant.isEquals(prev, cur)) {
-					group.add(cur);
-				} else {
-					// 新组
-					prev = cur;
-					group = new Sequence(7);
-					group.add(cur);
-					resultMems.add(group);
+				for (int i = 2; i <= size; ++i) {
+					Object cur = mems.get(i);
+					if (Variant.isEquals(prev, cur)) {
+						group.add(cur);
+					} else {
+						// 新组
+						prev = cur;
+						group = new Sequence(7);
+						group.add(cur);
+						resultMems.add(group);
+					}
+				}
+			} else {
+				resultMems.add(prev);
+				for (int i = 2; i <= size; ++i) {
+					Object cur = mems.get(i);
+
+					if (!Variant.isEquals(prev, cur)) {
+						// 新组
+						prev = cur;
+						resultMems.add(cur);
+					}
 				}
 			}
 		} else {
-			resultMems.add(prev);
-			for (int i = 2; i <= size; ++i) {
-				Object cur = mems.get(i);
+			if (opt.indexOf('1') == -1) {
+				Sequence group = new Sequence(7);
+				group.add(ObjectCache.getInteger(1));
+				resultMems.add(group);
 
-				if (!Variant.isEquals(prev, cur)) {
-					// 新组
-					prev = cur;
-					resultMems.add(cur);
+				for (int i = 2; i <= size; ++i) {
+					Object cur = mems.get(i);
+					if (Variant.isEquals(prev, cur)) {
+						group.add(ObjectCache.getInteger(i));
+					} else {
+						// 新组
+						prev = cur;
+						group = new Sequence(7);
+						group.add(ObjectCache.getInteger(i));
+						resultMems.add(group);
+					}
+				}
+			} else {
+				resultMems.add(prev);
+				for (int i = 2; i <= size; ++i) {
+					Object cur = mems.get(i);
+
+					if (!Variant.isEquals(prev, cur)) {
+						// 新组
+						prev = cur;
+						resultMems.add(ObjectCache.getInteger(i));
+					}
 				}
 			}
 		}
@@ -9072,35 +9104,70 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			current.setCurrent(1);
 			prevValue = exp.calculate(ctx);
 
-			if (opt.indexOf('1') == -1) {
-				Sequence group = new Sequence(7);
-				group.add(mems.get(1));
-				resultMems.add(group);
+			if (opt.indexOf('p') == -1) {
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(mems.get(1));
+					resultMems.add(group);
 
-				for (int i = 2; i <= size; ++i) {
-					current.setCurrent(i);
-					curValue = exp.calculate(ctx);
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						curValue = exp.calculate(ctx);
 
-					if (Variant.isEquals(prevValue, curValue)) {
-						group.add(mems.get(i));
-					} else {
-						// 新组
-						prevValue = curValue;
-						group = new Sequence(7);
-						group.add(mems.get(i));
-						resultMems.add(group);
+						if (Variant.isEquals(prevValue, curValue)) {
+							group.add(mems.get(i));
+						} else {
+							// 新组
+							prevValue = curValue;
+							group = new Sequence(7);
+							group.add(mems.get(i));
+							resultMems.add(group);
+						}
+					}
+				} else {
+					resultMems.add(mems.get(1));
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						curValue = exp.calculate(ctx);
+
+						if (!Variant.isEquals(prevValue, curValue)) {
+							// 新组
+							prevValue = curValue;
+							resultMems.add(mems.get(i));
+						}
 					}
 				}
 			} else {
-				resultMems.add(mems.get(1));
-				for (int i = 2; i <= size; ++i) {
-					current.setCurrent(i);
-					curValue = exp.calculate(ctx);
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(ObjectCache.getInteger(1));
+					resultMems.add(group);
 
-					if (!Variant.isEquals(prevValue, curValue)) {
-						// 新组
-						prevValue = curValue;
-						resultMems.add(mems.get(i));
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						curValue = exp.calculate(ctx);
+
+						if (Variant.isEquals(prevValue, curValue)) {
+							group.add(ObjectCache.getInteger(i));
+						} else {
+							// 新组
+							prevValue = curValue;
+							group = new Sequence(7);
+							group.add(ObjectCache.getInteger(i));
+							resultMems.add(group);
+						}
+					}
+				} else {
+					resultMems.add(ObjectCache.getInteger(1));
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						curValue = exp.calculate(ctx);
+
+						if (!Variant.isEquals(prevValue, curValue)) {
+							// 新组
+							prevValue = curValue;
+							resultMems.add(ObjectCache.getInteger(i));
+						}
 					}
 				}
 			}
@@ -9135,48 +9202,94 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				prevValues[k] = exps[k].calculate(ctx);
 			}
 
-			if (opt.indexOf('1') == -1) {
-				Sequence group = new Sequence(7);
-				group.add(mems.get(1));
-				resultMems.add(group);
+			if (opt.indexOf('p') == -1) {
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(mems.get(1));
+					resultMems.add(group);
 
-				for (int i = 2; i <= size; ++i) {
-					current.setCurrent(i);
-					for (int k = 0; k < keyCount; ++k) {
-						curValues[k] = exps[k].calculate(ctx);
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						for (int k = 0; k < keyCount; ++k) {
+							curValues[k] = exps[k].calculate(ctx);
+						}
+
+						if (Variant.compareArrays(prevValues, curValues) == 0) {
+							group.add(mems.get(i));
+						} else {
+							// 新组
+							Object []tmp = prevValues;
+							prevValues = curValues;
+							curValues = tmp;
+
+							group = new Sequence(7);
+							group.add(mems.get(i));
+							resultMems.add(group);
+						}
+					}
+				} else {
+					resultMems.add(mems.get(1));
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						for (int k = 0; k < keyCount; ++k) {
+							curValues[k] = exps[k].calculate(ctx);
+						}
+
+						if (Variant.compareArrays(prevValues, curValues) != 0) {
+							// 新组
+							Object []tmp = prevValues;
+							prevValues = curValues;
+							curValues = tmp;
+
+							resultMems.add(mems.get(i));
+						}
 					}
 
-					if (Variant.compareArrays(prevValues, curValues) == 0) {
-						group.add(mems.get(i));
-					} else {
-						// 新组
-						Object []tmp = prevValues;
-						prevValues = curValues;
-						curValues = tmp;
-
-						group = new Sequence(7);
-						group.add(mems.get(i));
-						resultMems.add(group);
-					}
 				}
 			} else {
-				resultMems.add(mems.get(1));
-				for (int i = 2; i <= size; ++i) {
-					current.setCurrent(i);
-					for (int k = 0; k < keyCount; ++k) {
-						curValues[k] = exps[k].calculate(ctx);
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(ObjectCache.getInteger(1));
+					resultMems.add(group);
+
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						for (int k = 0; k < keyCount; ++k) {
+							curValues[k] = exps[k].calculate(ctx);
+						}
+
+						if (Variant.compareArrays(prevValues, curValues) == 0) {
+							group.add(ObjectCache.getInteger(i));
+						} else {
+							// 新组
+							Object []tmp = prevValues;
+							prevValues = curValues;
+							curValues = tmp;
+
+							group = new Sequence(7);
+							group.add(ObjectCache.getInteger(i));
+							resultMems.add(group);
+						}
+					}
+				} else {
+					resultMems.add(ObjectCache.getInteger(1));
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						for (int k = 0; k < keyCount; ++k) {
+							curValues[k] = exps[k].calculate(ctx);
+						}
+
+						if (Variant.compareArrays(prevValues, curValues) != 0) {
+							// 新组
+							Object []tmp = prevValues;
+							prevValues = curValues;
+							curValues = tmp;
+
+							resultMems.add(ObjectCache.getInteger(i));
+						}
 					}
 
-					if (Variant.compareArrays(prevValues, curValues) != 0) {
-						// 新组
-						Object []tmp = prevValues;
-						prevValues = curValues;
-						curValues = tmp;
-
-						resultMems.add(mems.get(i));
-					}
 				}
-
 			}
 		} finally {
 			stack.pop();
