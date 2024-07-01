@@ -34,6 +34,13 @@ public class TableRow extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		src = obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		src = null;
+	}
 
 	public Object calculate(Context ctx) {
 		Object obj = param.getLeafExpression().calculate(ctx);

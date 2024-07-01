@@ -68,6 +68,13 @@ public class FieldRef extends Node {
 	public void setDotLeftObject(Object obj) {
 		s2r = obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		s2r = null;
+	}
 
 	public Object calculate(Context ctx) {
 		if (s2r instanceof Sequence) {

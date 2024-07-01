@@ -43,6 +43,13 @@ public class Calc extends MemberFunction {
 	}
 	
 	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		srcObj = null;
+	}
+	
+	/**
 	 * 判断当前节点是否是序列函数
 	 * 如果点操作符的右侧节点是序列函数，左侧节点计算出数，则需要把数转成数列
 	 * @return

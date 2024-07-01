@@ -36,6 +36,15 @@ public class Contain extends SequenceFunction {
 		}
 	}
 	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		if (option == null || option.indexOf('h') == -1) {
+			srcSequence = null;
+		}
+	}
+	
 	public boolean ifModifySequence() {
 		return false;
 	}

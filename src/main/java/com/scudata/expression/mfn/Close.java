@@ -21,6 +21,13 @@ public class Close extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		resource = (IResource)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		resource = null;
+	}
 
 	public Object calculate(Context ctx) {
 		if (option != null && option.indexOf('p') != -1 && resource instanceof VDB) {

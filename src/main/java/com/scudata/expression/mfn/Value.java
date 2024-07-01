@@ -20,6 +20,13 @@ public class Value extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		src = obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		src = null;
+	}
 
 	public Object calculate(Context ctx) {
 		if (src instanceof BaseRecord) {

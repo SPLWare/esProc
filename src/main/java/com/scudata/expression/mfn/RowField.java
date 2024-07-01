@@ -41,6 +41,12 @@ public class RowField extends MemberFunction {
 		r = ((Number)obj).intValue();
 	}
 	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+	}
+	
 	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);

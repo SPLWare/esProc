@@ -18,6 +18,13 @@ public abstract class SequenceFunction extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		srcSequence = (Sequence)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		srcSequence = null;
+	}
 
 	/**
 	 * 判断当前节点是否是序列函数

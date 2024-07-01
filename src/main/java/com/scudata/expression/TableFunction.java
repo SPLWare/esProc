@@ -18,4 +18,11 @@ public abstract class TableFunction extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		srcTable = (Table)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		srcTable = null;
+	}
 }

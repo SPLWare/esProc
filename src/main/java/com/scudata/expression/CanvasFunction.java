@@ -17,4 +17,11 @@ public abstract class CanvasFunction extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		canvas = (Canvas)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		canvas = null;
+	}
 }

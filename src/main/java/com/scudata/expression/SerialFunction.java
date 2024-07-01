@@ -18,4 +18,11 @@ public abstract class SerialFunction extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		sb = (SerialBytes)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		sb = null;
+	}
 }

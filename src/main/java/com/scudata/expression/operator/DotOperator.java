@@ -83,7 +83,9 @@ public class DotOperator extends Operator {
 		while (right != null) {
 			if (right.isLeftTypeMatch(leftValue)) {
 				right.setDotLeftObject(leftValue);
-				return right.calculate(ctx);
+				Object result = right.calculate(ctx);
+				right.releaseDotLeftObject();
+				return result;
 			} else {
 				right = right.getNextFunction();
 			}

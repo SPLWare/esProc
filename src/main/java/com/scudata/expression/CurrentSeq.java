@@ -42,12 +42,21 @@ public class CurrentSeq extends Node {
 	}
 
 	public void setDotLeftObject(Object obj) {
-		if (!(obj instanceof Sequence)) {
+		if (obj instanceof Sequence) {
+			sequence = (Sequence)obj;
+		} else if (obj == null) {
+			sequence = null;
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\".\"" + mm.getMessage("dot.seriesLeft"));
 		}
-
-		sequence = (Sequence)obj;
+	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		sequence = null;
 	}
 
 	public Object calculate(Context ctx) {

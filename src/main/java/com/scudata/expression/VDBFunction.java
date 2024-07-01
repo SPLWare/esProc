@@ -18,4 +18,11 @@ public abstract class VDBFunction extends MemberFunction {
 	public void setDotLeftObject(Object obj) {
 		vdb = (VDB)obj;
 	}
+	
+	/**
+	 * 释放节点引用的点操作符左侧的对象
+	 */
+	public void releaseDotLeftObject() {
+		vdb = null;
+	}
 }
