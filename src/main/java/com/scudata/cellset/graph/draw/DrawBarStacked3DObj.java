@@ -369,7 +369,7 @@ public class DrawBarStacked3DObj extends DrawBase {
 				}
 				if (StringUtils.isValidString(sval)) {
 					vl = new ValueLabel(sval, new Point2D.Double((negativeBase
-							+ len / 2),  (lb - seriesWidth / 2)),
+							+ len / 2),  (lb + seriesWidth / 2)),
 							gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
@@ -396,7 +396,7 @@ public class DrawBarStacked3DObj extends DrawBase {
 			if (val < 0) {
 				sval = db.getFormattedValue(val);
 				double x = negativeBase - 3;
-				double y =  lb -  (seriesWidth / 2);
+				double y =  lb +  (seriesWidth / 2);
 				vl = new ValueLabel(sval, new Point2D.Double(x, y),
 						gp.GFV_VALUE.color, GraphFontView.TEXT_ON_LEFT);
 			}
@@ -487,7 +487,7 @@ public class DrawBarStacked3DObj extends DrawBase {
 				}
 				if (StringUtils.isValidString(sval)) {
 					vl = new ValueLabel(sval, new Point2D.Double((positiveBase + len
-							/ 2),  (lb - seriesWidth / 2)),
+							/ 2),  (lb + seriesWidth / 2)),
 							gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
@@ -514,7 +514,7 @@ public class DrawBarStacked3DObj extends DrawBase {
 			if (val > 0) {
 				sval = db.getFormattedValue(val);
 				double x = positiveBase + 3;
-				double y =  lb -  (seriesWidth / 2);
+				double y =  lb +  (seriesWidth / 2);
 				vl = new ValueLabel(sval, new Point2D.Double(x, y),
 						gp.GFV_VALUE.color, GraphFontView.TEXT_ON_RIGHT);
 
