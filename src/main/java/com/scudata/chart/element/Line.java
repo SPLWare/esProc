@@ -355,7 +355,7 @@ public class Line extends Dot {
 
 		for (int i = 0; i < markerPoints.size(); i++) {
 			MarkerPoint sp = markerPoints.get(i);
-			Shape shape = drawADot(sp.index, sp.p, step);
+			Shape shape = drawADot(sp.index, sp.p, step,true);
 			if(shape!=null){
 				int index = sp.index;
 				String title = getTipTitle(index);

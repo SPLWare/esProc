@@ -151,10 +151,21 @@ public class Dot extends DataElement {
 
 	/*
 	 * 画点图元的一个数据点
-	 * 要绘制点p的【数值坐标】；
+	 * 要绘制点p， 直角坐标系时p可以为【数值坐标】，或者【屏幕坐标】；
+	 * 极坐标系时，只能是【数值坐标】，也即【极坐标】
 	 * 注意，物理坐标系时，数值坐标已经等于 屏幕坐标。
 	 */
 	protected Shape drawADot(int index, Point2D p, int step) {
+		return drawADot(index,p, step, false);
+	}
+	/**
+	 * @param index
+	 * @param p
+	 * @param step
+	 * @param isScreenPoint，该属性只对直角坐标系管用，极坐标时，p只能是 极点坐标
+	 * @return
+	 */
+	protected Shape drawADot(int index, Point2D p, int step,boolean isScreenPoint) {
 		ICoor coor = getCoor();
 		Graphics2D g = e.getGraphics();
 		int shape = markerStyle.intValue(index);
@@ -169,7 +180,9 @@ public class Dot extends DataElement {
 					radiusy = e.getXPixel(val);
 				}else{
 					CartesianCoor cc = (CartesianCoor) coor;
-					p = cc.getScreenPoint(p); 
+					if(!isScreenPoint) {
+						p = cc.getScreenPoint(p);
+					}
 					TickAxis ia = cc.getXAxis();
 					if (ia == cc.getAxis1()) {
 						val = radius1.doubleValue(index);
@@ -241,7 +254,6 @@ public class Dot extends DataElement {
 			double rw = markerWeight.doubleValue(index);
 			int style = lineStyle.intValue(index);
 			float weight = lineWeight.floatValue(index);
-			// p = pc.getPolarPoint(v1, v2);
 			switch (step) {
 			case 1:
 				linkShape = Utils.drawPolarPoint1(g, p, shape, radiusR, radiusA, rw, style,
