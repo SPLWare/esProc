@@ -10,6 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.xssf.model.SharedStrings;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.model.StylesTable;
 import org.xml.sax.Attributes;
@@ -31,7 +32,7 @@ public class SheetHandler extends DefaultHandler {
 	/**
 	 * SharedStringsTable object
 	 */
-	private final SharedStringsTable sst;
+	private final SharedStrings sst;
 	/**
 	 * StylesTable object
 	 */
@@ -137,7 +138,7 @@ public class SheetHandler extends DefaultHandler {
 	 * @param que
 	 *            The queue used to cache data
 	 */
-	protected SheetHandler(StylesTable styles, SharedStringsTable sst,
+	protected SheetHandler(StylesTable styles, SharedStrings sst,
 			String[] fields, int startRow, int endRow, boolean removeBlank,
 			boolean bTitle, ArrayBlockingQueue<Object> que) {
 		this.sst = sst;

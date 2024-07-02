@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.model.SharedStrings;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -184,7 +185,7 @@ public interface ExcelVersionCompatibleUtilInterface {
 	 * @param idx
 	 * @return
 	 */
-	public RichTextString getItemAt(SharedStringsTable sst, int idx);
+	public RichTextString getItemAt(SharedStrings sst, int idx);
 	/**
 	 * 获取sheet页里的图片集合
 	 * @param sheet
@@ -230,4 +231,6 @@ public interface ExcelVersionCompatibleUtilInterface {
 	 * @return
 	 */
 	public CellType getCachedFormulaResultType(Cell cell) ;
+	
+	public XSSFColor getXSSFColor(int color);
 }

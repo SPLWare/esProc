@@ -11,7 +11,7 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
-import org.apache.poi.xssf.model.SharedStringsTable;
+import org.apache.poi.xssf.model.SharedStrings;
 import org.apache.poi.xssf.model.StylesTable;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -217,7 +217,7 @@ public class XlsxSImporter implements ILineInput {
 	private void process(Object sheet) throws IOException, OpenXML4JException,
 			SAXException {
 		XSSFReader xssfReader = new XSSFReader(this.xlsxPackage);
-		SharedStringsTable sst = xssfReader.getSharedStringsTable();
+		SharedStrings sst = xssfReader.getSharedStringsTable();
 		StylesTable styles = xssfReader.getStylesTable();
 		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
 				.getSheetsData();
@@ -268,7 +268,7 @@ public class XlsxSImporter implements ILineInput {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	private void processSheet(StylesTable styles, SharedStringsTable sst,
+	private void processSheet(StylesTable styles, SharedStrings sst,
 			final InputStream sheetInputStream) throws IOException,
 			SAXException {
 		final InputSource sheetSource = new InputSource(sheetInputStream);

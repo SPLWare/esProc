@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,8 +28,9 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.model.SharedStringsTable;
+import org.apache.poi.xssf.model.SharedStrings;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -40,6 +42,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
 import com.scudata.common.ImageUtils;
+import com.scudata.common.Logger;
 
 public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilInterface{
 	
@@ -251,7 +254,7 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		return value.getCellType();
 	}
 
-	public RichTextString getItemAt(SharedStringsTable sst, int idx){
+	public RichTextString getItemAt(SharedStrings sst, int idx){
 		return sst.getItemAt(idx);
 	}
 
@@ -303,5 +306,25 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 
 	public CellType getCachedFormulaResultType(Cell cell) {
 		return cell.getCachedFormulaResultType();
+	}
+
+	public XSSFColor getXSSFColor(int color) {
+		try {
+			Constructor<XSSFColor> constructor = XSSFColor.class.getConstructor(java.awt.Color.class);
+			return constructor.newInstance(new Color(color));
+		}catch (Exception e) {
+			return getXSSFColor525(color);
+		}
+	}
+	
+	public XSSFColor getXSSFColor525(int color) {
+		Color color2 = new Color(color);
+		try {
+			Constructor<XSSFColor> constructor = XSSFColor.class.getConstructor(Color.class, IndexedColorMap.class);
+			return constructor.newInstance(color2, null);
+		}catch(Exception e) {
+			Logger.debug(e);
+			return null;
+		}
 	}
 }
