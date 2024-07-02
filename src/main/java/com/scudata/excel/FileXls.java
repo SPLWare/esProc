@@ -124,6 +124,11 @@ public class FileXls extends XlsFileObject {
 			}
 			dataFormat = wb.createDataFormat();
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
+			// POI支持重算公式格
+			if (evaluator != null) {
+				evaluator.clearAllCachedResultValues();
+				evaluator.evaluateAll();
+			}
 			initTableInfo();
 		} catch (RQException e) {
 			throw e;
@@ -438,6 +443,7 @@ public class FileXls extends XlsFileObject {
 
 	/**
 	 * 克隆一个工作表s，并命名为s1
+	 * 
 	 * @param s
 	 * @param s1
 	 */

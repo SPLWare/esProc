@@ -59,6 +59,11 @@ public class XlsImporter implements IExcelTool {
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
+			// POI支持重算公式格
+			if (evaluator != null) {
+				evaluator.clearAllCachedResultValues();
+				evaluator.evaluateAll();
+			}
 		} catch (EncryptedDocumentException e) { // xls格式
 			if (pwd == null) {
 				// Excel文件是加密文件，请输入密码。

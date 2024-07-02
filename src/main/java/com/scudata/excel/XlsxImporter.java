@@ -65,6 +65,11 @@ public class XlsxImporter implements IExcelTool {
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
+			// POI支持重算公式格
+			if (evaluator != null) {
+				evaluator.clearAllCachedResultValues();
+				evaluator.evaluateAll();
+			}
 		} catch (RQException e) {
 			throw e;
 		} catch (OLE2NotOfficeXmlFileException e) {
