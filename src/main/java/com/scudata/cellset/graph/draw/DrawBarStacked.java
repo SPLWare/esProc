@@ -228,6 +228,7 @@ public class DrawBarStacked extends DrawBase {
 				}
 			}
 			
+			double y = (lb+seriesWidth/2);
 			if (len > 0) {
 				String sval = null;
 				if (percentFmt != null) {
@@ -244,7 +245,7 @@ public class DrawBarStacked extends DrawBase {
 				}
 				
 				if(StringUtils.isValidString( sval )){
-					vl = new ValueLabel(sval, new Point2D.Double((positiveBase+len/2),  (lb-seriesWidth/2)), gp.GFV_VALUE.color,
+					vl = new ValueLabel(sval, new Point2D.Double((positiveBase+len/2),  y), gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
 				
@@ -265,7 +266,7 @@ public class DrawBarStacked extends DrawBase {
 				}
 				
 				if(StringUtils.isValidString( sval )){
-					vl = new ValueLabel(sval, new Point2D.Double((negativeBase + len/2),  (lb-seriesWidth/2)), gp.GFV_VALUE.color,
+					vl = new ValueLabel(sval, new Point2D.Double((negativeBase + len/2),  y), gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
 				
@@ -277,6 +278,7 @@ public class DrawBarStacked extends DrawBase {
 		}
 
 		// 在柱顶显示数值
+		double y =  lb +  (seriesWidth / 2);
 		if (gp.dispStackSumValue && vis) {
 			double val = db.getScaledValue(egc.getPositiveSumSeries(), true);
 			String sval;
@@ -284,7 +286,6 @@ public class DrawBarStacked extends DrawBase {
 			if (val > 0) {
 				sval = db.getFormattedValue(val);
 				double x = positiveBase + 3;
-				double y =  lb -  (seriesWidth / 2);
 				vl = new ValueLabel(sval, new Point2D.Double(x, y), gp.GFV_VALUE.color,
 						GraphFontView.TEXT_ON_RIGHT);
 									
@@ -293,7 +294,6 @@ public class DrawBarStacked extends DrawBase {
 			if (val < 0) {
 				sval = db.getFormattedValue(val);
 				double x = negativeBase - 3;
-				double y =  lb -  (seriesWidth / 2);
 				
 				vl = new ValueLabel(sval, new Point2D.Double(x, y), gp.GFV_VALUE.color,
 						GraphFontView.TEXT_ON_LEFT);
