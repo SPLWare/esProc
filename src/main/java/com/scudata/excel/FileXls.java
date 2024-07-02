@@ -100,6 +100,7 @@ public class FileXls extends XlsFileObject {
 						Biff8EncryptionKey.setCurrentUserPassword(pwd);
 						wb = new HSSFWorkbook(bis);
 					} else {
+						isXls = false;
 						pfs = new POIFSFileSystem(bis);
 						is = ExcelUtils.decrypt(pfs, pwd);
 						wb = new XSSFWorkbook(is);
