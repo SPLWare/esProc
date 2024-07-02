@@ -217,7 +217,8 @@ public class XlsxSImporter implements ILineInput {
 	private void process(Object sheet) throws IOException, OpenXML4JException,
 			SAXException {
 		XSSFReader xssfReader = new XSSFReader(this.xlsxPackage);
-		SharedStrings sst = xssfReader.getSharedStringsTable();
+		//SharedStrings sst = xssfReader.getSharedStringsTable();
+		SharedStrings sst = ExcelVersionCompatibleUtilGetter.getInstance().readSharedStrings(xssfReader);
 		StylesTable styles = xssfReader.getStylesTable();
 		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
 				.getSheetsData();

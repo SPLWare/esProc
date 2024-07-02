@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStrings;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -233,4 +234,6 @@ public interface ExcelVersionCompatibleUtilInterface {
 	public CellType getCachedFormulaResultType(Cell cell) ;
 	
 	public XSSFColor getXSSFColor(int color);
+
+	public SharedStrings readSharedStrings(XSSFReader xssfReader);
 }

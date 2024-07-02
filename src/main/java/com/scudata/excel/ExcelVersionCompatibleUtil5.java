@@ -28,7 +28,9 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStrings;
+import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -326,5 +328,33 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 			Logger.debug(e);
 			return null;
 		}
+	}
+
+	@Override
+	public SharedStrings readSharedStrings(XSSFReader xssfReader) {
+		try {
+			Method m = XSSFReader.class.getMethod("getSharedStringsTable", new Class<?>[0]);
+			Class<?> returnType = m.getReturnType();
+			if(returnType.getName().contains("SharedStringsTable")) {
+				//poi5.0.0
+				SharedStringsTable sst = (SharedStringsTable) m.invoke(xssfReader);
+				return sst;
+			} else {
+				return readSharedStrings525(xssfReader);
+			}
+		}catch (Exception e) {
+			Logger.debug(e);
+			return null;
+		}
+	}
+	
+	public SharedStrings readSharedStrings525(XSSFReader xssfReader) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method m = XSSFReader.class.getMethod("getSharedStringsTable", new Class<?>[0]);
+		Class<?> returnType = m.getReturnType();
+		assert returnType.getName().endsWith("org.apache.poi.xssf.model.SharedStrings");
+		
+		//poi5.2.5
+		SharedStrings sst = (SharedStrings) m.invoke(xssfReader);
+		return sst;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStrings;
-import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.model.StylesTable;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -295,7 +294,8 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 	 */
 	private void process(XSSFReader xssfReader, boolean removeBlank)
 			throws IOException, OpenXML4JException, SAXException {
-		SharedStrings sst = xssfReader.getSharedStringsTable();
+		//SharedStrings sst = xssfReader.getSharedStringsTable();
+		SharedStrings sst = ExcelVersionCompatibleUtilGetter.getInstance().readSharedStrings(xssfReader);
 		StylesTable styles = xssfReader.getStylesTable();
 		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
 				.getSheetsData();
