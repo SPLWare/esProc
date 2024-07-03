@@ -23,11 +23,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.scudata.app.common.AppConsts;
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Table;
 import com.scudata.parallel.UnitClient;
+import com.scudata.util.CellSetUtil;
 
 /**
  * Implementation of java.sql.CallableStatement
@@ -58,9 +60,10 @@ public abstract class InternalCStatement extends InternalPStatement implements
 
 	/**
 	 * 根据参数名取参数序号
+	 * 
 	 * @param parameterName
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public synchronized int getParameterIndex(String parameterName)
 			throws SQLException {
@@ -69,89 +72,128 @@ public abstract class InternalCStatement extends InternalPStatement implements
 					"error.emptyparamname")); // 参数名称不能为空。
 		}
 		if (paramNames == null) {
-			if (!StringUtils.isValidString(sql)) {
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"error.onlycallsetparam")); // 只有CALL或者CALLS语句支持按照参数名称设置参数值。
-			}
-			try {
-				String splName = JDBCUtil.getSplName(sql);
-				if (!StringUtils.isValidString(splName)) {
-					// SPLX文件名不能为空。
-					throw new SQLException(JDBCMessage.get().getMessage(
-							"error.emptysplname"));
-				}
-				InternalConnection connt = getConnection();
-				if (connt == null || connt.isClosed())
-					throw new SQLException(JDBCMessage.get().getMessage(
-							"error.conclosed"));
-				Table t;
-				if (connt.isOnlyServer()) { // 去服务器找
-					UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
-					int connId = connt.getUnitConnectionId();
-					t = uc.JDBCGetSplParams(connId, splName, false);
-				} else {
-					t = JDBCUtil.getSplParams(splName);
-					if (t == null || t.length() == 0) { // 本地没找到，去服务器找
-						List<String> hosts = connt.getHostNames();
-						if (hosts != null && !hosts.isEmpty()) {
-							UnitClient uc = null;
-							try {
-								uc = connt.getUnitClient(queryTimeout * 1000);
-							} catch (Exception ex) {
-								Logger.error(ex);
-							}
-							if (uc != null) {
-								int connId = connt.getUnitConnectionId();
-								t = uc.JDBCGetSplParams(connId, splName, false);
-							}
-						}
+			if (StringUtils.isValidString(sql)) {
+				try {
+					byte sqlType = JDBCUtil.getJdbcSqlType(sql);
+					if (JDBCConsts.TYPE_EXP == sqlType && sql.length() > 1) {
+						paramNames = getSplParamNames(sql.substring(1));
+					} else if (JDBCConsts.TYPE_CALL == sqlType
+							|| JDBCConsts.TYPE_CALLS == sqlType) {
+						paramNames = getCallParamNames(sql, getConnection(),
+								queryTimeout);
 					}
-				}
-				if (t == null || t.length() == 0) {
-					// 未找到文件：{0}。
-					throw new SQLException(JDBCMessage.get().getMessage(
-							"error.splnotfound", splName));
-				}
-				int len = t.length();
-				ParamList pl = null;
-				if (len == 1) {
-					pl = (ParamList) t.getRecord(1).getFieldValue(
-							JDBCConsts.PARAM_LIST);
-				} else {
-					String[] splTypes = AppConsts.SPL_FILE_EXTS.split(",");
-					for (String splType : splTypes) {
-						for (int r = 1; r <= len; r++) {
-							String fileName = (String) t.getRecord(r)
-									.getFieldValue(JDBCConsts.PROCEDURE_NAME);
-							if (fileName != null
-									&& fileName.toLowerCase().endsWith(splType)) {
-								pl = (ParamList) t.getRecord(r).getFieldValue(
-										JDBCConsts.PARAM_LIST);
-								break;
-							}
-						}
+				} catch (Exception e) {
+					if (e instanceof SQLException) {
+						throw (SQLException) e;
+					} else {
+						throw new SQLException(e.getMessage(), e);
 					}
-				}
-				paramNames = new ArrayList<String>();
-				if (pl != null) {
-					for (int i = 0; i < pl.count(); i++) {
-						paramNames.add(pl.get(i).getName());
-					}
-				}
-			} catch (Exception e) {
-				if (e instanceof SQLException) {
-					throw (SQLException) e;
-				} else {
-					throw new SQLException(e.getMessage(), e);
 				}
 			}
+
 		}
-		int paramIndex = paramNames.indexOf(parameterName);
+		int paramIndex = -1;
+		if (paramNames != null) {
+			paramIndex = paramNames.indexOf(parameterName);
+		}
 		if (paramIndex < 0) {
 			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.paramnamenotfound")); // 参数名称{0}不存在。
+					"error.paramnamenotfound", parameterName)); // 参数名称{0}不存在。
 		}
 		return paramIndex + 1;
+	}
+
+	/**
+	 * 多行多列脚本，可能是spl格式，有参数定义
+	 * 
+	 * @param spl
+	 * @return
+	 */
+	private ArrayList<String> getSplParamNames(String spl) {
+		PgmCellSet pcs = CellSetUtil.toPgmCellSet(spl);
+		pcs.setParamToContext();
+		ArrayList<String> paramNames = new ArrayList<String>();
+		ParamList pl = pcs.getParamList();
+		if (pl != null) {
+			for (int i = 0; i < pl.count(); i++) {
+				paramNames.add(pl.get(i).getName());
+			}
+		}
+		return paramNames;
+	}
+
+	/**
+	 * call或calls，从splx文件中读取参数名
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	private ArrayList<String> getCallParamNames(String spl,
+			InternalConnection connt, int queryTimeout) throws Exception {
+		String splName = JDBCUtil.getSplName(spl);
+		if (!StringUtils.isValidString(splName)) {
+			// SPLX文件名不能为空。
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.emptysplname"));
+		}
+		if (connt == null || connt.isClosed())
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		Table t;
+		if (connt.isOnlyServer()) { // 去服务器找
+			UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
+			int connId = connt.getUnitConnectionId();
+			t = uc.JDBCGetSplParams(connId, splName, false);
+		} else {
+			t = JDBCUtil.getSplParams(splName);
+			if (t == null || t.length() == 0) { // 本地没找到，去服务器找
+				List<String> hosts = connt.getHostNames();
+				if (hosts != null && !hosts.isEmpty()) {
+					UnitClient uc = null;
+					try {
+						uc = connt.getUnitClient(queryTimeout * 1000);
+					} catch (Exception ex) {
+						Logger.error(ex);
+					}
+					if (uc != null) {
+						int connId = connt.getUnitConnectionId();
+						t = uc.JDBCGetSplParams(connId, splName, false);
+					}
+				}
+			}
+		}
+		if (t == null || t.length() == 0) {
+			// 未找到文件：{0}。
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.splnotfound", splName));
+		}
+		int len = t.length();
+		ParamList pl = null;
+		if (len == 1) {
+			pl = (ParamList) t.getRecord(1)
+					.getFieldValue(JDBCConsts.PARAM_LIST);
+		} else {
+			String[] splTypes = AppConsts.SPL_FILE_EXTS.split(",");
+			for (String splType : splTypes) {
+				for (int r = 1; r <= len; r++) {
+					String fileName = (String) t.getRecord(r).getFieldValue(
+							JDBCConsts.PROCEDURE_NAME);
+					if (fileName != null
+							&& fileName.toLowerCase().endsWith(splType)) {
+						pl = (ParamList) t.getRecord(r).getFieldValue(
+								JDBCConsts.PARAM_LIST);
+						break;
+					}
+				}
+			}
+		}
+		ArrayList<String> paramNames = new ArrayList<String>();
+		if (pl != null) {
+			for (int i = 0; i < pl.count(); i++) {
+				paramNames.add(pl.get(i).getName());
+			}
+		}
+		return paramNames;
 	}
 
 	/**

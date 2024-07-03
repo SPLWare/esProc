@@ -59,11 +59,13 @@ public class AppUtil {
 
 	/**
 	 * Execute JDBC statement. Supports: $(db)sql, simple sql, grid
-	 * expression(separated by \t and \n). Call spl and execute spl statements are
-	 * not supported.
+	 * expression(separated by \t and \n). Call spl and execute spl statements
+	 * are not supported.
 	 * 
-	 * @param cmd JDBC statement
-	 * @param ctx The context
+	 * @param cmd
+	 *            JDBC statement
+	 * @param ctx
+	 *            The context
 	 * @throws SQLException
 	 */
 	public static Object executeCmd(String cmd, Context ctx)
@@ -74,9 +76,12 @@ public class AppUtil {
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param cmd  JDBC statement
-	 * @param args Parameters
-	 * @param ctx  The context
+	 * @param cmd
+	 *            JDBC statement
+	 * @param args
+	 *            Parameters
+	 * @param ctx
+	 *            The context
 	 * @return The result
 	 * @throws SQLException
 	 */
@@ -87,10 +92,15 @@ public class AppUtil {
 
 	/**
 	 * 执行脚本
-	 * @param cmd  statement
-	 * @param args Parameters
-	 * @param ctx The context
-	 * @param escape 是否脱引号
+	 * 
+	 * @param cmd
+	 *            statement
+	 * @param args
+	 *            Parameters
+	 * @param ctx
+	 *            The context
+	 * @param escape
+	 *            是否脱引号
 	 * @return The result
 	 * @throws SQLException
 	 */
@@ -163,8 +173,10 @@ public class AppUtil {
 	 * Prepare SQL. Achieve two functions: 1. Automatically spell parameters. 2.
 	 * $(db)sql has no return value, so put the return statement.
 	 * 
-	 * @param cmd  JDBC statement
-	 * @param args Parameters
+	 * @param cmd
+	 *            JDBC statement
+	 * @param args
+	 *            Parameters
 	 * @return The sql
 	 */
 	public static String prepareSql(String cmd, Sequence args) {
@@ -200,7 +212,8 @@ public class AppUtil {
 	/**
 	 * Convert Sequence to List
 	 * 
-	 * @param args The parameters sequence
+	 * @param args
+	 *            The parameters sequence
 	 * @return list
 	 */
 	private static List<Object> sequence2List(Sequence args) {
@@ -216,9 +229,12 @@ public class AppUtil {
 	/**
 	 * JDBC execute SQL statement
 	 * 
-	 * @param sql  The SQL string
-	 * @param args The parameter list
-	 * @param ctx  The context
+	 * @param sql
+	 *            The SQL string
+	 * @param args
+	 *            The parameter list
+	 * @param ctx
+	 *            The context
 	 * @return The result
 	 */
 	public static Object executeSql(String sql, List<Object> args, Context ctx) {
@@ -286,8 +302,10 @@ public class AppUtil {
 	/**
 	 * 执行单表达式，不生成网格
 	 * 
-	 * @param src  表达式
-	 * @param args 参数值构成的序列，用?i引用
+	 * @param src
+	 *            表达式
+	 * @param args
+	 *            参数值构成的序列，用?i引用
 	 * @param ctx
 	 * @return
 	 */
@@ -300,7 +318,8 @@ public class AppUtil {
 	 * 执行表达式串，列用tab分隔，行用回车分隔
 	 * 
 	 * @param src
-	 * @param args 参数值构成的序列，用?argi引用
+	 * @param args
+	 *            参数值构成的序列，用?argi引用
 	 * @param ctx
 	 * @return
 	 */
@@ -309,8 +328,18 @@ public class AppUtil {
 		ComputeStack stack = ctx.getComputeStack();
 		try {
 			stack.pushArg(args);
-			pcs.setContext(ctx);
 			pcs.setParamToContext();
+			Context csCtx = pcs.getContext();
+
+			ParamList list = pcs.getParamList();
+			if (list != null && args != null) {
+				int size = Math.min(list.count(), args.length());
+				for (int i = 0; i < size; i++) {
+					Param p = list.get(i);
+					csCtx.setParamValue(p.getName(), args.get(i + 1));
+				}
+			}
+			csCtx.setEnv(ctx);
 			pcs.calculateResult();
 			return pcs;
 		} finally {
@@ -321,8 +350,10 @@ public class AppUtil {
 	/**
 	 * 扫描ID
 	 * 
-	 * @param expStr   表达式字符串
-	 * @param location 起始位置
+	 * @param expStr
+	 *            表达式字符串
+	 * @param location
+	 *            起始位置
 	 * @return 找到的ID
 	 */
 	public static String scanId(String expStr, int location) {
@@ -344,9 +375,12 @@ public class AppUtil {
 	/**
 	 * 返回下一个字符是否是指定字符c，空字符跳过
 	 * 
-	 * @param c        字符
-	 * @param expStr   表达式字符串
-	 * @param location 起始位置
+	 * @param c
+	 *            字符
+	 * @param expStr
+	 *            表达式字符串
+	 * @param location
+	 *            起始位置
 	 * @return 下一个字符是否是指定字符c
 	 */
 	public static boolean isNextChar(char c, String expStr, int location) {
@@ -373,10 +407,11 @@ public class AppUtil {
 
 	/**
 	 * There are many places in the application that need to convert the stored
-	 * integer colors into corresponding classes. Use cache to optimize performance.
-	 * If it is a transparent color, null is returned.
+	 * integer colors into corresponding classes. Use cache to optimize
+	 * performance. If it is a transparent color, null is returned.
 	 * 
-	 * @param c int
+	 * @param c
+	 *            int
 	 * @return Color
 	 */
 	public static Color getColor(int c) {
@@ -395,8 +430,10 @@ public class AppUtil {
 	 * Generate the corresponding Format object according to the format and the
 	 * current data type. When invalid, it returns null.
 	 * 
-	 * @param fmt      String
-	 * @param dataType byte
+	 * @param fmt
+	 *            String
+	 * @param dataType
+	 *            byte
 	 * @return Format
 	 */
 	public static Format getFormatter(String fmt, byte dataType) {
@@ -522,7 +559,8 @@ public class AppUtil {
 	/**
 	 * Get the byte array in the input stream
 	 * 
-	 * @param is the input stream
+	 * @param is
+	 *            the input stream
 	 * @throws Exception
 	 * @return the byte array
 	 */
@@ -611,8 +649,8 @@ public class AppUtil {
 	}
 
 	/**
-	 * List the IP addresses of all network cards of the current machine. Contains
-	 * IP4 and IP6.
+	 * List the IP addresses of all network cards of the current machine.
+	 * Contains IP4 and IP6.
 	 * 
 	 * @throws Exception
 	 * @return String[]
@@ -705,7 +743,8 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件到程序网格
 	 * 
-	 * @param filePath SPL文件路径
+	 * @param filePath
+	 *            SPL文件路径
 	 * @return The PgmCellSet
 	 * @throws Exception
 	 */
@@ -717,7 +756,8 @@ public class AppUtil {
 	/**
 	 * 流式读取SPL文件到程序网格
 	 * 
-	 * @param in 文件输入流
+	 * @param in
+	 *            文件输入流
 	 * @return PgmCellSet
 	 * @throws Exception
 	 */
@@ -769,7 +809,8 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件为字符串
 	 * 
-	 * @param filePath SPL文件路径
+	 * @param filePath
+	 *            SPL文件路径
 	 * @return String
 	 * @throws Exception
 	 */
@@ -829,8 +870,10 @@ public class AppUtil {
 	/**
 	 * 导出网格到SPL文件
 	 * 
-	 * @param filePath SPL文件路径
-	 * @param cellSet  程序网对象
+	 * @param filePath
+	 *            SPL文件路径
+	 * @param cellSet
+	 *            程序网对象
 	 * @throws Exception
 	 */
 	public static void writeSPLFile(String filePath, PgmCellSet cellSet)
@@ -842,8 +885,10 @@ public class AppUtil {
 	/**
 	 * 导出网格字符串到SPL文件
 	 * 
-	 * @param filePath   SPL文件路径
-	 * @param cellSetStr 网格字符串
+	 * @param filePath
+	 *            SPL文件路径
+	 * @param cellSetStr
+	 *            网格字符串
 	 * @throws Exception
 	 */
 	public static void writeSPLFile(String filePath, String cellSetStr)
@@ -878,7 +923,8 @@ public class AppUtil {
 	/**
 	 * 是否SPL文件
 	 * 
-	 * @param fileName 文件名
+	 * @param fileName
+	 *            文件名
 	 * @return 是否SPL文件
 	 */
 	public static boolean isSPLFile(String fileName) {
@@ -896,7 +942,8 @@ public class AppUtil {
 	/**
 	 * 读取程序网格
 	 * 
-	 * @param filePath 网格文件路径
+	 * @param filePath
+	 *            网格文件路径
 	 * @return 程序网格对象
 	 * @throws Exception
 	 */
@@ -936,6 +983,7 @@ public class AppUtil {
 
 	/**
 	 * 查找SPL文件名，用于支持无后缀名的情况
+	 * 
 	 * @param filePath
 	 * @return
 	 */
@@ -973,7 +1021,8 @@ public class AppUtil {
 	/**
 	 * 将异常信息转为字符串
 	 * 
-	 * @param e 异常
+	 * @param e
+	 *            异常
 	 * @return String
 	 */
 	public static String getThrowableString(Throwable e) {
