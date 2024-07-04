@@ -34,7 +34,7 @@ public class GraphFontView {
 	public Font font;
 	public Color color;
 	public boolean vertical = false;
-	public int angle; // 文字旋转角度
+	public int angle; // 文字旋转角度，注意当前仅支持旋转0到90度，多余的度数取90度的余
 
 	// 文字的缺省对齐位置
 	byte textPosition = TEXT_FIXED;
@@ -112,7 +112,13 @@ public class GraphFontView {
 	 * @param angle 角度
 	 */
 	public void setAngle(int angle) {
-		this.angle = angle;
+		if(Math.abs(angle)>90) {
+			int tmp = Math.abs(angle) % 90;
+			Logger.warn("Rotate angle must between [0,90], "+tmp+" will be used instead of "+angle);
+			this.angle = tmp;
+		}else {
+			this.angle = angle;
+		}
 	}
 
 	/**
@@ -420,30 +426,38 @@ public class GraphFontView {
 				break;
 			}
 		}else {
-//			double rotateAngle = Math.toRadians(-angle);
-//			Rectangle tmpTA = getTextSize(text);
-//			Rectangle aSize = getTextSize("H");
-//			switch (direction) {
-//			case TEXT_ON_BOTTOM:
-//				x -= tmpTA.width * Math.cos(rotateAngle);
-//				y += tmpTA.height;
-//				break;
-//			case TEXT_ON_TOP:
-//				x -= tmpTA.width / 2;
-//				break;
-//			case TEXT_ON_LEFT:
-//				x -= (tmpTA.width + aSize.width) * Math.cos(rotateAngle);
-//				y += tmpTA.height - aSize.height / 2;
-//				break;
-//			case TEXT_ON_RIGHT:
-//				x += aSize.width / 2 + 5;
-//				y += aSize.height / 2;
-//				break;
-//			case TEXT_ON_CENTER:
-//				x += tmpTA.width;
-//				y += tmpTA.height / 2;
-//				break;
-//			}
+//			旋转角度仅支持0-90度
+			double rotateAngle = Math.toRadians(angle);
+			Rectangle tmpTA = getTextSize(text);
+			
+			FontMetrics tfm = db.g.getFontMetrics(font);
+			int tw = tfm.stringWidth(text);
+			int th = tfm.getAscent();
+			double  dotLeft = th * Math.sin(rotateAngle );
+			double  dotRight = tw * Math.cos(rotateAngle );
+			double halfW = tmpTA.width/2;
+			double halfH = tmpTA.height/2;
+			switch (direction) {
+			case TEXT_ON_BOTTOM:
+				x += halfW-dotLeft;
+				y += tmpTA.height;
+				break;
+			case TEXT_ON_TOP:
+				x += halfW-dotLeft;
+				break;
+			case TEXT_ON_LEFT:
+				x -= dotRight;
+				y += halfH;
+				break;
+			case TEXT_ON_RIGHT:
+				x += dotLeft;
+				y += halfH;
+				break;
+			case TEXT_ON_CENTER:
+				x -= halfW-dotLeft;
+				y += halfH;
+				break;
+			}
 		}
 
 		int gap = 2;
