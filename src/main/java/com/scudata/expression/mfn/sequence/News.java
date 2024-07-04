@@ -39,6 +39,16 @@ public class News extends SequenceFunction {
 		}
 		
 		Expression gexp = sub0.getLeafExpression();
+		if (option != null && option.indexOf('q') != -1) {
+			if (!sub1.isLeaf()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("news" + mm.getMessage("function.invalidParam"));
+			}
+			
+			return srcSequence.newSequences(gexp, sub1.getLeafExpression(), ctx);
+		}
+		
+
 		ParamInfo2 pi = ParamInfo2.parse(sub1, "news", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();

@@ -7840,6 +7840,63 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 计算序列的序列合并生成新序列
+	 * @param gexp 返回值为序列的表达式
+	 * @param exp 结果集表达式
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Sequence newSequences(Expression gexp, Expression exp, Context ctx) {
+		int len = length();
+		Sequence result = new Sequence(len * 2);
+		IArray resultMems = result.getMems();
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object obj = gexp.calculate(ctx);
+				Sequence seq = null;
+				
+				if (obj instanceof Sequence) {
+					seq = (Sequence)obj;
+				} else if (obj instanceof Number) {
+					int n = ((Number)obj).intValue();
+					if (n > 0) {
+						seq = new Sequence(1, n);
+					}
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("news" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				if (seq == null || seq.length() == 0) {
+					continue;
+				}
+				
+				try {
+					Current curCurrent = new Current(seq);
+					stack.push(curCurrent);
+					int curLen = seq.length();
+					
+					for (int m = 1; m <= curLen; ++m) {
+						curCurrent.setCurrent(m);
+						resultMems.add(exp.calculate(ctx));
+					}
+				} finally {
+					stack.pop();
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+
+		return result;
+	}
+	
+	/**
 	 * 计算排列的字段值合并生成新序表
 	 * @param gexp 返回值为序列的表达式
 	 * @param exps 结果集表达式数组
@@ -10127,7 +10184,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx
 	 * @return
 	 */
-	public Table pivot0(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
+	public Table groupc(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
 		if (length() == 0) {
 			return null;
 		}
@@ -10140,7 +10197,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (ds == null) {
 			if (vexps == null) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+				throw new RQException("groupc" + mm.getMessage("function.invalidParam"));
 			}
 			
 			vcount = vexps.length;
@@ -10257,10 +10314,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx
 	 * @return
 	 */
-	public Table unpivot0(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
+	public Table ungroupc(Expression[] gexps, String []gnames, Expression[] vexps, String []newNames, Context ctx) {
 		if (newNames == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+			throw new RQException("groupc" + mm.getMessage("function.invalidParam"));
 		}
 		
 		int len = length();
@@ -10276,7 +10333,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (ds == null) {
 			if (vexps == null) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("pivot0" + mm.getMessage("function.invalidParam"));
+				throw new RQException("groupc" + mm.getMessage("function.invalidParam"));
 			}
 			
 			vcount = vexps.length;
@@ -10383,7 +10440,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx 计算上下文
 	 * @return
 	 */
-	public Sequence pivot0(Expression gexp, Expression vexp, Context ctx) {
+	public Sequence groupc(Expression gexp, Expression vexp, Context ctx) {
 		int len = length();
 		if (len == 0) {
 			return null;
@@ -10469,7 +10526,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx 计算上下文
 	 * @return
 	 */
-	public Sequence unpivot0(Expression gexp, Expression vexp, int k, Context ctx) {
+	public Sequence ungroupc(Expression gexp, Expression vexp, int k, Context ctx) {
 		int len = length();
 		if (len == 0) {
 			return null;
@@ -10487,7 +10544,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				Object value = vexp.calculate(ctx);
 				if (!(value instanceof Sequence)) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("pivot0" + mm.getMessage("function.paramTypeError"));
+					throw new RQException("groupc" + mm.getMessage("function.paramTypeError"));
 				}
 				
 				Sequence valueSeq = (Sequence)value;
