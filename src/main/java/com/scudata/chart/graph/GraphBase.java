@@ -57,7 +57,7 @@ public class GraphBase extends ObjectElement{
 	public int graphTitleSize = 16;
 	public Color graphTitleColor = Color.black;
 	public int graphTitleAngle = 0;
-	public int graphTitleMargin = 20;
+	public int graphTitleMargin = 5;
 
 	/** 数据标识 */
 	public String dataFont;// = "Dialog";

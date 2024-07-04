@@ -748,7 +748,7 @@ public class DialogDisplayChart extends JDialog {
 			this.setSize(800, 600);
 		} else if (ii.getIconWidth() != -1) {
 			int w = ii.getIconWidth() + 100;
-			int h = ii.getIconHeight();
+			int h = ii.getIconHeight()+ 30;
 			if (w > 700 || h > 570) {
 				w = 800;
 				h = 600;

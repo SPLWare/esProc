@@ -970,8 +970,10 @@ public class Engine {
 
 	public static void main(String[] args) {
 		BufferedImage bi = new BufferedImage(633, 450,
-				BufferedImage.TYPE_INT_ARGB);
+				BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = bi.createGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 633, 450);
 		Utils.setGraphAntiAliasingOn(g);
 
 		// Point2D.Double p1 = new Point2D.Double(10, 10);
@@ -988,14 +990,31 @@ public class Engine {
 		p.closePath();
 		g.setColor(Color.black);
 		g.draw(p);
+
+		int angle = 90;
+		int x =100, y=100;
+		g.drawOval(x, y, 3, 3);
+		String text = "Text";
+		g.drawString(text, x, y);
+		
+		double rotateAngle = Math.toRadians(-angle);
+		AffineTransform at = g.getTransform();
+		AffineTransform at1 = AffineTransform.getRotateInstance(
+				rotateAngle, x, y);
+		g.transform(at1);
+		g.setStroke(new BasicStroke(1f));
+		g.setColor(Color.red);
+		g.drawString(text, (int)x, (int)y);
+		
 		g.dispose();
 		try {
-			FileOutputStream os = new FileOutputStream("c:/test.png");
-			com.scudata.common.ImageUtils.writePNG(bi, os);
+			FileOutputStream os = new FileOutputStream("E:/test.jpg");
+			com.scudata.common.ImageUtils.writeJPEG(bi, os);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		g.dispose();
+		System.out.println("OK");
 		/**/
 	}
 }

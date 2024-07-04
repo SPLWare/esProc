@@ -128,7 +128,7 @@ public abstract class DrawBase implements IGraph {
 			}else if(vAlign==IStyle.VALIGN_BOTTOM) {
 				direction = GraphFontView.TEXT_ON_TOP;
 			}else {
-				direction = GraphFontView.TEXT_ON_CENTER;
+				direction = GraphFontView.TEXT_ON_RIGHT;
 			}
 			gp.GFV_YTITLE.outText(x, y, text, direction);
 			vlYTitle1 = null;
@@ -154,7 +154,7 @@ public abstract class DrawBase implements IGraph {
 			x[1] = GraphFontView.TEXT_ON_LEFT;
 		} else {
 			x[0] = rect.x + gp.gRect2.width / 2;
-			x[1] = GraphFontView.TEXT_ON_CENTER;
+			x[1] = GraphFontView.TEXT_ON_TOP;
 		}
 		return x;
 	}

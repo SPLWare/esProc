@@ -259,10 +259,10 @@ public class GraphFontView {
 		Rectangle TA = getTextSize(text); // This Area
 		if (vertical || angle == 0) {
 			TA = getTextSize(text);
-		} else {
-			vertical = true; // 文字有旋转角度的时候,得计算假设竖排文字是否相交
-			TA = getTextSize(text);
-			vertical = false;
+//		} else if(angle%90!=0){
+//			vertical = true; // 文字有旋转角度的时候,得计算假设竖排文字是否相交
+//			TA = getTextSize(text);
+//			vertical = false;
 		}
 		FontMetrics fm = db.g.getFontMetrics(font);
 		Point rop = getActualTextPoint((int)x, (int)y, direction, TA, fm, text); 
@@ -398,29 +398,52 @@ public class GraphFontView {
 				y += TA.height / 2;
 				break;
 			}
-		} else {
-			double rotateAngle = Math.toRadians(-angle);
-			Rectangle tmpTA = getTextSize(text);
-			Rectangle aSize = getTextSize("H");
+		} else if(angle==90){
 			switch (direction) {
 			case TEXT_ON_BOTTOM:
-				x -= tmpTA.width * Math.cos(rotateAngle);
-				y += tmpTA.height;
+				x += TA.width / 2;
+				y += TA.height;
 				break;
 			case TEXT_ON_TOP:
+				x += TA.width / 2;
 				break;
 			case TEXT_ON_LEFT:
-				x -= (tmpTA.width + aSize.width) * Math.cos(rotateAngle);
-				y += tmpTA.height - aSize.height / 2;
+				y += TA.height / 2;
 				break;
 			case TEXT_ON_RIGHT:
-				x += aSize.width / 2 + 5;
-				y += aSize.height / 2;
+				x += TA.width;
+				y += TA.height / 2;
 				break;
 			case TEXT_ON_CENTER:
-				//旋转的中心暂时不考虑 
+				x += TA.width / 2;
+				y += TA.height / 2;
 				break;
 			}
+		}else {
+//			double rotateAngle = Math.toRadians(-angle);
+//			Rectangle tmpTA = getTextSize(text);
+//			Rectangle aSize = getTextSize("H");
+//			switch (direction) {
+//			case TEXT_ON_BOTTOM:
+//				x -= tmpTA.width * Math.cos(rotateAngle);
+//				y += tmpTA.height;
+//				break;
+//			case TEXT_ON_TOP:
+//				x -= tmpTA.width / 2;
+//				break;
+//			case TEXT_ON_LEFT:
+//				x -= (tmpTA.width + aSize.width) * Math.cos(rotateAngle);
+//				y += tmpTA.height - aSize.height / 2;
+//				break;
+//			case TEXT_ON_RIGHT:
+//				x += aSize.width / 2 + 5;
+//				y += aSize.height / 2;
+//				break;
+//			case TEXT_ON_CENTER:
+//				x += tmpTA.width;
+//				y += tmpTA.height / 2;
+//				break;
+//			}
 		}
 
 		int gap = 2;
