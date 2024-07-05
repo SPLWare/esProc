@@ -7727,7 +7727,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 */
 	public Table newTable(String[] names, Expression[] exps, String opt, Context ctx) {
-		if (names == null || exps == null || names.length != exps.length) {
+		if (names == null) {
+			if (exps == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("new" + mm.getMessage("function.invalidParam"));
+			}
+			
+			names = new String[exps.length];
+		} else if (exps == null || names.length != exps.length) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("new" + mm.getMessage("function.invalidParam"));
 		}
@@ -8032,7 +8039,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Ðò±í
 	 */
 	public Table newTables(Expression gexp, String[] names, Expression[] exps, String opt, Context ctx) {
-		if (names == null || exps == null || names.length != exps.length) {
+		if (names == null) {
+			if (exps == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("news" + mm.getMessage("function.invalidParam"));
+			}
+			
+			names = new String[exps.length];
+		} else if (exps == null || names.length != exps.length) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("news" + mm.getMessage("function.invalidParam"));
 		}
