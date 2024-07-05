@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JViewport;
@@ -116,8 +117,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 构造函数
 	 * 
-	 * @param rows 行数
-	 * @param cols 列数
+	 * @param rows
+	 *            行数
+	 * @param cols
+	 *            列数
 	 */
 	public SplControl(int rows, int cols) {
 		super();
@@ -129,6 +132,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 设置Sheet对象
+	 * 
 	 * @param sheet
 	 */
 	public void setSheet(SheetSpl sheet) {
@@ -137,6 +141,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 取Sheet对象
+	 * 
 	 * @return
 	 */
 	public SheetSpl getSheet() {
@@ -220,7 +225,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 是否设置了断点的行
 	 * 
-	 * @param row int
+	 * @param row
+	 *            int
 	 * @return boolean
 	 */
 	public boolean isBreakPointRow(int row) {
@@ -237,7 +243,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 删除行断点
 	 * 
-	 * @param row 指定的行号
+	 * @param row
+	 *            指定的行号
 	 */
 	public void removeRowBreakPoints(int row) {
 		for (int i = breakPoints.size() - 1; i >= 0; i--) {
@@ -253,7 +260,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 删除列断点
 	 * 
-	 * @param col 指定的列号
+	 * @param col
+	 *            指定的列号
 	 */
 	public void removeColBreakPoints(int col) {
 		for (int i = breakPoints.size() - 1; i >= 0; i--) {
@@ -285,8 +293,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 是否断点格
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	public boolean isBreakPointCell(int row, int col) {
@@ -321,7 +331,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置单步调试执行格坐标
 	 * 
-	 * @param cp 单步调试执行格坐标
+	 * @param cp
+	 *            单步调试执行格坐标
 	 */
 	public void setStepPosition(CellLocation cp) {
 		this.stepPosition = cp;
@@ -364,8 +375,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 取格子的坐标
 	 * 
-	 * @param row 格子的行号
-	 * @param col 格子的列号
+	 * @param row
+	 *            格子的行号
+	 * @param col
+	 *            格子的列号
 	 * @return
 	 */
 	public Point[] getCellPoint(int row, int col) {
@@ -382,7 +395,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置当前格
 	 * 
-	 * @param pos 格子的坐标
+	 * @param pos
+	 *            格子的坐标
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos) {
@@ -392,8 +406,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置当前格
 	 * 
-	 * @param pos            格子的坐标
-	 * @param clearSelection 是否清除之前的选择区域
+	 * @param pos
+	 *            格子的坐标
+	 * @param clearSelection
+	 *            是否清除之前的选择区域
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos, boolean clearSelection) {
@@ -403,11 +419,13 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置当前格
 	 * 
-	 * @param pos             当前单元格位置 clearSelection :
-	 *                        通常情况要清空选择，特殊为选中行列时，移动控件到选择框，避免多区域选择 多区域选择有很多限制，不能插入等
-	 *                        返回设置该位置后的调整过的区域,用于上层记住选中的区域
-	 * @param clearSelection  是否清除之前的选择区域
-	 * @param scrollToVisible 当前格没有显示时，是否滚动到当前格使其显示
+	 * @param pos
+	 *            当前单元格位置 clearSelection : 通常情况要清空选择，特殊为选中行列时，移动控件到选择框，避免多区域选择
+	 *            多区域选择有很多限制，不能插入等 返回设置该位置后的调整过的区域,用于上层记住选中的区域
+	 * @param clearSelection
+	 *            是否清除之前的选择区域
+	 * @param scrollToVisible
+	 *            当前格没有显示时，是否滚动到当前格使其显示
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos, boolean clearSelection,
@@ -417,9 +435,7 @@ public abstract class SplControl extends ControlBase {
 		if (pos == null) {
 			contentView.submitEditor();
 			m_activeCell = null;
-			if (contentView.getEditor() != null) {
-				contentView.getEditor().setVisible(false);
-			}
+			contentView.setEditorVisible(false);
 			a = null;
 		} else {
 			int row = pos.getRow();
@@ -579,7 +595,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 将当前选择区域扩展到指定区域，按SHIFT+按键时调用
 	 * 
-	 * @param region 要扩展到的区域
+	 * @param region
+	 *            要扩展到的区域
 	 */
 	public void selectToArea(Area region) {
 		addSelectedArea(region, true);
@@ -596,7 +613,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 将当前选择区域扩展到当前区域下一行同一列位置
 	 * 
-	 * @param tarPos 目标格子坐标
+	 * @param tarPos
+	 *            目标格子坐标
 	 */
 	public void selectToDownCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -672,7 +690,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 将当前选择区域扩展到当前区域上一行同一列位置
 	 * 
-	 * @param tarPos 目标格子坐标
+	 * @param tarPos
+	 *            目标格子坐标
 	 */
 	void selectToUpCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -748,7 +767,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 将当前选择区域扩展到当前区域下一列同一行位置
 	 * 
-	 * @param tarPos 目标格子坐标
+	 * @param tarPos
+	 *            目标格子坐标
 	 */
 	void selectToRightCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -811,7 +831,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 将当前选择区域扩展到当前区域上一列同一行位置
 	 * 
-	 * @param tarPos 目标格子坐标
+	 * @param tarPos
+	 *            目标格子坐标
 	 */
 	void selectToLeftCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -874,7 +895,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 增加选择的列
 	 * 
-	 * @param c 列号
+	 * @param c
+	 *            列号
 	 */
 	public void addSelectedCol(Integer c) {
 		if (m_selectedCols.contains(c)) {
@@ -886,7 +908,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 增加选择的行
 	 * 
-	 * @param r 行号
+	 * @param r
+	 *            行号
 	 */
 	public void addSelectedRow(Integer r) {
 		if (m_selectedRows.contains(r)) {
@@ -914,7 +937,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置选择的区域
 	 * 
-	 * @param newAreas 选择的区域
+	 * @param newAreas
+	 *            选择的区域
 	 */
 	public void setSelectedAreas(Vector<Object> newAreas) {
 		m_selectedAreas = newAreas;
@@ -923,7 +947,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 取得指定的区域，index<0时表示取最后的Top区域
 	 * 
-	 * @param index int
+	 * @param index
+	 *            int
 	 * @return Area
 	 */
 	public Area getSelectedArea(int index) {
@@ -939,7 +964,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置选择的区域
 	 * 
-	 * @param a 选择的区域
+	 * @param a
+	 *            选择的区域
 	 */
 	public void setSelectedArea(Area a) {
 		if (a == null) {
@@ -974,8 +1000,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 增加选择的区域
 	 * 
-	 * @param a          选择的区域
-	 * @param removeLast 是否删除上一次选择的区域
+	 * @param a
+	 *            选择的区域
+	 * @param removeLast
+	 *            是否删除上一次选择的区域
 	 */
 	public void addSelectedArea(Area a, boolean removeLast) {
 		if (a == null || m_selectedAreas.contains(a)) {
@@ -1018,7 +1046,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 滚动到指定区域
 	 * 
-	 * @param newArea 要显示的区域
+	 * @param newArea
+	 *            要显示的区域
 	 */
 	public void scrollToArea(Area newArea) {
 		if (newArea == null) {
@@ -1065,7 +1094,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置网格
 	 * 
-	 * @param cellSet 网格对象
+	 * @param cellSet
+	 *            网格对象
 	 */
 	public void setCellSet(PgmCellSet cellSet) {
 		this.cellSet = cellSet;
@@ -1099,7 +1129,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 添加网格编辑事件监听器
 	 * 
-	 * @param listener 监听器实例
+	 * @param listener
+	 *            监听器实例
 	 */
 	public void addEditorListener(EditorListener listener) {
 		this.m_editorListener.add(listener);
@@ -1108,8 +1139,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发行高调整消息
 	 * 
-	 * @param vectHeader 行编号集合
-	 * @param newHeight  新的行高值
+	 * @param vectHeader
+	 *            行编号集合
+	 * @param newHeight
+	 *            新的行高值
 	 */
 	void fireRowHeaderResized(Vector<Integer> vectHeader, float newHeight) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1131,8 +1164,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发列宽调整消息
 	 * 
-	 * @param vectHeader 列编号集合
-	 * @param newWidth   新的列宽值
+	 * @param vectHeader
+	 *            列编号集合
+	 * @param newWidth
+	 *            新的列宽值
 	 */
 	void fireColHeaderResized(Vector<Integer> vectHeader, float newWidth) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1171,7 +1206,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发区域选择消息
 	 * 
-	 * @param keyEvent boolean 键盘事件不触发属性值刷新
+	 * @param keyEvent
+	 *            boolean 键盘事件不触发属性值刷新
 	 */
 	void fireRegionSelect(boolean keyEvent) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1185,8 +1221,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发单元格文本值编辑结束消息
 	 * 
-	 * @param pos  被编辑的单元格位置
-	 * @param text 新输入的文本
+	 * @param pos
+	 *            被编辑的单元格位置
+	 * @param text
+	 *            新输入的文本
 	 */
 	public void fireCellTextInput(CellLocation pos, String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1199,7 +1237,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发单元格文本正被编辑消息
 	 * 
-	 * @param text 正在被编辑的文本
+	 * @param text
+	 *            正在被编辑的文本
 	 */
 	void fireEditorInputing(String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1212,8 +1251,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 鼠标移动事件
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 */
 	void fireMouseMove(int row, int col) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1226,8 +1267,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 触发鼠标右击事件
 	 * 
-	 * @param e          鼠标事件
-	 * @param clickPlace 右击位置，GC中定义的常量
+	 * @param e
+	 *            鼠标事件
+	 * @param clickPlace
+	 *            右击位置，GC中定义的常量
 	 */
 	void fireRightClicked(MouseEvent e, int clickPlace) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1253,8 +1296,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 插入列
 	 * 
-	 * @param col   插入位置
-	 * @param count 插入的列数
+	 * @param col
+	 *            插入位置
+	 * @param count
+	 *            插入的列数
 	 */
 	public List<NormalCell> insertColumn(int col, int count) {
 		if (col > cellSet.getColCount() || col < 0) {
@@ -1267,6 +1312,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 插入列
+	 * 
 	 * @param cellSet
 	 * @param col
 	 * @param count
@@ -1278,7 +1324,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 追加列
 	 * 
-	 * @param count 追加的列数
+	 * @param count
+	 *            追加的列数
 	 */
 	public void addColumn(int count) {
 		addCol(cellSet, count);
@@ -1287,6 +1334,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 追加列
+	 * 
 	 * @param cellSet
 	 * @param count
 	 */
@@ -1323,8 +1371,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 删除列
 	 * 
-	 * @param col   删除位置
-	 * @param count 删除的列数
+	 * @param col
+	 *            删除位置
+	 * @param count
+	 *            删除的列数
 	 */
 	public List<NormalCell> removeColumn(int col, int count) {
 		List<NormalCell> adjustCells = null;
@@ -1346,6 +1396,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 删除列
+	 * 
 	 * @param cellSet
 	 * @param col
 	 * @param count
@@ -1358,8 +1409,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 插入行
 	 * 
-	 * @param row   行位置
-	 * @param count 插入的行数
+	 * @param row
+	 *            行位置
+	 * @param count
+	 *            插入的行数
 	 */
 	public List<NormalCell> insertRow(int row, int count) {
 		if (row > cellSet.getRowCount() || row < 0) {
@@ -1372,6 +1425,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 插入行
+	 * 
 	 * @param cellSet
 	 * @param row
 	 * @param count
@@ -1383,7 +1437,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 设置显示的比例
 	 * 
-	 * @param ratio 百分比的整数
+	 * @param ratio
+	 *            百分比的整数
 	 */
 	public void setDisplayScale(int ratio) {
 		Point p = this.getViewport().getViewPosition();
@@ -1414,7 +1469,8 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 追加行
 	 * 
-	 * @param count 追加的行数
+	 * @param count
+	 *            追加的行数
 	 */
 	public void addRow(int count) {
 		addRow(cellSet, count);
@@ -1423,6 +1479,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 追加行
+	 * 
 	 * @param cellSet
 	 * @param count
 	 */
@@ -1433,8 +1490,10 @@ public abstract class SplControl extends ControlBase {
 	/**
 	 * 删除行
 	 * 
-	 * @param row   行位置
-	 * @param count 删除的行数
+	 * @param row
+	 *            行位置
+	 * @param count
+	 *            删除的行数
 	 */
 	public List<NormalCell> removeRow(int row, int count) {
 		List<NormalCell> adjustCells = null;
@@ -1456,6 +1515,7 @@ public abstract class SplControl extends ControlBase {
 
 	/**
 	 * 删除行
+	 * 
 	 * @param cellSet
 	 * @param row
 	 * @param count
@@ -1482,21 +1542,22 @@ public abstract class SplControl extends ControlBase {
 		if (contentView == null) {
 			return null;
 		}
-		if (contentView.getEditor() == null) {
+		JComponent textEditor = contentView.getEditor();
+		if (textEditor == null || !(textEditor instanceof JTextComponent)) {
 			return null;
 		}
-		if (!(contentView.getEditor() instanceof JTextComponent)) {
-			return null;
-		}
-		return (JTextComponent) contentView.getEditor();
+		return (JTextComponent) textEditor;
 	}
 
 	/**
 	 * 设置搜索匹配到的格子
 	 * 
-	 * @param row                   行号
-	 * @param col                   列号
-	 * @param searchInSelectedCells 是否在选择区域内搜索的
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param searchInSelectedCells
+	 *            是否在选择区域内搜索的
 	 */
 	public void setSearchedCell(int row, int col, boolean searchInSelectedCells) {
 		setActiveCell(new CellLocation(row, col));

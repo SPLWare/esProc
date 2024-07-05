@@ -38,9 +38,7 @@ public class EditDropListener implements DropTargetListener {
 		ContentPanel cp = (ContentPanel) dtde.getDropTargetContext()
 				.getComponent();
 		cp.submitEditor();
-		if (cp.getEditor() != null) {
-			cp.getEditor().setVisible(false);
-		}
+		cp.setEditorVisible(false);
 		cp.getControl().setActiveCell(null);
 	}
 
@@ -51,9 +49,7 @@ public class EditDropListener implements DropTargetListener {
 		Point p = dtde.getLocation();
 		ContentPanel cp = (ContentPanel) dtde.getDropTargetContext()
 				.getComponent();
-		if (cp.getEditor() != null) {
-			cp.getEditor().setVisible(false);
-		}
+		cp.setEditorVisible(false);
 		CellLocation pos = ControlUtils.lookupCellPosition(p.x, p.y, cp);
 		if (pos == null) {
 			return;

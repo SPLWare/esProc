@@ -172,14 +172,22 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 构造函数
 	 * 
-	 * @param cellSet           网格对象
-	 * @param startRow          内容面板起始行
-	 * @param endRow            内容面板结束行
-	 * @param startCol          内容面板起始列
-	 * @param endCol            内容面板结束列
-	 * @param isEditing         面板是否位于编辑控件中
-	 * @param onlyDrawCellInWin 是否只画显示窗口大小内的面板
-	 * @param jsp               容纳面板的滚动窗格
+	 * @param cellSet
+	 *            网格对象
+	 * @param startRow
+	 *            内容面板起始行
+	 * @param endRow
+	 *            内容面板结束行
+	 * @param startCol
+	 *            内容面板起始列
+	 * @param endCol
+	 *            内容面板结束列
+	 * @param isEditing
+	 *            面板是否位于编辑控件中
+	 * @param onlyDrawCellInWin
+	 *            是否只画显示窗口大小内的面板
+	 * @param jsp
+	 *            容纳面板的滚动窗格
 	 */
 	public ContentPanel(CellSet cellSet, int startRow, int endRow,
 			int startCol, int endCol, boolean isEditing,
@@ -191,15 +199,24 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 构造函数
 	 * 
-	 * @param cellSet           网格对象
-	 * @param startRow          内容面板起始行
-	 * @param endRow            内容面板结束行
-	 * @param startCol          内容面板起始列
-	 * @param endCol            内容面板结束列
-	 * @param isEditing         面板是否位于编辑控件中
-	 * @param onlyDrawCellInWin 是否只画显示窗口大小内的面板
-	 * @param jsp               容纳面板的滚动窗格
-	 * @param sheet             页面对象
+	 * @param cellSet
+	 *            网格对象
+	 * @param startRow
+	 *            内容面板起始行
+	 * @param endRow
+	 *            内容面板结束行
+	 * @param startCol
+	 *            内容面板起始列
+	 * @param endCol
+	 *            内容面板结束列
+	 * @param isEditing
+	 *            面板是否位于编辑控件中
+	 * @param onlyDrawCellInWin
+	 *            是否只画显示窗口大小内的面板
+	 * @param jsp
+	 *            容纳面板的滚动窗格
+	 * @param sheet
+	 *            页面对象
 	 */
 	public ContentPanel(CellSet cellSet, int startRow, int endRow,
 			int startCol, int endCol, boolean isEditing,
@@ -250,8 +267,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			};
 			multiEditor.addMouseListener(ma);
 		}
-		spEditor.setVisible(false);
-		multiEditor.setVisible(false);
+		setEditorVisible(false);
 	}
 
 	/**
@@ -291,7 +307,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 	/**
 	 * 创建网格解析器
-	 * @param cellSet 网格 
+	 * 
+	 * @param cellSet
+	 *            网格
 	 * @return CellSetParser
 	 */
 	protected CellSetParser newCellSetParser(CellSet cellSet) {
@@ -300,6 +318,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 	/**
 	 * 设置网格编辑监听器
+	 * 
 	 * @return
 	 */
 	protected void addCellEditingListener(SplControl control,
@@ -310,6 +329,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 	/**
 	 * 增加编辑控件焦点事件
+	 * 
 	 * @param jtext
 	 */
 	protected void addEditorFocusListener(JTextComponent jtext) {
@@ -346,7 +366,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 设置网格对象
 	 * 
-	 * @param newCellSet 网格对象
+	 * @param newCellSet
+	 *            网格对象
 	 */
 	public void setCellSet(CellSet newCellSet) {
 		this.cellSet = newCellSet;
@@ -401,7 +422,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 获取行号相对于顶边的像素高度，用于滚动条定位
 	 * 
-	 * @param row int
+	 * @param row
+	 *            int
 	 * @return int
 	 */
 	public int getRowOffset(int row, float scale) {
@@ -435,7 +457,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 绘制面板
 	 * 
-	 * @param g 画布
+	 * @param g
+	 *            画布
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -735,8 +758,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 单元格是否被选中
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	protected boolean isCellSelected(int row, int col) {
@@ -826,8 +851,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 设置光标
 	 * 
-	 * @param caretPosition 光标位置
-	 * @param newText       新文本
+	 * @param caretPosition
+	 *            光标位置
+	 * @param newText
+	 *            新文本
 	 */
 	protected void setCaret(int caretPosition, String newText) {
 		int len = newText.length();
@@ -865,8 +892,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 取要绘制的宽度
 	 * 
-	 * @param cr 行号
-	 * @param cc 列号
+	 * @param cr
+	 *            行号
+	 * @param cc
+	 *            列号
 	 * @return
 	 */
 	public int getPaintableWidth(int cr, int cc, float scale) {
@@ -910,9 +939,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 取要编辑的宽度
 	 * 
-	 * @param editingText 编辑文本
-	 * @param row         行号
-	 * @param col         列号
+	 * @param editingText
+	 *            编辑文本
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	public int getEditableWidth(String editingText, int row, int col,
@@ -940,10 +972,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 取可以编辑的高度
 	 * 
-	 * @param text 文本
-	 * @param row  行号
-	 * @param col  列号
-	 * @param maxW 最大宽度
+	 * @param text
+	 *            文本
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param maxW
+	 *            最大宽度
 	 * @return
 	 */
 	protected int getEditableHeight(String text, int row, int col, int maxW,
@@ -1076,12 +1112,18 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 画单元格标记
 	 * 
-	 * @param g      画板
-	 * @param x      X坐标
-	 * @param y      Y坐标
-	 * @param parser 网格解析器
-	 * @param row    行号
-	 * @param col    列号
+	 * @param g
+	 *            画板
+	 * @param x
+	 *            X坐标
+	 * @param y
+	 *            Y坐标
+	 * @param parser
+	 *            网格解析器
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 */
 	public static void drawFlag(Graphics g, int x, int y, CellSetParser parser,
 			int row, int col, float scale) {
@@ -1125,8 +1167,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 初始化格子的坐标
 	 * 
-	 * @param rows 行数
-	 * @param cols 列数
+	 * @param rows
+	 *            行数
+	 * @param cols
+	 *            列数
 	 */
 	public void initCellLocations(int rows, int cols) {
 		cellX = new int[rows][cols];
@@ -1138,14 +1182,22 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 绘制单元格中显示的文本
 	 * 
-	 * @param g     画板
-	 * @param row   行号
-	 * @param col   列号
-	 * @param x     X坐标
-	 * @param y     Y坐标
-	 * @param w     宽度
-	 * @param h     高度
-	 * @param scale 显示比例
+	 * @param g
+	 *            画板
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param x
+	 *            X坐标
+	 * @param y
+	 *            Y坐标
+	 * @param w
+	 *            宽度
+	 * @param h
+	 *            高度
+	 * @param scale
+	 *            显示比例
 	 */
 	protected void drawText(Graphics g, int row, int col, int x, int y, int w,
 			int h, float scale) {
@@ -1164,15 +1216,24 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 绘制单元格中显示的文本
 	 * 
-	 * @param text  文本
-	 * @param g     画板
-	 * @param row   行号
-	 * @param col   列号
-	 * @param x     X坐标
-	 * @param y     Y坐标
-	 * @param w     宽度
-	 * @param h     高度
-	 * @param scale 显示比例
+	 * @param text
+	 *            文本
+	 * @param g
+	 *            画板
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param x
+	 *            X坐标
+	 * @param y
+	 *            Y坐标
+	 * @param w
+	 *            宽度
+	 * @param h
+	 *            高度
+	 * @param scale
+	 *            显示比例
 	 */
 	protected void drawText(String text, Graphics g, int row, int col, int x,
 			int y, int w, int h, float scale) {
@@ -1253,7 +1314,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 向编辑框中增加文本
 	 * 
-	 * @param text 要增加的文本
+	 * @param text
+	 *            要增加的文本
 	 */
 	public void addText(String text) {
 		if (editor == null) {
@@ -1287,9 +1349,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 编辑器的鼠标点击
 	 * 
-	 * @param e   鼠标事件
-	 * @param row 行号
-	 * @param col 列号
+	 * @param e
+	 *            鼠标事件
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 */
 	public void editorMousePressed(MouseEvent e, int row, int col) {
 		if (editor == null)
@@ -1298,9 +1363,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		int y = e.getY();
 		x -= cellX[row][col];
 		y -= cellY[row][col];
-		final MouseEvent e1 = new MouseEvent(editor, e.getID(), e.getWhen(),
-				e.getModifiers(), x, y, 1, e.isPopupTrigger(), e.getButton());
 		try {
+			final MouseEvent e1 = new MouseEvent(editor, e.getID(),
+					e.getWhen(), e.getModifiers(), x, y, 1, e.isPopupTrigger(),
+					e.getButton());
 			if (editor == multiEditor) {
 				Caret caret = multiEditor.getCaret();
 				if (caret != null && caret instanceof DefaultCaret) {
@@ -1311,13 +1377,13 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					}
 				}
 			}
-		} catch (Throwable t) {
-		}
-		MouseListener[] ml = editor.getMouseListeners();
-		if (ml != null) {
-			for (int i = 0; i < ml.length; i++) {
-				ml[i].mousePressed(e1);
+			MouseListener[] ml = editor.getMouseListeners();
+			if (ml != null) {
+				for (int i = 0; i < ml.length; i++) {
+					ml[i].mousePressed(e1);
+				}
 			}
+		} catch (Throwable t) {
 		}
 	}
 
@@ -1331,7 +1397,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 初始化编辑框
 	 * 
-	 * @param caretPosition 光标位置
+	 * @param caretPosition
+	 *            光标位置
 	 */
 	protected void initEditor(int caretPosition) {
 		initEditor(caretPosition, MODE_PAINT);
@@ -1340,7 +1407,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 初始化编辑框
 	 * 
-	 * @param mode MODE_PAINT,MODE_SHOW,MODE_HIDE
+	 * @param mode
+	 *            MODE_PAINT,MODE_SHOW,MODE_HIDE
 	 */
 	public void initEditor(byte mode) {
 		int ca = 0;
@@ -1356,16 +1424,17 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 	protected void hideEditor() {
 		if (editor != null && editor.isVisible()) {
-			editor.setVisible(false);
-			spEditor.setVisible(false);
+			setEditorVisible(false);
 		}
 	}
 
 	/**
 	 * 初始化编辑框
 	 * 
-	 * @param caretPosition 光标位置
-	 * @param mode          MODE_PAINT,MODE_SHOW,MODE_HIDE
+	 * @param caretPosition
+	 *            光标位置
+	 * @param mode
+	 *            MODE_PAINT,MODE_SHOW,MODE_HIDE
 	 */
 	public void initEditor(int caretPosition, byte mode) {
 		if (mode != MODE_PAINT) {
@@ -1415,8 +1484,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			stopMatch();
 			editPos = new CellLocation(row, col);
 			if (!editor.isVisible()) {
-				editor.setVisible(true);
-				spEditor.setVisible(true);
+				setEditorVisible(true);
 			}
 			editor.requestFocus();
 			text = ControlUtils.getCellText(cellSet, row, col, isEditing);
@@ -1441,8 +1509,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		case MODE_HIDE:
 			stopMatch();
 			if (editor.isVisible()) {
-				editor.setVisible(false);
-				spEditor.setVisible(false);
+				setEditorVisible(false);
 			}
 			if (cellX.length > row && cellX[row].length > col)
 				spEditor.setBounds(cellX[row][col], cellY[row][col], 1, 1);
@@ -1472,12 +1539,22 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	protected void stopMatch() {
 	}
 
+	public void setEditorVisible(boolean isVisible) {
+		if (spEditor != null)
+			spEditor.setVisible(isVisible);
+		if (editor != null)
+			editor.setVisible(isVisible);
+	}
+
 	/**
 	 * 取编辑框的边界
 	 * 
-	 * @param text 文本
-	 * @param row  行号
-	 * @param col  列号
+	 * @param text
+	 *            文本
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	public CellRect getEditorBounds(String text, int row, int col, float scale) {
@@ -1522,7 +1599,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 提交当前编辑器中的内容,返回光标位置
 	 * 
-	 * @param isPaint 是否刷新
+	 * @param isPaint
+	 *            是否刷新
 	 * @return
 	 */
 	protected int submitEditor(boolean isPaint) {
@@ -1592,8 +1670,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 取单元格提示的坐标
 	 * 
-	 * @param x1 X坐标
-	 * @param y1 Y坐标
+	 * @param x1
+	 *            X坐标
+	 * @param y1
+	 *            Y坐标
 	 * @return
 	 */
 	protected Point getTipPos(int x1, int y1) {
@@ -1637,7 +1717,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 从输入法控件中输入新的文本时的处理
 	 * 
-	 * @param event 输入法事件
+	 * @param event
+	 *            输入法事件
 	 */
 	public void inputMethodTextChanged(InputMethodEvent event) {
 		try {

@@ -223,7 +223,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		if (GVSpl.splEditor.getComponent() == null)
 			return;
 		ContentPanel cp = GVSpl.splEditor.getComponent().getContentPanel();
-		if (cp.getEditor() == null || !cp.getEditor().isVisible()) {
+		if (!cp.isEditing()) {
 			cp.initEditor(ContentPanel.MODE_SHOW);
 		}
 		GV.isCellEditing = false;

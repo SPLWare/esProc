@@ -407,8 +407,8 @@ public class JTextPaneEx extends JTextPane {
 	public Point getLocationOnScreen() {
 		try {
 			return super.getLocationOnScreen();
-		} catch (Throwable t) {
-			return null;
+		} catch (Throwable t) { // ²»±¨´í
+			return new Point(0, 0);
 		}
 	}
 

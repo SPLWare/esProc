@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Vector;
 
+import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 
@@ -91,8 +92,10 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 监听器构造函数
 	 * 
-	 * @param control 编辑控件
-	 * @param panel   内容面板
+	 * @param control
+	 *            编辑控件
+	 * @param panel
+	 *            内容面板
 	 */
 	public CellSelectListener(SplControl control, ContentPanel panel) {
 		this(control, panel, true);
@@ -101,9 +104,12 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 监听器构造函数
 	 * 
-	 * @param control  编辑控件
-	 * @param panel    内容面板
-	 * @param editable 是否可以编辑
+	 * @param control
+	 *            编辑控件
+	 * @param panel
+	 *            内容面板
+	 * @param editable
+	 *            是否可以编辑
 	 */
 	public CellSelectListener(SplControl control, ContentPanel panel,
 			boolean editable) {
@@ -121,7 +127,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 鼠标按下时的处理，将鼠标位置的单元格设为当前格
 	 * 
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mousePressed(MouseEvent e) {
 		if (dragTimer != null) {
@@ -221,7 +228,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 鼠标释放时的处理，向编辑器发送单元格被选择事件
 	 * 
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseReleased(MouseEvent e) {
 		if (dragTimer != null) {
@@ -259,7 +267,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 对鼠标双击时的处理，如果被双击的单元格是统计图，则弹出统计图属性编辑窗口
 	 * 
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
@@ -277,7 +286,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 按住鼠标左键移动鼠标时的处理，根据按下时的位置和当前移动的位置，画单元格选择框
 	 * 
-	 * @param e 鼠标事件
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if (dragTimer != null) {
@@ -460,8 +470,10 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 滚动到指定位置
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 */
 	protected void scrollToArea(int row, int col) {
 		control.status = GC.STATUS_SELECTING;
@@ -490,7 +502,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 被选单元格未获得焦点时，键盘被按下的处理 若按下的是方向键，相应改变当前激活单元格
 	 * 
-	 * @param e 键盘事件
+	 * @param e
+	 *            键盘事件
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (!editable) {
@@ -948,7 +961,7 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 					|| e.getKeyCode() == KeyEvent.VK_SHIFT || e.isMetaDown()) {
 				return;
 			}
-			if (cp.getEditor() == null || !cp.getEditor().isVisible()) {
+			if (!cp.isEditing()) {
 				cp.initEditor(ContentPanel.MODE_SHOW);
 			}
 			return;
@@ -984,8 +997,10 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 将connnectRow连接到上一行的upCol位置
 	 * 
-	 * @param connectRow int
-	 * @param upCol      int
+	 * @param connectRow
+	 *            int
+	 * @param upCol
+	 *            int
 	 */
 	protected void connectRowUpTo(int connectRow, int upCol) {
 		int usedCols = getUsedCols(connectRow);
@@ -1012,7 +1027,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 找到当前行的第一列不为空的格子的列号， 用于Home键切换
 	 * 
-	 * @param row int
+	 * @param row
+	 *            int
 	 * @return int
 	 */
 	protected int getFirstNonEmptyColumn(int row) {
@@ -1029,8 +1045,10 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 找当前方向的下一个方向跨度的格子坐标 用于Ctrl+方向时的编辑
 	 * 
-	 * @param pos       CellPosition
-	 * @param direction byte
+	 * @param pos
+	 *            CellPosition
+	 * @param direction
+	 *            byte
 	 * @return CellPosition
 	 */
 	protected CellLocation getNextPos(CellLocation pos, byte direction) {
@@ -1099,7 +1117,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 获取当前行所占用的列数 用于Ctrl-BackSpace
 	 * 
-	 * @param row int
+	 * @param row
+	 *            int
 	 * @return int
 	 */
 	public int getUsedCols(int row) {
@@ -1111,7 +1130,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 得到行尾的空白格子的列数 用于Ctrl-BackSpace
 	 * 
-	 * @param row int
+	 * @param row
+	 *            int
 	 * @return int
 	 */
 	protected int getEmptyColumns(int row) {
@@ -1159,8 +1179,10 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 移动矩形区域
 	 * 
-	 * @param srcRect 源矩形区域
-	 * @param tarRect 目标矩形区域
+	 * @param srcRect
+	 *            源矩形区域
+	 * @param tarRect
+	 *            目标矩形区域
 	 * @return
 	 */
 	protected boolean moveRect(CellRect srcRect, CellRect tarRect) {
@@ -1170,9 +1192,12 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 移动矩形区域
 	 * 
-	 * @param srcRect        源矩形区域
-	 * @param tarRect        目标矩形区域
-	 * @param scrollToTarget 是否滚动到目标区域
+	 * @param srcRect
+	 *            源矩形区域
+	 * @param tarRect
+	 *            目标矩形区域
+	 * @param scrollToTarget
+	 *            是否滚动到目标区域
 	 * @return
 	 */
 	public boolean moveRect(CellRect srcRect, CellRect tarRect,
@@ -1193,7 +1218,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 	/**
 	 * 被选单元格未获得焦点时，键盘被击打的处理 如果没有激活输入法，则将被击打的字符作为当前单元格的值，并使当前单元格获得焦点
 	 * 
-	 * @param e 键盘事件
+	 * @param e
+	 *            键盘事件
 	 */
 	public void keyTyped(KeyEvent e) {
 		if (!editable) {
@@ -1212,15 +1238,17 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 		if (c == '\u001B' || c == '\n' || c == '\b' || c == '\t') {
 			return;
 		}
-		if (cp.getEditor() == null) {
-			return;
+		if (cp.isEditing()) {
+			JComponent textEditor = cp.getEditor();
+			if (textEditor instanceof JTextComponent) {
+				textEditor.requestFocus();
+				String text = String.valueOf(e.getKeyChar());
+				try {
+					((JTextComponent) textEditor).setText(text);
+				} catch (Throwable t) {
+				}
+			}
 		}
-		if (cp.getEditor() instanceof JTextComponent) {
-			cp.getEditor().requestFocus();
-			String text = String.valueOf(e.getKeyChar());
-			((JTextComponent) cp.getEditor()).setText(text);
-		}
-
 	}
 
 	/**
