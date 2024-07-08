@@ -4,7 +4,9 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
@@ -26,17 +28,27 @@ public class Array extends SequenceFunction {
 	}
 
 	public Object calculate(Context ctx) {
+		boolean containName = option == null || option.indexOf('b') == -1;
 		Sequence seq = srcSequence;
 		int len = seq.length();
 		Sequence result = new Sequence(len + 1);
+		
 		if (len == 0) {
+			if (containName && seq instanceof Table) {
+				DataStruct ds = seq.dataStruct();
+				result.add(new Sequence(ds.getFieldNames()));
+			}
+			
 			return result;
 		}
 		
 		Object obj = seq.getMem(1);
 		if (obj instanceof BaseRecord) {
 			BaseRecord r = (BaseRecord)obj;
-			result.add(new Sequence(r.getFieldNames()));
+			if (containName) {
+				result.add(new Sequence(r.getFieldNames()));
+			}
+			
 			result.add(new Sequence(r.getFieldValues()));
 		} else {
 			MessageManager mm = EngineMessage.get();
