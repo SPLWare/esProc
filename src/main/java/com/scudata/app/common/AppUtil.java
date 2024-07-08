@@ -325,11 +325,12 @@ public class AppUtil {
 	 */
 	public static Object execute(String src, Sequence args, Context ctx) {
 		PgmCellSet pcs = CellSetUtil.toPgmCellSet(src);
-		ComputeStack stack = ctx.getComputeStack();
+		ComputeStack stack = null;
 		try {
-			stack.pushArg(args);
 			pcs.setParamToContext();
 			Context csCtx = pcs.getContext();
+			stack = csCtx.getComputeStack();
+			stack.pushArg(args);
 
 			ParamList list = pcs.getParamList();
 			if (list != null && args != null) {
@@ -343,7 +344,8 @@ public class AppUtil {
 			pcs.calculateResult();
 			return pcs;
 		} finally {
-			stack.popArg();
+			if (stack != null)
+				stack.popArg();
 		}
 	}
 
