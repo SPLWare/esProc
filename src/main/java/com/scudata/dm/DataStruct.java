@@ -91,8 +91,12 @@ public class DataStruct implements Externalizable, IRecord {
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 		fieldNames = in.readStrings();
-		setPrimary(in.readStrings());
+		if (fieldNames == null) {
+			// 长度为0的数组读入后会变成null
+			fieldNames = new String[0];
+		}
 		
+		setPrimary(in.readStrings());
 		if (in.available() > 0) {
 			sign = in.readInt();
 		}
