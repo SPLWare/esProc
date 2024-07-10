@@ -10366,26 +10366,30 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			if (vexps == null) {
 				int fcount = ds.getFieldCount();
-				vcount = fcount - gcount;
-				if (!isOrder) {
-					int []cols = new int[fcount];
+				if (isOrder) {
+					vcount = fcount - gcount;
+				} else {
+					boolean []signs = new boolean[fcount];
+					int totalFieldCount = gcount + fcount;
 					for (int i = 0; i < gcount; ++i) {
-						cols[i] = gexps[i].getFieldIndex(ds);
-					}
-					
-					Next:
-					for (int f = 0, q = gcount; f < fcount; ++f) {
-						for (int g = 0; g < gcount; ++g) {
-							if (cols[g] == f) {
-								continue Next;
-							}
+						int f = gexps[i].getFieldIndex(ds);
+						if (f != -1 && !signs[f]) {
+							signs[f] = true;
+							totalFieldCount--;
 						}
-						
-						cols[q] = f;
-						q++;
 					}
 					
-					table = fieldsValues(cols);
+					Expression []totalExps = new Expression[totalFieldCount];
+					System.arraycopy(gexps, 0, totalExps, 0, gcount);
+
+					for (int f = 0, q = gcount; f < fcount; ++f) {
+						if (!signs[f]) {
+							totalExps[q++] = new Expression(ctx, "#" + (f + 1));
+						}
+					}
+					
+					vcount = totalFieldCount - gcount;
+					table = newTable(null, totalExps, ctx);
 				}
 			} else {
 				vcount = vexps.length;
