@@ -4,8 +4,6 @@ import javax.crypto.*;
 import javax.crypto.spec.*;
 
 import java.io.UnsupportedEncodingException;
-import java.security.*;
-import java.util.Base64;
 
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -38,15 +36,7 @@ public class DESEncrypt extends CharFunction {
     private static final String CIPHER_ALGORITHM_CN = "DES/CBC/NoPadding";
     
     protected static final byte[] DEF_IV = DESEncrypt.encode("1a3b5c7d", "utf-8");
- 
-    // …˙≥…√‹‘ø
-    public static String generateDESKey() throws Exception {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(KEY_ALGORITHM);
-        keyGenerator.init(128, new SecureRandom()); // 192 and 256 bits may not be available
-        SecretKey secretKey = keyGenerator.generateKey();
-        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
-    }
-    
+     
 	protected Object doQuery(Object[] objs) {
 		try {
 			if (objs==null || objs.length<2){

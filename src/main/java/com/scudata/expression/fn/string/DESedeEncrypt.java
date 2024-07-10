@@ -3,9 +3,6 @@ package com.scudata.expression.fn.string;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
-import java.security.*;
-import java.util.Base64;
-
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -35,15 +32,7 @@ public class DESedeEncrypt extends CharFunction {
     private static final String CIPHER_ALGORITHM_C = "DESede/CBC/PKCS5Padding";
     private static final String CIPHER_ALGORITHM_EN = "DESede/ECB/NoPadding";
     private static final String CIPHER_ALGORITHM_CN = "DESede/CBC/NoPadding";
- 
-    // …˙≥…√‹‘ø
-    public static String generateDESKey() throws Exception {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(KEY_ALGORITHM);
-        keyGenerator.init(128, new SecureRandom()); // 192 and 256 bits may not be available
-        SecretKey secretKey = keyGenerator.generateKey();
-        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
-    }
-    
+     
 	protected Object doQuery(Object[] objs) {
 		try {
 			if (objs==null || objs.length<2){
