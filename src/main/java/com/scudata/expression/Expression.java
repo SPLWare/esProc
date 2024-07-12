@@ -705,7 +705,7 @@ public class Expression {
 		if (KeyWord.isCurrentElement(id)) {
 			return new CurrentElement(); // ~, A.~
 		} else if (KeyWord.isIterateParam(id)) {
-			return new VarParam(ctx.getIterateParam()); // ~~
+			return new IterateParam(); // ~~
 		} else if (KeyWord.isCurrentSeq(id)) {
 			return new CurrentSeq(); // #, A.#
 		} else if (KeyWord.isFieldId(id)) {
@@ -714,6 +714,8 @@ public class Expression {
 			return new CurrentCellSeq(); // #@
 		} else if (KeyWord.isElementId(id)) {
 			return new CurrentElementId(id); // ~n
+		} else if (KeyWord.isArg(id)) { // ?、?n
+			return new ArgNode(id);
 		}
 
 		//形如series.select(...),series.field
@@ -750,10 +752,6 @@ public class Expression {
 			if (KeyWord.isSubCodeBlock(id) && cs instanceof PgmCellSet) {
 				return new SubVal((PgmCellSet)cs);
 			}
-		}
-
-		if (KeyWord.isArg(id)) {
-			return new ArgNode(id);
 		}
 
 		//参数，变量

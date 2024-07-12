@@ -1,9 +1,12 @@
 package com.scudata.dm;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.expression.Expression;
 
 /**
  * dfx缓存管理器
@@ -13,6 +16,9 @@ public class DfxManager {
 	private HashMap<String, SoftReference<PgmCellSet>> dfxRefMap = 
 		new HashMap<String, SoftReference<PgmCellSet>>();
 
+	private HashMap<String, SoftReference<List<Expression>>> expListMap = 
+			new HashMap<String, SoftReference<List<Expression>>>();
+	
 	private DfxManager() {}
 
 	/**
@@ -118,5 +124,52 @@ public class DfxManager {
 	 */
 	public PgmCellSet readDfx(String name, Context ctx) {
 		return readDfx(new FileObject(name, null, "s", ctx), ctx);
+	}
+	
+	/**
+	 * 取缓存的表达式，表达式计算完后需要调用putExpression方法归还缓存
+	 * @param strExp 表达式串
+	 * @param ctx 计算上下文
+	 * @return Expression
+	 */
+	public Expression getExpression(String strExp, Context ctx) {
+		synchronized(expListMap) {
+			SoftReference<List<Expression>> ref = expListMap.get(strExp);
+			if (ref != null) {
+				List<Expression> expList = ref.get();
+				if (expList != null && expList.size() > 0) {
+					return expList.remove(expList.size() - 1);
+				}
+			}
+		}
+		
+		return new Expression(ctx, strExp);
+	}
+	
+	/**
+	 * 表达式计算完成后把表达式缓存起来
+	 * @param strExp 表达式串
+	 * @param exp 表达式
+	 */
+	public void putExpression(String strExp, Expression exp) {
+		synchronized(expListMap) {
+			SoftReference<List<Expression>> ref = expListMap.get(strExp);
+			if (ref == null) {
+				List<Expression> expList = new ArrayList<Expression>();
+				expList.add(exp);
+				ref = new SoftReference<List<Expression>>(expList);
+				expListMap.put(strExp, ref);
+			} else {
+				List<Expression> expList = ref.get();
+				if (expList == null) {
+					expList = new ArrayList<Expression>();
+					expList.add(exp);
+					ref = new SoftReference<List<Expression>>(expList);
+					expListMap.put(strExp, ref);
+				} else {
+					expList.add(exp);
+				}
+			}
+		}
 	}
 }
