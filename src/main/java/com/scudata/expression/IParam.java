@@ -121,4 +121,9 @@ public interface IParam {
 	 * @return
 	 */
 	boolean canCalculateAll();
+	
+	/**
+	 * 重置表达式，用于表达式缓存，多次执行使用不同的上下文，清除跟上下文有关的缓存信息
+	 */
+	void reset();
 }

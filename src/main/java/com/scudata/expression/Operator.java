@@ -51,6 +51,14 @@ public abstract class Operator extends Node {
 		if (left != null) left.getUsedCells(resultList);
 		if (right != null) right.getUsedCells(resultList);
 	}
+	
+	/**
+	 * 重置表达式，用于表达式缓存，多次执行使用不同的上下文，清除跟上下文有关的缓存信息
+	 */
+	public void reset() {
+		if (left != null) left.reset();
+		if (right != null) right.reset();
+	}
 
 	public Node optimize(Context ctx) {
 		if (left != null) left = left.optimize(ctx);

@@ -33,11 +33,11 @@ public class MJoin extends SequenceFunction {
 			throw new RQException("mjoin" + mm.getMessage("function.invalidParam"));
 		}
 		
-		int keyCount;
+		//int keyCount;
 		Expression []srcKeyExps;
 		
 		if (keyParam.isLeaf()) {
-			keyCount = 1;
+			//keyCount = 1;
 			srcKeyExps = new Expression[] {keyParam.getLeafExpression()};
 		} else {
 //			keyCount = keyParam.getSubSize();
