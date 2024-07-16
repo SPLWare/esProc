@@ -104,7 +104,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 右键弹出菜单
 	 */
-	private PopupSpl popupSpl = null;
+	protected PopupSpl popupSpl = null;
 
 	/**
 	 * 文件路径
@@ -218,7 +218,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 
 		setTitle(this.filePath);
-		popupSpl = new PopupSpl();
+		newPopupSpl();
 
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(splEditor.getComponent(), BorderLayout.CENTER);
@@ -229,6 +229,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			resetCellSet();
 		}
 
+	}
+
+	/**
+	 * 构造右键菜单
+	 */
+	protected void newPopupSpl() {
+		popupSpl = new PopupSpl();
 	}
 
 	/**
