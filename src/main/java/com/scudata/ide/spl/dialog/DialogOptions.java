@@ -101,6 +101,9 @@ public class DialogOptions extends JDialog {
 	 */
 	private JCheckBox jCBAutoConnect = new JCheckBox();
 
+	private final String AUTO_SAVE_TIP = mm.getMessage(
+			"dialogoptions.autosavetip",
+			ConfigOptions.iAutoSaveMinutes.intValue());
 	/**
 	 * 是否自动保存复选框
 	 */
@@ -108,7 +111,7 @@ public class DialogOptions extends JDialog {
 			mm.getMessage("dialogoptions.autosave"));
 
 	private JLabel jLAutoSaveInterval = new JLabel(
-			mm.getMessage("dialogoptions.autosaveinterval")); // 每隔
+			mm.getMessage("dialogoptions.autosaveinterval"));
 
 	protected GridLayout ideOptLayout = new GridLayout(5, 2);
 	protected JPanel jPIdeOpt = new JPanel();
@@ -120,7 +123,7 @@ public class DialogOptions extends JDialog {
 			ConfigOptions.iAutoSaveMinutes.intValue(), 1, 60 * 24, 1));
 
 	private JLabel jLAutoSaveMinutes = new JLabel(
-			mm.getMessage("dialogoptions.autosaveminutes")); // 分钟
+			mm.getMessage("dialogoptions.autosaveminutes"));
 
 	// private JLabel jLAutoSaveDir = new JLabel("新建文件缓存路径");
 
@@ -432,8 +435,10 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 构造函数
 	 * 
-	 * @param parent 父窗口控件
-	 * @param isUnit 是否节点机选项窗口
+	 * @param parent
+	 *            父窗口控件
+	 * @param isUnit
+	 *            是否节点机选项窗口
 	 */
 	public DialogOptions(JFrame parent, boolean isUnit) {
 		super(parent, "选项", true);
@@ -1334,6 +1339,10 @@ public class DialogOptions extends JDialog {
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setModal(true);
 
+		jCBAutoSave.setToolTipText(AUTO_SAVE_TIP);
+		jLAutoSaveInterval.setToolTipText(AUTO_SAVE_TIP);
+		jSAutoSaveInterval.setToolTipText(AUTO_SAVE_TIP);
+		jLAutoSaveMinutes.setToolTipText(AUTO_SAVE_TIP);
 	}
 
 	protected boolean isExtEnabled() {

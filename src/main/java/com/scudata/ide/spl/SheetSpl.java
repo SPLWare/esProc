@@ -170,9 +170,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 构造函数
 	 * 
-	 * @param filePath 文件路径
-	 * @param cs       网格对象
-	 * @param stepInfo 单步调试的信息
+	 * @param filePath
+	 *            文件路径
+	 * @param cs
+	 *            网格对象
+	 * @param stepInfo
+	 *            单步调试的信息
 	 * @throws Exception
 	 */
 	public SheetSpl(String filePath, PgmCellSet cs, StepInfo stepInfo)
@@ -478,7 +481,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 刷新
 	 * 
-	 * @param keyEvent 是否按键事件
+	 * @param keyEvent
+	 *            是否按键事件
 	 */
 	protected void refresh(boolean keyEvent) {
 		refresh(keyEvent, true);
@@ -487,8 +491,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 刷新
 	 * 
-	 * @param keyEvent       是否按键事件
-	 * @param isRefreshState 是否刷新状态
+	 * @param keyEvent
+	 *            是否按键事件
+	 * @param isRefreshState
+	 *            是否刷新状态
 	 */
 	protected void refresh(boolean keyEvent, boolean isRefreshState) {
 		refresh(keyEvent, isRefreshState, false);
@@ -497,9 +503,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 刷新
 	 * 
-	 * @param keyEvent       是否按键事件
-	 * @param isRefreshState 是否刷新状态
-	 * @param refreshParams  是否刷新参数
+	 * @param keyEvent
+	 *            是否按键事件
+	 * @param isRefreshState
+	 *            是否刷新状态
+	 * @param refreshParams
+	 *            是否刷新参数
 	 */
 	protected void refresh(boolean keyEvent, boolean isRefreshState,
 			boolean refreshParams) {
@@ -761,7 +770,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 计算当前格
 	 * 
-	 * @param lock 是否加锁
+	 * @param lock
+	 *            是否加锁
 	 */
 	public void calcActiveCell(boolean lock) {
 		splControl.getContentPanel().submitEditor();
@@ -782,6 +792,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 计算表达式
+	 * 
 	 * @param expStr
 	 */
 	public Object calcExp(String expStr) {
@@ -792,6 +803,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 移动区域
+	 * 
 	 * @param fromRect
 	 * @param toRect
 	 * @return
@@ -802,6 +814,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 执行单元格
+	 * 
 	 * @param row
 	 * @param col
 	 */
@@ -811,10 +824,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 获取序列序表片段值
-	 * @param row 单元格行
-	 * @param col 单元格列
-	 * @param from 起始行
-	 * @param num 取数数量
+	 * 
+	 * @param row
+	 *            单元格行
+	 * @param col
+	 *            单元格列
+	 * @param from
+	 *            起始行
+	 * @param num
+	 *            取数数量
 	 */
 	protected Sequence getSegmentValue(int row, int col, int from, int num) {
 		INormalCell nc = splControl.cellSet.getCell(row, col);
@@ -830,16 +848,22 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 单元格表达式发生变化
-	 * @param row 行号
-	 * @param col 列号
-	 * @param exp 格子表达式
+	 * 
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param exp
+	 *            格子表达式
 	 */
 	protected void expChanged(int row, int col, String exp) {
 	}
 
 	/**
 	 * 单元格表达式批量发生变化
-	 * @param expMap key是格子名，value是单元格表达式
+	 * 
+	 * @param expMap
+	 *            key是格子名，value是单元格表达式
 	 */
 	protected void expChanged(Map<String, String> expMap) {
 	}
@@ -857,7 +881,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param cl 单元格坐标
+		 * @param cl
+		 *            单元格坐标
 		 */
 		public CalcCellThread(CellLocation cl) {
 			this.cl = cl;
@@ -897,7 +922,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 弹出搜索对话框
 	 * 
-	 * @param replace boolean 是否是替换对话框
+	 * @param replace
+	 *            boolean 是否是替换对话框
 	 */
 	public void dialogSearch(boolean replace) {
 		if (GVSpl.searchDialog == null) {
@@ -910,7 +936,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 因为XML的Node命名规则不能数字或者特殊符号开头
 	 * 
-	 * @param name 节点名
+	 * @param name
+	 *            节点名
 	 * @return
 	 */
 	private String getBreakPointNodeName(String nodeName) {
@@ -960,8 +987,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 保存断点
 	 * 
-	 * @param oldName  旧节点名
-	 * @param filePath 新路径
+	 * @param oldName
+	 *            旧节点名
+	 * @param filePath
+	 *            新路径
 	 */
 	private void storeBreakPoints(String oldName, String filePath) {
 		if (preventStoreBreak) {
@@ -1031,7 +1060,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (stepInfo == null)
 			if (jobSpace == null)
 				return;
-		beforeRun();
+		if (!beforeRun())
+			return;
 		createDebugThread(false);
 		debugThread.start();
 	}
@@ -1051,6 +1081,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 设置网格变量
+	 * 
 	 * @param pl
 	 */
 	protected void setContextParams(ParamList pl) {
@@ -1068,7 +1099,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 调试执行
 	 * 
-	 * @param debugType 调试方式
+	 * @param debugType
+	 *            调试方式
 	 */
 	public void debug(byte debugType) {
 		synchronized (threadLock) {
@@ -1078,7 +1110,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				if (!isSubSheet())
 					if (jobSpace == null)
 						return;
-				beforeRun();
+				if (!beforeRun())
+					return;
 				createDebugThread(true);
 				debugThread.setDebugType(debugType);
 				debugThread.start();
@@ -1134,7 +1167,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 执行前调整界面
 	 */
-	protected void beforeRun() {
+	protected boolean beforeRun() {
 		splControl.contentView.submitEditor();
 		splControl.contentView.initEditor(ContentPanel.MODE_HIDE);
 		GVSpl.panelValue.tableValue.setValue(null);
@@ -1143,10 +1176,17 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (pc != null)
 				pc.autoClean();
 		}
+		// 执行前自动保存
+		if (ConfigOptions.bAutoSave.booleanValue()) {
+			if (!autoSave())
+				return false;
+		}
+		return true;
 	}
 
 	/**
 	 * 值是否发生变化了
+	 * 
 	 * @param cellId
 	 * @return
 	 */
@@ -1172,9 +1212,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 设置单元格值
+	 * 
 	 * @param value
-	 * @param caseLock 是否考虑锁定状态
-	 * @param isRefresh 是否刷新
+	 * @param caseLock
+	 *            是否考虑锁定状态
+	 * @param isRefresh
+	 *            是否刷新
 	 */
 	protected void setValue(INormalCell nc, boolean caseLock, boolean isRefresh) {
 		if (nc == null)
@@ -1190,6 +1233,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取单元格值
+	 * 
 	 * @param nc
 	 * @return
 	 */
@@ -1247,8 +1291,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试后，接受子页执行结果
 	 * 
-	 * @param returnVal   返回值
-	 * @param continueRun 是否继续执行
+	 * @param returnVal
+	 *            返回值
+	 * @param continueRun
+	 *            是否继续执行
 	 */
 	public void acceptResult(final Object returnVal, final boolean continueRun) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -1297,7 +1343,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试停止
 	 * 
-	 * @param stopOther 是否停止其他页
+	 * @param stopOther
+	 *            是否停止其他页
 	 */
 	public void stepStop(boolean stopOther) {
 		stepStopOther = stopOther;
@@ -1320,6 +1367,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取网格变量列表
+	 * 
 	 * @return ParamList
 	 */
 	public ParamList getContextParamList() {
@@ -1328,6 +1376,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取任务空间变量列表
+	 * 
 	 * @return HashMap<String, Param[]>
 	 */
 	public HashMap<String, Param[]> listSpaceParams() {
@@ -1336,6 +1385,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取全局变量列表
+	 * 
 	 * @return ParamList
 	 */
 	public ParamList getEnvParamList() {
@@ -1344,6 +1394,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取网格、任务空间和全局变量
+	 * 
 	 * @return
 	 */
 	public Object[] getAllParams() {
@@ -1379,6 +1430,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 执行下一格
+	 * 
 	 * @param cellSet
 	 * @return
 	 */
@@ -1395,7 +1447,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 执行网格
-	 * @param cellSet 网格对象
+	 * 
+	 * @param cellSet
+	 *            网格对象
 	 * @return 返回下一个要执行的坐标，null表示网格执行完了。
 	 */
 	protected CellLocation runCellSet(PgmCellSet cellSet) {
@@ -1416,6 +1470,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 单步调试进入
+	 * 
 	 * @param pnc
 	 */
 	protected void stepInto(PgmNormalCell pnc) {
@@ -1522,7 +1577,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 是否返回格
-	 * @param cell 单元格对象
+	 * 
+	 * @param cell
+	 *            单元格对象
 	 * @return 是否返回格
 	 */
 	protected boolean isReturnCell(PgmNormalCell cell) {
@@ -1532,9 +1589,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 计算返回值
-	 * @param cellSet 网格对象
-	 * @param cell 单元格对象
-	 * @param ctx 上下文
+	 * 
+	 * @param cellSet
+	 *            网格对象
+	 * @param cell
+	 *            单元格对象
+	 * @param ctx
+	 *            上下文
 	 * @return 返回值
 	 */
 	protected Object calcReturnValue(PgmCellSet cellSet, PgmNormalCell cell,
@@ -1552,13 +1613,20 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试进入打开子页
 	 * 
-	 * @param parentLocation  call或者func函数在父网坐标
-	 * @param stepType	类型在StepInfo中定义
-	 * @param subCellSet    子网格对象
-	 * @param funcLocation func的坐标
-	 * @param exeLocation 子网开始计算的坐标
-	 * @param endRow        子网结束行
-	 * @param filePath     文件名
+	 * @param parentLocation
+	 *            call或者func函数在父网坐标
+	 * @param stepType
+	 *            类型在StepInfo中定义
+	 * @param subCellSet
+	 *            子网格对象
+	 * @param funcLocation
+	 *            func的坐标
+	 * @param exeLocation
+	 *            子网开始计算的坐标
+	 * @param endRow
+	 *            子网结束行
+	 * @param filePath
+	 *            文件名
 	 */
 	public void openSubSheet(CellLocation parentLocation, byte stepType,
 			final PgmCellSet subCellSet, CellLocation funcLocation,
@@ -1618,9 +1686,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param tg          线程组
-		 * @param name        线程名称
-		 * @param isDebugMode 是否调试模式
+		 * @param tg
+		 *            线程组
+		 * @param name
+		 *            线程名称
+		 * @param isDebugMode
+		 *            是否调试模式
 		 */
 		public RunThread(ThreadGroup tg, String name) {
 			super(tg, name);
@@ -1746,8 +1817,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param tg          线程组
-		 * @param name        线程名称
+		 * @param tg
+		 *            线程组
+		 * @param name
+		 *            线程名称
 		 */
 		public DebugThread(ThreadGroup tg, String name) {
 			super(tg, name);
@@ -2017,7 +2090,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 继续执行
 		 * 
-		 * @param debugType 调试方式
+		 * @param debugType
+		 *            调试方式
 		 */
 		public void continueRun(byte debugType) {
 			runState = new Byte(RUN);
@@ -2041,6 +2115,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 是否返回
+	 * 
 	 * @param cellSet
 	 * @return
 	 */
@@ -2084,6 +2159,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 取单元格调试执行时间
+	 * 
 	 * @param cellId
 	 * @return
 	 */
@@ -2162,8 +2238,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 重置执行菜单状态
 	 * 
-	 * @param isRefresh 是否刷新方法调用的
-	 * @param afterRun  是否执行结束调用的
+	 * @param isRefresh
+	 *            是否刷新方法调用的
+	 * @param afterRun
+	 *            是否执行结束调用的
 	 */
 	private synchronized void resetRunState(final boolean isRefresh,
 			final boolean afterRun) {
@@ -2176,6 +2254,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 网格文件是否可以编辑
+	 * 
 	 * @return
 	 */
 	public boolean isCellSetEditable() {
@@ -2185,8 +2264,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 重置执行菜单状态线程
 	 * 
-	 * @param isRefresh 是否刷新方法调用的
-	 * @param afterRun  是否执行结束调用的
+	 * @param isRefresh
+	 *            是否刷新方法调用的
+	 * @param afterRun
+	 *            是否执行结束调用的
 	 */
 	private synchronized void resetRunStateThread(boolean isRefresh,
 			boolean afterRun) {
@@ -2520,7 +2601,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置执行格坐标
 	 * 
-	 * @param cl 坐标
+	 * @param cl
+	 *            坐标
 	 */
 	private void setExeLocation(CellLocation cl) {
 		exeLocation = cl;
@@ -2611,6 +2693,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 是否新建
+	 * 
 	 * @return
 	 */
 	public boolean isNewGrid() {
@@ -2627,7 +2710,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 关闭页
-	 * @param isQuit 是否退出调用的
+	 * 
+	 * @param isQuit
+	 *            是否退出调用的
 	 * @return boolean
 	 */
 	public boolean close(boolean isQuit) {
@@ -3066,7 +3151,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 执行命令
 	 * 
-	 * @param cmd GCSpl中定义的常量
+	 * @param cmd
+	 *            GCSpl中定义的常量
 	 */
 	public void executeCmd(short cmd) {
 		switch (cmd) {
@@ -3316,6 +3402,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 是否可以保存
+	 * 
 	 * @return
 	 */
 	protected boolean canSave() {
@@ -3324,6 +3411,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 是否有未保存的编辑
+	 * 
 	 * @return
 	 */
 	public boolean isDataChanged() {
@@ -3333,6 +3421,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 	/**
 	 * 提示保存
+	 * 
 	 * @return
 	 */
 	public int querySave(int optionType) {
@@ -3404,7 +3493,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置网格对象
 	 * 
-	 * @param cellSet 网格对象
+	 * @param cellSet
+	 *            网格对象
 	 */
 	public void setCellSet(Object cellSet) {
 		try {
@@ -3417,7 +3507,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置网格是否修改了
 	 * 
-	 * @param isChanged 网格是否修改了
+	 * @param isChanged
+	 *            网格是否修改了
 	 */
 	public void setChanged(boolean isChanged) {
 		splEditor.setDataChanged(isChanged);
@@ -3439,7 +3530,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param sheet 页对象
+		 * @param sheet
+		 *            页对象
 		 */
 		public Listener(SheetSpl sheet) {
 			super();
