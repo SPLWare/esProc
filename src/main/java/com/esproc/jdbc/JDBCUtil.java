@@ -103,10 +103,14 @@ public class JDBCUtil {
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param sql        语句
-	 * @param parameters 参数列表
-	 * @param ctx        上下文
-	 * @param logInfo    是否输出日志
+	 * @param sql
+	 *            语句
+	 * @param parameters
+	 *            参数列表
+	 * @param ctx
+	 *            上下文
+	 * @param logInfo
+	 *            是否输出日志
 	 * @return Object
 	 * @throws Exception
 	 */
@@ -210,14 +214,20 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
+	 * Execute the gateway spl file. The gateway is configured in
+	 * raqsoftConfig.xml.
 	 * 
-	 * @param sql        The SQL string
-	 * @param parameters The parameter list
-	 * @param ctx        The Context object
-	 * @param config     The RaqsoftConfig object
+	 * @param sql
+	 *            The SQL string
+	 * @param parameters
+	 *            The parameter list
+	 * @param ctx
+	 *            The Context object
+	 * @param config
+	 *            The RaqsoftConfig object
 	 * @return The result of execution
-	 * @throws SQLException,RetryException时将按无网关方式执行
+	 * @throws SQLException
+	 *             ,RetryException时将按无网关方式执行
 	 */
 	public static Object executeGateway(String sql,
 			ArrayList<Object> parameters, Context ctx, String gateway)
@@ -250,9 +260,8 @@ public class JDBCUtil {
 			// The parameters of the gateway splx file should be spl statement
 			// and
 			// arguments.
-			throw new SQLException(
-					JDBCMessage.get().getMessage(
-							"jdbcutil.errorgatewayparams"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcutil.errorgatewayparams"));
 		}
 		ctx.setParamValue(pl.get(0).getName(), sql);
 		ctx.setParamValue(pl.get(1).getName(), args);
@@ -263,6 +272,7 @@ public class JDBCUtil {
 
 	/**
 	 * 去除sql外的空白和大括号
+	 * 
 	 * @param sql
 	 * @return
 	 */
@@ -368,6 +378,7 @@ public class JDBCUtil {
 
 	/**
 	 * 取calls语句的spl名称和参数
+	 * 
 	 * @param sql
 	 * @param parameters
 	 * @return
@@ -380,9 +391,11 @@ public class JDBCUtil {
 
 	/**
 	 * 取calls语句的spl名称和参数
+	 * 
 	 * @param sql
 	 * @param parameters
-	 * @param isExecute 是否执行时调用的，不是执行时不处理参数
+	 * @param isExecute
+	 *            是否执行时调用的，不是执行时不处理参数
 	 * @return
 	 * @throws SQLException
 	 */
@@ -482,6 +495,7 @@ public class JDBCUtil {
 
 	/**
 	 * 取call语句的splx名称和参数
+	 * 
 	 * @param sql
 	 * @return
 	 * @throws SQLException
@@ -516,6 +530,7 @@ public class JDBCUtil {
 
 	/**
 	 * 取SPL语句的splx名称和参数
+	 * 
 	 * @param sql
 	 * @return
 	 */
@@ -797,6 +812,7 @@ public class JDBCUtil {
 
 	/**
 	 * 取SPL文件名和参数映射
+	 * 
 	 * @param procedureNamePattern
 	 * @param columnNamePattern
 	 * @return
@@ -972,8 +988,9 @@ public class JDBCUtil {
 	/**
 	 * Retrieve files that match the filter.
 	 * 
-	 * @param filter SQL rules used. "%" means one or more characters, and "_" means
-	 *               one character.
+	 * @param filter
+	 *            SQL rules used. "%" means one or more characters, and "_"
+	 *            means one character.
 	 * @return files map
 	 */
 	public static Map<String, String> getSplList(String filter) {
@@ -987,9 +1004,12 @@ public class JDBCUtil {
 	/**
 	 * Get files
 	 * 
-	 * @param filter   File name filter
-	 * @param fileExts File extensions
-	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
+	 * @param filter
+	 *            File name filter
+	 * @param fileExts
+	 *            File extensions
+	 * @param matchAll
+	 *            是否需要匹配全路径。FALSE时可以仅匹配文件名。
 	 * @return files map
 	 */
 	public static Map<String, String> getFiles(String filter,
@@ -1008,12 +1028,18 @@ public class JDBCUtil {
 	/**
 	 * Get the files in the specified path
 	 * 
-	 * @param rootLen  The length of the parent file path
-	 * @param pfile    The parent directory
-	 * @param map      Storage file name and title mapping
-	 * @param pattern  The Pattern object
-	 * @param fileExts File extensions
-	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
+	 * @param rootLen
+	 *            The length of the parent file path
+	 * @param pfile
+	 *            The parent directory
+	 * @param map
+	 *            Storage file name and title mapping
+	 * @param pattern
+	 *            The Pattern object
+	 * @param fileExts
+	 *            File extensions
+	 * @param matchAll
+	 *            是否需要匹配全路径。FALSE时可以仅匹配文件名。
 	 */
 	private static void getDirFiles(int rootLen, File pfile,
 			Map<String, String> map, Pattern pattern, List<String> fileExts,
@@ -1070,10 +1096,15 @@ public class JDBCUtil {
 
 	/**
 	 * 正则匹配
-	 * @param pattern Pattern
-	 * @param file 文件
-	 * @param fileName 文件名
-	 * @param fileExt 文件后缀
+	 * 
+	 * @param pattern
+	 *            Pattern
+	 * @param file
+	 *            文件
+	 * @param fileName
+	 *            文件名
+	 * @param fileExt
+	 *            文件后缀
 	 * @return 是否匹配
 	 */
 	private static boolean matchPattern(Pattern pattern, File file,
@@ -1103,8 +1134,10 @@ public class JDBCUtil {
 	/**
 	 * Compare whether the two file paths are consistent
 	 * 
-	 * @param file1 Relative path
-	 * @param file2 Absolute path
+	 * @param file1
+	 *            Relative path
+	 * @param file2
+	 *            Absolute path
 	 * @return whether the two file paths are consistent
 	 */
 	private static boolean sameFileName(String file1, String file2) {
@@ -1134,7 +1167,8 @@ public class JDBCUtil {
 	/**
 	 * Get table names
 	 * 
-	 * @param filter Table name filter
+	 * @param filter
+	 *            Table name filter
 	 * @return table names map
 	 */
 	public static Map<String, String> getTableMap(String filter) {
@@ -1180,11 +1214,23 @@ public class JDBCUtil {
 	 * Generate result set
 	 * 
 	 * @param obj
-	 * @param fetchSize
 	 * @return ResultSet
 	 * @throws SQLException
 	 */
-	public static ResultSet generateResultSet(Object obj, int fetchSize)
+	public static ResultSet generateResultSet(Object obj) throws SQLException {
+		return generateResultSet(obj, null);
+	}
+
+	/**
+	 * Generate result set
+	 * 
+	 * @param obj
+	 * @param fetchSize
+	 *            不需要设置可以传null
+	 * @return ResultSet
+	 * @throws SQLException
+	 */
+	public static ResultSet generateResultSet(Object obj, Integer fetchSize)
 			throws SQLException {
 		return generateResultSet(obj, "Field", fetchSize);
 	}
@@ -1195,11 +1241,12 @@ public class JDBCUtil {
 	 * @param obj
 	 * @param colName
 	 * @param fetchSize
+	 *            不需要设置可以传null
 	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public static ResultSet generateResultSet(Object obj, String colName,
-			int fetchSize) throws SQLException {
+			Integer fetchSize) throws SQLException {
 		if (obj == null)
 			return null;
 		String fields[] = null;
@@ -1331,7 +1378,8 @@ public class JDBCUtil {
 		ResultSetMetaData metaData = new ResultSetMetaData(fields, types);
 		com.esproc.jdbc.ResultSet set = new com.esproc.jdbc.ResultSet(datas,
 				metaData);
-		set.setFetchSize(fetchSize);
+		if (fetchSize != null)
+			set.setFetchSize(fetchSize.intValue());
 		return set;
 	}
 
