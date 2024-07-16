@@ -85,7 +85,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/** 内容面板绘制的结束列 */
 	protected int endCol;
 
-	/** 是否处于编辑状态 */
+	/**
+	 * 是否处于编辑状态，区分单元格值显示表达式还是显示格值用的。 现在应该是没用的属性了，传的总是true，也就是总显示的单元格表达式
+	 **/
 	protected boolean isEditing;
 
 	/** 是否只画处于显示窗口大小内的内容 */
@@ -1609,7 +1611,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return -1;
 		}
 		String text = ((JTextComponent) editor).getText();
-		if (isEditing && !isPaint) {
+		if (isEditing && !isPaint && GV.isCellEditing) {
 			int p = ((JTextComponent) editor).getCaretPosition();
 			int row = control.getActiveCell().getRow();
 			int col = control.getActiveCell().getCol();
