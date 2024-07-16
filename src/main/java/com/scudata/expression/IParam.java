@@ -75,6 +75,13 @@ public interface IParam {
 	String []toStringArray(String function, boolean canNull);
 	
 	/**
+	 * 返回字段名数组
+	 * @param function 函数名，用于抛出异常
+	 * @return 字段名数组
+	 */
+	String []toIdentifierNames(String function);
+	
+	/**
 	 * 返回是否包含指定参数
 	 * @param name 参数名
 	 * @return boolean true：包含，false：不包含

@@ -114,6 +114,27 @@ public final class ParamParser {
 			
 			return expStrs;
 		}
+		
+		/**
+		 * 返回字段名数组
+		 * @param function 函数名，用于抛出异常
+		 * @return 字段名数组
+		 */
+		public String []toIdentifierNames(String function) {
+			int size = getSubSize();
+			String []expStrs = new String[size];
+			for (int i = 0; i < size; ++i) {
+				IParam sub = getSub(i);
+				if (sub == null || !sub.isLeaf()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(function + mm.getMessage("function.invalidParam"));
+				}
+
+				expStrs[i] = sub.getLeafExpression().getIdentifierName();
+			}
+			
+			return expStrs;
+		}
 
 		public IParam create(int start, int end) {
 			if (end == start + 1) {
@@ -254,6 +275,15 @@ public final class ParamParser {
 		 */
 		public String []toStringArray(String function, boolean canNull) {
 			return new String[]{exp.toString()};
+		}
+		
+		/**
+		 * 返回字段名数组
+		 * @param function 函数名，用于抛出异常
+		 * @return 字段名数组
+		 */
+		public String []toIdentifierNames(String function) {
+			return new String[]{exp.getIdentifierName()};
 		}
 
 		public IParam create(int start, int end) {

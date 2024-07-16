@@ -119,7 +119,7 @@ public class Groupc extends SequenceFunction {
 			
 			if (size > 2 && param.getSub(2) != null) {
 				sub = param.getSub(2);
-				newNames = sub.toStringArray("groupc", false);
+				newNames = sub.toIdentifierNames("groupc");
 			}
 		} else {
 			ParamInfo2 pi = ParamInfo2.parse(param, "groupc", true, false);
