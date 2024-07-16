@@ -621,8 +621,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 			md.setMenuEnabled(GCSpl.iEDIT_CHART,
 					selectState != GCSpl.SELECT_STATE_NONE);
-			md.setMenuEnabled(GCSpl.iFUNC_ASSIST,
-					selectState != GCSpl.SELECT_STATE_NONE);
 			md.setMenuEnabled(GCSpl.iSHOW_VALUE,
 					selectState != GCSpl.SELECT_STATE_NONE);
 			md.setMenuEnabled(GCSpl.iCLEAR_VALUE,
@@ -3329,9 +3327,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			break;
 		case GCSpl.iEDIT_CHART:
 			splEditor.dialogChartEditor();
-			break;
-		case GCSpl.iFUNC_ASSIST:
-			splEditor.dialogFuncEditor();
 			break;
 		case GCSpl.iZOOM:
 			splEditor.dialogZoom();

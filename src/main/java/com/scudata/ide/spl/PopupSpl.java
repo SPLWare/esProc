@@ -60,7 +60,6 @@ public class PopupSpl {
 			pm.add(mSpl.cloneMenuItem(GCSpl.iTIPS));
 			pm.addSeparator();
 			pm.add(mSpl.cloneMenuItem(GCSpl.iEDIT_CHART));
-			pm.add(mSpl.cloneMenuItem(GCSpl.iFUNC_ASSIST));
 
 			pm.add(mSpl.cloneMenuItem(GCSpl.iDRAW_CHART));
 			JMenuItem calcArea = mSpl.cloneMenuItem(GCSpl.iCALC_AREA);

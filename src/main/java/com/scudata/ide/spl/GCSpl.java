@@ -152,8 +152,6 @@ public class GCSpl extends GC {
 	public static final String COL_VISIBLE = "edit.colvisible";
 	/** 统计图(G) */
 	public static final String CHART = "edit.chart";
-	/** 函数辅助(A) */
-	public static final String FUNC_ASSIST = "edit.funcassist";
 	/** 网格画布(G) */
 	public static final String CANVAS = "edit.canvas";
 	/** 缩放(L) */
@@ -241,8 +239,6 @@ public class GCSpl extends GC {
 	public static final short iCOL_VISIBLE = MENU_SPL + 189;
 	/** 统计图(G) */
 	public static final short iEDIT_CHART = MENU_SPL + 191;
-	/** 函数辅助(A) */
-	public static final short iFUNC_ASSIST = MENU_SPL + 193;
 	/** 缩放(L) */
 	public static final short iZOOM = MENU_SPL + 194;
 	/** 查找(F) */
