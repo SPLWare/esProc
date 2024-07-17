@@ -220,7 +220,8 @@ public final class JSONUtil {
 				if (chars[end] == ']') {
 					return parseSequence(chars, start + 1, end - 1, opt);
 				} else {
-					return null;
+					//return null;
+					return new String(chars, start, end - start + 1).trim();
 				}
 			} else if (c == '{') {
 				if (chars[end] == '}') {
