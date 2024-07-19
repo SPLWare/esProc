@@ -137,8 +137,6 @@ public class ConfigOptions {
 	public static Integer iAutoShowTip = new Integer(0);
 	/** Whether to automatically pop up the http setting dialog box */
 	public static Boolean bShowHttpConfig = Boolean.TRUE;
-	/** HTTP port */
-	public static Integer iHttpPort = new Integer(8503);
 
 	/** esProc */
 	/** Row count */
@@ -220,8 +218,8 @@ public class ConfigOptions {
 	public static Color COLOR_NULL = new Color(255, 0, 255);
 
 	/**
-	 * Increase the background color configuration of some positions in the designer
-	 * in the system configuration file
+	 * Increase the background color configuration of some positions in the
+	 * designer in the system configuration file
 	 */
 	/** Reserved, not used in esProc for now */
 	public static String fileColor;
@@ -230,7 +228,8 @@ public class ConfigOptions {
 	/** Select the background color of the first column of the table row */
 	public static String headerColor;
 	/**
-	 * Select the background color transparency at the first column of the table row
+	 * Select the background color transparency at the first column of the table
+	 * row
 	 */
 	public static String headerColorOpacity;
 	/**
@@ -254,6 +253,10 @@ public class ConfigOptions {
 	 * 函数提示功能
 	 */
 	public static Boolean bFuncNotice = Boolean.TRUE;
+	/**
+	 * 自动启动Excel加载项服务
+	 */
+	public static Boolean bAutoExcelServer = Boolean.FALSE;
 
 	public static String sQvsConfigFile = null;
 
@@ -334,7 +337,6 @@ public class ConfigOptions {
 		options.put("iFileLocation", iFileLocation);
 
 		options.put("bShowHttpConfig", bShowHttpConfig);
-		options.put("iHttpPort", iHttpPort);
 		options.put("iLocale", iLocale);
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
@@ -343,6 +345,7 @@ public class ConfigOptions {
 		options.put("sFileTip", sFileTip);
 
 		options.put("bFuncNotice", bFuncNotice);
+		options.put("bAutoExcelServer", bAutoExcelServer);
 		options.put("sQvsConfigFile", sQvsConfigFile);
 		// options.put("bCheckUpdate", bCheckUpdate);
 		options.put("bNoticeExpiration", bNoticeExpiration);
@@ -371,7 +374,8 @@ public class ConfigOptions {
 	 * Save options
 	 * 
 	 * @param holdConsole
-	 * @param onlySave 仅保存
+	 * @param onlySave
+	 *            仅保存
 	 * @throws Throwable
 	 */
 	public static void save(boolean holdConsole, boolean onlySave)
@@ -484,8 +488,6 @@ public class ConfigOptions {
 				iDBRecordCount = ii;
 			} else if (option.equalsIgnoreCase("iConsoleLocation")) {
 				iConsoleLocation = ii;
-			} else if (option.equalsIgnoreCase("iHttpPort")) {
-				iHttpPort = ii;
 			} else if (option.equalsIgnoreCase("iLocale")) {
 				iLocale = new Byte(ii.byteValue());
 			} else if (option.equalsIgnoreCase("iUndoCount")) {
@@ -560,6 +562,8 @@ public class ConfigOptions {
 				// bCheckUpdate = ii;
 			} else if (option.equalsIgnoreCase("bNoticeExpiration")) {
 				bNoticeExpiration = ii;
+			} else if (option.equalsIgnoreCase("bAutoExcelServer")) {
+				bAutoExcelServer = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {
@@ -682,6 +686,7 @@ public class ConfigOptions {
 
 	/**
 	 * 创建日志属性对象
+	 * 
 	 * @return
 	 */
 	public static Properties getLoggerProperty() {

@@ -52,9 +52,11 @@ import com.scudata.resources.AppMessage;
 public class ConfigUtil {
 
 	/**
-	 * Read the configuration file from the input stream.No configuration is loaded.
+	 * Read the configuration file from the input stream.No configuration is
+	 * loaded.
 	 * 
-	 * @param in The input stream
+	 * @param in
+	 *            The input stream
 	 * @return
 	 * @throws Exception
 	 */
@@ -65,9 +67,11 @@ public class ConfigUtil {
 	/**
 	 * Read the configuration file from the input stream.
 	 * 
-	 * @param in        The input stream
-	 * @param setConfig Whether to load the configuration. Load when true, not load
-	 *                  when false.
+	 * @param in
+	 *            The input stream
+	 * @param setConfig
+	 *            Whether to load the configuration. Load when true, not load
+	 *            when false.
 	 * @return
 	 * @throws Exception
 	 */
@@ -79,10 +83,13 @@ public class ConfigUtil {
 	/**
 	 * Read the configuration file from the input stream
 	 * 
-	 * @param in           The input stream
-	 * @param setConfig    Whether to load the configuration. Load when true, not
-	 *                     load when false.
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param in
+	 *            The input stream
+	 * @param setConfig
+	 *            Whether to load the configuration. Load when true, not load
+	 *            when false.
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
 	 * @return
 	 * @throws Exception
 	 */
@@ -95,11 +102,15 @@ public class ConfigUtil {
 	/**
 	 * Read the configuration file from the input stream
 	 * 
-	 * @param home         用于加载相对路径的目录
-	 * @param in           The input stream
-	 * @param setConfig    Whether to load the configuration. Load when true, not
-	 *                     load when false.
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param home
+	 *            用于加载相对路径的目录
+	 * @param in
+	 *            The input stream
+	 * @param setConfig
+	 *            Whether to load the configuration. Load when true, not load
+	 *            when false.
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
 	 * @return
 	 * @throws Exception
 	 */
@@ -131,7 +142,8 @@ public class ConfigUtil {
 	/**
 	 * Format the long value of the date.
 	 * 
-	 * @param date The long value of the date to format
+	 * @param date
+	 *            The long value of the date to format
 	 * @return
 	 */
 	public static String formatDate(long date) {
@@ -143,7 +155,8 @@ public class ConfigUtil {
 	/**
 	 * Read configuration file and set
 	 * 
-	 * @param filePath The file path
+	 * @param filePath
+	 *            The file path
 	 * @return
 	 * @throws Exception
 	 */
@@ -154,8 +167,10 @@ public class ConfigUtil {
 	/**
 	 * Read configuration file and set
 	 * 
-	 * @param filePath The file path
-	 * @param loadFrom 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param filePath
+	 *            The file path
+	 * @param loadFrom
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
 	 * @return
 	 * @throws Exception
 	 */
@@ -167,9 +182,12 @@ public class ConfigUtil {
 	/**
 	 * Read configuration file and set
 	 * 
-	 * @param filePath     The file path
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
-	 * @param setConfig    是否设置配置
+	 * @param filePath
+	 *            The file path
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param setConfig
+	 *            是否设置配置
 	 * @return
 	 * @throws Exception
 	 */
@@ -182,10 +200,14 @@ public class ConfigUtil {
 	/**
 	 * Read configuration file and set
 	 * 
-	 * @param home         用于加载相对路径的目录
-	 * @param filePath     The file path
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
-	 * @param setConfig    是否设置配置
+	 * @param home
+	 *            用于加载相对路径的目录
+	 * @param filePath
+	 *            The file path
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param setConfig
+	 *            是否设置配置
 	 * @return
 	 * @throws Exception
 	 */
@@ -201,9 +223,12 @@ public class ConfigUtil {
 	/**
 	 * Load DBList and Esproc under Runtime
 	 * 
-	 * @param config RaqsoftConfig
-	 * @param appCtx ServletContext
-	 * @param home   The home path
+	 * @param config
+	 *            RaqsoftConfig
+	 * @param appCtx
+	 *            ServletContext
+	 * @param home
+	 *            The home path
 	 */
 	public static void loadRuntime(RaqsoftConfig config, ServletContext appCtx,
 			String home) throws Exception {
@@ -213,11 +238,16 @@ public class ConfigUtil {
 	/**
 	 * Set DBList and Esproc under Runtime
 	 * 
-	 * @param appCtx      ServletContext
-	 * @param home        The home path
-	 * @param config      RaqsoftConfig
-	 * @param setLogLevel Whether to set the log level
-	 * @param loadExt     Whether to load the ext-libs
+	 * @param appCtx
+	 *            ServletContext
+	 * @param home
+	 *            The home path
+	 * @param config
+	 *            RaqsoftConfig
+	 * @param setLogLevel
+	 *            Whether to set the log level
+	 * @param loadExt
+	 *            Whether to load the ext-libs
 	 * @throws Exception
 	 */
 	public static void setConfig(ServletContext appCtx, String home,
@@ -229,12 +259,18 @@ public class ConfigUtil {
 	/**
 	 * Set DBList and Esproc under Runtime
 	 * 
-	 * @param appCtx       ServletContext
-	 * @param home         The home path
-	 * @param config       RaqsoftConfig
-	 * @param setLogLevel  Whether to set the log level
-	 * @param loadExt      Whether to load the ext-libs
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param appCtx
+	 *            ServletContext
+	 * @param home
+	 *            The home path
+	 * @param config
+	 *            RaqsoftConfig
+	 * @param setLogLevel
+	 *            Whether to set the log level
+	 * @param loadExt
+	 *            Whether to load the ext-libs
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
 	 * @throws Exception
 	 */
 	public static void setConfig(ServletContext appCtx, String home,
@@ -247,13 +283,20 @@ public class ConfigUtil {
 	/**
 	 * Set DBList and Esproc under Runtime
 	 * 
-	 * @param appCtx       ServletContext
-	 * @param home         The home path
-	 * @param config       RaqsoftConfig
-	 * @param setLogLevel  Whether to set the log level
-	 * @param loadExt      Whether to load the ext-libs
-	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
-	 * @param calcInit     是否计算初始化程序
+	 * @param appCtx
+	 *            ServletContext
+	 * @param home
+	 *            The home path
+	 * @param config
+	 *            RaqsoftConfig
+	 * @param setLogLevel
+	 *            Whether to set the log level
+	 * @param loadExt
+	 *            Whether to load the ext-libs
+	 * @param loadFromJDBC
+	 *            是否从JDBC加载的。true时根据JDBCLoad配置加载环境
+	 * @param calcInit
+	 *            是否计算初始化程序
 	 * @throws Exception
 	 */
 	public static Context setConfig(ServletContext appCtx, String home,
@@ -545,7 +588,8 @@ public class ConfigUtil {
 	/**
 	 * Split missing values with commas.
 	 * 
-	 * @param nullStrings Comma separated missing value string
+	 * @param nullStrings
+	 *            Comma separated missing value string
 	 * @return
 	 */
 	public static String[] splitNullStrings(String nullStrings) {
@@ -602,8 +646,10 @@ public class ConfigUtil {
 	/**
 	 * Calculation initialization spl
 	 * 
-	 * @param splPath The file path of the spl
-	 * @param ctx     Context
+	 * @param splPath
+	 *            The file path of the spl
+	 * @param ctx
+	 *            Context
 	 * @throws Exception
 	 */
 	public static String calcInitSpl(String splPath, Context ctx)
@@ -613,9 +659,12 @@ public class ConfigUtil {
 
 	/**
 	 * 
-	 * @param splPath  The file path of the spl
-	 * @param ctx Context
-	 * @param closeSpace 是否关闭space
+	 * @param splPath
+	 *            The file path of the spl
+	 * @param ctx
+	 *            Context
+	 * @param closeSpace
+	 *            是否关闭space
 	 * @return spaceId
 	 * @throws Exception
 	 */
@@ -648,10 +697,13 @@ public class ConfigUtil {
 	/**
 	 * Get the input stream of the file
 	 * 
-	 * @param home The home path
-	 * @param path Absolute path, or relative path (relative to the home directory),
-	 *             or file name.
-	 * @param app  ServletContext
+	 * @param home
+	 *            The home path
+	 * @param path
+	 *            Absolute path, or relative path (relative to the home
+	 *            directory), or file name.
+	 * @param app
+	 *            ServletContext
 	 * @return
 	 */
 	public static InputStream getInputStream(String home, String path,
@@ -709,8 +761,8 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * Write out the configuration file. It does not judge whether the file exists,
-	 * whether it is writable, etc. It requires external inspection.
+	 * Write out the configuration file. It does not judge whether the file
+	 * exists, whether it is writable, etc. It requires external inspection.
 	 * 
 	 * @param filePath
 	 * @param config
@@ -742,8 +794,10 @@ public class ConfigUtil {
 	/**
 	 * Load external libraries
 	 * 
-	 * @param home   The home path
-	 * @param config RaqsoftConfig
+	 * @param home
+	 *            The home path
+	 * @param config
+	 *            RaqsoftConfig
 	 * @throws RQException
 	 */
 	public static void loadExtLibs(String home, RaqsoftConfig config)
@@ -896,8 +950,10 @@ public class ConfigUtil {
 	/**
 	 * Get absolute path
 	 * 
-	 * @param home The home path
-	 * @param path The file path
+	 * @param home
+	 *            The home path
+	 * @param path
+	 *            The file path
 	 * @return
 	 */
 	public static String getPath(String home, String path) {
