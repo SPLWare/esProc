@@ -143,7 +143,7 @@ public class DateTime extends Function {
 						//calendar.setLenient(false);
 						calendar.set(ds.year(date), ds.month(date) - 1, ds.day(date),
 									 ds.hour(time), ds.minute(time), ds.second(time));
-						calendar.set(Calendar.MILLISECOND, 0);
+						calendar.set(Calendar.MILLISECOND, ds.millisecond(time)); // 0
 						return new Timestamp(calendar.getTimeInMillis());
 					} else if (result2 == null) {
 						DateFactory ds = DateFactory.get();
