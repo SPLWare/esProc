@@ -502,6 +502,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 取序列循环的当前元素
+	 * @param seq int 从1开始计数
+	 * @return Object
+	 */
+	public Object getCurrent(int seq) {
+		return mems.get(seq);
+	}
+	
+	/**
 	 * 取某一区段
 	 * @param start int 起始位置（包括）
 	 * @param end int 结束位置（不包括）

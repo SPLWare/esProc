@@ -24,7 +24,7 @@ public class Current implements IComputeItem {
 	 * @return Object
 	 */
 	public Object getCurrent() {
-		return sequence.getMem(curIndex);
+		return sequence.getCurrent(curIndex);
 	}
 
 	/**
