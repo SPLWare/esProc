@@ -1729,11 +1729,12 @@ public final class CursorUtil {
 			
 			ICursor []cursors = new ICursor[size];
 			cursorList.toArray(cursors);
-			if (opt == null || opt.indexOf('0') == -1) {
+			return merge(cursors, exps, opt, ctx);
+			/*if (opt == null || opt.indexOf('0') == -1) {
 				return new MergesCursor(cursors, exps, ctx);
 			} else {
 				return new MergesCursor(cursors, exps, "0", ctx);
-			}
+			}*/
 		}
 	}
 
