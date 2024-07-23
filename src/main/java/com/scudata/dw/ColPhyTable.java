@@ -1418,19 +1418,9 @@ public class ColPhyTable extends PhyTable {
 					seq = (Sequence) seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
 					recCount = seq.length(); 
 				} else if (recCount >= MIN_BLOCK_RECORD_COUNT){
-					boolean doAppend = true;
-					int segLen;
-					if (sortedColCount > 1) {
-						segLen = sortedColCount / 2;
-					} else {
-						segLen = 1;
-					}
-					for (int c = 0; c < segLen; c++) {
-						int cmp = Variant.compare(lastValues[c], vals[c], true);
-						if (cmp == 0) {
-							doAppend = false;
-							break;
-						}
+					boolean doAppend = false;
+					if (0 != Variant.compareArrays(lastValues, vals, sortedColCount)) {
+						doAppend = true;
 					}
 					if (doAppend) {
 						appendDataBlock(seq, 1, seq.length());
