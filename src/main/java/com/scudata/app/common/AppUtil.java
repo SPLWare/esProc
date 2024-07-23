@@ -238,8 +238,20 @@ public class AppUtil {
 	 * @return The result
 	 */
 	public static Object executeSql(String sql, List<Object> args, Context ctx) {
-		SimpleSQL lq = new SimpleSQL(sql, args, ctx);
-		return lq.execute();
+		ComputeStack stack = ctx.getComputeStack();
+		try {
+			Sequence argSeq = new Sequence();
+			if (args != null) {
+				for (Object arg : args) {
+					argSeq.add(arg);
+				}
+			}
+			stack.pushArg(argSeq);
+			SimpleSQL lq = new SimpleSQL(sql, args, ctx);
+			return lq.execute();
+		} finally {
+			stack.popArg();
+		}
 	}
 
 	/**
