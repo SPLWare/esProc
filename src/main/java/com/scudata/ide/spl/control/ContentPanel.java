@@ -1611,7 +1611,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return -1;
 		}
 		String text = ((JTextComponent) editor).getText();
-		if (isEditing && !isPaint && GV.isCellEditing) {
+		if (!isPaint && isCellEditing()) {
 			int p = ((JTextComponent) editor).getCaretPosition();
 			int row = control.getActiveCell().getRow();
 			int col = control.getActiveCell().getCol();
@@ -1622,6 +1622,20 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return p;
 		}
 		return text == null ? 0 : text.length();
+	}
+
+	/**
+	 * 单元格正在编辑，网格中或者工具栏都算
+	 * 
+	 * @return
+	 */
+	protected boolean isCellEditing() {
+		try {
+			return isEditing && GV.isCellEditing
+					|| GV.toolBarProperty.getWindowEditor().isFocusOwner();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
