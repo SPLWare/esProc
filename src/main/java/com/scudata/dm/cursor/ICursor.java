@@ -67,6 +67,14 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	
+	public static int getInitSize() {
+		return INITSIZE;
+	}
+
+	public static void setInitSize(int size) {
+		INITSIZE = size;
+	}
+
 	/**
 	 * 并行计算时需要改变上下文
 	 * 子类如果用到了表达式还需要用新上下文重新解析表达式

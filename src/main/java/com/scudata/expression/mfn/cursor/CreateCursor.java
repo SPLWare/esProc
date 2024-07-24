@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.cursor.PrereadCursor;
 import com.scudata.dm.cursor.SinglepathCursor;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.IParam;
@@ -21,6 +22,8 @@ public class CreateCursor extends CursorFunction {
 	public Object calculate(Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			return createCursor((MultipathCursors)cursor, param, ctx);
+		} else if (option != null && option.indexOf('m') != -1) {
+			return new PrereadCursor(cursor);
 		} else {
 			return cursor;
 		}

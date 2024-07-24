@@ -1749,12 +1749,12 @@ public final class CursorUtil {
 	 * @return
 	 */
 	public static ICursor sortx(ICursor cursor, Expression[] exps, Expression gexp, Context ctx, String opt) {
-		Sequence seq = tryFetch(cursor);
+		final int fetchCount = ICursor.getInitSize();
+		Sequence seq = cursor.fetch(fetchCount);
 		if (seq == null || seq.length() == 0) {
 			return null;
 		}
 		
-		final int fetchCount = seq.length();
 		DataStruct ds = seq.dataStruct();
 		if (ds == null) {
 			MessageManager mm = EngineMessage.get();
