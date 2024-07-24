@@ -2792,9 +2792,9 @@ public final class LineImporter implements ILineInput {
 				// 没找到匹配的单引号返回空
 				return null;
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '（' || c == '【' || c == '《') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '）' || c == '】' || c == '》')) {
 					BracketsLevel--;
 				}
 				
@@ -2882,9 +2882,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '（' || c == '【' || c == '《') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '）' || c == '】' || c == '》')) {
 					BracketsLevel--;
 				}
 				
@@ -2958,9 +2958,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '（' || c == '【' || c == '《') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '）' || c == '】' || c == '》')) {
 					BracketsLevel--;
 				}
 				
