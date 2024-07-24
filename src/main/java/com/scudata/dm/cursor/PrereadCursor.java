@@ -29,7 +29,7 @@ public class PrereadCursor extends ICursor {
 			reader = new CursorReader(ThreadPool.instance(), cursor, n);
 		}
 		
-		return reader.getTable();
+		return reader.getTable(n);
 	}
 
 	protected long skipOver(long n) {

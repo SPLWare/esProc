@@ -44,6 +44,36 @@ class CursorReader extends Job {
 			return null;
 		}
 	}
+	
+	public Sequence getTable(int n) {
+		join();
+		
+		if (table != null) {
+			Sequence result = table;
+			table = null;
+			
+			if (fetchCount < n) {
+				int diff = n - result.length();
+				if (diff > 0) {
+					fetchCount = diff;
+					threadPool.submit(this);
+					join();
+					
+					if (table != null) {
+						result = result.append(table);
+						table = null;
+					}
+				}
+				
+				fetchCount = n;
+			}
+			
+			threadPool.submit(this);
+			return result;
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * 读取缓存的数据，结束读取，不再提交任务到线程池
