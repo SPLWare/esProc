@@ -92,7 +92,7 @@ public class Append extends PhyTableFunction {
 		
 		for (int i = 0; i < num; i++) {
 			threads[i] = newAppendThread(tables[i], mcs.getPathCursor(i), option);
-			threads[i].run();
+			threads[i].start();
 		}
 		for (int i = 0; i < num; i++) {
 			try {

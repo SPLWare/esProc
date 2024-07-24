@@ -6828,7 +6828,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		Object[] values = ((ObjectArray)mems).getDatas();
-		MultithreadUtil.sort(values, 1, values.length, comparator);
+		int len = mems.size();
+		MultithreadUtil.sort(values, 1, len, comparator);
 		return this;
 	}
 	
