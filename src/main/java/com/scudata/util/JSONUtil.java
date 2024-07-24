@@ -169,7 +169,15 @@ public final class JSONUtil {
 		
 		while (start <= end) {
 			int index = indexOf(chars, start, end, ':');
-			if (index < 0) break;
+			if (index < 0) {
+				for (; start <= end; ++start) {
+					if (!Character.isWhitespace(start)) {
+						return null;
+					}
+				}
+				
+				break;
+			}
 
 			String name = new String(chars, start, index - start);
 			name = name.trim();
@@ -194,6 +202,10 @@ public final class JSONUtil {
 		}
 		
 		int size = nameList.size();
+		if (size == 0) {
+			return null;
+		}
+		
 		String []names = new String[size];
 		nameList.toArray(names);
 		DataStruct ds = new DataStruct(names);
@@ -225,9 +237,15 @@ public final class JSONUtil {
 				}
 			} else if (c == '{') {
 				if (chars[end] == '}') {
-					return parseRecord(chars, start + 1, end - 1, opt);
+					BaseRecord r = parseRecord(chars, start + 1, end - 1, opt);
+					if (r != null) {
+						return r;
+					} else {
+						return new String(chars, start, end - start + 1).trim();
+					}
 				} else {
-					return null;
+					//return null;
+					return new String(chars, start, end - start + 1).trim();
 				}
 			} else if (!Character.isWhitespace(c)) {
 				String str = new String(chars, start, end - start + 1);
