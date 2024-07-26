@@ -1272,6 +1272,18 @@ public class IntArray implements NumberArray {
 			if (signs != null) {
 				signs[index] = false;
 			}
+		} else if (obj instanceof Long) {
+			long v = ((Long)obj).longValue();
+			if (v <= Integer.MAX_VALUE && v >= Integer.MIN_VALUE) {
+				datas[index] = (int)v;
+				if (signs != null) {
+					signs[index] = false;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+						mm.getMessage("DataType.Integer"), Variant.getDataType(obj)));
+			}
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
