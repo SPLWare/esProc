@@ -28,8 +28,7 @@ import com.scudata.resources.EngineMessage;
  * @1 转成单层序列，x是单值时返回[x]；x是二层序列返回x.conj()
  * @2 x是单值时返回[[x]]
  * 
- * E(null)时返回null，不报错。
- * 当x不属于要转换类型时，E(x)返回x，不报错。
+ * E(null)时返回null，不报错。 当x不属于要转换类型时，E(x)返回x，不报错。
  * 
  */
 public class E extends Function {
@@ -41,9 +40,6 @@ public class E extends Function {
 		String opt = option;
 		if (param == null) {
 			return null;
-			// MessageManager mm = EngineMessage.get();
-			// throw new RQException(FUNC_NAME
-			// + mm.getMessage("function.missingParam"));
 		}
 		IParam xParam;
 		if (param.getType() != IParam.Normal) {
@@ -55,9 +51,6 @@ public class E extends Function {
 		}
 		if (xParam == null) {
 			return null;
-			// MessageManager mm = EngineMessage.get();
-			// throw new RQException(FUNC_NAME
-			// + mm.getMessage("function.missingParam"));
 		}
 		if (!xParam.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
@@ -67,9 +60,6 @@ public class E extends Function {
 		Object x = xParam.getLeafExpression().calculate(ctx);
 		if (x == null) {
 			return null;
-			// MessageManager mm = EngineMessage.get();
-			// throw new RQException(FUNC_NAME
-			// + mm.getMessage("function.missingParam"));
 		}
 		boolean isB = opt != null && opt.indexOf("b") != -1;
 		boolean isP = opt != null && opt.indexOf("p") != -1;
@@ -82,9 +72,12 @@ public class E extends Function {
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
 				if (isSequence2(seq)) { // x是二层序列返回x.conj()
+					if (isP) { // 有@p时先列后行
+						seq = ExcelUtils.transpose(seq);
+					}
 					seq = seq.conj(null);
 				} else {
-					// 单层序列直接返回
+					// 单层序列不做处理
 				}
 			} else { // x是单值时返回[x]
 				seq = new Sequence();
@@ -97,8 +90,10 @@ public class E extends Function {
 			Sequence seq;
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
-				if (isSequence2(seq)) { // 二层序列直接返回
-					return x;
+				if (isSequence2(seq)) { // 二层序列
+					if (isP) { // 有@p时将转置返回
+						seq = ExcelUtils.transpose(seq);
+					}
 				} else { // Excel参数不应该有单层序列，也处理一下吧
 					seqToSeq2(seq);
 				}
@@ -127,42 +122,36 @@ public class E extends Function {
 			if (seq instanceof Table || seq.isPmt()) {
 				// x是序表/排列时，转换成二层序列。
 				seq = pmtToSequence(seq, !isB);
+				if (isP) { // @p时转回二层序列时也转换
+					seq = ExcelUtils.transpose(seq);
+				}
 				return seq;
 			} else if (isSequence2(seq)) {
 				// x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
-				if (isP) { // 二层序列是转置的
+				if (isP) { // @p时二层序列是转置的
 					seq = ExcelUtils.transpose(seq);
 				}
 				seq = sequenceToTable(seq, !isB);
 				return seq;
 			} else {
 				return x;
-				// MessageManager mm = EngineMessage.get();
-				// throw new RQException(FUNC_NAME
-				// + mm.getMessage("function.invalidParam"));
 			}
 		} else if (x instanceof String) {
 			// x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
 			if (!StringUtils.isValidString(x)) {
 				return x;
-				// MessageManager mm = EngineMessage.get();
-				// throw new RQException(FUNC_NAME
-				// + mm.getMessage("function.missingParam"));
 			}
 			Sequence seq = importS((String) x, !isB);
 			if (seq == null) {
 				return x;
-				// MessageManager mm = EngineMessage.get();
-				// throw new RQException(FUNC_NAME
-				// + mm.getMessage("function.invalidParam"));
 			}
 			seq = pmtToSequence(seq, !isB);
+			if (isP) { // @p时转回二层序列时也转换
+				seq = ExcelUtils.transpose(seq);
+			}
 			return seq;
 		}
 		return x;
-		// MessageManager mm = EngineMessage.get();
-		// throw new RQException(FUNC_NAME
-		// + mm.getMessage("function.invalidParam"));
 	}
 
 	/**
