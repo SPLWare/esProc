@@ -463,22 +463,7 @@ public class MergeCursor extends ICursor {
 			}
 		}
 		
-		if (fields.length == 1) {
-			LoserTreeNode_CS1 []nodes = new LoserTreeNode_CS1[count];
-			for (int i = 0; i < count; ++i) {
-				nodes[i] = new LoserTreeNode_CS1(cursors[i], fields[0], isNullMin);
-			}
-			
-			loserTree = new LoserTree(nodes);
-		} else {
-			LoserTreeNode_CS []nodes = new LoserTreeNode_CS[count];
-			for (int i = 0; i < count; ++i) {
-				nodes[i] = new LoserTreeNode_CS(cursors[i], fields, isNullMin);
-			}
-			
-			loserTree = new LoserTree(nodes);
-		}
-		
+		isEnd = false;
 		return true;
 	}
 	

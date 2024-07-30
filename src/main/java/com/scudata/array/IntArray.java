@@ -697,9 +697,10 @@ public class IntArray implements NumberArray {
 			ensureCapacity(size + 1);
 			datas[++size] = array.getInt(index);
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Integer"), array.getDataType()));
+			add(array.get(index));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Integer"), array.getDataType()));
 		}
 	}
 	
