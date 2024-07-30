@@ -85,11 +85,11 @@ public class Eval extends Function {
 	 * @return Object 返回表达式计算结果
 	 */
 	public static Object calc(String expStr, Sequence arg, ICellSet cs, Context ctx) {
-		Expression exp = new Expression(cs, ctx, expStr);
 		ComputeStack stack = ctx.getComputeStack();
 
 		try {
 			stack.pushArg(arg);
+			Expression exp = new Expression(cs, ctx, expStr);
 			return exp.calculate(ctx);
 		} finally {
 			stack.popArg();
