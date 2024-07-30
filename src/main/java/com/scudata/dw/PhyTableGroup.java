@@ -390,7 +390,7 @@ public class PhyTableGroup implements IPhyTable {
 				if (size > 1) {
 					cursors = new ICursor[size];
 					lists[i].toArray(cursors);
-					resultCursors[i] = new MergeCursor(cursors, findex, null, ctx);
+					resultCursors[i] = new MergeCursor(cursors, findex, opt, ctx);
 				} else if (size == 1) {
 					resultCursors[i] = lists[i].get(0);
 				}
@@ -472,7 +472,7 @@ public class PhyTableGroup implements IPhyTable {
 				findex[i] = ds.getFieldIndex(sortFields[i]);
 			}
 			
-			return new MergeCursor(cursors, findex, null, ctx);
+			return new MergeCursor(cursors, findex, opt, ctx);
 		} else {
 			return new ConjxCursor(cursors);
 		}
@@ -629,7 +629,7 @@ public class PhyTableGroup implements IPhyTable {
 						if (size > 1) {
 							cursors = new ICursor[size];
 							lists[i].toArray(cursors);
-							resultCursors[i] = new MergeCursor(cursors, findex, null, ctx);
+							resultCursors[i] = new MergeCursor(cursors, findex, opt, ctx);
 						} else if (size == 1) {
 							resultCursors[i] = lists[i].get(0);
 						}
@@ -667,7 +667,7 @@ public class PhyTableGroup implements IPhyTable {
 					findex[i] = ds.getFieldIndex(sortFields[i]);
 				}
 				
-				return new MergeCursor(cursors, findex, null, ctx);
+				return new MergeCursor(cursors, findex, opt, ctx);
 			}
 		}
 		
@@ -797,7 +797,7 @@ public class PhyTableGroup implements IPhyTable {
 				findex[i] = ds.getFieldIndex(sortFields[i]);
 			}
 			
-			return new MergeCursor(cursors, findex, null, ctx);
+			return new MergeCursor(cursors, findex, opt, ctx);
 		} else {
 			return new ConjxCursor(cursors);
 		}

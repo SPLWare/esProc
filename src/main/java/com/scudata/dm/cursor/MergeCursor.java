@@ -33,6 +33,8 @@ public class MergeCursor extends ICursor {
 	private boolean isEnd = false; // 是否取数完毕
 	private boolean isGroupOne; // 每组是否只取一条
 	
+	private boolean doGroupOpt = false; // 是否对后续的分组运算做优化
+	
 	/**
 	 * 构建有效归并游标
 	 * @param cursors 游标数组
@@ -46,8 +48,14 @@ public class MergeCursor extends ICursor {
 		this.ctx = ctx;
 		dataStruct = cursors[0].getDataStruct();
 		
-		if (opt != null && opt.indexOf('0') !=-1) {
-			isNullMin = false;
+		if (opt != null) {
+			if (opt.indexOf('g') !=-1) {
+				doGroupOpt = true;
+			}
+			
+			if (opt.indexOf('0') != -1) {
+				isNullMin = false;
+			}
 		}
 	}
 	
@@ -69,7 +77,7 @@ public class MergeCursor extends ICursor {
 	 */
 	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
 		// 如果已经附加了运算则不进行优化
-		if (opList != null && opList.size() > 0) {
+		if (!doGroupOpt || (opList != null && opList.size() > 0)) {
 			return super.group(function, exps, opt, ctx);
 		}
 		
