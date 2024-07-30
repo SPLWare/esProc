@@ -69,7 +69,15 @@ public class E extends Function {
 			Sequence seq;
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
-				if (isSequence2(seq)) { // x是二层序列返回x.conj()
+				if (isTableOrPmt(seq)) {
+					// x是序表/排列时，转换成二层序列。
+					if (isP) {
+						seq = pmtToSequenceP(seq, !isB);
+					} else {
+						seq = pmtToSequence(seq, !isB);
+					}
+					seq = seq.conj(null);
+				} else if (isSequence2(seq)) { // x是二层序列返回x.conj()
 					if (isP) { // 有@p时先列后行
 						seq = ExcelUtils.transpose(seq);
 					}
@@ -88,7 +96,14 @@ public class E extends Function {
 			Sequence seq;
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
-				if (isSequence2(seq)) { // 二层序列
+				if (isTableOrPmt(seq)) {
+					// x是序表/排列时，转换成二层序列。
+					if (isP) {
+						seq = pmtToSequenceP(seq, !isB);
+					} else {
+						seq = pmtToSequence(seq, !isB);
+					}
+				} else if (isSequence2(seq)) { // 二层序列
 					if (isP) { // 有@p时将转置返回
 						seq = ExcelUtils.transpose(seq);
 					}
@@ -117,7 +132,7 @@ public class E extends Function {
 				// @s x是序表时返回成回车/TAB分隔的串
 				return exportS((Table) seq, !isB);
 			}
-			if (seq instanceof Table || seq.isPmt()) {
+			if (isTableOrPmt(seq)) {
 				// x是序表/排列时，转换成二层序列。
 				if (isP) {
 					seq = pmtToSequenceP(seq, !isB);
@@ -156,7 +171,7 @@ public class E extends Function {
 		if (seq == null) {
 			return x;
 		}
-		if (seq instanceof Table || seq.isPmt()) { // 序表或排列转成二层序列
+		if (isTableOrPmt(seq)) { // 序表或排列转成二层序列
 			if (isP) {
 				seq = pmtToSequenceP(seq, !isB);
 			} else {
@@ -168,6 +183,16 @@ public class E extends Function {
 			}
 		}
 		return seq;
+	}
+
+	private static boolean isTableOrPmt(Object x) {
+		if (x instanceof Table)
+			return true;
+		if (x instanceof Sequence) {
+			Sequence seq = (Sequence) x;
+			return seq.isPmt();
+		}
+		return false;
 	}
 
 	/**
