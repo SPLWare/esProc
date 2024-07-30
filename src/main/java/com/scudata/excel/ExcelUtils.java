@@ -57,8 +57,10 @@ public class ExcelUtils {
 	/**
 	 * Open excel file with password
 	 * 
-	 * @param pfs POIFSFileSystem
-	 * @param pwd Excel password
+	 * @param pfs
+	 *            POIFSFileSystem
+	 * @param pwd
+	 *            Excel password
 	 * @return
 	 * @throws Exception
 	 */
@@ -76,8 +78,10 @@ public class ExcelUtils {
 	/**
 	 * Export excel file using password
 	 * 
-	 * @param fo  FileObject
-	 * @param pwd Excel password
+	 * @param fo
+	 *            FileObject
+	 * @param pwd
+	 *            Excel password
 	 */
 	public static void encrypt(FileObject fo, String pwd) {
 		POIFSFileSystem fs = new POIFSFileSystem();
@@ -133,8 +137,10 @@ public class ExcelUtils {
 	/**
 	 * Whether it is an excel file in xlsx format.
 	 * 
-	 * @param fo  FileObject
-	 * @param pwd Excel password
+	 * @param fo
+	 *            FileObject
+	 * @param pwd
+	 *            Excel password
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
@@ -187,7 +193,8 @@ public class ExcelUtils {
 	/**
 	 * Whether it is an excel file in xlsx format.
 	 * 
-	 * @param is InputStream
+	 * @param is
+	 *            InputStream
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
@@ -198,8 +205,10 @@ public class ExcelUtils {
 	/**
 	 * Whether the excel cell is in date format.
 	 * 
-	 * @param cell Cell
-	 * @param df   DataFormat
+	 * @param cell
+	 *            Cell
+	 * @param df
+	 *            DataFormat
 	 * @return
 	 */
 	public static boolean isCellDateFormatted(Cell cell, DataFormat df) {
@@ -241,6 +250,7 @@ public class ExcelUtils {
 
 	/**
 	 * 特殊处理一些中文日期时间格式
+	 * 
 	 * @param formatIndex
 	 * @param formatString
 	 * @return
@@ -324,12 +334,18 @@ public class ExcelUtils {
 	/**
 	 * Import excel file
 	 * 
-	 * @param importer IExcelTool
-	 * @param fields   Fields to be imported, null means all fields.
-	 * @param startRow Start row
-	 * @param endRow   End row
-	 * @param s        Sheet number or sheet name
-	 * @param opt      The options. t:The first line is the title line.
+	 * @param importer
+	 *            IExcelTool
+	 * @param fields
+	 *            Fields to be imported, null means all fields.
+	 * @param startRow
+	 *            Start row
+	 * @param endRow
+	 *            End row
+	 * @param s
+	 *            Sheet number or sheet name
+	 * @param opt
+	 *            The options. t:The first line is the title line.
 	 * @return Table
 	 * @throws IOException
 	 */
@@ -454,8 +470,10 @@ public class ExcelUtils {
 	/**
 	 * Convert a string separated by \n and \t into a Matrix object.
 	 * 
-	 * @param data  String separated by \n and \t
-	 * @param parse Whether to parse cell value
+	 * @param data
+	 *            String separated by \n and \t
+	 * @param parse
+	 *            Whether to parse cell value
 	 * @return
 	 */
 	public static Matrix getStringMatrix(String data, boolean parse) {
@@ -516,9 +534,12 @@ public class ExcelUtils {
 	/**
 	 * Get a row of data
 	 * 
-	 * @param row        Row
-	 * @param dataFormat DataFormat
-	 * @param evaluator  FormulaEvaluator
+	 * @param row
+	 *            Row
+	 * @param dataFormat
+	 *            DataFormat
+	 * @param evaluator
+	 *            FormulaEvaluator
 	 * @return
 	 */
 	public static Object[] getRowData(Row row, DataFormat dataFormat,
@@ -693,8 +714,10 @@ public class ExcelUtils {
 	/**
 	 * Set value to cell
 	 * 
-	 * @param cell  Cell
-	 * @param value Cell value
+	 * @param cell
+	 *            Cell
+	 * @param value
+	 *            Cell value
 	 * @return
 	 */
 	public static boolean setCellValue(Cell cell, Object value) {
@@ -875,7 +898,8 @@ public class ExcelUtils {
 	 * Remove whitespace
 	 * 
 	 * @param data
-	 * @param isW @w时空串读成null
+	 * @param isW
+	 * @w时空串读成null
 	 * @return
 	 */
 	public static Object trim(Object data, boolean isW) {
@@ -895,28 +919,16 @@ public class ExcelUtils {
 	/**
 	 * Transpose sequence
 	 * 
-	 * @param seq The sequence to be transposed
+	 * @param seq
+	 *            The sequence to be transposed
 	 * @return
 	 */
 	public static Sequence transpose(Sequence seq) {
 		if (seq == null || seq.length() == 0)
 			return seq;
-		int colCount = 0;
+		int colCount = getSequenceColCount(seq);
 		int len = seq.length();
 		Object data;
-		for (int r = 1; r <= len; r++) {
-			data = seq.get(r);
-			if (data == null)
-				continue;
-			if (data instanceof Sequence) {
-				colCount = Math.max(colCount, ((Sequence) data).length());
-			} else if (data instanceof BaseRecord) {
-				colCount = Math.max(colCount,
-						((BaseRecord) data).getFieldCount());
-			} else {
-				colCount = Math.max(colCount, 1);
-			}
-		}
 		Sequence transSeq = new Sequence(colCount);
 		for (int c = 0; c < colCount; c++) {
 			Sequence colSeq = new Sequence(len);
@@ -953,10 +965,31 @@ public class ExcelUtils {
 		return transSeq;
 	}
 
+	public static int getSequenceColCount(Sequence seq) {
+		int colCount = 0;
+		int len = seq.length();
+		Object data;
+		for (int r = 1; r <= len; r++) {
+			data = seq.get(r);
+			if (data == null)
+				continue;
+			if (data instanceof Sequence) {
+				colCount = Math.max(colCount, ((Sequence) data).length());
+			} else if (data instanceof BaseRecord) {
+				colCount = Math.max(colCount,
+						((BaseRecord) data).getFieldCount());
+			} else {
+				colCount = Math.max(colCount, 1);
+			}
+		}
+		return colCount;
+	}
+
 	/**
 	 * Convert time to long
 	 * 
-	 * @param time Time
+	 * @param time
+	 *            Time
 	 * @return
 	 */
 	public static double getExcelTimeDouble(Time time) {
@@ -970,6 +1003,7 @@ public class ExcelUtils {
 
 	/**
 	 * 将Excel的日期时间数值转换成java的日期时间
+	 * 
 	 * @param excelDateNumber
 	 * @return Date
 	 */
@@ -985,6 +1019,7 @@ public class ExcelUtils {
 
 	/**
 	 * 将java的日期时间转换成Excel的日期时间数值
+	 * 
 	 * @param date
 	 * @return double
 	 */
@@ -1007,6 +1042,7 @@ public class ExcelUtils {
 
 	/**
 	 * Excel的sheet名称不能超过31个字符，并且不能包含[]:\/?*
+	 * 
 	 * @return
 	 */
 	public static void checkSheetName(Object s) {

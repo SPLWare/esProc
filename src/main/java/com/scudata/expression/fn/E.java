@@ -20,15 +20,13 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * E(x) x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。 x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
- * x是序表/排列时，转换成二层序列。 x是数值则按Excel规则的日期/时间。 x是日期/时间则转成数值。
+ * x是序表/排列时，转换成二层序列。 x是数值则按Excel规则的日期/时间。 x是日期/时间则转成数值。 未定义的情况则返回x本身。
  * 
  * @b 无标题
- * @p 二层序列是转置的
+ * @p 二层序列是转置的，如果转回二层序列时也转换
  * @s x是序表时返回成回车/TAB分隔的串
- * @1 转成单层序列，x是单值时返回[x]；x是二层序列返回x.conj()
- * @2 x是单值时返回[[x]]
- * 
- * E(null)时返回null，不报错。 当x不属于要转换类型时，E(x)返回x，不报错。
+ * @1 转成单层序列，x是单值时返回[x]；x是二层序列返回x.conj()，有@p时先列后行
+ * @2 x是单值时返回[[x]]，有@p时将转置返回
  * 
  */
 public class E extends Function {
@@ -121,37 +119,55 @@ public class E extends Function {
 			}
 			if (seq instanceof Table || seq.isPmt()) {
 				// x是序表/排列时，转换成二层序列。
-				seq = pmtToSequence(seq, !isB);
-				if (isP) { // @p时转回二层序列时也转换
-					seq = ExcelUtils.transpose(seq);
+				if (isP) {
+					seq = pmtToSequenceP(seq, !isB);
+				} else {
+					seq = pmtToSequence(seq, !isB);
 				}
 				return seq;
 			} else if (isSequence2(seq)) {
 				// x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
-				if (isP) { // @p时二层序列是转置的
-					seq = ExcelUtils.transpose(seq);
+				if (isP) {
+					seq = sequenceToTableP(seq, !isB);
+				} else {
+					seq = sequenceToTable(seq, !isB);
 				}
-				seq = sequenceToTable(seq, !isB);
 				return seq;
 			} else {
 				return x;
 			}
 		} else if (x instanceof String) {
 			// x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
-			if (!StringUtils.isValidString(x)) {
-				return x;
-			}
-			Sequence seq = importS((String) x, !isB);
-			if (seq == null) {
-				return x;
-			}
-			seq = pmtToSequence(seq, !isB);
-			if (isP) { // @p时转回二层序列时也转换
-				seq = ExcelUtils.transpose(seq);
-			}
-			return seq;
+			return transposeString(x, isB, isP);
 		}
 		return x;
+	}
+
+	/**
+	 * x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
+	 * 
+	 * @return
+	 */
+	public static Object transposeString(Object x, boolean isB, boolean isP) {
+		if (!StringUtils.isValidString(x)) {
+			return x;
+		}
+		Sequence seq = importS((String) x, !isB);
+		if (seq == null) {
+			return x;
+		}
+		if (seq instanceof Table || seq.isPmt()) { // 序表或排列转成二层序列
+			if (isP) {
+				seq = pmtToSequenceP(seq, !isB);
+			} else {
+				seq = pmtToSequence(seq, !isB);
+			}
+		} else {
+			if (isP) { // 行列转置返回
+				seq = ExcelUtils.transpose(seq);
+			}
+		}
+		return seq;
 	}
 
 	/**
@@ -163,7 +179,7 @@ public class E extends Function {
 	 *            是否有标题行
 	 * @return
 	 */
-	private Sequence importS(String str, boolean hasTitle) {
+	private static Sequence importS(String str, boolean hasTitle) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(Escape.addEscAndQuote(str));
 		buf.append(".import");
@@ -190,7 +206,7 @@ public class E extends Function {
 	}
 
 	/**
-	 * 将序表或者排列，转换为二层序列
+	 * 将序表或者排列，转换为二层序列。调用前需要保证pmt是序表或排列
 	 * 
 	 * @param pmt
 	 *            序表或者排列
@@ -198,19 +214,80 @@ public class E extends Function {
 	 *            是否有标题行
 	 * @return 二层序列
 	 */
-	private Sequence pmtToSequence(Sequence pmt, boolean hasTitle) {
-		Sequence seq = new Sequence();
-		if (hasTitle) {
+	private static Sequence pmtToSequence(Sequence pmt, boolean hasTitle) {
+		if (pmt == null)
+			return pmt;
+		int len = pmt.length();
+		Sequence seq;
+		if (hasTitle) { // 标题行作为第一行记录
+			seq = new Sequence(len + 1);
 			DataStruct ds = pmt.dataStruct();
 			if (ds != null) {
 				seq.add(new Sequence(ds.getFieldNames()));
 			}
+		} else {
+			seq = new Sequence(len);
 		}
-
 		BaseRecord r;
-		for (int i = 1, len = pmt.length(); i <= len; i++) {
+		for (int i = 1; i <= len; i++) {
 			r = (BaseRecord) pmt.get(i);
 			seq.add(new Sequence(r.getFieldValues()));
+		}
+		return seq;
+	}
+
+	/**
+	 * 将序表或者排列，转换为二层序列，行列转置返回。调用前需要保证pmt是序表或排列
+	 * 
+	 * @param pmt
+	 *            序表或者排列
+	 * @param hasTitle
+	 *            是否有标题行
+	 * @return 二层序列
+	 */
+	private static Sequence pmtToSequenceP(Sequence pmt, boolean hasTitle) {
+		if (pmt == null)
+			return pmt;
+		BaseRecord r;
+		Object firstMem = pmt.ifn();
+		String[] fieldNames = null;
+		int colCount = 0;
+		if (hasTitle) {
+			DataStruct ds = pmt.dataStruct();
+			if (ds == null) // 有标题行的数据结构不能为null
+				return pmt;
+			fieldNames = ds.getFieldNames();
+			colCount = fieldNames.length;
+		} else {
+			if (firstMem == null) {
+				// 成员全是空，返回一个二层空序列
+				Sequence seq = new Sequence();
+				seq.add(new Sequence());
+				return seq;
+			}
+			r = (BaseRecord) firstMem;
+			colCount = r.getFieldCount();
+		}
+		int len = pmt.length();
+		Sequence seq = new Sequence(len);
+		Sequence colSeq;
+		for (int c = 0; c < colCount; c++) {
+			colSeq = new Sequence(len);
+			if (fieldNames != null) { // 有标题时先加标题
+				colSeq.add(fieldNames[c]);
+			}
+			for (int i = 1; i <= len; i++) {
+				r = (BaseRecord) pmt.get(i);
+				if (r == null) {
+					colSeq.add(null);
+				} else {
+					if (r.getFieldCount() > c)
+						colSeq.add(r.getFieldValue(c));
+					else
+						colSeq.add(null);
+				}
+			}
+			seq.add(colSeq);
 		}
 		return seq;
 	}
@@ -238,27 +315,11 @@ public class E extends Function {
 			}
 			if (t == null) {
 				cc = rowSeq.length();
-				String[] colNames = new String[cc];
+				String[] colNames;
 				if (hasTitle) {
-					Object val;
-					String colName;
-					for (int c = 1; c <= cc; c++) {
-						val = rowSeq.get(c);
-						if (val != null) {
-							colName = String.valueOf(val);
-						} else {
-							colName = null;
-						}
-						if (!StringUtils.isValidString(colName)) {
-							colName = "_" + c;
-						}
-						colNames[c - 1] = colName;
-					}
-
+					colNames = getColNames(rowSeq);
 				} else {
-					for (int c = 1; c <= cc; c++) {
-						colNames[c - 1] = "_" + c;
-					}
+					colNames = getDefaultColNames(cc);
 				}
 				t = new Table(colNames);
 				if (hasTitle) {
@@ -272,6 +333,101 @@ public class E extends Function {
 			t.newLast(rowData);
 		}
 		return t;
+	}
+
+	/**
+	 * 将行列转置的二层序列转换为序表
+	 * 
+	 * @param seq
+	 *            二层序列
+	 * @param hasTitle
+	 *            是否有标题行
+	 * @return 序表
+	 */
+	private Table sequenceToTableP(Sequence seq, boolean hasTitle) {
+		Table t = null;
+		int len = seq.length();
+		int colCount = ExcelUtils.getSequenceColCount(seq);
+		Sequence colSeq;
+		Sequence rowSeq;
+		boolean isEmptyCol;
+		for (int c = 0; c < colCount; c++) {
+			colSeq = new Sequence(len);
+			isEmptyCol = true;
+			for (int i = 1; i <= len; i++) {
+				rowSeq = (Sequence) seq.get(i);
+				if (rowSeq == null) {
+					colSeq.add(null);
+				} else {
+					if (rowSeq.length() > c) {
+						colSeq.add(rowSeq.get(c + 1));
+						isEmptyCol = false;
+					} else {
+						colSeq.add(null);
+					}
+				}
+			}
+			if (isEmptyCol) {
+				if (t == null)
+					continue;
+				else
+					t.newLast();
+			}
+			if (t == null) {
+				String[] colNames;
+				if (hasTitle) {
+					colNames = getColNames(colSeq);
+				} else {
+					colNames = getDefaultColNames(len);
+				}
+				t = new Table(colNames);
+				if (hasTitle) {
+					continue;
+				}
+			}
+			t.newLast(colSeq.toArray());
+		}
+		return t;
+	}
+
+	/**
+	 * 根据数据生成字段名
+	 * 
+	 * @param seq
+	 * @return
+	 */
+	private String[] getColNames(Sequence seq) {
+		int len = seq.length();
+		String[] colNames = new String[len];
+		Object val;
+		String colName;
+		for (int i = 1; i <= len; i++) {
+			val = seq.get(i);
+			if (val != null) {
+				colName = String.valueOf(val);
+			} else {
+				colName = null;
+			}
+			if (!StringUtils.isValidString(colName)) {
+				colName = "_" + i;
+			}
+			colNames[i - 1] = colName;
+		}
+		return colNames;
+	}
+
+	/**
+	 * 返回缺省字段名
+	 * 
+	 * @param cc
+	 * @return
+	 */
+	private String[] getDefaultColNames(int cc) {
+		String[] colNames = new String[cc];
+		for (int c = 1; c <= cc; c++) {
+			colNames[c - 1] = "_" + c;
+		}
+		return colNames;
 	}
 
 	/**

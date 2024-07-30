@@ -38,25 +38,25 @@ public class DialogArgument extends DialogMaxmizable {
 	/**
 	 * Common资源管理器
 	 */
-	private MessageManager mm = IdeCommonMessage.get();
+	protected MessageManager mm = IdeCommonMessage.get();
 
 	/** 序号列 */
-	private final byte COL_INDEX = 0;
+	protected final byte COL_INDEX = 0;
 	/** 名称列 */
-	private final byte COL_NAME = 1;
+	protected final byte COL_NAME = 1;
 	/** 值列 */
-	private final byte COL_VALUE = 2;
+	protected final byte COL_VALUE = 2;
 	/** 备注列 */
-	private final byte COL_REMARK = 3;
+	protected final byte COL_REMARK = 3;
 
 	/** 序号列标题 */
-	private final String TITLE_INDEX = mm.getMessage("dialogargument.index");
+	protected final String TITLE_INDEX = mm.getMessage("dialogargument.index");
 	/** 名称列标题 */
-	private final String TITLE_NAME = mm.getMessage("dialogargument.name");
+	protected final String TITLE_NAME = mm.getMessage("dialogargument.name");
 	/** 值列标题 */
-	private final String TITLE_VALUE = mm.getMessage("dialogargument.value");
+	protected final String TITLE_VALUE = mm.getMessage("dialogargument.value");
 	/** 备注列标题 */
-	private final String TITLE_REMARK = mm.getMessage("dialogparameter.remark");
+	protected final String TITLE_REMARK = mm.getMessage("dialogparameter.remark");
 
 	/**
 	 * 参数表控件。序号,名称,值
@@ -83,53 +83,57 @@ public class DialogArgument extends DialogMaxmizable {
 	/**
 	 * 确认按钮
 	 */
-	private JButton jBOK = new JButton();
+	protected JButton jBOK = new JButton();
 	/**
 	 * 取消按钮
 	 */
-	private JButton jBCancel = new JButton();
+	protected JButton jBCancel = new JButton();
 	/**
 	 * 增加按钮
 	 */
-	private JButton jBAdd = new JButton();
+	protected JButton jBAdd = new JButton();
 	/**
 	 * 删除按钮
 	 */
-	private JButton jBDel = new JButton();
+	protected JButton jBDel = new JButton();
 	/**
 	 * 上移按钮
 	 */
-	private JButton jBUp = new JButton();
+	protected JButton jBUp = new JButton();
 	/**
 	 * 下移按钮
 	 */
-	private JButton jBDown = new JButton();
+	protected JButton jBDown = new JButton();
 	/**
 	 * 全选按钮
 	 */
-	private JButton buttonAll = new JButton(mm.getMessage("button.selectall"));
+	protected JButton buttonAll = new JButton(mm.getMessage("button.selectall"));
 	/**
 	 * 复制按钮
 	 */
-	private JButton buttonCopy = new JButton(
+	protected JButton buttonCopy = new JButton(
 			mm.getMessage("dialogparameter.copy"));
 	/**
 	 * 粘贴按钮
 	 */
-	private JButton buttonPaste = new JButton(mm.getMessage("button.paste"));
+	protected JButton buttonPaste = new JButton(mm.getMessage("button.paste"));
+
 	/**
 	 * 每次运行前设置参数
 	 */
-	private JCheckBox jcbUserChange = new JCheckBox(
+	protected JCheckBox jcbUserChange = new JCheckBox(
 			mm.getMessage("dialogparameter.setbeforerun"));
+
+	protected JPanel jPButton = new JPanel(new VFlowLayout());
+
 	/**
 	 * 窗口的关闭动作
 	 */
-	private int m_option = JOptionPane.CLOSED_OPTION;
+	protected int m_option = JOptionPane.CLOSED_OPTION;
 	/**
 	 * 参数列表
 	 */
-	private ParamList pl;
+	protected ParamList pl;
 
 	/**
 	 * 构造函数
@@ -140,7 +144,7 @@ public class DialogArgument extends DialogMaxmizable {
 			initUI();
 			init();
 			resetLangText();
-			setSize(450, 350);
+			setSize(450, 370);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			this.setResizable(true);
 		} catch (Exception e) {
@@ -302,8 +306,6 @@ public class DialogArgument extends DialogMaxmizable {
 	private void initUI() throws Exception {
 		this.addWindowListener(new DialogArgument_this_windowAdapter(this));
 		this.getContentPane().setLayout(new BorderLayout());
-		JPanel jPanel1 = new JPanel();
-		jPanel1.setLayout(new VFlowLayout());
 		jBOK.setText("确定(O)");
 		jBOK.addActionListener(new DialogArgument_jBOK_actionAdapter(this));
 		jBOK.setMnemonic('O');
@@ -328,6 +330,7 @@ public class DialogArgument extends DialogMaxmizable {
 		jBDown.setMnemonic('W');
 		jBDown.setText("下移(W)");
 		jBDown.addActionListener(new DialogArgument_jBDown_actionAdapter(this));
+
 		buttonAll.setMnemonic('A');
 		buttonCopy.setMnemonic('X');
 		buttonPaste.setMnemonic('P');
@@ -387,25 +390,23 @@ public class DialogArgument extends DialogMaxmizable {
 			}
 
 		});
-		JLabel jLabel1 = new JLabel();
-		jLabel1.setText(" ");
-		jPanel1.add(jBOK, null);
-		jPanel1.add(jBCancel, null);
-		jPanel1.add(jLabel1, null);
-		jPanel1.add(jBAdd, null);
-		jPanel1.add(jBDel, null);
-		jPanel1.add(jBUp, null);
-		jPanel1.add(jBDown, null);
-		jPanel1.add(new JLabel(), null);
-		jPanel1.add(buttonAll, null);
-		jPanel1.add(buttonCopy, null);
-		jPanel1.add(buttonPaste, null);
+		jPButton.add(jBOK, null);
+		jPButton.add(jBCancel, null);
+		jPButton.add(new JLabel(" "), null);
+		jPButton.add(jBAdd, null);
+		jPButton.add(jBDel, null);
+		jPButton.add(jBUp, null);
+		jPButton.add(jBDown, null);
+		jPButton.add(new JLabel(), null);
+		jPButton.add(buttonAll, null);
+		jPButton.add(buttonCopy, null);
+		jPButton.add(buttonPaste, null);
 		JPanel panelMain = new JPanel();
 		panelMain.setLayout(new GridBagLayout());
 		panelMain.add(jcbUserChange, GM.getGBC(1, 1, true));
 		panelMain.add(new JScrollPane(paraTable), GM.getGBC(2, 1, true, true));
 		this.getContentPane().add(panelMain, BorderLayout.CENTER);
-		this.getContentPane().add(jPanel1, BorderLayout.EAST);
+		this.getContentPane().add(jPButton, BorderLayout.EAST);
 	}
 
 	/**

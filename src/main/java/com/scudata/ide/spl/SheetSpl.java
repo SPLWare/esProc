@@ -2685,7 +2685,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 网格参数对话框
 	 */
 	public void dialogParameter() {
-		DialogArgument dp = new DialogArgument();
+		DialogArgument dp = newDialogArgument();
 		dp.setParameter(splControl.cellSet.getParamList());
 		dp.setVisible(true);
 		if (dp.getOption() == JOptionPane.OK_OPTION) {
@@ -2694,6 +2694,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			ar.setValue(dp.getParameter());
 			splEditor.executeCmd(ar);
 		}
+	}
+
+	protected DialogArgument newDialogArgument() {
+		return new DialogArgument();
 	}
 
 	/**
