@@ -29,8 +29,8 @@ connection succeeds, you can perform operations on files on the remote storage
 platform through Qfile, Qmove and Qload functions in a SPL script.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-no-proof:yes'><img border=0 width=585 height=403
-src="User_reference.files/image079.jpg" v:shapes="_x0000_i1066"><span
+style='mso-no-proof:yes'><img border=0 width=390 height=269
+src="User_reference.files/image072.png" v:shapes="_x0000_i1066"><span
 style='mso-spacerun:yes'>&nbsp;</span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span style='font-family:楷体_GB2312;
@@ -47,7 +47,8 @@ If the property is left blank, won’t connect to any remote storage platform.</s
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>On Remote Storage
 Service window, select a remote storage type, which supports “Amazon S3”, “NFS”,
-“HDFS”, “Microsoft Azure”, “OSS” and “Google Cloud Storage” for the time being.</span></p>
+“HDFS”, “Microsoft Azure”, “OSS” ,”Mount” and “Google Cloud Storage” for the
+time being.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Then click “New”
 button to get into Storage Service Settings window, where you can set up
@@ -83,8 +84,8 @@ service settings connection:</span></p>
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
 style='mso-no-proof:yes'><span style='mso-spacerun:yes'>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=682 height=466
-src="User_reference.files/image080.png" v:shapes="_x0000_i1067"></span></p>
+<p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=536 height=367
+src="User_reference.files/image074.jpg" v:shapes="_x0000_i1067"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
 style='mso-no-proof:yes'>&nbsp;</span></p>
@@ -103,10 +104,10 @@ mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
 mso-no-proof:yes'>【</span><span lang=EN-US style='mso-no-proof:yes'>Cache path</span><span
 style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
 mso-hansi-font-family:"Times New Roman";mso-no-proof:yes'>】</span><span
-lang=EN-US style='mso-no-proof:yes'>: </span><span lang=EN-US>To perform file computations
-on a remote storage platform, the file object is by default automatically
-downloaded to <i>cachePath/storeType/bucketName</i>. The cache path is by
-default the system’s cache directory, such as <i>C:\Users\UserName\AppData\Roaming\__scudatacache\s3</i>.<b
+lang=EN-US style='mso-no-proof:yes'>: </span><span lang=EN-US>To perform file
+computations on a remote storage platform, the file object is by default
+automatically downloaded to <i>cachePath/storeType/bucketName</i>. The cache
+path is by default the system’s cache directory, such as <i>C:\Users\UserName\AppData\Roaming\__scudatacache\s3</i>.<b
 style='mso-bidi-font-weight:normal'><span style='color:red'></span></b></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span style='font-family:楷体_GB2312;
@@ -133,17 +134,17 @@ style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
 style='mso-bidi-font-family:"Times New Roman"'>1. When the remote storage type
-is “Google cloud storage”, put the corresponding jars in <i>google-gcs</i>
-directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
+is “Google cloud storage”, put the corresponding jars in <i>google-gcs</i> directory
+under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>【</span></i><i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>esProc installation
+directory</span></i><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
 "Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>. And add a Java
-proxy parameter: Djava.net.useSystemProxies=true, in the startup file, such as
-IDE’s startup file <i>starup.bat</i>, for “Google cloud storage” type:</span></p>
+"Times New Roman"'>】</span></i><i><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>\esProc\q-extlib</span></i><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>. And add a Java proxy
+parameter: Djava.net.useSystemProxies=true, in the startup file, such as IDE’s
+startup file <i>starup.bat</i>, for “Google cloud storage” type:</span></p>
 
 <p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
 lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>@echo off</span></p>
@@ -226,6 +227,9 @@ storage platform is</span><span style='font-family:楷体_GB2312;mso-ascii-font-fa
 楷体_GB2312;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
 mso-bidi-font-family:"Times New Roman"'>】</span><span lang=EN-US
 style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
+
+<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
 style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>

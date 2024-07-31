@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A.datederive()</title>
+<title>date(datetimeExp)</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,331 +14,152 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A.datederive()<a
-name="A_datederive"></a></span></span><span
+style='mso-bookmark:_Hlt161066090'><a name="date_datetimeExp"></a><span
+lang=EN-US>date(datetimeExp)</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h3></div>
-	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Description:</span></b></span></p>
+	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate multiple
-derivative variables for a datetime sequence variable.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+the date part of the datetime value.</span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Syntax:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax:</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'><span style='mso-spacerun:yes'>&nbsp;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:1.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=239 valign=top style='width:119.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>A.datederive(T)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=766 valign=top style='width:382.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>During
-  modeling, generate multiple variables for datetime variable A for building
-  models and return a binary sequence where the first bit is a table sequence
-  made up of all the derivative variables and the second bit is generation
-  process records Rec; the derivative variables automatically perform
-  subsequent pre-processing</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=239 valign=top style='width:119.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>A.datederive@r(</span></b><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>Rec</span></i><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=766 valign=top style='width:382.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>During
-  scoring, generate a table sequence consisting of multiple derivative
-  variables used for model building according to datetime variable A and
-  generation process records Rec</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>date(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>datetimeExp</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>)</span></span></span></p>
 
-<p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Note:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'></span></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note:</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'><span style='mso-spacerun:yes'>&nbsp;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></span></p>
 
-<p class=MsoNormal align=left style='text-align:left;line-height:21.0pt;
-mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>External library function <span style='mso-bidi-font-style:italic'>(See
-</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>External Library Guide</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>).</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+function gets the date part of the </span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US>datetimeExp</span></span><span
+lang=EN-US>.<i style='mso-bidi-font-style:normal'></i></span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>It generates multiple derivative
-variables for a datetime sequence variable <i>A</i>.</span></span><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'></span></b></span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:1.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=104 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=697 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  sequence of datetime variable values</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=104 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=697 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  target variable value used to perform potential data smoothing</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=104 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>Rec</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=697 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  sequence of generation process records</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Option:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter:</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'><span style='mso-spacerun:yes'>&nbsp;</span></span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:1.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=104 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>@bnie</span></b></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>datetimeExp</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=697 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Each
-  option specifies a target type, and options are mutual-exclusive;
-  automatically judge the type when no option is used; the order of priorities
-  of the options is binary, numeric, integer and enumerated</span></span></p>
+  <td width=448 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Datetime
+  value</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Return value:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Return value:</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'><span style='mso-spacerun:yes'>&nbsp;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='color:#333333;
-mso-font-kerning:0pt'>Sequence/Table sequence</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Date
+</span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:1.1pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>date(now())</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 valign=top style='width:315.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>=100.(date(2020,rand(11)+1,rand(28)+1))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 valign=top style='width:315.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  training data, which is a sequence of datetime variable values.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>=100.(date(2021,rand(11)+1,rand(28)+1))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 valign=top style='width:315.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  scoring data, which is a sequence of date variable values.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>=100.(rand(500))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 style='width:315.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Generate a
-  target variable.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>=A1.datederive@i(A3)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 style='width:315.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'><img border=0 width=398 height=88
-  src="Function_Reference.files/image611.png" v:shapes="图片_x0020_411"></span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'></span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>A4(1) A table
-  sequence of derivative variables;</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>A4(2)
-  Generation process records Rec.</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>@i specifies
-  the target variable as integer.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=43 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=432 valign=top style='width:216.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>=A2.datederive@r(A4(2))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=631 style='width:315.25pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'><img border=0 width=398 height=317
-  src="Function_Reference.files/image613.png" v:shapes="图片_x0020_412"></span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'></span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Generate
-  derivative variables on the scoring data according to A4’s generation process
-  records Rec.</span></span></span></p>
+  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>2013-12-09</span></span><b><span lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>&nbsp;</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Related function:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="datestring.html#date"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>da<span style='mso-bookmark:_Hlt406685558'><span
+style='mso-bookmark:_Hlt415056146'>t</span></span>e<span style='mso-bookmark:
+_Hlt415055592'>(</span>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt415055592"></a><a name="_Hlt415056146"></a><a name="_Hlt406685558"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="datetimedatetimeexp.html#datetime_datetimeExp"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-fareast-font-family:黑体'>datet<span style='mso-bookmark:
+_Hlt415056191'>i</span>me(<span style='mso-bookmark:_Hlt415056216'><i
+style='mso-bidi-font-style:normal'>d</i></span><i style='mso-bidi-font-style:
+normal'>atet<span style='mso-bookmark:_Hlt415055679'>i</span>meE<span
+style='mso-bookmark:_Hlt133256606'><span style='mso-bookmark:_Hlt133256607'>x</span></span>p</i>)</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt133256607"></a><a name="_Hlt133256606"></a><a name="_Hlt415055679"></a><a
+name="_Hlt415056216"></a><a name="_Hlt415056191"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="timedatetimeexp.html#time_datetimeExp"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-fareast-font-family:黑体'>time(<i style='mso-bidi-font-style:
+normal'>da<span style='mso-bookmark:_Hlt406685620'>t</span>e<span
+style='mso-bookmark:_Hlt415056195'>t</span>imeExp</i>)</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt415056195"></a><a name="_Hlt406685620"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="datetimestring.html#datetime"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>dat<span style='mso-bookmark:_Hlt406685647'>e</span><span
+style='mso-bookmark:_Hlt415056163'>t</span>ime()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt415056163"></a><a name="_Hlt406685647"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="timehms.html#time"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>tim<span style='mso-bookmark:_Hlt415056199'>e</span>()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt415056199"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="226.html">Next</a></div>
@@ -346,7 +167,7 @@ color:#333333;mso-font-kerning:0pt'>&nbsp;</span></b></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="224.html">datederive()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="224.html">date()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

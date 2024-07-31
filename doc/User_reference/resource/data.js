@@ -126,5 +126,6 @@ tree.setIconPath("images/");
  tree.nodes["1_125"] = "text:Remote Storage Service;url:topics/123.html";
  tree.nodes["1_126"] = "text:Encrypt Data Source;url:topics/124.html";
  tree.nodes["1_127"] = "text:Search directory;url:topics/125.html";
+ tree.nodes["1_128"] = "text:Paste Excel values;url:topics/126.html";
 tree.setTarget("mainFrame");
 document.write(tree.toString());

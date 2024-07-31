@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hour()</title>
+<title>hdfs_upload()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,160 +13,318 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=hour><span lang=EN-US>hour()</span></a></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hdfs_upload()<a
+name="hdfs_upload"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
-	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span></p>
+	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-the hour from a specified datetime.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-language:AR'>Upload a local file to a specific position.</span></span></p>
 
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax: </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Syntax:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>hour(</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>datetimeExp</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>)<span style='mso-tab-count:1'> </span></span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>hdfs_upload(</span></code></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-language:
+AR'> </span></span><span style='mso-bookmark:_Hlt161066090'><var><span
+lang=EN-US style='mso-bidi-language:AR'>hd, local, remote</span></var></span><span
+style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+"Times New Roman",serif;mso-bidi-language:AR'>)</span></code></span></p>
 
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note: </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Note:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-the hour from the specified time</span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US> datetimeExp</span></span><span lang=EN-US>.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
+italic'>The external library function </span></var><span lang=EN-US
+style='mso-bidi-font-style:italic'>(See </span></span><a
+href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>) </span></span><span
+style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
+AR;font-style:normal;mso-bidi-font-style:italic'>uploads a local file or folder
+</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
+lang=EN-US style='mso-bidi-language:AR'>local </span></var></span><span
+style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
+AR;font-style:normal;mso-bidi-font-style:italic'>to a remote file/folder </span></var></span><span
+style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
+AR'>remote</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
+lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
+italic'>.</span></var></span></p>
 
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter: </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Parameter:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=204 valign=top style='width:101.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>datetimeExp</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=615 valign=top style='width:307.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Date or standard datetime format string</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Return value: </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Integer</span></span></p>
-
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-7.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=445 valign=top style='width:222.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>hour(&quot;1983-12-15&quot;)</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'>hd</span></var></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=374 valign=top style='width:186.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>0</span></span><b><span lang=EN-US></span></b></span></p>
+  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
+  italic'>An</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'> hd</span></var></span><span
+  style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
+  AR;mso-bidi-font-style:italic'> </span></var></span><span style='mso-bookmark:
+  _Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:AR;font-style:
+  normal'>connection</span></var><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US></span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=445 valign=top style='width:222.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>hour(&quot;1983-12-15
-  10:30:25&quot;)</span></span></span></p>
+  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'>local</span></var></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=374 valign=top style='width:186.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>10</span></span></span></p>
+  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  local file or folder</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=445 valign=top style='width:222.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>hour(datetime(&quot;2006-01-15
-  13:20:30&quot;))</span></span></span></p>
+  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'>remote</span></var></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=374 valign=top style='width:186.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>13</span></span></span></p>
+  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-language:AR'>A </span><span lang=EN-US>remote file or folder</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-language:
+  AR'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Related function:</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Option:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="year.html#year"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>ye<span style='mso-bookmark:_Hlt414975965'>a</span>r<span
-style='mso-bookmark:_Hlt414976399'><span style='mso-bookmark:_Hlt415058005'>(</span></span>)</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt415058005"></a><a name="_Hlt414976399"></a><a name="_Hlt414975965"></a><span
-style='mso-bookmark:_Hlt161066090'></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-7.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-language:
+  AR'>@d</span><span lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-language:AR'>Upload all files in the specified folder to the
+  specified path, and require both the source and directories are folders</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="month.html#month"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>mon<span style='mso-bookmark:_Hlt414976403'><span
-style='mso-bookmark:_Hlt415058008'>t</span></span>h()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt415058008"></a><a name="_Hlt414976403"></a><span
-style='mso-bookmark:_Hlt161066090'></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Return value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="day.html#day"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>da<span style='mso-bookmark:_Hlt414976381'>y</span>()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt414976381"></a><span style='mso-bookmark:_Hlt161066090'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'><span style='mso-tab-count:1'>&nbsp; </span></span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-language:AR'>Boolean</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="minute.html#minute"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>min<span style='mso-bookmark:_Hlt414976418'><span
-style='mso-bookmark:_Hlt415058012'>u</span></span><span style='mso-bookmark:
-_Hlt414976407'>t</span><span style='mso-bookmark:_Hlt414976437'>e</span>()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt414976437"></a><a name="_Hlt414976407"></a><a name="_Hlt415058012"></a><a
-name="_Hlt414976418"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Example:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="second.html#second"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>se<span style='mso-bookmark:_Hlt415058017'>c</span>o<span
-style='mso-bookmark:_Hlt414976361'>n</span><span style='mso-bookmark:_Hlt414976472'>d</span>()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt414976472"></a><a name="_Hlt414976361"></a><a name="_Hlt415058017"></a><span
-style='mso-bookmark:_Hlt161066090'></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="millisecond.html#millisecond"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>millise<span style='mso-bookmark:_Hlt415058021'>c</span><span
-style='mso-bookmark:_Hlt414976410'>o</span>nd()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt414976410"></a><a name="_Hlt415058021"></a><span
-style='mso-bookmark:_Hlt161066090'></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>A</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>1</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-language:AR'>Connect to HDFS file system</span><span
+  lang=EN-US>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>2</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_upload(A1,&quot;emp.txt&quot;,&quot;/user&quot;)
+  </span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
+  local file <i>emp.txt</i> to the path <i>/user</i>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>3</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_upload(A1,&quot;stu.txt&quot;,&quot;/user/stu1.txt&quot;)
+  </span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
+  local file <i>stu.txt</i> to the path <i>/user, </i>and rename it <i>stu1.txt</i>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>4</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_upload(A1,&quot;/h1&quot;,&quot;/s1&quot;)</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
+  local file <i>/h1</i> to path <i>/s1</i>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>5</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_upload@d(A1,&quot;/h1&quot;,&quot;/s1&quot;)
+  </span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
+  all files in the local folder <i>/h1</i> to path <i>/s1</i>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'>6</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>=hdfs_close(A1)</span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="445.html">Next</a></div>
