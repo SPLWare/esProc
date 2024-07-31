@@ -80,20 +80,23 @@ public class Console {
 					// 对UI的操作要在Swing安全线程中
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
-							for (int i = 0; i < strList.size(); i++) {
-								jta.append(strList.get(i));
-							}
-							String text = jta.getText();
-							if (text != null) {
-								int len = text.length();
-								if (len > MAX_LENGTH) {
-									text = text.substring(MAX_LENGTH / 2);
-									jta.setText(text);
+							try {
+								for (int i = 0; i < strList.size(); i++) {
+									jta.append(strList.get(i));
 								}
-								// 没有选择时才将光标设置到最后
-								if (!isTextSelected()) {
-									jta.setCaretPosition(text.length());
+								String text = jta.getText();
+								if (text != null) {
+									int len = text.length();
+									if (len > MAX_LENGTH) {
+										text = text.substring(MAX_LENGTH / 2);
+										jta.setText(text);
+									}
+									// 没有选择时才将光标设置到最后
+									if (!isTextSelected()) {
+										jta.setCaretPosition(text.length());
+									}
 								}
+							} catch (Exception e) {
 							}
 						}
 					});
