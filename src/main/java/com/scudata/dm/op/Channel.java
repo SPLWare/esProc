@@ -204,7 +204,7 @@ public class Channel extends Operable implements IPipe {
 	public Channel groups(Expression[] exps, String[] names,
 			   Expression[] calcExps, String[] calcNames, String opt) {
 		checkResultChannel();
-		result = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		result = IGroupsResult.instance(exps, names, calcExps, calcNames, null, opt, ctx);
 		return this;
 	}
 	

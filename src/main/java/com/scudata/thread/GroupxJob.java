@@ -9,6 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.BFileWriter;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
@@ -87,6 +88,7 @@ public class GroupxJob extends Job {
 		Context ctx = this.ctx;
 		int fetchCount = this.fetchCount;
 		TreeMap<Object, BFileWriter> fileMap = this.fileMap;
+		DataStruct ds = cursor.getDataStruct();
 		
 		try {
 			// 遍历游标数据
@@ -103,7 +105,7 @@ public class GroupxJob extends Job {
 					// 对每个大分组进行首次汇总
 					Sequence group = (Sequence)groups.getMem(i);
 					Object gval = group.calc(1, gexp, ctx);
-					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, null, ctx);
+					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 					gresult.push(group, ctx);
 					group = gresult.getTempResult();
 					
@@ -143,6 +145,7 @@ public class GroupxJob extends Job {
 		int capacity = this.capacity;
 		int fetchCount = this.fetchCount;
 		TreeMap<Object, BFileWriter> fileMap = this.fileMap;
+		DataStruct ds = cursor.getDataStruct();
 		
 		try {
 			// 遍历游标数据
@@ -153,7 +156,7 @@ public class GroupxJob extends Job {
 				}
 
 				// 进行首次汇总汇总
-				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, null, ctx);
+				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 				gresult.push(seq, ctx);
 				seq = gresult.getTempResult();
 				

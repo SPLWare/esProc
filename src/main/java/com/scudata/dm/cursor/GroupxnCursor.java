@@ -85,7 +85,8 @@ public class GroupxnCursor extends ICursor {
 		if (fileIndex == -1) {
 			fileIndex++;
 			BFileCursor cs = new BFileCursor(files[0], null, "x", ctx);
-			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, "", ctx);
+			DataStruct ds = cs.getDataStruct();
+			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, "", ctx);
 			groups.push(cs);
 			Sequence seq = groups.getResultTable();
 			cursor = new MemoryCursor(seq);
@@ -96,7 +97,8 @@ public class GroupxnCursor extends ICursor {
 			fileIndex++;
 			if (fileIndex < files.length) {
 				BFileCursor cs = new BFileCursor(files[fileIndex], null, "x", ctx);
-				IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, "", ctx);
+				DataStruct ds = cs.getDataStruct();
+				IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, "", ctx);
 				groups.push(cs);
 				Sequence seq = groups.getResultTable();
 				cursor = new MemoryCursor(seq);
@@ -133,7 +135,8 @@ public class GroupxnCursor extends ICursor {
 		if (fileIndex == -1) {
 			fileIndex++;
 			BFileCursor cs = new BFileCursor(files[0], null, "x", ctx);
-			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, "", ctx);
+			DataStruct ds = cs.getDataStruct();
+			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, "", ctx);
 			groups.push(cs);
 			Sequence seq = groups.getResultTable();
 			cursor = new MemoryCursor(seq);
@@ -144,7 +147,8 @@ public class GroupxnCursor extends ICursor {
 			fileIndex++;
 			if (fileIndex < files.length) {
 				BFileCursor cs = new BFileCursor(files[fileIndex], null, "x", ctx);
-				IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, "", ctx);
+				DataStruct ds = cs.getDataStruct();
+				IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, "", ctx);
 				groups.push(cs);
 				Sequence seq = groups.getResultTable();
 				cursor = new MemoryCursor(seq);

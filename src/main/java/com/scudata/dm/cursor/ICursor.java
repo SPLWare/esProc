@@ -1031,7 +1031,8 @@ abstract public class ICursor extends Operable implements IResource {
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx) {
-		return IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		DataStruct ds = getDataStruct();
+		return IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx);
 	}
 	
 	/**
@@ -1046,7 +1047,8 @@ abstract public class ICursor extends Operable implements IResource {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx) {
-		IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		DataStruct ds = getDataStruct();
+		IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx);
 		groups.push(this);
 		return groups.getResultTable();
 	}
@@ -1067,7 +1069,8 @@ abstract public class ICursor extends Operable implements IResource {
 		if (groupCount < 1 || exps == null || exps.length == 0) {
 			return groups(exps, names, calcExps, calcNames, opt, ctx);
 		} else if (opt != null && opt.indexOf('n') != -1) {
-			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+			DataStruct ds = getDataStruct();
+			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx);
 			groups.setGroupCount(groupCount);
 			groups.push(this);
 			return groups.getResultTable();

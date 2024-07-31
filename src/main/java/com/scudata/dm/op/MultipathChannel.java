@@ -553,7 +553,7 @@ public class MultipathChannel extends Channel {
 	public Channel groups(Expression[] exps, String[] names,
 			   Expression[] calcExps, String[] calcNames, String opt) {
 		checkResultChannel();
-		result = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		result = IGroupsResult.instance(exps, names, calcExps, calcNames, null, opt, ctx);
 		
 		for (Channel channel : channels) {
 			Context ctx = channel.getContext();

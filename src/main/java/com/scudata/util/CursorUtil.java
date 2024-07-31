@@ -260,11 +260,12 @@ public final class CursorUtil {
 	 */
 	public static Table fuzzyGroups(ICursor cursor, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int maxGroupCount) {
+		DataStruct ds = cursor.getDataStruct();
 		int count = exps.length;
 		if (names == null) names = new String[count];
 		for (int i = 0; i < count; ++i) {
 			if (names[i] == null || names[i].length() == 0) {
-				names[i] = exps[i].getIdentifierName();
+				names[i] = exps[i].getFieldName(ds);
 			}
 		}
 
@@ -273,7 +274,7 @@ public final class CursorUtil {
 			if (calcNames == null) calcNames = new String[count];
 			for (int i = 0; i < count; ++i) {
 				if (calcNames[i] == null || calcNames[i].length() == 0) {
-					calcNames[i] = calcExps[i].getIdentifierName();
+					calcNames[i] = calcExps[i].getFieldName(ds);
 				}
 			}
 		}
@@ -2324,6 +2325,7 @@ public final class CursorUtil {
 		MessageManager mm = EngineMessage.get();
 		String msg = mm.getMessage("engine.createTmpFile");
 		TreeMap<Object, BFileWriter> map = new TreeMap<Object, BFileWriter>();
+		DataStruct ds = cursor.getDataStruct();
 		
 		try {
 			// 遍历游标数据
@@ -2339,7 +2341,7 @@ public final class CursorUtil {
 				for (int i = 1; i <= gcount; ++i) {
 					// 对每个大分组进行首次汇总
 					Sequence group = (Sequence)groups.getMem(i);
-					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, null, ctx);
+					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 					gresult.push(group, ctx);
 					Table result = gresult.getTempResult();
 					
@@ -2528,6 +2530,7 @@ public final class CursorUtil {
 		MessageManager mm = EngineMessage.get();
 		String msg = mm.getMessage("engine.createTmpFile");
 		TreeMap<Object, BFileWriter> map = new TreeMap<Object, BFileWriter>();
+		DataStruct ds = cursor.getDataStruct();
 		
 		try {
 			// 遍历游标数据
@@ -2538,7 +2541,7 @@ public final class CursorUtil {
 				}
 				
 				// 对当前数据进行首次汇总
-				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, null, ctx);
+				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 				gresult.push(seq, ctx);
 				seq = gresult.getTempResult();
 				

@@ -10639,7 +10639,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx) {
-		return IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		DataStruct ds = getFirstRecordDataStruct();
+		return IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx);
 	}
 	
 	/**
@@ -10720,7 +10721,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			//groups.push(seq, ctx);
 			//return groups.getResultTable();
 		//} else {
-			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx, len / 2);
+			DataStruct ds = getFirstRecordDataStruct();
+			IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx, len / 2);
 			groups.push(this, ctx);
 			return groups.getResultTable();
 		//}

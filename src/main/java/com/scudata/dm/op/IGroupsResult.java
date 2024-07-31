@@ -21,12 +21,13 @@ abstract public class IGroupsResult implements IResult {
 	 * @param names 分组字段名数组
 	 * @param calcExps 汇总字段表达式数组
 	 * @param calcNames 汇总字段名数组
+	 * @param srcDs 源数据结构，用于把#n变成相应字段名
 	 * @param opt 选项
 	 * @param ctx 计算上下文
 	 * @return IGroupsResult
 	 */
 	public static IGroupsResult instance(Expression[] exps, String[] names, Expression[] calcExps, 
-			String[] calcNames, String opt, Context ctx) {
+			String[] calcNames, DataStruct srcDs, String opt, Context ctx) {
 		if (exps != null) {
 			int count = exps.length;
 			if (names == null) {
@@ -35,7 +36,7 @@ abstract public class IGroupsResult implements IResult {
 			
 			for (int i = 0; i < count; ++i) {
 				if (names[i] == null || names[i].length() == 0) {
-					names[i] = exps[i].getFieldName();
+					names[i] = exps[i].getFieldName(srcDs);
 				}
 			}
 		}
@@ -48,7 +49,7 @@ abstract public class IGroupsResult implements IResult {
 			
 			for (int i = 0; i < valCount; ++i) {
 				if (calcNames[i] == null || calcNames[i].length() == 0) {
-					calcNames[i] = calcExps[i].getFieldName();
+					calcNames[i] = calcExps[i].getFieldName(srcDs);
 				}
 			}
 		}
@@ -70,13 +71,14 @@ abstract public class IGroupsResult implements IResult {
 	 * @param names 分组字段名数组
 	 * @param calcExps 汇总字段表达式数组
 	 * @param calcNames 汇总字段名数组
+	 * @param srcDs 源数据结构，用于把#n变成相应字段名
 	 * @param opt 选项
 	 * @param ctx 计算上下文
 	 * @param capacity 用于分组运算的哈希表容量
 	 * @return IGroupsResult
 	 */
 	public static IGroupsResult instance(Expression[] exps, String[] names, Expression[] calcExps, 
-			String[] calcNames, String opt, Context ctx, int capacity) {
+			String[] calcNames, DataStruct srcDs, String opt, Context ctx, int capacity) {
 		if (exps != null) {
 			int count = exps.length;
 			if (names == null) {
@@ -85,7 +87,7 @@ abstract public class IGroupsResult implements IResult {
 			
 			for (int i = 0; i < count; ++i) {
 				if (names[i] == null || names[i].length() == 0) {
-					names[i] = exps[i].getFieldName();
+					names[i] = exps[i].getFieldName(srcDs);
 				}
 			}
 		}
@@ -98,7 +100,7 @@ abstract public class IGroupsResult implements IResult {
 			
 			for (int i = 0; i < valCount; ++i) {
 				if (calcNames[i] == null || calcNames[i].length() == 0) {
-					calcNames[i] = calcExps[i].getFieldName();
+					calcNames[i] = calcExps[i].getFieldName(srcDs);
 				}
 			}
 		}
