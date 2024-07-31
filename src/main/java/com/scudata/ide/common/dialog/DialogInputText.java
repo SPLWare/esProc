@@ -102,6 +102,11 @@ public class DialogInputText extends DialogMaxmizable {
 	 *             «∑Òø…“‘±‡º≠
 	 */
 	public DialogInputText(Dialog parent, boolean editable) {
+		this(parent, IdeCommonMessage.get().getMessage(
+				"dialoginputtext.texteditbox"), true);
+	}
+
+	public DialogInputText(Dialog parent, String title, boolean editable) {
 		super(parent, IdeCommonMessage.get().getMessage(
 				"dialoginputtext.texteditbox"), true);
 		initDialog(editable);

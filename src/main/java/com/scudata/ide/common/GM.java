@@ -1431,8 +1431,8 @@ public class GM {
 	 * @param frame
 	 *            Parent component
 	 */
-	public static void showException(Object oMsg, Frame frame) {
-		showException(oMsg, true, null, null, frame);
+	public static void showException(Object oMsg, Component parent) {
+		showException(oMsg, true, null, null, parent);
 	}
 
 	/**
@@ -1463,11 +1463,11 @@ public class GM {
 	 *            Window logo
 	 * @param pre
 	 *            The prefix of the exception information
-	 * @param frame
+	 * @param parent
 	 *            Parent component
 	 */
 	public static void showException(Object oMsg, boolean canCopyMsg,
-			ImageIcon logo, String pre, Frame frame) {
+			ImageIcon logo, String pre, Component parent) {
 		String msg;
 		Throwable e = null;
 		if (oMsg instanceof Throwable) {
@@ -1518,8 +1518,14 @@ public class GM {
 			msg = pre + "\n" + msg;
 		}
 		if (canCopyMsg) {
-			DialogInputText dit = new DialogInputText(frame, IdeCommonMessage
-					.get().getMessage("gm.errorprompt"), false);
+			DialogInputText dit;
+			if (parent instanceof Dialog) {
+				dit = new DialogInputText((Dialog) parent, IdeCommonMessage
+						.get().getMessage("gm.errorprompt"), false);
+			} else {
+				dit = new DialogInputText((Frame) parent, IdeCommonMessage
+						.get().getMessage("gm.errorprompt"), false);
+			}
 			dit.setText(msg);
 			dit.setMessageMode();
 			if (logo != null) {
@@ -1527,7 +1533,7 @@ public class GM {
 			}
 			dit.setVisible(true);
 		} else {
-			GM.messageDialog(frame, msg,
+			GM.messageDialog(parent, msg,
 					IdeCommonMessage.get().getMessage("gm.errorprompt"),
 					JOptionPane.INFORMATION_MESSAGE);
 		}

@@ -52,7 +52,8 @@ public class PanelConsole extends JPanel {
 	/**
 	 * 构造函数
 	 * 
-	 * @param console 控制台对象
+	 * @param console
+	 *            控制台对象
 	 */
 	public PanelConsole(Console console) {
 		this(console, false);
@@ -61,8 +62,10 @@ public class PanelConsole extends JPanel {
 	/**
 	 * 构造函数
 	 * 
-	 * @param console 控制台对象
-	 * @param isSPL   是否集算器IDE
+	 * @param console
+	 *            控制台对象
+	 * @param isSPL
+	 *            是否集算器IDE
 	 */
 	public PanelConsole(Console console, boolean isSPL) {
 		super(new BorderLayout());
@@ -159,7 +162,7 @@ public class PanelConsole extends JPanel {
 	 * @param e
 	 */
 	void jBClean_actionPerformed(ActionEvent e) {
-		console.clear();
+		console.clearCaseSelection();
 	}
 }
 

@@ -8,10 +8,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import com.scudata.common.LimitedQueue;
 
@@ -23,7 +25,7 @@ public class Console {
 	/**
 	 * Maximum number of console lines
 	 */
-	private int MAX_LINES = 1000;
+	private int MAX_LINES = 10000;
 	private JTextArea jta = null;
 	private PrintStream ps;
 	private Object rowLock = new Object();
@@ -70,16 +72,30 @@ public class Console {
 				synchronized (rowLock) {
 					if (!rowBuffers.isChanged())
 						return;
-					jta.setText(null);
 					int rows = rowBuffers.size();
+					final List<String> strList = new ArrayList<String>();
 					for (int r = 0; r < rows; r++) {
-						jta.append((String) rowBuffers.get(r));
-					}
-					if (jta.getText() != null) {
-						int len = jta.getText().length();
-						jta.setCaretPosition(len);
+						strList.add((String) rowBuffers.get(r));
 					}
 					rowBuffers.setUnChanged();
+					// 对UI的操作要在Swing安全线程中
+					SwingUtilities.invokeLater(new Runnable() {
+						public void run() {
+							jta.setText(null);
+							for (int i = 0; i < strList.size(); i++) {
+								jta.append(strList.get(i));
+							}
+							// 没有选择时才将光标设置到最后
+							if (!isTextSelected()) {
+								String text = jta.getText();
+								if (text != null) {
+									int len = text.length();
+									jta.setCaretPosition(len);
+								}
+							}
+						}
+					});
+
 				}
 			}
 		};
@@ -93,6 +109,21 @@ public class Console {
 	public void clear() {
 		jta.setText(null);
 		rowBuffers.clear();
+	}
+
+	public void clearCaseSelection() {
+		if (isTextSelected()) {
+			// 删除选中的文本
+			jta.replaceSelection("");
+		} else {
+			clear();
+		}
+	}
+
+	protected boolean isTextSelected() {
+		int selectionStart = jta.getSelectionStart();
+		int selectionEnd = jta.getSelectionEnd();
+		return selectionStart != selectionEnd;
 	}
 
 	/**
