@@ -39,6 +39,15 @@ public class Pos extends Function {
 		}
 	}
 
+	private static int pos(String source, String target, int fromIndex, 
+			boolean ignoreCase, boolean headOnly, boolean isLast, boolean skipQuotation, boolean isWhole) {
+		if (isWhole) {
+			return StringUtils.wholePos(source, target, fromIndex, ignoreCase, headOnly, isLast, skipQuotation);
+		} else {
+			return StringUtils.pos(source, target, fromIndex, ignoreCase, headOnly, isLast, skipQuotation);
+		}
+	}
+	
 	public Object calculate(Context ctx) {
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
@@ -65,12 +74,13 @@ public class Pos extends Function {
 		}
 
 		String str2 = (String)obj;
-		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false, isWhole = false;
 		if (option != null) {
 			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('h') != -1) headOnly = true;
 			if (option.indexOf('q') != -1) skipQuotation = true;
+			if (option.indexOf('w') != -1) isWhole = true;
 		}
 
 		int begin = isLast ? str1.length() - 1 : 0;
@@ -92,7 +102,7 @@ public class Pos extends Function {
 			}
 		}
 		
-		int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+		int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 		return pos < 0 ? null : ObjectCache.getInteger(pos + 1);
 	}
 			
@@ -113,12 +123,13 @@ public class Pos extends Function {
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx);
 		int size = array1.size();
 		
-		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false, isWhole = false;
 		if (option != null) {
 			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('h') != -1) headOnly = true;
 			if (option.indexOf('q') != -1) skipQuotation = true;
+			if (option.indexOf('w') != -1) isWhole = true;
 		}
 				
 		if (param.getSubSize() > 2) {
@@ -158,7 +169,7 @@ public class Pos extends Function {
 				for (int i = 1; i <= size; ++i) {
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -184,7 +195,7 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 					if (pos != -1) {
 						value = ObjectCache.getInteger(pos + 1);
 					}
@@ -215,7 +226,7 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = array3.getInt(i) - 1;
-						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -250,7 +261,7 @@ public class Pos extends Function {
 					String str = stringArray.getString(i);
 					if (str != null) {
 						int begin = isLast ? str.length() - 1 : 0;
-						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -270,7 +281,7 @@ public class Pos extends Function {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
 					int begin = isLast ? str1.length() - 1 : 0;
-					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 					if (pos != -1) {
 						value = ObjectCache.getInteger(pos + 1);
 					}
@@ -291,7 +302,7 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = isLast ? str1.length() - 1 : 0;
-						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -336,12 +347,13 @@ public class Pos extends Function {
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx, signArray, sign);
 		int size = array1.size();
 		
-		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false, isWhole = false;
 		if (option != null) {
 			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('h') != -1) headOnly = true;
 			if (option.indexOf('q') != -1) skipQuotation = true;
+			if (option.indexOf('w') != -1) isWhole = true;
 		}
 		
 		if (param.getSubSize() > 2) {
@@ -386,7 +398,7 @@ public class Pos extends Function {
 					
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -412,7 +424,7 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 					if (pos != -1) {
 						value = ObjectCache.getInteger(pos + 1);
 					}
@@ -448,7 +460,7 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = array3.getInt(i) - 1;
-						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -488,7 +500,7 @@ public class Pos extends Function {
 					String str = stringArray.getString(i);
 					if (str != null) {
 						int begin = isLast ? str.length() - 1 : 0;
-						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -508,7 +520,7 @@ public class Pos extends Function {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
 					int begin = isLast ? str1.length() - 1 : 0;
-					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 					if (pos != -1) {
 						value = ObjectCache.getInteger(pos + 1);
 					}
@@ -534,7 +546,7 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = isLast ? str1.length() - 1 : 0;
-						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 						if (pos != -1) {
 							result.pushInt(pos + 1);
 						} else {
@@ -574,12 +586,13 @@ public class Pos extends Function {
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx, result, true);
 		int size = result.size();
 		
-		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false, isWhole = false;
 		if (option != null) {
 			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('h') != -1) headOnly = true;
 			if (option.indexOf('q') != -1) skipQuotation = true;
+			if (option.indexOf('w') != -1) isWhole = true;
 		}
 				
 		if (param.getSubSize() > 2) {
@@ -622,7 +635,7 @@ public class Pos extends Function {
 					if (signDatas[i]) {
 						String str = stringArray.getString(i);
 						if (str != null) {
-							int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 							if (pos == -1) {
 								signDatas[i] = false;
 							}
@@ -645,7 +658,7 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("pos" + mm.getMessage("function.paramTypeError"));
@@ -675,7 +688,7 @@ public class Pos extends Function {
 							String str1 = (String)obj1;
 							String str2 = (String)obj2;
 							int begin = array3.getInt(i) - 1;
-							int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 							if (pos == -1) {
 								signDatas[i] = false;
 							}
@@ -710,7 +723,7 @@ public class Pos extends Function {
 						String str = stringArray.getString(i);
 						if (str != null) {
 							int begin = isLast ? str.length() - 1 : 0;
-							int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							int pos = pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 							if (pos == -1) {
 								signDatas[i] = false;
 							}
@@ -727,7 +740,7 @@ public class Pos extends Function {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
 					int begin = isLast ? str1.length() - 1 : 0;
-					pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("pos" + mm.getMessage("function.paramTypeError"));
@@ -747,7 +760,7 @@ public class Pos extends Function {
 							String str1 = (String)obj1;
 							String str2 = (String)obj2;
 							int begin = isLast ? str1.length() - 1 : 0;
-							int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							int pos = pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation, isWhole);
 							if (pos == -1) {
 								signDatas[i] = false;
 							}

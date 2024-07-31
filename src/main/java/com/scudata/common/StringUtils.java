@@ -1487,6 +1487,105 @@ public class StringUtils {
 		}
 	}
 	
+	/**
+	 * 查找整个词在源串中的位置，词在源串中左右不能有字母、数字、下划线
+	 * @param source 源串
+	 * @param target 词
+	 * @param fromIndex 源串的起始查找位置
+	 * @param ignoreCase 是否忽略大小写
+	 * @param headOnly 是否只比较头部
+	 * @param isLast 是否从后开始找
+	 * @param skipQuotation 是否跳过引号内的字符
+	 * @return 位置，找不到返回-1
+	 */
+	public static int wholePos(String source, String target, int fromIndex, 
+			boolean ignoreCase, boolean headOnly, boolean isLast, boolean skipQuotation) {
+		if (ignoreCase) {
+			source = source.toUpperCase();
+			target = target.toUpperCase();
+		}
+		
+		if (headOnly) {
+			if (isLast) {
+				int index = source.length() - target.length();
+				if (source.startsWith(target, index)) {
+					if (index == 0 || !Character.isJavaIdentifierPart(source.charAt(index - 1))) {
+						return index;
+					} else {
+						return -1;
+					}
+				} else {
+					return -1;
+				}
+			} else {
+				if (source.startsWith(target, 0)) {
+					int len = target.length();
+					if (source.length() == len || !Character.isJavaIdentifierPart(source.charAt(len))) {
+						return 0;
+					} else {
+						return -1;
+					}
+				} else {
+					return -1;
+				}
+			}
+		}
+
+		int srcLen = source.length();
+		int len = target.length();
+		if (skipQuotation) {
+			if (isLast) {
+				while (true) {
+					int pos = lastIndexOf(source, target, fromIndex, false, true);
+					if (pos == -1) {
+						return -1;
+					} else if ((pos == 0 || !Character.isJavaIdentifierPart(source.charAt(pos - 1))) && 
+							(pos + len == srcLen || !Character.isJavaIdentifierPart(source.charAt(pos + len)))) {
+						return pos;
+					} else {
+						fromIndex -= len;
+					}
+				}
+			} else {
+				while (true) {
+					int pos = indexOf(source, target, fromIndex, false, true);
+					if (pos == -1) {
+						return -1;
+					} else if ((pos == 0 || !Character.isJavaIdentifierPart(source.charAt(pos - 1))) && 
+							(pos + len == srcLen || !Character.isJavaIdentifierPart(source.charAt(pos + len)))) {
+						return pos;
+					} else {
+						fromIndex += len;
+					}
+				}
+			}
+		} else if (isLast) {
+			while (true) {
+				int pos = source.lastIndexOf(target, fromIndex);
+				if (pos == -1) {
+					return -1;
+				} else if ((pos == 0 || !Character.isJavaIdentifierPart(source.charAt(pos - 1))) && 
+						(pos + len == srcLen || !Character.isJavaIdentifierPart(source.charAt(pos + len)))) {
+					return pos;
+				} else {
+					fromIndex -= len;
+				}
+			}
+		} else {
+			while (true) {
+				int pos = source.indexOf(target, fromIndex);
+				if (pos == -1) {
+					return -1;
+				} else if ((pos == 0 || !Character.isJavaIdentifierPart(source.charAt(pos - 1))) && 
+						(pos + len == srcLen || !Character.isJavaIdentifierPart(source.charAt(pos + len)))) {
+					return pos;
+				} else {
+					fromIndex += len;
+				}
+			}
+		}
+	}
+	
 	private static int indexOf(String source, String target, int fromIndex, 
 			boolean ignoreCase, boolean skipQuotation) {
 		int sourceCount = source.length();

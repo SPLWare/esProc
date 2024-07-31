@@ -3,6 +3,7 @@ package com.scudata.expression.fn;
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Sentence;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
@@ -11,6 +12,7 @@ import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 解析传入的表达式字符串并计算，返回计算结果
@@ -73,9 +75,82 @@ public class Eval extends Function {
 			}
 		}
 
-		return calc((String)expStr, arg, cs, ctx);
+		if (option == null || option.indexOf('s') == -1) {
+			return calc((String)expStr, arg, cs, ctx);
+		} else {
+			if (arg == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("eval" + mm.getMessage("function.missingParam"));
+			}
+			
+			return evalString((String)expStr, arg);
+		}
 	}
 
+	private static String evalString(String expStr, Sequence arg) {
+		int len = expStr.length();
+		StringBuffer sb = new StringBuffer(len * 2);
+		int q = 0;
+		int argCount = arg.length();
+		
+		for (int i = 0; i < len;) {
+			char c = expStr.charAt(i);
+			if (c == '?') {
+				int numEnd = len;
+				for (int j = ++i; j < len; ++j) {
+					c = expStr.charAt(j);
+					if (c < '0' || c > '9') {
+						numEnd = j;
+						break;
+					}
+				}
+				
+				if (numEnd == i) {
+					q++;
+					if (q > argCount) {
+						q = 1;
+					}
+					
+					Object obj = arg.get(q);
+					String str = Variant.toString(obj);
+					sb.append(str);
+				} else {
+					String str = expStr.substring(i, numEnd);
+					q = Integer.parseInt(str);
+					
+					Object obj = arg.get(q);
+					str = Variant.toString(obj);
+					sb.append(str);
+					i = numEnd;
+				}
+			} else if (c == '"' || c == '\'') {
+				int index = Sentence.scanQuotation(expStr, i);
+				if (index == -1) {
+					sb.append(c);
+					i++;
+				} else {
+					index++;
+					sb.append(expStr.substring(i, index));
+					i = index;
+				}
+			} else /*if (KeyWord.isSymbol(c))*/ {
+				sb.append(c);
+				i++;
+			}/* else {
+				sb.append(c);
+				for (++i; i < len;) {
+					c = expStr.charAt(i++);
+					sb.append(c);
+					if (KeyWord.isSymbol(c)) {
+						break;
+					}
+				}
+			}*/
+		}
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * 计算表达式
 	 * @param expStr String 表达式字符串

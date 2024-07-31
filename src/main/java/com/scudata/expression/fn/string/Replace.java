@@ -81,6 +81,11 @@ public class Replace extends Function {
 					// 忽略大小写
 					flag += Sentence.IGNORE_CASE;
 				}
+				
+				if (option.indexOf('w') != -1) {
+					// 需要整词匹配
+					flag += Sentence.ONLY_PHRASE;
+				}
 			} else {
 				flag += Sentence.IGNORE_QUOTE;
 			}
@@ -120,6 +125,11 @@ public class Replace extends Function {
 			if (option.indexOf('c') != -1) {
 				// 忽略大小写
 				flag += Sentence.IGNORE_CASE;
+			}
+			
+			if (option.indexOf('w') != -1) {
+				// 需要整词匹配
+				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {
 			flag += Sentence.IGNORE_QUOTE;
@@ -183,6 +193,11 @@ public class Replace extends Function {
 			if (option.indexOf('c') != -1) {
 				// 忽略大小写
 				flag += Sentence.IGNORE_CASE;
+			}
+			
+			if (option.indexOf('w') != -1) {
+				// 需要整词匹配
+				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {
 			flag += Sentence.IGNORE_QUOTE;
@@ -392,6 +407,11 @@ public class Replace extends Function {
 			if (option.indexOf('c') != -1) {
 				// 忽略大小写
 				flag += Sentence.IGNORE_CASE;
+			}
+			
+			if (option.indexOf('w') != -1) {
+				// 需要整词匹配
+				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {
 			flag += Sentence.IGNORE_QUOTE;
