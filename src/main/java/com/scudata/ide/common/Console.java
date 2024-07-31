@@ -22,14 +22,12 @@ import com.scudata.common.LimitedQueue;
  *
  */
 public class Console {
-	/**
-	 * Maximum number of console lines
-	 */
-	private int MAX_LINES = 10000;
+	private int MAX_LENGTH = 500000; // 超过上限时，删掉前一半
 	private JTextArea jta = null;
 	private PrintStream ps;
 	private Object rowLock = new Object();
-	private LimitedQueue rowBuffers = new LimitedQueue(MAX_LINES);
+	// 缓冲区的行数
+	private LimitedQueue rowBuffers = new LimitedQueue(10000);
 	private ArrayList<InputStreamFlusher> flushers = new ArrayList<InputStreamFlusher>();
 
 	/**
@@ -77,20 +75,24 @@ public class Console {
 					for (int r = 0; r < rows; r++) {
 						strList.add((String) rowBuffers.get(r));
 					}
+					rowBuffers.clear();
 					rowBuffers.setUnChanged();
 					// 对UI的操作要在Swing安全线程中
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
-							jta.setText(null);
 							for (int i = 0; i < strList.size(); i++) {
 								jta.append(strList.get(i));
 							}
-							// 没有选择时才将光标设置到最后
-							if (!isTextSelected()) {
-								String text = jta.getText();
-								if (text != null) {
-									int len = text.length();
-									jta.setCaretPosition(len);
+							String text = jta.getText();
+							if (text != null) {
+								int len = text.length();
+								if (len > MAX_LENGTH) {
+									text = text.substring(MAX_LENGTH / 2);
+									jta.setText(text);
+								}
+								// 没有选择时才将光标设置到最后
+								if (!isTextSelected()) {
+									jta.setCaretPosition(text.length());
 								}
 							}
 						}
@@ -121,9 +123,7 @@ public class Console {
 	}
 
 	protected boolean isTextSelected() {
-		int selectionStart = jta.getSelectionStart();
-		int selectionEnd = jta.getSelectionEnd();
-		return selectionStart != selectionEnd;
+		return jta.getSelectionStart() != jta.getSelectionEnd();
 	}
 
 	/**
