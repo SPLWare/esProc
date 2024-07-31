@@ -93,6 +93,7 @@ import com.scudata.common.IntArrayList;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
@@ -138,10 +139,13 @@ public class GM {
 	/**
 	 * Set the flag bit by position
 	 * 
-	 * @param value   long The long integer to set the flag
-	 * @param pos     byte The bit to be set, the range is 0 ~ 63
-	 * @param enabled boolean Whether to set to 1. True is set to 1, otherwise it is
-	 *                set to 0.
+	 * @param value
+	 *            long The long integer to set the flag
+	 * @param pos
+	 *            byte The bit to be set, the range is 0 ~ 63
+	 * @param enabled
+	 *            boolean Whether to set to 1. True is set to 1, otherwise it is
+	 *            set to 0.
 	 * @return long
 	 */
 	public static long setBitByPos(long value, byte pos, boolean enabled) {
@@ -156,8 +160,10 @@ public class GM {
 	/**
 	 * Get whether the flag is set by position.
 	 * 
-	 * @param value long The long integer to set the flag
-	 * @param pos   byte The bit to be set, the range is 0 ~ 63
+	 * @param value
+	 *            long The long integer to set the flag
+	 * @param pos
+	 *            byte The bit to be set, the range is 0 ~ 63
 	 * @return boolean whether the flag is set by position
 	 */
 	public static boolean getBitByPos(long value, byte pos) {
@@ -167,9 +173,12 @@ public class GM {
 	/**
 	 * Given code comparison table, find out the display value of codeKey
 	 * 
-	 * @param codeKey byte
-	 * @param code    Vector
-	 * @param disp    Vector
+	 * @param codeKey
+	 *            byte
+	 * @param code
+	 *            Vector
+	 * @param disp
+	 *            Vector
 	 * @return String
 	 */
 	public static String getDispText(byte codeKey, Vector code, Vector disp) {
@@ -220,7 +229,8 @@ public class GM {
 	 * Convert sequence, pmt, record and other types of objects into displayed
 	 * string
 	 * 
-	 * @param val Object
+	 * @param val
+	 *            Object
 	 * @return String
 	 */
 	public static String renderValueText(Object val) {
@@ -283,7 +293,8 @@ public class GM {
 	/**
 	 * Get the displayed value of the record
 	 * 
-	 * @param r       Record
+	 * @param r
+	 *            Record
 	 * @param context
 	 * @return
 	 */
@@ -429,7 +440,8 @@ public class GM {
 	/**
 	 * Get frequently used buttons
 	 * 
-	 * @param type Constants defined above
+	 * @param type
+	 *            Constants defined above
 	 * @return
 	 */
 	public static JButton getCommonIconButton(byte type) {
@@ -472,9 +484,12 @@ public class GM {
 	/**
 	 * Get an instance of the button
 	 * 
-	 * @param text     Button text
-	 * @param tip      Tooltip text of the button
-	 * @param iconName Button icon name
+	 * @param text
+	 *            Button text
+	 * @param tip
+	 *            Tooltip text of the button
+	 * @param iconName
+	 *            Button icon name
 	 * @return
 	 */
 	public static JButton getIconButton(String text, String tip, String iconName) {
@@ -525,6 +540,7 @@ public class GM {
 
 	/**
 	 * Select file dialog
+	 * 
 	 * @param fileExts
 	 * @param useAllFileFilter
 	 * @param oldName
@@ -575,8 +591,9 @@ public class GM {
 	 * @param title
 	 * @param oldFileName
 	 * @param owner
-	 * @param useAllFileFilter Whether to use the "All files" drop-down item for the
-	 *                         file type. The default is true to use.
+	 * @param useAllFileFilter
+	 *            Whether to use the "All files" drop-down item for the file
+	 *            type. The default is true to use.
 	 * @return
 	 */
 	public static File dialogSelectFile(String fileExts,
@@ -855,7 +872,8 @@ public class GM {
 	/**
 	 * Pop up a dialog box to select a date
 	 * 
-	 * @param initDate Initialization date
+	 * @param initDate
+	 *            Initialization date
 	 * @return
 	 */
 	public static String dialogSelectDate(String initDate) {
@@ -865,8 +883,10 @@ public class GM {
 	/**
 	 * Pop up a dialog box to select a date
 	 * 
-	 * @param initDate Initialization date
-	 * @param parent   Parent window
+	 * @param initDate
+	 *            Initialization date
+	 * @param parent
+	 *            Parent window
 	 * @return
 	 */
 	public static String dialogSelectDate(String initDate, JFrame parent) {
@@ -896,7 +916,8 @@ public class GM {
 	/**
 	 * Dialog to select directory
 	 * 
-	 * @param currentDirectory Initial path
+	 * @param currentDirectory
+	 *            Initial path
 	 * @return
 	 */
 	public static String dialogSelectDirectory(String currentDirectory) {
@@ -906,8 +927,10 @@ public class GM {
 	/**
 	 * Dialog to select directory
 	 * 
-	 * @param currentDirectory Initial path
-	 * @param parent           Parent window
+	 * @param currentDirectory
+	 *            Initial path
+	 * @param parent
+	 *            Parent window
 	 * @return
 	 */
 	public static String dialogSelectDirectory(String currentDirectory,
@@ -918,10 +941,14 @@ public class GM {
 	/**
 	 * Dialog to select directory
 	 * 
-	 * @param currentDirectory Initial path
-	 * @param buttonText       Button text
-	 * @param title            The title of the dialog
-	 * @param parent           Parent window
+	 * @param currentDirectory
+	 *            Initial path
+	 * @param buttonText
+	 *            Button text
+	 * @param title
+	 *            The title of the dialog
+	 * @param parent
+	 *            Parent window
 	 * @return
 	 */
 	public static String dialogSelectDirectory(String currentDirectory,
@@ -949,7 +976,8 @@ public class GM {
 	/**
 	 * Listener for saving window position and size information
 	 * 
-	 * @param dlg JDialog
+	 * @param dlg
+	 *            JDialog
 	 */
 	private static IDialogDimensionListener iDDListener = null;
 
@@ -1014,7 +1042,8 @@ public class GM {
 	/**
 	 * Center the window
 	 * 
-	 * @param w Window The window to be centered
+	 * @param w
+	 *            Window The window to be centered
 	 */
 	public static void centerWindow(Component w) {
 		boolean b = loadWindowSize(w);
@@ -1192,7 +1221,8 @@ public class GM {
 	/**
 	 * Copy text to the system clipboard
 	 * 
-	 * @param data String The string to put on the system clipboard
+	 * @param data
+	 *            String The string to put on the system clipboard
 	 */
 	public static void clipBoard(String data) {
 		try {
@@ -1216,7 +1246,8 @@ public class GM {
 	/**
 	 * Get text from the system clipboard
 	 * 
-	 * @param caseHtml Whether to consider HTML formatted text
+	 * @param caseHtml
+	 *            Whether to consider HTML formatted text
 	 * @return
 	 */
 	public static String clipBoard(boolean caseHtml) {
@@ -1271,7 +1302,8 @@ public class GM {
 	/**
 	 * Get the byte array in the input stream
 	 * 
-	 * @param is Input stream
+	 * @param is
+	 *            Input stream
 	 * @throws Exception
 	 * @return Byte array
 	 */
@@ -1302,7 +1334,8 @@ public class GM {
 	/**
 	 * Read the picture according to the path
 	 * 
-	 * @param filePath String Relative file path
+	 * @param filePath
+	 *            String Relative file path
 	 * @return ImageIcon Generated image
 	 */
 	public static ImageIcon getImageIcon(String filePath) {
@@ -1313,7 +1346,8 @@ public class GM {
 	 * Read the picture according to the path
 	 * 
 	 * @param filePath
-	 * @param showException Whether to display exception information
+	 * @param showException
+	 *            Whether to display exception information
 	 * @return
 	 */
 	public static ImageIcon getImageIcon(String filePath, boolean showException) {
@@ -1355,7 +1389,8 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg Exception or error message
+	 * @param oMsg
+	 *            Exception or error message
 	 */
 	public static void showException(Object oMsg) {
 		showException(oMsg, true);
@@ -1364,8 +1399,10 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg       Exception or error message
-	 * @param canCopyMsg Is it possible to copy the exception information.
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
 	 */
 	public static void showException(Object oMsg, boolean canCopyMsg) {
 		showException(oMsg, canCopyMsg, null);
@@ -1374,9 +1411,12 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg       Exception or error message
-	 * @param canCopyMsg Is it possible to copy the exception information.
-	 * @param logo       Window logo
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 * @param logo
+	 *            Window logo
 	 */
 	public static void showException(Object oMsg, boolean canCopyMsg,
 			ImageIcon logo) {
@@ -1386,8 +1426,10 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg  Exception or error message
-	 * @param frame Parent component
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param frame
+	 *            Parent component
 	 */
 	public static void showException(Object oMsg, Frame frame) {
 		showException(oMsg, true, null, null, frame);
@@ -1396,10 +1438,14 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg       Exception or error message
-	 * @param canCopyMsg Is it possible to copy the exception information.
-	 * @param logo       Window logo
-	 * @param pre        The prefix of the exception information
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 * @param logo
+	 *            Window logo
+	 * @param pre
+	 *            The prefix of the exception information
 	 */
 	public static void showException(Object oMsg, boolean canCopyMsg,
 			ImageIcon logo, String pre) {
@@ -1409,11 +1455,16 @@ public class GM {
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg       Exception or error message
-	 * @param canCopyMsg Is it possible to copy the exception information.
-	 * @param logo       Window logo
-	 * @param pre        The prefix of the exception information
-	 * @param frame      Parent component
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 * @param logo
+	 *            Window logo
+	 * @param pre
+	 *            The prefix of the exception information
+	 * @param frame
+	 *            Parent component
 	 */
 	public static void showException(Object oMsg, boolean canCopyMsg,
 			ImageIcon logo, String pre, Frame frame) {
@@ -1487,7 +1538,8 @@ public class GM {
 	/**
 	 * Write the exception information to the log file.
 	 * 
-	 * @param e Throwable or String
+	 * @param e
+	 *            Throwable or String
 	 */
 	public static void writeLog(Object e) {
 		if (e == null)
@@ -1525,7 +1577,8 @@ public class GM {
 	/**
 	 * 输出异常信息到控制台和IDE日志文件
 	 * 
-	 * @param e Throwable or String
+	 * @param e
+	 *            Throwable or String
 	 */
 	public static void outputMessage(Object e) {
 		// 现在Logger同时输出到控制台和日志了，直接调用writeLog
@@ -1535,10 +1588,13 @@ public class GM {
 	/**
 	 * Find menu item
 	 * 
-	 * @param menu Menu object
-	 * @param str  Menu name/text/label
-	 * @param type Constants defined in GC.
-	 *             E.g:SEARCHMENU_BYNAME,SEARCHMENU_BYTEXT,SEARCHMENU_BYLABLE
+	 * @param menu
+	 *            Menu object
+	 * @param str
+	 *            Menu name/text/label
+	 * @param type
+	 *            Constants defined in GC.
+	 *            E.g:SEARCHMENU_BYNAME,SEARCHMENU_BYTEXT,SEARCHMENU_BYLABLE
 	 * @return
 	 */
 	private static Object extractMenuObject(Object menu, String str, short type) {
@@ -1608,10 +1664,13 @@ public class GM {
 	/**
 	 * Find menu item
 	 * 
-	 * @param menuBar JMenuBar
-	 * @param str     Menu name/text/label
-	 * @param type    Constants defined in GC.
-	 *                E.g:SEARCHMENU_BYNAME,SEARCHMENU_BYTEXT,SEARCHMENU_BYLABLE
+	 * @param menuBar
+	 *            JMenuBar
+	 * @param str
+	 *            Menu name/text/label
+	 * @param type
+	 *            Constants defined in GC.
+	 *            E.g:SEARCHMENU_BYNAME,SEARCHMENU_BYTEXT,SEARCHMENU_BYLABLE
 	 * @return
 	 */
 	private static JMenuItem findMenuItem(JMenuBar menuBar, String str,
@@ -1633,9 +1692,11 @@ public class GM {
 	/**
 	 * Find the menu item according to the name of the menu.
 	 * 
-	 * @param menuBar JMenuBar
-	 * @param name    The name of the menu item. Set by the method setName(String
-	 *                name).
+	 * @param menuBar
+	 *            JMenuBar
+	 * @param name
+	 *            The name of the menu item. Set by the method setName(String
+	 *            name).
 	 * @return If found, return the JMenuItem menu item object. Otherwise, it
 	 *         returns null.
 	 */
@@ -1646,9 +1707,11 @@ public class GM {
 	/**
 	 * Find the menu item according to the text of the menu.
 	 * 
-	 * @param menuBar JMenuBar
-	 * @param name    The text of the menu item. Set by the method setText(String
-	 *                text).
+	 * @param menuBar
+	 *            JMenuBar
+	 * @param name
+	 *            The text of the menu item. Set by the method setText(String
+	 *            text).
 	 * @return If found, return the JMenuItem menu item object. Otherwise, it
 	 *         returns null.
 	 */
@@ -1659,7 +1722,8 @@ public class GM {
 	/**
 	 * Set the size of the tool window.
 	 * 
-	 * @param w The window object to be set
+	 * @param w
+	 *            The window object to be set
 	 */
 	public static void setWindowToolSize(Window w) {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -1669,9 +1733,12 @@ public class GM {
 	/**
 	 * Set the default OK and Cancel buttons of the dialog.
 	 * 
-	 * @param dlg          JDialog Dialog to be set
-	 * @param okButton     JButton Button to be executed when enter
-	 * @param cancelButton JButton Button to be executed when escape
+	 * @param dlg
+	 *            JDialog Dialog to be set
+	 * @param okButton
+	 *            JButton Button to be executed when enter
+	 * @param cancelButton
+	 *            JButton Button to be executed when escape
 	 */
 	public static void setDialogDefaultButton(Window dlg,
 			final JButton okButton, final JButton cancelButton) {
@@ -1746,7 +1813,8 @@ public class GM {
 	/**
 	 * Return the font object based on the font name.
 	 * 
-	 * @param fontName Font name
+	 * @param fontName
+	 *            Font name
 	 * @return
 	 */
 	// public static Font getFont(String fontName) {
@@ -1754,8 +1822,8 @@ public class GM {
 	// }
 
 	/**
-	 * Get the font of the current user's machine environment. Return according to
-	 * the current language.
+	 * Get the font of the current user's machine environment. Return according
+	 * to the current language.
 	 * 
 	 * @return String[] Font names
 	 */
@@ -1792,9 +1860,12 @@ public class GM {
 	/**
 	 * Pop up a text dialog to edit the table
 	 * 
-	 * @param table JTableEx The table to be edited
-	 * @param r     int Row
-	 * @param c     int Column
+	 * @param table
+	 *            JTableEx The table to be edited
+	 * @param r
+	 *            int Row
+	 * @param c
+	 *            int Column
 	 */
 	public static boolean dialogEditTableText(JTableEx table, int r, int c) {
 		Object o = table.getCellEditor(r, c);
@@ -1827,9 +1898,12 @@ public class GM {
 	/**
 	 * Find a unique name starting with namePrefix in the column of the table
 	 * 
-	 * @param table      JTableEx
-	 * @param column     int
-	 * @param namePrefix String
+	 * @param table
+	 *            JTableEx
+	 * @param column
+	 *            int
+	 * @param namePrefix
+	 *            String
 	 * @return String
 	 */
 	public static String getTableUniqueName(JTableEx table, int column,
@@ -1860,8 +1934,10 @@ public class GM {
 	/**
 	 * Get the GridBagLayout object
 	 * 
-	 * @param row int Row
-	 * @param col int Column
+	 * @param row
+	 *            int Row
+	 * @param col
+	 *            int Column
 	 * @return
 	 */
 	public static GridBagConstraints getGBC(int row, int col) {
@@ -1871,9 +1947,12 @@ public class GM {
 	/**
 	 * Get the GridBagLayout object
 	 * 
-	 * @param row   int Row
-	 * @param col   int Column
-	 * @param hFill boolean Whether the object is filled horizontally
+	 * @param row
+	 *            int Row
+	 * @param col
+	 *            int Column
+	 * @param hFill
+	 *            boolean Whether the object is filled horizontally
 	 * @return
 	 */
 	public static GridBagConstraints getGBC(int row, int col, boolean hFill) {
@@ -1883,10 +1962,14 @@ public class GM {
 	/**
 	 * Get the GridBagLayout object
 	 * 
-	 * @param row   int Row
-	 * @param col   int Column
-	 * @param hFill boolean Whether the object is filled horizontally
-	 * @param vFill boolean Whether the object is filled vertically
+	 * @param row
+	 *            int Row
+	 * @param col
+	 *            int Column
+	 * @param hFill
+	 *            boolean Whether the object is filled horizontally
+	 * @param vFill
+	 *            boolean Whether the object is filled vertically
 	 * @return
 	 */
 	public static GridBagConstraints getGBC(int row, int col, boolean hFill,
@@ -1897,11 +1980,16 @@ public class GM {
 	/**
 	 * Get the GridBagLayout object
 	 * 
-	 * @param row   int Row
-	 * @param col   int Column
-	 * @param hFill boolean Whether the object is filled horizontally
-	 * @param vFill boolean Whether the object is filled vertically
-	 * @param hGap  Horizontal interval
+	 * @param row
+	 *            int Row
+	 * @param col
+	 *            int Column
+	 * @param hFill
+	 *            boolean Whether the object is filled horizontally
+	 * @param vFill
+	 *            boolean Whether the object is filled vertically
+	 * @param hGap
+	 *            Horizontal interval
 	 * @return GridBagConstraints
 	 */
 	public static GridBagConstraints getGBC(int row, int col, boolean hFill,
@@ -1912,12 +2000,18 @@ public class GM {
 	/**
 	 * Get the GridBagLayout object
 	 * 
-	 * @param row   int Row
-	 * @param col   int Column
-	 * @param hFill boolean Whether the object is filled horizontally
-	 * @param vFill boolean Whether the object is filled vertically
-	 * @param hGap  Horizontal interval
-	 * @param vGap  Vertical interval
+	 * @param row
+	 *            int Row
+	 * @param col
+	 *            int Column
+	 * @param hFill
+	 *            boolean Whether the object is filled horizontally
+	 * @param vFill
+	 *            boolean Whether the object is filled vertically
+	 * @param hGap
+	 *            Horizontal interval
+	 * @param vGap
+	 *            Vertical interval
 	 * @return
 	 */
 	public static GridBagConstraints getGBC(int row, int col, boolean hFill,
@@ -1943,10 +2037,12 @@ public class GM {
 	}
 
 	/**
-	 * Sort the data
-	 * direct use  Collections.sort instead
-	 * @param v2Sort AbstractList, List to sort
-	 * @param ascend boolean, Whether to sort in ascending order
+	 * Sort the data direct use Collections.sort instead
+	 * 
+	 * @param v2Sort
+	 *            AbstractList, List to sort
+	 * @param ascend
+	 *            boolean, Whether to sort in ascending order
 	 * @return boolean, Return true if the sort is successful, otherwise false
 	 */
 	// public static boolean sort(AbstractList list, boolean ascend) {
@@ -1992,7 +2088,8 @@ public class GM {
 	/**
 	 * Whether it can be saved as the other file.
 	 * 
-	 * @param saveAsFile File name to save as
+	 * @param saveAsFile
+	 *            File name to save as
 	 * @return
 	 */
 	public static boolean canSaveAsFile(String saveAsFile) {
@@ -2018,7 +2115,8 @@ public class GM {
 	/**
 	 * Get the icon of the menu
 	 * 
-	 * @param menuId ID of the menu
+	 * @param menuId
+	 *            ID of the menu
 	 * @return
 	 */
 	public static ImageIcon getMenuImageIcon(String menuId) {
@@ -2037,8 +2135,10 @@ public class GM {
 	/**
 	 * Reset the title. Used after the data source connection status changes.
 	 * 
-	 * @param dsName   Data source name
-	 * @param userName User name
+	 * @param dsName
+	 *            Data source name
+	 * @param userName
+	 *            User name
 	 */
 	public static void resetFrameTitle(String dsName, String userName) {
 		Iterator it = GV.allFrames.iterator();
@@ -2060,10 +2160,11 @@ public class GM {
 	}
 
 	/**
-	 * First go to the resource folder to find it. Then go to the classpath to find
-	 * it.
+	 * First go to the resource folder to find it. Then go to the classpath to
+	 * find it.
 	 * 
-	 * @param productId The product ID defined in Sequence
+	 * @param productId
+	 *            The product ID defined in Sequence
 	 * @param isGetIcon
 	 * @return
 	 */
@@ -2108,7 +2209,8 @@ public class GM {
 	/**
 	 * Get the absolute path relative to start.home.
 	 * 
-	 * @param path Absolute path or relative path
+	 * @param path
+	 *            Absolute path or relative path
 	 * @return Return the absolute path of path
 	 */
 	public static String getAbsolutePath(String path) {
@@ -2119,9 +2221,12 @@ public class GM {
 	/**
 	 * Generate JMenu object
 	 * 
-	 * @param menuText   Menu text
-	 * @param mneKey     The Mnemonic
-	 * @param isMainMenu Whether the menu is the main menu
+	 * @param menuText
+	 *            Menu text
+	 * @param mneKey
+	 *            The Mnemonic
+	 * @param isMainMenu
+	 *            Whether the menu is the main menu
 	 * @return
 	 */
 	public static JMenu getMenuItem(String menuText, char mneKey,
@@ -2139,14 +2244,20 @@ public class GM {
 	/**
 	 * Generate JMenu object
 	 * 
-	 * @param cmdId    short, Menu constant defined in GC
-	 * @param menuId   String, Menu name
-	 * @param mneKey   char, The Mnemonic
-	 * @param mask     int, Because ActionEvent.META_MASK is almost not used. This
-	 *                 key seems to be only available on Macintosh keyboards. It is
-	 *                 used here instead of no accelerator key.
-	 * @param hasIcon  boolean, Whether the menu item has an icon
-	 * @param menuText String, The menu text
+	 * @param cmdId
+	 *            short, Menu constant defined in GC
+	 * @param menuId
+	 *            String, Menu name
+	 * @param mneKey
+	 *            char, The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
+	 * @param hasIcon
+	 *            boolean, Whether the menu item has an icon
+	 * @param menuText
+	 *            String, The menu text
 	 * @return JMenuItem
 	 */
 	public static JMenuItem getMenuItem(short cmdId, String menuId,
@@ -2194,8 +2305,10 @@ public class GM {
 	/**
 	 * Load the schema names into the JComboBox component.
 	 * 
-	 * @param ds       Data source object
-	 * @param cbSchema The JComboBox component
+	 * @param ds
+	 *            Data source object
+	 * @param cbSchema
+	 *            The JComboBox component
 	 */
 	public static void loadSchemas(DataSource ds, JComboBox<String> cbSchema) {
 		cbSchema.removeAllItems();
@@ -2226,8 +2339,10 @@ public class GM {
 	/**
 	 * Handle the exception informations of the data source
 	 * 
-	 * @param ds The data source
-	 * @param x  Throwable
+	 * @param ds
+	 *            The data source
+	 * @param x
+	 *            Throwable
 	 * @return Return the exception information of the data source after it is
 	 *         concretized
 	 */
@@ -2288,8 +2403,10 @@ public class GM {
 	/**
 	 * Get the list of table names in the schema
 	 * 
-	 * @param ds     Data source
-	 * @param schema The schema name
+	 * @param ds
+	 *            Data source
+	 * @param schema
+	 *            The schema name
 	 * @return
 	 */
 	public static Vector<String> listSchemaTables(DataSource ds, String schema) {
@@ -2299,9 +2416,12 @@ public class GM {
 	/**
 	 * Get the list of table names in the schema
 	 * 
-	 * @param ds      Data source
-	 * @param schema  The schema name
-	 * @param showMsg Whether to display exception information
+	 * @param ds
+	 *            Data source
+	 * @param schema
+	 *            The schema name
+	 * @param showMsg
+	 *            Whether to display exception information
 	 * @return
 	 */
 	public static Vector<String> listSchemaTables(DataSource ds, String schema,
@@ -2312,10 +2432,14 @@ public class GM {
 	/**
 	 * Get the list of table names in the schema
 	 * 
-	 * @param ds           Data source
-	 * @param schema       The schema name
-	 * @param schemaPrefix The prefix of the schema name
-	 * @param showMsg      Whether to display exception information
+	 * @param ds
+	 *            Data source
+	 * @param schema
+	 *            The schema name
+	 * @param schemaPrefix
+	 *            The prefix of the schema name
+	 * @param showMsg
+	 *            Whether to display exception information
 	 * @return
 	 */
 	public static Vector<String> listSchemaTables(DataSource ds, String schema,
@@ -2338,7 +2462,8 @@ public class GM {
 	/**
 	 * Get the list of table names in the data source
 	 * 
-	 * @param dsName The data source name
+	 * @param dsName
+	 *            The data source name
 	 * @return
 	 */
 	public static Vector<String> listTableNames(String dsName) {
@@ -2360,10 +2485,14 @@ public class GM {
 	/**
 	 * Get the list of table names in the schema
 	 * 
-	 * @param dataSource       Data source
-	 * @param showSystemTables Whether to display system tables
-	 * @param schema           The schema name
-	 * @param schemaPrefix     The prefix of the schema name
+	 * @param dataSource
+	 *            Data source
+	 * @param showSystemTables
+	 *            Whether to display system tables
+	 * @param schema
+	 *            The schema name
+	 * @param schemaPrefix
+	 *            The prefix of the schema name
 	 * @return
 	 * @throws Throwable
 	 */
@@ -2444,8 +2573,10 @@ public class GM {
 	/**
 	 * Get all the column names of the table in the data source.
 	 * 
-	 * @param dsName    The data source name
-	 * @param tableName The table name
+	 * @param dsName
+	 *            The data source name
+	 * @param tableName
+	 *            The table name
 	 * @return
 	 */
 	public static Vector<String> listColumnNames(String dsName, String tableName) {
@@ -2473,9 +2604,12 @@ public class GM {
 	/**
 	 * Get all the column names of the table in the data source.
 	 * 
-	 * @param ds     Data source
-	 * @param schema The schema name
-	 * @param table  The table name
+	 * @param ds
+	 *            Data source
+	 * @param schema
+	 *            The schema name
+	 * @param table
+	 *            The table name
 	 * @return Returns the table names. When an error occurs, null is returned.
 	 * @throws Throwable
 	 */
@@ -2487,10 +2621,14 @@ public class GM {
 	/**
 	 * Get the information of the column in the table.
 	 * 
-	 * @param ds         Data source
-	 * @param schema     The schema name
-	 * @param table      The table name
-	 * @param columnName The column name
+	 * @param ds
+	 *            Data source
+	 * @param schema
+	 *            The schema name
+	 * @param table
+	 *            The table name
+	 * @param columnName
+	 *            The column name
 	 * @throws Exception
 	 * @return Vector
 	 */
@@ -2533,8 +2671,10 @@ public class GM {
 	/**
 	 * Convert the searching string according to the database encoding
 	 * 
-	 * @param ds  Data source
-	 * @param str The string to be converted
+	 * @param ds
+	 *            Data source
+	 * @param str
+	 *            The string to be converted
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
@@ -2555,8 +2695,10 @@ public class GM {
 	/**
 	 * Convert the string content according to the database encoding
 	 * 
-	 * @param ds  Data source
-	 * @param str The string to be converted
+	 * @param ds
+	 *            Data source
+	 * @param str
+	 *            The string to be converted
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
@@ -2577,8 +2719,10 @@ public class GM {
 	/**
 	 * Get the primary key in the database table
 	 * 
-	 * @param dbName    The name of the database
-	 * @param tableName The name of the table
+	 * @param dbName
+	 *            The name of the database
+	 * @param tableName
+	 *            The name of the table
 	 * @return
 	 */
 	public static String[] getPrimaryKeys(Object dbName, Object tableName) {
@@ -2604,9 +2748,12 @@ public class GM {
 	 * 
 	 * Get the primary key in the database table
 	 * 
-	 * @param dbo    The DBObject
-	 * @param schema The schema name
-	 * @param table  The table name
+	 * @param dbo
+	 *            The DBObject
+	 * @param schema
+	 *            The schema name
+	 * @param table
+	 *            The table name
 	 * @return
 	 * @throws Exception
 	 */
@@ -2637,11 +2784,14 @@ public class GM {
 	/**
 	 * Get the actual schema name and table name
 	 * 
-	 * @param con    The connection
-	 * @param schema The schema name
-	 * @param table  The table name
-	 * @return Returns String[2]. Schema name is at index 0, Table name is at index
-	 *         1.
+	 * @param con
+	 *            The connection
+	 * @param schema
+	 *            The schema name
+	 * @param table
+	 *            The table name
+	 * @return Returns String[2]. Schema name is at index 0, Table name is at
+	 *         index 1.
 	 * @throws SQLException
 	 */
 	public static String[] getRealSchemaTable(Connection con, String schema,
@@ -2677,7 +2827,8 @@ public class GM {
 	/**
 	 * Set the editing style of the table
 	 * 
-	 * @param tableEx Table to be set
+	 * @param tableEx
+	 *            Table to be set
 	 */
 	public static void setEditStyle(JTableEx tableEx) {
 		for (int c = 0; c < tableEx.getColumnCount(); c++) {
@@ -2710,7 +2861,8 @@ public class GM {
 	/**
 	 * Parse the html format string and return the Matrix object.
 	 * 
-	 * @param htmlStr The html format string
+	 * @param htmlStr
+	 *            The html format string
 	 * @return
 	 */
 	public static Matrix string2Matrix(String htmlStr) {
@@ -2720,8 +2872,10 @@ public class GM {
 	/**
 	 * Parse the html format string and return the Matrix object.
 	 * 
-	 * @param htmlStr The html format string
-	 * @param parse   Whether to parse value
+	 * @param htmlStr
+	 *            The html format string
+	 * @param parse
+	 *            Whether to parse value
 	 * @return
 	 */
 	public static Matrix string2Matrix(String htmlStr, boolean parse) {
@@ -2804,8 +2958,8 @@ public class GM {
 	}
 
 	/**
-	 * Divide the html into 3 sections according to the table tag. Return null means
-	 * that there is no table tag.
+	 * Divide the html into 3 sections according to the table tag. Return null
+	 * means that there is no table tag.
 	 */
 	private static String[] splitTableTag(String htmlStr) {
 		if (!StringUtils.isValidString(htmlStr))
@@ -2837,7 +2991,8 @@ public class GM {
 	/**
 	 * Parse the Table tag and return Matrix.
 	 * 
-	 * @param tableTag Table tag
+	 * @param tableTag
+	 *            Table tag
 	 * @return
 	 */
 	private static Matrix getTableTagMatrix(String tableTag) {
@@ -2861,8 +3016,8 @@ public class GM {
 	}
 
 	/**
-	 * Divide the table into 2 segments according to tr tags. Returning null means
-	 * that there is no tr tag.
+	 * Divide the table into 2 segments according to tr tags. Returning null
+	 * means that there is no tr tag.
 	 * 
 	 * @param tableTag
 	 * @return
@@ -2902,10 +3057,11 @@ public class GM {
 	}
 
 	/**
-	 * Separate a row (tr) of the table according to the th/td label. Returning null
-	 * means that there is no tr tag.
+	 * Separate a row (tr) of the table according to the th/td label. Returning
+	 * null means that there is no tr tag.
 	 * 
-	 * @param trTag Table row tag
+	 * @param trTag
+	 *            Table row tag
 	 * @return
 	 */
 	private static String[] splitTableDataTag(String trTag) {
@@ -2950,8 +3106,10 @@ public class GM {
 	/**
 	 * Remove the tag in html
 	 * 
-	 * @param htmlStr Html format string
-	 * @param regEx   The regular expression to delete
+	 * @param htmlStr
+	 *            Html format string
+	 * @param regEx
+	 *            The regular expression to delete
 	 * @return
 	 */
 	private static String replaceHtmlTag(String htmlStr, String regEx) {
@@ -2964,9 +3122,12 @@ public class GM {
 	/**
 	 * Replace the tag in html
 	 * 
-	 * @param htmlStr    Html format string
-	 * @param regEx      The regular expression to replace
-	 * @param replaceStr Replace with
+	 * @param htmlStr
+	 *            Html format string
+	 * @param regEx
+	 *            The regular expression to replace
+	 * @param replaceStr
+	 *            Replace with
 	 * @return
 	 */
 	private static String replaceHtmlTag(String htmlStr, String regEx,
@@ -2979,8 +3140,10 @@ public class GM {
 	/**
 	 * Union two Matrix
 	 * 
-	 * @param m1 Matrix
-	 * @param m2 Matrix
+	 * @param m1
+	 *            Matrix
+	 * @param m2
+	 *            Matrix
 	 * @return The merged Matrix
 	 */
 	private static Matrix unionMatrix(Matrix m1, Matrix m2) {
@@ -3004,7 +3167,8 @@ public class GM {
 	/**
 	 * Parse string into Matrix
 	 * 
-	 * @param data  String separated by \n and \t
+	 * @param data
+	 *            String separated by \n and \t
 	 * @param parse
 	 * @return
 	 */
@@ -3068,8 +3232,10 @@ public class GM {
 	 * Convert the row and column values into the string identifier of the cell.
 	 * Convert the column value as a 26-base label.
 	 * 
-	 * @param iRow Row number
-	 * @param iCol Column number
+	 * @param iRow
+	 *            Row number
+	 * @param iCol
+	 *            Column number
 	 * @return cell的字符串标识,如果列值大于最大列值，将cell设为第一列
 	 */
 	public static String getCellID(int iRow, int iCol) {
@@ -3090,7 +3256,8 @@ public class GM {
 	/**
 	 * Convert column labels to column number.
 	 * 
-	 * @param colName The column name
+	 * @param colName
+	 *            The column name
 	 * @return
 	 */
 	public static int getColByName(String colName) {
@@ -3114,9 +3281,11 @@ public class GM {
 	/**
 	 * Convert the matrix to a string.
 	 * 
-	 * @param matrix   Matrix
-	 * @param useValue Whether to copy the value. Use the cell value when true, and
-	 *                 use the expression when false.
+	 * @param matrix
+	 *            Matrix
+	 * @param useValue
+	 *            Whether to copy the value. Use the cell value when true, and
+	 *            use the expression when false.
 	 * @return
 	 */
 	public static String getCellSelectionString(Matrix matrix, boolean useValue) {
@@ -3224,7 +3393,8 @@ public class GM {
 	/**
 	 * Load files in the order of absolute path and class path.
 	 * 
-	 * @param filePath The file path
+	 * @param filePath
+	 *            The file path
 	 * @return File input stream
 	 * @throws Exception
 	 */
@@ -3257,8 +3427,10 @@ public class GM {
 	/**
 	 * Get the absolute coordinates of the control in the window
 	 * 
-	 * @param c      Component
-	 * @param isGetX boolean
+	 * @param c
+	 *            Component
+	 * @param isGetX
+	 *            boolean
 	 * @return int
 	 */
 	public static int getAbsolutePos(Component c, boolean isGetX) {
@@ -3273,7 +3445,8 @@ public class GM {
 	/**
 	 * Whether the data source name exists.
 	 * 
-	 * @param ds The data source
+	 * @param ds
+	 *            The data source
 	 * @return
 	 */
 	public static boolean isExistDataSource(DataSource ds) {
@@ -3292,8 +3465,10 @@ public class GM {
 	/**
 	 * Set the text into the text component
 	 * 
-	 * @param textEditor JTextComponent
-	 * @param text       Entered text
+	 * @param textEditor
+	 *            JTextComponent
+	 * @param text
+	 *            Entered text
 	 */
 	public static void addText(JTextComponent textEditor, String text) {
 		if (text == null) {
@@ -3346,7 +3521,8 @@ public class GM {
 	 * Convert the tips into a html format string for display.
 	 * 
 	 * @param tips
-	 * @param list Container for storing information such as width and height
+	 * @param list
+	 *            Container for storing information such as width and height
 	 * @return
 	 */
 	public static String transTips(String tips, IntArrayList list) {
@@ -3358,9 +3534,12 @@ public class GM {
 	 * Convert the tips into a html format string for display.
 	 * 
 	 * @param tips
-	 * @param list     Container for storing information such as width and height
-	 * @param fm       FontMetrics
-	 * @param maxWidth Maximum width
+	 * @param list
+	 *            Container for storing information such as width and height
+	 * @param fm
+	 *            FontMetrics
+	 * @param maxWidth
+	 *            Maximum width
 	 * @return
 	 */
 	public static String transTips(String tips, IntArrayList list,
@@ -3452,8 +3631,10 @@ public class GM {
 	/**
 	 * Whether it is a newly created cellset
 	 * 
-	 * @param filePath The path of the cellset
-	 * @param pre      Name prefix
+	 * @param filePath
+	 *            The path of the cellset
+	 * @param pre
+	 *            Name prefix
 	 * @return
 	 */
 	public static boolean isNewGrid(String filePath, String pre) {
@@ -3475,7 +3656,9 @@ public class GM {
 
 	/**
 	 * 删除文件或目录
-	 * @param f 文件或目录
+	 * 
+	 * @param f
+	 *            文件或目录
 	 * @return 是否删除成功
 	 */
 	public static boolean deleteFile(File f) {
@@ -3544,40 +3727,54 @@ public class GM {
 	/**
 	 * Use a browser to access the URL
 	 * 
-	 * @param url URL to visit
+	 * @param url
+	 *            URL to visit
 	 * @throws Exception
 	 */
 	public static void browse(String url) throws Exception {
-		if (Desktop.isDesktopSupported()) {
-			Desktop dt = Desktop.getDesktop();
-			if (dt.isSupported(Desktop.Action.BROWSE)) {
-				URI uri = new URI(url);
-				dt.browse(uri);
+		String errorMsg = null;
+		try {
+			if (Desktop.isDesktopSupported()) {
+				Desktop dt = Desktop.getDesktop();
+				if (dt.isSupported(Desktop.Action.BROWSE)) {
+					URI uri = new URI(url);
+					dt.browse(uri);
+				} else {
+					errorMsg = "Desktop does not support the BROWSE action.";
+				}
+			} else {
+				errorMsg = "Desktop is not supported.";
+			}
+		} catch (Exception ex) {
+			try {
+				browseOld(url);
+				return;
+			} catch (Throwable t) {
+				// 如果用旧方法也不行，还是返回之前异常
+				throw ex;
 			}
 		}
-		// String osName = System.getProperty("os.name", "").toLowerCase();
-		// if (osName.startsWith("mac os")) {
+		if (errorMsg != null) {
+			throw new RQException(errorMsg);
+		}
+	}
+
+	private static void browseOld(String url) throws Exception {
+		if (GM.isWindowsOS()) {
+			Runtime.getRuntime().exec(
+					"rundll32 url.dll,FileProtocolHandler " + url);
+		} else {
+			Runtime.getRuntime().exec("xdg-open " + url);
+		}
+		// if (GM.isMacOS()) {
 		// Class fileMgr = Class.forName("com.apple.eio.FileManager");
 		// Method openURL = fileMgr.getDeclaredMethod("openURL",
 		// new Class[] { String.class });
 		// openURL.invoke(null, new Object[] { url });
-		// } else if (osName.startsWith("windows")) {
+		// } else if (GM.isWindowsOS()) {
 		// Runtime.getRuntime().exec(
 		// "rundll32 url.dll,FileProtocolHandler " + url);
 		// } else {
-		// /* Assume Unix or Linux */
-		// try {
-		// URI uri = new URI(url);
-		// Desktop desktop = null;
-		// if (Desktop.isDesktopSupported()) {
-		// desktop = Desktop.getDesktop();
-		// }
-		// if (desktop != null) {
-		// desktop.browse(uri);
-		// return;
-		// }
-		// } catch (Throwable t) {
-		// }
 		// String[] browsers = { "google-chrome", "firefox", "opera",
 		// "konqueror", "epiphany", "mozilla", "netscape" };
 		// String browser = null;
@@ -3747,6 +3944,7 @@ public class GM {
 
 	/**
 	 * 取当前选择的词起始位置
+	 * 
 	 * @param str
 	 * @param p
 	 * @return
@@ -3797,6 +3995,7 @@ public class GM {
 
 	/**
 	 * 是否符号
+	 * 
 	 * @param c
 	 * @return
 	 */
@@ -3806,6 +4005,7 @@ public class GM {
 
 	/**
 	 * 按文件名排序
+	 * 
 	 * @param files
 	 * @return
 	 */
@@ -3825,6 +4025,7 @@ public class GM {
 
 	/**
 	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * 
 	 * @param parentComponent
 	 * @param message
 	 */
@@ -3835,6 +4036,7 @@ public class GM {
 
 	/**
 	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * 
 	 * @param parentComponent
 	 * @param message
 	 * @param title
@@ -3848,6 +4050,7 @@ public class GM {
 
 	/**
 	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * 
 	 * @param parentComponent
 	 * @param message
 	 * @param title
@@ -3894,6 +4097,7 @@ public class GM {
 
 	/**
 	 * 按显示比例获取字体
+	 * 
 	 * @param scale
 	 * @return
 	 */
