@@ -20,8 +20,11 @@ import com.scudata.dm.NonLocalFile;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.cursor.UpdateIdCursor;
 import com.scudata.dm.cursor.UpdateMergeCursor;
+import com.scudata.expression.mfn.dw.Append;
+import com.scudata.expression.mfn.dw.CreateCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.FileSyncManager;
 
@@ -529,6 +532,39 @@ abstract public class ComTable implements IBlockStorage {
 	public boolean reset(File file, String opt, Context ctx, String distribute) {
 		return reset(file, opt, ctx, distribute, null, null);
 	}
+	
+	private void parallelReset(PhyTable table, MultipathCursors mcs, Context ctx) throws IOException {
+		int num = mcs.getPathCount();
+		ColPhyTable[] tables = new ColPhyTable[num];
+		File[] files = new File[num];
+		Thread[] threads = new Thread[num];
+		
+		tables[0] = (ColPhyTable) table;
+		for (int i = 1; i < num; i++) {
+			FileObject tmp = FileObject.createTempFileObject();
+			files[i] = tmp.getLocalFile().file();
+			((ColPhyTable)table).getGroupTable().reset(files[i], "S", null, null);
+			tables[i] = (ColPhyTable) ComTable.openBaseTable(files[i], ctx);
+		}
+		
+		for (int i = 0; i < num; i++) {
+			threads[i] = Append.newAppendThread(tables[i], mcs.getPathCursor(i), null);
+			threads[i].start();
+		}
+		for (int i = 0; i < num; i++) {
+			try {
+				threads[i].join();
+			} catch (InterruptedException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+		
+		for (int i = 1; i < num; i++) {
+			table.append(tables[i]);
+			tables[i].getGroupTable().delete();
+		}
+	}
+	
 	/**
 	 * 重置组表
 	 * @param file 组表文件
@@ -552,6 +588,7 @@ abstract public class ComTable implements IBlockStorage {
 		boolean onlyDataStruct = false; // 只复制文件结构
 		boolean compress = false; // 压缩
 		boolean uncompress = false; // 不压缩
+		boolean hasP = false;// 并行写
 		
 		if (opt != null) {
 			if (opt.indexOf('r') != -1) {
@@ -602,6 +639,10 @@ abstract public class ComTable implements IBlockStorage {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 				}
+			}
+			
+			if (opt.indexOf('p') != -1 && cursor == null && isCol && !hasW) {
+				hasP = true;
 			}
 		}
 		
@@ -727,7 +768,11 @@ abstract public class ComTable implements IBlockStorage {
 				}
 				
 			} else if (!onlyDataStruct) {
-				cs = baseTable.cursor();
+				if (hasP) {
+					cs = CreateCursor.createCursor(baseTable, null, "m", ctx);
+				} else {
+					cs = baseTable.cursor();
+				}
 			}
 			
 			int startBlock = -1;//hasQ时才有用
@@ -781,8 +826,12 @@ abstract public class ComTable implements IBlockStorage {
 			
 			//写数据到基表
 			if (cs != null) {
-				newBaseTable.append(cs);
-				newBaseTable.appendCache();
+				if (hasP && cs instanceof MultipathCursors) {
+					parallelReset(newBaseTable, (MultipathCursors) cs, ctx);
+				} else {
+					newBaseTable.append(cs);
+					newBaseTable.appendCache();
+				}
 			}
 			
 			//写数据到基表的子表
