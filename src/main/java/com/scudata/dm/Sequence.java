@@ -8061,7 +8061,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("news" + mm.getMessage("function.invalidParam"));
 		}
 
-		if (length() > 0) {
+		// gexp中可能包含赋值表达式，先执行会影响后续执行的结果
+		/*if (length() > 0) {
 			Object val = calc(1, gexp, ctx);
 			Sequence seq;
 			if (val instanceof Sequence) {
@@ -8072,7 +8073,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			seq.getNewFieldNames(exps, names, "news");
-		} else {
+		} else {*/
 			int colCount = names.length;
 			for (int i = 0; i < colCount; ++i) {
 				if (names[i] == null || names[i].length() == 0) {
@@ -8088,7 +8089,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 			}
-		}
+		//}
 		
 		DataStruct ds = new DataStruct(names);
 		if (opt == null || opt.indexOf('m') == -1) {
