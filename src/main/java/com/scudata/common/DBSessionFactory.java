@@ -26,13 +26,15 @@ public class DBSessionFactory implements ISessionFactory {
 			this.info.put("remarksReporting", "true"); // oracle
 
 		String driverClass = cfg.getDriver();
-		try {
-			Driver d = (Driver) Class.forName(driverClass).newInstance();
-			DriverManager.registerDriver(d);
-		}
-		catch (Exception e) {
-			Logger.error("Database driver " + driverClass + " is not found!");
-			throw e;
+		if( driverClass != null && driverClass.trim().length() > 0 ) {   //20240801 sjr添加此条件，PL/java中不需要设置驱动类
+			try {
+				Driver d = (Driver) Class.forName(driverClass).newInstance();
+				DriverManager.registerDriver(d);
+			}
+			catch (Exception e) {
+				Logger.error("Database driver " + driverClass + " is not found!");
+				throw e;
+			}
 		}
 	}
 
