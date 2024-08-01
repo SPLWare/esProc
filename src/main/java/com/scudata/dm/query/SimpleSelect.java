@@ -23,6 +23,7 @@ import com.scudata.common.RQException;
 import com.scudata.common.UUID;
 import com.scudata.dm.BFileWriter;
 import com.scudata.dm.BaseRecord;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
@@ -95,6 +96,7 @@ public class SimpleSelect
 	private boolean isMemory;
 	private PhyTable tmd;
 	private String topFilter;
+	private Sequence fromSeq;	//20240731 xingjl
 	
 	abstract class Node 
 	{
@@ -3147,6 +3149,16 @@ public class SimpleSelect
 		{
 			this.ds = (DataStruct)param;
 		}
+
+		//20240731 xingjl
+		else if(param instanceof Sequence)
+		{
+			this.fromSeq = (Sequence)param;
+			ComputeStack stack = this.ctx.getComputeStack();
+			stack.pushArg(this.fromSeq);
+			this.parameterList.add("null");
+		}
+
 		else if(param instanceof PhyTable)
 		{
 			this.tmd = (PhyTable)param;
@@ -3520,6 +3532,11 @@ public class SimpleSelect
 				Object obj = null;
 				try
 				{
+					//20240731 xingjl
+					Sequence seq = new Sequence();
+					seq.add(this.fromSeq);
+					this.ctx.getComputeStack().pushArg(seq);
+
 					obj = new Expression(this.ics, this.ctx, expStr).calculate(this.ctx);
 				}
 				catch(Exception ex)
