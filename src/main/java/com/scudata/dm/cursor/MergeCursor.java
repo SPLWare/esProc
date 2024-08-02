@@ -1,10 +1,13 @@
 package com.scudata.dm.cursor;
 
+import java.util.ArrayList;
+
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Operable;
+import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.util.LoserTree;
@@ -382,6 +385,155 @@ public class MergeCursor extends ICursor {
 		return result;
 	}
 
+	private Sequence fuzzyGet() {
+		if (isEnd) {
+			Sequence result = resultCache;
+			resultCache = null;
+			return result;
+		}
+
+		init();
+		
+		int pathCount = seqs.length;
+		if (resultCache == null) {
+			resultCache = new Sequence(32);
+		}
+		
+		int q = 1;
+		int totalCount = 0;
+		
+		Next:
+		while (totalCount < ICursor.FETCHCOUNT) {
+			for (int i = 0; i < pathCount; ++i) {
+				if (seqs[i] > 0) {
+					fetchGroups(i, null);
+					int len = resultCache.length();
+					for (; q <= len; ++q) {
+						Sequence group = (Sequence)resultCache.getMem(q);
+						totalCount += group.length();
+					}
+					
+					continue Next;
+				}
+			}
+			
+			isEnd = true;
+			break;
+		}
+		
+		if (resultCache.length() == 0) {
+			return null;
+		} else {
+			Sequence result = resultCache;
+			resultCache = null;
+			return result;
+		}
+	}
+
+	/**
+	 * 重载基类方法，处理带分组时获取的记录数，取太多组容易导致内存溢出
+	 * @return Sequence
+	 */
+	public Sequence fetch() {
+		ArrayList<Operation> opList = this.opList;
+		if (groupFieldCount > 0 && opList != null) {
+			Sequence result = cache;
+			cache = null;
+
+			while (true) {
+				Sequence cur = fuzzyGet();
+				if (cur == null) {
+					Sequence tmp = finish(opList, ctx);
+					if (tmp != null) {
+						if (result == null) {
+							result = tmp;
+						} else {
+							result = append(result, tmp);
+						}
+					}
+					
+					close();
+					return result;
+				} else {
+					cur = doOperation(cur, opList, ctx);
+					if (result == null) {
+						result = cur;
+					} else if (cur != null) {
+						result = append(result, cur);
+					}
+				}
+			}
+		} else {
+			return fetch(MAXSIZE);
+		}
+	}
+	
+	/**
+	 * 重载基类方法，处理带分组时获取的记录数，取太多组容易导致内存溢出
+	 * @param n 结果数量，可以不精确
+	 * @return Sequence
+	 */
+	public Sequence fuzzyFetch(int n) {
+		if (cache != null) {
+			Sequence result = cache;
+			cache = null;
+			return result;
+		} else if (groupFieldCount > 0 && opList != null) {
+			Sequence cur = fuzzyGet();
+			if (cur == null) {
+				cur = finish(opList, ctx);
+				close();
+				
+				if (cur != null && cur.length() > 0) {
+					return cur;
+				} else {
+					return null;
+				}
+			} else {
+				return doOperation(cur, opList, ctx);
+			}
+		} else {
+			Sequence result = null;
+			ArrayList<Operation> opList = this.opList;
+			
+			do {
+				Sequence cur = fuzzyGet(n);
+				if (cur != null) {
+					if (opList != null) {
+						cur = doOperation(cur, opList, ctx);
+						if (result == null) {
+							result = cur;
+						} else if (cur != null) {
+							result = append(result, cur);
+						}
+					} else {
+						if (result == null) {
+							result = cur;
+						} else {
+							result = append(result, cur);
+						}
+					}
+				} else {
+					if (opList != null) {
+						Sequence tmp = finish(opList, ctx);
+						if (tmp != null) {
+							if (result == null) {
+								result = tmp;
+							} else {
+								result = append(result, tmp);
+							}
+						}
+					}
+
+					close();
+					return result;
+				}
+			} while (result == null || result.length() < n);
+			
+			return result;
+		}
+	}
+	
 	/**
 	 * 跳过指定条数的数据
 	 * @param n 数量
