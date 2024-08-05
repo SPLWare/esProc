@@ -18,10 +18,10 @@ import com.scudata.util.HTMLUtil;
 public class HTMLParse extends StringFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
-			return HTMLUtil.htmlparse(srcStr);
+			return HTMLUtil.htmlparse(srcStr, option);
 		}
 		
-		ParamInfo3 pi = ParamInfo3.parse(param, "htmlparse", true, true, false);
+		ParamInfo3 pi = ParamInfo3.parse(param, "htmlparse", true, false, false);
 		Expression []exps1 = pi.getExpressions1();
 		Expression []exps2 = pi.getExpressions2();
 		Expression []exps3 = pi.getExpressions3();
@@ -39,13 +39,18 @@ public class HTMLParse extends StringFunction {
 			}
 			
 			tags[i] = (String)obj;
-			obj = exps2[i].calculate(ctx);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("htmlparse" + mm.getMessage("function.paramTypeError"));
+			if (exps2[i] != null) {
+				obj = exps2[i].calculate(ctx);
+				if (!(obj instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("htmlparse" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				seqs[i] = ((Number)obj).intValue();
+			} else {
+				seqs[i] = -1;
 			}
 			
-			seqs[i] = ((Number)obj).intValue();
 			if (exps3[i] != null) {
 				obj = exps3[i].calculate(ctx);
 				if (!(obj instanceof Number)) {
@@ -57,7 +62,7 @@ public class HTMLParse extends StringFunction {
 			}
 		}
 		
-		return HTMLUtil.htmlparse(srcStr, tags, seqs, subSeqs);
+		return HTMLUtil.htmlparse(srcStr, tags, seqs, subSeqs, option);
 	}
 }
 
