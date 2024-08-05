@@ -2,6 +2,8 @@ package com.scudata.util;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
@@ -65,6 +67,26 @@ final public class XMLUtil {
 			return sb.toString();
 		} else {
 			return Variant.toString(obj);
+		}
+	}
+	
+	/**
+	 * 解析文本串的值
+	 * @param text 文本串
+	 * @return
+	 */
+	public static Object parseText(String text) {
+		Object value = Variant.parse(text, false);
+		if (!(value instanceof String)) {
+			return value;
+		}
+		
+		try {
+			// 解析带逗号的数字串，比如：7,531.04
+			NumberFormat format = NumberFormat.getInstance(); // Locale.US
+			return format.parse(text);
+		} catch (ParseException e) {
+			return value;
 		}
 	}
 	

@@ -64,7 +64,7 @@ class XMLNode {
 		ArrayList<XMLNode> subList = this.subList;
 		Object value;
 		if (subList == null) {
-			value = Variant.parse(characters, true);
+			value = XMLUtil.parseText(characters);
 		} else {
 			ArrayList<String> nameList = new ArrayList<String>();
 			int size = subList.size();

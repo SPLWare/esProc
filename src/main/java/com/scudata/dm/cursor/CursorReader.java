@@ -94,6 +94,10 @@ class CursorReader extends Job {
 	 * 被线程池里的线程调用，从游标读取数据
 	 */
 	public void run() {
-		table = cursor.fetch(fetchCount);
+		if (fetchCount < ICursor.MAXSIZE) {
+			table = cursor.fetch(fetchCount);
+		} else {
+			table = cursor.fetch();
+		}
 	}
 }
