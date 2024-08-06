@@ -2,8 +2,6 @@ package com.scudata.util;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
@@ -70,24 +68,53 @@ final public class XMLUtil {
 		}
 	}
 	
+	// 判断是否带逗号分割的数字，比如：1,234.56
+	private static String convertNumber(String text) {
+		if (text == null || text.length() == 0) {
+			return null;
+		}
+		
+		int len = text.length();
+		char []chars = new char[len];
+		int index = 0;
+		boolean hasComma = false; // 去掉逗号
+		
+		for (int i = 0; i < len; ++i) {
+			char c = text.charAt(i);
+			if (c >= '0' && c <= '9') {
+				chars[index++] = c;
+			} else if (c == ',') {
+				hasComma = true;
+			} else if (c == '.' || c == '%') {
+				chars[index++] = c;
+			} else {
+				return null;
+			}
+		}
+		
+		if (hasComma) {
+			return new String(chars, 0, index);
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * 解析文本串的值
 	 * @param text 文本串
 	 * @return
 	 */
 	public static Object parseText(String text) {
-		Object value = Variant.parse(text, false);
-		if (!(value instanceof String)) {
-			return value;
+		// 解析带逗号的数字串，比如：7,531.04
+		String strNum = convertNumber(text);
+		if (strNum != null) {
+			Object value = Variant.parse(strNum, true);
+			if (value instanceof Number) {
+				return value;
+			}
 		}
 		
-		try {
-			// 解析带逗号的数字串，比如：7,531.04
-			NumberFormat format = NumberFormat.getInstance(); // Locale.US
-			return format.parse(text);
-		} catch (ParseException e) {
-			return value;
-		}
+		return Variant.parse(text, true);
 	}
 	
 	/**
