@@ -2112,8 +2112,25 @@ public final class CursorUtil {
 	 * @return 交集序列
 	 */
 	public static Sequence isect(Sequence seq1, Sequence seq2) {
+		IArray mems1 = seq1.getMems();
+		int len1 = mems1.size();
 		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
+		
+		if (len1 < 12 && len2 < 12) {
+			Sequence result = new Sequence(len1);
+			for (int i = 1; i <= len1; ++i) {
+				Object v1 = mems1.get(i);
+				for (int j = 1; j <= len2; ++j) {
+					if (Variant.isEquals(v1, mems2.get(j))) {
+						result.add(v1);
+						break;
+					}
+				}
+			}
+			
+			return result;
+		}
 		
 		// 把序列2建成哈希表
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -2136,8 +2153,6 @@ public final class CursorUtil {
 			}
 		}
 		
-		IArray mems1 = seq1.getMems();
-		int len1 = mems1.size();
 		Sequence result = new Sequence(len1);
 		
 		// 遍历序列1的元素，然后根据哈希值到序列2的哈希表中查找是否有相同的元素
