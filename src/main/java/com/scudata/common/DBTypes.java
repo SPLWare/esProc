@@ -40,16 +40,18 @@ public class DBTypes {
 	public static final int POSTGRES = 15;
 
 	public static final int DATALOGIC = 16;
-	
+
 	public static final int IMPALA = 17;
 
 	public static final int HIVE = 18;
-	
+
 	public static final int GREENPLUM = 19;
-	
+
 	public static final int DBONE = 20;
-	
+
 	public static final int ESPROC = 21;
+
+	public static final int DM = 22;
 
 	public static final int ESSBASE = 101;
 
@@ -59,8 +61,8 @@ public class DBTypes {
 	public static int[] listSupportedDBTypes() {
 		return new int[] { ORACLE, SQLSVR, SYBASE, SQLANY, INFMIX, FOXPRO,
 				ACCESS, FOXBAS, DB2, MYSQL, KINGBASE, DERBY, HSQL, TERADATA,
-				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC, 
-				ESSBASE };
+				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC,
+				DM, ESSBASE };
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class DBTypes {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
-				"HIVE", "GREENPLUM", "DBONE", "ESPROC"};
+				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DM" };
 
 	}
 
@@ -88,8 +90,8 @@ public class DBTypes {
 	public static String[] listSupportedDBNames() {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
-				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA", 
-				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "ESSBASE" };
+				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
+				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DM", "ESSBASE" };
 
 	}
 

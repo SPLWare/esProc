@@ -30,6 +30,7 @@ public class DBTypeEx extends DBTypes {
 	public static final String TITLE_DBONE = "DBONE";
 	public static final String TITLE_ESPROC = "Esproc";
 	public static final String TITLE_DATALOGIC = "DataLogic";
+	public static final String TITLE_DM = "DM"; // ¥Ô√Œ
 	public static final String TITLE_UNKNOWN = "Other";
 
 	/**
@@ -37,7 +38,7 @@ public class DBTypeEx extends DBTypes {
 	 */
 	public static int[] listDefaultDBTypes() {
 		return new int[] { ORACLE, SQLSVR, DB2, SYBASE, ACCESS, MYSQL, HSQL,
-				TERADATA, POSTGRES, DBONE, ESPROC, DATALOGIC, UNKNOWN };
+				TERADATA, POSTGRES, DBONE, ESPROC, DATALOGIC, DM, UNKNOWN };
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class DBTypeEx extends DBTypes {
 		return new String[] { TITLE_ORACLE, TITLE_MS_SQL_Server, TITLE_DB2,
 				TITLE_SYBASE, TITLE_ACCESS, TITLE_MYSQL, TITLE_HSQL,
 				TITLE_TERADATA, TITLE_POSTGRES, TITLE_DBONE, TITLE_ESPROC,
-				TITLE_DATALOGIC, TITLE_UNKNOWN };
+				TITLE_DATALOGIC, TITLE_DM, TITLE_UNKNOWN };
 	}
 
 	/**
@@ -153,6 +154,9 @@ public class DBTypeEx extends DBTypes {
 		} else if (dbTitle.equalsIgnoreCase(TITLE_DATALOGIC)) {
 			s = new String[1];
 			s[0] = "com.datalogic.jdbc.LogicDriver";
+		} else if (dbTitle.equalsIgnoreCase(TITLE_DM)) {
+			s = new String[1];
+			s[0] = "dm.jdbc.driver.DmDriver";
 		}
 		return s;
 	}
@@ -208,6 +212,9 @@ public class DBTypeEx extends DBTypes {
 		} else if (dbTitle.equalsIgnoreCase(TITLE_DATALOGIC)) {
 			s = new String[1];
 			s[0] = "jdbc:datalogic://127.0.0.1:3366/[database name]";
+		} else if (dbTitle.equalsIgnoreCase(TITLE_DM)) {
+			s = new String[1];
+			s[0] = "jdbc:dm://127.0.0.1:5236/[database name]";
 		}
 		return s;
 	}
