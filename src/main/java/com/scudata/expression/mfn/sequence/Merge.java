@@ -6,7 +6,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.IMultipath;
-import com.scudata.dm.cursor.MemoryCursor;
+//import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
@@ -36,11 +36,11 @@ public class Merge extends SequenceFunction {
 			exps = getParamExpressions("merge", false);
 		}
 		
-		if (option != null && option.indexOf('o') != -1) {
+		//if (option != null && option.indexOf('o') != -1) {
 			return sequence.merge(exps, option, ctx);
-		}
+		//}
 		
-		int count = sequence.length();
+		/*int count = sequence.length();
 		ICursor []cursors = new ICursor[count];
 		for (int i = 0; i < count; ++i) {
 			Object obj = sequence.getMem(i + 1);
@@ -55,7 +55,7 @@ public class Merge extends SequenceFunction {
 		}
 		
 		ICursor cursor = CursorUtil.merge(cursors, exps, option, ctx);
-		return cursor.fetch();
+		return cursor.fetch();*/
 	}
 	
 	private static Object mergex(Sequence sequence, IParam param, String opt, Context ctx) {
