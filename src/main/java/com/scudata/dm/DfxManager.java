@@ -138,7 +138,9 @@ public class DfxManager {
 			if (ref != null) {
 				List<Expression> expList = ref.get();
 				if (expList != null && expList.size() > 0) {
-					return expList.remove(expList.size() - 1);
+					Expression exp = expList.remove(expList.size() - 1);
+					exp.reset();
+					return exp;
 				}
 			}
 		}
