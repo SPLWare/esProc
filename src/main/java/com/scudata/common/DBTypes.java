@@ -51,7 +51,7 @@ public class DBTypes {
 
 	public static final int ESPROC = 21;
 
-	public static final int DM = 22;
+	public static final int DAMENG = 22;
 
 	public static final int ESSBASE = 101;
 
@@ -62,7 +62,7 @@ public class DBTypes {
 		return new int[] { ORACLE, SQLSVR, SYBASE, SQLANY, INFMIX, FOXPRO,
 				ACCESS, FOXBAS, DB2, MYSQL, KINGBASE, DERBY, HSQL, TERADATA,
 				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC,
-				DM, ESSBASE };
+				DAMENG, ESSBASE };
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class DBTypes {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
-				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DM" };
+				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG" };
 
 	}
 
@@ -91,7 +91,7 @@ public class DBTypes {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
-				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DM", "ESSBASE" };
+				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESSBASE" };
 
 	}
 
