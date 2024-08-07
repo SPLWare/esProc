@@ -1,6 +1,5 @@
 package com.scudata.dw;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -469,7 +468,8 @@ public class Cursor extends IDWCursor {
 	}
 
 	private void parseSwitch(ColPhyTable table, Context ctx) {
-		if (hasModify()) {
+		ArrayList<ModifyRecord> mrecords = table.getModifyRecords();
+		if (mrecords != null && mrecords.size() > 0) {
 			int fkCount = fkNames.length;
 			for (int i = 0; i < fkCount; i ++) {
 				String[] fkn = new String[] {fkNames[i]};

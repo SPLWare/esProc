@@ -30,6 +30,8 @@ public abstract class IFilter implements Comparable<IFilter> {
 	protected Expression exp;//filter对应的表达式
 	protected List<ColumnMetaData> columns;//有的filter对应多个列
 	
+	protected IArray dictMatchResult;
+	
 	public IFilter() {
 		
 	}
@@ -154,5 +156,18 @@ public abstract class IFilter implements Comparable<IFilter> {
 		if (exp != null) {
 			exp.deepOptimize(ctx);
 		}
+	}
+	
+	public IArray getDictMatchResult() {
+		return dictMatchResult;
+	}
+
+	public void setDictMatchResult(IArray dictMatchResult) {
+		this.dictMatchResult = dictMatchResult;
+	}
+
+	//是否可以跳行
+	public boolean canSkipRow() {
+		return dictMatchResult != null;
 	}
 }
