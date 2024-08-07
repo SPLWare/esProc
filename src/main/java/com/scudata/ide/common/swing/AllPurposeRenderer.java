@@ -1,6 +1,5 @@
 package com.scudata.ide.common.swing;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,9 +11,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
-import com.scudata.dm.BaseRecord;
-import com.scudata.dm.Sequence;
 import com.scudata.ide.common.ConfigOptions;
+import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.util.Variant;
 
@@ -38,11 +36,6 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	private String format;
 
 	/**
-	 * NULL的显示值
-	 */
-	public static String DISP_NULL = "(null)";
-
-	/**
 	 * 构造函数
 	 */
 	public AllPurposeRenderer() {
@@ -52,7 +45,8 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	/**
 	 * 构造函数
 	 * 
-	 * @param hasIndex 是否有序号列
+	 * @param hasIndex
+	 *            是否有序号列
 	 */
 	public AllPurposeRenderer(boolean hasIndex) {
 		this.hasIndex = hasIndex;
@@ -61,7 +55,8 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	/**
 	 * 构造函数
 	 * 
-	 * @param format 显示格式
+	 * @param format
+	 *            显示格式
 	 */
 	public AllPurposeRenderer(String format) {
 		this(format, false);
@@ -70,8 +65,10 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	/**
 	 * 构造函数
 	 * 
-	 * @param format   显示格式
-	 * @param hasIndex 是否有序号列
+	 * @param format
+	 *            显示格式
+	 * @param hasIndex
+	 *            是否有序号列
 	 */
 	public AllPurposeRenderer(String format, boolean hasIndex) {
 		this.format = format;
@@ -99,8 +96,8 @@ public class AllPurposeRenderer implements TableCellRenderer {
 		textField.setFont(table.getFont());
 		textField.setOpaque(true);
 		textField.setValue(value);
-		if (isRefVal(value)) {
-			textField.setForeground(Color.CYAN.darker());
+		if (GM.isRefVal(value)) {
+			textField.setForeground(ConfigOptions.COLOR_REF);
 		}
 		boolean isNumber = value != null && value instanceof Number;
 		boolean isDate = value != null && value instanceof Date;
@@ -137,17 +134,11 @@ public class AllPurposeRenderer implements TableCellRenderer {
 			}
 			textField.setDispText(strText);
 		} else {
-			textField.setDispText(DISP_NULL);
+			textField.setDispText(GC.DISP_NULL);
 			textField.setHorizontalAlignment(JTextField.CENTER);
 			textField.setForeground(ConfigOptions.COLOR_NULL);
 		}
 		return textField;
 	}
 
-	private boolean isRefVal(Object val) {
-		if (val == null) {
-			return false;
-		}
-		return val instanceof BaseRecord || val instanceof Sequence;
-	}
 }

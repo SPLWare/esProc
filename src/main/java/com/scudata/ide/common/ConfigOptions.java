@@ -214,6 +214,8 @@ public class ConfigOptions {
 	public static Color COLOR_INTEGER = Color.BLUE;
 	/** Double */
 	public static Color COLOR_DOUBLE = Color.PINK.darker();
+	/** Ref */
+	public static Color COLOR_REF = Color.CYAN.darker();
 	/** NULL */
 	public static Color COLOR_NULL = new Color(255, 0, 255);
 

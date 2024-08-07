@@ -508,4 +508,8 @@ public class GC {
 
 	public static final String LAST_DIR = "fileDirectory";
 
+	/**
+	 * NULLµƒœ‘ æ÷µ
+	 */
+	public static String DISP_NULL = "(null)";
 }
