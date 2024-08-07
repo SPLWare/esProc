@@ -1215,6 +1215,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		return null;
 	}
 
+	protected byte getHAlign(int row, int col) {
+		return parser.getHAlign(row, col);
+	}
+
 	/**
 	 * 绘制单元格中显示的文本
 	 * 
@@ -1240,7 +1244,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	protected void drawText(String text, Graphics g, int row, int col, int x,
 			int y, int w, int h, float scale) {
 		Font font = parser.getFont(row, col, scale);
-		byte halign = parser.getHAlign(row, col);
+		byte halign = getHAlign(row, col);
 		byte valign = parser.getVAlign(row, col);
 
 		Color c = parser.getForeColor(row, col);

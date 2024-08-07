@@ -1,6 +1,7 @@
 package com.scudata.ide.common;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
@@ -34,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -4119,4 +4121,28 @@ public class GM {
 	}
 
 	public static HashMap<Integer, Font> fontMap = new HashMap<Integer, Font>();
+
+	public static Color getValueColor(Object value) {
+		if (value != null) {
+			if (isRefVal(value))
+				return ConfigOptions.COLOR_REF;
+			if (value instanceof BigDecimal) {
+				return ConfigOptions.COLOR_DECIMAL;
+			} else if (value instanceof Double) {
+				return ConfigOptions.COLOR_DOUBLE;
+			} else if (value instanceof Integer) {
+				return ConfigOptions.COLOR_INTEGER;
+			}
+		} else {
+			return ConfigOptions.COLOR_NULL;
+		}
+		return Color.BLACK;
+	}
+
+	public static boolean isRefVal(Object val) {
+		if (val == null) {
+			return false;
+		}
+		return val instanceof BaseRecord || val instanceof Sequence;
+	}
 }
