@@ -3211,6 +3211,10 @@ public class Cursor extends IDWCursor {
 	}
 	
 	public void close() {
+		if (isClosed) {
+			return;
+		}
+		
 		super.close();
 		isClosed = true;
 		cache = null;
