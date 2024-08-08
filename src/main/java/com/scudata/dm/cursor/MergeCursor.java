@@ -540,6 +540,19 @@ public class MergeCursor extends ICursor {
 	 * @return long 实际跳过的条数
 	 */
 	protected long skipOver(long n) {
+		if (n == MAXSKIPSIZE && groupFieldCount < 1 && loserTree == null && !isEnd) {
+			// 跳过所有不实际做归并
+			long count = 0;
+			for (ICursor cs : cursors) {
+				if (cs != null) {
+					count += cs.skip();
+				}
+			}
+			
+			isEnd = true;
+			return count;
+		}
+		
 		if (isEnd) {
 			if (resultCache == null) {
 				return 0;
