@@ -65,7 +65,7 @@ public class New extends Operation  {
 				for (int i = 0; i < keyCount; ++i) {
 					String keyName = keyNames[i];
 					for (int f = 0; f < fcount; ++f) {
-						String fname = newExps[f].getFieldName();
+						String fname = newExps[f].getFieldName(ds);
 						if (keyName.equals(fname)) {
 							newKeyNames[i] = names[f];
 							continue Next;

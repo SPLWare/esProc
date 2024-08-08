@@ -486,6 +486,49 @@ public class Cursor extends IDWCursor {
 				Switch op = new Switch(fkn, code, exps, opt);
 				addOperation(op, ctx);
 			}
+			
+			// 检查fkNames里是否引用了没有选出的字段，如果引用了则加入到选出字段里
+			if (fields != null) {
+				ArrayList<String> selectList = new ArrayList<String>();
+				for (String name : fields) {
+					selectList.add(name);
+				}
+				
+				for (String name : fkNames) {
+					if (!selectList.contains(name) && table.getColumn(name) != null) {
+						selectList.add(name);
+					}
+				}
+				
+				int oldLen = fields.length;
+				if (selectList.size() > oldLen) {
+					String []newFields = new String[selectList.size()];
+					selectList.toArray(newFields);
+					Expression []newExps = new Expression[oldLen];
+					for (int i = 1; i <= oldLen; ++i) {
+						newExps[i - 1] = new Expression("#" + i);
+					}
+					
+					int newLen = selectList.size();
+					if (exps != null) {
+						exps = Arrays.copyOf(exps, newLen);
+						for (int i = oldLen; i < newLen; ++i) {
+							exps[i] = new Expression(newFields[i]);
+						}
+					}
+					String []newNames = null;
+					if (names != null) {
+						newNames = names;
+						names = null;
+					} else {
+						newNames = fields;
+					}
+					
+					New newOp = new New(newExps, newNames, null);
+					addOperation(newOp, ctx);
+					fields = newFields;
+				}
+			}
 		} else {
 			int fcount = fkNames.length;
 			ArrayList<IFilter> filterList = new ArrayList<IFilter>();
