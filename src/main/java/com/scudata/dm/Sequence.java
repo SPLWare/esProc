@@ -9147,7 +9147,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence group = new Sequence(7);
 			group.add(mems.get(1));
 			resultMems.add(group);
-
+			
+			// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
+			current.setCurrent(1);
+			exp.calculate(ctx);
+			
 			for (int i = 2; i <= size; ++i) {
 				current.setCurrent(i);
 				if (Variant.isTrue(exp.calculate(ctx))) {
