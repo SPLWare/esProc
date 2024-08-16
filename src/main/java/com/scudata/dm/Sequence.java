@@ -8780,11 +8780,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("align" + mm.getMessage("function.paramValNull"));
 		}
 
-		boolean isAll = false, isSorted = false, isPos = false, isNull = false, isConj = false;
+		boolean isAll = false, isSorted = false, isPos = false, isNull = false, isConj = false, isMerge = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1) isAll = true;
 			if (opt.indexOf('b') != -1) isSorted = true;
 			if (opt.indexOf('p') != -1) isPos = true;
+			if (opt.indexOf('o') != -1) isMerge = true;
 			
 			if (opt.indexOf('n') != -1) {
 				isAll = true;
@@ -8805,7 +8806,57 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int valSize = valMems.size();
 		int tgtSize = tgtMems.size();
 
-		if (isAll) {
+		if (isMerge) {
+			if (isAll) {
+				Sequence result = new Sequence(tgtSize);
+				int index = 1;
+				
+				for (int i = 1; i <= tgtSize; ++i) {
+					Object val = tgtMems.get(i);
+					Sequence sub = new Sequence(4);
+					while (index <= valSize) {
+						int cmp = Variant.compare(valMems.get(index), val, isMerge);
+						if (cmp == 0) {
+							sub.add(mems.get(index));
+							index++;
+						} else if (cmp > 0) {
+							break;
+						} else {
+							index++;
+						}
+					}
+					
+					result.add(sub);
+				}
+				
+				return result;
+			} else {
+				Sequence result = new Sequence(tgtSize);
+				int index = 1;
+				
+				Next:
+				for (int i = 1; i <= tgtSize; ++i) {
+					Object val = tgtMems.get(i);
+					while (index <= valSize) {
+						int cmp = Variant.compare(valMems.get(index), val, isMerge);
+						if (cmp == 0) {
+							result.add(mems.get(index));
+							index++;
+							continue Next;
+						} else if (cmp > 0) {
+							result.add(null);
+							continue Next;
+						} else {
+							index++;
+						}
+					}
+					
+					result.add(null);
+				}
+				
+				return result;
+			}
+		} else if (isAll) {
 			Sequence other = isNull ? new Sequence() : null;
 			Sequence[] retVals = new Sequence[tgtSize];
 			for (int i = 0; i < tgtSize; ++i) {
