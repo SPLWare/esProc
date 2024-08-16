@@ -51,9 +51,14 @@ public class LogicOr extends IFilter {
 	}
 	
 	public void initExp() {
-		Or or = new Or();
-		or.setLeft(left.exp.getHome());
-		or.setRight(right.exp.getHome());
-		exp = new Expression(or);
+		if (exp == null) {
+			left.initExp();
+			right.initExp();
+			
+			Or or = new Or();
+			or.setLeft(left.exp.getHome());
+			or.setRight(right.exp.getHome());
+			exp = new Expression(or);
+		}
 	}
 }
