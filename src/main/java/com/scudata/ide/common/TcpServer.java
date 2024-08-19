@@ -32,6 +32,7 @@ public class TcpServer extends Thread {
 	
 	public static String GETWINDOWTITLE="GetWindowTitle";
 	public static String ACTIVATE="ACTIVATE";
+	public static String LOCALHOST = "127.0.0.1";
 	/**
 	 * Constructor
 	 * 
@@ -49,11 +50,21 @@ public class TcpServer extends Thread {
 		this.port = port;
 		this.frame = frame;
 	}
-	private boolean connectExistInstance(String host ) {
-		return ask(host,GETWINDOWTITLE);
+	
+	/**
+	 * 检查一下根据配置的端口port，有没有已经启动的实例
+	 * @param port
+	 * @return 有了则返回true
+	 */
+	public static boolean checkExistInstance(int port) {
+		return ask(LOCALHOST,GETWINDOWTITLE,port);
 	}
 	
-	private boolean ask(String host,String cmd ) {
+	private boolean ask(String host,String cmd) {
+		return ask(host,cmd,port);
+	}
+	
+	private static boolean ask(String host,String cmd,int port ) {
 		int timeout = 2000;
 		Socket s = new Socket();
 		try {
@@ -84,16 +95,15 @@ public class TcpServer extends Thread {
 	public void run() {
 		ServerSocket ss = null;
 		try {
-			String str = "127.0.0.1";
-			boolean isExist = connectExistInstance(str);
+			boolean isExist = checkExistInstance(port);
 			if(isExist) {
-				ask(str,ACTIVATE);
+				ask(LOCALHOST,ACTIVATE);
 				if(StringUtils.isValidString(file)) {
-					ask(str,file);
+					ask(LOCALHOST,file);
 				}
 				System.exit(0);
 			}
-			String[] ipStr = str.split("\\.");
+			String[] ipStr = LOCALHOST.split("\\.");
 			byte[] ipBuf = new byte[4];
 			for (int i = 0; i < 4; i++) {
 				ipBuf[i] = (byte) (Integer.parseInt(ipStr[i]) & 0xFF);
