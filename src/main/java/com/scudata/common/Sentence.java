@@ -351,6 +351,52 @@ public final class Sentence {
 	}
 
 	/**
+	 * 扫描中文括号匹配，包含（、【、《、<
+	 * @param str
+	 * @param start
+	 * @return
+	 */
+	public static int scanChineseBracket(String str, int start) {
+		char cb = str.charAt(start);
+		char matchChar;
+		if (cb == '（') {
+			matchChar = '）';
+		} else if (cb == '【') {
+			matchChar = '】';
+		} else if (cb == '《') {
+			matchChar = '》';
+		} else {
+			matchChar = '>';
+		}
+
+		int len = str.length();
+		for (int i = start + 1; i < len;) {
+			char c = str.charAt(i);
+			if (c == matchChar) {
+				return i;
+			} else if (c == '"' || c == '\'') {
+				int q = scanQuotation(str, i, '\\');
+				if (q < 0) {
+					i++;
+				} else {
+					i = q + 1;
+				}
+			} else if (c == cb) {
+				i = scanChineseBracket(str, i);
+				if (i < 0)
+					return -1;
+				i++;
+			} else if (c == '\\') {
+				i += 2;
+			} else {
+				i++;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
 	 * 将原串中的空白字符删除,并根据ifcase参数将原串中的非引号内字符大写,小写或不动
 	 * 
 	 * @param str

@@ -11600,6 +11600,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						match = Sentence.scanBrace(src, i);
 						i = (match == -1) ? srcLen : match + 1;
 						continue; // 跳过扩号内的内容
+					case '（':
+					case '【':
+					case '《':
+					case '<':
+						match = Sentence.scanChineseBracket(src, i);
+						i = (match == -1) ? srcLen : match + 1;
+						continue; // 跳过中文扩号内的内容
 					}
 
 					if (src.charAt(i) == '\r') {
@@ -11782,6 +11789,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					match = Sentence.scanBrace(src, i);
 					i = (match == -1) ? srcLen : match + 1;
 					continue; // 跳过扩号内的内容
+				case '（':
+				case '【':
+				case '《':
+				case '<':
+					match = Sentence.scanChineseBracket(src, i);
+					i = (match == -1) ? srcLen : match + 1;
+					continue; // 跳过中文扩号内的内容
 				}
 
 				if (src.startsWith(sep, i)) {
