@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
 
 /**
  * To prevent starting multiple IDEs. Use TcpServer to check whether the IDE is
@@ -27,7 +28,10 @@ public class TcpServer extends Thread {
 	 * Server port
 	 */
 	private int port;
-
+	private String file;
+	
+	public static String GETWINDOWTITLE="GetWindowTitle";
+	public static String ACTIVATE="ACTIVATE";
 	/**
 	 * Constructor
 	 * 
@@ -36,9 +40,42 @@ public class TcpServer extends Thread {
 	 * @param frame
 	 *            IDE frame
 	 */
+	public TcpServer(int port, IAppFrame frame, String file) {
+		this(port,frame);
+		this.file = file;
+	}
+	
 	public TcpServer(int port, IAppFrame frame) {
 		this.port = port;
 		this.frame = frame;
+	}
+	private boolean connectExistInstance(String host ) {
+		return ask(host,GETWINDOWTITLE);
+	}
+	
+	private boolean ask(String host,String cmd ) {
+		int timeout = 2000;
+		Socket s = new Socket();
+		try {
+			InetSocketAddress isa = new InetSocketAddress(host, port);
+			s.connect( isa, timeout);
+			OutputStream os = s.getOutputStream();
+			os.write(cmd.getBytes());
+			InputStream is = s.getInputStream();
+			byte[] buffer = new byte[1024];
+			int len = is.read(buffer);
+			String res = new String(buffer, 0, len);
+			if(StringUtils.isValidString(res)) {
+				return true;
+			}
+		}catch(Exception x) {
+		}finally {
+			try {
+				s.close();
+			} catch (IOException e) {
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -48,12 +85,21 @@ public class TcpServer extends Thread {
 		ServerSocket ss = null;
 		try {
 			String str = "127.0.0.1";
+			boolean isExist = connectExistInstance(str);
+			if(isExist) {
+				ask(str,ACTIVATE);
+				if(StringUtils.isValidString(file)) {
+					ask(str,file);
+				}
+				System.exit(0);
+			}
 			String[] ipStr = str.split("\\.");
 			byte[] ipBuf = new byte[4];
 			for (int i = 0; i < 4; i++) {
 				ipBuf[i] = (byte) (Integer.parseInt(ipStr[i]) & 0xFF);
 			}
 			InetAddress add = InetAddress.getByAddress(ipBuf);
+			
 			ss = new ServerSocket(port, 10, add);
 			while (true) {
 				try {
@@ -62,11 +108,13 @@ public class TcpServer extends Thread {
 					byte[] buffer = new byte[1024];
 					int len = is.read(buffer);
 					String file = new String(buffer, 0, len);
-					if (file.equals("GetWindowTitle")) {
+					if (file.equals(GETWINDOWTITLE)) {
 						OutputStream os = s.getOutputStream();
 						String wTitle = ((JFrame) frame).getTitle();
 						os.write(wTitle.getBytes());
-					} else {
+					} else if(file.equals(ACTIVATE)){
+						((JFrame) frame).toFront();
+					}else {
 						if (file.startsWith("\"")) {
 							file = file.substring(1, file.length() - 1);
 						}
