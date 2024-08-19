@@ -11668,14 +11668,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (sep == null) {
 			sep = ",";
 		} else if (sep.length() == 0) {
-			char []chars = src.toCharArray();
-			int len = chars.length;
-
 			if (bTrim) {
+				int srcLen = src.length();
 				int start = -1;
 				int i = 0;
-				for (; i < len; ++i) {
-					if (!Character.isWhitespace(chars[i])) {
+				for (; i < srcLen; ++i) {
+					if (!Character.isWhitespace(src.charAt(i))) {
 						start = i;
 						break;
 					}
@@ -11686,27 +11684,98 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 				
 				Sequence result = new Sequence();
-				for (++i; i < len; ++i) {
-					if (Character.isWhitespace(chars[i])) {
-						String sub = src.substring(start, i);
-						if (bData) {
-							result.add(Variant.parse(sub));
-						} else {
-							result.add(sub);
+				if (bMatch) {
+					for (; i < srcLen;) {
+						char c = src.charAt(i);
+						switch (c) {
+						case '"':
+						case '\'':
+							i = Sentence.scanQuotation(src, i);
+							if (i == -1) {
+								break;
+							} else {
+								i++;
+								continue; // 跳过引号内的内容
+							}
+						case '(':
+							i = Sentence.scanParenthesis(src, i);
+							if (i == -1) {
+								break;
+							} else {
+								i++;
+								continue; // 跳过扩号内的内容
+							}
+						case '[':
+							i = Sentence.scanBracket(src, i);
+							if (i == -1) {
+								break;
+							} else {
+								i++;
+								continue; // 跳过扩号内的内容
+							}
+						case '{':
+							i = Sentence.scanBrace(src, i);
+							if (i == -1) {
+								break;
+							} else {
+								i++;
+								continue; // 跳过扩号内的内容
+							}
+						case '（':
+						case '【':
+						case '《':
+						case '<':
+							i = Sentence.scanChineseBracket(src, i);
+							if (i == -1) {
+								break;
+							} else {
+								i++;
+								continue; // 跳过中文扩号内的内容
+							}
 						}
 						
-						start = -1;
-						for (++i; i < len; ++i) {
-							if (!Character.isWhitespace(chars[i])) {
-								start = i;
-								break;
+						if (Character.isWhitespace(c)) {
+							String sub = src.substring(start, i);
+							if (bData) {
+								result.add(Variant.parse(sub));
+							} else {
+								result.add(sub);
+							}
+							
+							start = -1;
+							for (++i; i < srcLen; ++i) {
+								if (!Character.isWhitespace(src.charAt(i))) {
+									start = i;
+									break;
+								}
+							}
+						} else {
+							i++;
+						}
+					}
+				} else {
+					for (++i; i < srcLen; ++i) {
+						if (Character.isWhitespace(src.charAt(i))) {
+							String sub = src.substring(start, i);
+							if (bData) {
+								result.add(Variant.parse(sub));
+							} else {
+								result.add(sub);
+							}
+							
+							start = -1;
+							for (++i; i < srcLen; ++i) {
+								if (!Character.isWhitespace(src.charAt(i))) {
+									start = i;
+									break;
+								}
 							}
 						}
 					}
 				}
 				
 				if (start != -1) {
-					String sub = src.substring(start, len);
+					String sub = src.substring(start, srcLen);
 					if (bData) {
 						result.add(Variant.parse(sub));
 					} else {
@@ -11716,6 +11785,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				return result;
 			} else {
+				char []chars = src.toCharArray();
+				int len = chars.length;
 				Sequence result = new Sequence(len);
 				if (bData) {
 					for (int i = 0; i < len; ++i) {

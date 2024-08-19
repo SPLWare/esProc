@@ -338,6 +338,13 @@ public class JoinxCursor extends ICursor {
 			return;
 		}
 
+		// 重置表达式
+		for (Expression []curExps : exps) {
+			for (Expression exp : curExps) {
+				exp.reset();
+			}
+		}
+		
 		int tcount = cursors.length;
 		int valCount = exps[0].length;
 		tables = new Sequence[tcount];
