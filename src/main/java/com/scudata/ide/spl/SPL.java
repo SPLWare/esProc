@@ -180,7 +180,8 @@ public class SPL extends AppFrame {
 	/**
 	 * 构造函数
 	 * 
-	 * @param openFile 启动时自动打开文件
+	 * @param openFile
+	 *            启动时自动打开文件
 	 */
 	public SPL(String openFile) {
 		this(openFile, true);
@@ -189,8 +190,10 @@ public class SPL extends AppFrame {
 	/**
 	 * 构造函数
 	 * 
-	 * @param openFile            启动时自动打开文件
-	 * @param terminalVMwhileExit 退出时是否关闭JVM
+	 * @param openFile
+	 *            启动时自动打开文件
+	 * @param terminalVMwhileExit
+	 *            退出时是否关闭JVM
 	 */
 	public SPL(String openFile, boolean terminalVMwhileExit) {
 		super();
@@ -461,6 +464,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 创建SPL工具条
+	 * 
 	 * @return
 	 */
 	protected ToolBarPropertyBase newToolBarProperty() {
@@ -473,6 +477,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 查看参数值
+	 * 
 	 * @param varName
 	 * @param val
 	 */
@@ -534,8 +539,10 @@ public class SPL extends AppFrame {
 	/**
 	 * 关闭指定页
 	 * 
-	 * @param sheet     页对象
-	 * @param showSheet 关闭后是否显示其他页。关闭全部页时应该用false
+	 * @param sheet
+	 *            页对象
+	 * @param showSheet
+	 *            关闭后是否显示其他页。关闭全部页时应该用false
 	 * @return boolean
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet) {
@@ -544,11 +551,14 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 
-	 *关闭指定页
+	 * 关闭指定页
 	 * 
-	 * @param sheet     页对象
-	 * @param showSheet 关闭后是否显示其他页。关闭全部页时应该用false
-	 * @param isQuit 是否退出时调用的
+	 * @param sheet
+	 *            页对象
+	 * @param showSheet
+	 *            关闭后是否显示其他页。关闭全部页时应该用false
+	 * @param isQuit
+	 *            是否退出时调用的
 	 * @return boolean
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet, boolean isQuit) {
@@ -597,6 +607,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 关闭全部页
+	 * 
 	 * @return boolean
 	 */
 	public boolean closeAll() {
@@ -604,8 +615,10 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 *  关闭全部页
-	 * @param isQuit 是否退出时触发的
+	 * 关闭全部页
+	 * 
+	 * @param isQuit
+	 *            是否退出时触发的
 	 * @return
 	 */
 	public boolean closeAll(boolean isQuit) {
@@ -645,6 +658,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 是否本地文件
+	 * 
 	 * @param sheet
 	 * @return
 	 */
@@ -788,8 +802,10 @@ public class SPL extends AppFrame {
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath 文件路径
-	 * @param cellSet  网格对象
+	 * @param filePath
+	 *            文件路径
+	 * @param cellSet
+	 *            网格对象
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath, Object cellSet) {
@@ -798,6 +814,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 创建网格页面
+	 * 
 	 * @param filePath
 	 * @param cs
 	 * @return
@@ -809,6 +826,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 创建网格页面
+	 * 
 	 * @param filePath
 	 * @param cs
 	 * @param stepInfo
@@ -822,9 +840,12 @@ public class SPL extends AppFrame {
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath          文件路径
-	 * @param cellSet           网格对象
-	 * @param refreshRecentFile 是否刷新最近文件
+	 * @param filePath
+	 *            文件路径
+	 * @param cellSet
+	 *            网格对象
+	 * @param refreshRecentFile
+	 *            是否刷新最近文件
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath,
@@ -835,10 +856,14 @@ public class SPL extends AppFrame {
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath          文件路径
-	 * @param cellSet           网格对象
-	 * @param refreshRecentFile 是否刷新最近文件
-	 * @param stepInfo          分步调试信息。没有的传null
+	 * @param filePath
+	 *            文件路径
+	 * @param cellSet
+	 *            网格对象
+	 * @param refreshRecentFile
+	 *            是否刷新最近文件
+	 * @param stepInfo
+	 *            分步调试信息。没有的传null
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath,
@@ -911,6 +936,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 读取网格文件
+	 * 
 	 * @param is
 	 * @return
 	 * @throws Exception
@@ -958,7 +984,8 @@ public class SPL extends AppFrame {
 	/**
 	 * 显示下一个页面
 	 * 
-	 * @param isCtrlDown 是否按了CTRL键
+	 * @param isCtrlDown
+	 *            是否按了CTRL键
 	 */
 	public void showNextSheet(boolean isCtrlDown) {
 		JInternalFrame[] frames = desk.getAllFrames();
@@ -1332,7 +1359,8 @@ public class SPL extends AppFrame {
 	/**
 	 * 准备环境
 	 * 
-	 * @param args JVM参数
+	 * @param args
+	 *            JVM参数
 	 * @return
 	 * @throws Throwable
 	 */
@@ -1391,7 +1419,8 @@ public class SPL extends AppFrame {
 	/**
 	 * 程序主函数
 	 * 
-	 * @param args JVM参数
+	 * @param args
+	 *            JVM参数
 	 */
 	public static void main(final String args[]) {
 		mainInit();
@@ -1440,6 +1469,9 @@ public class SPL extends AppFrame {
 	}
 
 	public static void showSplash() {
+		int port = getEsprocPort();
+		if (TcpServer.checkExistInstance(port))
+			return;
 		String splashFile = getSplashFile();
 		splashWindow = new DialogSplash(splashFile);
 		splashWindow.setVisible(true);
@@ -1527,32 +1559,34 @@ public class SPL extends AppFrame {
 		}
 	}
 
-	/**
-	 * 显示IDE主面板
-	 * 
-	 * @param frame
-	 */
-	public static void showFrame(SPL frame) {
-		showFrame(frame, "esproc_port");
+	public static int getEsprocPort() {
+		String port = GMSpl.getConfigValue(PORT_KEY);
+		int iport = -1;
+		if (StringUtils.isValidString(port)) {
+			try {
+				iport = Integer.parseInt(port);
+			} catch (Exception e1) {
+				Logger.debug("Invalid esproc_port: " + port);
+			}
+		}
+		return iport;
 	}
+
+	public static void startTcpServer(SPL frame) {
+		int port = getEsprocPort();
+		if (port > -1)
+			new TcpServer(port, frame, GV.directOpenFile).start();
+	}
+
+	public static final String PORT_KEY = "esproc_port";
 
 	/**
 	 * 显示IDE主面板
 	 * 
 	 * @param frame
 	 */
-	public static void showFrame(SPL frame, String portKey) {
-		String port = GMSpl.getConfigValue(portKey);
-		if (StringUtils.isValidString(port)) {
-			int iport = -1001;
-			try {
-				iport = Integer.parseInt(port);
-			} catch (Exception e1) {
-				Logger.debug("Invalid esproc_port: " + port);
-			}
-			if (iport != -1001)
-				new TcpServer(iport, frame).start();
-		}
+	public static void showFrame(SPL frame) {
+		startTcpServer(frame);
 		frame.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
 		frame.setExtendedState(MAXIMIZED_BOTH);
 		frame.setVisible(true);
@@ -1708,6 +1742,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 第三方Substance UI是否可用
+	 * 
 	 * @return
 	 */
 	private static boolean isSubstanceUIEnabled() {
@@ -1725,6 +1760,7 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 通过java取os信息，无法取到SUSE系统名，只能执行linux命令来执行了
+	 * 
 	 * @return
 	 */
 	private static boolean isSUSEOS() {
