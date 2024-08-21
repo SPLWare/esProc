@@ -1559,14 +1559,23 @@ public class SPL extends AppFrame {
 		}
 	}
 
+	public static final String ESPROC_PORT_KEY = "esproc_port";
+
 	public static int getEsprocPort() {
-		String port = GMSpl.getConfigValue(PORT_KEY);
+		return getPort(ESPROC_PORT_KEY);
+	}
+
+	public static int getPort(String portKey) {
 		int iport = -1;
+		if (!StringUtils.isValidString(portKey)) {
+			return iport;
+		}
+		String port = GMSpl.getConfigValue(portKey);
 		if (StringUtils.isValidString(port)) {
 			try {
 				iport = Integer.parseInt(port);
 			} catch (Exception e1) {
-				Logger.debug("Invalid esproc_port: " + port);
+				Logger.debug("Invalid " + ESPROC_PORT_KEY + ": " + port);
 			}
 		}
 		return iport;
@@ -1577,8 +1586,6 @@ public class SPL extends AppFrame {
 		if (port > -1)
 			new TcpServer(port, frame, GV.directOpenFile).start();
 	}
-
-	public static final String PORT_KEY = "esproc_port";
 
 	/**
 	 * ÏÔÊ¾IDEÖ÷Ãæ°å
