@@ -1,6 +1,6 @@
 package com.scudata.dw;
 
-import org.bouncycastle.util.Arrays;
+import java.util.Arrays;
 
 import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;

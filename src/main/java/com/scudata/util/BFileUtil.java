@@ -4,21 +4,26 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
 import com.scudata.dm.BFileWriter;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.RandomObjectWriter;
 import com.scudata.dm.RandomOutputStream;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.BFileFetchCursor;
 import com.scudata.dm.cursor.BFileSortxCursor;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -46,10 +51,11 @@ public class BFileUtil {
 		for (int i = 0; i < fcount; i++) {
 			tempExps[i] = new Expression(fields[i]);
 		}
+		int[] findex = isAllRecordFields(ds, tempExps);
 
 		double backup = EnvUtil.getMaxUsedMemoryPercent();
 		EnvUtil.setMaxUsedMemoryPercent(0.2);
-		ICursor cs = CursorUtil.sortx(cursor, tempExps, ctx, 0, opt);
+		ICursor cs = sortx(cursor, tempExps, ctx, 0, opt, findex);
 		EnvUtil.setMaxUsedMemoryPercent(backup);
 		
 		if (outFile == null) {
@@ -61,6 +67,130 @@ public class BFileUtil {
 		writer.close();
 		
 		return Boolean.TRUE;
+	}
+	
+	/**
+	 * 检查比较是否都是记录的字段
+	 * @return
+	 */
+	private static int[] isAllRecordFields(DataStruct ds, Expression[] exps) {
+		int fcount = exps.length;
+		int[] findex = new int[fcount];
+		for (int i = 0; i < fcount; i++) {
+			findex[i] = ds.getFieldIndex(exps[i].getIdentifierName());
+			if (findex[i] == -1) {
+				return null;
+			}
+		}
+		return findex;
+	}
+	
+	private static Thread newExportThread(final FileObject fo, final Sequence sequence, 
+			final Context ctx, final ArrayList<ICursor> cursorList) {
+		return new Thread() {
+			public void run() {
+				fo.exportSeries(sequence, "b", null);
+				BFileCursor bfc = new BFileCursor(fo, null, "x", ctx);
+				synchronized(cursorList) {
+					cursorList.add(bfc);
+				}
+			}
+		};
+	}
+	
+	/**
+	 * 对游标进行外存排序
+	 */
+	private static ICursor sortx(ICursor cursor, Expression[] exps, Context ctx, int capacity, String opt, int[] findex) {
+		int fcount = exps.length;
+		ArrayList<ICursor> cursorList = new ArrayList<ICursor>();
+		
+		Sequence table;
+		if (capacity <= 1) {
+			// 尽可能的多取数据，这样可以减少临时文件的数量
+			// 之后每次取数的数量都用这个数
+			table = CursorUtil.tryFetch(cursor);
+			if (table != null) {
+				capacity = table.length();
+			}
+		} else {
+			table = cursor.fetch(capacity);
+		}
+		
+		MessageManager mm = EngineMessage.get();
+		String msg = mm.getMessage("engine.createTmpFile");
+		Expression[] tempExps = exps.clone();
+		Thread exportThread = null;
+		
+		while (table != null && table.length() > 0) {
+			// 字段表达式做运算时为了性能优化会保留记录的指针
+			// 为了在下次取数前能够释放前一次的数据，先复制下表达式，排好序后再释放表达式
+			for (int i = 0, len = tempExps.length; i < len; i++) {
+				tempExps[i] = exps[i].newExpression(ctx);
+			}
+			
+			Sequence sequence;
+			if (findex != null) {
+				opt = opt == null ? "o" : opt + "o";
+				sequence = table.sort(tempExps, null, opt, findex, ctx);
+			} else if (fcount == 1) {
+				sequence = table.sort(tempExps[0], null, opt, ctx);
+			} else {
+				sequence = table.sort(tempExps, null, opt, ctx);
+			}
+
+			// 是否源表和表达式
+			table = null;
+			for (int i = 0, len = tempExps.length; i < len; i++) {
+				tempExps[i] = null;
+			}
+			
+			// 创建临时文件
+			FileObject fo = FileObject.createTempFileObject();
+			Logger.info(msg + fo.getFileName());
+			
+			// 把排好序的排列写出临时集文件
+			if (exportThread != null) {
+				try {
+					exportThread.join();
+				} catch (InterruptedException e) {
+					throw new RQException(e);
+				}
+			}
+			exportThread = newExportThread(fo, sequence, ctx, cursorList);
+			exportThread.start();
+			sequence = null;
+			
+			// 继续取数据
+			table = cursor.fetch(capacity);
+		}
+
+		if (exportThread != null) {
+			try {
+				exportThread.join();
+			} catch (InterruptedException e) {
+				throw new RQException(e);
+			}
+		}
+		
+		int size = cursorList.size();
+		if (size == 0) {
+			//return null;
+			return new MemoryCursor(null);
+		} else if (size == 1) {
+			return (ICursor)cursorList.get(0);
+		} else {
+			// 对临时文件做归并
+			int bufSize = Env.getMergeFileBufSize(size);
+			for (int i = 0; i < size; ++i) {
+				BFileCursor bfc = (BFileCursor)cursorList.get(i);
+				bfc.setFileBufferSize(bufSize);
+			}
+			
+			ICursor []cursors = new ICursor[size];
+			cursorList.toArray(cursors);
+			return CursorUtil.merge(cursors, exps, opt, ctx);
+		}
 	}
 	
 	/**
