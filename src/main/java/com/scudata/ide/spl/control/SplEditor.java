@@ -311,8 +311,8 @@ public class SplEditor {
 	 * @return
 	 */
 	public boolean executeCmd(Vector<IAtomicCmd> cmds) {
-		control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 		undoManager.doing(cmds);
+		control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 		return true;
 	}
 
@@ -323,8 +323,8 @@ public class SplEditor {
 	 * @return
 	 */
 	public boolean executeCmd(IAtomicCmd aCell) {
-		control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 		undoManager.doing(aCell);
+		control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 		return true;
 	}
 
