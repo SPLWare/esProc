@@ -240,11 +240,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		initCellLocations();
 		setLayout(null);
 		newEditor();
-
 		spEditor = new JScrollPane(multiEditor);
 		spEditor.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		spEditor.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
+		multiEditor.setVisible(false);
+		spEditor.setVisible(false);
 		add(spEditor);
 		if (!isEditing) {
 			addMouseListener(new ShowEditorListener(this));
@@ -269,7 +270,6 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			};
 			multiEditor.addMouseListener(ma);
 		}
-		setEditorVisible(false);
 	}
 
 	/**
