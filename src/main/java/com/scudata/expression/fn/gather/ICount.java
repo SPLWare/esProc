@@ -1,22 +1,28 @@
 package com.scudata.expression.fn.gather;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
+import com.scudata.array.LongArray;
 import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.ObjectWriter;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
+import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
@@ -31,6 +37,235 @@ public class ICount extends Gather {
 	private Expression exp; // 表达式
 	private boolean isSorted = false; // 数据是否按表达式有序
 	private boolean optB = false; // 使用位模式
+	private int maxSize = 0;
+	
+	// 使用外存计算icount
+	public static class ICountFile {
+		private final int MAX_SIZE;
+		private IArray elementArray; // 哈希表存放的是元素的位置，需要根据位置到源表取元素
+		private int []linkArray; // 哈希值相同的记录链表
+		private HashUtil hashUtil; // 用于计算哈希值
+		private int []entries; // 哈希表，存放着哈希值对应的最后一条记录的位置
+		private ArrayList<FileObject> fileList = new ArrayList<FileObject>();
+		
+		public ICountFile(int maxSize) {
+			this.MAX_SIZE = maxSize;
+			elementArray = new ObjectArray(maxSize);
+			linkArray = new int[maxSize + 1];
+			hashUtil = new HashUtil(maxSize);
+			entries = new int[hashUtil.getCapacity()];
+		}
+		
+		public ICountFile(IArray valueArray, int maxSize) {
+			this.MAX_SIZE = maxSize;
+			elementArray = valueArray.newInstance(maxSize);
+			linkArray = new int[maxSize + 1];
+			hashUtil = new HashUtil(maxSize);
+			entries = new int[hashUtil.getCapacity()];
+		}
+		
+		private void addValue(Object value) {
+			int []entries = this.entries;
+			int hash = hashUtil.hashCode(value);
+			int seq = entries[hash];
+			
+			while (seq != 0) {
+				if (elementArray.isEquals(seq, value)) {
+					return;
+				} else {
+					seq = linkArray[seq];
+				}
+			}
+			
+			int count = elementArray.size();
+			if (count == MAX_SIZE) {
+				Object []values = elementArray.toArray();
+				MultithreadUtil.sort(values);
+				FileObject fo = FileObject.createTempFileObject();
+				fileList.add(fo);
+				ObjectWriter writer = new ObjectWriter(fo.getOutputStream(false));
+				
+				try {
+					writer.writeInt(count);
+					for (Object obj : values) {
+						writer.writeObject(obj);
+					}
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				} finally {
+					try {
+						writer.close();
+					} catch (IOException e) {
+						throw new RQException(e.getMessage(), e);
+					}
+				}
+				
+				elementArray.clear();
+				for (int i = 0, size = entries.length; i < size; ++i) {
+					entries[i] = 0;
+				}
+				
+				elementArray.push(value);
+				entries[hash] = 1;
+			} else {
+				elementArray.push(value);
+				linkArray[count + 1] = entries[hash];
+				entries[hash] = count + 1;
+			}
+		}
+		
+		public void add(Object value) {
+			if (value instanceof ICountFile) {
+				ICountFile cf = (ICountFile)value;
+				fileList.addAll(cf.fileList);
+				IArray array = cf.elementArray;
+				int size1 = elementArray.size();
+				int size2 = array.size();
+				
+				if (size1 + size2 > MAX_SIZE) {
+					if (size2 >= size1) {
+						Object []values = array.toArray();
+						MultithreadUtil.sort(values);
+						FileObject fo = FileObject.createTempFileObject();
+						fileList.add(fo);
+						ObjectWriter writer = new ObjectWriter(fo.getOutputStream(false));
+						
+						try {
+							writer.writeInt(size2);
+							for (Object obj : values) {
+								writer.writeObject(obj);
+							}
+						} catch (IOException e) {
+							throw new RQException(e.getMessage(), e);
+						} finally {
+							try {
+								writer.close();
+							} catch (IOException e) {
+								throw new RQException(e.getMessage(), e);
+							}
+						}
+					} else {
+						Object []values = elementArray.toArray();
+						MultithreadUtil.sort(values);
+						FileObject fo = FileObject.createTempFileObject();
+						fileList.add(fo);
+						ObjectWriter writer = new ObjectWriter(fo.getOutputStream(false));
+						
+						try {
+							writer.writeInt(size1);
+							for (Object obj : values) {
+								writer.writeObject(obj);
+							}
+						} catch (IOException e) {
+							throw new RQException(e.getMessage(), e);
+						} finally {
+							try {
+								writer.close();
+							} catch (IOException e) {
+								throw new RQException(e.getMessage(), e);
+							}
+						}
+						
+						elementArray = cf.elementArray;
+						linkArray = cf.linkArray;
+						hashUtil = cf.hashUtil;
+						entries = cf.entries;
+					}
+				} else {
+					for (int i = 1; i <= size2; ++i) {
+						addValue(array.get(i));
+					}
+				}
+			} else if (value != null) {
+				addValue(value);
+			}
+		}
+		
+		public long result() {
+			int fileCount = fileList.size();
+			if (fileCount == 0) {
+				return elementArray.size();
+			}
+			
+			Object []objs = elementArray.toArray();
+			MultithreadUtil.sort(objs);
+			IValues []valuesArray = new IValues[fileCount + 1];
+			valuesArray[0] = new Values(objs);
+			
+			for (int i = 0; i < fileCount; ++i) {
+				valuesArray[i + 1] = new FileValues(fileList.get(i));
+			}
+			
+			long result = count(valuesArray);
+			return result;
+		}
+		
+		private static long count(IValues []valuesArray, int path, Object value) {
+			if (valuesArray[path] == null) {
+				return 0;
+			}
+			
+			long result = 0;
+			Object curValue = valuesArray[path].getTop();
+			int pathCount = valuesArray.length;
+			int nextPath = path + 1;
+			
+			while (curValue != null) {
+				int cmp = Variant.compare(value, curValue, true);
+				if (cmp < 0) {
+					if (nextPath < valuesArray.length) {
+						return result + count(valuesArray, nextPath, value);
+					} else {
+						return result;
+					}
+				} else if (cmp == 0) {
+					valuesArray[path].pop();
+					if (nextPath < valuesArray.length) {
+						return result + count(valuesArray, nextPath, value);
+					} else {
+						return result;
+					}
+				} else {
+					result++;
+					if (nextPath < valuesArray.length) {
+						result += count(valuesArray, nextPath, curValue);
+					}
+					
+					valuesArray[path].pop();
+					curValue = valuesArray[path].getTop();
+				}
+			}
+			
+			pathCount--;
+			if (path < pathCount) {
+				System.arraycopy(valuesArray, path + 1, valuesArray, path, pathCount - path);
+				valuesArray[pathCount] = null;
+				return result + count(valuesArray, path, value);
+			} else {
+				valuesArray[pathCount] = null;
+				return result;
+			}
+		}
+		
+		private static long count(IValues []valuesArray) {
+			int pathCount = valuesArray.length;
+			long result = 0;
+			while (true) {
+				Object value = valuesArray[0].pop();
+				if (value != null) {
+					result += count(valuesArray, 1, value) + 1;
+				} else if (valuesArray[1] != null){
+					pathCount--;
+					System.arraycopy(valuesArray, 1, valuesArray, 0, pathCount);
+					valuesArray[pathCount] = null;
+				} else {
+					break;
+				}
+			}
+			
+			return result;
+		}
+	}
 	
 	// 有序icount的中间结果信息
 	public static class ICountInfo implements Serializable {
@@ -418,12 +653,32 @@ public class ICount extends Gather {
 	}
 	
 	public void prepare(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("icount" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			exp = param.getLeafExpression();
+		} else if (param.getSubSize() == 2) {
+			IParam sub0 = param.getSub(0);
+			IParam sub1 = param.getSub(1);
+			if (sub0 == null || sub1 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icount" + mm.getMessage("function.invalidParam"));
+			}
+			
+			exp = sub0.getLeafExpression();
+			Object value = sub1.getLeafExpression().calculate(ctx);
+			if (value instanceof Number) {
+				maxSize = ((Number)value).intValue();
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icount" + mm.getMessage("function.paramTypeError"));
+			}
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("icount" + mm.getMessage("function.invalidParam"));
 		}
-
-		exp = param.getLeafExpression();
+		
 		isSorted = option != null && option.indexOf('o') != -1;
 		optB = option != null && option.indexOf('b') != -1;
 	}
@@ -443,7 +698,7 @@ public class ICount extends Gather {
 		}
 
 		Object val = exp.calculate(ctx);
-		if (val instanceof HashSet) {
+		if (val instanceof HashSet || val instanceof ICountFile) {
 			return val;
 		} else if (val instanceof Sequence){
 			Sequence seq = (Sequence)val;
@@ -455,9 +710,15 @@ public class ICount extends Gather {
 			
 			return set;
 		} else if (val != null) {
-			HashSet<Object> set = new HashSet<Object>();
-			set.add(val);
-			return set;
+			if (maxSize > 0) {
+				ICountFile icf = new ICountFile(maxSize);
+				icf.add(val);
+				return icf;
+			} else {
+				HashSet<Object> set = new HashSet<Object>();
+				set.add(val);
+				return set;
+			}
 		} else {
 			return null;
 		}
@@ -481,24 +742,7 @@ public class ICount extends Gather {
 			return oldValue;
 		}
 		
-		if (oldValue == null) {
-			if (val instanceof HashSet) {
-				return val;
-			} else if (val instanceof Sequence){
-				Sequence seq = (Sequence)val;
-				int len = seq.length();
-				HashSet<Object> set = new HashSet<Object>(len + 8);
-				for (int i = 1; i <= len; ++i) {
-					set.add(seq.getMem(i));
-				}
-				
-				return set;
-			} else {
-				HashSet<Object> set = new HashSet<Object>();
-				set.add(val);
-				return set;
-			}
-		} else {
+		if (oldValue instanceof HashSet) {
 			HashSet<Object> set = ((HashSet<Object>)oldValue);
 			if (val instanceof HashSet) {
 				set.addAll((HashSet<Object>)val);
@@ -513,6 +757,33 @@ public class ICount extends Gather {
 			}
 			
 			return oldValue;
+		} else if (oldValue instanceof ICountFile) {
+			ICountFile icf = (ICountFile)oldValue;
+			icf.add(val);
+			return icf;
+		} else { // oldValue == null
+			if (val instanceof HashSet || val instanceof ICountFile) {
+				return val;
+			} else if (val instanceof Sequence){
+				Sequence seq = (Sequence)val;
+				int len = seq.length();
+				HashSet<Object> set = new HashSet<Object>(len + 8);
+				for (int i = 1; i <= len; ++i) {
+					set.add(seq.getMem(i));
+				}
+				
+				return set;
+			} else {
+				if (maxSize > 0) {
+					ICountFile icf = new ICountFile(maxSize);
+					icf.add(val);
+					return icf;
+				} else {
+					HashSet<Object> set = new HashSet<Object>();
+					set.add(val);
+					return set;
+				}
+			}
 		}
 	}
 	
@@ -524,6 +795,9 @@ public class ICount extends Gather {
 	public Expression getRegatherExpression(int q) {
 		if (isSorted) {
 			String str = "icount@o(#" + q + ")";
+			return new Expression(str);
+		} else if (maxSize > 0) {
+			String str = "icount(#" + q + "," + maxSize + ")";
 			return new Expression(str);
 		} else {
 			String str = "icount(#" + q + ")";
@@ -598,14 +872,28 @@ public class ICount extends Gather {
 		}
 		
 		int size = array.size();
-		IntArray result = new IntArray(size);
-		
 		if (isSorted) {
+			IntArray result = new IntArray(size);
 			for (int i = 1; i <= size; ++i) {
 				ICountInfo val = (ICountInfo)array.get(i);
 				result.pushInt(val.count);
 			}
+			
+			return result;
+		} else if (maxSize > 0) {
+			LongArray result = new LongArray(size);
+			for (int i = 1; i <= size; ++i) {
+				Object val = array.get(i);
+				if (val instanceof ICountFile) {
+					result.pushLong(((ICountFile)val).result());
+				} else {
+					result.pushLong(0);
+				}
+			}
+			
+			return result;
 		} else {
+			IntArray result = new IntArray(size);
 			for (int i = 1; i <= size; ++i) {
 				Object val = array.get(i);
 				if (val instanceof ICountHashSet) {
@@ -616,9 +904,9 @@ public class ICount extends Gather {
 					result.pushInt(0);
 				}
 			}
+			
+			return result;
 		}
-		
-		return result;
 	}
 	
 	/**
@@ -631,6 +919,8 @@ public class ICount extends Gather {
 			return ObjectCache.getInteger(((HashSet<Object>)val).size());
 		} else if (val instanceof Sequence) {
 			return ObjectCache.getInteger(((Sequence)val).length());
+		} else if (val instanceof ICountFile) {
+			return ((ICountFile)val).result();
 		} else {
 			return ObjectCache.getInteger(0);
 		}
@@ -673,6 +963,36 @@ public class ICount extends Gather {
 				} else {
 					ICountInfo oldValue = (ICountInfo)result.get(resultSeqs[i]);
 					oldValue.put(val);
+				}
+			}
+		} else if (maxSize > 0) {
+			int maxSize = this.maxSize;
+			for (int i = 1, size = array.size(); i <= size; ++i) {
+				Object val = array.get(i);
+				if (result.size() < resultSeqs[i]) {
+					if (val instanceof ICountFile){
+						result.add(val);
+					} else if (val != null) {
+						ICountFile icf = new ICountFile(maxSize);
+						icf.add(array.get(i));
+						result.add(icf);
+					} else {
+						result.add(null);
+					}
+				} else {
+					Object oldValue = result.get(resultSeqs[i]);
+					if (oldValue == null) {
+						if (val instanceof ICountFile) {
+							result.set(resultSeqs[i], val);
+						} else if (val != null) {
+							ICountFile icf = new ICountFile(maxSize);
+							icf.add(array.get(i));
+							result.set(resultSeqs[i], icf);
+						}
+					} else {
+						ICountFile icf = (ICountFile)oldValue;
+						icf.add(val);
+					}
 				}
 			}
 		} else {
@@ -882,7 +1202,7 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * 多程程分组的二次汇总运算
+	 * 多线程分组的二次汇总运算
 	 * @param result 一个线程的分组结果
 	 * @param result2 另一个线程的分组结果
 	 * @param seqs 另一个线程的分组跟第一个线程分组的对应关系
@@ -896,6 +1216,13 @@ public class ICount extends Gather {
 					ICountBitSet value1 = (ICountBitSet) result.get(seqs[i]);
 					ICountBitSet value2 = (ICountBitSet) result2.get(i);
 					value1.addAll(value2);
+				}
+			}
+		} else if (maxSize > 0) {
+			for (int i = 1, len = result2.size(); i <= len; ++i) {
+				if (seqs[i] != 0) {
+					ICountFile value1 = (ICountFile) result.get(seqs[i]);
+					value1.add(result2.get(i));
 				}
 			}
 		} else if (!isSorted) {
