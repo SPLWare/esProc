@@ -4130,7 +4130,8 @@ public class GM {
 				return ConfigOptions.COLOR_DECIMAL;
 			} else if (value instanceof Double) {
 				return ConfigOptions.COLOR_DOUBLE;
-			} else if (value instanceof Integer) {
+			} else if (value instanceof Integer || value instanceof Long
+					|| value instanceof Short) {
 				return ConfigOptions.COLOR_INTEGER;
 			}
 		} else {
