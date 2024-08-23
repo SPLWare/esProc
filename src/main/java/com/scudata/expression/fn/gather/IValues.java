@@ -31,9 +31,7 @@ class Values implements IValues {
 	
 	public Object pop() {
 		if (index < count) {
-			Object val = values[index];
-			index++;
-			return val;
+			return values[index++];
 		} else {
 			return null;
 		}

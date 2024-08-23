@@ -2,10 +2,12 @@ package com.scudata.dm.op;
 
 import java.util.Comparator;
 
+import com.scudata.array.IArray;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.Current;
 import com.scudata.dm.Env;
+import com.scudata.dm.HashLinkSet;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.comparator.BaseComparator;
@@ -36,6 +38,7 @@ public class IDResult implements IResult {
 	
 	private ICountBitSet bitSet;
 	private ICountPositionSet posSet;
+	private HashLinkSet hashLinkSet;
 	
 	public IDResult(Expression []exps, int count, String opt, Context ctx) {
 		this.exps = exps;
@@ -48,8 +51,11 @@ public class IDResult implements IResult {
 			 optN = opt.indexOf('n') != -1;
 		}
 		
+		int capacity;
 		if (count == Integer.MAX_VALUE) {
-			count = Env.getDefaultHashCapacity();
+			capacity = Env.getDefaultHashCapacity();
+		} else {
+			capacity = count;
 		}
 		
 		int fcount = exps.length;
@@ -57,8 +63,10 @@ public class IDResult implements IResult {
 			bitSet = new ICountBitSet();
 		} else if (optN) {
 			posSet = new ICountPositionSet();
+		} else if (exps.length == 1 && count == Integer.MAX_VALUE) {
+			hashLinkSet = new HashLinkSet();
 		} else {
-			hashUtil = new HashUtil(count);
+			hashUtil = new HashUtil(capacity);
 			allGroups = new ListBase1[fcount][];
 
 			for (int i = 0; i < fcount; ++i) {
@@ -68,7 +76,7 @@ public class IDResult implements IResult {
 
 		outs = new Sequence[fcount];
 		for (int i = 0; i < fcount; ++i) {
-			outs[i] = new Sequence(count);
+			outs[i] = new Sequence(capacity);
 		}
 	}
 
@@ -78,7 +86,11 @@ public class IDResult implements IResult {
 	 */
 	public Sequence getResultSequence() {
 		Sequence result;
-		if (exps.length == 1) {
+		if (hashLinkSet != null) {
+			IArray array = hashLinkSet.getElementArray();
+			array.sort();
+			result = new Sequence(array);
+		} else if (exps.length == 1) {
 			if (opt == null || opt.indexOf('u') == -1) {
 				Comparator<Object> comparator = new BaseComparator();
 				outs[0].getMems().sort(comparator);
@@ -92,6 +104,7 @@ public class IDResult implements IResult {
 		if (opt != null && opt.indexOf('0') != -1) {
 			result.deleteNull(false);
 		}
+		
 		return result;
 	}
 	
@@ -118,7 +131,11 @@ public class IDResult implements IResult {
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0) return;
 		
-		addGroups(table, ctx);
+		if (hashLinkSet != null) {
+			addToHashLinkSet(table, ctx);
+		} else {
+			addGroups(table, ctx);
+		}
 	}
 
 	/**
@@ -127,7 +144,14 @@ public class IDResult implements IResult {
 	 */
 	public void push(ICursor cursor) {
 		Context ctx = this.ctx;
-		if (optB) {
+		if (hashLinkSet != null) {
+			while (true) {
+				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
+				if (src == null || src.length() == 0) break;
+				
+				addToHashLinkSet(src, ctx);
+			}
+		} else if (optB) {
 			while (true) {
 				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
 				if (src == null || src.length() == 0) break;
@@ -148,6 +172,24 @@ public class IDResult implements IResult {
 				
 				addGroups(src, ctx);
 			}
+		}
+	}
+	
+	private void addToHashLinkSet(Sequence table, Context ctx) {
+		HashLinkSet hashLinkSet = this.hashLinkSet;
+		Expression exp = exps[0];
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(table);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = table.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				hashLinkSet.put(exp.calculate(ctx));
+			}
+		} finally {
+			stack.pop();
 		}
 	}
 	
