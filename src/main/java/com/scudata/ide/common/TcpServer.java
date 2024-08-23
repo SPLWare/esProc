@@ -29,10 +29,11 @@ public class TcpServer extends Thread {
 	 */
 	private int port;
 	private String file;
-	
-	public static String GETWINDOWTITLE="GetWindowTitle";
-	public static String ACTIVATE="ACTIVATE";
+
+	public static String GETWINDOWTITLE = "GetWindowTitle";
+	public static String ACTIVATE = "ACTIVATE";
 	public static String LOCALHOST = "127.0.0.1";
+
 	/**
 	 * Constructor
 	 * 
@@ -42,45 +43,46 @@ public class TcpServer extends Thread {
 	 *            IDE frame
 	 */
 	public TcpServer(int port, IAppFrame frame, String file) {
-		this(port,frame);
+		this(port, frame);
 		this.file = file;
 	}
-	
+
 	public TcpServer(int port, IAppFrame frame) {
 		this.port = port;
 		this.frame = frame;
 	}
-	
+
 	/**
 	 * 检查一下根据配置的端口port，有没有已经启动的实例
+	 * 
 	 * @param port
 	 * @return 有了则返回true
 	 */
 	public static boolean checkExistInstance(int port) {
-		return ask(LOCALHOST,GETWINDOWTITLE,port);
+		return ask(LOCALHOST, GETWINDOWTITLE, port);
 	}
-	
-	private boolean ask(String host,String cmd) {
-		return ask(host,cmd,port);
+
+	private boolean ask(String host, String cmd) {
+		return ask(host, cmd, port);
 	}
-	
-	private static boolean ask(String host,String cmd,int port ) {
+
+	private static boolean ask(String host, String cmd, int port) {
 		int timeout = 2000;
 		Socket s = new Socket();
 		try {
 			InetSocketAddress isa = new InetSocketAddress(host, port);
-			s.connect( isa, timeout);
+			s.connect(isa, timeout);
 			OutputStream os = s.getOutputStream();
 			os.write(cmd.getBytes());
 			InputStream is = s.getInputStream();
 			byte[] buffer = new byte[1024];
 			int len = is.read(buffer);
 			String res = new String(buffer, 0, len);
-			if(StringUtils.isValidString(res)) {
+			if (StringUtils.isValidString(res)) {
 				return true;
 			}
-		}catch(Exception x) {
-		}finally {
+		} catch (Exception x) {
+		} finally {
 			try {
 				s.close();
 			} catch (IOException e) {
@@ -96,12 +98,12 @@ public class TcpServer extends Thread {
 		ServerSocket ss = null;
 		try {
 			boolean isExist = checkExistInstance(port);
-			if(isExist) {
-				ask(LOCALHOST,ACTIVATE);
-				if(StringUtils.isValidString(file)) {
-					ask(LOCALHOST,file);
+			if (isExist) {
+				ask(LOCALHOST, ACTIVATE);
+				if (StringUtils.isValidString(file)) {
+					ask(LOCALHOST, file);
 				}
-				System.exit(0);
+				exit();
 			}
 			String[] ipStr = LOCALHOST.split("\\.");
 			byte[] ipBuf = new byte[4];
@@ -109,7 +111,7 @@ public class TcpServer extends Thread {
 				ipBuf[i] = (byte) (Integer.parseInt(ipStr[i]) & 0xFF);
 			}
 			InetAddress add = InetAddress.getByAddress(ipBuf);
-			
+
 			ss = new ServerSocket(port, 10, add);
 			while (true) {
 				try {
@@ -122,9 +124,9 @@ public class TcpServer extends Thread {
 						OutputStream os = s.getOutputStream();
 						String wTitle = ((JFrame) frame).getTitle();
 						os.write(wTitle.getBytes());
-					} else if(file.equals(ACTIVATE)){
+					} else if (file.equals(ACTIVATE)) {
 						((JFrame) frame).toFront();
-					}else {
+					} else {
 						if (file.startsWith("\"")) {
 							file = file.substring(1, file.length() - 1);
 						}
@@ -161,4 +163,7 @@ public class TcpServer extends Thread {
 		}
 	}
 
+	protected void exit() {
+		System.exit(0);
+	}
 }
