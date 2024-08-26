@@ -47,8 +47,16 @@ public class HashLinkSet {
 			hashUtil = new HashUtil(capacity * 2);
 			capacity = hashUtil.getCapacity();
 			entries = new int[capacity];
-			linkArray = new int[capacity + 1];
 			
+			if (capacity < count) {
+				// 哈希表容量达到设定的最大值
+				capacity = (int)((long)capacity * 3  / 2);
+				if (capacity < 0) {
+					capacity = Integer.MAX_VALUE;
+				}
+			}
+			
+			linkArray = new int[capacity + 1];
 			elementArray.ensureCapacity(capacity);
 			elementArray.push(value);
 			
