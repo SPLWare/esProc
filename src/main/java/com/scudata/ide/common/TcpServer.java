@@ -151,7 +151,7 @@ public class TcpServer extends Thread {
 				public void run() {
 					GM.messageDialog(null, "Socket port: " + port
 							+ " creation failed: " + error);
-					System.exit(0);
+					exit();
 				}
 			});
 		} finally {
