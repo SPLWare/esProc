@@ -2113,7 +2113,7 @@ public class GM {
 					.getMessage("gm.existfile", saveAsFile), IdeCommonMessage
 					.get().getMessage("public.note"),
 					JOptionPane.OK_CANCEL_OPTION);
-			if (r == JOptionPane.CANCEL_OPTION) {
+			if (r != JOptionPane.OK_OPTION) {
 				return false;
 			}
 		}
