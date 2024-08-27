@@ -2790,7 +2790,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * 返回是否自动计算
+	 * 返回最后一个参数是否是动态参数
 	 * @return boolean
 	 */
 	public boolean isDynamicParam() {

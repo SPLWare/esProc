@@ -11443,7 +11443,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				} else if (obj instanceof Sequence) {
 					sb.append(((Sequence)obj).toString(sep, opt));
-				} else {
+				} else if (obj != null) {
 					sb.append(Variant.toString(obj));
 				}
 			}
@@ -11474,7 +11474,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					sb.append(STARTSYMBOL);
 					sb.append(((Sequence)obj).toString(sep, opt));
 					sb.append(ENDSYMBOL);
-				} else {
+				} else if (obj != null) {
 					sb.append(Variant.toString(obj));
 				}
 			}
