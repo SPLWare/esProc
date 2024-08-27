@@ -13,6 +13,7 @@ import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -148,18 +149,55 @@ public class Call extends Function {
 			pcs.setParamToContext();
 			ParamList list = pcs.getParamList();
 			if (list != null) {
-				int size = param.getSubSize();
-				if (size - 1 > list.count()) size = list.count() + 1;
-
 				Context curCtx = pcs.getContext();
-				for (int i = 1; i < size; ++i) {
-					IParam sub = param.getSub(i);
-					Param p = list.get(i - 1);
-					if (sub != null) {
-						Object val = sub.getLeafExpression().calculate(ctx);
-						curCtx.setParamValue(p.getName(), val);
+				if (pcs.isDynamicParam()) {
+					// 如果最后一个参数是动态参数则需要拼成序列
+					int paramCount = list.count();
+					int giveCount = param.getSubSize() - 1;
+					int last;
+					if (giveCount >= paramCount) {
+						last = paramCount;
+						Sequence values = new Sequence();
+						
+						for (int i = last; i <= giveCount; ++i) {
+							IParam sub = param.getSub(i);
+							if (sub != null) {
+								Object val = sub.getLeafExpression().calculate(ctx);
+								values.add(val);
+							} else {
+								values.add(null);
+							}
+						}
+						
+						Param p = list.get(paramCount - 1);
+						curCtx.setParamValue(p.getName(), values);
 					} else {
-						curCtx.setParamValue(p.getName(), null);
+						last = giveCount + 1;
+					}
+					
+					for (int i = 1; i < last; ++i) {
+						IParam sub = param.getSub(i);
+						Param p = list.get(i - 1);
+						if (sub != null) {
+							Object val = sub.getLeafExpression().calculate(ctx);
+							curCtx.setParamValue(p.getName(), val);
+						} else {
+							curCtx.setParamValue(p.getName(), null);
+						}
+					}
+				} else {
+					int size = param.getSubSize();
+					if (size - 1 > list.count()) size = list.count() + 1;
+
+					for (int i = 1; i < size; ++i) {
+						IParam sub = param.getSub(i);
+						Param p = list.get(i - 1);
+						if (sub != null) {
+							Object val = sub.getLeafExpression().calculate(ctx);
+							curCtx.setParamValue(p.getName(), val);
+						} else {
+							curCtx.setParamValue(p.getName(), null);
+						}
 					}
 				}
 			}

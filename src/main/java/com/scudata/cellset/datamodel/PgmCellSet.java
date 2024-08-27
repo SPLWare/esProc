@@ -53,6 +53,7 @@ public class PgmCellSet extends CellSet {
 	public static final int PRIVILEGE_EXEC = 1; // 只可以执行
 
 	private static final int SIGN_AUTOCALC = 0x00000010; // 自动计算
+	private static final int SIGN_DYNAMICPARAM = 0x00000010; // 脚本最后一个参数为动态参数
 
 	private int sign = 0;
 	private ByteMap customPropMap; // 自定义属性
@@ -2774,6 +2775,26 @@ public class PgmCellSet extends CellSet {
 	 */
 	public boolean isAutoCalc() {
 		return (sign & SIGN_AUTOCALC) == SIGN_AUTOCALC;
+	}
+	
+	/**
+	 * 设置最后一个参数是否是动态参数
+	 * @param b boolean
+	 */
+	public void setDynamicParam(boolean b) {
+		if (b) {
+			sign |= SIGN_DYNAMICPARAM;
+		} else {
+			sign &= ~SIGN_DYNAMICPARAM;
+		}
+	}
+
+	/**
+	 * 返回是否自动计算
+	 * @return boolean
+	 */
+	public boolean isDynamicParam() {
+		return (sign & SIGN_DYNAMICPARAM) == SIGN_DYNAMICPARAM;
 	}
 
 	public void setName(String name) {
