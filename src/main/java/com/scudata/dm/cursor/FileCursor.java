@@ -660,4 +660,8 @@ public class FileCursor extends ICursor {
 	public void setOptimize(boolean optimize) {
 		this.optimize = optimize;
 	}
+
+	public LineImporter getImporter() {
+		return importer;
+	}
 }

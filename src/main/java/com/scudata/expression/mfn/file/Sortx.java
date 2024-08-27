@@ -75,6 +75,6 @@ public class Sortx extends FileFunction {
 			throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
 		}
 
-		return BFileUtil.sortx(file, out, fields, ctx, option);
+		return BFileUtil.sortx(file, out, fields, option, ctx);
 	}
 }

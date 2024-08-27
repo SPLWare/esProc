@@ -2983,4 +2983,87 @@ public final class LineImporter implements ILineInput {
 		
 		return list.toArray();
 	}
+	
+	// 根据字段类型把拆分行的列，并转成对象
+	public Object[] readLine(byte[] bytes) throws IOException {
+		LineBytes line = new LineBytes(bytes, 0, bytes.length);
+		byte []colTypes = this.colTypes;
+		
+		if (colSeparators != null) {
+			return readLine2(line, colTypes);
+		}
+		
+		int colCount = colTypes.length;
+		Object []values = new Object[colCount];
+		int count = line.count;
+		if (count < 1) {
+			return values;
+		}
+		
+		byte[] buffer = line.buffer;
+		int index = line.i;
+		int end = index + count;
+		
+		byte colSeparator = this.colSeparator;
+		int []selIndex = this.selIndex;
+		char escapeChar = this.escapeChar;
+		boolean doQuoteMatch = this.doQuoteMatch; // 是否做引号匹配
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // 是否做单引号匹配
+		boolean doBracketsMatch = this.doBracketsMatch; // 是否做括号匹配（包括圆括号、中括号、花括号）
+		
+		int colIndex = 0;
+		int start = index;
+		int BracketsLevel = 0; // 括号的层数，有p选项时认为括号总是匹配出现的
+		
+		while (index < end && colIndex < colCount) {
+			byte c = buffer[index];
+			if (BracketsLevel == 0 && c == colSeparator) {
+				// 列结束
+				if (selIndex == null || selIndex[colIndex] != -1) {
+					values[colIndex] = parse(buffer, start, index, colIndex);
+				}
+				
+				colIndex++;
+				start = ++index;
+			} else if (doQuoteMatch && c == '"') {
+				// 找引号匹配，忽略引号内的列分隔符
+				for (++index; index < end; ++index) {
+					if (buffer[index] == '"') {
+						index++;
+						if (escapeChar != '"' || index == end || buffer[index] != '"') {
+							break;
+						}
+					} else if (buffer[index] == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doSingleQuoteMatch && c == '\'') {
+				// 找单引号匹配，忽略引号内的列分隔符
+				for (++index; index < end; ++index) {
+					if (buffer[index] == '\'') {
+						index++;
+						break;
+					} else if (buffer[index] == escapeChar) {
+						index++;
+					}
+				}
+			} else if (doBracketsMatch) {
+				if (c == '(' || c == '[' || c == '{') {
+					BracketsLevel++;
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}')) {
+					BracketsLevel--;
+				}
+				
+				index++;
+			} else {
+				index++;
+			}
+		}
+		
+		if (colIndex < colCount && (selIndex == null || selIndex[colIndex] != -1)) {
+			values[colIndex] = parse(buffer, start, end, colIndex);
+		}
+
+		return values;
+	}
 }

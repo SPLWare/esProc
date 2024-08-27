@@ -15,6 +15,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.LineImporter;
 import com.scudata.dm.RandomObjectWriter;
 import com.scudata.dm.RandomOutputStream;
 import com.scudata.dm.Sequence;
@@ -22,13 +23,14 @@ import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.BFileFetchCursor;
 import com.scudata.dm.cursor.BFileSortxCursor;
 import com.scudata.dm.cursor.ConjxCursor;
+import com.scudata.dm.cursor.FileCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 集文件的工具类
+ * 文件的工具类
  * @author LW
  *
  */
@@ -42,24 +44,44 @@ public class BFileUtil {
 	 * @param opt 选项(暂时无用)
 	 * @return 排好序的游标
 	 */
-	public static Object sortx(FileObject file, FileObject outFile, String[] fields, Context ctx, String opt) {
+	public static Object sortx(FileObject file, FileObject outFile, String[] fields, String opt, Context ctx) {
 		int fcount = fields.length;
-		BFileFetchCursor cursor = new BFileFetchCursor(file, fields);
+		BFileFetchCursor cursor;
+		if (file.getFileType() == FileObject.FILETYPE_TEXT) {
+			cursor = new BFileFetchCursor(file, fields, null, null, opt, ctx);
+		} else {
+			cursor = new BFileFetchCursor(file, fields);
+		}
 		DataStruct ds  = cursor.getFileDataStruct();
 		
 		Expression[] tempExps = new Expression[fcount];
 		for (int i = 0; i < fcount; i++) {
 			tempExps[i] = new Expression(fields[i]);
 		}
-		int[] findex = isAllRecordFields(ds, tempExps);
-
+		
+		int[] findex = null;
+		if (isAllRecordFields(ds, tempExps)) {
+			findex = new int[fcount];
+			for (int i = 0; i < fcount; i++) {
+				findex[i] = i;
+			}
+		}
+		
 		double backup = EnvUtil.getMaxUsedMemoryPercent();
 		EnvUtil.setMaxUsedMemoryPercent(0.2);
 		ICursor cs = sortx(cursor, tempExps, ctx, 0, opt, findex);
 		EnvUtil.setMaxUsedMemoryPercent(backup);
 		
 		if (outFile == null) {
-			return new BFileSortxCursor(cs, fcount, ds);
+			/**
+			 * 利用FileCursor得到一个取所有字段的importer
+			 */
+			FileCursor fcs = new FileCursor(file, 1, 1, null, opt, ctx);
+			fcs.fetch(1);
+			LineImporter importer = fcs.getImporter();
+			fcs.close();
+			
+			return new BFileSortxCursor(cs, fcount, ds, importer);
 		}
 		
 		BFileWriter writer = new BFileWriter(outFile, null);
@@ -73,16 +95,14 @@ public class BFileUtil {
 	 * 检查比较是否都是记录的字段
 	 * @return
 	 */
-	private static int[] isAllRecordFields(DataStruct ds, Expression[] exps) {
+	private static boolean isAllRecordFields(DataStruct ds, Expression[] exps) {
 		int fcount = exps.length;
-		int[] findex = new int[fcount];
 		for (int i = 0; i < fcount; i++) {
-			findex[i] = ds.getFieldIndex(exps[i].getIdentifierName());
-			if (findex[i] == -1) {
-				return null;
+			if (ds.getFieldIndex(exps[i].getIdentifierName()) == -1) {
+				return false;
 			}
 		}
-		return findex;
+		return true;
 	}
 	
 	private static Thread newExportThread(final FileObject fo, final Sequence sequence, 
@@ -116,6 +136,7 @@ public class BFileUtil {
 		} else {
 			table = cursor.fetch(capacity);
 		}
+		Logger.info("Sortx capacity = " + capacity);
 		
 		MessageManager mm = EngineMessage.get();
 		String msg = mm.getMessage("engine.createTmpFile");
