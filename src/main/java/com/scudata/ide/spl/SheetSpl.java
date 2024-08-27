@@ -2686,7 +2686,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public void dialogParameter() {
 		DialogArgument dp = newDialogArgument();
-		dp.setParameter(splControl.cellSet.getParamList());
+		dp.setParameter(splControl.cellSet);
 		dp.setVisible(true);
 		if (dp.getOption() == JOptionPane.OK_OPTION) {
 			AtomicSpl ar = new AtomicSpl(splControl);

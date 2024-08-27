@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
@@ -56,7 +57,8 @@ public class DialogArgument extends DialogMaxmizable {
 	/** 值列标题 */
 	protected final String TITLE_VALUE = mm.getMessage("dialogargument.value");
 	/** 备注列标题 */
-	protected final String TITLE_REMARK = mm.getMessage("dialogparameter.remark");
+	protected final String TITLE_REMARK = mm
+			.getMessage("dialogparameter.remark");
 
 	/**
 	 * 参数表控件。序号,名称,值
@@ -127,9 +129,17 @@ public class DialogArgument extends DialogMaxmizable {
 	protected JPanel jPButton = new JPanel(new VFlowLayout());
 
 	/**
+	 * 最后一个参数是动态参数
+	 */
+	private JCheckBox jCBDynamicParam = new JCheckBox(
+			mm.getMessage("dialogargument.dynamicparam"));
+
+	/**
 	 * 窗口的关闭动作
 	 */
 	protected int m_option = JOptionPane.CLOSED_OPTION;
+
+	protected PgmCellSet cellSet;
 	/**
 	 * 参数列表
 	 */
@@ -180,7 +190,10 @@ public class DialogArgument extends DialogMaxmizable {
 	 * @param pl
 	 *            参数列表
 	 */
-	public void setParameter(ParamList pl) {
+	public void setParameter(PgmCellSet cellSet) {
+		this.cellSet = cellSet;
+		ParamList pl = cellSet.getParamList();
+		jCBDynamicParam.setSelected(cellSet.isDynamicParam());
 		if (pl == null) {
 			return;
 		}
@@ -223,7 +236,10 @@ public class DialogArgument extends DialogMaxmizable {
 	 * 
 	 * @return
 	 */
-	private boolean checkParam() {
+	private boolean saveParamList() {
+		if (cellSet != null) {
+			cellSet.setDynamicParam(jCBDynamicParam.isSelected());
+		}
 		if (paraTable.getRowCount() < 1) {
 			return true;
 		}
@@ -405,6 +421,8 @@ public class DialogArgument extends DialogMaxmizable {
 		panelMain.setLayout(new GridBagLayout());
 		panelMain.add(jcbUserChange, GM.getGBC(1, 1, true));
 		panelMain.add(new JScrollPane(paraTable), GM.getGBC(2, 1, true, true));
+		panelMain.add(jCBDynamicParam, GM.getGBC(3, 1, true));
+
 		this.getContentPane().add(panelMain, BorderLayout.CENTER);
 		this.getContentPane().add(jPButton, BorderLayout.EAST);
 	}
@@ -441,7 +459,7 @@ public class DialogArgument extends DialogMaxmizable {
 		if (!paraTable.verifyColumnData(COL_NAME, TITLE_NAME)) {
 			return;
 		}
-		if (!checkParam()) {
+		if (!saveParamList()) {
 			paramList = null;
 			return;
 		}
