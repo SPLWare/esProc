@@ -16,6 +16,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.HashLinkSet;
 import com.scudata.dm.ObjectWriter;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
@@ -822,21 +823,9 @@ public class ICount extends Gather {
 	public IArray finish1(IArray array) {
 		if (optB) {
 			return finish1_b(array);
+		} else {	
+			return array;
 		}
-		int size = array.size();
-		if (!isSorted) {
-			for (int i = 1; i <= size; ++i) {
-				Object val = array.get(i);
-				if (val instanceof ICountHashSet) {
-					ICountHashSet set = (ICountHashSet)val;
-					set.elementArray.setSize(set.count);
-					Sequence seq = new Sequence(set.elementArray);
-					array.set(i, seq);
-				}
-			}
-		}
-		
-		return array;
 	}
 
 	/**
@@ -896,8 +885,8 @@ public class ICount extends Gather {
 			IntArray result = new IntArray(size);
 			for (int i = 1; i <= size; ++i) {
 				Object val = array.get(i);
-				if (val instanceof ICountHashSet) {
-					result.pushInt(((ICountHashSet)val).size());
+				if (val instanceof HashLinkSet) {
+					result.pushInt(((HashLinkSet)val).size());
 				} else if (val instanceof Sequence) {
 					result.pushInt(((Sequence)val).length());
 				} else {
@@ -1000,18 +989,18 @@ public class ICount extends Gather {
 				for (int i = 1, size = array.size(); i <= size; ++i) {
 					Object val = array.get(i);
 					if (result.size() < resultSeqs[i]) {
-						if (val instanceof ICountHashSet){
+						if (val instanceof HashLinkSet){
 							result.add(val);
 						} else if (val instanceof Sequence) {
 							Sequence seq = (Sequence)val;
 							IArray datas = seq.getMems();
-							ICountHashSet set = new ICountHashSet(array);
-							set.addAll(datas);
+							HashLinkSet set = new HashLinkSet(array);
+							set.putAll(datas);
 							
 							result.add(set);
 						} else if (val != null) {
-							ICountHashSet set = new ICountHashSet(array);
-							set.add(array, i);
+							HashLinkSet set = new HashLinkSet(array);
+							set.put(array, i);
 							result.add(set);
 						} else {
 							result.add(null);
@@ -1019,74 +1008,58 @@ public class ICount extends Gather {
 					} else {
 						Object oldValue = result.get(resultSeqs[i]);
 						if (oldValue == null) {
-							if (val instanceof ICountHashSet) {
+							if (val instanceof HashLinkSet) {
 								oldValue = val;
 							} else if (val instanceof Sequence){
 								Sequence seq = (Sequence)val;
 								IArray datas = seq.getMems();
-								ICountHashSet set = new ICountHashSet(array);
-								set.addAll(datas);
+								HashLinkSet set = new HashLinkSet(array);
+								set.putAll(datas);
 
 								oldValue = set;
 							} else if (val != null) {
-								ICountHashSet set = new ICountHashSet(array);
-								set.add(array, i);
+								HashLinkSet set = new HashLinkSet(array);
+								set.put(array, i);
 								oldValue = set;
 							}
 						} else {
-							ICountHashSet set = (ICountHashSet)oldValue;
-							if (val instanceof HashSet) {
-								set.addAll(((ICountHashSet)val).elementArray);
+							HashLinkSet set = (HashLinkSet)oldValue;
+							if (val instanceof HashLinkSet) {
+								set.putAll(((HashLinkSet)val).getElementArray());
 							} else if (val instanceof Sequence){
 								Sequence seq = (Sequence)val;
 								IArray datas = seq.getMems();
-								set.addAll(datas);
+								set.putAll(datas);
 							} else if (val != null) {
-								set.add(array, i);
+								set.put(array, i);
 							}
 						}
 						
 						result.set(resultSeqs[i], oldValue);
 					}
 				}
-			} else if (array instanceof IntArray && ((IntArray) array).getSigns() == null) {
-				for (int i = 1, size = array.size(); i <= size; ++i) {
-					if (result.size() < resultSeqs[i]) {
-						ICountHashSet set = new ICountHashSet(array);
-						set.addInt(array.getInt(i));
-						result.add(set);
-					} else {
-						Object oldValue = result.get(resultSeqs[i]);
-						if (oldValue == null) {
-							ICountHashSet set = new ICountHashSet(array);
-							set.addInt(array.getInt(i));
-							result.set(resultSeqs[i], set);
-						} else {
-							ICountHashSet set = ((ICountHashSet)oldValue);
-							set.addInt(array.getInt(i));
-						}
-					}
-				}
 			} else {
 				for (int i = 1, size = array.size(); i <= size; ++i) {
 					if (result.size() < resultSeqs[i]) {
-						ICountHashSet set = new ICountHashSet(array);
-						set.add(array, i);
+						HashLinkSet set = new HashLinkSet(array);
+						if (!array.isNull(i)) {
+							set.put(array, i);
+						}
+						
 						result.add(set);
-					} else {
+					} else if (!array.isNull(i)) {
 						Object oldValue = result.get(resultSeqs[i]);
 						if (oldValue == null) {
-							ICountHashSet set = new ICountHashSet(array);
-							set.add(array, i);
+							HashLinkSet set = new HashLinkSet(array);
+							set.put(array, i);
 							result.set(resultSeqs[i], set);
 						} else {
-							ICountHashSet set = ((ICountHashSet)oldValue);
-							set.add(array, i);
+							HashLinkSet set = ((HashLinkSet)oldValue);
+							set.put(array, i);
 						}
 					}
 				}
 			}
-
 		}
 		
 		return result;
@@ -1228,11 +1201,8 @@ public class ICount extends Gather {
 		} else if (!isSorted) {
 			for (int i = 1, len = result2.size(); i <= len; ++i) {
 				if (seqs[i] != 0) {
-					ICountHashSet value1 = (ICountHashSet) result.get(seqs[i]);
-					ICountHashSet value2 = (ICountHashSet) result2.get(i);
-					value1.elementArray.setSize(value1.count);
-					value2.elementArray.setSize(value2.count);
-					value1.addAll(value2.elementArray);
+					HashLinkSet value1 = (HashLinkSet) result.get(seqs[i]);
+					value1.putAll((HashLinkSet)result2.get(i));
 				}
 			}
 		} else {
