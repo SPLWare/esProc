@@ -56,8 +56,14 @@ public class HashLinkSet {
 	}
 	
 	public void putAll(IArray array) {
-		for (int i = 1, len = array.size(); i <= len; ++i) {
-			put(array, i);
+		if (array instanceof ObjectArray) {
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				put(array.get(i));
+			}
+		} else {
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				put(array, i);
+			}
 		}
 	}
 	
@@ -83,7 +89,6 @@ public class HashLinkSet {
 			// 元素数超过容量，扩大哈希表
 			capacity = (capacity << 1) + 1;
 			entries = new int[capacity + 1];
-						
 			linkArray = new int[capacity + 1];
 			elementArray.ensureCapacity(capacity);
 			elementArray.push(array, index);
@@ -116,14 +121,13 @@ public class HashLinkSet {
 			// 元素数超过容量，扩大哈希表
 			capacity = (capacity << 1) + 1;
 			entries = new int[capacity + 1];
-						
 			linkArray = new int[capacity + 1];
 			elementArray.ensureCapacity(capacity);
 			elementArray.push(value);
 			
 			resize();
 		} else {
-			throw new RuntimeException();
+			throw new OutOfMemoryError();
 		}
 	}
 	
@@ -143,10 +147,16 @@ public class HashLinkSet {
 	public void putAll(HashLinkSet set) {
 		if (set == null || set.size() == 0) {
 			return;
+		} else if (size() == 0) {
+			this.elementArray = set.elementArray;
+			this.entries = set.entries;
+			this.linkArray = set.linkArray;
+			this.capacity = set.capacity;
+			return;
 		}
 
 		int capacity = this.capacity;
-		if (set.capacity == capacity) {
+		if (capacity == set.capacity) {
 			IArray elementArray = this.elementArray;
 			int []entries = this.entries;
 			int []linkArray = this.linkArray;
@@ -173,26 +183,36 @@ public class HashLinkSet {
 					} else {
 						// 右侧set的成员不在当前set中
 						totalCount++;
-						if (totalCount <= newCapacity) {
+						if (totalCount <= capacity) {
 							elementArray.push(elementArray2, seq2);
 							linkArray[totalCount] = entries[h];
 							entries[h] = totalCount;
 						} else if (totalCount < MAX_CAPACITY) {
-							newCapacity = (newCapacity << 1) + 1;
+							newCapacity = (capacity << 1) + 1;
 							elementArray.ensureCapacity(newCapacity);
 							elementArray.push(elementArray2, seq2);
+						} else {
+							throw new OutOfMemoryError();
 						}
 					}
 				}
 			}
 			
 			if (newCapacity > capacity) {
-				entries = new int[newCapacity + 1];
-				linkArray = new int[newCapacity + 1];
+				this.entries = new int[newCapacity + 1];
+				this.linkArray = new int[newCapacity + 1];
+				this.capacity = newCapacity;
 				resize();
 			}
-		} else {
+		} else if (capacity > set.capacity) {
 			putAll(set.elementArray);
+		} else {
+			IArray elementArray = this.elementArray;
+			this.elementArray = set.elementArray;
+			this.entries = set.entries;
+			this.linkArray = set.linkArray;
+			this.capacity = set.capacity;
+			putAll(elementArray);
 		}
 	}
 	
