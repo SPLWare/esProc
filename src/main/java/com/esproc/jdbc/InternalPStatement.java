@@ -874,6 +874,7 @@ public abstract class InternalPStatement extends InternalStatement implements
 				Sequence seq = callsParameters.get(i);
 				seq.add(parameters.get(i));
 			}
+			parameters.clear();
 		}
 	}
 

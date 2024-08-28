@@ -122,12 +122,11 @@ public class JDBCUtil {
 			return null;
 		}
 		sql = trimSql(sql);
+		int paramCount = parameters == null ? 0 : parameters.size();
 		if (logInfo)
-			Logger.debug("param size="
-					+ (parameters == null ? "0" : ("" + parameters.size())));
+			Logger.debug("param size=" + paramCount);
 		boolean hasReturn = true;
 		boolean isGrid = false;
-		String splName = null;
 		boolean isCalls = false;
 		if (sql.startsWith(">")) {
 			hasReturn = false;
@@ -136,15 +135,15 @@ public class JDBCUtil {
 			isGrid = AppUtil.isGrid(sql);
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
 			String[] nameParam = getCallsNameParam(sql, parameters);
-			splName = nameParam[0];
+			String splName = nameParam[0];
 			String params = nameParam[1];
 			isCalls = true;
-			sql = JDBCUtil.getCallExp(splName, params);
+			sql = JDBCUtil.getCallExp(splName, params, paramCount);
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)) {
 			String[] nameParam = getCallNameParam(sql);
-			splName = nameParam[0];
+			String splName = nameParam[0];
 			String params = nameParam[1];
-			sql = JDBCUtil.getCallExp(splName, params);
+			sql = JDBCUtil.getCallExp(splName, params, paramCount);
 		} else if (sql.startsWith("$")) {
 			String s = sql;
 			s = s.substring(1).trim();
@@ -168,8 +167,11 @@ public class JDBCUtil {
 			}
 		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
-		} else {
-			sql = parseSpl(sql);
+		} else { // 不支持直接写spl文件了
+			String[] nameParam = getSplNameParam(sql);
+			String splName = nameParam[0];
+			String params = nameParam[1];
+			sql = JDBCUtil.getCallExp(splName, params, paramCount);
 		}
 
 		Sequence arg;
@@ -255,18 +257,40 @@ public class JDBCUtil {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"jdbcutil.nogatewayfile", gateway), e);
 		}
-		ParamList pl = cellSet.getParamList();
-		if (pl == null || pl.count() != 2) {
-			// The parameters of the gateway splx file should be spl statement
-			// and
-			// arguments.
-			throw new SQLException(JDBCMessage.get().getMessage(
-					"jdbcutil.errorgatewayparams"));
+
+		Context csCtx = cellSet.getContext();
+		ParamList list = cellSet.getParamList();
+		if (list != null) {
+			// 取出所有变量，常量不设置
+			ParamList varList = new ParamList();
+			list.getAllVarParams(varList);
+			boolean isDynamicParam = cellSet.isDynamicParam();
+			int paramCount = varList.count();
+			int argCount = args.length();
+			if (paramCount > 0) {
+				if (isDynamicParam) { // 动态参数时
+					if (paramCount == 1) { // 只有一个参数
+						if (argCount == 0) { // 没有参数
+							csCtx.setParamValue(varList.get(0).getName(), sql);
+						} else { // 拼成[spl,[p1,p2,...]]
+							Sequence dynamicParam = new Sequence();
+							dynamicParam.add(sql);
+							dynamicParam.add(args);
+							csCtx.setParamValue(varList.get(0).getName(),
+									dynamicParam);
+						}
+					} else {
+						args.insert(1, sql);
+						AppUtil.setParamToCellSet(cellSet, args);
+					}
+				} else {
+					args.insert(1, sql);
+					AppUtil.setParamToCellSet(cellSet, args);
+				}
+			}
 		}
-		ctx.setParamValue(pl.get(0).getName(), sql);
-		ctx.setParamValue(pl.get(1).getName(), args);
-		cellSet.setContext(ctx);
-		cellSet.run();
+		csCtx.setEnv(ctx);
+		cellSet.calculateResult();
 		return cellSet;
 	}
 
@@ -292,14 +316,21 @@ public class JDBCUtil {
 	 * 
 	 * @param splName
 	 * @param params
+	 * @param paramCount
 	 * @return String
 	 * @throws SQLException
 	 */
-	public static String getCallExp(String splName, String params)
-			throws SQLException {
-		if (params == null)
-			params = "";
-		else
+	private static String getCallExp(String splName, String params,
+			int paramCount) throws SQLException {
+		if (!StringUtils.isValidString(params)) {
+			StringBuffer buf = new StringBuffer();
+			for (int i = 0; i < paramCount; i++) {
+				if (buf.length() > 0)
+					buf.append(",");
+				buf.append("?");
+			}
+			params = buf.toString();
+		} else
 			params = params.trim();
 		String sql = "jdbccall(\"" + splName + "\""
 				+ (params.length() > 0 ? ("," + params) : "") + ")";
@@ -729,18 +760,20 @@ public class JDBCUtil {
 	 * Parse the execute spl statement
 	 * 
 	 * @param sql
+	 * @param paramCount
 	 * @return String
 	 * @throws SQLException
 	 */
-	private static String parseSpl(String sql) throws SQLException {
-		if (sql == null || sql.length() == 0)
-			throw new SQLException("The spl name is empty.");
-		String[] nameParam = getSplNameParam(sql);
-		String spl = nameParam[0];
-		String params = nameParam[1];
-		sql = JDBCUtil.getCallExp(spl, params);
-		return sql;
-	}
+	// private static String parseSpl(String sql, int paramCount)
+	// throws SQLException {
+	// if (sql == null || sql.length() == 0)
+	// throw new SQLException("The spl name is empty.");
+	// String[] nameParam = getSplNameParam(sql);
+	// String spl = nameParam[0];
+	// String params = nameParam[1];
+	// sql = JDBCUtil.getCallExp(spl, params, paramCount);
+	// return sql;
+	// }
 
 	/**
 	 * 取SPL文件的参数，根据参数名设置call(s)的参数时调用

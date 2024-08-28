@@ -31,6 +31,7 @@ import sun.net.util.IPAddressUtil;
 import com.esproc.jdbc.JDBCConsts;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -344,20 +345,71 @@ public class AppUtil {
 			stack = csCtx.getComputeStack();
 			stack.pushArg(args);
 
-			ParamList list = pcs.getParamList();
-			if (list != null && args != null) {
-				int size = Math.min(list.count(), args.length());
-				for (int i = 0; i < size; i++) {
-					Param p = list.get(i);
-					csCtx.setParamValue(p.getName(), args.get(i + 1));
-				}
-			}
+			AppUtil.setParamToCellSet(pcs, args);
+			// ParamList list = pcs.getParamList();
+			// if (list != null && args != null) {
+			// int size = Math.min(list.count(), args.length());
+			// for (int i = 0; i < size; i++) {
+			// Param p = list.get(i);
+			// csCtx.setParamValue(p.getName(), args.get(i + 1));
+			// }
+			// }
 			csCtx.setEnv(ctx);
 			pcs.calculateResult();
 			return pcs;
 		} finally {
 			if (stack != null)
 				stack.popArg();
+		}
+	}
+
+	/**
+	 * 设置参数到网格，会考虑动态参数
+	 * @param cellSet
+	 * @param args
+	 */
+	public static void setParamToCellSet(PgmCellSet cellSet, Sequence args) {
+		if (cellSet == null)
+			return;
+		ParamList list = cellSet.getParamList();
+		if (list == null)
+			return;
+		// 取出所有变量，常量不设置
+		ParamList varList = new ParamList();
+		list.getAllVarParams(varList);
+		int paramCount = varList.count();
+		if (paramCount == 0)
+			return;
+		int argCount = args == null ? 0 : args.length();
+		boolean isDynamicParam = cellSet.isDynamicParam();
+		Context ctx = cellSet.getContext();
+		// 不是动态参数，或者输入的参数个数小于定义的数量，按顺序填入
+		if (!isDynamicParam || argCount < paramCount) {
+			for (int i = 0; i < paramCount; i++) {
+				Param p = varList.get(i);
+				if (i < argCount) {
+					ctx.setParamValue(p.getName(), args.get(i + 1));
+				} else {
+					// 没有设置参数值，用缺省值
+					Object obj = p.getEditValue();
+					if (obj == null) {
+						obj = p.getValue();
+					}
+					if (obj != null && obj instanceof String) {
+						obj = PgmNormalCell.parseConstValue((String) obj);
+					}
+					ctx.setParamValue(p.getName(), obj);
+				}
+			}
+		} else { // 动态参数，输入的参数大于等于定义，最后剩下的一个或多个参数拼成序列设置到最后一个动态参数
+			for (int i = 0; i < paramCount - 1; i++) {
+				Param p = varList.get(i);
+				ctx.setParamValue(p.getName(), args.get(i + 1));
+			}
+			// 动态参数值为序列，只有一个参数也会拼成序列
+			Sequence dynamicParam = args.get(paramCount, argCount + 1);
+			Param p = varList.get(paramCount - 1);
+			ctx.setParamValue(p.getName(), dynamicParam);
 		}
 	}
 
@@ -1081,4 +1133,5 @@ public class AppUtil {
 			}
 		}
 	}
+
 }
