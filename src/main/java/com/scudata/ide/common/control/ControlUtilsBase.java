@@ -648,7 +648,7 @@ public class ControlUtilsBase {
 	public static int drawText(Graphics g, String text, int x, int y, int w,
 			int h, boolean underLine, byte halign, byte valign, Font font,
 			Color c, int indent, boolean wordWrap) {
-		if (text == null || text.trim().length() == 0) {
+		if (text == null || text.length() == 0) {
 			return 0;
 		}
 		g.setColor(c);
