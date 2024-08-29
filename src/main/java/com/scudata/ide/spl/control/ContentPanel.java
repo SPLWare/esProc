@@ -653,7 +653,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					int r = cp.getRow();
 					int c = cp.getCol();
 					if (r == row && c == col) {
-						g.setColor(Color.blue);
+						g.setColor(new Color(0, 255, 255));
 						g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
 								cellH[r][c]);
 						g.setPaintMode();
@@ -1254,20 +1254,21 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			c = Color.darkGray;
 		}
 		try {
-			if (control.getStepPosition() != null
-					&& !control.cellSet.isAutoCalc()) {
-				CellLocation cp = control.getStepPosition();
-				int rr = cp.getRow();
-				int cc = cp.getCol();
-				if (rr == row && cc == col) {
-					c = Color.white;
-					/*
-					 * 前景色为白色时，如果冲出单元格显示，与背景同色看不出来了，所以用XOR模式显示
-					 * 但是在最后finally要设置回paint模式
-					 */
-					g.setXORMode(XOR_COLOR);
-				}
-			}
+			// XORMode绘制不清晰，边缘模糊，还是用正常前景色
+			// if (control.getStepPosition() != null
+			// && !control.cellSet.isAutoCalc()) {
+			// CellLocation cp = control.getStepPosition();
+			// int rr = cp.getRow();
+			// int cc = cp.getCol();
+			// if (rr == row && cc == col) {
+			// c = Color.white;
+			// /*
+			// * 前景色为白色时，如果冲出单元格显示，与背景同色看不出来了，所以用XOR模式显示
+			// * 但是在最后finally要设置回paint模式
+			// */
+			// g.setXORMode(XOR_COLOR);
+			// }
+			// }
 
 			boolean underLine = parser.isUnderline(row, col);
 			int indent = ConfigOptions.iIndent.intValue();
