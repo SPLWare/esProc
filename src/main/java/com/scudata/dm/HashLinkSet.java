@@ -219,4 +219,31 @@ public class HashLinkSet {
 	public IArray getElementArray() {
 		return elementArray;
 	}
+
+	public static void test(Sequence seq1, Sequence seq2) {
+		int len1 = seq1.length();
+		int len2 = seq2.length();
+		HashLinkSet set1 = new HashLinkSet();
+		HashLinkSet set2 = new HashLinkSet();
+		
+		long time1 = System.currentTimeMillis();
+		for (int i = 1; i <= len1; ++i) {
+			set1.put(seq1.getMem(i));
+		}
+		
+		long time2 = System.currentTimeMillis();
+		for (int i = 1; i <= len2; ++i) {
+			set2.put(seq2.getMem(i));
+		}
+		
+		long time3 = System.currentTimeMillis();
+		System.out.println("size£º" + set1.size() + ", capacity: " + set1.capacity);
+		System.out.println("size£º" + set2.size() + ", capacity: " + set2.capacity);
+		set1.putAll(set2);
+		
+		long time4 = System.currentTimeMillis();
+		System.out.println(time2 - time1);
+		System.out.println(time3 - time2);
+		System.out.println(time4 - time3);
+	}
 }
