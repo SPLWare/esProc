@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.db2.jcc.b.o;
 import com.scudata.array.IArray;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
