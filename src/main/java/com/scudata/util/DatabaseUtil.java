@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.db2.jcc.b.o;
 import com.scudata.array.IArray;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
@@ -978,13 +979,12 @@ public class DatabaseUtil {
 	 *            boolean 是否在字段名中添加表名，added by bdl, 2010.9.9
 	 * @param recordLimit
 	 *            added by bdl, 2012.2.27, 返回最大记录数
-	 * @throws SQLException
-	 * @throws UnsupportedEncodingException
 	 * @return Sequence
+	 * @throws Exception 
 	 */
 	private static Table populate(ResultSet rs, String dbCharset, boolean needTranContent, String toCharset, int dbType,
 			boolean addTable, Table table, boolean oneRecord, int recordLimit, String opt)
-			throws SQLException, UnsupportedEncodingException {
+			throws Exception {
 		if (rs == null) {
 			return null;
 		}
@@ -1083,7 +1083,9 @@ public class DatabaseUtil {
 					Object obj = tranData(type, dbType, rs, n, needTranContent, dbCharset, toCharset, bb, opt);
 					record.set(n - 1, obj);
 				} catch (Exception e) {
-					e.printStackTrace();
+					if (opt != null && opt.indexOf('r') > -1)
+						e.printStackTrace();
+					else throw e;
 				}
 			}
 			if (!nolimit) {
@@ -2376,11 +2378,12 @@ public class DatabaseUtil {
 	 * @param dbCharset	数据库字符集
 	 * @param toCharset	终端字符集
 	 * @param bb	字符集是否一致
+	 * @param typeErrIgn	数据无法识别时仅警示，added by bd, 2024.8.29
 	 * @return
 	 * @throws Exception
 	 */
 	public static Object tranData(int type, int dbType, ResultSet rs, int index, boolean needTranContent,
-			String dbCharset, String toCharset, boolean bb) throws Exception {
+			String dbCharset, String toCharset, boolean bb, boolean typeErrIgn) throws Exception {
 		return tranData(type, dbType, rs, index, needTranContent, dbCharset, toCharset, bb, null);
 	}
 
@@ -2437,6 +2440,8 @@ public class DatabaseUtil {
 
 		if (obj == null)
 			return null;
+		if (obj instanceof String || obj instanceof java.util.Date)
+			return obj;
 		
 		if (obj instanceof Number) {
 			if(obj instanceof java.math.BigDecimal){
@@ -2522,8 +2527,15 @@ public class DatabaseUtil {
 		} else if (dbType == DBTypes.SYBASE && sybaseTIMESTAMP != null && sybaseTIMESTAMP.isInstance(obj)) {
 			return TranSybase.tran(TYPE_SYBASE_TIMESTAMP, obj);
 		}
+		//if (obj instanceof java.util.Date) {
+		//	return obj;
+		//}
 
-		return obj;
+		//added by bd, 2024.8.29，when the data is unrecognized, throw Exception
+		Logger.debug("Unrecognized data type in SPL: " + obj.getClass().getName());
+		if (opt != null && opt.indexOf('r') > -1)
+			return obj;
+		throw new RQException("Unrecognized data type in SPL: " + obj.getClass().getName());
 	}
 	
 	private static String tranName(String name, boolean needTranContent, String dbCharset, String toCharset,
