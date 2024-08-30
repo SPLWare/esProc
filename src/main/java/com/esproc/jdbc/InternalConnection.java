@@ -23,6 +23,7 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.DBSession;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
@@ -72,7 +73,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	private int stMaxId = 0;
 
 	/**
-	 * Add the parameter onlyServer=true to the URL. Always execute on the server.
+	 * Add the parameter onlyServer=true to the URL. Always execute on the
+	 * server.
 	 */
 	private boolean isOnlyServer = false;
 
@@ -92,8 +94,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	private RaqsoftConfig raqsoftConfig = null;
 
 	/**
-	 * The type map will be used for the custom mapping of SQL structured types and
-	 * distinct types.
+	 * The type map will be used for the custom mapping of SQL structured types
+	 * and distinct types.
 	 */
 	private Map<String, Class<?>> typeMap;
 
@@ -131,6 +133,20 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	public Context getParentContext() {
 		return parentCtx;
+	}
+
+	/**
+	 * 是否自动连接的数据源
+	 * 
+	 * @param dbName
+	 * @param dbSession
+	 * @return
+	 */
+	public boolean isAutoConnection(String dbName, DBSession dbSession) {
+		DBSession autoConnectDB = parentCtx.getDBSession(dbName);
+		if (autoConnectDB != null && autoConnectDB == dbSession)
+			return true;
+		return false;
 	}
 
 	private void initContextConnect(Context ctx) {
@@ -536,10 +552,10 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a Statement object for sending SQL statements to the database. SQL
-	 * statements without parameters are normally executed using Statement objects.
-	 * If the same SQL statement is executed many times, it may be more efficient to
-	 * use a PreparedStatement object.
+	 * Creates a Statement object for sending SQL statements to the database.
+	 * SQL statements without parameters are normally executed using Statement
+	 * objects. If the same SQL statement is executed many times, it may be more
+	 * efficient to use a PreparedStatement object.
 	 * 
 	 * @return a new default Statement object
 	 */
@@ -561,13 +577,14 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a PreparedStatement object for sending parameterized SQL statements
-	 * to the database.
+	 * Creates a PreparedStatement object for sending parameterized SQL
+	 * statements to the database.
 	 * 
-	 * @param sql an SQL statement that may contain one or more '?' IN parameter
+	 * @param sql
+	 *            an SQL statement that may contain one or more '?' IN parameter
 	 *            placeholders
-	 * @return a new default PreparedStatement object containing the pre-compiled
-	 *         SQL statement
+	 * @return a new default PreparedStatement object containing the
+	 *         pre-compiled SQL statement
 	 */
 	public PreparedStatement prepareStatement(String sql) throws SQLException {
 		JDBCUtil.log("InternalConnection-6");
@@ -587,15 +604,17 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a CallableStatement object for calling database stored procedures.
-	 * The CallableStatement object provides methods for setting up its IN and OUT
-	 * parameters, and methods for executing the call to a stored procedure.
+	 * Creates a CallableStatement object for calling database stored
+	 * procedures. The CallableStatement object provides methods for setting up
+	 * its IN and OUT parameters, and methods for executing the call to a stored
+	 * procedure.
 	 * 
 	 * 
-	 * @param sql an SQL statement that may contain one or more '?' IN parameter
+	 * @param sql
+	 *            an SQL statement that may contain one or more '?' IN parameter
 	 *            placeholders
-	 * @return a new default CallableStatement object containing the pre-compiled
-	 *         SQL statement
+	 * @return a new default CallableStatement object containing the
+	 *         pre-compiled SQL statement
 	 */
 	public CallableStatement prepareCall(String sql) throws SQLException {
 		JDBCUtil.log("InternalConnection-7");
@@ -617,11 +636,12 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Converts the given SQL statement into the system's native SQL grammar. A
-	 * driver may convert the JDBC SQL grammar into its system's native SQL grammar
-	 * prior to sending it. This method returns the native form of the statement
-	 * that the driver would have sent.
+	 * driver may convert the JDBC SQL grammar into its system's native SQL
+	 * grammar prior to sending it. This method returns the native form of the
+	 * statement that the driver would have sent.
 	 * 
-	 * @param sql an SQL statement that may contain one or more '?' parameter
+	 * @param sql
+	 *            an SQL statement that may contain one or more '?' parameter
 	 *            placeholders
 	 * @return the native form of this statement
 	 */
@@ -633,14 +653,15 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Sets this connection's auto-commit mode to the given state. If a connection
-	 * is in auto-commit mode, then all its SQL statements will be executed and
-	 * committed as individual transactions. Otherwise, its SQL statements are
-	 * grouped into transactions that are terminated by a call to either the method
-	 * commit or the method rollback. By default, new connections are in auto-commit
-	 * mode.
+	 * Sets this connection's auto-commit mode to the given state. If a
+	 * connection is in auto-commit mode, then all its SQL statements will be
+	 * executed and committed as individual transactions. Otherwise, its SQL
+	 * statements are grouped into transactions that are terminated by a call to
+	 * either the method commit or the method rollback. By default, new
+	 * connections are in auto-commit mode.
 	 * 
-	 * @param autoCommit true to enable auto-commit mode; false to disable it
+	 * @param autoCommit
+	 *            true to enable auto-commit mode; false to disable it
 	 */
 	public void setAutoCommit(boolean autoCommit) throws SQLException {
 		JDBCUtil.log("InternalConnection-10");
@@ -662,8 +683,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Makes all changes made since the previous commit/rollback permanent and
-	 * releases any database locks currently held by this Connection object. This
-	 * method should be used only when auto-commit mode has been disabled.
+	 * releases any database locks currently held by this Connection object.
+	 * This method should be used only when auto-commit mode has been disabled.
 	 */
 	public void commit() throws SQLException {
 		JDBCUtil.log("InternalConnection-12");
@@ -672,9 +693,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Undoes all changes made in the current transaction and releases any database
-	 * locks currently held by this Connection object. This method should be used
-	 * only when auto-commit mode has been disabled.
+	 * Undoes all changes made in the current transaction and releases any
+	 * database locks currently held by this Connection object. This method
+	 * should be used only when auto-commit mode has been disabled.
 	 */
 	public void rollback() throws SQLException {
 		JDBCUtil.log("InternalConnection-13");
@@ -714,11 +735,12 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Retrieves whether this Connection object has been closed. A connection is
-	 * closed if the method close has been called on it or if certain fatal errors
-	 * have occurred. This method is guaranteed to return true only when it is
-	 * called after the method Connection.close has been called.
+	 * closed if the method close has been called on it or if certain fatal
+	 * errors have occurred. This method is guaranteed to return true only when
+	 * it is called after the method Connection.close has been called.
 	 * 
-	 * @return true if this Connection object is closed; false if it is still open
+	 * @return true if this Connection object is closed; false if it is still
+	 *         open
 	 */
 	public boolean isClosed() throws SQLException {
 		JDBCUtil.log("InternalConnection-15");
@@ -726,10 +748,11 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Retrieves a DatabaseMetaData object that contains metadata about the database
-	 * to which this Connection object represents a connection. The metadata
-	 * includes information about the database's tables, its supported SQL grammar,
-	 * its stored procedures, the capabilities of this connection, and so on.
+	 * Retrieves a DatabaseMetaData object that contains metadata about the
+	 * database to which this Connection object represents a connection. The
+	 * metadata includes information about the database's tables, its supported
+	 * SQL grammar, its stored procedures, the capabilities of this connection,
+	 * and so on.
 	 * 
 	 * @return a DatabaseMetaData object for this Connection object
 	 */
@@ -755,7 +778,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * Puts this connection in read-only mode as a hint to the driver to enable
 	 * database optimizations.
 	 * 
-	 * @param readOnly true enables read-only mode; false disables it
+	 * @param readOnly
+	 *            true enables read-only mode; false disables it
 	 */
 	public void setReadOnly(boolean readOnly) throws SQLException {
 		JDBCUtil.log("InternalConnection-21");
@@ -776,11 +800,12 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Sets the given catalog name in order to select a subspace of this Connection
-	 * object's database in which to work.
+	 * Sets the given catalog name in order to select a subspace of this
+	 * Connection object's database in which to work.
 	 * 
-	 * @param catalog the name of a catalog (subspace in this Connection object's
-	 *                database) in which to work
+	 * @param catalog
+	 *            the name of a catalog (subspace in this Connection object's
+	 *            database) in which to work
 	 */
 	public void setCatalog(String catalog) throws SQLException {
 		JDBCUtil.log("InternalConnection-23");
@@ -799,17 +824,18 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Attempts to change the transaction isolation level for this Connection object
-	 * to the one given. The constants defined in the interface Connection are the
-	 * possible transaction isolation levels.
+	 * Attempts to change the transaction isolation level for this Connection
+	 * object to the one given. The constants defined in the interface
+	 * Connection are the possible transaction isolation levels.
 	 * 
-	 * @param level one of the following Connection constants:
-	 *              Connection.TRANSACTION_READ_UNCOMMITTED,
-	 *              Connection.TRANSACTION_READ_COMMITTED,
-	 *              Connection.TRANSACTION_REPEATABLE_READ, or
-	 *              Connection.TRANSACTION_SERIALIZABLE. (Note that
-	 *              Connection.TRANSACTION_NONE cannot be used because it specifies
-	 *              that transactions are not supported.)
+	 * @param level
+	 *            one of the following Connection constants:
+	 *            Connection.TRANSACTION_READ_UNCOMMITTED,
+	 *            Connection.TRANSACTION_READ_COMMITTED,
+	 *            Connection.TRANSACTION_REPEATABLE_READ, or
+	 *            Connection.TRANSACTION_SERIALIZABLE. (Note that
+	 *            Connection.TRANSACTION_NONE cannot be used because it
+	 *            specifies that transactions are not supported.)
 	 */
 	public void setTransactionIsolation(int level) throws SQLException {
 		JDBCUtil.log("InternalConnection-25");
@@ -824,7 +850,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         following constants: Connection.TRANSACTION_READ_UNCOMMITTED,
 	 *         Connection.TRANSACTION_READ_COMMITTED,
 	 *         Connection.TRANSACTION_REPEATABLE_READ,
-	 *         Connection.TRANSACTION_SERIALIZABLE, or Connection.TRANSACTION_NONE.
+	 *         Connection.TRANSACTION_SERIALIZABLE, or
+	 *         Connection.TRANSACTION_NONE.
 	 */
 	public int getTransactionIsolation() throws SQLException {
 		JDBCUtil.log("InternalConnection-26");
@@ -832,9 +859,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Retrieves the first warning reported by calls on this Connection object. If
-	 * there is more than one warning, subsequent warnings will be chained to the
-	 * first one and can be retrieved by calling the method
+	 * Retrieves the first warning reported by calls on this Connection object.
+	 * If there is more than one warning, subsequent warnings will be chained to
+	 * the first one and can be retrieved by calling the method
 	 * SQLWarning.getNextWarning on the warning that was retrieved previously.
 	 * 
 	 * @return the first SQLWarning object or null if there are none
@@ -845,9 +872,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Clears all warnings reported for this Connection object. After a call to this
-	 * method, the method getWarnings returns null until a new warning is reported
-	 * for this Connection object.
+	 * Clears all warnings reported for this Connection object. After a call to
+	 * this method, the method getWarnings returns null until a new warning is
+	 * reported for this Connection object.
 	 */
 	public void clearWarnings() throws SQLException {
 		JDBCUtil.log("InternalConnection-28");
@@ -855,20 +882,20 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Creates a Statement object that will generate ResultSet objects with the
-	 * given type and concurrency. This method is the same as the createStatement
-	 * method above, but it allows the default result set type and concurrency to be
-	 * overridden. The holdability of the created result sets can be determined by
-	 * calling getHoldability().
+	 * given type and concurrency. This method is the same as the
+	 * createStatement method above, but it allows the default result set type
+	 * and concurrency to be overridden. The holdability of the created result
+	 * sets can be determined by calling getHoldability().
 	 * 
-	 * @param resultSetType        a result set type; one of
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency a concurrency type; one of
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
-	 * @return a new Statement object that will generate ResultSet objects with the
-	 *         given type and concurrency
+	 * @param resultSetType
+	 *            a result set type; one of ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            a concurrency type; one of ResultSet.CONCUR_READ_ONLY or
+	 *            ResultSet.CONCUR_UPDATABLE
+	 * @return a new Statement object that will generate ResultSet objects with
+	 *         the given type and concurrency
 	 */
 	public Statement createStatement(int resultSetType, int resultSetConcurrency)
 			throws SQLException {
@@ -877,25 +904,25 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a PreparedStatement object that will generate ResultSet objects with
-	 * the given type and concurrency. This method is the same as the
-	 * prepareStatement method above, but it allows the default result set type and
-	 * concurrency to be overridden. The holdability of the created result sets can
-	 * be determined by calling getHoldability().
+	 * Creates a PreparedStatement object that will generate ResultSet objects
+	 * with the given type and concurrency. This method is the same as the
+	 * prepareStatement method above, but it allows the default result set type
+	 * and concurrency to be overridden. The holdability of the created result
+	 * sets can be determined by calling getHoldability().
 	 * 
-	 * @param sql                  a String object that is the SQL statement to be
-	 *                             sent to the database; may contain one or more '?'
-	 *                             IN parameters
-	 * @param resultSetType        a result set type; one of
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency a concurrency type; one of
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param resultSetType
+	 *            a result set type; one of ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            a concurrency type; one of ResultSet.CONCUR_READ_ONLY or
+	 *            ResultSet.CONCUR_UPDATABLE
 	 * @return a new PreparedStatement object containing the pre-compiled SQL
-	 *         statement that will produce ResultSet objects with the given type and
-	 *         concurrency
+	 *         statement that will produce ResultSet objects with the given type
+	 *         and concurrency
 	 */
 	public PreparedStatement prepareStatement(String sql, int resultSetType,
 			int resultSetConcurrency) throws SQLException {
@@ -904,26 +931,26 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a CallableStatement object that will generate ResultSet objects with
-	 * the given type and concurrency. This method is the same as the prepareCall
-	 * method above, but it allows the default result set type and concurrency to be
-	 * overridden. The holdability of the created result sets can be determined by
-	 * calling getHoldability().
+	 * Creates a CallableStatement object that will generate ResultSet objects
+	 * with the given type and concurrency. This method is the same as the
+	 * prepareCall method above, but it allows the default result set type and
+	 * concurrency to be overridden. The holdability of the created result sets
+	 * can be determined by calling getHoldability().
 	 * 
 	 * 
-	 * @param sql                  a String object that is the SQL statement to be
-	 *                             sent to the database; may contain one or more '?'
-	 *                             IN parameters
-	 * @param resultSetType        a result set type; one of
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency a concurrency type; one of
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param resultSetType
+	 *            a result set type; one of ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            a concurrency type; one of ResultSet.CONCUR_READ_ONLY or
+	 *            ResultSet.CONCUR_UPDATABLE
 	 * @return a new CallableStatement object containing the pre-compiled SQL
-	 *         statement that will produce ResultSet objects with the given type and
-	 *         concurrency
+	 *         statement that will produce ResultSet objects with the given type
+	 *         and concurrency
 	 */
 	public CallableStatement prepareCall(String sql, int resultSetType,
 			int resultSetConcurrency) throws SQLException {
@@ -932,8 +959,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Retrieves the Map object associated with this Connection object. Unless the
-	 * application has added an entry, the type map returned will be empty.
+	 * Retrieves the Map object associated with this Connection object. Unless
+	 * the application has added an entry, the type map returned will be empty.
 	 * 
 	 * @return the java.util.Map object associated with this Connection object
 	 */
@@ -943,12 +970,13 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Installs the given TypeMap object as the type map for this Connection object.
-	 * The type map will be used for the custom mapping of SQL structured types and
-	 * distinct types.
+	 * Installs the given TypeMap object as the type map for this Connection
+	 * object. The type map will be used for the custom mapping of SQL
+	 * structured types and distinct types.
 	 * 
-	 * @param map the java.util.Map object to install as the replacement for this
-	 *            Connection object's default type map
+	 * @param map
+	 *            the java.util.Map object to install as the replacement for
+	 *            this Connection object's default type map
 	 */
 	public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
 		JDBCUtil.log("InternalConnection-65");
@@ -961,9 +989,10 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * ResultSet objects can be be determined by invoking
 	 * DatabaseMetaData.getResultSetHoldability().
 	 * 
-	 * @param holdability a ResultSet holdability constant; one of
-	 *                    ResultSet.HOLD_CURSORS_OVER_COMMIT or
-	 *                    ResultSet.CLOSE_CURSORS_AT_COMMIT
+	 * @param holdability
+	 *            a ResultSet holdability constant; one of
+	 *            ResultSet.HOLD_CURSORS_OVER_COMMIT or
+	 *            ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 */
 	public void setHoldability(int holdability) throws SQLException {
 		JDBCUtil.log("InternalConnection-33");
@@ -984,8 +1013,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates an unnamed savepoint in the current transaction and returns the new
-	 * Savepoint object that represents it.
+	 * Creates an unnamed savepoint in the current transaction and returns the
+	 * new Savepoint object that represents it.
 	 * 
 	 * @return the new Savepoint object
 	 */
@@ -1000,7 +1029,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * Creates a savepoint with the given name in the current transaction and
 	 * returns the new Savepoint object that represents it.
 	 * 
-	 * @param name a String containing the name of the savepoint
+	 * @param name
+	 *            a String containing the name of the savepoint
 	 */
 	public Savepoint setSavepoint(String name) throws SQLException {
 		JDBCUtil.log("InternalConnection-36");
@@ -1012,7 +1042,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Undoes all changes made after the given Savepoint object was set.
 	 * 
-	 * @param savepoint the Savepoint object to roll back to
+	 * @param savepoint
+	 *            the Savepoint object to roll back to
 	 */
 	public void rollback(Savepoint savepoint) throws SQLException {
 		JDBCUtil.log("InternalConnection-37");
@@ -1025,7 +1056,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * current transaction. Any reference to the savepoint after it have been
 	 * removed will cause an SQLException to be thrown.
 	 * 
-	 * @param savepoint the Savepoint object to be removed
+	 * @param savepoint
+	 *            the Savepoint object to be removed
 	 */
 	public void releaseSavepoint(Savepoint savepoint) throws SQLException {
 		JDBCUtil.log("InternalConnection-38");
@@ -1039,18 +1071,20 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * createStatement method above, but it allows the default result set type,
 	 * concurrency, and holdability to be overridden.
 	 * 
-	 * @param resultSetType        one of the following ResultSet constants:
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency one of the following ResultSet constants:
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
-	 * @param resultSetHoldability one of the following ResultSet constants:
-	 *                             ResultSet.HOLD_CURSORS_OVER_COMMIT or
-	 *                             ResultSet.CLOSE_CURSORS_AT_COMMIT
-	 * @return a new Statement object that will generate ResultSet objects with the
-	 *         given type, concurrency, and holdability
+	 * @param resultSetType
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.CONCUR_READ_ONLY or ResultSet.CONCUR_UPDATABLE
+	 * @param resultSetHoldability
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.HOLD_CURSORS_OVER_COMMIT or
+	 *            ResultSet.CLOSE_CURSORS_AT_COMMIT
+	 * @return a new Statement object that will generate ResultSet objects with
+	 *         the given type, concurrency, and holdability
 	 */
 	public Statement createStatement(int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
@@ -1060,25 +1094,27 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a PreparedStatement object that will generate ResultSet objects with
-	 * the given type, concurrency, and holdability.
+	 * Creates a PreparedStatement object that will generate ResultSet objects
+	 * with the given type, concurrency, and holdability.
 	 * 
-	 * @param sql                  a String object that is the SQL statement to be
-	 *                             sent to the database; may contain one or more '?'
-	 *                             IN parameters
-	 * @param resultSetType        one of the following ResultSet constants:
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency one of the following ResultSet constants:
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
-	 * @param resultSetHoldability one of the following ResultSet constants:
-	 *                             ResultSet.HOLD_CURSORS_OVER_COMMIT or
-	 *                             ResultSet.CLOSE_CURSORS_AT_COMMIT
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param resultSetType
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.CONCUR_READ_ONLY or ResultSet.CONCUR_UPDATABLE
+	 * @param resultSetHoldability
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.HOLD_CURSORS_OVER_COMMIT or
+	 *            ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 * @return a new PreparedStatement object, containing the pre-compiled SQL
-	 *         statement, that will generate ResultSet objects with the given type,
-	 *         concurrency, and holdability
+	 *         statement, that will generate ResultSet objects with the given
+	 *         type, concurrency, and holdability
 	 */
 	public PreparedStatement prepareStatement(String sql, int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
@@ -1088,28 +1124,30 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Creates a CallableStatement object that will generate ResultSet objects with
-	 * the given type and concurrency. This method is the same as the prepareCall
-	 * method above, but it allows the default result set type, result set
-	 * concurrency type and holdability to be overridden.
+	 * Creates a CallableStatement object that will generate ResultSet objects
+	 * with the given type and concurrency. This method is the same as the
+	 * prepareCall method above, but it allows the default result set type,
+	 * result set concurrency type and holdability to be overridden.
 	 * 
 	 * 
-	 * @param sql                  a String object that is the SQL statement to be
-	 *                             sent to the database; may contain one or more '?'
-	 *                             IN parameters
-	 * @param resultSetType        one of the following ResultSet constants:
-	 *                             ResultSet.TYPE_FORWARD_ONLY,
-	 *                             ResultSet.TYPE_SCROLL_INSENSITIVE, or
-	 *                             ResultSet.TYPE_SCROLL_SENSITIVE
-	 * @param resultSetConcurrency one of the following ResultSet constants:
-	 *                             ResultSet.CONCUR_READ_ONLY or
-	 *                             ResultSet.CONCUR_UPDATABLE
-	 * @param resultSetHoldability one of the following ResultSet constants:
-	 *                             ResultSet.HOLD_CURSORS_OVER_COMMIT or
-	 *                             ResultSet.CLOSE_CURSORS_AT_COMMIT
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param resultSetType
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.TYPE_FORWARD_ONLY,
+	 *            ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *            ResultSet.TYPE_SCROLL_SENSITIVE
+	 * @param resultSetConcurrency
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.CONCUR_READ_ONLY or ResultSet.CONCUR_UPDATABLE
+	 * @param resultSetHoldability
+	 *            one of the following ResultSet constants:
+	 *            ResultSet.HOLD_CURSORS_OVER_COMMIT or
+	 *            ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 * @return a new CallableStatement object, containing the pre-compiled SQL
-	 *         statement, that will generate ResultSet objects with the given type,
-	 *         concurrency, and holdability
+	 *         statement, that will generate ResultSet objects with the given
+	 *         type, concurrency, and holdability
 	 */
 	public CallableStatement prepareCall(String sql, int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
@@ -1120,21 +1158,22 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Creates a default PreparedStatement object that has the capability to
-	 * retrieve auto-generated keys. The given constant tells the driver whether it
-	 * should make auto-generated keys available for retrieval. This parameter is
-	 * ignored if the SQL statement is not an INSERT statement, or an SQL statement
-	 * able to return auto-generated keys (the list of such statements is
-	 * vendor-specific).
+	 * retrieve auto-generated keys. The given constant tells the driver whether
+	 * it should make auto-generated keys available for retrieval. This
+	 * parameter is ignored if the SQL statement is not an INSERT statement, or
+	 * an SQL statement able to return auto-generated keys (the list of such
+	 * statements is vendor-specific).
 	 * 
-	 * @param sql               a String object that is the SQL statement to be sent
-	 *                          to the database; may contain one or more '?' IN
-	 *                          parameters
-	 * @param autoGeneratedKeys a flag indicating whether auto-generated keys should
-	 *                          be returned; one of Statement.RETURN_GENERATED_KEYS
-	 *                          or Statement.NO_GENERATED_KEYS
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param autoGeneratedKeys
+	 *            a flag indicating whether auto-generated keys should be
+	 *            returned; one of Statement.RETURN_GENERATED_KEYS or
+	 *            Statement.NO_GENERATED_KEYS
 	 * @return a new PreparedStatement object, containing the pre-compiled SQL
-	 *         statement, that will have the capability of returning auto-generated
-	 *         keys
+	 *         statement, that will have the capability of returning
+	 *         auto-generated keys
 	 */
 	public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys)
 			throws SQLException {
@@ -1144,17 +1183,20 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Creates a default PreparedStatement object capable of returning the
-	 * auto-generated keys designated by the given array. This array contains the
-	 * indexes of the columns in the target table that contain the auto-generated
-	 * keys that should be made available. The driver will ignore the array if the
-	 * SQL statement is not an INSERT statement, or an SQL statement able to return
-	 * auto-generated keys (the list of such statements is vendor-specific).
+	 * auto-generated keys designated by the given array. This array contains
+	 * the indexes of the columns in the target table that contain the
+	 * auto-generated keys that should be made available. The driver will ignore
+	 * the array if the SQL statement is not an INSERT statement, or an SQL
+	 * statement able to return auto-generated keys (the list of such statements
+	 * is vendor-specific).
 	 * 
 	 * 
-	 * @param sql           a String object that is the SQL statement to be sent to
-	 *                      the database; may contain one or more '?' IN parameters
-	 * @param columnIndexes an array of column indexes indicating the columns that
-	 *                      should be returned from the inserted row or rows
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param columnIndexes
+	 *            an array of column indexes indicating the columns that should
+	 *            be returned from the inserted row or rows
 	 * @return a new PreparedStatement object, containing the pre-compiled
 	 *         statement, that is capable of returning the auto-generated keys
 	 *         designated by the given array of column indexes
@@ -1167,16 +1209,19 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Creates a default PreparedStatement object capable of returning the
-	 * auto-generated keys designated by the given array. This array contains the
-	 * names of the columns in the target table that contain the auto-generated keys
-	 * that should be returned. The driver will ignore the array if the SQL
-	 * statement is not an INSERT statement, or an SQL statement able to return
-	 * auto-generated keys (the list of such statements is vendor-specific).
+	 * auto-generated keys designated by the given array. This array contains
+	 * the names of the columns in the target table that contain the
+	 * auto-generated keys that should be returned. The driver will ignore the
+	 * array if the SQL statement is not an INSERT statement, or an SQL
+	 * statement able to return auto-generated keys (the list of such statements
+	 * is vendor-specific).
 	 * 
-	 * @param sql           a String object that is the SQL statement to be sent to
-	 *                      the database; may contain one or more '?' IN parameters
-	 * @param columnNames an array of column names indicating the columns that
-	 *                      should be returned from the inserted row or rows
+	 * @param sql
+	 *            a String object that is the SQL statement to be sent to the
+	 *            database; may contain one or more '?' IN parameters
+	 * @param columnNames
+	 *            an array of column names indicating the columns that should be
+	 *            returned from the inserted row or rows
 	 * @return a new PreparedStatement object, containing the pre-compiled
 	 *         statement, that is capable of returning the auto-generated keys
 	 *         designated by the given array of column names
@@ -1190,12 +1235,14 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Factory method for creating Array objects.
 	 * 
-	 * @param typeName the SQL name of the type the elements of the array map to.
-	 *                 The typeName is a database-specific name which may be the
-	 *                 name of a built-in type, a user-defined type or a standard
-	 *                 SQL type supported by this database. This is the value
-	 *                 returned by Array.getBaseTypeName
-	 * @param elements the elements that populate the returned object
+	 * @param typeName
+	 *            the SQL name of the type the elements of the array map to. The
+	 *            typeName is a database-specific name which may be the name of
+	 *            a built-in type, a user-defined type or a standard SQL type
+	 *            supported by this database. This is the value returned by
+	 *            Array.getBaseTypeName
+	 * @param elements
+	 *            the elements that populate the returned object
 	 * @return an Array object whose elements map to the specified SQL type
 	 */
 	public Array createArrayOf(String typeName, Object[] elements)
@@ -1207,9 +1254,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Constructs an object that implements the Blob interface. The object returned
-	 * initially contains no data. The setBinaryStream and setBytes methods of the
-	 * Blob interface may be used to add data to the Blob.
+	 * Constructs an object that implements the Blob interface. The object
+	 * returned initially contains no data. The setBinaryStream and setBytes
+	 * methods of the Blob interface may be used to add data to the Blob.
 	 * 
 	 * @return An object that implements the Blob interface
 	 */
@@ -1221,9 +1268,10 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Constructs an object that implements the Clob interface. The object returned
-	 * initially contains no data. The setAsciiStream, setCharacterStream and
-	 * setString methods of the Clob interface may be used to add data to the Clob.
+	 * Constructs an object that implements the Clob interface. The object
+	 * returned initially contains no data. The setAsciiStream,
+	 * setCharacterStream and setString methods of the Clob interface may be
+	 * used to add data to the Clob.
 	 * 
 	 * @return An object that implements the Clob interface
 	 */
@@ -1235,10 +1283,10 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Constructs an object that implements the NClob interface. The object returned
-	 * initially contains no data. The setAsciiStream, setCharacterStream and
-	 * setString methods of the NClob interface may be used to add data to the
-	 * NClob.
+	 * Constructs an object that implements the NClob interface. The object
+	 * returned initially contains no data. The setAsciiStream,
+	 * setCharacterStream and setString methods of the NClob interface may be
+	 * used to add data to the NClob.
 	 * 
 	 * @return An object that implements the NClob interface
 	 */
@@ -1267,13 +1315,15 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Factory method for creating Struct objects.
 	 * 
-	 * @param typeName   the SQL type name of the SQL structured type that this
-	 *                   Struct object maps to. The typeName is the name of a
-	 *                   user-defined type that has been defined for this database.
-	 *                   It is the value returned by Struct.getSQLTypeName.
-	 * @param attributes the attributes that populate the returned object
-	 * @return a Struct object that maps to the given SQL type and is populated with
-	 *         the given attributes
+	 * @param typeName
+	 *            the SQL type name of the SQL structured type that this Struct
+	 *            object maps to. The typeName is the name of a user-defined
+	 *            type that has been defined for this database. It is the value
+	 *            returned by Struct.getSQLTypeName.
+	 * @param attributes
+	 *            the attributes that populate the returned object
+	 * @return a Struct object that maps to the given SQL type and is populated
+	 *         with the given attributes
 	 */
 	public Struct createStruct(String typeName, Object[] attributes)
 			throws SQLException {
@@ -1284,16 +1334,17 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Returns true if the connection has not been closed and is still valid. The
-	 * driver shall submit a query on the connection or use some other mechanism
-	 * that positively verifies the connection is still valid when this method is
-	 * called.
+	 * Returns true if the connection has not been closed and is still valid.
+	 * The driver shall submit a query on the connection or use some other
+	 * mechanism that positively verifies the connection is still valid when
+	 * this method is called.
 	 * 
-	 * @param timeout The time in seconds to wait for the database operation used to
-	 *                validate the connection to complete. If the timeout period
-	 *                expires before the operation completes, this method returns
-	 *                false. A value of 0 indicates a timeout is not applied to the
-	 *                database operation.
+	 * @param timeout
+	 *            The time in seconds to wait for the database operation used to
+	 *            validate the connection to complete. If the timeout period
+	 *            expires before the operation completes, this method returns
+	 *            false. A value of 0 indicates a timeout is not applied to the
+	 *            database operation.
 	 * 
 	 * @return true if the connection is valid, false otherwise
 	 */
@@ -1304,11 +1355,12 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Returns a list containing the name and current value of each client info
-	 * property supported by the driver. The value of a client info property may be
-	 * null if the property has not been set and does not have a default value.
+	 * property supported by the driver. The value of a client info property may
+	 * be null if the property has not been set and does not have a default
+	 * value.
 	 * 
-	 * @return A Properties object that contains the name and current value of each
-	 *         of the client info properties supported by the driver.
+	 * @return A Properties object that contains the name and current value of
+	 *         each of the client info properties supported by the driver.
 	 */
 	public Properties getClientInfo() throws SQLException {
 		JDBCUtil.log("InternalConnection-60");
@@ -1316,12 +1368,14 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Returns the value of the client info property specified by name. This method
-	 * may return null if the specified client info property has not been set and
-	 * does not have a default value. This method will also return null if the
-	 * specified client info property name is not supported by the driver.
+	 * Returns the value of the client info property specified by name. This
+	 * method may return null if the specified client info property has not been
+	 * set and does not have a default value. This method will also return null
+	 * if the specified client info property name is not supported by the
+	 * driver.
 	 * 
-	 * @param name The name of the client info property to retrieve
+	 * @param name
+	 *            The name of the client info property to retrieve
 	 * 
 	 * @return The value of the client info property specified
 	 */
@@ -1334,15 +1388,16 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Sets the value of the connection's client info properties. The Properties
-	 * object contains the names and values of the client info properties to be set.
-	 * The set of client info properties contained in the properties list replaces
-	 * the current set of client info properties on the connection. If a property
-	 * that is currently set on the connection is not present in the properties
-	 * list, that property is cleared. Specifying an empty properties list will
-	 * clear all of the properties on the connection. See setClientInfo (String,
-	 * String) for more information.
+	 * object contains the names and values of the client info properties to be
+	 * set. The set of client info properties contained in the properties list
+	 * replaces the current set of client info properties on the connection. If
+	 * a property that is currently set on the connection is not present in the
+	 * properties list, that property is cleared. Specifying an empty properties
+	 * list will clear all of the properties on the connection. See
+	 * setClientInfo (String, String) for more information.
 	 * 
-	 * @param properties the list of client info properties to set
+	 * @param properties
+	 *            the list of client info properties to set
 	 */
 	public void setClientInfo(Properties properties)
 			throws SQLClientInfoException {
@@ -1354,9 +1409,11 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * Sets the value of the client info property specified by name to the value
 	 * specified by value.
 	 * 
-	 * @param name  The name of the client info property to set
-	 * @param value The value to set the client info property to. If the value is
-	 *              null, the current value of the specified property is cleared.
+	 * @param name
+	 *            The name of the client info property to set
+	 * @param value
+	 *            The value to set the client info property to. If the value is
+	 *            null, the current value of the specified property is cleared.
 	 */
 	public void setClientInfo(String name, String value)
 			throws SQLClientInfoException {
@@ -1368,19 +1425,21 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Returns true if this either implements the interface argument or is directly
-	 * or indirectly a wrapper for an object that does. Returns false otherwise. If
-	 * this implements the interface then return true, else if this is a wrapper
-	 * then return the result of recursively calling isWrapperFor on the wrapped
-	 * object. If this does not implement the interface and is not a wrapper, return
-	 * false. This method should be implemented as a low-cost operation compared to
-	 * unwrap so that callers can use this method to avoid expensive unwrap calls
-	 * that may fail. If this method returns true then calling unwrap with the same
-	 * argument should succeed.
+	 * Returns true if this either implements the interface argument or is
+	 * directly or indirectly a wrapper for an object that does. Returns false
+	 * otherwise. If this implements the interface then return true, else if
+	 * this is a wrapper then return the result of recursively calling
+	 * isWrapperFor on the wrapped object. If this does not implement the
+	 * interface and is not a wrapper, return false. This method should be
+	 * implemented as a low-cost operation compared to unwrap so that callers
+	 * can use this method to avoid expensive unwrap calls that may fail. If
+	 * this method returns true then calling unwrap with the same argument
+	 * should succeed.
 	 * 
-	 * @param iface a Class defining an interface.
-	 * @return true if this implements the interface or directly or indirectly wraps
-	 *         an object that does.
+	 * @param iface
+	 *            a Class defining an interface.
+	 * @return true if this implements the interface or directly or indirectly
+	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("InternalConnection-66");
@@ -1391,19 +1450,20 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	/**
 	 * Returns an object that implements the given interface to allow access to
-	 * non-standard methods, or standard methods not exposed by the proxy. If the
-	 * receiver implements the interface then the result is the receiver or a proxy
-	 * for the receiver. If the receiver is a wrapper and the wrapped object
-	 * implements the interface then the result is the wrapped object or a proxy for
-	 * the wrapped object. Otherwise return the the result of calling unwrap
-	 * recursively on the wrapped object or a proxy for that result. If the receiver
-	 * is not a wrapper and does not implement the interface, then an SQLException
-	 * is thrown.
+	 * non-standard methods, or standard methods not exposed by the proxy. If
+	 * the receiver implements the interface then the result is the receiver or
+	 * a proxy for the receiver. If the receiver is a wrapper and the wrapped
+	 * object implements the interface then the result is the wrapped object or
+	 * a proxy for the wrapped object. Otherwise return the the result of
+	 * calling unwrap recursively on the wrapped object or a proxy for that
+	 * result. If the receiver is not a wrapper and does not implement the
+	 * interface, then an SQLException is thrown.
 	 * 
 	 * 
-	 * @param iface a Class defining an interface.
-	 * @return true if this implements the interface or directly or indirectly wraps
-	 *         an object that does.
+	 * @param iface
+	 *            a Class defining an interface.
+	 * @return true if this implements the interface or directly or indirectly
+	 *         wraps an object that does.
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		JDBCUtil.log("InternalConnection-67");
@@ -1415,7 +1475,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Sets the given schema name to access.
 	 * 
-	 * @param schema the name of a schema in which to work
+	 * @param schema
+	 *            the name of a schema in which to work
 	 */
 	public void setSchema(String schema) throws SQLException {
 		JDBCUtil.log("InternalConnection-68");
@@ -1436,7 +1497,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Terminates an open connection.
 	 * 
-	 * @param executor The Executor implementation which will be used by abort.
+	 * @param executor
+	 *            The Executor implementation which will be used by abort.
 	 */
 	public void abort(Executor executor) throws SQLException {
 		JDBCUtil.log("InternalConnection-70");
@@ -1447,22 +1509,24 @@ public abstract class InternalConnection implements Connection, Serializable {
 	protected int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
 
 	/**
-	 * Sets the maximum period a Connection or objects created from the Connection
-	 * will wait for the database to reply to any one request. If any request
-	 * remains unanswered, the waiting method will return with a SQLException, and
-	 * the Connection or objects created from the Connection will be marked as
-	 * closed. Any subsequent use of the objects, with the exception of the close,
-	 * isClosed or Connection.isValid methods, will result in a SQLException.
+	 * Sets the maximum period a Connection or objects created from the
+	 * Connection will wait for the database to reply to any one request. If any
+	 * request remains unanswered, the waiting method will return with a
+	 * SQLException, and the Connection or objects created from the Connection
+	 * will be marked as closed. Any subsequent use of the objects, with the
+	 * exception of the close, isClosed or Connection.isValid methods, will
+	 * result in a SQLException.
 	 * 
-	 * @param executor     The Executor implementation which will be used by
-	 *                     setNetworkTimeout.
-	 * @param milliseconds The time in milliseconds to wait for the database
-	 *                     operation to complete. If the JDBC driver does not
-	 *                     support milliseconds, the JDBC driver will round the
-	 *                     value up to the nearest second. If the timeout period
-	 *                     expires before the operation completes, a SQLException
-	 *                     will be thrown. A value of 0 indicates that there is not
-	 *                     timeout for database operations.
+	 * @param executor
+	 *            The Executor implementation which will be used by
+	 *            setNetworkTimeout.
+	 * @param milliseconds
+	 *            The time in milliseconds to wait for the database operation to
+	 *            complete. If the JDBC driver does not support milliseconds,
+	 *            the JDBC driver will round the value up to the nearest second.
+	 *            If the timeout period expires before the operation completes,
+	 *            a SQLException will be thrown. A value of 0 indicates that
+	 *            there is not timeout for database operations.
 	 */
 	public void setNetworkTimeout(Executor executor, int milliseconds)
 			throws SQLException {
@@ -1483,4 +1547,5 @@ public abstract class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-72");
 		return connectTimeout;
 	}
+
 }

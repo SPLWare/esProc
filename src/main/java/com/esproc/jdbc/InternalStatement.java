@@ -101,8 +101,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * Constructor
 	 * 
-	 * @param con The connection object
-	 * @param id  The statement ID
+	 * @param con
+	 *            The connection object
+	 * @param id
+	 *            The statement ID
 	 */
 	public InternalStatement(int id) {
 		JDBCUtil.log("InternalStatement-1");
@@ -162,6 +164,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * 获取节点机上的Statement ID
+	 * 
 	 * @return
 	 */
 	public int getUnitStatementID() {
@@ -171,7 +174,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param parameters The parameter list
+	 * @param parameters
+	 *            The parameter list
 	 * @return boolean
 	 * @throws SQLException
 	 */
@@ -184,7 +188,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * 执行更新语句，仅支持SQL
 	 * 
-	 * @param parameters 参数
+	 * @param parameters
+	 *            参数
 	 * @return int
 	 * @throws SQLException
 	 */
@@ -200,8 +205,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * 执行命令
 	 * 
-	 * @param parameters 参数
-	 * @param isUpdate   是否更新语句
+	 * @param parameters
+	 *            参数
+	 * @param isUpdate
+	 *            是否更新语句
 	 * @return Object
 	 * @throws SQLException
 	 */
@@ -257,10 +264,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param sql        The SQL string
-	 * @param parameters The parameter list
-	 * @param con        The connection object
-	 * @param isUpdate   是否update语句
+	 * @param sql
+	 *            The SQL string
+	 * @param parameters
+	 *            The parameter list
+	 * @param con
+	 *            The connection object
+	 * @param isUpdate
+	 *            是否update语句
 	 * @return The result of execution
 	 * @throws SQLException
 	 * @throws InterruptedException
@@ -389,6 +400,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * 取语句类型
+	 * 
 	 * @return
 	 */
 	protected byte getJdbcSqlType(String sql) {
@@ -397,6 +409,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * 本地执行语句
+	 * 
 	 * @param sql
 	 * @param parameters
 	 * @param ctx
@@ -410,6 +423,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * 准备上下文。当执行本地网格时，重新创建上下文
+	 * 
 	 * @param ctx
 	 * @param sql
 	 * @param sqlType
@@ -431,10 +445,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Executes the given SQL statement, which returns a single ResultSet object.
+	 * Executes the given SQL statement, which returns a single ResultSet
+	 * object.
 	 * 
-	 * @param sql an SQL statement to be sent to the database, typically a static
-	 *            SQL SELECT statement
+	 * @param sql
+	 *            an SQL statement to be sent to the database, typically a
+	 *            static SQL SELECT statement
 	 * @return a ResultSet object that contains the data produced by the given
 	 *         query; never null
 	 */
@@ -456,12 +472,13 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE
-	 * statement or an SQL statement that returns nothing, such as an SQL DDL
-	 * statement.
+	 * Executes the given SQL statement, which may be an INSERT, UPDATE, or
+	 * DELETE statement or an SQL statement that returns nothing, such as an SQL
+	 * DDL statement.
 	 * 
-	 * @param sql an SQL statement to be sent to the database, typically a static
-	 *            SQL SELECT statement
+	 * @param sql
+	 *            an SQL statement to be sent to the database, typically a
+	 *            static SQL SELECT statement
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML)
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
@@ -478,9 +495,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Releases this Statement object's database and JDBC resources immediately
-	 * instead of waiting for this to happen when it is automatically closed. It is
-	 * generally good practice to release resources as soon as you are finished with
-	 * them to avoid tying up database resources.
+	 * instead of waiting for this to happen when it is automatically closed. It
+	 * is generally good practice to release resources as soon as you are
+	 * finished with them to avoid tying up database resources.
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalStatement-4");
@@ -495,17 +512,31 @@ public abstract class InternalStatement implements java.sql.Statement {
 		this.result = null;
 		this.set = null;
 
-		/* Close automatically opened connections */
+		/* Close the JobSpace */
+		if (jobSpace != null) {
+			jobSpace.closeResource();
+			JobSpaceManager.closeSpace(jobSpace.getID());
+		}
+
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		}
+
+		/* 关闭程序中没有关闭的连接，但是注意JDBC自动连接的不要关 */
 		if (ctx != null) {
 			Map<String, DBSession> map = ctx.getDBSessionMap();
 			if (map != null) {
 				Iterator<String> iter = map.keySet().iterator();
 				while (iter.hasNext()) {
 					String name = iter.next().toString();
-					DBSession sess = ctx.getDBSession(name);
-					if (sess == null || sess.isClosed())
+					DBSession dbSession = ctx.getDBSession(name);
+					if (connt.isAutoConnection(name, dbSession))
 						continue;
-					Object o = ctx.getDBSession(name).getSession();
+					if (dbSession == null || dbSession.isClosed())
+						continue;
+					Object o = dbSession.getSession();
 					if (o != null && o instanceof java.sql.Connection) {
 						try {
 							((java.sql.Connection) o).close();
@@ -528,27 +559,16 @@ public abstract class InternalStatement implements java.sql.Statement {
 				}
 			}
 		}
-		/* Close the JobSpace */
-		if (jobSpace != null) {
-			jobSpace.closeResource();
-			JobSpaceManager.closeSpace(jobSpace.getID());
-		}
-
-		InternalConnection connt = getConnection();
-		if (connt == null || connt.isClosed()) {
-			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.conclosed"));
-		}
 		connt.closeStatement(this);
 		isClosed = true;
 	}
 
 	/**
-	 * Retrieves the maximum number of bytes that can be returned for character and
-	 * binary column values in a ResultSet object produced by this Statement object.
-	 * This limit applies only to BINARY, VARBINARY, LONGVARBINARY, CHAR, VARCHAR,
-	 * NCHAR, NVARCHAR, LONGNVARCHAR and LONGVARCHAR columns. If the limit is
-	 * exceeded, the excess data is silently discarded.
+	 * Retrieves the maximum number of bytes that can be returned for character
+	 * and binary column values in a ResultSet object produced by this Statement
+	 * object. This limit applies only to BINARY, VARBINARY, LONGVARBINARY,
+	 * CHAR, VARCHAR, NCHAR, NVARCHAR, LONGNVARCHAR and LONGVARCHAR columns. If
+	 * the limit is exceeded, the excess data is silently discarded.
 	 * 
 	 * @return the current column size limit for columns storing character and
 	 *         binary values; zero means there is no limit
@@ -562,23 +582,25 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * Sets the limit for the maximum number of bytes that can be returned for
 	 * character and binary column values in a ResultSet object produced by this
 	 * Statement object. This limit applies only to BINARY, VARBINARY,
-	 * LONGVARBINARY, CHAR, VARCHAR, NCHAR, NVARCHAR, LONGNVARCHAR and LONGVARCHAR
-	 * fields. If the limit is exceeded, the excess data is silently discarded. For
-	 * maximum portability, use values greater than 256.
+	 * LONGVARBINARY, CHAR, VARCHAR, NCHAR, NVARCHAR, LONGNVARCHAR and
+	 * LONGVARCHAR fields. If the limit is exceeded, the excess data is silently
+	 * discarded. For maximum portability, use values greater than 256.
 	 * 
-	 * @param max the new column size limit in bytes; zero means there is no limit
+	 * @param max
+	 *            the new column size limit in bytes; zero means there is no
+	 *            limit
 	 */
 	public void setMaxFieldSize(int max) throws SQLException {
 		JDBCUtil.log("InternalStatement-6");
 	}
 
 	/**
-	 * Retrieves the maximum number of rows that a ResultSet object produced by this
-	 * Statement object can contain. If this limit is exceeded, the excess rows are
-	 * silently dropped.
+	 * Retrieves the maximum number of rows that a ResultSet object produced by
+	 * this Statement object can contain. If this limit is exceeded, the excess
+	 * rows are silently dropped.
 	 * 
-	 * @return the current maximum number of rows for a ResultSet object produced by
-	 *         this Statement object; zero means there is no limit
+	 * @return the current maximum number of rows for a ResultSet object
+	 *         produced by this Statement object; zero means there is no limit
 	 */
 	public int getMaxRows() throws SQLException {
 		JDBCUtil.log("InternalStatement-7");
@@ -587,21 +609,23 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Sets the limit for the maximum number of rows that any ResultSet object
-	 * generated by this Statement object can contain to the given number. If the
-	 * limit is exceeded, the excess rows are silently dropped.
+	 * generated by this Statement object can contain to the given number. If
+	 * the limit is exceeded, the excess rows are silently dropped.
 	 * 
-	 * @param max the new max rows limit; zero means there is no limit
+	 * @param max
+	 *            the new max rows limit; zero means there is no limit
 	 */
 	public void setMaxRows(int max) throws SQLException {
 		JDBCUtil.log("InternalStatement-8");
 	}
 
 	/**
-	 * Sets escape processing on or off. If escape scanning is on (the default), the
-	 * driver will do escape substitution before sending the SQL statement to the
-	 * database.
+	 * Sets escape processing on or off. If escape scanning is on (the default),
+	 * the driver will do escape substitution before sending the SQL statement
+	 * to the database.
 	 * 
-	 * @param enable true to enable escape processing; false to disable it
+	 * @param enable
+	 *            true to enable escape processing; false to disable it
 	 */
 	public void setEscapeProcessing(boolean enable) throws SQLException {
 		JDBCUtil.log("InternalStatement-9");
@@ -610,11 +634,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Retrieves the number of seconds the driver will wait for a Statement object
-	 * to execute. If the limit is exceeded, a SQLException is thrown.
+	 * Retrieves the number of seconds the driver will wait for a Statement
+	 * object to execute. If the limit is exceeded, a SQLException is thrown.
 	 * 
-	 * @return the current query timeout limit in seconds; zero means there is no
-	 *         limit
+	 * @return the current query timeout limit in seconds; zero means there is
+	 *         no limit
 	 */
 	public int getQueryTimeout() throws SQLException {
 		JDBCUtil.log("InternalStatement-10");
@@ -623,13 +647,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Sets the number of seconds the driver will wait for a Statement object to
-	 * execute to the given number of seconds. By default there is no limit on the
-	 * amount of time allowed for a running statement to complete. If the limit is
-	 * exceeded, an SQLTimeoutException is thrown. A JDBC driver must apply this
-	 * limit to the execute, executeQuery and executeUpdate methods.
+	 * execute to the given number of seconds. By default there is no limit on
+	 * the amount of time allowed for a running statement to complete. If the
+	 * limit is exceeded, an SQLTimeoutException is thrown. A JDBC driver must
+	 * apply this limit to the execute, executeQuery and executeUpdate methods.
 	 * 
-	 * @param seconds the new query timeout limit in seconds; zero means there is no
-	 *                limit
+	 * @param seconds
+	 *            the new query timeout limit in seconds; zero means there is no
+	 *            limit
 	 */
 	public void setQueryTimeout(int seconds) throws SQLException {
 		JDBCUtil.log("InternalStatement-11");
@@ -637,9 +662,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Cancels this Statement object if both the DBMS and driver support aborting an
-	 * SQL statement. This method can be used by one thread to cancel a statement
-	 * that is being executed by another thread.
+	 * Cancels this Statement object if both the DBMS and driver support
+	 * aborting an SQL statement. This method can be used by one thread to
+	 * cancel a statement that is being executed by another thread.
 	 */
 	public void cancel() throws SQLException {
 		JDBCUtil.log("InternalStatement-12");
@@ -680,9 +705,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Clears all the warnings reported on this Statement object. After a call to
-	 * this method, the method getWarnings will return null until a new warning is
-	 * reported for this Statement object.
+	 * Clears all the warnings reported on this Statement object. After a call
+	 * to this method, the method getWarnings will return null until a new
+	 * warning is reported for this Statement object.
 	 */
 	public void clearWarnings() throws SQLException {
 		JDBCUtil.log("InternalStatement-14");
@@ -690,15 +715,16 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Sets the SQL cursor name to the given String, which will be used by
-	 * subsequent Statement object execute methods. This name can then be used in
-	 * SQL positioned update or delete statements to identify the current row in the
-	 * ResultSet object generated by this statement. If the database does not
-	 * support positioned update/delete, this method is a noop. To insure that a
-	 * cursor has the proper isolation level to support updates, the cursor's SELECT
-	 * statement should have the form SELECT FOR UPDATE. If FOR UPDATE is not
-	 * present, positioned updates may fail.
+	 * subsequent Statement object execute methods. This name can then be used
+	 * in SQL positioned update or delete statements to identify the current row
+	 * in the ResultSet object generated by this statement. If the database does
+	 * not support positioned update/delete, this method is a noop. To insure
+	 * that a cursor has the proper isolation level to support updates, the
+	 * cursor's SELECT statement should have the form SELECT FOR UPDATE. If FOR
+	 * UPDATE is not present, positioned updates may fail.
 	 * 
-	 * @param name the new cursor name, which must be unique within a connection
+	 * @param name
+	 *            the new cursor name, which must be unique within a connection
 	 */
 	public void setCursorName(String name) throws SQLException {
 		JDBCUtil.log("InternalStatement-15");
@@ -707,13 +733,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Executes the given SQL statement, which may return multiple results. In some
-	 * (uncommon) situations, a single SQL statement may return multiple result sets
-	 * and/or update counts. Normally you can ignore this unless you are (1)
-	 * executing a stored procedure that you know may return multiple results or (2)
-	 * you are dynamically executing an unknown SQL string.
+	 * Executes the given SQL statement, which may return multiple results. In
+	 * some (uncommon) situations, a single SQL statement may return multiple
+	 * result sets and/or update counts. Normally you can ignore this unless you
+	 * are (1) executing a stored procedure that you know may return multiple
+	 * results or (2) you are dynamically executing an unknown SQL string.
 	 * 
-	 * @param sql any SQL statement
+	 * @param sql
+	 *            any SQL statement
 	 */
 	public boolean execute(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-17");
@@ -735,8 +762,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * Retrieves the current result as a ResultSet object. This method should be
 	 * called only once per result.
 	 * 
-	 * @return the current result as a ResultSet object or null if the result is an
-	 *         update count or there are no more results
+	 * @return the current result as a ResultSet object or null if the result is
+	 *         an update count or there are no more results
 	 */
 	public java.sql.ResultSet getResultSet() throws SQLException {
 		JDBCUtil.log("InternalStatement-18");
@@ -768,12 +795,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 	protected int updateCount = -1;
 
 	/**
-	 * Retrieves the current result as an update count; if the result is a ResultSet
-	 * object or there are no more results, -1 is returned. This method should be
-	 * called only once per result.
+	 * Retrieves the current result as an update count; if the result is a
+	 * ResultSet object or there are no more results, -1 is returned. This
+	 * method should be called only once per result.
 	 * 
-	 * @return the current result as an update count; -1 if the current result is a
-	 *         ResultSet object or there are no more results
+	 * @return the current result as an update count; -1 if the current result
+	 *         is a ResultSet object or there are no more results
 	 */
 	public int getUpdateCount() throws SQLException {
 		JDBCUtil.log("InternalStatement-19");
@@ -822,11 +849,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Gives the driver a hint as to the direction in which rows will be processed
-	 * in ResultSet objects created using this Statement object. The default value
-	 * is ResultSet.FETCH_FORWARD.
+	 * Gives the driver a hint as to the direction in which rows will be
+	 * processed in ResultSet objects created using this Statement object. The
+	 * default value is ResultSet.FETCH_FORWARD.
 	 * 
-	 * @param direction the initial direction for processing rows
+	 * @param direction
+	 *            the initial direction for processing rows
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
 		JDBCUtil.log("InternalStatement-21");
@@ -835,8 +863,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Retrieves the direction for fetching rows from database tables that is the
-	 * default for result sets generated from this Statement object. If this
+	 * Retrieves the direction for fetching rows from database tables that is
+	 * the default for result sets generated from this Statement object. If this
 	 * Statement object has not set a fetch direction by calling the method
 	 * setFetchDirection, the return value is implementation-specific.
 	 * 
@@ -849,12 +877,13 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Gives the JDBC driver a hint as to the number of rows that should be fetched
-	 * from the database when more rows are needed for ResultSet objects generated
-	 * by this Statement. If the value specified is zero, then the hint is ignored.
-	 * The default value is zero.
+	 * Gives the JDBC driver a hint as to the number of rows that should be
+	 * fetched from the database when more rows are needed for ResultSet objects
+	 * generated by this Statement. If the value specified is zero, then the
+	 * hint is ignored. The default value is zero.
 	 * 
-	 * @param rows the number of rows to fetch
+	 * @param rows
+	 *            the number of rows to fetch
 	 */
 	public void setFetchSize(int rows) throws SQLException {
 		JDBCUtil.log("InternalStatement-23");
@@ -862,13 +891,13 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Retrieves the number of result set rows that is the default fetch size for
-	 * ResultSet objects generated from this Statement object. If this Statement
-	 * object has not set a fetch size by calling the method setFetchSize, the
-	 * return value is implementation-specific.
+	 * Retrieves the number of result set rows that is the default fetch size
+	 * for ResultSet objects generated from this Statement object. If this
+	 * Statement object has not set a fetch size by calling the method
+	 * setFetchSize, the return value is implementation-specific.
 	 * 
-	 * @return the default fetch size for result sets generated from this Statement
-	 *         object
+	 * @return the default fetch size for result sets generated from this
+	 *         Statement object
 	 */
 	public int getFetchSize() throws SQLException {
 		JDBCUtil.log("InternalStatement-24");
@@ -876,8 +905,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Retrieves the result set concurrency for ResultSet objects generated by this
-	 * Statement object.
+	 * Retrieves the result set concurrency for ResultSet objects generated by
+	 * this Statement object.
 	 * 
 	 * @return either ResultSet.CONCUR_READ_ONLY or ResultSet.CONCUR_UPDATABLE
 	 */
@@ -891,7 +920,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * Statement object.
 	 * 
 	 * @return one of ResultSet.TYPE_FORWARD_ONLY,
-	 *         ResultSet.TYPE_SCROLL_INSENSITIVE, or ResultSet.TYPE_SCROLL_SENSITIVE
+	 *         ResultSet.TYPE_SCROLL_INSENSITIVE, or
+	 *         ResultSet.TYPE_SCROLL_SENSITIVE
 	 */
 	public int getResultSetType() throws SQLException {
 		JDBCUtil.log("InternalStatement-26");
@@ -899,11 +929,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Adds the given SQL command to the current list of commands for this Statement
-	 * object. The commands in this list can be executed as a batch by calling the
-	 * method executeBatch.
+	 * Adds the given SQL command to the current list of commands for this
+	 * Statement object. The commands in this list can be executed as a batch by
+	 * calling the method executeBatch.
 	 * 
-	 * @param sql typically this is a SQL INSERT or UPDATE statement
+	 * @param sql
+	 *            typically this is a SQL INSERT or UPDATE statement
 	 */
 	public void addBatch(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-27");
@@ -921,16 +952,16 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Submits a batch of commands to the database for execution and if all commands
-	 * execute successfully, returns an array of update counts. The int elements of
-	 * the array that is returned are ordered to correspond to the commands in the
-	 * batch, which are ordered according to the order in which they were added to
-	 * the batch. The elements in the array returned by the method executeBatch may
-	 * be one of the following:
+	 * Submits a batch of commands to the database for execution and if all
+	 * commands execute successfully, returns an array of update counts. The int
+	 * elements of the array that is returned are ordered to correspond to the
+	 * commands in the batch, which are ordered according to the order in which
+	 * they were added to the batch. The elements in the array returned by the
+	 * method executeBatch may be one of the following:
 	 * 
-	 * @return an array of update counts containing one element for each command in
-	 *         the batch. The elements of the array are ordered according to the
-	 *         order in which commands were added to the batch.
+	 * @return an array of update counts containing one element for each command
+	 *         in the batch. The elements of the array are ordered according to
+	 *         the order in which commands were added to the batch.
 	 */
 	public int[] executeBatch() throws SQLException {
 		JDBCUtil.log("InternalStatement-29");
@@ -944,10 +975,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * ResultSet object(s) according to the instructions specified by the given
 	 * flag, and returns true if the next result is a ResultSet object.
 	 * 
-	 * @param current one of the following Statement constants indicating what
-	 *                should happen to current ResultSet objects obtained using the
-	 *                method getResultSet: Statement.CLOSE_CURRENT_RESULT,
-	 *                Statement.KEEP_CURRENT_RESULT, or Statement.CLOSE_ALL_RESULTS
+	 * @param current
+	 *            one of the following Statement constants indicating what
+	 *            should happen to current ResultSet objects obtained using the
+	 *            method getResultSet: Statement.CLOSE_CURRENT_RESULT,
+	 *            Statement.KEEP_CURRENT_RESULT, or Statement.CLOSE_ALL_RESULTS
 	 * 
 	 * @return true if the next result is a ResultSet object; false if it is an
 	 *         update count or there are no more results
@@ -962,8 +994,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * Statement object. If this Statement object did not generate any keys, an
 	 * empty ResultSet object is returned.
 	 * 
-	 * @return a ResultSet object containing the auto-generated key(s) generated by
-	 *         the execution of this Statement object
+	 * @return a ResultSet object containing the auto-generated key(s) generated
+	 *         by the execution of this Statement object
 	 */
 	public java.sql.ResultSet getGeneratedKeys() throws SQLException {
 		JDBCUtil.log("InternalStatement-32");
@@ -973,21 +1005,22 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Executes the given SQL statement and signals the driver with the given flag
-	 * about whether the auto-generated keys produced by this Statement object
-	 * should be made available for retrieval. The driver will ignore the flag if
-	 * the SQL statement is not an INSERT statement, or an SQL statement able to
-	 * return auto-generated keys (the list of such statements is vendor-specific).
+	 * Executes the given SQL statement and signals the driver with the given
+	 * flag about whether the auto-generated keys produced by this Statement
+	 * object should be made available for retrieval. The driver will ignore the
+	 * flag if the SQL statement is not an INSERT statement, or an SQL statement
+	 * able to return auto-generated keys (the list of such statements is
+	 * vendor-specific).
 	 * 
 	 * 
-	 * @param sql               an SQL Data Manipulation Language (DML) statement,
-	 *                          such as INSERT, UPDATE or DELETE; or an SQL
-	 *                          statement that returns nothing, such as a DDL
-	 *                          statement.
-	 * @param autoGeneratedKeys a flag indicating whether auto-generated keys should
-	 *                          be made available for retrieval; one of the
-	 *                          following constants: Statement.RETURN_GENERATED_KEYS
-	 *                          Statement.NO_GENERATED_KEYS
+	 * @param sql
+	 *            an SQL Data Manipulation Language (DML) statement, such as
+	 *            INSERT, UPDATE or DELETE; or an SQL statement that returns
+	 *            nothing, such as a DDL statement.
+	 * @param autoGeneratedKeys
+	 *            a flag indicating whether auto-generated keys should be made
+	 *            available for retrieval; one of the following constants:
+	 *            Statement.RETURN_GENERATED_KEYS Statement.NO_GENERATED_KEYS
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML)
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
@@ -1001,18 +1034,20 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Executes the given SQL statement and signals the driver that the
-	 * auto-generated keys indicated in the given array should be made available for
-	 * retrieval. This array contains the indexes of the columns in the target table
-	 * that contain the auto-generated keys that should be made available. The
-	 * driver will ignore the array if the SQL statement is not an INSERT statement,
-	 * or an SQL statement able to return auto-generated keys (the list of such
-	 * statements is vendor-specific).
+	 * auto-generated keys indicated in the given array should be made available
+	 * for retrieval. This array contains the indexes of the columns in the
+	 * target table that contain the auto-generated keys that should be made
+	 * available. The driver will ignore the array if the SQL statement is not
+	 * an INSERT statement, or an SQL statement able to return auto-generated
+	 * keys (the list of such statements is vendor-specific).
 	 * 
-	 * @param sql           an SQL Data Manipulation Language (DML) statement, such
-	 *                      as INSERT, UPDATE or DELETE; or an SQL statement that
-	 *                      returns nothing, such as a DDL statement.
-	 * @param columnIndexes an array of column indexes indicating the columns that
-	 *                      should be returned from the inserted row
+	 * @param sql
+	 *            an SQL Data Manipulation Language (DML) statement, such as
+	 *            INSERT, UPDATE or DELETE; or an SQL statement that returns
+	 *            nothing, such as a DDL statement.
+	 * @param columnIndexes
+	 *            an array of column indexes indicating the columns that should
+	 *            be returned from the inserted row
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML)
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
@@ -1026,20 +1061,22 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Executes the given SQL statement and signals the driver that the
-	 * auto-generated keys indicated in the given array should be made available for
-	 * retrieval. This array contains the names of the columns in the target table
-	 * that contain the auto-generated keys that should be made available. The
-	 * driver will ignore the array if the SQL statement is not an INSERT statement,
-	 * or an SQL statement able to return auto-generated keys (the list of such
-	 * statements is vendor-specific).
+	 * auto-generated keys indicated in the given array should be made available
+	 * for retrieval. This array contains the names of the columns in the target
+	 * table that contain the auto-generated keys that should be made available.
+	 * The driver will ignore the array if the SQL statement is not an INSERT
+	 * statement, or an SQL statement able to return auto-generated keys (the
+	 * list of such statements is vendor-specific).
 	 * 
-	 * @param sql         an SQL Data Manipulation Language (DML) statement, such as
-	 *                    INSERT, UPDATE or DELETE; or an SQL statement that returns
-	 *                    nothing, such as a DDL statement.
-	 * @param columnNames an array of the names of the columns that should be
-	 *                    returned from the inserted row
-	 * @return either the row count for INSERT, UPDATE, or DELETE statements, or 0
-	 *         for SQL statements that return nothing
+	 * @param sql
+	 *            an SQL Data Manipulation Language (DML) statement, such as
+	 *            INSERT, UPDATE or DELETE; or an SQL statement that returns
+	 *            nothing, such as a DDL statement.
+	 * @param columnNames
+	 *            an array of the names of the columns that should be returned
+	 *            from the inserted row
+	 * @return either the row count for INSERT, UPDATE, or DELETE statements, or
+	 *         0 for SQL statements that return nothing
 	 */
 	public int executeUpdate(String sql, String[] columnNames)
 			throws SQLException {
@@ -1051,17 +1088,18 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Executes the given SQL statement, which may return multiple results, and
-	 * signals the driver that any auto-generated keys should be made available for
-	 * retrieval. The driver will ignore this signal if the SQL statement is not an
-	 * INSERT statement, or an SQL statement able to return auto-generated keys (the
-	 * list of such statements is vendor-specific).
+	 * signals the driver that any auto-generated keys should be made available
+	 * for retrieval. The driver will ignore this signal if the SQL statement is
+	 * not an INSERT statement, or an SQL statement able to return
+	 * auto-generated keys (the list of such statements is vendor-specific).
 	 * 
-	 * @param sql               any SQL statement
-	 * @param autoGeneratedKeys a constant indicating whether auto-generated keys
-	 *                          should be made available for retrieval using the
-	 *                          method getGeneratedKeys; one of the following
-	 *                          constants: Statement.RETURN_GENERATED_KEYS or
-	 *                          Statement.NO_GENERATED_KEYS
+	 * @param sql
+	 *            any SQL statement
+	 * @param autoGeneratedKeys
+	 *            a constant indicating whether auto-generated keys should be
+	 *            made available for retrieval using the method
+	 *            getGeneratedKeys; one of the following constants:
+	 *            Statement.RETURN_GENERATED_KEYS or Statement.NO_GENERATED_KEYS
 	 * @return true if the first result is a ResultSet object; false if it is an
 	 *         update count or there are no results
 	 */
@@ -1075,17 +1113,20 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Executes the given SQL statement, which may return multiple results, and
-	 * signals the driver that the auto-generated keys indicated in the given array
-	 * should be made available for retrieval. This array contains the indexes of
-	 * the columns in the target table that contain the auto-generated keys that
-	 * should be made available. The driver will ignore the array if the SQL
-	 * statement is not an INSERT statement, or an SQL statement able to return
-	 * auto-generated keys (the list of such statements is vendor-specific).
+	 * signals the driver that the auto-generated keys indicated in the given
+	 * array should be made available for retrieval. This array contains the
+	 * indexes of the columns in the target table that contain the
+	 * auto-generated keys that should be made available. The driver will ignore
+	 * the array if the SQL statement is not an INSERT statement, or an SQL
+	 * statement able to return auto-generated keys (the list of such statements
+	 * is vendor-specific).
 	 * 
-	 * @param sql           any SQL statement
-	 * @param columnIndexes an array of the indexes of the columns in the inserted
-	 *                      row that should be made available for retrieval by a
-	 *                      call to the method getGeneratedKeys
+	 * @param sql
+	 *            any SQL statement
+	 * @param columnIndexes
+	 *            an array of the indexes of the columns in the inserted row
+	 *            that should be made available for retrieval by a call to the
+	 *            method getGeneratedKeys
 	 * @return true if the first result is a ResultSet object; false if it is an
 	 *         update count or there are no results
 	 */
@@ -1098,17 +1139,20 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Executes the given SQL statement, which may return multiple results, and
-	 * signals the driver that the auto-generated keys indicated in the given array
-	 * should be made available for retrieval. This array contains the names of the
-	 * columns in the target table that contain the auto-generated keys that should
-	 * be made available. The driver will ignore the array if the SQL statement is
-	 * not an INSERT statement, or an SQL statement able to return auto-generated
-	 * keys (the list of such statements is vendor-specific).
+	 * signals the driver that the auto-generated keys indicated in the given
+	 * array should be made available for retrieval. This array contains the
+	 * names of the columns in the target table that contain the auto-generated
+	 * keys that should be made available. The driver will ignore the array if
+	 * the SQL statement is not an INSERT statement, or an SQL statement able to
+	 * return auto-generated keys (the list of such statements is
+	 * vendor-specific).
 	 * 
-	 * @param sql           any SQL statement
-	 * @param columnNames an array of the names of the columns in the inserted row
-	 *                      that should be made available for retrieval by a call to
-	 *                      the method getGeneratedKeys
+	 * @param sql
+	 *            any SQL statement
+	 * @param columnNames
+	 *            an array of the names of the columns in the inserted row that
+	 *            should be made available for retrieval by a call to the method
+	 *            getGeneratedKeys
 	 * @return true if the next result is a ResultSet object; false if it is an
 	 *         update count or there are no more results
 	 */
@@ -1121,8 +1165,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Retrieves the result set holdability for ResultSet objects generated by this
-	 * Statement object.
+	 * Retrieves the result set holdability for ResultSet objects generated by
+	 * this Statement object.
 	 * 
 	 * @return either ResultSet.HOLD_CURSORS_OVER_COMMIT or
 	 *         ResultSet.CLOSE_CURSORS_AT_COMMIT
@@ -1134,10 +1178,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Retrieves whether this Statement object has been closed. A Statement is
-	 * closed if the method close has been called on it, or if it is automatically
-	 * closed.
+	 * closed if the method close has been called on it, or if it is
+	 * automatically closed.
 	 * 
-	 * @return true if this Statement object is closed; false if it is still open
+	 * @return true if this Statement object is closed; false if it is still
+	 *         open
 	 */
 	public boolean isClosed() throws SQLException {
 		JDBCUtil.log("InternalStatement-40");
@@ -1147,8 +1192,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * Returns a value indicating whether the Statement is poolable or not.
 	 * 
-	 * @return requests that the statement be pooled if true and that the statement
-	 *         not be pooled if false
+	 * @return requests that the statement be pooled if true and that the
+	 *         statement not be pooled if false
 	 */
 	public boolean isPoolable() throws SQLException {
 		JDBCUtil.log("InternalStatement-41");
@@ -1158,13 +1203,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Requests that a Statement be pooled or not pooled. The value specified is a
-	 * hint to the statement pool implementation indicating whether the application
-	 * wants the statement to be pooled. It is up to the statement pool manager as
-	 * to whether the hint is used.
+	 * Requests that a Statement be pooled or not pooled. The value specified is
+	 * a hint to the statement pool implementation indicating whether the
+	 * application wants the statement to be pooled. It is up to the statement
+	 * pool manager as to whether the hint is used.
 	 * 
-	 * @param poolable requests that the statement be pooled if true and that the
-	 *                 statement not be pooled if false
+	 * @param poolable
+	 *            requests that the statement be pooled if true and that the
+	 *            statement not be pooled if false
 	 */
 	public void setPoolable(boolean poolable) throws SQLException {
 		JDBCUtil.log("InternalStatement-42");
@@ -1173,20 +1219,22 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Returns true if this either implements the interface argument or is directly
-	 * or indirectly a wrapper for an object that does. Returns false otherwise. If
-	 * this implements the interface then return true, else if this is a wrapper
-	 * then return the result of recursively calling isWrapperFor on the wrapped
-	 * object. If this does not implement the interface and is not a wrapper, return
-	 * false. This method should be implemented as a low-cost operation compared to
-	 * unwrap so that callers can use this method to avoid expensive unwrap calls
-	 * that may fail. If this method returns true then calling unwrap with the same
-	 * argument should succeed.
+	 * Returns true if this either implements the interface argument or is
+	 * directly or indirectly a wrapper for an object that does. Returns false
+	 * otherwise. If this implements the interface then return true, else if
+	 * this is a wrapper then return the result of recursively calling
+	 * isWrapperFor on the wrapped object. If this does not implement the
+	 * interface and is not a wrapper, return false. This method should be
+	 * implemented as a low-cost operation compared to unwrap so that callers
+	 * can use this method to avoid expensive unwrap calls that may fail. If
+	 * this method returns true then calling unwrap with the same argument
+	 * should succeed.
 	 * 
-	 * @param iface a Class defining an interface.
+	 * @param iface
+	 *            a Class defining an interface.
 	 * 
-	 * @return true if this implements the interface or directly or indirectly wraps
-	 *         an object that does.
+	 * @return true if this implements the interface or directly or indirectly
+	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("InternalStatement-43");
@@ -1197,16 +1245,17 @@ public abstract class InternalStatement implements java.sql.Statement {
 
 	/**
 	 * Returns an object that implements the given interface to allow access to
-	 * non-standard methods, or standard methods not exposed by the proxy. If the
-	 * receiver implements the interface then the result is the receiver or a proxy
-	 * for the receiver. If the receiver is a wrapper and the wrapped object
-	 * implements the interface then the result is the wrapped object or a proxy for
-	 * the wrapped object. Otherwise return the the result of calling unwrap
-	 * recursively on the wrapped object or a proxy for that result. If the receiver
-	 * is not a wrapper and does not implement the interface, then an SQLException
-	 * is thrown.
+	 * non-standard methods, or standard methods not exposed by the proxy. If
+	 * the receiver implements the interface then the result is the receiver or
+	 * a proxy for the receiver. If the receiver is a wrapper and the wrapped
+	 * object implements the interface then the result is the wrapped object or
+	 * a proxy for the wrapped object. Otherwise return the the result of
+	 * calling unwrap recursively on the wrapped object or a proxy for that
+	 * result. If the receiver is not a wrapper and does not implement the
+	 * interface, then an SQLException is thrown.
 	 * 
-	 * @param iface A Class defining an interface that the result must implement.
+	 * @param iface
+	 *            A Class defining an interface that the result must implement.
 	 * 
 	 * @return an object that implements the interface. May be a proxy for the
 	 *         actual implementing object.
@@ -1219,9 +1268,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Specifies that this Statement will be closed when all its dependent result
-	 * sets are closed. If execution of the Statement does not produce any result
-	 * sets, this method has no effect.
+	 * Specifies that this Statement will be closed when all its dependent
+	 * result sets are closed. If execution of the Statement does not produce
+	 * any result sets, this method has no effect.
 	 */
 	public void closeOnCompletion() throws SQLException {
 		JDBCUtil.log("InternalStatement-45");
@@ -1230,11 +1279,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Returns a value indicating whether this Statement will be closed when all its
-	 * dependent result sets are closed.
+	 * Returns a value indicating whether this Statement will be closed when all
+	 * its dependent result sets are closed.
 	 * 
-	 * @return true if the Statement will be closed when all of its dependent result
-	 *         sets are closed; false otherwise
+	 * @return true if the Statement will be closed when all of its dependent
+	 *         result sets are closed; false otherwise
 	 */
 	public boolean isCloseOnCompletion() throws SQLException {
 		JDBCUtil.log("InternalStatement-46");
