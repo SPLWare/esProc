@@ -430,7 +430,7 @@ public class Groups extends Operation {
 					data.add(current.getCurrent());
 				} else {
 					group1(data, prevValues, newExps, ctx, result);
-					data.clear();
+					data = new Sequence(); // newExps可能为~，需要重新创建序列
 					data.add(current.getCurrent());
 				}
 			}
@@ -438,6 +438,7 @@ public class Groups extends Operation {
 			stack.pop();
 		}
 
+		this.data = data;
 		if (result.length() > 0) {
 			if (eopt) {
 				result = result.fieldValues(result.getFieldCount() - 1).derive("o");
