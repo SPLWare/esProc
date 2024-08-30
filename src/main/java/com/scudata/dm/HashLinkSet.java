@@ -1,7 +1,14 @@
 package com.scudata.dm;
 
+import java.util.ArrayList;
+
 import com.scudata.array.IArray;
+import com.scudata.array.NumberArray;
 import com.scudata.array.ObjectArray;
+import com.scudata.array.StringArray;
+import com.scudata.thread.Job;
+import com.scudata.thread.ThreadPool;
+import com.scudata.util.Variant;
 
 public class HashLinkSet {
 	private static final int DEFAULT_CAPACITY = 0xFF;
@@ -11,6 +18,9 @@ public class HashLinkSet {
 	private int []entries; // 哈希表，存放着哈希值对应的最后一条记录的位置
 	private int []linkArray; // 哈希值相同的记录链表
 	private int capacity;
+	private boolean fixedCapacity = false;
+	
+	private ArrayList<HashLinkSet> setList; // 用于多线程分组时每组结果的合并
 	
 	public HashLinkSet() {
 		capacity = DEFAULT_CAPACITY;
@@ -19,16 +29,9 @@ public class HashLinkSet {
 		linkArray = new int[capacity + 1];
 	}
 	
-	public HashLinkSet(IArray src) {
-		capacity = DEFAULT_CAPACITY;
-		entries = new int[capacity + 1];
-		elementArray = src.newInstance(capacity);
-		linkArray = new int[capacity + 1];
-	}
-	
 	public HashLinkSet(int capacity) {
 		int n = 0xF;
-		while (capacity < n) {
+		while (capacity > n) {
 			n = (n << 1)+1;
 			if (n < 0) {
 				n = 0x3fffffff;
@@ -42,8 +45,241 @@ public class HashLinkSet {
 		linkArray = new int[n + 1];
 	}
 	
+	public HashLinkSet(IArray src) {
+		capacity = DEFAULT_CAPACITY;
+		entries = new int[capacity + 1];
+		elementArray = src.newInstance(capacity);
+		linkArray = new int[capacity + 1];
+	}
+	
+	public HashLinkSet(IArray src, int capacity, boolean fixedCapacity) {
+		int n = 0xF;
+		while (capacity > n) {
+			n = (n << 1)+1;
+			if (n < 0) {
+				n = 0x3fffffff;
+				break;
+			}
+		}
+		
+		this.capacity = n;
+		entries = new int[n + 1];
+		elementArray = src.newInstance(n);
+		linkArray = new int[n + 1];
+		this.fixedCapacity = fixedCapacity;
+	}
+	
 	public int size() {
-		return elementArray.size();
+		if (setList != null) {
+			int setCount = setList.size();
+			HashLinkSet []setArray;
+			if (elementArray.size() > 0) {
+				setArray = new HashLinkSet[setCount + 1];
+				setList.toArray(setArray);
+				setArray[setCount++] = this;
+			} else {
+				setArray = new HashLinkSet[setCount];
+				setList.toArray(setArray);
+			}
+			
+			if (setCount == 1) {
+				return setArray[0].elementArray.size();
+			} else {
+				return size(setArray);
+			}
+		} else {
+			return elementArray.size();
+		}
+	}
+	
+	/**
+	 * 此类用于多线程统计相同容量的多个哈希表的元素数，把哈希点平均分配给各线程
+	 * @author WangXiaoJun
+	 *
+	 */
+	public static class SizeJob extends Job {
+		private HashLinkSet []setArray;
+		private int seq; // 线程序号，从0开始计算
+		private int threadCount; // 线程数
+		private int result; // 结果集数量
+		
+		public SizeJob(HashLinkSet []setArray, int seq, int threadCount) {
+			this.setArray = setArray;
+			this.seq = seq;
+			this.threadCount = threadCount;
+		}
+		
+		public int size() {
+			return result;
+		}
+		
+		public void run() {
+			IArray elementArray = setArray[0].elementArray;
+			if (elementArray instanceof NumberArray) {
+				sizeOfNumber();
+			} else if (elementArray instanceof StringArray) {
+				sizeOfString();
+			} else {
+				sizeOfObject();
+			}
+		}
+		
+		private void sizeOfNumber() {
+			HashLinkSet []setArray = this.setArray;
+			int threadCount = this.threadCount; // 线程数
+			int capacity = setArray[0].capacity;
+			int setCount = setArray.length;
+			
+			int valueCapacity = 128;
+			IArray values = setArray[0].elementArray.newInstance(valueCapacity);
+			int result = 0;
+			
+			// 循环哈希点
+			for (int h = seq; h <= capacity; h += threadCount) {
+				// 当前哈希值上不重复元素数
+				int valueCount = 0;
+				
+				// 循环每个哈希表当前哈希点上的值
+				for (int s = 0; s < setCount; ++s) {
+					HashLinkSet set = setArray[s];
+					IArray elementArray = set.elementArray;
+					int prevValueCount = valueCount;
+					
+					Next:
+					for (int seq = set.entries[h]; seq != 0; seq = set.linkArray[seq]) {
+						for (int i = 0; i < prevValueCount; ++i) {
+							if (values.isEquals(i, elementArray, seq)) {
+								continue Next;
+							}
+						}
+						
+						if (valueCount == valueCapacity) {
+							valueCapacity *= 2;
+							values.ensureCapacity(valueCapacity);
+						}
+						
+						valueCount++;
+						values.push(elementArray, seq);
+					}
+				}
+				
+				values.clear();
+				result += valueCount;
+			}
+			
+			this.result = result;
+		}
+		
+		private void sizeOfString() {
+			HashLinkSet []setArray = this.setArray;
+			int threadCount = this.threadCount; // 线程数
+			int capacity = setArray[0].capacity;
+			int setCount = setArray.length;
+			
+			int valueCapacity = 128;
+			String []values = new String[valueCapacity];
+			int result = 0;
+			
+			// 循环哈希点
+			for (int h = seq; h <= capacity; h += threadCount) {
+				// 当前哈希值上不重复元素数
+				int valueCount = 0;
+				
+				// 循环每个哈希表当前哈希点上的值
+				for (int s = 0; s < setCount; ++s) {
+					HashLinkSet set = setArray[s];
+					int prevValueCount = valueCount;
+					
+					Next:
+					for (int seq = set.entries[h]; seq != 0; seq = set.linkArray[seq]) {
+						String str = (String)set.elementArray.get(seq);
+						for (int i = 0; i < prevValueCount; ++i) {
+							if (values[i].equals(str)) {
+								continue Next;
+							}
+						}
+						
+						if (valueCount == valueCapacity) {
+							valueCapacity *= 2;
+							String []tmp = new String[valueCapacity];
+							System.arraycopy(values, 0, tmp, 0, valueCount);
+							values = tmp;
+						}
+						
+						values[valueCount++] = str;
+					}
+				}
+				
+				result += valueCount;
+			}
+			
+			this.result = result;
+		}
+		
+		private void sizeOfObject() {
+			HashLinkSet []setArray = this.setArray;
+			int threadCount = this.threadCount; // 线程数
+			int capacity = setArray[0].capacity;
+			int setCount = setArray.length;
+			
+			int valueCapacity = 128;
+			Object []values = new Object[valueCapacity];
+			int result = 0;
+			
+			// 循环哈希点
+			for (int h = seq; h <= capacity; h += threadCount) {
+				// 当前哈希值上不重复元素数
+				int valueCount = 0;
+				
+				// 循环每个哈希表当前哈希点上的值
+				for (int s = 0; s < setCount; ++s) {
+					HashLinkSet set = setArray[s];
+					int prevValueCount = valueCount;
+					
+					Next:
+					for (int seq = set.entries[h]; seq != 0; seq = set.linkArray[seq]) {
+						Object obj = set.elementArray.get(seq);
+						for (int i = 0; i < prevValueCount; ++i) {
+							if (Variant.isEquals(values[i], obj)) {
+								continue Next;
+							}
+						}
+						
+						if (valueCount == valueCapacity) {
+							valueCapacity *= 2;
+							String []tmp = new String[valueCapacity];
+							System.arraycopy(values, 0, tmp, 0, valueCount);
+							values = tmp;
+						}
+						
+						values[valueCount++] = obj;
+					}
+				}
+				
+				result += valueCount;
+			}
+			
+			this.result = result;
+		}
+	}
+	
+	public static int size(HashLinkSet []setArray) {
+		ThreadPool pool = ThreadPool.instance();
+		int threadCount = pool.getThreadCount();
+		SizeJob []jobs = new SizeJob[threadCount];
+		
+		for (int i = 0; i < threadCount; ++i) {
+			jobs[i] = new SizeJob(setArray, i, threadCount);
+			pool.submit(jobs[i]); // 提交任务
+		}
+		
+		int totalSize = 0;
+		for (int i = 0; i < threadCount; ++i) {
+			jobs[i].join();
+			totalSize += jobs[i].size();
+		}
+		
+		return totalSize;
 	}
 	
 	private int hashCode(Object value) {
@@ -85,6 +321,18 @@ public class HashLinkSet {
 			elementArray.push(array, index);
 			linkArray[count] = entries[hash];
 			entries[hash] = count;
+		} else if (fixedCapacity) {
+			if (linkArray.length == count) {
+				int newCapacity = (count << 1);
+				elementArray.ensureCapacity(newCapacity);
+				int []tmp = new int[newCapacity + 1];
+				System.arraycopy(linkArray, 0, tmp, 0, count);
+				linkArray = tmp;
+			}
+			
+			elementArray.push(array, index);
+			linkArray[count] = entries[hash];
+			entries[hash] = count;
 		} else if (count < MAX_CAPACITY) {
 			// 元素数超过容量，扩大哈希表
 			capacity = (capacity << 1) + 1;
@@ -117,6 +365,18 @@ public class HashLinkSet {
 			elementArray.push(value);
 			linkArray[count] = entries[hash];
 			entries[hash] = count;
+		} else if (fixedCapacity) {
+			if (linkArray.length == count) {
+				int newCapacity = (count << 1);
+				elementArray.ensureCapacity(newCapacity);
+				int []tmp = new int[newCapacity + 1];
+				System.arraycopy(linkArray, 0, tmp, 0, count);
+				linkArray = tmp;
+			}
+			
+			elementArray.push(value);
+			linkArray[count] = entries[hash];
+			entries[hash] = count;
 		} else if (count < MAX_CAPACITY) {
 			// 元素数超过容量，扩大哈希表
 			capacity = (capacity << 1) + 1;
@@ -145,7 +405,25 @@ public class HashLinkSet {
 	}
 	
 	public void putAll(HashLinkSet set) {
-		if (set == null || set.size() == 0) {
+		if (set == null) {
+			return;
+		}
+		
+		if (fixedCapacity) {
+			if (setList == null) {
+				setList = new ArrayList<HashLinkSet>();
+			}
+			
+			if (set.elementArray.size() != 0) {
+				setList.add(set);
+			}
+			
+			if (set.setList != null) {
+				setList.addAll(set.setList);
+			}
+			
+			return;
+		} else if (set.size() == 0) {
 			return;
 		} else if (size() == 0) {
 			this.elementArray = set.elementArray;
@@ -220,11 +498,11 @@ public class HashLinkSet {
 		return elementArray;
 	}
 
-	public static void test(Sequence seq1, Sequence seq2) {
+	public static void test(Sequence seq1, Sequence seq2, int capcacity) {
 		int len1 = seq1.length();
 		int len2 = seq2.length();
-		HashLinkSet set1 = new HashLinkSet();
-		HashLinkSet set2 = new HashLinkSet();
+		HashLinkSet set1 = new HashLinkSet(capcacity);
+		HashLinkSet set2 = new HashLinkSet(capcacity);
 		
 		long time1 = System.currentTimeMillis();
 		for (int i = 1; i <= len1; ++i) {

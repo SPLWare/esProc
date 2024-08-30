@@ -38,7 +38,9 @@ public class ICount extends Gather {
 	private Expression exp; // 表达式
 	private boolean isSorted = false; // 数据是否按表达式有序
 	private boolean optB = false; // 使用位模式
-	private int maxSize = 0;
+	private boolean useFile = false; // 是否使用外存计算，用于不重复数量多内存放不下的情况
+	private boolean fixedCapacity = false; // 是否固定容量
+	private int capacity = 0;
 	
 	// 使用外存计算icount
 	public static class ICountFile {
@@ -762,7 +764,7 @@ public class ICount extends Gather {
 			exp = sub0.getLeafExpression();
 			Object value = sub1.getLeafExpression().calculate(ctx);
 			if (value instanceof Number) {
-				maxSize = ((Number)value).intValue();
+				capacity = ((Number)value).intValue();
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("icount" + mm.getMessage("function.paramTypeError"));
@@ -772,8 +774,17 @@ public class ICount extends Gather {
 			throw new RQException("icount" + mm.getMessage("function.invalidParam"));
 		}
 		
-		isSorted = option != null && option.indexOf('o') != -1;
-		optB = option != null && option.indexOf('b') != -1;
+		if (option != null) {
+			if (option.indexOf('o') != -1) {
+				isSorted = true;
+			} else if (option.indexOf('b') != -1) {
+				optB = true;
+			} else if (option.indexOf('f') != -1) {
+				useFile = capacity > 0;
+			} else if (option.indexOf('c') != -1) {
+				fixedCapacity = capacity > 0;
+			}
+		}
 	}
 
 	/**
@@ -803,8 +814,8 @@ public class ICount extends Gather {
 			
 			return set;
 		} else if (val != null) {
-			if (maxSize > 0) {
-				ICountFile icf = new ICountFile(maxSize);
+			if (useFile) {
+				ICountFile icf = new ICountFile(capacity);
 				icf.add(val);
 				return icf;
 			} else {
@@ -867,8 +878,8 @@ public class ICount extends Gather {
 				
 				return set;
 			} else {
-				if (maxSize > 0) {
-					ICountFile icf = new ICountFile(maxSize);
+				if (useFile) {
+					ICountFile icf = new ICountFile(capacity);
 					icf.add(val);
 					return icf;
 				} else {
@@ -889,9 +900,9 @@ public class ICount extends Gather {
 		if (isSorted) {
 			String str = "icount@o(#" + q + ")";
 			return new Expression(str);
-		} else if (maxSize > 0) {
-			String str = "icount(#" + q + "," + maxSize + ")";
-			return new Expression(str);
+		//} else if (capacity > 0) {
+		//	String str = "icount(#" + q + "," + capacity + ")";
+		//	return new Expression(str);
 		} else {
 			String str = "icount(#" + q + ")";
 			return new Expression(str);
@@ -961,7 +972,7 @@ public class ICount extends Gather {
 			}
 			
 			return result;
-		} else if (maxSize > 0) {
+		} else if (useFile) {
 			LongArray result = new LongArray(size);
 			for (int i = 1; i <= size; ++i) {
 				Object val = array.get(i);
@@ -1046,8 +1057,8 @@ public class ICount extends Gather {
 					oldValue.put(val);
 				}
 			}
-		} else if (maxSize > 0) {
-			int maxSize = this.maxSize;
+		} else if (useFile) {
+			int maxSize = this.capacity;
 			if (array instanceof ObjectArray) {
 				for (int i = 1, size = array.size(); i <= size; ++i) {
 					Object val = array.get(i);
@@ -1088,28 +1099,17 @@ public class ICount extends Gather {
 					if (result.size() < resultSeqs[i]) {
 						if (val instanceof HashLinkSet){
 							result.add(val);
-						} else if (val instanceof Sequence) {
-							Sequence seq = (Sequence)val;
-							IArray datas = seq.getMems();
-							HashLinkSet set = new HashLinkSet(array);
-							set.putAll(datas);
-							
-							result.add(set);
 						} else if (val != null) {
-							HashLinkSet set = new HashLinkSet(array);
+							HashLinkSet set = new HashLinkSet(array, capacity, fixedCapacity);
 							set.put(val);
 							result.add(set);
 						} else {
-							result.add(new HashLinkSet(array));
+							result.add(new HashLinkSet(array, capacity, fixedCapacity));
 						}
 					} else {
 						HashLinkSet set = (HashLinkSet)result.get(resultSeqs[i]);
 						if (val instanceof HashLinkSet) {
 							set.putAll((HashLinkSet)val);
-						} else if (val instanceof Sequence){
-							Sequence seq = (Sequence)val;
-							IArray datas = seq.getMems();
-							set.putAll(datas);
 						} else if (val != null) {
 							set.put(val);
 						}
@@ -1118,7 +1118,7 @@ public class ICount extends Gather {
 			} else {
 				for (int i = 1, size = array.size(); i <= size; ++i) {
 					if (result.size() < resultSeqs[i]) {
-						HashLinkSet set = new HashLinkSet(array);
+						HashLinkSet set = new HashLinkSet(array, capacity, fixedCapacity);
 						if (!array.isNull(i)) {
 							set.put(array, i);
 						}
@@ -1261,7 +1261,7 @@ public class ICount extends Gather {
 					value1.addAll(value2);
 				}
 			}
-		} else if (maxSize > 0) {
+		} else if (useFile) {
 			for (int i = 1, len = result2.size(); i <= len; ++i) {
 				if (seqs[i] != 0) {
 					ICountFile value1 = (ICountFile) result.get(seqs[i]);
