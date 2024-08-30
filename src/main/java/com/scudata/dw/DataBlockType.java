@@ -695,7 +695,7 @@ public class DataBlockType {
 			for (int i = 1; i <= size; i++) {
 				Object obj = dict.getMem(i);
 				if (obj != null) {
-					intArray[i] = ((Integer)obj).intValue();
+					intArray[i] = ((Number)obj).intValue();
 				} else {
 					intArray[0] = i;
 				}
