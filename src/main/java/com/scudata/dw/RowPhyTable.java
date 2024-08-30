@@ -2499,7 +2499,7 @@ public class RowPhyTable extends PhyTable {
 	 * @param colName
 	 * @return
 	 */
-	protected boolean isDim(String colName) {
+	public boolean isDim(String colName) {
 		boolean isDim[] = this.isDim;
 		String colNames[] = this.colNames;
 		int len = colNames.length;

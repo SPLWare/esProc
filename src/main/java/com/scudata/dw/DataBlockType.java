@@ -711,7 +711,7 @@ public class DataBlockType {
 			for (int i = 1; i <= size; i++) {
 				Object obj = dict.getMem(i);
 				if (obj != null) {
-					longArray[i] = ((Long)obj).longValue();
+					longArray[i] = ((Number)obj).longValue();
 				} else {
 					longArray[0] = i;
 				}
@@ -724,7 +724,7 @@ public class DataBlockType {
 			for (int i = 1; i <= size; i++) {
 				Object obj = dict.getMem(i);
 				if (obj != null) {
-					doubleArray[i] = ((Double)obj).doubleValue();
+					doubleArray[i] = ((Number)obj).doubleValue();
 				} else {
 					doubleArray[0] = i;
 				}

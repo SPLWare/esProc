@@ -170,12 +170,11 @@ public class Structure extends FileFunction {
 		} else {
 			RowPhyTable rowTable = ((RowPhyTable) table);
 			String[] columns = rowTable.getColNames();
-			boolean[] isDim = rowTable.getDimIndex();
 			for (int c = 0, len = columns.length; c < len; c++) {
 				String column = columns[c];
 				Record rec = new Record(new DataStruct(ROW_FIELD_FIELD_NAMES));
 				rec.setNormalFieldValue(0, column);
-				rec.setNormalFieldValue(1, isDim[c]);
+				rec.setNormalFieldValue(1, rowTable.isDim(column));
 				seq.add(rec);
 			}
 		}
