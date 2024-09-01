@@ -2369,8 +2369,10 @@ public class JoinCursor extends ICursor {
 	public static boolean isColTable(Object table) {
 		if (table == null) return false;
 		if (table instanceof ColPhyTable) {
+			if (((ColPhyTable)table).getParent() != null)
+				return false;
 			if (((ColPhyTable)table).getModifyRecords() == null)
-			return true;
+				return true;
 		}
 		return false;
 	}
