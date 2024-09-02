@@ -39,7 +39,6 @@ public class ICount extends Gather {
 	private boolean isSorted = false; // 数据是否按表达式有序
 	private boolean optB = false; // 使用位模式
 	private boolean useFile = false; // 是否使用外存计算，用于不重复数量多内存放不下的情况
-	private boolean fixedCapacity = false; // 是否固定容量
 	private int capacity = 0;
 	
 	// 使用外存计算icount
@@ -781,8 +780,6 @@ public class ICount extends Gather {
 				optB = true;
 			} else if (option.indexOf('f') != -1) {
 				useFile = capacity > 0;
-			} else if (option.indexOf('c') != -1) {
-				fixedCapacity = capacity > 0;
 			}
 		}
 	}
@@ -1100,16 +1097,16 @@ public class ICount extends Gather {
 						if (val instanceof HashLinkSet){
 							result.add(val);
 						} else if (val != null) {
-							HashLinkSet set = new HashLinkSet(array, capacity, fixedCapacity);
+							HashLinkSet set = new HashLinkSet(array, capacity);
 							set.put(val);
 							result.add(set);
 						} else {
-							result.add(new HashLinkSet(array, capacity, fixedCapacity));
+							result.add(new HashLinkSet(array, capacity));
 						}
 					} else {
 						HashLinkSet set = (HashLinkSet)result.get(resultSeqs[i]);
 						if (val instanceof HashLinkSet) {
-							set.putAll((HashLinkSet)val);
+							set.addHashSet((HashLinkSet)val);
 						} else if (val != null) {
 							set.put(val);
 						}
@@ -1118,7 +1115,7 @@ public class ICount extends Gather {
 			} else {
 				for (int i = 1, size = array.size(); i <= size; ++i) {
 					if (result.size() < resultSeqs[i]) {
-						HashLinkSet set = new HashLinkSet(array, capacity, fixedCapacity);
+						HashLinkSet set = new HashLinkSet(array, capacity);
 						if (!array.isNull(i)) {
 							set.put(array, i);
 						}
@@ -1272,7 +1269,7 @@ public class ICount extends Gather {
 			for (int i = 1, len = result2.size(); i <= len; ++i) {
 				if (seqs[i] != 0) {
 					HashLinkSet value1 = (HashLinkSet) result.get(seqs[i]);
-					value1.putAll((HashLinkSet)result2.get(i));
+					value1.addHashSet((HashLinkSet)result2.get(i));
 				}
 			}
 		} else {
