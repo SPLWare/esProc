@@ -90,6 +90,7 @@ public class HashLinkSet {
 		}
 	}
 	
+	// 如果要合并的set的容量不同则先变成相同容量的
 	private static class ResizeJob extends Job {
 		private HashLinkSet set;
 		public ResizeJob(HashLinkSet set) {
@@ -272,6 +273,11 @@ public class HashLinkSet {
 		}
 	}
 	
+	/**
+	 * 统计多个set如果合并剩余的成员数
+	 * @param setArray
+	 * @return
+	 */
 	public static int size(HashLinkSet []setArray) {
 		ThreadPool pool = ThreadPool.instance();
 		int maxCapacity = setArray[0].capacity;
@@ -289,6 +295,7 @@ public class HashLinkSet {
 		}
 		
 		if (!isSameCapacity) {
+			// 如果要合并的set的容量不同则先变成相同容量的
 			ArrayList<ResizeJob> jobList = new ArrayList<ResizeJob>();
 			for (HashLinkSet set : setArray) {
 				if (set.capacity != maxCapacity) {
@@ -348,16 +355,14 @@ public class HashLinkSet {
 	public void put(IArray array, int index) {
 		IArray elementArray = this.elementArray;
 		int hash = hashCode(array.hashCode(index));
-		int seq = entries[hash];
 
-		while (seq != 0) {
+		for (int seq = entries[hash]; seq != 0; seq = linkArray[seq]) {
 			if (elementArray.isEquals(seq, array, index)) {
 				return;
-			} else {
-				seq = linkArray[seq];
 			}
 		}
 		
+		// 在set中没有找到当前值
 		int count = elementArray.size() + 1;
 		if (count <= capacity) {
 			elementArray.push(array, index);
@@ -380,16 +385,14 @@ public class HashLinkSet {
 	public void put(Object value) {
 		IArray elementArray = this.elementArray;
 		int hash = hashCode(value);
-		int seq = entries[hash];
 
-		while (seq != 0) {
+		for (int seq = entries[hash]; seq != 0; seq = linkArray[seq]) {
 			if (elementArray.isEquals(seq, value)) {
 				return;
-			} else {
-				seq = linkArray[seq];
 			}
 		}
 		
+		// 在set中没有找到当前值
 		int count = elementArray.size() + 1;
 		if (count <= capacity) {
 			elementArray.push(value);

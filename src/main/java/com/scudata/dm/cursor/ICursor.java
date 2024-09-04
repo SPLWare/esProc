@@ -19,6 +19,7 @@ import com.scudata.dm.op.Channel;
 import com.scudata.dm.op.GroupxResult;
 import com.scudata.dm.op.IDResult;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.IHugeGroupsResult;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dw.ColPhyTable;
@@ -1033,6 +1034,22 @@ abstract public class ICursor extends Operable implements IResource {
 			String[] calcNames, String opt, Context ctx) {
 		DataStruct ds = getDataStruct();
 		return IGroupsResult.instance(exps, names, calcExps, calcNames, ds, opt, ctx);
+	}
+	
+	/**
+	 * 取大结果集分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param capacity 初始容量
+	 * @param ctx 计算上下文
+	 * @return IHugeGroupsResult
+	 */
+	public IHugeGroupsResult getHugeGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, int capacity, Context ctx) {
+		throw new RuntimeException();
 	}
 	
 	/**

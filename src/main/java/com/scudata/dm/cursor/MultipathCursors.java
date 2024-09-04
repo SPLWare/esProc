@@ -11,6 +11,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.op.Channel;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.IHugeGroupsResult;
 import com.scudata.dm.op.IPipe;
 import com.scudata.dm.op.MultipathChannel;
 import com.scudata.dm.op.Operable;
@@ -462,6 +463,22 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
+	 * 取大结果集分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param capacity 初始容量
+	 * @param ctx 计算上下文
+	 * @return IHugeGroupsResult
+	 */
+	public IHugeGroupsResult getHugeGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, int capacity, Context ctx) {
+		return cursors[0].getHugeGroupsResult(exps, names, calcExps, calcNames, opt, capacity, ctx);
+	}
+	
+	/**
 	 * 对游标进行分组汇总
 	 * @param exps 分组字段表达式数组
 	 * @param names 分组字段名数组
@@ -494,6 +511,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 			String opt, Context ctx, int groupCount) {
 		if (cursors.length == 1) {
 			return cursors[0].groups(exps, names, calcExps, calcNames, opt, ctx, groupCount);
+		} else if (opt != null && opt.indexOf('s') != -1) {
+			IHugeGroupsResult groupsResult = cursors[0].getHugeGroupsResult(exps, names, calcExps, calcNames, opt, groupCount, ctx);
+			return groupsResult.groups(cursors);
 		} else if (opt != null && opt.indexOf('z') != -1) {
 			return groups2(cursors, exps, names, calcExps, calcNames, opt, ctx, groupCount);
 		} else if (groupCount < 1 || exps == null || exps.length == 0) {
