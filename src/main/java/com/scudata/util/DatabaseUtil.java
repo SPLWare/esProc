@@ -2446,6 +2446,7 @@ public class DatabaseUtil {
 			if(obj instanceof java.math.BigDecimal){
 				if (opt != null && opt.indexOf('d') > -1)
 					return ((Number)obj).doubleValue();
+				return obj;
 			} else if (obj instanceof Integer | obj instanceof Long || obj instanceof Double){
 				return obj;
 			} else if (obj instanceof java.math.BigInteger) {
