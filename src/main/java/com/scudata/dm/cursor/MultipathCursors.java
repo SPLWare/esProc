@@ -491,6 +491,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, String opt, Context ctx) {
 		if (cursors.length == 1) {
 			return cursors[0].groups(exps, names, calcExps, calcNames, opt, ctx);
+		} else if (opt != null && opt.indexOf('s') != -1) {
+			IHugeGroupsResult groupsResult = cursors[0].getHugeGroupsResult(exps, names, calcExps, calcNames, opt, 0, ctx);
+			return groupsResult.groups(cursors);
 		} else {
 			return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
 		}
