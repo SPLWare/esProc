@@ -1644,7 +1644,7 @@ public final class CursorUtil {
 			if (seq2 == null || seq2.length() == 0) {
 				break;
 			} else {
-				seq.getMems().addAll(seq2.getMems());
+				seq = seq.append(seq2);
 			}
 		}
 
