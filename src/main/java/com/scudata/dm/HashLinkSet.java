@@ -75,9 +75,11 @@ public class HashLinkSet {
 				setArray = new HashLinkSet[setCount + 1];
 				setList.toArray(setArray);
 				setArray[setCount++] = this;
-			} else {
+			} else if (setCount > 0) {
 				setArray = new HashLinkSet[setCount];
 				setList.toArray(setArray);
+			} else {
+				return 0;
 			}
 			
 			if (setCount == 1) {
