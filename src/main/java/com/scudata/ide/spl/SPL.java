@@ -91,7 +91,7 @@ public class SPL extends AppFrame {
 	static {
 		try {
 			if (com.scudata.ide.common.GM.isMacOS()) {
-				ImageIcon ii = com.scudata.ide.common.GM.getLogoImage(true);
+				ImageIcon ii = com.scudata.ide.common.GM.getLogoImage(false);
 				if (ii != null) {
 					com.scudata.ide.common.GM.setMacOSDockIcon(ii.getImage());
 				}
