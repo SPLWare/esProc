@@ -2,6 +2,7 @@ package com.scudata.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -387,13 +388,18 @@ public class CellSetUtil {
 	 */
 	public static PgmCellSet readPgmCellSet(String fileName, String psw) throws Exception {
 		BufferedInputStream bis = null;
+		PgmCellSet pcs;
+		
 		try {
 			bis = new BufferedInputStream(new FileInputStream(fileName));
-			return readPgmCellSet(bis, psw);
-		}
-		finally {
+			pcs = readPgmCellSet(bis, psw);
+		} finally {
 			if(bis != null) bis.close();
 		}
+		
+		File file = new File(fileName);
+		pcs.setName(file.getPath());
+		return pcs;
 	}
 	
 	/**
