@@ -44,6 +44,7 @@ public class BFileFetchCursor extends ICursor {
 	private int []fields;
 	private int bytesIndex;
 	private DataStruct fileDataStruct;
+	private byte[] titleBytes;
 	
 	/**
 	 * @param reader
@@ -141,6 +142,10 @@ public class BFileFetchCursor extends ICursor {
 				if (line == null) {
 					return null;
 				}
+				
+				int titleLen = (int) importer.getCurrentPosition();
+				titleBytes = new byte[titleLen];
+				this.in.read(titleBytes);
 
 				int fcount = line.length;
 				String []fieldNames = new String[fcount];
@@ -397,5 +402,9 @@ public class BFileFetchCursor extends ICursor {
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
+	}
+
+	public byte[] getTitleBytes() {
+		return titleBytes;
 	}
 }

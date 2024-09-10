@@ -11,7 +11,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dw.BufferReader;
 
 /**
- * 集文件排序结果的游标
+ * 文件排序结果的游标
+ * 用于f.sortx
  * @author LW
  *
  */
@@ -23,13 +24,22 @@ public class BFileSortxCursor extends ICursor {
 	private LineImporter importer;
 	
 	/**
-	 * @param reader
-	 * @param fields
+	 * 集文件sortx结果游标
+	 * @param cursor
+	 * @param bytesIndex
+	 * @param fileDataStruct
 	 */
 	public BFileSortxCursor(ICursor cursor, int bytesIndex, DataStruct fileDataStruct) {
 		this(cursor, bytesIndex, fileDataStruct, null);
 	}
 
+	/**
+	 * 文本文件sortx结果游标
+	 * @param cursor
+	 * @param bytesIndex
+	 * @param fileDataStruct
+	 * @param importer
+	 */
 	public BFileSortxCursor(ICursor cursor, int bytesIndex, DataStruct fileDataStruct, LineImporter importer) {
 		this.cursor = cursor;
 		this.bytesIndex = bytesIndex;

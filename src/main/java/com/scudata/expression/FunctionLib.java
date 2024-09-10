@@ -402,7 +402,6 @@ public final class FunctionLib {
 		addMemberFunction("select",
 				"com.scudata.expression.mfn.op.AttachSelect");
 		addMemberFunction("sort", "com.scudata.expression.mfn.sequence.Sort");
-		addMemberFunction("sortx", "com.scudata.expression.mfn.sequence.Sortx");
 		addMemberFunction("rvs", "com.scudata.expression.mfn.sequence.Rvs");
 		addMemberFunction("swap", "com.scudata.expression.mfn.sequence.Swap");
 		addMemberFunction("shift", "com.scudata.expression.mfn.sequence.Shift");
