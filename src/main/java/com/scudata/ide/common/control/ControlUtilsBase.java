@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -205,6 +206,7 @@ public class ControlUtilsBase {
 
 	/**
 	 * 判断显示区域中是否包含单元格区域
+	 * 
 	 * @param viewArea
 	 * @param cellArea
 	 * @return
@@ -257,48 +259,54 @@ public class ControlUtilsBase {
 	public static void drawHeader(Graphics g, int x, int y, int w, int h,
 			String label, float scale, Color backColor, byte selectState,
 			boolean editable) {
-		Color fontColor = Color.black;
-		if (backColor.equals(Color.gray)) {
-			fontColor = Color.white;
-		}
-		Font font = GM.getScaleFont(scale);
-		switch (selectState) {
-		case GC.SELECT_STATE_CELL:
-			if (ConfigOptions.getHeaderColor() != null) {
-				backColor = ConfigOptions.getHeaderColor();
-			} else {
-				backColor = ACTIVE_BACK_COLOR;
+		Shape oldShape = g.getClip();
+		try {
+			g.setClip(x, y, w, h);
+			Color fontColor = Color.black;
+			if (backColor.equals(Color.gray)) {
+				fontColor = Color.white;
 			}
+			Font font = GM.getScaleFont(scale);
+			switch (selectState) {
+			case GC.SELECT_STATE_CELL:
+				if (ConfigOptions.getHeaderColor() != null) {
+					backColor = ConfigOptions.getHeaderColor();
+				} else {
+					backColor = ACTIVE_BACK_COLOR;
+				}
 
-			break;
-		case GC.SELECT_STATE_ROW:
-		case GC.SELECT_STATE_COL:
-			fontColor = Color.white;
-			backColor = SELECTED_BACK_COLOR;
-			break;
-		}
-		if (editable) {
-			if (selectState == GC.SELECT_STATE_CELL) {
-				gradientPaint(g, x, y, w, h, backColor, false);
-			} else {
-				gradientPaint(g, x, y, w, h, backColor);
+				break;
+			case GC.SELECT_STATE_ROW:
+			case GC.SELECT_STATE_COL:
+				fontColor = Color.white;
+				backColor = SELECTED_BACK_COLOR;
+				break;
 			}
-		} else {
-			g.clearRect(x, y, w, h);
-			fontColor = Color.lightGray.darker();
+			if (editable) {
+				if (selectState == GC.SELECT_STATE_CELL) {
+					gradientPaint(g, x, y, w, h, backColor, false);
+				} else {
+					gradientPaint(g, x, y, w, h, backColor);
+				}
+			} else {
+				g.clearRect(x, y, w, h);
+				fontColor = Color.lightGray.darker();
+			}
+			g.setColor(new Color(236, 236, 236));
+			g.drawLine(x, y, x + w, y);
+			g.drawLine(x, y, x, y + h);
+			g.setColor(Color.darkGray);
+			g.drawLine(x + w, y + h, x, y + h);
+			g.drawLine(x + w, y + h, x + w, y);
+
+			g.setColor(fontColor);
+
+			int fontW = stringWidth(g.getFontMetrics(font), label);
+			g.setFont(font);
+			g.drawString(label, x + (w - fontW) / 2, y + h / 2 + 5);
+		} finally {
+			g.setClip(oldShape);
 		}
-		g.setColor(new Color(236, 236, 236));
-		g.drawLine(x, y, x + w, y);
-		g.drawLine(x, y, x, y + h);
-		g.setColor(Color.darkGray);
-		g.drawLine(x + w, y + h, x, y + h);
-		g.drawLine(x + w, y + h, x + w, y);
-
-		g.setColor(fontColor);
-
-		int fontW = stringWidth(g.getFontMetrics(font), label);
-		g.setFont(font);
-		g.drawString(label, x + (w - fontW) / 2, y + h / 2 + 5);
 	}
 
 	/**
@@ -859,7 +867,8 @@ public class ControlUtilsBase {
 	 *            X坐标
 	 * @param y
 	 *            Y坐标
-	 * @param w 宽度
+	 * @param w
+	 *            宽度
 	 */
 	public static int drawString(Graphics g, String text, int x, int y, int w) {
 		Vector v = calcCharactersX2(text, x, g.getFont(), w);

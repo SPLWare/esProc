@@ -15,11 +15,9 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.DBSession;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
-import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
 import com.scudata.dm.JobSpace;
-import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
@@ -89,11 +87,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 	private Context ctx;
 
 	/**
-	 * The JobSpace object
-	 */
-	private JobSpace jobSpace = null;
-
-	/**
 	 * 是否关闭状态
 	 */
 	private boolean isClosed = false;
@@ -117,11 +110,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void initContext() {
 		ctx = new Context();
-		ctx.setJobSpace(getJobSpace());
-		setContextDBSessions(ctx);
+		setParentContext(ctx);
 	}
 
-	private void setContextDBSessions(Context ctx) {
+	private void setParentContext(Context ctx) {
 		InternalConnection connt = getConnection();
 		try {
 			if (connt == null || connt.isClosed())
@@ -130,34 +122,23 @@ public abstract class InternalStatement implements java.sql.Statement {
 			return;
 		}
 		Context parentCtx = connt.getParentContext();
-		if (parentCtx == null)
-			return;
-		Map<String, DBSession> dbSessionMap = parentCtx.getDBSessionMap();
-		if (dbSessionMap == null)
-			return;
-		try {
-			Iterator<String> dbNames = dbSessionMap.keySet().iterator();
-			while (dbNames.hasNext()) {
-				String dbName = dbNames.next();
-				DBSession dbSession = dbSessionMap.get(dbName);
-				ctx.setDBSession(dbName, dbSession);
+		if (parentCtx != null) {
+			Map<String, DBSession> dbSessionMap = parentCtx.getDBSessionMap();
+			if (dbSessionMap != null) {
+				try {
+					Iterator<String> dbNames = dbSessionMap.keySet().iterator();
+					while (dbNames.hasNext()) {
+						String dbName = dbNames.next();
+						DBSession dbSession = dbSessionMap.get(dbName);
+						ctx.setDBSession(dbName, dbSession);
+					}
+				} catch (Exception ex) {
+					Logger.error(ex);
+				}
 			}
-		} catch (Exception ex) {
-			Logger.error(ex);
 		}
-	}
-
-	/**
-	 * Get the JobSpace
-	 * 
-	 * @return JobSpace
-	 */
-	private synchronized JobSpace getJobSpace() {
-		if (jobSpace == null) {
-			String uuid = UUID.randomUUID().toString();
-			jobSpace = JobSpaceManager.getSpace(uuid);
-		}
-		return jobSpace;
+		JobSpace jobSpace = parentCtx.getJobSpace();
+		ctx.setJobSpace(jobSpace);
 	}
 
 	public abstract InternalConnection getConnection();
@@ -196,10 +177,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	protected int executeUpdateJDBC(final ArrayList<Object> parameters)
 			throws SQLException {
 		Object result = executeJDBC(parameters, true);
-		if (result == null || !(result instanceof Number)) {
-			return 0;
-		}
-		return ((Number) result).intValue();
+		return getUpdateCountByResult(result);
 	}
 
 	/**
@@ -300,12 +278,13 @@ public abstract class InternalStatement implements java.sql.Statement {
 					throw new SQLException(JDBCMessage.get().getMessage(
 							"statement.unsupportsql", sql));
 				}
-				if (isUpdate
-						&& (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
-					// 仅简单SQL和SQL支持update语句
-					throw new SQLException(JDBCMessage.get().getMessage(
-							"statement.updatesqlonly"));
-				}
+				// if (isUpdate
+				// && (sqlType != JDBCConsts.TYPE_SQL && sqlType !=
+				// JDBCConsts.TYPE_SIMPLE_SQL)) {
+				// // 仅简单SQL和SQL支持update语句
+				// throw new SQLException(JDBCMessage.get().getMessage(
+				// "statement.updatesqlonly"));
+				// }
 			}
 			if (!isOnlyServer && config != null
 					&& StringUtils.isValidString(gateway)) {
@@ -405,6 +384,32 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	protected byte getJdbcSqlType(String sql) {
 		return JDBCUtil.getJdbcSqlType(sql);
+	}
+
+	/**
+	 * 通过结果取更新数
+	 * 
+	 * @param result
+	 * @return
+	 */
+	private int getUpdateCountByResult(Object result) {
+		if (result == null)
+			return 0;
+		if (result instanceof PgmCellSet) {
+			PgmCellSet pcs = (PgmCellSet) result;
+			boolean hasMore = pcs.hasNextResult();
+			if (hasMore)
+				result = pcs.nextResult();
+		} else if (result instanceof MultiResult) {
+			MultiResult mr = (MultiResult) result;
+			boolean hasMore = mr.hasNext();
+			if (hasMore)
+				result = mr.next();
+		}
+		if (result == null || !(result instanceof Number)) {
+			return 0;
+		}
+		return ((Number) result).intValue();
 	}
 
 	/**
@@ -512,10 +517,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 		this.result = null;
 		this.set = null;
 
-		/* Close the JobSpace */
-		if (jobSpace != null) {
-			jobSpace.closeResource();
-			JobSpaceManager.closeSpace(jobSpace.getID());
+		/* JobSpace清理资源 */
+		if (ctx != null) {
+			JobSpace jobSpace = ctx.getJobSpace();
+			if (jobSpace != null) {
+				jobSpace.closeResource();
+			}
 		}
 
 		InternalConnection connt = getConnection();
@@ -928,6 +935,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 		return ResultSet.TYPE_FORWARD_ONLY;
 	}
 
+	protected List<String> splList = new ArrayList<String>();
+	protected int[] updateCounts;
+
 	/**
 	 * Adds the given SQL command to the current list of commands for this
 	 * Statement object. The commands in this list can be executed as a batch by
@@ -938,8 +948,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void addBatch(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-27");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"addBatch(String sql)"));
+		splList.add(sql);
 	}
 
 	/**
@@ -947,8 +956,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void clearBatch() throws SQLException {
 		JDBCUtil.log("InternalStatement-28");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"clearBatch()"));
+		splList.clear();
 	}
 
 	/**
@@ -965,9 +973,61 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int[] executeBatch() throws SQLException {
 		JDBCUtil.log("InternalStatement-29");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"executeBatch()"));
-		return null;
+		return executeBatch(null);
+	}
+
+	/**
+	 * 批量执行
+	 * 
+	 * @param parameters
+	 * @return
+	 * @throws SQLException
+	 */
+	protected int[] executeBatch(final ArrayList<ArrayList<?>> paramsList)
+			throws SQLException {
+		final InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		checkExec();
+		if (splList.isEmpty()) {
+			throw new SQLException("No statements to execute.");
+		}
+		updateCounts = new int[splList.size()];
+		try {
+			ex = null;
+			isCanceled = false;
+			execThread = new Thread() {
+				public void run() {
+					try {
+						for (int i = 0; i < splList.size(); i++) {
+							Object result = executeJDBC(
+									splList.get(i),
+									paramsList == null ? null : paramsList
+											.get(i), connt, true);
+							updateCounts[i] = getUpdateCountByResult(result);
+						}
+					} catch (InterruptedException ie) {
+						isCanceled = true;
+					} catch (ThreadDeath td) {
+						isCanceled = true;
+					} catch (SQLException e) {
+						ex = e;
+					}
+				}
+			};
+			execThread.start();
+			try {
+				execThread.join();
+			} catch (InterruptedException e1) {
+			}
+			if (ex != null) {
+				throw ex;
+			}
+		} catch (ThreadDeath td) {
+			isCanceled = true;
+		}
+		return updateCounts;
 	}
 
 	/**

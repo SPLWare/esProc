@@ -33,12 +33,17 @@ import com.scudata.dm.Sequence;
 public abstract class InternalPStatement extends InternalStatement implements
 		java.sql.PreparedStatement {
 	/**
-	 * Parameter list
+	 * 参数列表
 	 */
 	protected ArrayList<Object> parameters = new ArrayList<Object>();
 
 	/**
-	 * Parameter list
+	 * 参数列表的列表
+	 */
+	protected ArrayList<ArrayList<?>> paramsList = new ArrayList<ArrayList<?>>();
+
+	/**
+	 * CALLS用到的参数序列的列表
 	 */
 	protected ArrayList<Sequence> callsParameters = new ArrayList<Sequence>();
 
@@ -198,6 +203,25 @@ public abstract class InternalPStatement extends InternalStatement implements
 			return this.getResultSet();
 		else
 			return null;
+	}
+
+	/**
+	 * Submits a batch of commands to the database for execution and if all
+	 * commands execute successfully, returns an array of update counts. The int
+	 * elements of the array that is returned are ordered to correspond to the
+	 * commands in the batch, which are ordered according to the order in which
+	 * they were added to the batch. The elements in the array returned by the
+	 * method executeBatch may be one of the following:
+	 * 
+	 * @return an array of update counts containing one element for each command
+	 *         in the batch. The elements of the array are ordered according to
+	 *         the order in which commands were added to the batch.
+	 */
+	public int[] executeBatch() throws SQLException {
+		if (splList.isEmpty()) {
+			throw new SQLException("No statements to execute.");
+		}
+		return executeBatch(paramsList);
 	}
 
 	/**
@@ -874,6 +898,12 @@ public abstract class InternalPStatement extends InternalStatement implements
 				Sequence seq = callsParameters.get(i);
 				seq.add(parameters.get(i));
 			}
+			parameters.clear();
+		} else {
+			splList.add(sql);
+			ArrayList<Object> cloneParams = new ArrayList<Object>();
+			cloneParams.addAll(parameters);
+			paramsList.add(cloneParams);
 			parameters.clear();
 		}
 	}

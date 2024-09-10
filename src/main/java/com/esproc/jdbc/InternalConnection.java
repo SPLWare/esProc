@@ -27,8 +27,11 @@ import com.scudata.common.DBSession;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
+import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Table;
 import com.scudata.parallel.UnitClient;
 
@@ -107,6 +110,11 @@ public abstract class InternalConnection implements Connection, Serializable {
 	private Context parentCtx = new Context();
 
 	/**
+	 * The JobSpace object
+	 */
+	private JobSpace jobSpace = null;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param drv
@@ -126,7 +134,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
-		initContextConnect(parentCtx);
+		initContext(parentCtx);
 	}
 
 	public abstract void checkExec() throws SQLException;
@@ -149,10 +157,24 @@ public abstract class InternalConnection implements Connection, Serializable {
 		return false;
 	}
 
-	private void initContextConnect(Context ctx) {
+	private void initContext(Context ctx) {
+		ctx.setJobSpace(getJobSpace());
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
 		}
+	}
+
+	/**
+	 * Get the JobSpace
+	 * 
+	 * @return JobSpace
+	 */
+	private synchronized JobSpace getJobSpace() {
+		if (jobSpace == null) {
+			String uuid = UUID.randomUUID().toString();
+			jobSpace = JobSpaceManager.getSpace(uuid);
+		}
+		return jobSpace;
 	}
 
 	/**
@@ -713,6 +735,12 @@ public abstract class InternalConnection implements Connection, Serializable {
 			for (int i = 0; i < this.stats.size(); i++) {
 				stats.get(i).close();
 			}
+		}
+
+		/* Close the JobSpace */
+		if (jobSpace != null) {
+			jobSpace.closeResource();
+			JobSpaceManager.closeSpace(jobSpace.getID());
 		}
 
 		closeUnitClient();
