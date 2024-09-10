@@ -898,14 +898,25 @@ public abstract class InternalPStatement extends InternalStatement implements
 				Sequence seq = callsParameters.get(i);
 				seq.add(parameters.get(i));
 			}
-			parameters.clear();
 		} else {
-			splList.add(sql);
-			ArrayList<Object> cloneParams = new ArrayList<Object>();
-			cloneParams.addAll(parameters);
-			paramsList.add(cloneParams);
-			parameters.clear();
+			addBatch(sql);
 		}
+		parameters.clear();
+	}
+
+	/**
+	 * Adds the given SQL command to the current list of commands for this
+	 * Statement object. The commands in this list can be executed as a batch by
+	 * calling the method executeBatch.
+	 * 
+	 * @param sql
+	 *            typically this is a SQL INSERT or UPDATE statement
+	 */
+	public void addBatch(String sql) throws SQLException {
+		splList.add(sql);
+		ArrayList<Object> cloneParams = new ArrayList<Object>();
+		cloneParams.addAll(parameters);
+		paramsList.add(cloneParams);
 	}
 
 	/**
