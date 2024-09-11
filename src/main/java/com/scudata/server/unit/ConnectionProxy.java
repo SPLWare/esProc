@@ -3,19 +3,23 @@ package com.scudata.server.unit;
 import java.util.List;
 
 import com.scudata.common.Logger;
+import com.scudata.common.UUID;
 import com.scudata.dm.Context;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.server.ConnectionProxyManager;
 import com.scudata.server.IProxy;
 import com.scudata.util.DatabaseUtil;
 
 /**
  * 连接代理对象
- * 
+ * 一个连接对应一个spaceId，statement之间共享spaceId的任务变量
+ * statement关闭时，仅释放资源；connection关闭时，才关闭space 2024年9月11日
  * @author Joancy
  *
  */
 public class ConnectionProxy extends IProxy
 {
+	String spaceId;
 	Context context;
 	boolean closed = false;
 
@@ -28,7 +32,7 @@ public class ConnectionProxy extends IProxy
 	public ConnectionProxy(ConnectionProxyManager cpm, int id){
 		super(cpm, id);
 		context = new Context();
-		List connectedDsNames = null;
+		List<String> connectedDsNames = null;
 		UnitServer us = UnitServer.instance;
 		if( us != null ){
 			if(us.getRaqsoftConfig()!=null){
@@ -36,11 +40,16 @@ public class ConnectionProxy extends IProxy
 			}
 		}
 		DatabaseUtil.connectAutoDBs(context, connectedDsNames);
+		spaceId = UUID.randomUUID().toString();
+		context.setJobSpace(JobSpaceManager.getSpace(spaceId));
 
 		access();
 		Logger.debug(this+" connected.");
 	}
 	
+	public String getSpaceId() {
+		return spaceId;
+	}
 	/**
 	 * 根据id获取Statement代理器
 	 * @param id 代理编号
@@ -75,6 +84,7 @@ public class ConnectionProxy extends IProxy
 	 * 关掉当前连接代理器
 	 */
 	public void close() {
+		JobSpaceManager.closeSpace(spaceId);
 		DatabaseUtil.closeAutoDBs(context);
 		closed =  true;
 		Logger.debug(this+" closed.");

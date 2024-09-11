@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
-import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Sequence;
@@ -54,8 +53,7 @@ public class StatementProxy extends IProxy implements ITask {
 		Logger.debug("StatementProxy cmd:\r\n" + cmd);
 		this.params = params;
 		this.ctx = new Context(cp.getContext());
-		spaceId = UUID.randomUUID().toString();
-		ctx.setJobSpace(JobSpaceManager.getSpace(spaceId));
+		spaceId = cp.getSpaceId();
 		task = new JdbcTask(cmd, params, ctx, envParams);
 		access();
 	}
@@ -142,7 +140,7 @@ public class StatementProxy extends IProxy implements ITask {
 	 * 关闭当前代理器
 	 */
 	public void close() {
-		JobSpaceManager.closeSpace(spaceId);
+		JobSpaceManager.getSpace(spaceId).closeResource();
 		TaskManager.delTask(getId());
 		ctx = null;
 	}

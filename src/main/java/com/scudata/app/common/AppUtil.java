@@ -1128,7 +1128,7 @@ public class AppUtil {
 			} catch (Throwable t1) {
 			}
 			try {
-				runThread.destroy();
+//				runThread.destroy();
 			} catch (Throwable t1) {
 			}
 		}
