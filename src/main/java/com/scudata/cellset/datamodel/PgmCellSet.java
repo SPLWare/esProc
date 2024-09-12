@@ -315,12 +315,18 @@ public class PgmCellSet extends CellSet {
 	 *
 	 */
 	public class FuncInfo {
+		private String fnName;
 		private PgmNormalCell cell; // 函数所在单元格
 		private String[] argNames; // 参数名
 
-		public FuncInfo(PgmNormalCell cell, String[] argNames) {
+		public FuncInfo(String fnName, PgmNormalCell cell, String[] argNames) {
+			this.fnName = fnName;
 			this.cell = cell;
 			this.argNames = argNames;
+		}
+
+		public String getFnName() {
+			return fnName;
 		}
 
 		/**
@@ -2320,7 +2326,7 @@ public class PgmCellSet extends CellSet {
 					int len = expStr.length();
 					int nameEnd = KeyWord.scanId(expStr, 0);
 					if (nameEnd == len) {
-						FuncInfo funcInfo = new FuncInfo(cell, null);
+						FuncInfo funcInfo = new FuncInfo(name, cell, null);
 						fnMap.put(expStr, funcInfo);
 					} else {
 						String name = expStr.substring(0, nameEnd);
@@ -2330,7 +2336,7 @@ public class PgmCellSet extends CellSet {
 						}
 
 						if (nameEnd == len) {
-							FuncInfo funcInfo = new FuncInfo(cell, null);
+							FuncInfo funcInfo = new FuncInfo(name, cell, null);
 							fnMap.put(name, funcInfo);
 						} else if (expStr.charAt(nameEnd) == '('
 								&& expStr.charAt(len - 1) == ')') {
@@ -2342,7 +2348,7 @@ public class PgmCellSet extends CellSet {
 								argNames = param.toStringArray("func", false);
 							}
 
-							FuncInfo funcInfo = new FuncInfo(cell, argNames);
+							FuncInfo funcInfo = new FuncInfo(name, cell, argNames);
 							fnMap.put(name, funcInfo);
 						} else {
 							MessageManager mm = EngineMessage.get();
@@ -2359,20 +2365,18 @@ public class PgmCellSet extends CellSet {
 			return funcInfo;
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(fnName
-					+ mm.getMessage("Expression.unknownFunction"));
+			throw new RQException(fnName + mm.getMessage("Expression.unknownFunction"));
 		}
 	}
 
 	/**
 	 * 执行指定名字的子函数，可递归调用
-	 * @param fnName 函数名
+	 * @param funcInfo 函数信息
 	 * @param args Object[] 参数数组
 	 * @param opt String i：不递归调用，不用复制网格
-	 * @return Object 子函数返回值
+	 * @return Object 函数返回值
 	 */
-	public Object executeFunc(String fnName, Object[] args, String opt) {
-		FuncInfo funcInfo = getFuncInfo(fnName);
+	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt) {
 		PgmNormalCell cell = funcInfo.getCell();
 		int row = cell.getRow();
 		int col = cell.getCol();
@@ -2387,7 +2391,7 @@ public class PgmCellSet extends CellSet {
 			int argCount = argNames.length;
 			if (args == null || args.length != argCount) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(fnName
+				throw new RQException(funcInfo.getFnName()
 						+ mm.getMessage("function.paramCountNotMatch"));
 			}
 
@@ -2408,6 +2412,23 @@ public class PgmCellSet extends CellSet {
 
 		// 定义了名字和参数的函数不再将参数填入单元格
 		return pcs.executeFunc(row, col, endRow, null); // args
+	}
+	
+	/**
+	 * 执行指定名字的子函数，可递归调用
+	 * @param fnName 函数名
+	 * @param args Object[] 参数数组
+	 * @param opt String i：不递归调用，不用复制网格
+	 * @return Object 函数返回值
+	 */
+	public Object executeFunc(String fnName, Object[] args, String opt) {
+		FuncInfo funcInfo = getFuncInfo(fnName);
+		if (funcInfo == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(fnName + mm.getMessage("Expression.unknownFunction"));
+		}
+		
+		return executeFunc(funcInfo, args, opt);
 	}
 
 	private Object executeFunc(int row, int col, int endRow, Object[] args) {

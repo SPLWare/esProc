@@ -23,6 +23,7 @@ import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.expression.fn.Call;
+import com.scudata.expression.fn.PCSFunction;
 import com.scudata.expression.operator.*;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
@@ -810,6 +811,16 @@ public class Expression {
 				}
 				
 				return fun;
+			}
+			
+			if (cs instanceof PgmCellSet) {
+				PgmCellSet.FuncInfo funcInfo = ((PgmCellSet)cs).getFuncInfo(fnName);
+				if (funcInfo != null) {
+					Function fn = new PCSFunction(funcInfo);
+					fn.setOption(fnOpt);
+					fn.setParameter(cs, ctx, scanParameter());
+					return fn;
+				}
 			}
 		}
 		
