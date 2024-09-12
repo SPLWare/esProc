@@ -3,10 +3,12 @@ package com.scudata.expression.mfn.cursor;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.cursor.PrereadCursor;
 import com.scudata.dm.cursor.SinglepathCursor;
+import com.scudata.dm.cursor.SyncCursor;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -23,7 +25,29 @@ public class CreateCursor extends CursorFunction {
 		if (cursor instanceof MultipathCursors) {
 			return createCursor((MultipathCursors)cursor, param, ctx);
 		} else if (option != null && option.indexOf('m') != -1) {
-			return new PrereadCursor(cursor);
+			int n = 0;
+			if (param != null) {
+				Object obj = param.getLeafExpression().calculate(ctx);
+				if (obj instanceof Number) {
+					n = ((Number)obj).intValue();
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
+				}
+			} else {
+				n = Env.getCursorParallelNum();
+			}
+			
+			if (n > 1) {
+				ICursor []cursors = new ICursor[n];
+				for (int i = 0; i < n; ++i) {
+					cursors[i] = new SyncCursor(cursor);
+				}
+				
+				return new MultipathCursors(cursors, ctx);
+			} else {
+				return new PrereadCursor(cursor);
+			}
 		} else {
 			return cursor;
 		}

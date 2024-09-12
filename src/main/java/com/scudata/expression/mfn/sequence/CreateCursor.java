@@ -2,6 +2,7 @@ package com.scudata.expression.mfn.sequence;
 
 import java.util.ArrayList;
 
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
@@ -37,6 +38,26 @@ public class CreateCursor extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (srcSequence instanceof MemoryTable) {
 			return createCursor((MemoryTable)srcSequence, param, option, ctx);
+		} else if (srcSequence.ifn() instanceof ICursor) {
+			int len = srcSequence.length();
+			ObjectArray array = new ObjectArray(len);
+			
+			for (int i = 1; i <= len; ++i) {
+				Object obj = srcSequence.getMem(i);
+				if (obj instanceof IMultipath) {
+					ICursor []cursors = ((IMultipath)obj).getParallelCursors();
+					array.addAll(cursors);
+				} else if (obj instanceof ICursor) {
+					array.add(obj);
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("mcursor" + mm.getMessage("function.paramTypeError"));
+				}
+			}
+			
+			ICursor[] cursors = new ICursor[array.size()];
+			array.toArray(cursors);
+			return new MultipathCursors(cursors, ctx);
 		} else {
 			if (option == null || option.indexOf('m') == -1) {
 				return createCursor(srcSequence, param, option, ctx);
