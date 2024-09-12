@@ -12,6 +12,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.WindowEvent;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -47,6 +49,7 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.CheckBoxRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
+import com.scudata.util.Variant;
 
 /**
  * 数据库连接定义对话框
@@ -586,9 +589,18 @@ public class DialogDataSourcePara extends JDialog {
 
 			Driver d = (Driver) Class.forName(driver).newInstance();
 			DriverPropertyInfo[] dpi = d.getPropertyInfo(url, new Properties());
-			// boolean isDL = driver.startsWith("com.datalogic");
-			// tableExtend.data.setRowCount(isDL ? dpi.length : dpi.length - 2);
-			// tableExtend.resetIndex();
+			Arrays.sort(dpi, new Comparator<DriverPropertyInfo>() {
+				public int compare(DriverPropertyInfo o1, DriverPropertyInfo o2) {
+					if (o1 == null) {
+						if (o2 == null)
+							return 0;
+						return -1;
+					}
+					if (o2 == null)
+						return 1;
+					return Variant.compare(o1.name, o2.name, false);
+				}
+			});
 			for (int i = 0; i < dpi.length; i++) {
 				if (dpi[i].name.equalsIgnoreCase("user")) {
 					continue;
