@@ -183,7 +183,8 @@ public class StringUtils {
 			float w) {
 		w = (float) Math.ceil(w) - 1.01f;
 		ArrayList<String> al = new ArrayList<String>();
-		text = StringUtils.replace(text, "\\n", "\n");
+		// removed by bd, 2024.9.12, \n字符不折行，只有换行符本身才可以
+		//text = StringUtils.replace(text, "\\n", "\n");
 		ArgumentTokenizer at = new ArgumentTokenizer(text, '\n', true, true,
 				true);
 
