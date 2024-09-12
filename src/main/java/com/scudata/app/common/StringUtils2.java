@@ -75,8 +75,9 @@ public class StringUtils2 {
 	public static ArrayList<String> wrapString(String text, FontMetrics fm,
 			float w, boolean wrapChar, int maxRowCount) {
 		ArrayList<String> al = new ArrayList<String>();
-		text = replace(text, "\\n", "\n");
-		text = StringUtils.replace(text, "\\r", "\r");
+		// String \n do not break lines, only line breaks char is allowed
+		// text = replace(text, "\\n", "\n");
+		// text = StringUtils.replace(text, "\\r", "\r");
 		text = StringUtils.replace(text, "\r\n", "\n");
 		text = StringUtils.replace(text, "\r", "\n");
 		/* The new construction method in Argumenttokenizer is used here. */

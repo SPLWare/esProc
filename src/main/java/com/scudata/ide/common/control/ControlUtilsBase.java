@@ -560,7 +560,8 @@ public class ControlUtilsBase {
 		ArrayList<String> wrapString = wrapStringBuffer.get(hashKey);
 		if (wrapString == null) {
 			wrapString = new ArrayList<String>();
-			text = StringUtils.replace(text, "\\n", "\n");
+			// String \n do not break lines, only line breaks char is allowed
+			// text = StringUtils.replace(text, "\\n", "\n");
 			if (text.indexOf('\n') < 0) {
 				wrapString.add(text);
 			} else {
@@ -1084,8 +1085,9 @@ public class ControlUtilsBase {
 				wrapedString = StringUtils2.wrapExpString(text, fm, w, false,
 						maxRow);
 			} else {
-
-				text = StringUtils.replace(text, "\\n", "\n");
+				// String \n do not break lines, only line breaks char is
+				// allowed
+				// text = StringUtils.replace(text, "\\n", "\n");
 				text = StringUtils.replace(text, "\t", "        ");
 
 				if (text.indexOf('\n') < 0 && stringWidth(fm, text) < w) {
