@@ -216,9 +216,9 @@
       <INFO dbtype="ESPROC" value="left(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="RIGHT" paramcount="2" value="">
-      <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2,?2)"/>
-      <INFO dbtype="TERADATA" value="SUBSTR(?1,LENGTH(?1)-?2,?2)"/>
-      <INFO dbtype="POSTGRES" value="SUBSTR(?1,LENGTH(?1)-?2,?2)"/>
+      <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
+      <INFO dbtype="TERADATA" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
+      <INFO dbtype="POSTGRES" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="ESPROC" value="RIGHT(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="LEN" paramcount="1" value="">
@@ -405,9 +405,6 @@
     </FUNCTION>
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
-    <FUNCTION classname="com.scudata.dm.sql.simple.Case" name="case">
-    	<INFO dbtype="ESPROC" classname="com.scudata.dm.sql.simple.Case"/>
-    </FUNCTION>
     <FUNCTION classname="com.scudata.dm.sql.simple.Coalesce" name="coalesce">
     	<INFO dbtype="ESPROC" classname="com.scudata.dm.sql.simple.Coalesce"/>
     </FUNCTION>
