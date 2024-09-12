@@ -322,6 +322,11 @@ public class DateFactory {
 		return gc.get(Calendar.MILLISECOND);
 	}
 
+	/**
+	 * 取指定日期对应的星期值
+	 * @param date
+	 * @return
+	 */
 	public int week(Date date) {
 		calendar.setTime(date);
 		return calendar.get(Calendar.DAY_OF_WEEK);
@@ -524,6 +529,63 @@ public class DateFactory {
 			return days % 32 + 32;
 		} else {
 			return days % 32;
+		}
+	}
+	
+	/**
+	 * 取指定日期对应的星期值
+	 * @param days
+	 * @return
+	 */
+	public int week(int days) {
+		int y, m, d;
+		if (days < 0) {
+			y = days / 384 + 1969;
+			m = days / 32 % 12 + 11;
+			d = days % 32 + 32;
+		} else {
+			y = days / 384 + 1970;
+			m = days / 32 % 12;
+			d = days % 32;
+		}
+		
+		if (y < WEEK_START_YEAR || y > WEEK_END_YEAR) {
+			calendar.set(y, m, d);
+			return calendar.get(Calendar.DAY_OF_WEEK);
+		} else if (m == 0) {
+			int w = WEEKS[y - WEEK_START_YEAR] + (d - 1) % 7;
+			if (w > 7) {
+				return w - 7;
+			} else {
+				return w;
+			}
+		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+			// 闰年
+			int w = WEEKS[y - WEEK_START_YEAR];
+			days = 31;
+			for (int i = 1; i < m; ++i) {
+				days += LEEPYEARDAYS[i];
+			}
+			
+			w += (days + d - 1) % 7;
+			if (w > 7) {
+				return w - 7;
+			} else {
+				return w;
+			}
+		} else {
+			int w = WEEKS[y - WEEK_START_YEAR];
+			days = 31;
+			for (int i = 1; i < m; ++i) {
+				days += DAYS[i];
+			}
+			
+			w += (days + d - 1) % 7;
+			if (w > 7) {
+				return w - 7;
+			} else {
+				return w;
+			}
 		}
 	}
 	

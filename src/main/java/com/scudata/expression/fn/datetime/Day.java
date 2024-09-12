@@ -44,8 +44,7 @@ public class Day extends Function {
 			if (option == null || option.indexOf('w') == -1) {
 				days = DateFactory.toDay(days);
 			} else {
-				Date date = DateFactory.toDate(days);
-				days = DateFactory.get().week(date);
+				days = DateFactory.get().week(days);
 			}
 			
 			return ObjectCache.getInteger(days);
@@ -80,7 +79,8 @@ public class Day extends Function {
 		IArray array = param.getLeafExpression().calculateAll(ctx);
 		int size = array.size();
 		boolean isMonth = option == null || option.indexOf('w') == -1;
-		Calendar calendar = DateFactory.get().calendar();
+		DateFactory df = DateFactory.get();
+		Calendar calendar = df.calendar();
 		
 		if (array instanceof ConstArray) {
 			Object obj = array.get(1);
@@ -115,8 +115,7 @@ public class Day extends Function {
 					if (isMonth) {
 						days = DateFactory.toDay(days);
 					} else {
-						Date date = DateFactory.toDate(days);
-						days = DateFactory.get().week(date);
+						days = df.week(days);
 					}
 
 					result.pushInt(days);
@@ -164,7 +163,8 @@ public class Day extends Function {
 		IArray array = param.getLeafExpression().calculateAll(ctx);
 		int size = array.size();
 		boolean isMonth = option == null || option.indexOf('w') == -1;
-		Calendar calendar = DateFactory.get().calendar();
+		DateFactory df = DateFactory.get();
+		Calendar calendar = df.calendar();
 		
 		boolean[] signDatas;
 		if (sign) {
@@ -213,8 +213,7 @@ public class Day extends Function {
 					if (isMonth) {
 						days = DateFactory.toDay(days);
 					} else {
-						Date date = DateFactory.toDate(days);
-						days = DateFactory.get().week(date);
+						days = df.week(days);
 					}
 
 					result.pushInt(days);
@@ -268,8 +267,7 @@ public class Day extends Function {
 			if (isMonth) {
 				return DateFactory.toDay(days);
 			} else {
-				Date date = DateFactory.toDate(days);
-				return DateFactory.get().week(date);
+				return DateFactory.get().week(days);
 			}
 		}
 
