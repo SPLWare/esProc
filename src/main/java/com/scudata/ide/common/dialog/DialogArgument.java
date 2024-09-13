@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Matrix;
@@ -213,15 +214,7 @@ public class DialogArgument extends DialogMaxmizable {
 			Object value = p.getValue();
 			// API生成的参数可能只设置了value，没有设置editValue
 			if (value != null && p.getEditValue() == null) {
-				Object editValue = value;
-				if (editValue instanceof String) {
-					if (!StringUtils.isValidString(editValue)) {
-						editValue = null;
-					}
-				} else {
-					editValue = Variant.toString(value);
-				}
-				p.setEditValue(editValue);
+				p.setEditValue(AppUtil.getEditValueByValue(value));
 			}
 			paraTable.data.setValueAt(p.getName(), row, COL_NAME);
 			paraTable.data.setValueAt(p.getEditValue(), row, COL_VALUE);

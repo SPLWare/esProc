@@ -365,6 +365,7 @@ public class AppUtil {
 
 	/**
 	 * 设置参数到网格，会考虑动态参数
+	 * 
 	 * @param cellSet
 	 * @param args
 	 */
@@ -849,27 +850,39 @@ public class AppUtil {
 			ParamList pl = cellSet.getParamList();
 			if (pl != null) {
 				Object value;
-				Object editValue;
 				for (int i = 0; i < pl.count(); i++) {
 					Param p = pl.get(i);
 					if (p != null) {
 						value = p.getValue();
 						if (value != null && p.getEditValue() == null) {
-							editValue = value;
-							if (editValue instanceof String) {
-								if (!StringUtils.isValidString(editValue)) {
-									editValue = null;
-								}
-							} else {
-								editValue = Variant.toString(value);
-							}
-							p.setEditValue(editValue);
+							p.setEditValue(getEditValueByValue(value));
 						}
 					}
 				}
 			}
 		}
 		return cellSet;
+	}
+
+	/**
+	 * 通过值获取编辑值。spl文件，或者api生成的splx用到
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static Object getEditValueByValue(Object value) {
+		if (value != null) {
+			Object editValue = value;
+			if (editValue instanceof String) {
+				if (!StringUtils.isValidString(editValue)) {
+					editValue = null;
+				}
+			} else {
+				editValue = Variant.toString(value);
+			}
+			return editValue;
+		}
+		return null;
 	}
 
 	/**
@@ -1128,7 +1141,7 @@ public class AppUtil {
 			} catch (Throwable t1) {
 			}
 			try {
-//				runThread.destroy();
+				// runThread.destroy();
 			} catch (Throwable t1) {
 			}
 		}
