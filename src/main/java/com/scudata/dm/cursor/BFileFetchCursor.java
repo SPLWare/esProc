@@ -88,13 +88,12 @@ public class BFileFetchCursor extends ICursor {
 		if (fields != null) {
 			selFields = new String[fields.length];
 			System.arraycopy(fields, 0, selFields, 0, fields.length);
+			int len = fields.length;
+			bytesIndex = len;
+			String[] dsFields = Arrays.copyOf(fields, len + 1);
+			dsFields[len] = BYTES_FIELD_NAME;
+			dataStruct = new DataStruct(dsFields);
 		}
-		
-		int len = fields.length;
-		bytesIndex = len;
-		String[] dsFields = Arrays.copyOf(fields, len + 1);
-		dsFields[len] = BYTES_FIELD_NAME;
-		dataStruct = new DataStruct(dsFields);
 		
 		boolean isCsv = false;
 		if (opt != null) {

@@ -393,7 +393,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	
 	private static Table groups2(ICursor []cursors, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
-		int capacity = groupCount > 0 ? groupCount :Env.getDefaultHashCapacity();
+		int capacity = groupCount > 0 ? groupCount : 20000000;//Ä¬ÈÏ2000Íò
 		HashUtil hashUtil = new HashUtil(capacity);
 		GroupsSyncReader cursorReader = new GroupsSyncReader(cursors, exps, hashUtil, ctx);
 		capacity = hashUtil.getCapacity();
