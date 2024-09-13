@@ -66,10 +66,10 @@ public class ConstArray implements IArray {
 	public void add(Object o) {
 		if (Variant.isEquals(data, o)) {
 			size++;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 		}
-		
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 	}
 	
 	
@@ -102,10 +102,10 @@ public class ConstArray implements IArray {
 		
 		if (array instanceof ConstArray && Variant.isEquals(data, array.get(1))) {
 			size += count;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 		}
-		
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 	}
 	
 	/**
@@ -117,10 +117,10 @@ public class ConstArray implements IArray {
 	public void addAll(IArray array, int index, int count) {
 		if (array instanceof ConstArray && Variant.isEquals(data, array.get(1))) {
 			size += count;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 		}
-		
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 	}
 	
 	/**
@@ -201,10 +201,10 @@ public class ConstArray implements IArray {
 	public void add(IArray array, int index) {
 		if (Variant.isEquals(data, array.get(index))) {
 			size++;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 		}
-		
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 	}
 	
 	/**
