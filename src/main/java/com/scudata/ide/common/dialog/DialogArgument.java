@@ -210,6 +210,19 @@ public class DialogArgument extends DialogMaxmizable {
 				continue;
 			}
 			int row = paraTable.addRow();
+			Object value = p.getValue();
+			// API生成的参数可能只设置了value，没有设置editValue
+			if (value != null && p.getEditValue() == null) {
+				Object editValue = value;
+				if (editValue instanceof String) {
+					if (!StringUtils.isValidString(editValue)) {
+						editValue = null;
+					}
+				} else {
+					editValue = Variant.toString(value);
+				}
+				p.setEditValue(editValue);
+			}
 			paraTable.data.setValueAt(p.getName(), row, COL_NAME);
 			paraTable.data.setValueAt(p.getEditValue(), row, COL_VALUE);
 			paraTable.data.setValueAt(p.getRemark(), row, COL_REMARK);
