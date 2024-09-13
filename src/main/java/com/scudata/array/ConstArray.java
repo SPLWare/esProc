@@ -84,10 +84,10 @@ public class ConstArray implements IArray {
 		
 		if (array instanceof ConstArray && Variant.isEquals(data, array.get(1))) {
 			size += array.size();
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 		}
-		
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
 	}
 	
 	/**
