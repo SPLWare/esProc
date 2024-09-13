@@ -260,6 +260,12 @@ public class ConfigOptions {
 	 */
 	public static Boolean bAutoExcelServer = Boolean.FALSE;
 
+	/**
+	 * 两种加载项同时存在时，需要选择加载项类型，用于生成Excel复制的表达式
+	 * true时表示是XLL类型，否则Office加载项类型
+	 */
+	public static Boolean bExcelXllType = Boolean.TRUE;
+
 	public static String sQvsConfigFile = null;
 
 	/** HTML */
@@ -348,6 +354,7 @@ public class ConfigOptions {
 
 		options.put("bFuncNotice", bFuncNotice);
 		options.put("bAutoExcelServer", bAutoExcelServer);
+		options.put("bExcelXllType", bExcelXllType);
 		options.put("sQvsConfigFile", sQvsConfigFile);
 		// options.put("bCheckUpdate", bCheckUpdate);
 		options.put("bNoticeExpiration", bNoticeExpiration);
@@ -566,6 +573,8 @@ public class ConfigOptions {
 				bNoticeExpiration = ii;
 			} else if (option.equalsIgnoreCase("bAutoExcelServer")) {
 				bAutoExcelServer = ii;
+			}else if (option.equalsIgnoreCase("bExcelXllType")) {
+				bExcelXllType = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {
