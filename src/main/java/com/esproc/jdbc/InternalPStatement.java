@@ -206,25 +206,6 @@ public abstract class InternalPStatement extends InternalStatement implements
 	}
 
 	/**
-	 * Submits a batch of commands to the database for execution and if all
-	 * commands execute successfully, returns an array of update counts. The int
-	 * elements of the array that is returned are ordered to correspond to the
-	 * commands in the batch, which are ordered according to the order in which
-	 * they were added to the batch. The elements in the array returned by the
-	 * method executeBatch may be one of the following:
-	 * 
-	 * @return an array of update counts containing one element for each command
-	 *         in the batch. The elements of the array are ordered according to
-	 *         the order in which commands were added to the batch.
-	 */
-	public int[] executeBatch() throws SQLException {
-		if (splList.isEmpty()) {
-			throw new SQLException("No statements to execute.");
-		}
-		return executeBatch(paramsList);
-	}
-
-	/**
 	 * Executes the SQL statement in this PreparedStatement object, which must
 	 * be an SQL Data Manipulation Language (DML) statement, such as INSERT,
 	 * UPDATE or DELETE; or an SQL statement that returns nothing, such as a DDL
@@ -913,10 +894,40 @@ public abstract class InternalPStatement extends InternalStatement implements
 	 *            typically this is a SQL INSERT or UPDATE statement
 	 */
 	public void addBatch(String sql) throws SQLException {
+		JDBCUtil.log("InternalPStatement-70");
 		splList.add(sql);
 		ArrayList<Object> cloneParams = new ArrayList<Object>();
 		cloneParams.addAll(parameters);
 		paramsList.add(cloneParams);
+	}
+
+	/**
+	 * Empties this Statement object's current list of SQL commands.
+	 */
+	public void clearBatch() throws SQLException {
+		JDBCUtil.log("InternalPStatement-71");
+		splList.clear();
+		paramsList.clear();
+	}
+
+	/**
+	 * Submits a batch of commands to the database for execution and if all
+	 * commands execute successfully, returns an array of update counts. The int
+	 * elements of the array that is returned are ordered to correspond to the
+	 * commands in the batch, which are ordered according to the order in which
+	 * they were added to the batch. The elements in the array returned by the
+	 * method executeBatch may be one of the following:
+	 * 
+	 * @return an array of update counts containing one element for each command
+	 *         in the batch. The elements of the array are ordered according to
+	 *         the order in which commands were added to the batch.
+	 */
+	public int[] executeBatch() throws SQLException {
+		JDBCUtil.log("InternalPStatement-72");
+		if (splList.isEmpty()) {
+			throw new SQLException("No statements to execute.");
+		}
+		return executeBatch(paramsList);
 	}
 
 	/**
