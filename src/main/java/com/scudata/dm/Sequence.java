@@ -11517,7 +11517,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 		
-		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false, bLast = false;
+		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false, bLast = false, gopt = false;
 		if (opt != null) {
 			if (opt.indexOf('p') != -1) bData = true; // 自动识别成常数
 			if (opt.indexOf('1') != -1) {
@@ -11531,6 +11531,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('c') != -1) sep = ",";
 			if (opt.indexOf('r') != -1) bRegex = true;
 			if (opt.indexOf('n') != -1) bEnter = true;
+			if (opt.indexOf('g') != -1) gopt = true;
 		}
 
 		// 用正则表达式拆分
@@ -11603,26 +11604,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					case '（':
 					case '【':
 					case '《':
-					case '<':
 						match = Sentence.scanChineseBracket(src, i);
 						i = (match == -1) ? srcLen : match + 1;
 						continue; // 跳过中文扩号内的内容
-					}
-
-					if (src.charAt(i) == '\r') {
-						String sub = src.substring(start, i);
-						result.add(toSequence(sub, sep, opt));
-						if (src.charAt(++i) == '\n') {
-							++i;
+					case '<':
+						if (gopt) {
+							match = Sentence.scanChineseBracket(src, i);
+							i = (match == -1) ? srcLen : match + 1;
+						} else {
+							i++;
 						}
 						
-						start = i;
-					} else if (src.charAt(i) == '\n') {
+						continue;
+					}
+
+					if (c == '\r') {
+						String sub = src.substring(start, i);
+						result.add(toSequence(sub, sep, opt));
+						
+						++i;
+						if (i < srcLen && src.charAt(i) == '\n') {
+							start = ++i;
+						} else {
+							start = i;
+						}
+					} else if (c == '\n') {
 						String sub = src.substring(start, i);
 						result.add(toSequence(sub, sep, opt));
 						start = ++i;
 					} else {
-						i++;
+						++i;
 					}
 				}
 
@@ -11724,13 +11735,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						case '（':
 						case '【':
 						case '《':
-						case '<':
 							i = Sentence.scanChineseBracket(src, i);
 							if (i == -1) {
 								break;
 							} else {
 								i++;
 								continue; // 跳过中文扩号内的内容
+							}
+						case '<':
+							if (gopt) {
+								i = Sentence.scanChineseBracket(src, i);
+								if (i == -1) {
+									break;
+								} else {
+									i++;
+									continue; // 跳过中文扩号内的内容
+								}
+							} else {
+								i++;
+								continue;
 							}
 						}
 						
@@ -11863,10 +11886,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				case '（':
 				case '【':
 				case '《':
-				case '<':
 					match = Sentence.scanChineseBracket(src, i);
 					i = (match == -1) ? srcLen : match + 1;
 					continue; // 跳过中文扩号内的内容
+				case '<':
+					if (gopt) {
+						match = Sentence.scanChineseBracket(src, i);
+						i = (match == -1) ? srcLen : match + 1;
+					} else {
+						i++;
+					}
+					
+					continue;
 				}
 
 				if (src.startsWith(sep, i)) {
