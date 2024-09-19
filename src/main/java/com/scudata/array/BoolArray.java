@@ -4743,4 +4743,64 @@ public class BoolArray implements IArray {
 	public boolean hasSigns() {
 		return signs != null;
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		boolean []datas = this.datas;
+		boolean []signs = this.signs;
+		int size = this.size;
+		int count = 1;
+		
+		if (signs == null) {
+			if (datas[index]) {
+				for (++index; index <= size; ++index) {
+					if (datas[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			} else {
+				for (++index; index <= size; ++index) {
+					if (!datas[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			}
+		} else {
+			if (signs[index]) {
+				for (++index; index <= size; ++index) {
+					if (signs[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			} else if (datas[index]) {
+				for (++index; index <= size; ++index) {
+					if (!signs[index] && datas[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			} else {
+				for (++index; index <= size; ++index) {
+					if (!signs[index] && !datas[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+		
+		return count;
+	}
 }

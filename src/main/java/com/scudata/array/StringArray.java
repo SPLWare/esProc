@@ -3661,4 +3661,36 @@ public class StringArray implements IArray {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		String []datas = this.datas;
+		int size = this.size;
+		int count = 1;
+		
+		String value = datas[index];
+		if (value == null) {
+			for (++index; index <= size; ++index) {
+				if (datas[index] == null) {
+					count++;
+				} else {
+					break;
+				}
+			}
+		} else {
+			for (++index; index <= size; ++index) {
+				if (datas[index] != null && datas[index].equals(value)) {
+					count++;
+				} else {
+					break;
+				}
+			}
+		}
+		
+		return count;
+	}
 }

@@ -760,4 +760,11 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	 * @return 1的个数和
 	 */
 	int bit1(IArray array);
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	int getNextEqualCount(int index);
 }

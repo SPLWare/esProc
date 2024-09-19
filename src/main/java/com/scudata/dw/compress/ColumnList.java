@@ -1070,4 +1070,13 @@ public class ColumnList implements IArray {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		throw new RuntimeException();
+	}
 }

@@ -4422,4 +4422,36 @@ public class ObjectArray implements IArray {
 		
 		return count;
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		Object []datas = this.datas;
+		int size = this.size;
+		int count = 1;
+		
+		Object value = datas[index];
+		if (value == null) {
+			for (++index; index <= size; ++index) {
+				if (datas[index] == null) {
+					count++;
+				} else {
+					break;
+				}
+			}
+		} else {
+			for (++index; index <= size; ++index) {
+				if (datas[index] != null && Variant.isEquals(datas[index], value)) {
+					count++;
+				} else {
+					break;
+				}
+			}
+		}
+		
+		return count;
+	}
 }

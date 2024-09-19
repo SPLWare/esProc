@@ -932,7 +932,7 @@ public class PgmCellSet extends CellSet {
 				return;
 			} else if (value instanceof ICursor) {
 				IParam param = command.getParam(this, ctx);
-				int count = 1;
+				int count = ICursor.FETCHCOUNT;
 				Expression gexp = null;
 
 				if (param.getType() == IParam.Semicolon) {

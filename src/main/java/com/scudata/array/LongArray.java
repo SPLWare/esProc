@@ -9268,4 +9268,48 @@ public class LongArray implements NumberArray {
 	public boolean hasSigns() {
 		return signs != null;
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		long []datas = this.datas;
+		boolean []signs = this.signs;
+		int size = this.size;
+		int count = 1;
+		
+		if (signs == null) {
+			long value = datas[index];
+			for (++index; index <= size; ++index) {
+				if (datas[index] == value) {
+					count++;
+				} else {
+					break;
+				}
+			}
+		} else {
+			if (signs[index]) {
+				for (++index; index <= size; ++index) {
+					if (signs[index]) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			} else {
+				long value = datas[index];
+				for (++index; index <= size; ++index) {
+					if (!signs[index] && datas[index] == value) {
+						count++;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+		
+		return count;
+	}
 }

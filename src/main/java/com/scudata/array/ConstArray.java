@@ -3041,4 +3041,13 @@ public class ConstArray implements IArray {
 		
 		return count;
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		return size - index + 1;
+	}
 }

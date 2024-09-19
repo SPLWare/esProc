@@ -3335,4 +3335,28 @@ public class SerialBytesArray implements IArray {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
 	}
+	
+	/**
+	 * 取指定位置连续相同的元素数量
+	 * @param index 位置
+	 * @return 连续相同的元素数量
+	 */
+	public int getNextEqualCount(int index) {
+		long []datas1 = this.datas1;
+		long []datas2 = this.datas2;
+		int size = this.size;
+		int count = 1;
+		
+		long value1 = datas1[index];
+		long value2 = datas2[index];
+		for (++index; index <= size; ++index) {
+			if (datas1[index] == value1 && datas2[index] == value2) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		
+		return count;
+	}
 }
