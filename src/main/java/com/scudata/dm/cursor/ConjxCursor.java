@@ -2,6 +2,8 @@ package com.scudata.dm.cursor;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.op.IGroupsResult;
+import com.scudata.expression.Expression;
 
 /**
  * 把多个游标纵向连成一个游标，取数时会依次遍历每个游标，直到最后一个游标取数结束
@@ -33,7 +35,22 @@ public class ConjxCursor extends ICursor {
 			super.resetContext(ctx);
 		}
 	}
-
+	
+	/**
+	 * 取分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return IGroupsResult
+	 */
+	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, Context ctx) {
+		return cursors[0].getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
+	}
+	
 	/**
 	 * 读取指定条数的数据返回
 	 * @param n 数量
