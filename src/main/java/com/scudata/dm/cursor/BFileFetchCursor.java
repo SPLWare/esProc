@@ -45,6 +45,7 @@ public class BFileFetchCursor extends ICursor {
 	private int bytesIndex;
 	private DataStruct fileDataStruct;
 	private byte[] titleBytes;
+	private long fileSize;
 	
 	/**
 	 * @param reader
@@ -119,6 +120,7 @@ public class BFileFetchCursor extends ICursor {
 		in = new ObjectReader(is, Env.FILE_BUFSIZE);
 		
 		importer = open(fileObject, fields);
+		fileSize = fileObject.size();
 	}
 	
 	private LineImporter open(FileObject fileObject, String[] selFields) {
@@ -337,6 +339,7 @@ public class BFileFetchCursor extends ICursor {
 		int bytesIndex = this.bytesIndex;
 		
 		long lastPos = importer.getCurrentPosition();
+		long fileSize = this.fileSize;
 		
 		try {
 			while (count < n) {
@@ -351,11 +354,19 @@ public class BFileFetchCursor extends ICursor {
 				}
 				
 				long pos = importer.getCurrentPosition();
+				byte[] bytes;
 				int length = (int) (pos - lastPos);
+				if (pos >= fileSize) {
+					bytes = new byte[length - 1];
+					in.read(bytes);
+				} else {
+					//不是最后一行时要跳过换行
+					bytes = new byte[length - 2];
+					in.read(bytes);
+					in.read();
+					in.read();
+				}
 				
-				byte[] bytes = new byte[length];
-				
-				in.read(bytes);
 				rec.setNormalFieldValue(bytesIndex, bytes);
 				result.add(rec);
 				lastPos = pos;

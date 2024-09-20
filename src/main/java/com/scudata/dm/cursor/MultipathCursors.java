@@ -5,7 +5,6 @@ import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Env;
 import com.scudata.dm.GroupsSyncReader;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -393,7 +392,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	
 	private static Table groups2(ICursor []cursors, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
-		int capacity = groupCount > 0 ? groupCount : 20000000;//默认2000万
+		int capacity = groupCount > 0 ? groupCount : 30000000;//默认3000万
 		HashUtil hashUtil = new HashUtil(capacity);
 		GroupsSyncReader cursorReader = new GroupsSyncReader(cursors, exps, hashUtil, ctx);
 		capacity = hashUtil.getCapacity();
