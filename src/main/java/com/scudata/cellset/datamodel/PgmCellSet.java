@@ -2360,13 +2360,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		FuncInfo funcInfo = fnMap.get(fnName);
-		if (funcInfo != null) {
-			return funcInfo;
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(fnName + mm.getMessage("Expression.unknownFunction"));
-		}
+		return fnMap.get(fnName);
 	}
 
 	/**
