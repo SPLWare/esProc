@@ -59,6 +59,10 @@ public class MergeCursor extends ICursor {
 			if (opt.indexOf('0') != -1) {
 				isNullMin = false;
 			}
+			
+			if (opt.indexOf('p') != -1) {
+				this.fields = new int[] {fields[0]};
+			}
 		}
 	}
 	
