@@ -2517,10 +2517,12 @@ public class GM {
 		DatabaseMetaData md = con.getMetaData();
 
 		String types[] = null;
+		// DuckDB的表类型是BASE TABLE
 		if (showSystemTables) {
-			types = new String[] { "TABLE", "VIEW", "SYSTEM TABLE" };
+			types = new String[] { "TABLE", "BASE TABLE", "VIEW",
+					"SYSTEM TABLE" };
 		} else {
-			types = new String[] { "TABLE", "VIEW" };
+			types = new String[] { "TABLE", "BASE TABLE", "VIEW" };
 		}
 		String catalog = con.getCatalog();
 		String productName = md.getDatabaseProductName();
