@@ -669,9 +669,10 @@ public class DoubleArray implements NumberArray {
 			ensureCapacity(size + 1);
 			datas[++size] = ((NumberArray)array).getDouble(index);
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Double"), array.getDataType()));
+			add(array.get(index));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Double"), array.getDataType()));
 		}
 	}
 	

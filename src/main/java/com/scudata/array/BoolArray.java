@@ -642,9 +642,10 @@ public class BoolArray implements IArray {
 			ensureCapacity(size + 1);
 			datas[++size] = ((BoolArray)array).getBool(index);
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
-					mm.getMessage("DataType.Boolean"), array.getDataType()));
+			add(array.get(index));
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+			//		mm.getMessage("DataType.Boolean"), array.getDataType()));
 		}
 	}
 	
