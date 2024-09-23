@@ -16,16 +16,17 @@ import com.scudata.dm.Sequence;
 class XMLNode {
 	private String name; // 名称
 	private XMLNode parent; // 父节点
+	private boolean bopt; // 是否有b选项
+	
 	private ArrayList<XMLNode> subList; // 子节点列表
 	private String characters; // 节点值字符串
-	//private Object value;
-	
 	private String []attrNames;
 	private String []attrValues;
 	
-	public XMLNode(String name, XMLNode parent) {
+	public XMLNode(String name, XMLNode parent, boolean bopt) {
 		this.name = name;
 		this.parent = parent;
+		this.bopt = bopt;
 	}
 	
 	public String getName() {
@@ -64,7 +65,20 @@ class XMLNode {
 		ArrayList<XMLNode> subList = this.subList;
 		Object value;
 		if (subList == null) {
-			value = XMLUtil.parseText(characters);
+			if (bopt) {
+				if (characters == null) {
+					return null;
+				} else {
+					characters = characters.trim();
+					if (characters.length() > 0) {
+						return characters;
+					} else {
+						return null;
+					}
+				}
+			} else {
+				value = XMLUtil.parseText(characters);
+			}
 		} else {
 			ArrayList<String> nameList = new ArrayList<String>();
 			int size = subList.size();
