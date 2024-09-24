@@ -76,7 +76,7 @@ public class MinHeap {
 	 */
 	public void insertAll(MinHeap other) {
 		Object []heap = other.heap;
-		for (int i = 1, currentSize = this.currentSize; i <= currentSize; ++i) {
+		for (int i = 1, currentSize = other.currentSize; i <= currentSize; ++i) {
 			insert(heap[i]);
 		}
 	}
