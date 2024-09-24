@@ -175,6 +175,7 @@ public class RQDialog extends JDialog {
 				} catch (Throwable t) {
 				}
 				RQDialog.this.dispose();
+				whenWindowClosed();
 			}
 
 			public void windowOpened(WindowEvent e) {
@@ -182,6 +183,9 @@ public class RQDialog extends JDialog {
 			}
 		});
 		this.setResizable(true);
+	}
+	
+	protected void whenWindowClosed(){
 	}
 
 	/**
