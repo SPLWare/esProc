@@ -672,19 +672,24 @@ public class JTableValue extends JTableEx {
 	 * 重置选择状态
 	 */
 	private void resetSelection() {
-		ListSelectionModel selectModel = getSelectionModel();
-		selectModel.clearSelection();
-		if (!selectedRows.isEmpty()) {
-			int r;
-			for (int i = 0; i < selectedRows.size(); i++) {
-				r = selectedRows.getInt(i);
-				r = r - panelValue.sbValue.getValue() + 1;
-				if (r > -1 && r < getRowCount()) {
-					selectModel.addSelectionInterval(r, r);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				ListSelectionModel selectModel = getSelectionModel();
+				selectModel.clearSelection();
+				if (!selectedRows.isEmpty()) {
+					int r;
+					for (int i = 0; i < selectedRows.size(); i++) {
+						r = selectedRows.getInt(i);
+						r = r - panelValue.sbValue.getValue() + 1;
+						if (r > -1 && r < getRowCount()) {
+							selectModel.addSelectionInterval(r, r);
+						}
+					}
 				}
+				JTableValue.this.setSelectionModel(selectModel);
 			}
-		}
-		this.setSelectionModel(selectModel);
+		});
+
 	}
 
 	/**
@@ -702,7 +707,8 @@ public class JTableValue extends JTableEx {
 	 * 
 	 * @param index
 	 *            开始行号
-	 * @param isFirst 是否第一次设置值
+	 * @param isFirst
+	 *            是否第一次设置值
 	 */
 	public void resetData(int index, boolean isFirst) {
 		if (index <= 0)
@@ -1135,7 +1141,8 @@ public class JTableValue extends JTableEx {
 	 *            单元格值
 	 * @param id
 	 *            单元格名称
-	 * @param isRefresh 是否刷新
+	 * @param isRefresh
+	 *            是否刷新
 	 */
 	public void setValue1(Object value, String id, boolean isRefresh) {
 		if (id != null && id.equals(getCellId())) {
@@ -1682,6 +1689,7 @@ public class JTableValue extends JTableEx {
 
 	/**
 	 * 设置列宽
+	 * 
 	 * @param tc
 	 * @param colWidth
 	 */
@@ -1691,6 +1699,7 @@ public class JTableValue extends JTableEx {
 
 	/**
 	 * 设置列宽
+	 * 
 	 * @param tc
 	 * @param colWidth
 	 */
