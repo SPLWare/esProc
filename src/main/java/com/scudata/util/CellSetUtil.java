@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import com.scudata.cellset.datamodel.CellSet;
@@ -42,6 +43,108 @@ public class CellSetUtil {
 	private static final byte ENCRYPTED = 0x01;
 
 	/**
+	 * 对字节数组使用CellSetUtil.KEY加密
+	 * @param bytes 待加密内容
+	 * @return 加密后内容
+	 * @throws Exception
+	 */
+	public static byte[] encrypt(byte[] bytes) throws Exception {
+		DES des = new DES(KEY);
+		return des.encrypt(bytes);
+	}
+	
+	/**
+	 * 对字节数组使用CellSetUtil.KEY解密
+	 * @param bytes 待解密内容
+	 * @return 解密后内容
+	 * @throws Exception
+	 */
+	public static byte[] decrypt(byte[] bytes) throws Exception {
+		DES des = new DES(KEY);
+		return des.decrypt(bytes);
+	}
+	
+	/**
+	 * 写自定义加密、解密函数的程序网
+	 * @param fileName 要写入程序网的文件名
+	 * @param cs 程序网对象
+	 * @throws Exception
+	 */
+	public static void writePgmCellSet(String fileName, PgmCellSet cs, String fnEncrypt, String fnDecrypt) throws Exception {
+		BufferedOutputStream bos = null;
+		try {
+			bos = new BufferedOutputStream(new FileOutputStream(fileName));
+			writePgmCellSet(bos, cs, fnEncrypt, fnDecrypt);
+		} finally {
+			if(bos != null) bos.close();
+		}
+	}
+	
+	/**
+	 * 写自定义加密、解密函数的程序网
+	 * @param out 输出流
+	 * @param cs 程序网对象
+	 * @throws Exception
+	 */
+	public static void writePgmCellSet(OutputStream out, PgmCellSet cs, String fnEncrypt, String fnDecrypt) throws Exception {
+		int dotIndex = fnEncrypt.lastIndexOf('.');
+		if (dotIndex == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(fnEncrypt + mm.getMessage("invoke.methodNotExist"));
+		}
+
+		String className = fnEncrypt.substring(0, dotIndex);
+		String methodName = fnEncrypt.substring(dotIndex + 1);
+		Class<? extends Object> classObj = Class.forName(className);
+		Method method = classObj.getDeclaredMethod(methodName, byte[].class);
+		
+		out.write('R');
+		out.write('Q');
+		out.write('Q');
+		out.write('R');
+		out.write(Type_PgmCellSet); // 网格类型
+		
+		// 版本4：网格参数改成了value存真实值，editValue存输入值
+		// 版本5：增加了解密函数
+		out.write(5); 
+
+		// 密码长度+密码
+		ByteArrayOutputRecord bo = new ByteArrayOutputRecord();
+		String psw = cs.getPasswordHash();
+		bo.writeString(psw);
+		int privilege = cs.getNullPasswordPrivilege();
+		bo.writeInt(privilege);
+		bo.writeString(fnDecrypt);
+		byte []pswBytes = bo.toByteArray();
+		pswBytes = encrypt(pswBytes);
+		IOUtils.writeInt(out, pswBytes.length);
+		out.write(pswBytes);
+
+		// 属性长度+属性
+		ByteMap map = cs.getCustomPropMap();
+		if (map == null || map.size() == 0) {
+			IOUtils.writeInt(out, 0);
+		} else {
+			byte []mapBytes = map.serialize();
+			IOUtils.writeInt(out, mapBytes.length);
+			out.write(mapBytes);
+		}
+
+		byte[] csBytes = cs.serialize();
+		csBytes = (byte[])method.invoke(null, csBytes);
+
+		out.write(ENCRYPTED); // 网格内容加密
+		IOUtils.writeInt(out, csBytes.length);
+		out.write(csBytes);
+
+		out.write('R');
+		out.write('Q');
+		out.write('Q');
+		out.write('R');
+		out.flush();
+	}
+
+	/**
 	 * 写程序网
 	 * 网格类型 + 版本 + 密码长度 + 密码 + 属性长度 + 属性 + 是否加密 + 网长度 + 网内容
 	 * @param out 输出流
@@ -63,8 +166,7 @@ public class CellSetUtil {
 		int privilege = cs.getNullPasswordPrivilege();
 		bo.writeInt(privilege);
 		byte []pswBytes = bo.toByteArray();
-		DES pswDes = new DES(KEY);
-		pswBytes = pswDes.encrypt(pswBytes);
+		pswBytes = encrypt(pswBytes);
 		IOUtils.writeInt(out, pswBytes.length);
 		out.write(pswBytes);
 
@@ -83,8 +185,7 @@ public class CellSetUtil {
 			out.write(0); // 网格内容没有加密
 		} else {
 			out.write(ENCRYPTED); // 网格内容加密
-			DES des = new DES(KEY);
-			csBytes = des.encrypt(csBytes);
+			csBytes = encrypt(csBytes);
 		}
 
 		IOUtils.writeInt(out, csBytes.length);
@@ -148,12 +249,52 @@ public class CellSetUtil {
 				int pswLen = IOUtils.readInt(is);
 				byte []pswBytes = new byte[pswLen];
 				IOUtils.readFully(is, pswBytes);
-				DES pswDes = new DES(KEY);
-				pswBytes = pswDes.decrypt(pswBytes);
+				pswBytes = decrypt(pswBytes);
 
 				ByteArrayInputRecord bi = new ByteArrayInputRecord(pswBytes);
 				String psw = bi.readString();
 				return psw != null && psw.length() > 0;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * 返回网格文件是否使用了用户自定义加密
+	 * @param is InputStream 输入流
+	 * @return boolean
+	 */
+	public static boolean isUserEncrypted(InputStream is) {
+		try {
+			int c1 = is.read();
+			int c2 = is.read();
+			int c3 = is.read();
+			int c4 = is.read();
+
+			if (c1 != 'R' || c2 != 'Q' || c3 != 'Q' || c4 != 'R') {
+				return false;
+			}
+
+			int type = is.read(); // 网格类型
+			if (type != Type_PgmCellSet) {
+				return false;
+			}
+
+			int ver = is.read(); // 版本
+			if (ver < 5) {
+				return false;
+			} else {
+				int pswLen = IOUtils.readInt(is);
+				byte []pswBytes = new byte[pswLen];
+				IOUtils.readFully(is, pswBytes);
+				pswBytes = decrypt(pswBytes);
+
+				ByteArrayInputRecord bi = new ByteArrayInputRecord(pswBytes);
+				bi.readString();
+				bi.readInt();
+				String fnDecrypt = bi.readString();
+				return fnDecrypt != null && fnDecrypt.length() > 0;
 			}
 		} catch (Exception e) {
 			return false;
@@ -239,43 +380,45 @@ public class CellSetUtil {
 
 	/**
 	 * 读程序网
+	 * @param fileName 程序网文件名
+	 * @throws Exception
+	 * @return PgmCellSet
+	 */
+	public static PgmCellSet readPgmCellSet(String fileName) throws Exception {
+		return readPgmCellSet(fileName, null);
+	}
+
+	/**
+	 * 读加了密的程序网
+	 * @param fileName 程序网文件名
+	 * @throws Exception
+	 * @param psw String 密码
+	 * @return PgmCellSet
+	 */
+	public static PgmCellSet readPgmCellSet(String fileName, String psw) throws Exception {
+		BufferedInputStream bis = null;
+		PgmCellSet pcs;
+		
+		try {
+			bis = new BufferedInputStream(new FileInputStream(fileName));
+			pcs = readPgmCellSet(bis, psw);
+		} finally {
+			if(bis != null) bis.close();
+		}
+		
+		File file = new File(fileName);
+		pcs.setName(file.getPath());
+		return pcs;
+	}
+
+	/**
+	 * 读程序网
 	 * @param is InputStream 输入流
 	 * @throws Exception
 	 * @return PgmCellSet
 	 */
 	public static PgmCellSet readPgmCellSet(InputStream is) throws Exception {
 		return readPgmCellSet(is, null);
-	}
-
-	private static void changeOldVersionParam(PgmCellSet pcs) {
-		// 版本小于4的网格里的参数值存的是编辑值
-		ParamList paramList = pcs.getParamList();
-		if (paramList == null) {
-			return;
-		}
-		
-		for (int i = 0, size = paramList.count(); i < size; ++i) {
-			Param param = paramList.get(i);
-			Object value = param.getValue();
-			if (value instanceof String) {
-				String old = (String)value;
-				value = Variant.parse(old);
-				param.setValue(value);
-				
-				if (value instanceof String) {
-					int match = Sentence.scanQuotation(old, 0);
-					if (match == old.length() -1) {
-						param.setEditValue('\'' + (String)value);
-					} else if (old.charAt(0) == '\'') {
-						param.setEditValue('\'' + old);
-					} else {
-						param.setEditValue(old);
-					}
-				} else {
-					param.setEditValue(old);
-				}
-			}
-		}
 	}
 	
 	/**
@@ -322,11 +465,10 @@ public class CellSetUtil {
 		int pswLen = IOUtils.readInt(is);
 		byte []pswBytes = new byte[pswLen];
 		IOUtils.readFully(is, pswBytes);
-
+		String fnDecrypt = null;
+		
 		if (ver > 2) {
-			DES pswDes = new DES(KEY);
-			pswBytes = pswDes.decrypt(pswBytes);
-
+			pswBytes = decrypt(pswBytes);
 			ByteArrayInputRecord bi = new ByteArrayInputRecord(pswBytes);
 			String pswHash = bi.readString();
 			int nullPswPrivilege = bi.readInt();
@@ -335,6 +477,10 @@ public class CellSetUtil {
 			//	MessageManager mm = EngineMessage.get();
 			//	throw new RQException(mm.getMessage("cellset.pswError"));
 			//}
+			
+			if (ver > 4) {
+				fnDecrypt = bi.readString();
+			}
 		}
 
 		int mapLen = IOUtils.readInt(is);
@@ -352,10 +498,21 @@ public class CellSetUtil {
 		is.read(); // Q
 		is.read(); // Q
 		is.read(); // R
-
-		if (isEncrypted == ENCRYPTED) { // 加密程序网
-			DES des = new DES(KEY);
-			csBytes = des.decrypt(csBytes);
+		
+		if (fnDecrypt != null) {
+			int dotIndex = fnDecrypt.lastIndexOf('.');
+			if (dotIndex == -1) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(fnDecrypt + mm.getMessage("invoke.methodNotExist"));
+			}
+			
+			String className = fnDecrypt.substring(0, dotIndex);
+			String methodName = fnDecrypt.substring(dotIndex + 1);
+			Class<? extends Object> classObj = Class.forName(className);
+			Method method = classObj.getDeclaredMethod(methodName, byte[].class);
+			csBytes = (byte[])method.invoke(null, csBytes);
+		} else if (isEncrypted == ENCRYPTED) { // 加密程序网
+			csBytes = decrypt(csBytes);
 		}
 
 		cs.fillRecord(csBytes);
@@ -369,37 +526,35 @@ public class CellSetUtil {
 		return cs;
 	}
 
-	/**
-	 * 读程序网
-	 * @param fileName 程序网文件名
-	 * @throws Exception
-	 * @return PgmCellSet
-	 */
-	public static PgmCellSet readPgmCellSet(String fileName) throws Exception {
-		return readPgmCellSet(fileName, null);
-	}
-
-	/**
-	 * 读加了密的程序网
-	 * @param fileName 程序网文件名
-	 * @throws Exception
-	 * @param psw String 密码
-	 * @return PgmCellSet
-	 */
-	public static PgmCellSet readPgmCellSet(String fileName, String psw) throws Exception {
-		BufferedInputStream bis = null;
-		PgmCellSet pcs;
-		
-		try {
-			bis = new BufferedInputStream(new FileInputStream(fileName));
-			pcs = readPgmCellSet(bis, psw);
-		} finally {
-			if(bis != null) bis.close();
+	private static void changeOldVersionParam(PgmCellSet pcs) {
+		// 版本小于4的网格里的参数值存的是编辑值
+		ParamList paramList = pcs.getParamList();
+		if (paramList == null) {
+			return;
 		}
 		
-		File file = new File(fileName);
-		pcs.setName(file.getPath());
-		return pcs;
+		for (int i = 0, size = paramList.count(); i < size; ++i) {
+			Param param = paramList.get(i);
+			Object value = param.getValue();
+			if (value instanceof String) {
+				String old = (String)value;
+				value = Variant.parse(old);
+				param.setValue(value);
+				
+				if (value instanceof String) {
+					int match = Sentence.scanQuotation(old, 0);
+					if (match == old.length() -1) {
+						param.setEditValue('\'' + (String)value);
+					} else if (old.charAt(0) == '\'') {
+						param.setEditValue('\'' + old);
+					} else {
+						param.setEditValue(old);
+					}
+				} else {
+					param.setEditValue(old);
+				}
+			}
+		}
 	}
 	
 	/**
