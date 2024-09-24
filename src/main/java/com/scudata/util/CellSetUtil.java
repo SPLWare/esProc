@@ -470,9 +470,9 @@ public class CellSetUtil {
 		if (ver > 2) {
 			pswBytes = decrypt(pswBytes);
 			ByteArrayInputRecord bi = new ByteArrayInputRecord(pswBytes);
-			String pswHash = bi.readString();
-			int nullPswPrivilege = bi.readInt();
-			PgmCellSet.getPrivilege(pswHash, psw, nullPswPrivilege);
+			bi.readString(); //String pswHash = 
+			bi.readInt(); //int nullPswPrivilege = 
+			//PgmCellSet.getPrivilege(pswHash, psw, nullPswPrivilege);
 			//if (privilege == PgmCellSet.PRIVILEGE_NULL) {
 			//	MessageManager mm = EngineMessage.get();
 			//	throw new RQException(mm.getMessage("cellset.pswError"));
