@@ -225,7 +225,7 @@ public class FileXls extends XlsFileObject {
 		rowCount = sheet.getLastRowNum() + 1;
 		if (rowCount > 0) {
 			for (int i = 0; i < rowCount; i++) {
-				row = sheet.getRow(0);
+				row = sheet.getRow(i);
 				if (row != null) {
 					colCount = Math.max(colCount, row.getLastCellNum());
 				}
