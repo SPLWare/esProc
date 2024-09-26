@@ -82,7 +82,7 @@ public class ConjxCursor extends ICursor {
 	
 	protected Sequence fuzzyGet(int n) {
 		if (cursors.length == curIndex || n < 1) return null;
-		Sequence table = cursors[curIndex].fuzzyGet(n);
+		Sequence table = cursors[curIndex].fuzzyFetch(n);
 		if (table != null && table.length() > 0) {
 			return table;
 		}
