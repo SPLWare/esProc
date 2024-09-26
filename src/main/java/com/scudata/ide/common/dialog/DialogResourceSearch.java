@@ -59,15 +59,24 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	 */
 	public DialogResourceSearch(JFrame frame) {
 		super(frame, "Resource search", true);
-		setSize(600, 300);
 		init();
+	}
+
+	public DialogResourceSearch(JDialog dialog) {
+		super(dialog, "Resource search", true);
+		init();
+	}
+
+	private void init() {
+		setSize(600, 300);
+		initUI();
 		GM.setDialogDefaultButton(this, buttonSearch, buttonCancel);
 	}
 
 	/**
 	 * ≥ı ºªØ
 	 */
-	private void init() {
+	private void initUI() {
 		this.getContentPane().setLayout(new BorderLayout());
 		JPanel panelCenter = new JPanel(new GridBagLayout());
 		this.getContentPane().add(panelCenter, BorderLayout.CENTER);
