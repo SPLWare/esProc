@@ -2466,7 +2466,12 @@ public class DatabaseUtil {
 				MessageManager mm = DataSetMessage.get();
 				throw new RQException(mm.getMessage("error.charset", dbCharset, toCharset));
 			}
-		} else if (obj instanceof Boolean) {
+		}
+		// added the support for Boolean and byte[]£¬by bd, 2024.9.27
+		else if (obj instanceof Boolean) {
+			return obj;
+		}
+		else if (obj instanceof byte[]) {
 			return obj;
 		} else if (obj instanceof Blob) {
 			Blob blob = (Blob) obj;
