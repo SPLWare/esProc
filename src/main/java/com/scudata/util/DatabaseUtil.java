@@ -2466,6 +2466,8 @@ public class DatabaseUtil {
 				MessageManager mm = DataSetMessage.get();
 				throw new RQException(mm.getMessage("error.charset", dbCharset, toCharset));
 			}
+		} else if (obj instanceof Boolean) {
+			return obj;
 		} else if (obj instanceof Blob) {
 			Blob blob = (Blob) obj;
 			InputStream is = new BufferedInputStream(blob.getBinaryStream());
