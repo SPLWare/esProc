@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>GraphLine</title>
+<title>Graph2Axis</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,15 +14,18 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>GraphLine</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Graph2Axis</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h3></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>lineType</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US>type</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Line types include polyline
-chart, 3D polyline chart, curve chart and radar chart.</span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Types of two-axis chart
+include two-axis column-and-line chart and two-axis polyline chart.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -39,15 +42,18 @@ Maths&quot;,&quot;Mary,English&quot;,&quot;Mary,French&quot;], the
 [&quot;Tom&quot;,&quot;Mary&quot;] is auto-retrieved as the category values.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>values</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Plotting data of a
 specified type of graph, referred to as data of multiple series in each
-category.</span></span></p>
+category. For a two-axis column-and-line chart, if the number of series &#8211; <i
+style='mso-bidi-font-style:normal'>n</i> - is an even number, plot one half of
+the number as columns and another half as lines. If <i style='mso-bidi-font-style:
+normal'>n</i> is an odd number greater than 1, the number of columns to be
+plotted is <i style='mso-bidi-font-style:normal'>n</i>+1/2 and the rest of
+series will be plotted as lines. This way the number of columns is always one
+more than that of lines. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -58,17 +64,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>drawLineDot</span></b></spa
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>It plots data points, which
 are dots for marking positions of data. If checked, plot a dot corresponding to
-the label of each data category. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>drawLineTrend</span></b></span></p>
-
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Whether draw a trend line
-or not by marking the change of data positions in a polyline </span></span></p>
+the label of each data category.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -88,7 +84,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>ignoreNull</span></b></span
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>It determines whether to
-plot records whose values are nulls or not. </span></span></p>
+plot records whose values are nulls. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -117,8 +113,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>xTitle</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Text of X-axis, or the horizontal
-axis, title, which is generally displayed below the axis.</span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Text of X-axis, or the
+horizontal axis, title, which is generally displayed below the axis.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -236,7 +232,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>yTitleColor</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Y-axis title text color.</span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Y-axis title text color. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -246,7 +242,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>yTitleAngle</span></b></spa
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Angle of rotation of Y-axis
-title text.</span></span></p>
+title text. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -322,10 +318,7 @@ display a label every other 2 label positions.</span></span></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>yLabelFonti</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US>yLabelFont</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Y-axis label text font.</span></span></p>
@@ -408,9 +401,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>yEndValue</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-ending value of statistical values of Y-axis labels.<b style='mso-bidi-font-weight:
-normal'></b></span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The ending value of
+statistical values of Y-axis labels.<b style='mso-bidi-font-weight:normal'></b></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -420,7 +413,39 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>yMinMarks</span></b></span>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The minimum number of
-labels on Y-axis.<b style='mso-bidi-font-weight:normal'></b></span></span></p>
+labels on Y-axis.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>yLabelInterval2</span></b></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The interval between labels
+on the right Y-axis. If yLabelInterval=1, display every label by adding 1 to
+every label value; if yLabelInterval=2, display every label by adding 2 to
+every label value.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>yStartValue2</span></b></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The starting value of
+statistical values of the right Y-axis labels.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>yEndValue2</span></b></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The ending value of
+statistical values of the right Y-axis labels.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -481,7 +506,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>warnLineColor</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Color of the warning line. </span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Color of the warning line.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -588,8 +613,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>borderShadow</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Indicates if display shadow
-effect for the canvas. </span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Whether display shadow
+effect for the canvas or not.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -599,8 +624,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>graphTitle</span></b></span
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The text title of the
-column chart, and generally displayed above the graphs. <b style='mso-bidi-font-weight:
-normal'></b></span></span></p>
+column chart, which is generally displayed above the graphs. <b
+style='mso-bidi-font-weight:normal'></b></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -658,7 +683,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>graphTitleAngle</span></b><
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Angle of rotation of chart
-title.<b style='mso-bidi-font-weight:normal'></b></span></span></p>
+title. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -667,9 +692,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>graphTitleMargin</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The space left for the chart
-title, or distance between the top edge of the graph and the top of the canvas.
-The value is an integer and is measured in pixels.</span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The space left for the
+chart title, or distance between the top edge of the graph and the top of the
+canvas. The value is an integer and is measured in pixels.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -678,7 +703,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p
 style='mso-bidi-font-weight:normal'><span lang=EN-US>displayData</span></b></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Styles of displaying data,
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Types of displaying data,
 including not to display, and display by percent or by values. <b
 style='mso-bidi-font-weight:normal'></b></span></span></p>
 
@@ -749,7 +774,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>dataAngle</span></b></span>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Angle of rotation of data
-labels.</span></span></p>
+labels. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -770,10 +795,10 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>drawLegendBySery </span></b
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Whether the legend is
-plotted according to series data or not. Generally legends are plotted based on
-data series, but if there is only one series, checking this property means
+plotted according to series data or not. Generally, legends are plotted based
+on data series, but if there is only one series, checking this property means
 plotting legend using series data and not checking means using category data to
-plot it. </span></span></p>
+plot it.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -832,7 +857,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>legendAngle</span></b></spa
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Angle of rotation of the
-legend text. <b style='mso-bidi-font-weight:normal'></b></span></span></p>
+legend text.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -864,7 +889,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>showOverlapText</span></b><
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Whether or not display
 overlapping neighbouring values, labels or legend text. If checked, display
-those just mentioned; otherwise they are overridden and hidden.</span></span></p>
+those just mentioned; otherwise, they are overridden and hidden.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -876,7 +901,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US>topData</span></b></span></
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>It uses data with top
 values to plot a chart. If there are many categories of data, use top rows of
 data with greatest values to plot the chart, so that graphs in the resulting
-chart will not be too dense to reduce the readability. </span></span></p>
+chart will not be too dense to reduce the readability.</span></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
@@ -892,13 +917,13 @@ a whole and display them as an individual “Others” category.</span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="1061.html">Chart Element Parameters</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="1059.html">Chart Element Parameters</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Configure User-defined Function File</title>
+<title>Function Assist Editor</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,48 +13,372 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='mso-pagination:widow-orphan lines-together'><span lang=EN-US
-style='mso-fareast-font-family:黑体;mso-bidi-font-family:"Times New Roman"'>Configure
-User-defined Function File</span></h1></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>This
-item lets you configure a special file in order to use a user-defined function
-written for achieving a specific purpose. After registering the user-define
-function, you can directly use it in an SPL script as you use any other
-built-in functions.</span></p>
+	<div id="centent-title"><h1 align=left style='text-align:left;text-indent:18.05pt;mso-char-indent-count:
+1.0;mso-pagination:widow-orphan lines-together'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Function Assist Editor</span></h1></div>
+	<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The item is designed
+to help users edit function expressions. The visualized Function assist editor
+allows users to select the desired function, configure its parameters, options,
+and other information, retrieve data from the database or file, perform a
+certain operation &#8211; grouping, sorting or join, and then output the result data.</span></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-text-indent:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;mso-bidi-font-family:
-"Times New Roman";mso-font-kerning:0pt'>The user-defined function configuration
-file is </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:
-宋体;mso-bidi-font-family:"Times New Roman"'>customFunction.properties</span></i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;
-mso-bidi-font-family:"Times New Roman"'>, whose format is shown below:</span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;
-mso-bidi-font-family:"Times New Roman";mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select a target cell,
+click Function assist editor on the right-click menu to have the following
+dialog, where you can select a function and configure parameters to help
+generate a SPL statement, as shown below:</span></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-text-indent:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
-style='font-size:12.0pt;mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman";
-mso-font-kerning:0pt'><img border=0 width=502 height=97
-src="User_reference.files/image061.png" alt=.. v:shapes="_x0000_i1060"></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=645 height=368
+src="User_reference.files/image031.jpg" v:shapes="_x0000_i1041"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>In
-this file, each line is a function definition, where the part on the left of
-the equals sign is the function name, which is unique across the whole function
-system; namesake functions (including user-defined functions) are forbidden. We
-split the part on the right of the equals sign into two parts according to the
-comma. The first has a value of 0 or 1; 0 represents a regular function and 0
-denotes an object’s member function, such as s.len(), which is the string
-object function. The second is the complete Java class name for the
-user-defined function. </span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Let’s look at how to
+use the Function assist editor through an example:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>Learn
-more about user-defined functions in <i><a
-href="http://c.raqsoft.com/article/1635748192152">SPL User-defined Functions</a></i>.</span></p>
+<p class=MsoNormal style='text-indent:21.1pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step 1:</span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> Create a new <i>.splx</i>
+file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=470
+src="User_reference.files/image033.jpg" v:shapes="图片_x0020_15"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step 2:</span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> Edit cell A1 to
+connect to demo data source:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A1, right
+click to get Function assist editor and enter the following interface. Select
+cnnect(db) function and set data source name property value as “demo”.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=661 height=376
+src="User_reference.files/image035.jpg" v:shapes="_x0000_i1043"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A1
+displays the following expression:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=258 height=66
+src="User_reference.files/image037.jpg" v:shapes="_x0000_i1044"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Step 3:</span></b><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> Edit cell A2 to retrieve CITIES table from demo data
+source:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A2, right
+click to get Function assist editor, where we select cell A1(DB) and then
+query(sql) function to edit the SQL query select CID,NAME,POPULATION,STATEID
+from CITIES where CID&lt;?, and set parameter value as 200:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=969 height=430
+src="User_reference.files/image039.jpg" v:shapes="_x0000_i1045"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A2
+displays the following query:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=93
+src="User_reference.files/image041.jpg" v:shapes="图片_x0020_22"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Step 4:</span></b><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> Edit cell A3 to group CITIES table by STATEID and sum
+POPULATION and count CID:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A3, right
+click to get Function assist editor and enter the following interface. Select
+cell A2(Sequence) and group(x:F,…;y:G,…) function, edit grouping expression
+STATEID, renamed STATEID, and edit aggregate expressions sum(POPULATION),
+renamed Total_POPULATION, and ~.count(CID), renamed Count_city.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=813 height=449
+src="User_reference.files/image042.png" v:shapes="_x0000_i1047"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A3
+displays the following statement:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=122
+src="User_reference.files/image044.jpg" v:shapes="图片_x0020_21"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step5:</span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> Edit cell A4 to
+retrieve STATES table from demo:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A4, right
+click to get Function assist editor and enter the following interface. Select
+cell A1(DB) and cursor(sql) function to edit SQL query statement select
+STATEID,NAME,AREA from STATES, and set @x as the option.</span></p>
+
+<p class=MsoNormal style='margin-left:20.8pt;text-indent:21.3pt;mso-char-indent-count:
+2.02'><b><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=872 height=464
+src="User_reference.files/image046.jpg" v:shapes="_x0000_i1049"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A4
+displays the following statement</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=146
+src="User_reference.files/image048.jpg" v:shapes="图片_x0020_25"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step 6: </span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Edit cell A5 to sort
+STATES table by STATEID.</span></p>
+
+<p class=MsoNormal style='margin-left:20.8pt;text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A5,
+right click to get Function assist editor and enter the following interface.
+Select cell A4(Cursor) and sortx() function, and configure sorting fields as
+STATEID.<b></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=840 height=513
+src="User_reference.files/image050.jpg" v:shapes="_x0000_i1051"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A5
+displays the following statement:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=175
+src="User_reference.files/image052.jpg" v:shapes="图片_x0020_27"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'><br style='mso-special-character:
+line-break'>
+<br style='mso-special-character:line-break'>
+</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step 7: </span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Edit cell A6 to join
+A5’s cursor with A3’s table sequence through foreign key field STATEID:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Select A6, right click to get
+Function assist editor and enter the following interface. Select cell
+A5(Cursor) and join() function, set STATEID as the foreign key field, select
+A3(Sequence) as the to-be-joined table sequence with STATEID being the joining
+primary key, edit select expression that uses @i as the option, and set joining
+type as inner join.<b></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=838 height=653
+src="User_reference.files/image054.jpg" v:shapes="_x0000_i1053"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A6
+displays the following statement:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=693 height=199
+src="User_reference.files/image056.jpg" v:shapes="图片_x0020_29"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Now data to be written to the
+file is all prepared and we are read to do the writing.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Step 8: </span></b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Create data file <i>STSTE.xls</i>:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A7, right
+click to get Function assist edtor and enter the following interface. Select
+file() function and edit file name as <i>D:/STSTE.xls</i>:</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=745 height=569
+src="User_reference.files/image058.jpg" v:shapes="_x0000_i1055"></span><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A7
+displays the following statement:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=220
+src="User_reference.files/image060.jpg" v:shapes="图片_x0020_31"></span><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></b></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Step 9: </span></b><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Export data of A6’s cursor to a targe data file:<b></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Select A8, right
+click to get Function assist editor and enter the following interface. Select
+cell A7(File) and xlsexport() function, and choose A6(Cursor) as the
+to-be-exported table sequence or cursor. Export all fields if the
+to-be-exported fields are not configured. Use @t option to export the first row
+as column headers.</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=809 height=630
+src="User_reference.files/image062.jpg" v:shapes="_x0000_i1057"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click “OK” and A8
+displays the following statement:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=692 height=252
+src="User_reference.files/image064.jpg" v:shapes="图片_x0020_33"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Step 10:</span></b><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> Execute script:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Execute the script
+and an Excel file named <i>STSTE.xls</i> will be generated under D drive. Below
+is the content of the file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=zh-CN style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=558 height=778
+src="User_reference.files/image066.jpg" v:shapes="图片_x0020_34"></span><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>1. For any selected
+cell, the function cannot be reedited or reselected after it has been selected,
+edited, and confirmed unless its content is cleared; but you can reconfigure
+its parameters and options.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>2. If a manually
+edited cell expression uses a function that is not supported by the function
+assist feature for the time being, its result cannot be synchronized into the
+Function assist editor.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>3. The function
+assist feature does not cover all esProc functions. It only supports certain
+functions related with retrieval, calculation, and export. More functions will
+be included in the future.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="116.html">Next</a></div>
@@ -67,7 +391,7 @@ href="http://c.raqsoft.com/article/1635748192152">SPL User-defined Functions</a>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
       </a></div>
 	</div>
 </div>
