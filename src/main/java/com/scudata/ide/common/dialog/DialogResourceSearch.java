@@ -108,7 +108,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 				String result = searchResource(clzName);
 				textResults.setText(result);
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(this, ex);
 				ex.printStackTrace();
 			}
 		} else if (buttonCancel == c) {

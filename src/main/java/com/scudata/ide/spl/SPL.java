@@ -427,7 +427,7 @@ public class SPL extends AppFrame {
 			splitCenter.setLastDividerLocation(width);
 
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 			exit();
 		}
 	}
@@ -650,7 +650,7 @@ public class SPL extends AppFrame {
 				ConfigOptions.sAutoOpenFileNames = buf.toString();
 			}
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 			return false;
 		}
 		return true;
@@ -701,7 +701,7 @@ public class SPL extends AppFrame {
 			if (!exitCustom())
 				return false;
 		} catch (Throwable x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 
 		try {
@@ -733,7 +733,7 @@ public class SPL extends AppFrame {
 				}
 			}
 		} catch (Throwable x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 
 		GV.allFrames.remove(this);
@@ -885,7 +885,7 @@ public class SPL extends AppFrame {
 					((IPrjxSheet) sheet).setForceMax();
 				setMax = true;
 			}
-			sheet.show();
+			sheet.setVisible(true);
 			desk.add(sheet);
 			if (setMax || !GM.loadWindowSize(sheet))
 				sheet.setMaximum(true);
@@ -899,7 +899,7 @@ public class SPL extends AppFrame {
 			((IPrjxSheet) sheet).resetSheetStyle();
 			return sheet;
 		} catch (Throwable ex) {
-			GM.showException(ex);
+			GM.showException(GV.appFrame, ex);
 		}
 		return null;
 	}
@@ -1100,7 +1100,7 @@ public class SPL extends AppFrame {
 			try {
 				openSheetFile(GV.directOpenFile);
 			} catch (Throwable x) {
-				GM.showException(x);
+				GM.showException(GV.appFrame, x);
 			}
 		} else if (ConfigOptions.bAutoOpen.booleanValue()
 				&& ConfigOptions.sAutoOpenFileNames != null) {
@@ -1203,7 +1203,7 @@ public class SPL extends AppFrame {
 				ConfigUtil.calcInitSpl(splPath, ctx);
 			} catch (Throwable t) {
 				// 计算初始化程序{0}失败：
-				GM.showException(t, true, null, IdeCommonMessage.get()
+				GM.showException(GV.appFrame, t, true, null, IdeCommonMessage.get()
 						.getMessage("dfx.calcinitdfx", splPath));
 			}
 		}
@@ -1437,7 +1437,7 @@ public class SPL extends AppFrame {
 				} catch (Throwable t) {
 					t.printStackTrace();
 					try {
-						GM.showException(t);
+						GM.showException(GV.appFrame, t);
 					} catch (Exception e) {
 					}
 					System.exit(0);

@@ -513,18 +513,18 @@ public class GM {
 	 * @return
 	 */
 	public static File dialogSelectFile(String fileExts) {
-		return dialogSelectFile(fileExts, GV.lastDirectory, "", "", GV.appFrame);
+		return dialogSelectFile(GV.appFrame, fileExts);
 	}
 
 	/**
 	 * Select file dialog
 	 * 
+	 * @param parent
 	 * @param fileExts
-	 * @param owner
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts, Component owner) {
-		return dialogSelectFile(fileExts, GV.lastDirectory, "", "", owner);
+	public static File dialogSelectFile(Component parent, String fileExts) {
+		return dialogSelectFile(parent, fileExts, true);
 	}
 
 	/**
@@ -534,10 +534,10 @@ public class GM {
 	 * @param useAllFileFilter
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts,
+	public static File dialogSelectFile(Component parent, String fileExts,
 			boolean useAllFileFilter) {
-		return (File) dialogSelectFiles(fileExts, GV.lastDirectory, "", null,
-				false, null, GV.appFrame, useAllFileFilter);
+		return (File) dialogSelectFiles(parent, fileExts, GV.lastDirectory, "",
+				null, false, null, useAllFileFilter);
 	}
 
 	/**
@@ -548,10 +548,10 @@ public class GM {
 	 * @param oldName
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts,
+	public static File dialogSelectFile(Component parent, String fileExts,
 			boolean useAllFileFilter, String oldFileName) {
-		return dialogSelectFile(fileExts, GV.lastDirectory, "", oldFileName,
-				GV.appFrame, useAllFileFilter);
+		return dialogSelectFile(parent, fileExts, GV.lastDirectory, "",
+				oldFileName, useAllFileFilter);
 	}
 
 	/**
@@ -562,47 +562,46 @@ public class GM {
 	 * @param image
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts,
+	public static File dialogSelectFile(Component parent, String fileExts,
 			boolean useAllFileFilter, Image image) {
-		return (File) dialogSelectFiles(fileExts, GV.lastDirectory, "", null,
-				false, null, GV.appFrame, useAllFileFilter, image);
+		return (File) dialogSelectFiles(parent, fileExts, GV.lastDirectory, "",
+				null, false, null, useAllFileFilter, image);
 	}
 
 	/**
 	 * Select file dialog
 	 * 
+	 * @param parent
 	 * @param fileExts
 	 * @param currentDirectory
 	 * @param title
 	 * @param oldFileName
-	 * @param owner
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts,
-			String currentDirectory, String title, String oldFileName,
-			Component owner) {
-		return dialogSelectFile(fileExts, currentDirectory, title, oldFileName,
-				owner, true);
+	public static File dialogSelectFile(Component parent, String fileExts,
+			String currentDirectory, String title, String oldFileName) {
+		return dialogSelectFile(parent, fileExts, currentDirectory, title,
+				oldFileName, true);
 	}
 
 	/**
 	 * Select file dialog
 	 * 
+	 * @param parent
 	 * @param fileExts
 	 * @param currentDirectory
 	 * @param title
 	 * @param oldFileName
-	 * @param owner
 	 * @param useAllFileFilter
 	 *            Whether to use the "All files" drop-down item for the file
 	 *            type. The default is true to use.
 	 * @return
 	 */
-	public static File dialogSelectFile(String fileExts,
+	public static File dialogSelectFile(Component parent, String fileExts,
 			String currentDirectory, String title, String oldFileName,
-			Component owner, boolean useAllFileFilter) {
-		return (File) dialogSelectFiles(fileExts, currentDirectory, title,
-				new File(oldFileName), false, null, owner, useAllFileFilter);
+			boolean useAllFileFilter) {
+		return (File) dialogSelectFiles(parent, fileExts, currentDirectory,
+				title, new File(oldFileName), false, null, useAllFileFilter);
 	}
 
 	/**
@@ -612,30 +611,41 @@ public class GM {
 	 * @return
 	 */
 	public static File[] dialogSelectFiles(String fileExts) {
-		return dialogSelectFiles(fileExts, GV.lastDirectory, "", null,
-				GV.appFrame);
-	}
-
-	public static File[] dialogSelectFiles(String fileExts, Image image) {
-		return (File[]) dialogSelectFiles(fileExts, GV.lastDirectory, "", null,
-				true, null, GV.appFrame, true, image);
+		return dialogSelectFiles(GV.appFrame, fileExts, GV.lastDirectory, "",
+				null);
 	}
 
 	/**
 	 * Select file dialog
 	 * 
+	 * @param parent
+	 * @param fileExts
+	 * @return
+	 */
+	public static File[] dialogSelectFiles(Component parent, String fileExts) {
+		return dialogSelectFiles(parent, fileExts, GV.lastDirectory, "", null);
+	}
+
+	public static File[] dialogSelectFiles(Component parent, String fileExts,
+			Image image) {
+		return (File[]) dialogSelectFiles(parent, fileExts, GV.lastDirectory,
+				"", null, true, null, true, image);
+	}
+
+	/**
+	 * Select file dialog
+	 * 
+	 * @param parent
 	 * @param fileExts
 	 * @param currentDirectory
 	 * @param title
 	 * @param oldFiles
-	 * @param owner
 	 * @return
 	 */
-	public static File[] dialogSelectFiles(String fileExts,
-			String currentDirectory, String title, File[] oldFiles,
-			Component owner) {
-		return (File[]) dialogSelectFiles(fileExts, currentDirectory, title,
-				oldFiles, true, null, owner);
+	public static File[] dialogSelectFiles(Component parent, String fileExts,
+			String currentDirectory, String title, File[] oldFiles) {
+		return (File[]) dialogSelectFiles(parent, fileExts, currentDirectory,
+				title, oldFiles, true, null);
 	}
 
 	/**
@@ -650,11 +660,11 @@ public class GM {
 	 * @param parent
 	 * @return
 	 */
-	public static Object dialogSelectFiles(String fileExts,
+	public static Object dialogSelectFiles(Component parent, String fileExts,
 			String currentDirectory, String buttonText, Object oldFiles,
-			boolean multiSelect, String dialogTitle, Component parent) {
-		return dialogSelectFiles(fileExts, currentDirectory, buttonText,
-				oldFiles, multiSelect, null, GV.appFrame, true);
+			boolean multiSelect, String dialogTitle) {
+		return dialogSelectFiles(parent, fileExts, currentDirectory,
+				buttonText, oldFiles, multiSelect, null, true);
 	}
 
 	/**
@@ -670,13 +680,12 @@ public class GM {
 	 * @param useAllFileFilter
 	 * @return
 	 */
-	public static Object dialogSelectFiles(String fileExts,
+	public static Object dialogSelectFiles(Component parent, String fileExts,
 			String currentDirectory, String buttonText, Object oldFiles,
-			boolean multiSelect, String dialogTitle, Component parent,
-			boolean useAllFileFilter) {
-		return dialogSelectFiles(fileExts, currentDirectory, buttonText,
-				oldFiles, multiSelect, dialogTitle, parent, useAllFileFilter,
-				null);
+			boolean multiSelect, String dialogTitle, boolean useAllFileFilter) {
+		return dialogSelectFiles(parent, fileExts, currentDirectory,
+				buttonText, oldFiles, multiSelect, dialogTitle,
+				useAllFileFilter, null);
 	}
 
 	public static String saveAsExt = null;
@@ -695,9 +704,9 @@ public class GM {
 	 * @param image
 	 * @return
 	 */
-	public static Object dialogSelectFiles(String fileExts,
-			String currentDirectory, String buttonText, Object oldFiles,
-			boolean multiSelect, String dialogTitle, Component parent,
+	public static Object dialogSelectFiles(Component parentComponent,
+			String fileExts, String currentDirectory, String buttonText,
+			Object oldFiles, boolean multiSelect, String dialogTitle,
 			boolean useAllFileFilter, final Image image) {
 		if (currentDirectory == null) {
 			currentDirectory = GV.lastDirectory;
@@ -753,6 +762,10 @@ public class GM {
 				}
 				dialog.pack();
 				dialog.setLocationRelativeTo(parent);
+				if (parent != null && !(parent instanceof AppFrame)
+						&& GM.isMacOS()) {
+					dialog.setAlwaysOnTop(true);
+				}
 				return dialog;
 			}
 		};
@@ -830,6 +843,21 @@ public class GM {
 			chooser.setDialogTitle(dialogTitle);
 		}
 
+		Component parent = parentComponent;
+		if (parent == null) {
+			if (GV.appFrame != null) {
+				parent = GV.appFrame;
+			} else {
+				parent = new JFrame();
+				try {
+					ImageIcon ii = GM.getLogoImage(false);
+					if (ii != null && ii.getImage() != null)
+						((JFrame) parent).setIconImage(ii.getImage());
+				} catch (Throwable t) {
+				}
+			}
+		}
+
 		int r;
 		if (StringUtils.isValidString(buttonText)) {
 			r = chooser.showDialog(parent, buttonText);
@@ -851,13 +879,6 @@ public class GM {
 				}
 
 				String path = chooser.getSelectedFile().getAbsolutePath();
-				// if (!path.toLowerCase().endsWith(fileExt)) { // 切换了后缀
-				// if (AppUtil.isSPLFile(path)) { // 仅限SPL网格文件的类型
-				// // 去掉后缀
-				// int index = path.lastIndexOf(".");
-				// path = path.substring(0, index);
-				// }
-				// }
 				if (!isMuiltExts) {
 					boolean fileHasExt = path.toLowerCase().endsWith(fileExt);
 					if (!fileHasExt && fileExt.startsWith(".")) {
@@ -874,27 +895,20 @@ public class GM {
 	/**
 	 * Pop up a dialog box to select a date
 	 * 
-	 * @param initDate
-	 *            Initialization date
-	 * @return
-	 */
-	public static String dialogSelectDate(String initDate) {
-		return dialogSelectDate(initDate, GV.appFrame);
-	}
-
-	/**
-	 * Pop up a dialog box to select a date
-	 * 
-	 * @param initDate
-	 *            Initialization date
 	 * @param parent
 	 *            Parent window
+	 * @param initDate
+	 *            Initialization date
 	 * @return
 	 */
-	public static String dialogSelectDate(String initDate, JFrame parent) {
+	public static String dialogSelectDate(Component parent, String initDate) {
 		String val = null;
-
-		DateChooser dc = new DateChooser(parent, true);
+		DateChooser dc;
+		if (parent instanceof Dialog) {
+			dc = new DateChooser((Dialog) parent, true);
+		} else {
+			dc = new DateChooser((Frame) parent, true);
+		}
 		java.util.Calendar cal = java.util.Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		centerWindow(dc);
@@ -914,47 +928,50 @@ public class GM {
 		}
 		return val;
 	}
-
+	
 	/**
 	 * Dialog to select directory
 	 * 
-	 * @param currentDirectory
-	 *            Initial path
-	 * @return
-	 */
-	public static String dialogSelectDirectory(String currentDirectory) {
-		return dialogSelectDirectory(currentDirectory, GV.appFrame);
-	}
-
-	/**
-	 * Dialog to select directory
-	 * 
-	 * @param currentDirectory
-	 *            Initial path
 	 * @param parent
 	 *            Parent window
+	 * @param currentDirectory
+	 *            Initial path
 	 * @return
 	 */
-	public static String dialogSelectDirectory(String currentDirectory,
-			Component parent) {
-		return dialogSelectDirectory(currentDirectory, null, null, parent);
+	public static String dialogSelectDirectory(
+			String currentDirectory) {
+		return dialogSelectDirectory(GV.appFrame, currentDirectory);
 	}
 
 	/**
 	 * Dialog to select directory
 	 * 
+	 * @param parent
+	 *            Parent window
+	 * @param currentDirectory
+	 *            Initial path
+	 * @return
+	 */
+	public static String dialogSelectDirectory(Component parent,
+			String currentDirectory) {
+		return dialogSelectDirectory(parent, currentDirectory, null, null);
+	}
+
+	/**
+	 * Dialog to select directory
+	 * 
+	 * @param parent
+	 *            Parent window
 	 * @param currentDirectory
 	 *            Initial path
 	 * @param buttonText
 	 *            Button text
 	 * @param title
 	 *            The title of the dialog
-	 * @param parent
-	 *            Parent window
 	 * @return
 	 */
-	public static String dialogSelectDirectory(String currentDirectory,
-			String buttonText, String title, Component parent) {
+	public static String dialogSelectDirectory(Component parent,
+			String currentDirectory, String buttonText, String title) {
 		JFileChooser chooser = new JFileChooser(currentDirectory);
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		try {
@@ -1382,7 +1399,7 @@ public class GM {
 		} catch (Exception e) {
 			// Logger.info(e.getMessage());
 			if (showException) {
-				showException(e);
+				showException(GV.appFrame, e);
 			}
 		}
 		return null;
@@ -1395,81 +1412,65 @@ public class GM {
 	 *            Exception or error message
 	 */
 	public static void showException(Object oMsg) {
-		showException(oMsg, true);
+		showException(GV.appFrame, oMsg);
 	}
 
 	/**
 	 * Display exception information
 	 * 
-	 * @param oMsg
-	 *            Exception or error message
-	 * @param canCopyMsg
-	 *            Is it possible to copy the exception information.
-	 */
-	public static void showException(Object oMsg, boolean canCopyMsg) {
-		showException(oMsg, canCopyMsg, null);
-	}
-
-	/**
-	 * Display exception information
-	 * 
-	 * @param oMsg
-	 *            Exception or error message
-	 * @param canCopyMsg
-	 *            Is it possible to copy the exception information.
-	 * @param logo
-	 *            Window logo
-	 */
-	public static void showException(Object oMsg, boolean canCopyMsg,
-			ImageIcon logo) {
-		showException(oMsg, canCopyMsg, logo, null, GV.appFrame);
-	}
-
-	/**
-	 * Display exception information
-	 * 
-	 * @param oMsg
-	 *            Exception or error message
-	 * @param frame
-	 *            Parent component
-	 */
-	public static void showException(Object oMsg, Component parent) {
-		showException(oMsg, true, null, null, parent);
-	}
-
-	/**
-	 * Display exception information
-	 * 
-	 * @param oMsg
-	 *            Exception or error message
-	 * @param canCopyMsg
-	 *            Is it possible to copy the exception information.
-	 * @param logo
-	 *            Window logo
-	 * @param pre
-	 *            The prefix of the exception information
-	 */
-	public static void showException(Object oMsg, boolean canCopyMsg,
-			ImageIcon logo, String pre) {
-		showException(oMsg, canCopyMsg, logo, pre, GV.appFrame);
-	}
-
-	/**
-	 * Display exception information
-	 * 
-	 * @param oMsg
-	 *            Exception or error message
-	 * @param canCopyMsg
-	 *            Is it possible to copy the exception information.
-	 * @param logo
-	 *            Window logo
-	 * @param pre
-	 *            The prefix of the exception information
 	 * @param parent
 	 *            Parent component
+	 * @param oMsg
+	 *            Exception or error message
 	 */
-	public static void showException(Object oMsg, boolean canCopyMsg,
-			ImageIcon logo, String pre, Component parent) {
+	public static void showException(Component parent, Object oMsg) {
+		showException(parent, oMsg, true);
+	}
+
+	/**
+	 * Display exception information
+	 * 
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 */
+	public static void showException(Component parent, Object oMsg,
+			boolean canCopyMsg) {
+		showException(parent, oMsg, canCopyMsg, null);
+	}
+
+	/**
+	 * Display exception information
+	 * 
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 * @param logo
+	 *            Window logo
+	 */
+	public static void showException(Component parent, Object oMsg,
+			boolean canCopyMsg, ImageIcon logo) {
+		showException(parent, oMsg, canCopyMsg, logo, null);
+	}
+
+	/**
+	 * Display exception information
+	 * 
+	 * @param parent
+	 *            Parent component
+	 * @param oMsg
+	 *            Exception or error message
+	 * @param canCopyMsg
+	 *            Is it possible to copy the exception information.
+	 * @param logo
+	 *            Window logo
+	 * @param pre
+	 *            The prefix of the exception information
+	 */
+	public static void showException(Component parent, Object oMsg,
+			boolean canCopyMsg, ImageIcon logo, String pre) {
 		String msg;
 		Throwable e = null;
 		if (oMsg instanceof Throwable) {
@@ -1519,6 +1520,9 @@ public class GM {
 		if (pre != null) {
 			msg = pre + "\n" + msg;
 		}
+		if (parent == null) {
+			parent = GV.appFrame;
+		}
 		if (canCopyMsg) {
 			DialogInputText dit;
 			if (parent instanceof Dialog) {
@@ -1532,6 +1536,9 @@ public class GM {
 			dit.setMessageMode();
 			if (logo != null) {
 				dit.setIconImage(logo.getImage());
+			}
+			if (GM.isMacOS()) {
+				dit.setAlwaysOnTop(true);
 			}
 			dit.setVisible(true);
 		} else {
@@ -1875,7 +1882,8 @@ public class GM {
 	 * @param c
 	 *            int Column
 	 */
-	public static boolean dialogEditTableText(JTableEx table, int r, int c) {
+	public static boolean dialogEditTableText(Component parent, JTableEx table,
+			int r, int c) {
 		Object o = table.getCellEditor(r, c);
 		if (o instanceof DefaultCellEditor) {
 			DefaultCellEditor editor = (DefaultCellEditor) o;
@@ -1891,7 +1899,14 @@ public class GM {
 		} catch (Exception ex) {
 			sData = "";
 		}
-		DialogInputText dit = new DialogInputText(GV.appFrame, true);
+		if (parent == null)
+			parent = GV.appFrame;
+		DialogInputText dit;
+		if (parent instanceof Dialog) {
+			dit = new DialogInputText((Dialog) parent, true);
+		} else {
+			dit = new DialogInputText((Frame) parent, true);
+		}
 		dit.setText(sData.toString());
 		dit.setVisible(true);
 		table.acceptText();
@@ -2459,7 +2474,7 @@ public class GM {
 			return listTableNames(ds, false, schema, schemaPrefix);
 		} catch (Throwable e) {
 			if (showMsg) {
-				GM.showException(e);
+				GM.showException(GV.appFrame, e);
 			} else {
 				Logger.debug(e);
 			}
@@ -3326,7 +3341,7 @@ public class GM {
 														nc.getCol())));
 							}
 						} catch (Exception ex) {
-							showException(ex);
+							showException(GV.appFrame, ex);
 							exp = null;
 						}
 					} else {
@@ -3632,7 +3647,7 @@ public class GM {
 			try {
 				context.setDBSession(ds.getName(), ds.getDBSession());
 			} catch (Throwable ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 		}
 		return context;

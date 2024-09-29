@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -75,11 +76,11 @@ abstract public class PanelCellFormat extends JPanel {
 	/**
 	 * ¹¹Ôìº¯Êý
 	 */
-	public PanelCellFormat() {
+	public PanelCellFormat(JDialog parent) {
 		try {
 			rqInit();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(parent, e);
 		}
 	}
 

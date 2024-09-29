@@ -134,7 +134,7 @@ public class DialogDisplayChart extends JDialog {
 			init();
 			this.setResizable(true);
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 			new Thread() {
 				public void run() {
 					closeDialog();
@@ -154,7 +154,7 @@ public class DialogDisplayChart extends JDialog {
 			}
 			init();
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 			new Thread() {
 				public void run() {
 					closeDialog();
@@ -177,7 +177,7 @@ public class DialogDisplayChart extends JDialog {
 			setValue();
 			refresh();
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 			new Thread() {
 				public void run() {
 					closeDialog();
@@ -427,7 +427,7 @@ public class DialogDisplayChart extends JDialog {
 					try {
 						fileExt = GM.getImageType(imageBytes);
 					} catch (IOException e1) {
-						GM.showException(e1);
+						GM.showException(DialogDisplayChart.this, e1);
 						fileExt = "jpg,png,gif";
 					}
 				} else {
@@ -438,8 +438,8 @@ public class DialogDisplayChart extends JDialog {
 				if (p > 0) {
 					txt = txt.substring(0, p);
 				}
-				File saveFile = GM.dialogSelectFile(fileExt, GV.lastDirectory,
-						txt, "", GV.appFrame);
+				File saveFile = GM.dialogSelectFile(DialogDisplayChart.this, fileExt, GV.lastDirectory,
+						txt, "");
 				if (saveFile == null) {
 					return;
 				}
@@ -474,10 +474,10 @@ public class DialogDisplayChart extends JDialog {
 							age.addFrame(bi);
 						}
 						age.finish();
-						GM.showException(splMM.getMessage(
+						GM.showException(DialogDisplayChart.this, splMM.getMessage(
 								"dialogdisplaychart.saveinfo", saveFile));
 					} catch (Exception x) {
-						GM.showException(x);
+						GM.showException(DialogDisplayChart.this, x);
 					}
 					return;
 				} else {
@@ -499,7 +499,7 @@ public class DialogDisplayChart extends JDialog {
 					fos.write(streamBytes);
 					fos.close();
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(DialogDisplayChart.this, x);
 				}
 			}
 		});

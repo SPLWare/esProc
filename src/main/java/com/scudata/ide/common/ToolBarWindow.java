@@ -177,7 +177,7 @@ public abstract class ToolBarWindow extends JPanel {
 											dispSheet(sheet);
 											refreshSheet(sheet);
 										} catch (Exception e1) {
-											GM.showException(e1);
+											GM.showException(GV.appFrame, e1);
 										}
 										return true;
 									}
@@ -447,7 +447,7 @@ public abstract class ToolBarWindow extends JPanel {
 						if (!GV.appFrame.showSheet(sheet))
 							return;
 					} catch (Exception e1) {
-						GM.showException(e1);
+						GM.showException(GV.appFrame, e1);
 					}
 					refreshSheet(sheet);
 				}

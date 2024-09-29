@@ -544,7 +544,7 @@ public class SplEditor {
 		try {
 			exp = oe.toExpressionString();
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 			return;
 		}
 

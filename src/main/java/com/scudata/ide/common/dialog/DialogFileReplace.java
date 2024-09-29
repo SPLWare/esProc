@@ -49,10 +49,6 @@ public abstract class DialogFileReplace extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 父控件
-	 */
-	private Frame owner;
-	/**
 	 * Common语言资源
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
@@ -72,23 +68,24 @@ public abstract class DialogFileReplace extends RQDialog {
 	/**
 	 * 构造函数
 	 * 
-	 * @param owner 父控件
+	 * @param owner
+	 *            父控件
 	 */
 	public DialogFileReplace(Frame owner) {
 		super(owner, "在文件中查找/替换", 600, 500);
 		try {
-			this.owner = owner;
 			this.setModal(false);
 			setTitle(mm.getMessage("dialogfilereplace.title"));
 			init();
 			GM.centerWindow(this);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
 	/**
 	 * 读取加密网格
+	 * 
 	 * @param buf
 	 * @return
 	 */
@@ -103,31 +100,30 @@ public abstract class DialogFileReplace extends RQDialog {
 	private List<File> getFiles() {
 		String sDir = jTFDir.getText();
 		if (!StringUtils.isValidString(sDir)) {
-			GM.messageDialog(owner,
-					mm.getMessage("dialogfilereplace.selectdir")); // 请选择文件所在目录。
+			GM.messageDialog(this, mm.getMessage("dialogfilereplace.selectdir")); // 请选择文件所在目录。
 			return null;
 		}
 		File dir = new File(sDir);
 		if (!dir.exists()) {
-			GM.messageDialog(owner,
+			GM.messageDialog(this,
 					mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // 目录：{0}不存在。
 			return null;
 		}
 		if (!dir.isDirectory()) {
-			GM.messageDialog(owner,
+			GM.messageDialog(this,
 					mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}不是一个目录。
 			return null;
 		}
 		File[] subFiles = dir.listFiles();
 		if (subFiles == null || subFiles.length == 0) {
-			GM.messageDialog(owner,
+			GM.messageDialog(this,
 					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
 		List<File> files = new ArrayList<File>();
 		getSubFiles(dir, files, jCBSub.isSelected());
 		if (files.isEmpty()) {
-			GM.messageDialog(owner,
+			GM.messageDialog(this,
 					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
@@ -137,9 +133,12 @@ public abstract class DialogFileReplace extends RQDialog {
 	/**
 	 * 取目录下文件
 	 * 
-	 * @param dir   目录
-	 * @param files 文件列表容器
-	 * @param isSub 是否包含子目录
+	 * @param dir
+	 *            目录
+	 * @param files
+	 *            文件列表容器
+	 * @param isSub
+	 *            是否包含子目录
 	 */
 	private void getSubFiles(File dir, List<File> files, boolean isSub) {
 		File[] subFiles = dir.listFiles();
@@ -187,14 +186,15 @@ public abstract class DialogFileReplace extends RQDialog {
 	/**
 	 * 查找
 	 * 
-	 * @param isReplace 是否替换
+	 * @param isReplace
+	 *            是否替换
 	 */
 	private void search(boolean isReplace) {
 		fileResultMap.clear();
 		jListResult.setListData(new Object[0]);
 		setSearchConfig();
 		if (searchString == null || "".equals(searchString)) {
-			GM.messageDialog(owner,
+			GM.messageDialog(this,
 					mm.getMessage("dialogfilereplace.searchnull")); // 查找内容不能为空。
 			return;
 		}
@@ -289,7 +289,7 @@ public abstract class DialogFileReplace extends RQDialog {
 			}
 			jListResult.x_setData(codes, disps);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
@@ -382,7 +382,8 @@ public abstract class DialogFileReplace extends RQDialog {
 						lastDir = Env.getMainPath();
 					}
 				}
-				String sDir = GM.dialogSelectDirectory(lastDir, owner);
+				String sDir = GM.dialogSelectDirectory(DialogFileReplace.this,
+						lastDir);
 				if (sDir != null) {
 					jTFDir.setText(sDir);
 				}
@@ -418,7 +419,7 @@ public abstract class DialogFileReplace extends RQDialog {
 								.x_getCodeItem(disp);
 						openSheet(filePath);
 					} catch (Exception ex) {
-						GM.showException(ex);
+						GM.showException(DialogFileReplace.this, ex);
 					}
 				}
 			}
@@ -427,6 +428,7 @@ public abstract class DialogFileReplace extends RQDialog {
 
 	/**
 	 * 打开文件
+	 * 
 	 * @param filePath
 	 * @throws Exception
 	 */

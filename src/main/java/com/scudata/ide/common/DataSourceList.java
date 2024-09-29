@@ -34,7 +34,7 @@ public class DataSourceList extends JList<DataSource> {
 		try {
 			setCellRenderer(new DataSourceRenderer());
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 	}
 }

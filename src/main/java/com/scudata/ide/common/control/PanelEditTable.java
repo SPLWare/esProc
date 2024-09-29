@@ -1,6 +1,7 @@
 package com.scudata.ide.common.control;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
@@ -72,7 +73,7 @@ public class PanelEditTable extends JPanel {
 				MouseEvent e) {
 			switch (col) {
 			case COL_NAME:
-				GM.dialogEditTableText(tableNormal, row, col);
+				GM.dialogEditTableText(parent, tableNormal, row, col);
 				break;
 			}
 		}
@@ -129,6 +130,11 @@ public class PanelEditTable extends JPanel {
 	 * 常序表对象
 	 */
 	private Table table;
+	
+	/**
+	 * 夫组件
+	 */
+	private Component parent;
 
 	/**
 	 * 构造函数
@@ -136,15 +142,16 @@ public class PanelEditTable extends JPanel {
 	 * @param param
 	 *            常量对象
 	 */
-	public PanelEditTable(Param param) {
+	public PanelEditTable(Component parent, Param param) {
 		try {
 			preventChange = true;
+			this.parent = parent;
 			this.param = param;
 			rqInit();
 			this.table = (Table) param.getValue();
 			initConstTable();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(parent, ex);
 		} finally {
 			preventChange = false;
 		}
@@ -261,7 +268,7 @@ public class PanelEditTable extends JPanel {
 		try {
 			table.alter(newNames, oldNames);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(parent, e);
 			return false;
 		}
 		return true;
@@ -288,7 +295,7 @@ public class PanelEditTable extends JPanel {
 				if (col <= COL_INDEX) {
 					return;
 				}
-				GM.dialogEditTableText(tableData, row, col);
+				GM.dialogEditTableText(parent, tableData, row, col);
 			}
 
 			public void setValueAt(Object aValue, int row, int column) {

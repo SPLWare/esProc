@@ -29,7 +29,7 @@ public class DialogZoom extends RQDialog {
 		try {
 			initUI();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 

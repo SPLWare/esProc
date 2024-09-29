@@ -218,12 +218,12 @@ public class ConfigUtilIde {
 							System.getProperty("start.home"), config,
 							setLogLevel, false, false, false);
 				} catch (Exception e) {
-					GM.showException(e);
+					GM.showException(GV.appFrame, e);
 				}
 			setConfigOptions(config);
 			return config;
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 		return null;
 	}

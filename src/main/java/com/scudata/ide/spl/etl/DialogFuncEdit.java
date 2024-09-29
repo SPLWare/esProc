@@ -1,20 +1,42 @@
 package com.scudata.ide.spl.etl;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
-import com.scudata.ide.common.*;
-import com.scudata.ide.common.swing.*;
-import com.scudata.ide.spl.resources.*;
+import com.scudata.ide.common.GC;
+import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
+import com.scudata.ide.common.swing.JComboBoxEx;
+import com.scudata.ide.spl.resources.ChartMessage;
 
 /**
- * SPL函数辅助开发
- * 界面编辑器
+ * SPL函数辅助开发 界面编辑器
+ * 
  * @author Joancy
  *
  */
@@ -22,7 +44,7 @@ public class DialogFuncEdit extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private int m_option = JOptionPane.CLOSED_OPTION;
 	private static MessageManager mm = FuncMessage.get();
-	
+
 	JLabel lbUrl = new JLabel("Help");
 	JButton okbtn = new JButton();
 	JButton cancelbtn = new JButton();
@@ -37,10 +59,14 @@ public class DialogFuncEdit extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param cellNames 每个支持辅助函数的单元格名字跟函数对象元素的映射
-	 * @param currentOe 当前编辑的函数对象元素
+	 * 
+	 * @param cellNames
+	 *            每个支持辅助函数的单元格名字跟函数对象元素的映射
+	 * @param currentOe
+	 *            当前编辑的函数对象元素
 	 */
-	public DialogFuncEdit(HashMap<String, ObjectElement> cellNames,ObjectElement currentOe) {
+	public DialogFuncEdit(HashMap<String, ObjectElement> cellNames,
+			ObjectElement currentOe) {
 		super(GV.appFrame, "函数编辑", true);
 		try {
 			this.cellNames = cellNames;
@@ -51,7 +77,7 @@ public class DialogFuncEdit extends JDialog {
 			resetText();
 			GM.setDialogDefaultButton(this, okbtn, cancelbtn);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -86,10 +112,10 @@ public class DialogFuncEdit extends JDialog {
 		okbtn.setMnemonic('O');
 		cancelbtn.setMnemonic('C');
 		JPanel panel = new JPanel(new GridBagLayout());
-		panel.add(lbUrl,GM.getGBC(1, 1,true));
-		panel.add(new JLabel(" "),GM.getGBC(1, 2));
-		panel.add(okbtn,GM.getGBC(1, 3));
-		panel.add(cancelbtn,GM.getGBC(1, 4));
+		panel.add(lbUrl, GM.getGBC(1, 1, true));
+		panel.add(new JLabel(" "), GM.getGBC(1, 2));
+		panel.add(okbtn, GM.getGBC(1, 3));
+		panel.add(cancelbtn, GM.getGBC(1, 4));
 		Container pane = this.getContentPane();
 		pane.setLayout(new BorderLayout());
 		pane.add(panel, BorderLayout.SOUTH);
@@ -111,18 +137,18 @@ public class DialogFuncEdit extends JDialog {
 			}
 		});
 	}
-	
-	private boolean isInludeType(byte[] allType, byte current){
-		for(int i=0;i<allType.length;i++){
-			if(allType[i]==current){
+
+	private boolean isInludeType(byte[] allType, byte current) {
+		for (int i = 0; i < allType.length; i++) {
+			if (allType[i] == current) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	private ArrayList<String> getAncestorNames(){
-		ArrayList<String> ans = new ArrayList<String>(); 
+
+	private ArrayList<String> getAncestorNames() {
+		ArrayList<String> ans = new ArrayList<String>();
 		String currentName = (String) jCBCellNames.x_getSelectedItem();
 		if (cellNames != null && !cellNames.isEmpty()) {
 			while (StringUtils.isValidString(currentName)) {
@@ -133,45 +159,47 @@ public class DialogFuncEdit extends JDialog {
 		}
 		return ans;
 	}
-	
+
 	/**
 	 * 从映射表中将所有单元格的名字列出来，并将符合类型cellTypes的名称构造为下拉列表
-	 * @param cellTypes 单元格类型
+	 * 
+	 * @param cellTypes
+	 *            单元格类型
 	 * @return 名称下拉列表
 	 */
-	public JComboBoxEx getCellNameDropdownBox(byte[] cellTypes){
-		Vector<String> scodes = new Vector<String>(),sdisps = new Vector<String>();
+	public JComboBoxEx getCellNameDropdownBox(byte[] cellTypes) {
+		Vector<String> scodes = new Vector<String>(), sdisps = new Vector<String>();
 		if (cellNames != null) {
 			ArrayList<String> names = new ArrayList<String>();
 			Iterator<String> it = cellNames.keySet().iterator();
 			ArrayList<String> ans = getAncestorNames();
 			while (it.hasNext()) {
 				String name = it.next();
-				if(ans.contains(name)){//要列出的下拉格子不能包含当前格子的祖先格，否则就嵌套了
+				if (ans.contains(name)) {// 要列出的下拉格子不能包含当前格子的祖先格，否则就嵌套了
 					continue;
 				}
 				names.add(name);
 			}
 			Collections.sort(names);
-//			GM.sort(names, true);
+			// GM.sort(names, true);
 			scodes.add("");
 			sdisps.add("");
 			for (String name : names) {
 				ObjectElement cellOE = cellNames.get(name);
 				byte cellType = cellOE.getReturnType();
-				if(isInludeType(cellTypes,cellType)){
+				if (isInludeType(cellTypes, cellType)) {
 					scodes.add(name);
 					sdisps.add(cellTitle(name));
 				}
 			}
 		}
-	    
-	    JComboBoxEx combo = new JComboBoxEx();
-	    combo.x_setData(scodes, sdisps);
+
+		JComboBoxEx combo = new JComboBoxEx();
+		combo.x_setData(scodes, sdisps);
 		return combo;
 	}
 
-	private void refreshCellNames(){
+	private void refreshCellNames() {
 		String cellName = (String) jCBCellNames.x_getSelectedItem();
 		byte cellType = EtlConsts.TYPE_EMPTY;
 		if (StringUtils.isValidString(cellName)) {
@@ -179,8 +207,7 @@ public class DialogFuncEdit extends JDialog {
 			cellType = cellOE.getReturnType();
 		}
 
-		ArrayList<ElementInfo> elements = ElementLib
-				.getElementInfos(cellType);
+		ArrayList<ElementInfo> elements = ElementLib.getElementInfos(cellType);
 		Vector<String> names = new Vector<String>();
 		Vector<String> titles = new Vector<String>();
 		String codeItem = null;
@@ -195,12 +222,12 @@ public class DialogFuncEdit extends JDialog {
 		jCBElementNames.x_setData(names, titles);
 	}
 
-	private String cellTitle(String name){
+	private String cellTitle(String name) {
 		ObjectElement oe = cellNames.get(name);
 		String oeType = EtlConsts.getTypeDesc(oe.getReturnType());
-		return name+"("+oeType+")";
+		return name + "(" + oeType + ")";
 	}
-	
+
 	private void rqInit() {
 		if (oe == null) {
 			ArrayList<String> names = new ArrayList<String>();
@@ -210,10 +237,10 @@ public class DialogFuncEdit extends JDialog {
 				names.add(name);
 			}
 			Collections.sort(names);
-//			GM.sort(names, true);
+			// GM.sort(names, true);
 			Vector<String> vNames = new Vector<String>();
 			Vector<String> vTitles = new Vector<String>();
-			
+
 			vNames.add("");
 			vTitles.add("");
 			for (String name : names) {
@@ -221,7 +248,7 @@ public class DialogFuncEdit extends JDialog {
 				vTitles.add(cellTitle(name));
 			}
 			jCBCellNames.x_setData(vNames, vTitles);
-			
+
 			jCBCellNames.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshCellNames();
@@ -246,21 +273,21 @@ public class DialogFuncEdit extends JDialog {
 			Object dispItem = jCBElementNames.getItemAt(0);
 			jCBElementNames.x_setSelectedCodeItem(dispItem);
 		} else {
-			//打开已有对象后，允许修改为同类型的格子
+			// 打开已有对象后，允许修改为同类型的格子
 			Vector<String> vNames = new Vector<String>();
 			Vector<String> vTitles = new Vector<String>();
-			
+
 			Iterator<String> it = cellNames.keySet().iterator();
 			while (it.hasNext()) {
 				String name = it.next();
 				ObjectElement tmp = cellNames.get(name);
-				if(oe.getParentType()==tmp.getReturnType()){
+				if (oe.getParentType() == tmp.getReturnType()) {
 					vNames.add(name);
 				}
 			}
 			Collections.sort(vNames);
-//			GM.sort(vNames, true);
-			
+			// GM.sort(vNames, true);
+
 			for (String name : vNames) {
 				vTitles.add(cellTitle(name));
 			}
@@ -288,7 +315,7 @@ public class DialogFuncEdit extends JDialog {
 						Runtime.getRuntime().exec(
 								"cmd /C start " + lbUrl.getText());
 					} catch (Exception x) {
-						GM.showException(x);
+						GM.showException(DialogFuncEdit.this, x);
 					}
 				}
 			}
@@ -297,6 +324,7 @@ public class DialogFuncEdit extends JDialog {
 
 	/**
 	 * 获取窗口返回的动作选项
+	 * 
 	 * @return 选项
 	 */
 	public int getOption() {
@@ -305,6 +333,7 @@ public class DialogFuncEdit extends JDialog {
 
 	/**
 	 * 获取当前编辑函数对象元素
+	 * 
 	 * @return 函数对象元素
 	 */
 	public ObjectElement getObjectElement() {
@@ -321,8 +350,9 @@ public class DialogFuncEdit extends JDialog {
 		byte type = oe.getParentType();
 		String stype = EtlConsts.getTypeDesc(type);
 		String funcDesc = oe.getFuncDesc();
-		propPanel.setParamInfoList(stype,funcTitle, funcDesc,oe.getParamInfoList());
-		
+		propPanel.setParamInfoList(stype, funcTitle, funcDesc,
+				oe.getParamInfoList());
+
 		lbUrl.setText(oe.getHelpUrl());
 	}
 
@@ -335,12 +365,12 @@ public class DialogFuncEdit extends JDialog {
 		propPanel.getParamTable().acceptText();
 		m_option = JOptionPane.OK_OPTION;
 		ParamInfoList pil = propPanel.getParamInfoList();
-		try{
+		try {
 			pil.check();
 			oe.setParamInfoList(pil.getAllParams());
 			closeDialog();
-		}catch(Exception x){
-			GM.showException(x);
+		} catch (Exception x) {
+			GM.showException(this, x);
 		}
 	}
 

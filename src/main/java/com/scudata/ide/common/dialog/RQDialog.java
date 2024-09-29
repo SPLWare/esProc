@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -184,8 +183,8 @@ public class RQDialog extends JDialog {
 		});
 		this.setResizable(true);
 	}
-	
-	protected void whenWindowClosed(){
+
+	protected void whenWindowClosed() {
 	}
 
 	/**

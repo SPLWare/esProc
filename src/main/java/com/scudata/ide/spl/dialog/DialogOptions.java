@@ -410,10 +410,6 @@ public class DialogOptions extends JDialog {
 	 * 是否节点机选项
 	 */
 	private boolean isUnit = false;
-	/**
-	 * 父窗口控件
-	 */
-	private JFrame parent;
 
 	/**
 	 * 是否按下了CTRL键
@@ -443,7 +439,6 @@ public class DialogOptions extends JDialog {
 	public DialogOptions(JFrame parent, boolean isUnit) {
 		super(parent, "选项", true);
 		try {
-			this.parent = parent;
 			this.isUnit = isUnit;
 			if (isUnit) {
 				loadUnitServerConfig();
@@ -466,7 +461,7 @@ public class DialogOptions extends JDialog {
 			addListener(tabMain);
 			setResizable(true);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -737,7 +732,7 @@ public class DialogOptions extends JDialog {
 		try {
 			ConfigUtilIde.writeConfig(!isUnit);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 		return true;
 	}
@@ -1166,7 +1161,8 @@ public class DialogOptions extends JDialog {
 		this.jBGCLog.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(AppConsts.FILE_LOG, parent);
+				File f = GM.dialogSelectFile(DialogOptions.this,
+						AppConsts.FILE_LOG);
 				if (f != null) {
 					jTFGCLog.setText(f.getAbsolutePath());
 				}
@@ -1371,7 +1367,7 @@ public class DialogOptions extends JDialog {
 		if (buffer == -1) {
 			return true; // 不填就不设置了
 		} else if (buffer == -2) {
-			GM.messageDialog(parent, mm.getMessage("dialogoptions.invalidxmx"));
+			GM.messageDialog(this, mm.getMessage("dialogoptions.invalidxmx"));
 			return false;
 		}
 		return true;
@@ -1409,7 +1405,7 @@ public class DialogOptions extends JDialog {
 				dispose();
 			}
 		} catch (Throwable t) {
-			GM.showException(t);
+			GM.showException(this, t);
 		}
 	}
 

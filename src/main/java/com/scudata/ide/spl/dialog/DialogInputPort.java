@@ -62,8 +62,11 @@ public class DialogInputPort extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param parent 父窗体
-	 * @param title 标题
+	 * 
+	 * @param parent
+	 *            父窗体
+	 * @param title
+	 *            标题
 	 */
 	public DialogInputPort(JFrame parent, String title) {
 		super(parent, title, true);
@@ -75,7 +78,7 @@ public class DialogInputPort extends JDialog {
 			this.setResizable(false);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -91,6 +94,7 @@ public class DialogInputPort extends JDialog {
 
 	/**
 	 * 获取窗口动作选项
+	 * 
 	 * @return 选项
 	 */
 	public int getOption() {
@@ -183,7 +187,7 @@ public class DialogInputPort extends JDialog {
 			fos.close();
 			return true;
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 		return false;
 	}

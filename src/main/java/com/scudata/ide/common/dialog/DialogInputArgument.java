@@ -69,7 +69,8 @@ public class DialogInputArgument extends JDialog {
 			if (col != COL_VALUE) {
 				return;
 			}
-			GM.dialogEditTableText(paraTable, row, col);
+			GM.dialogEditTableText(DialogInputArgument.this, paraTable, row,
+					col);
 		}
 	};
 
@@ -97,7 +98,7 @@ public class DialogInputArgument extends JDialog {
 			setResizable(true);
 			resetText();
 		} catch (Throwable t) {
-			GM.showException(t);
+			GM.showException(this, t);
 		}
 	}
 
@@ -186,7 +187,7 @@ public class DialogInputArgument extends JDialog {
 				paraTable.data.setValueAt(p.getName(), row, COL_NAME);
 			}
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
@@ -228,6 +229,7 @@ public class DialogInputArgument extends JDialog {
 				} catch (Exception ex) {
 					paraTable.selectRow(i);
 					GM.showException(
+							this,
 							ex,
 							true,
 							GM.getLogoImage(true),

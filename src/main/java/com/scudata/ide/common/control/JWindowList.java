@@ -174,7 +174,7 @@ public abstract class JWindowList extends JWindow {
 					if (showSheet((String) filterPaths.get(index)))
 						dispose();
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(GV.appFrame, e1);
 				}
 			}
 		});

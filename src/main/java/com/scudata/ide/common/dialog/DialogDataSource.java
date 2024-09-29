@@ -25,7 +25,6 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
 import com.scudata.common.MessageManager;
-import com.scudata.common.PwdUtils;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.ide.common.DataSource;
@@ -136,6 +135,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 
 	/**
 	 * Server被选中
+	 * 
 	 * @param serverName
 	 */
 	protected void serverSelected(String serverName) {
@@ -237,7 +237,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 * @param e
 	 */
 	void jBNew_actionPerformed(ActionEvent e) {
-		DialogDataSourceType dct = new DialogDataSourceType();
+		DialogDataSourceType dct = new DialogDataSourceType(this);
 		dct.setVisible(true);
 		if (dct.getOption() != JOptionPane.OK_OPTION) {
 			return;
@@ -246,14 +246,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		DataSource ds;
 		if (dsType == DialogDataSourceType.TYPE_RELATIONAL) {
 			DialogDataSourcePara ddp;
-			ddp = new DialogDataSourcePara();
+			ddp = new DialogDataSourcePara(this);
 			ddp.setVisible(true);
 			if (ddp.getOption() != JOptionPane.OK_OPTION) {
 				return;
 			}
 			ds = ddp.get();
 		} else if (dsType == DialogDataSourceType.TYPE_ODBC) {
-			DialogODBCDataSource dods = new DialogODBCDataSource();
+			DialogODBCDataSource dods = new DialogODBCDataSource(this);
 			dods.setVisible(true);
 			if (dods.getOption() != JOptionPane.OK_OPTION) {
 				return;
@@ -346,7 +346,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		try {
 			ds.getDBSession();
 		} catch (Throwable x) {
-			GM.showException(GM.handleDSException(ds, x));
+			GM.showException(this, GM.handleDSException(ds, x));
 		} finally {
 			repaint();
 			setCursor(Cursor.getDefaultCursor());
@@ -369,7 +369,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 				repaint();
 			}
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 		}
 	}
 
@@ -413,13 +413,13 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			if (info instanceof DBConfig) {
 				if (((DBConfig) info).getDriver()
 						.equals(DataSource.ODBC_DRIVER)) {
-					DialogODBCDataSource dodbc = new DialogODBCDataSource();
+					DialogODBCDataSource dodbc = new DialogODBCDataSource(this);
 					dodbc.set((DBConfig) info);
 					dodbc.setVisible(true);
 					option = dodbc.getOption();
 					ds = dodbc.get();
 				} else {
-					DialogDataSourcePara ddp = new DialogDataSourcePara();
+					DialogDataSourcePara ddp = new DialogDataSourcePara(this);
 					ddp.set((DBConfig) info);
 					ddp.setVisible(true);
 					option = ddp.getOption();
@@ -511,10 +511,10 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 				ConfigUtil.setPwdClass(pwdClass);
 			} catch (Exception e) {
 				if (e instanceof ClassNotFoundException) {
-					GM.showException(e, true, null,
+					GM.showException(this, e, true, null,
 							mm.getMessage("dialogdatasource.classnotfound"));
 				} else {
-					GM.showException(e);
+					GM.showException(this, e);
 				}
 				// if (pwdClassChanged) { // 如果新加密工具出错，用之前的加密算法重新加密
 				// encryptDataSource();
@@ -530,7 +530,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			try {
 				ConfigUtil.setPwdClass(null);
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(this, e);
 			}
 			// if (encryptLevel == ConfigConsts.ENCRYPT_PASSWORD
 			// || encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
@@ -592,7 +592,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			GM.setDialogDefaultButton(this, jBConnect, jBClose);
 			setResizable(true);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

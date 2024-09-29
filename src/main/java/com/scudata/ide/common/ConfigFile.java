@@ -526,7 +526,7 @@ public class ConfigFile {
 			} catch (Exception e1) {
 			}
 			String errorMessage = err == null ? "" : err.getMessage();
-			GM.showException(IdeCommonMessage.get().getMessage(
+			GM.showException(GV.appFrame, IdeCommonMessage.get().getMessage(
 					"configfile.damagedfile", filePath,
 					errorMessage + "\n" + renameMessage));
 			cf = newInstance(fp);

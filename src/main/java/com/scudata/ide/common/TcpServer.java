@@ -136,7 +136,7 @@ public class TcpServer extends Thread {
 								try {
 									frame.openSheetFile(sfile);
 								} catch (Exception e) {
-									GM.showException(e);
+									GM.showException(GV.appFrame, e);
 								}
 							}
 						});

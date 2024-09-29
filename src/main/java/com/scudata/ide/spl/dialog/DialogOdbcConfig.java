@@ -104,8 +104,11 @@ public class DialogOdbcConfig extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param parent 父窗体
-	 * @param title 窗口标题
+	 * 
+	 * @param parent
+	 *            父窗体
+	 * @param title
+	 *            窗口标题
 	 */
 	public DialogOdbcConfig(JFrame parent, String title) {
 		super(parent, title, true);
@@ -117,12 +120,13 @@ public class DialogOdbcConfig extends JDialog {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetLangText();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
 	/**
 	 * 获取窗口的动作选项
+	 * 
 	 * @return 选项
 	 */
 	public int getOption() {
@@ -203,9 +207,10 @@ public class DialogOdbcConfig extends JDialog {
 	/**
 	 * 节点机文件默认为config目录下；先找类路径，然后找start.home下的绝对路径
 	 * 
-	 * @param relativePath 
+	 * @param relativePath
 	 *            String 相对路径
-	 * @throws Exception 文件输入流
+	 * @throws Exception
+	 *             文件输入流
 	 * @return InputStream
 	 */
 	private InputStream getUnitInputStream(String relativePath)
@@ -261,7 +266,7 @@ public class DialogOdbcConfig extends JDialog {
 			fos.close();
 			return true;
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 		return false;
 	}
@@ -385,7 +390,7 @@ public class DialogOdbcConfig extends JDialog {
 						"cmd /C start explorer.exe "
 								+ GM.getAbsolutePath(GC.PATH_TMP));
 			} catch (Exception x) {
-				GM.showException(x);
+				GM.showException(this, x);
 			}
 		}
 	}

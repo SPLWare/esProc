@@ -132,7 +132,8 @@ public class DialogEditConst extends DialogMaxmizable {
 				MouseEvent e) {
 			switch (col) {
 			case COL_NAME:
-				GM.dialogEditTableText(tableConst, row, col);
+				GM.dialogEditTableText(DialogEditConst.this, tableConst, row,
+						col);
 				break;
 			case COL_VALUE:
 				Object val = data.getValueAt(row, COL_VALUE);
@@ -165,7 +166,8 @@ public class DialogEditConst extends DialogMaxmizable {
 					} else {
 						title += STR_EXP;
 					}
-					DialogInputText dit = new DialogInputText(GV.appFrame, true);
+					DialogInputText dit = new DialogInputText(
+							DialogEditConst.this, true);
 					dit.setText(val == null ? null : (String) val);
 					dit.setTitle(title);
 					dit.setVisible(true);
@@ -180,7 +182,7 @@ public class DialogEditConst extends DialogMaxmizable {
 						title += " : ";
 					}
 					title += STR_DATE;
-					DateChooser dc = new DateChooser(GV.appFrame, true);
+					DateChooser dc = new DateChooser(DialogEditConst.this, true);
 					dc.setTitle(title);
 					java.util.Calendar selectedCalendar = java.util.Calendar
 							.getInstance();
@@ -247,7 +249,8 @@ public class DialogEditConst extends DialogMaxmizable {
 					dtc.dispose();
 					break;
 				case GC.KIND_SERIES:
-					DialogEditSeries des = new DialogEditSeries();
+					DialogEditSeries des = new DialogEditSeries(
+							DialogEditConst.this);
 					des.setSequence(val == null ? null : (Sequence) val);
 					title = p.getName();
 					if (StringUtils.isValidString(title)) {
@@ -264,7 +267,8 @@ public class DialogEditConst extends DialogMaxmizable {
 					}
 					break;
 				case GC.KIND_TABLE:
-					DialogEditTable det = new DialogEditTable(p);
+					DialogEditTable det = new DialogEditTable(
+							DialogEditConst.this, p);
 					title = p.getName();
 					if (StringUtils.isValidString(title)) {
 						title += " : ";
@@ -330,7 +334,7 @@ public class DialogEditConst extends DialogMaxmizable {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetText(isGlobal);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

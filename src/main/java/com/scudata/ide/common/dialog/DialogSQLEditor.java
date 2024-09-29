@@ -449,7 +449,7 @@ public class DialogSQLEditor extends JDialog {
 							try {
 								refreshTables();
 							} catch (Throwable x) {
-								GM.showException(x);
+								GM.showException(DialogSQLEditor.this, x);
 							} finally {
 								if (pw != null) {
 									try {
@@ -464,7 +464,7 @@ public class DialogSQLEditor extends JDialog {
 				}
 			});
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		} finally {
 			afterInit = true;
 		}
@@ -1447,7 +1447,7 @@ public class DialogSQLEditor extends JDialog {
 			// GM.sort(colNames, true);
 			return colNames;
 		} catch (Throwable ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 		return null;
 	}
@@ -1941,7 +1941,7 @@ public class DialogSQLEditor extends JDialog {
 					try {
 						// showSql();
 					} catch (Exception x) {
-						GM.showException(x);
+						GM.showException(DialogSQLEditor.this, x);
 					}
 				}
 				break;
@@ -1994,7 +1994,7 @@ public class DialogSQLEditor extends JDialog {
 			try {
 				executor.changeSelectTable((String) jcb.x_getSelectedItem());
 			} catch (Exception x) {
-				GM.showException(x);
+				GM.showException(DialogSQLEditor.this, x);
 			}
 		}
 	}

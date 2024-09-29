@@ -43,6 +43,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.control.SplControl;
 
@@ -77,7 +78,7 @@ public class JTextPaneEx extends JTextPane {
 			this.setEditorKit(new WarpEditorKit());
 			init();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 

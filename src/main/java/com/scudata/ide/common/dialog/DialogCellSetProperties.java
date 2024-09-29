@@ -97,7 +97,7 @@ public class DialogCellSetProperties extends JDialog {
 			init();
 			setResizable(true);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 

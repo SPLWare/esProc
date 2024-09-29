@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -101,9 +102,15 @@ public class TableExtLibs extends JScrollPane {
 	private Map<String, Boolean> nameSelected = new HashMap<String, Boolean>();
 
 	/**
+	 * 夫组件
+	 */
+	private Component parent;
+
+	/**
 	 * 构造函数
 	 */
-	public TableExtLibs() {
+	public TableExtLibs(JDialog parent) {
+		this.parent = parent;
 		tableNames = new JTableEx(TITLE_INDEX + "," + TITLE_NAME + ","
 				+ TITLE_SELECT) {
 
@@ -494,7 +501,7 @@ public class TableExtLibs extends JScrollPane {
 								tf);
 					}
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(parent, x);
 				}
 			}
 		};

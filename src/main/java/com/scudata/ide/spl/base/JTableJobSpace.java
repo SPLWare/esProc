@@ -27,6 +27,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Param;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.TransferableObject;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.AllPurposeEditor;
@@ -214,7 +215,7 @@ public abstract class JTableJobSpace extends JPanel {
 						dge.startDrag(GM.getDndCursor(), tf);
 					}
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(GV.appFrame, x);
 				}
 			}
 		};

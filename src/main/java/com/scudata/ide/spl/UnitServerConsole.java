@@ -827,7 +827,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 				dip.setVisible(true);
 			}
 		} catch (Throwable x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 
 	}
@@ -841,7 +841,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 						ConfigOptions.iFontSize.intValue()));
 			}
 		} catch (Throwable x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 
 	}

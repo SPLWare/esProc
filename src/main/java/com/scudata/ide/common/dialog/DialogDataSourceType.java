@@ -17,7 +17,6 @@ import javax.swing.border.TitledBorder;
 
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
@@ -66,15 +65,15 @@ public class DialogDataSourceType extends JDialog {
 	/**
 	 * 构造函数
 	 */
-	public DialogDataSourceType() {
-		super(GV.appFrame, "数据库类型", true);
+	public DialogDataSourceType(JDialog parent) {
+		super(parent, "数据库类型", true);
 		try {
 			initUI();
 			resetLangText();
 			this.setSize(300, 150);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 		}
 	}
 

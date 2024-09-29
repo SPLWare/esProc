@@ -13,6 +13,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
@@ -95,7 +96,7 @@ public class ToolBarSpl extends AppToolBar {
 				short cmdId = Short.parseShort(menuId);
 				GMSpl.executeCmd(cmdId);
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 		}
 	};
@@ -155,7 +156,7 @@ public class ToolBarSpl extends AppToolBar {
 		try {
 			GMSpl.executeCmd(cmdId);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 

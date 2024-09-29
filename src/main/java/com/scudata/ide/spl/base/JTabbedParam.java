@@ -126,7 +126,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 			initUI();
 			resetEnv();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 

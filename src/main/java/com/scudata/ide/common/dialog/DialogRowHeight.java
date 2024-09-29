@@ -68,7 +68,7 @@ public class DialogRowHeight extends JDialog {
 			setSize(300, 100);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

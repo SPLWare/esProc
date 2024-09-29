@@ -19,6 +19,7 @@ import javax.swing.TransferHandler;
 import com.scudata.app.common.Section;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 
 /**
  * À©³äµÄJList
@@ -684,7 +685,7 @@ class JListExHandler extends TransferHandler {
 			}
 			return true;
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(GV.appFrame, x);
 		}
 		return false;
 	}

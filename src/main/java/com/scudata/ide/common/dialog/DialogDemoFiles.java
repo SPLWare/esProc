@@ -92,7 +92,7 @@ public class DialogDemoFiles extends JDialog {
 			load();
 			GM.setDialogDefaultButton(this, jBOpen, jBClose);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
@@ -290,7 +290,7 @@ public class DialogDemoFiles extends JDialog {
 					String directory = (String) selectedNode;
 					Runtime.getRuntime().exec("cmd /C start explorer.exe " + directory);
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(this, x);
 				}
 			}
 		}

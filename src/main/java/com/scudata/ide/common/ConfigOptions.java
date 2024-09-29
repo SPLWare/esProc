@@ -689,7 +689,7 @@ public class ConfigOptions {
 			try {
 				Logger.setPropertyConfig(getLoggerProperty());
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(GV.appFrame, e);
 			}
 			DriverManager.setLoginTimeout(iConnectTimeout.intValue());
 		}

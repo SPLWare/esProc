@@ -203,8 +203,8 @@ public class DialogDataSourcePara extends JDialog {
 	/**
 	 * 构造函数
 	 */
-	public DialogDataSourcePara() {
-		super(GV.appFrame, "数据源", true);
+	public DialogDataSourcePara(JDialog parent) {
+		super(parent, "数据源", true);
 		String[] dbTitles = DBTypeEx.listDBTitles();
 		for (int i = 0; i < dbTitles.length; i++) {
 			jDBTitles.addItem(dbTitles[i]);
@@ -541,7 +541,7 @@ public class DialogDataSourcePara extends JDialog {
 			GM.setWindowDimension(this);
 			dispose();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -638,7 +638,7 @@ public class DialogDataSourcePara extends JDialog {
 				}
 			}
 		} catch (Exception t) {
-			GM.showException(t);
+			GM.showException(this, t);
 		}
 	}
 

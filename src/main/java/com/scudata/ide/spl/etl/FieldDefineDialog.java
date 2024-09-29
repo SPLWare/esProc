@@ -82,7 +82,7 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 			resetText();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

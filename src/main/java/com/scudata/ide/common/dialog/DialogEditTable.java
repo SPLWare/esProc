@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import com.scudata.common.MessageManager;
 import com.scudata.dm.Param;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.PanelEditTable;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
@@ -71,16 +70,16 @@ public class DialogEditTable extends JDialog {
 	 * @param param
 	 *            变量对象
 	 */
-	public DialogEditTable(Param param) {
-		super(GV.appFrame, "序表编辑", true);
+	public DialogEditTable(JDialog parent, Param param) {
+		super(parent, "序表编辑", true);
 		try {
-			panelTable = new PanelEditTable(param);
+			panelTable = new PanelEditTable(this, param);
 			initUI();
 			setSize(550, 400);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetText();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

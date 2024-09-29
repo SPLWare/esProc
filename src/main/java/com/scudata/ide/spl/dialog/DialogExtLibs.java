@@ -136,7 +136,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	 */
 	private void initDialog(RaqsoftConfig config, String extLibsPath,
 			List<String> extLibs) {
-		tableNames = new TableExtLibs();
+		tableNames = new TableExtLibs(this);
 		try {
 			init();
 			setConfig(config, extLibsPath, extLibs);
@@ -145,7 +145,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			setResizable(true);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
@@ -367,7 +367,8 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 				}
 				if (!StringUtils.isValidString(oldDir))
 					oldDir = GV.lastDirectory;
-				String newPath = GM.dialogSelectDirectory(oldDir, getParent());
+				String newPath = GM.dialogSelectDirectory(DialogExtLibs.this,
+						oldDir);
 				if (newPath != null) {
 					jTFExtLibsPath.setText(newPath);
 					setExtLibsPath(true);

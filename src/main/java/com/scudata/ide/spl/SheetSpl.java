@@ -327,7 +327,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				CellSetUtil.writePgmCellSet(f.getAbsolutePath(),
 						splControl.cellSet);
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(GV.appFrame, e);
 				return false;
 			}
 			return true;
@@ -383,7 +383,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				DfxManager.getInstance().clear();
 				((AppMenu) GV.appMenu).refreshRecentFile(filePath);
 			} catch (Throwable e) {
-				GM.showException(e);
+				GM.showException(GV.appFrame, e);
 				return false;
 			}
 		}
@@ -421,9 +421,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GM.saveAsExt = fileExt;
 		// 取消另存为dfx类型了
 		String fileExts = AppConsts.FILE_SPLX + "," + AppConsts.FILE_SPL; // AppConsts.SPL_FILE_EXTS
-		File saveFile = GM.dialogSelectFile(fileExts, GV.lastDirectory,
-				IdeCommonMessage.get().getMessage("public.saveas"), path,
-				GV.appFrame);
+		File saveFile = GM.dialogSelectFile(GV.appFrame, fileExts, GV.lastDirectory,
+				IdeCommonMessage.get().getMessage("public.saveas"), path);
 		GM.saveAsExt = null;
 		if (saveFile == null) {
 			return false;
@@ -1163,7 +1162,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			threadCount = 0;
 			return true;
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 			resetRunState();
 			return false;
 		}
@@ -1338,7 +1337,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						}
 					}
 				} catch (Exception e) {
-					GM.showException(e);
+					GM.showException(GV.appFrame, e);
 				}
 			}
 		});
@@ -1676,7 +1675,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				try {
 					subSheet.debug(DebugThread.STEP_INTO_WAIT);
 				} catch (Exception e) {
-					GM.showException(e);
+					GM.showException(GV.appFrame, e);
 				}
 			}
 		});
@@ -2157,7 +2156,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
 				if (ex != null)
-					GM.showException(ex);
+					GM.showException(GV.appFrame, ex);
 			}
 		});
 	}
@@ -2493,7 +2492,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					sheetParent.stepInfo = null;
 					GV.appFrame.showSheet(sheetParent);
 				} catch (Exception e) {
-					GM.showException(e);
+					GM.showException(GV.appFrame, e);
 				}
 			}
 			sheets = null;
@@ -2675,7 +2674,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				}
 				setContextParams(splCtx.getParamList());
 			} catch (Throwable t) {
-				GM.showException(t);
+				GM.showException(GV.appFrame, t);
 			}
 		}
 		return true;
@@ -2802,7 +2801,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			GVSpl.tabParam.resetParamList(null, listSpaceParams(),
 					getEnvParamList());
 		} catch (Throwable t) {
-			GM.showException(t);
+			GM.showException(GV.appFrame, t);
 		}
 		GVSpl.panelValue.tableValue.setLocked1(false);
 		GVSpl.panelValue.tableValue.setCellId(null);
@@ -2835,7 +2834,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				stepCall.finish(splControl.cellSet);
 			}
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 
@@ -2973,7 +2972,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 			control.reloadEditorText();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 
@@ -3153,7 +3152,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 			control.reloadEditorText();
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 
@@ -3623,7 +3622,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			splControl.contentView.submitEditor();
 			return true;
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(GV.appFrame, ex);
 		}
 		return false;
 	}
@@ -3640,7 +3639,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			DfxManager.getInstance().clear();
 			((AppMenu) GV.appMenu).refreshRecentFile(filePath);
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 			return false;
 		}
 		splEditor.setDataChanged(false);

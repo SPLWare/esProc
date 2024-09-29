@@ -105,7 +105,8 @@ public class DialogHostManager extends JDialog implements ActionListener {
 			case COL_PORT:
 			case COL_USER:
 			case COL_DIRECTORY:
-				GM.dialogEditTableText(tableHost, row, col);
+				GM.dialogEditTableText(DialogHostManager.this, tableHost, row,
+						col);
 				break;
 			}
 		}
@@ -126,7 +127,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 			resetText();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

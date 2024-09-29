@@ -72,7 +72,7 @@ public class GMSpl extends GM {
 			return;
 		case GC.iOPEN:
 			String ext = "\"" + AppConsts.SPL_FILE_EXTS + "\"";
-			File file = GM.dialogSelectFile(ext);
+			File file = GM.dialogSelectFile(GV.appFrame, ext);
 			if (file != null) {
 				GV.appFrame.openSheetFile(file.getAbsolutePath());
 			}
@@ -295,7 +295,7 @@ public class GMSpl extends GM {
 			try {
 				sheet.moveRect(srcRect, tarRect);
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 				return null;
 			}
 		}
@@ -746,7 +746,7 @@ public class GMSpl extends GM {
 			FileObject fo = new FileObject(configFile);
 			fo.write(seg.toString(), null);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 

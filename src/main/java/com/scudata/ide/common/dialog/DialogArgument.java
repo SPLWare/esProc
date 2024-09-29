@@ -71,7 +71,7 @@ public class DialogArgument extends DialogMaxmizable {
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
 			if (col != COL_INDEX) {
-				GM.dialogEditTableText(paraTable, row, col);
+				GM.dialogEditTableText(DialogArgument.this, paraTable, row, col);
 			}
 		}
 
@@ -159,7 +159,7 @@ public class DialogArgument extends DialogMaxmizable {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			this.setResizable(true);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
@@ -284,6 +284,7 @@ public class DialogArgument extends DialogMaxmizable {
 				} catch (Exception ex) {
 					paraTable.selectRow(i);
 					GM.showException(
+							this,
 							ex,
 							true,
 							GM.getLogoImage(true),
@@ -407,7 +408,7 @@ public class DialogArgument extends DialogMaxmizable {
 						paraTable.addRow(m.getRow(i));
 					}
 				} catch (Exception ex) {
-					GM.showException(ex);
+					GM.showException(DialogArgument.this, ex);
 				}
 			}
 

@@ -1,6 +1,7 @@
 package com.scudata.ide.common.control;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -48,7 +49,7 @@ public class PanelSeries extends JPanel {
 		 */
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
-			GM.dialogEditTableText(tableSeq, row, col);
+			GM.dialogEditTableText(parent, tableSeq, row, col);
 		}
 
 		/**
@@ -68,7 +69,7 @@ public class PanelSeries extends JPanel {
 				}
 				seq.set(row + 1, aValue);
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(parent, e);
 				return;
 			}
 		}
@@ -85,14 +86,20 @@ public class PanelSeries extends JPanel {
 	private boolean preventChange = false;
 
 	/**
+	 * 夫组件
+	 */
+	private Component parent;
+
+	/**
 	 * 构造函数
 	 */
-	public PanelSeries() {
+	public PanelSeries(Component parent) {
 		try {
+			this.parent = parent;
 			rqInit();
 			initTable();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(parent, ex);
 		}
 	}
 

@@ -31,13 +31,13 @@ public class DialogMissingFormat extends RQDialog {
 	 * 
 	 * @param owner 父组件
 	 */
-	public DialogMissingFormat(Dialog owner) {
-		super(owner, "缺失值定义");
+	public DialogMissingFormat(Dialog parent) {
+		super(parent, "缺失值定义");
 		try {
 			init();
 			GM.centerWindow(this);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

@@ -82,7 +82,7 @@ public class DialogOptionPaste extends JDialog {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetLangText();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

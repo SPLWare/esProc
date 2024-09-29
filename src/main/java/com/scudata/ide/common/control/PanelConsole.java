@@ -2,6 +2,7 @@ package com.scudata.ide.common.control;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.Console;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
@@ -69,15 +71,32 @@ public class PanelConsole extends JPanel {
 	 */
 	public PanelConsole(Console console, boolean isSPL) {
 		super(new BorderLayout());
+		init(GV.appFrame, console, isSPL);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param parent
+	 *            父组件
+	 * @param console
+	 * @param isSPL
+	 */
+	public PanelConsole(Component parent, Console console, boolean isSPL) {
+		super(new BorderLayout());
+		init(parent, console, isSPL);
+	}
+
+	private void init(Component parent, Console console, boolean isSPL) {
 		this.console = console;
 		this.isSPL = isSPL;
 		try {
-			rqInit();
+			initUI();
 			jCBAutoClean.setSelected(ConfigOptions.bAutoCleanOutput);
 			resetLangText();
 			this.setMinimumSize(new Dimension(1, 1));
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(parent, ex);
 		}
 	}
 
@@ -104,7 +123,7 @@ public class PanelConsole extends JPanel {
 	 * 
 	 * @throws Exception
 	 */
-	private void rqInit() throws Exception {
+	private void initUI() throws Exception {
 		// jBCopy.setMnemonic('C');
 		// jBCopy.setText("复制(C)");
 		jBCopy.addActionListener(new PanelConsole_jBCopy_actionAdapter(this));

@@ -178,7 +178,7 @@ public class DialogSearch extends JDialog {
 			setResizable(true);
 			pack();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -261,7 +261,8 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 设置网格控件
 	 * 
-	 * @param editor 网格编辑器
+	 * @param editor
+	 *            网格编辑器
 	 */
 	// public void setControl(SplEditor editor) {
 	// setControl(editor, isReplace);
@@ -270,8 +271,10 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 设置网格控件
 	 * 
-	 * @param editor  网格编辑器
-	 * @param replace 是否替换。true替换，false搜索
+	 * @param editor
+	 *            网格编辑器
+	 * @param replace
+	 *            是否替换。true替换，false搜索
 	 */
 	public void setConfig(boolean replace) {
 		// this.splEditor = editor;
@@ -362,8 +365,10 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 设置搜索选项
 	 * 
-	 * @param searchString  搜索的字符串
-	 * @param replaceString 替换的字符串
+	 * @param searchString
+	 *            搜索的字符串
+	 * @param replaceString
+	 *            替换的字符串
 	 */
 	private void setSearchConfig(String searchString, String replaceString) {
 		this.searchString = searchString;
@@ -437,8 +442,10 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 替换
 	 * 
-	 * @param replaceAll 是否全部替换。true全部替换，false替换
-	 * @param cmds       原子命令集
+	 * @param replaceAll
+	 *            是否全部替换。true全部替换，false替换
+	 * @param cmds
+	 *            原子命令集
 	 * @return
 	 */
 	private boolean replace(boolean replaceAll, Vector<IAtomicCmd> cmds) {
@@ -473,7 +480,8 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 搜索
 	 * 
-	 * @param replaceAll 是否全部替换。true全部替换，false替换
+	 * @param replaceAll
+	 *            是否全部替换。true全部替换，false替换
 	 * @return
 	 */
 	private boolean search(boolean replaceAll) {
@@ -538,11 +546,16 @@ public class DialogSearch extends JDialog {
 	/**
 	 * 搜索
 	 * 
-	 * @param startRow   开始行
-	 * @param startCol   开始列
-	 * @param endRow     结束行
-	 * @param endCol     结束列
-	 * @param replaceAll 是否全部替换。true全部替换，false替换
+	 * @param startRow
+	 *            开始行
+	 * @param startCol
+	 *            开始列
+	 * @param endRow
+	 *            结束行
+	 * @param endCol
+	 *            结束列
+	 * @param replaceAll
+	 *            是否全部替换。true全部替换，false替换
 	 * @return
 	 */
 	private boolean search(int startRow, int startCol, int endRow, int endCol,

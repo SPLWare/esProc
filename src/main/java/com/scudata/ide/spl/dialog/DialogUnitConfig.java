@@ -33,13 +33,14 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigUtilIde;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextAreaEditor;
 import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.parallel.UnitConfig;
-import com.scudata.parallel.UnitContext;
 import com.scudata.parallel.UnitConfig.Host;
+import com.scudata.parallel.UnitContext;
 
 /**
  * 分机配置信息窗口
@@ -153,7 +154,7 @@ public class DialogUnitConfig extends JDialog {
 	 * @return 选择的目录
 	 */
 	public static String dialogSelectDirectory(String oldPath) {
-		String path = GM.dialogSelectDirectory(oldPath);
+		String path = GM.dialogSelectDirectory(GV.appFrame, oldPath);
 		return path;
 	}
 
@@ -163,7 +164,7 @@ public class DialogUnitConfig extends JDialog {
 	 * @return 文件对象
 	 */
 	public static File dialogSelectFile(String exts) {
-		return GM.dialogSelectFile(exts);
+		return GM.dialogSelectFile(GV.appFrame, exts);
 	}
 
 	/**
@@ -326,7 +327,7 @@ public class DialogUnitConfig extends JDialog {
 			uc.save(fos);
 			fos.close();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 		return true;
 	}
@@ -564,7 +565,7 @@ public class DialogUnitConfig extends JDialog {
 			GM.setWindowDimension(this);
 			dispose();
 		} catch (Throwable t) {
-			GM.showException(t);
+			GM.showException(this, t);
 		}
 	}
 
@@ -580,7 +581,7 @@ public class DialogUnitConfig extends JDialog {
 						"cmd /C start explorer.exe "
 								+ GM.getAbsolutePath(GC.PATH_TMP));
 			} catch (Exception x) {
-				GM.showException(x);
+				GM.showException(this, x);
 			}
 		}
 	}

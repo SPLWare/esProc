@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 
 /**
  * JTable单元格复选框渲染器
@@ -42,7 +43,7 @@ public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
 		try {
 			setSelected(((Boolean) value).booleanValue());
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 		return this;
 	}

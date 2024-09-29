@@ -547,8 +547,8 @@ public abstract class PanelEnv extends JPanel {
 		jBInitSpl.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile("\"" + AppConsts.SPL_FILE_EXTS
-						+ "\"", parent);
+				File f = GM.dialogSelectFile(parent, "\""
+						+ AppConsts.SPL_FILE_EXTS + "\"");
 				if (f != null) {
 					jTFInitSpl.setText(f.getAbsolutePath());
 				}
@@ -617,7 +617,7 @@ public abstract class PanelEnv extends JPanel {
 		jBLogFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(AppConsts.FILE_LOG, parent);
+				File f = GM.dialogSelectFile(parent, AppConsts.FILE_LOG);
 				if (f != null) {
 					jTFLogFileName.setText(f.getAbsolutePath());
 				}
@@ -635,7 +635,7 @@ public abstract class PanelEnv extends JPanel {
 				}
 				if (!StringUtils.isValidString(oldDir))
 					oldDir = GV.lastDirectory;
-				String newPath = GM.dialogSelectDirectory(oldDir, parent);
+				String newPath = GM.dialogSelectDirectory(parent, oldDir);
 				if (StringUtils.isValidString(newPath)) {
 					String oldPath = jTFPath.getText();
 					if (StringUtils.isValidString(oldPath)) {
@@ -660,7 +660,7 @@ public abstract class PanelEnv extends JPanel {
 				}
 				if (!StringUtils.isValidString(oldDir))
 					oldDir = GV.lastDirectory;
-				String newPath = GM.dialogSelectDirectory(oldDir, parent);
+				String newPath = GM.dialogSelectDirectory(parent, oldDir);
 				if (newPath != null)
 					jTFMainPath.setSelectedItem(newPath);
 			}
@@ -679,7 +679,7 @@ public abstract class PanelEnv extends JPanel {
 		jBCustomFunctionFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(AppConsts.FILE_PROPERTIES, parent);
+				File f = GM.dialogSelectFile(parent, AppConsts.FILE_PROPERTIES);
 				if (f != null) {
 					jTextCustomFunctionFile.setText(f.getAbsolutePath());
 				}

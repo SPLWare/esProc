@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.FTPInfo;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
@@ -84,7 +83,8 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 				Object tmp = data.getValueAt(row, col);
 				if (tmp == null)
 					return;
-				DialogInputText dit = new DialogInputText(false);
+				DialogInputText dit = new DialogInputText(
+						DialogUploadResult.this, false);
 				dit.setText((String) tmp);
 				dit.setVisible(true);
 				break;
@@ -105,15 +105,15 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	/**
 	 * 构造函数
 	 */
-	public DialogUploadResult() {
-		super(GV.appFrame, "保存到FTP结果", true);
+	public DialogUploadResult(JDialog parent) {
+		super(parent, "保存到FTP结果", true);
 		try {
 			init();
 			setSize(600, 300);
 			resetText();
 			GM.setDialogDefaultButton(this, new JButton(), jBClose);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

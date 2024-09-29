@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import com.scudata.common.MessageManager;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.PanelSeries;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
@@ -31,7 +30,7 @@ public class DialogEditSeries extends JDialog {
 	/**
 	 * 序列面板
 	 */
-	private PanelSeries panelSeries = new PanelSeries();
+	private PanelSeries panelSeries = new PanelSeries(this);
 	/**
 	 * 退出选项
 	 */
@@ -68,15 +67,15 @@ public class DialogEditSeries extends JDialog {
 	/**
 	 * 构造函数
 	 */
-	public DialogEditSeries() {
-		super(GV.appFrame, "序列编辑", true);
+	public DialogEditSeries(JDialog parent) {
+		super(parent, "序列编辑", true);
 		try {
 			initUI();
 			setSize(400, 300);
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetText();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

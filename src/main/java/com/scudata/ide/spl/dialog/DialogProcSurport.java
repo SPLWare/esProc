@@ -149,7 +149,7 @@ public class DialogProcSurport extends JDialog {
 					com.scudata.ide.common.GM
 							.browse("mailto:contact@raqsoft.com");
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(DialogProcSurport.this, e1);
 				}
 			}
 		});
@@ -158,7 +158,7 @@ public class DialogProcSurport extends JDialog {
 				try {
 					com.scudata.ide.common.GM.browse(textBBS.getText());
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(DialogProcSurport.this, e1);
 				}
 			}
 		});
@@ -167,7 +167,7 @@ public class DialogProcSurport extends JDialog {
 				try {
 					com.scudata.ide.common.GM.browse(textDemo.getText());
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(DialogProcSurport.this, e1);
 				}
 			}
 		});
@@ -178,7 +178,7 @@ public class DialogProcSurport extends JDialog {
 					com.scudata.ide.common.GM.browse("tencent://message/?uin="
 							+ QQ);
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(DialogProcSurport.this, e1);
 				}
 			}
 		});
@@ -188,7 +188,7 @@ public class DialogProcSurport extends JDialog {
 					com.scudata.ide.common.GM
 							.browse("https://jq.qq.com/?_wv=1027&k=554M75H");
 				} catch (Exception e1) {
-					GM.showException(e1);
+					GM.showException(DialogProcSurport.this, e1);
 				}
 			}
 		});

@@ -13,6 +13,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.SheetSpl;
@@ -91,7 +92,7 @@ public abstract class PanelSplWatch extends JPanel {
 			if (col == COL_EXP) {
 				try {
 					preventChange = true;
-					if (GM.dialogEditTableText(this, row, col)) {
+					if (GM.dialogEditTableText(GV.appFrame, this, row, col)) {
 						dataChanged();
 					}
 					resetRows(true);

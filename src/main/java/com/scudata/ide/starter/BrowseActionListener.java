@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigMenuAction;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 
 public class BrowseActionListener extends ConfigMenuAction {
 
@@ -17,7 +18,7 @@ public class BrowseActionListener extends ConfigMenuAction {
 			url = url.trim();
 			GM.browse(url);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 
 	}

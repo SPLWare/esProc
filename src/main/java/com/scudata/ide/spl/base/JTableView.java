@@ -532,7 +532,7 @@ public abstract class JTableView extends JTableEx {
 		try {
 			AppendDataThread.addRecordRow(this, record);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(GV.appFrame, ex);
 		}
 		setEditStyle(ds);
 		return 1;

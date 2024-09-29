@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.ide.common.ConfigMenuAction;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 
 public class OpenActionListener extends ConfigMenuAction {
 
@@ -15,7 +16,7 @@ public class OpenActionListener extends ConfigMenuAction {
 			path = ConfigUtil.getPath(startHome, path);
 			Runtime.getRuntime().exec("cmd /c \"" + path + "\"");
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 
 	}

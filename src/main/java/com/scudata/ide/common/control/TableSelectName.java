@@ -96,12 +96,18 @@ public class TableSelectName extends JScrollPane {
 	private Map<String, Boolean> nameSelected = new HashMap<String, Boolean>();
 
 	/**
+	 * 夫组件
+	 */
+	private Component parent;
+
+	/**
 	 * 构造函数
 	 * 
 	 * @param dispName
 	 *            名称列的标题
 	 */
-	public TableSelectName(String dispName) {
+	public TableSelectName(Component parent, String dispName) {
+		this.parent = parent;
 		tableNames = new JTableEx(TITLE_INDEX + ","
 				+ (StringUtils.isValidString(dispName) ? dispName : TITLE_NAME)
 				+ "," + TITLE_SELECT) {
@@ -516,7 +522,7 @@ public class TableSelectName extends JScrollPane {
 								tf);
 					}
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(parent, x);
 				}
 			}
 		};

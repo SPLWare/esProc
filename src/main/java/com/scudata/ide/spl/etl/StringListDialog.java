@@ -26,7 +26,7 @@ import com.scudata.ide.common.swing.VFlowLayout;
  * @author Joancy
  *
  */
-public class StringListDialog extends JDialog{
+public class StringListDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static MessageManager mm = FuncMessage.get();
 
@@ -39,16 +39,19 @@ public class StringListDialog extends JDialog{
 	private final byte COL_INDEX = 0;
 	private final byte COL_NAME = 1;
 
-	JTableEx tableFields = new JTableEx(mm.getMessage("StringListDialog.tablefields"));//"序号,值");
+	JTableEx tableFields = new JTableEx(
+			mm.getMessage("StringListDialog.tablefields"));// "序号,值");
 	JPanel jPanel1 = new JPanel();
 	JButton jBAdd = new JButton();
 	JButton jBDel = new JButton();
 
 	private int m_option = JOptionPane.CANCEL_OPTION;
-	
+
 	/**
 	 * 构造函数
-	 * @param owner 父窗口
+	 * 
+	 * @param owner
+	 *            父窗口
 	 */
 	public StringListDialog(Dialog owner) {
 		super(owner);
@@ -59,14 +62,14 @@ public class StringListDialog extends JDialog{
 			resetText();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
 	private void resetText() {
 		setTitle(mm.getMessage("StringListDialog.title"));
 		MessageManager icm = IdeCommonMessage.get();
-	
+
 		jBOK.setText(icm.getMessage("button.ok"));
 		jBCancel.setText(icm.getMessage("button.cancel"));
 		jBAdd.setText(icm.getMessage("button.add"));
@@ -74,7 +77,8 @@ public class StringListDialog extends JDialog{
 	}
 
 	/**
-	 * 获取窗口返回选项 
+	 * 获取窗口返回选项
+	 * 
 	 * @return 选项
 	 */
 	public int getOption() {
@@ -83,13 +87,15 @@ public class StringListDialog extends JDialog{
 
 	/**
 	 * 设置字串列表
-	 * @param list 字符串列表
+	 * 
+	 * @param list
+	 *            字符串列表
 	 */
 	public void setList(ArrayList<String> list) {
-		if(list==null){
+		if (list == null) {
 			return;
 		}
-		
+
 		for (int i = 0; i < list.size(); i++) {
 			int row = tableFields.addRow();
 			tableFields.data.setValueAt(list.get(i), row, COL_NAME);
@@ -98,12 +104,13 @@ public class StringListDialog extends JDialog{
 
 	/**
 	 * 获取字符串列表
+	 * 
 	 * @return 字符串列表
 	 */
 	public ArrayList<String> getList() {
 		tableFields.acceptText();
-		int rows = tableFields.getRowCount(); 
-		if(rows==0){
+		int rows = tableFields.getRowCount();
+		if (rows == 0) {
 			return null;
 		}
 		ArrayList<String> fields = new ArrayList<String>();
@@ -113,7 +120,6 @@ public class StringListDialog extends JDialog{
 		}
 		return fields;
 	}
-
 
 	private void rqInit() {
 		tableFields.setIndexCol(COL_INDEX);
@@ -125,7 +131,7 @@ public class StringListDialog extends JDialog{
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
 		jBOK.setText("确定(O)");
-		jBOK.addActionListener(new ActionListener(){
+		jBOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableFields.acceptText();
 				m_option = JOptionPane.OK_OPTION;
@@ -134,23 +140,23 @@ public class StringListDialog extends JDialog{
 		});
 		jBCancel.setMnemonic('C');
 		jBCancel.setText("取消(C)");
-		jBCancel.addActionListener(new ActionListener(){
+		jBCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		jBAdd.addActionListener(new ActionListener(){
+		jBAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableFields.addRow();
 			}
 		});
-		jBDel.addActionListener(new ActionListener(){
+		jBDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableFields.deleteSelectedRows();
 			}
 		});
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter(){
+		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				dispose();
 			}
@@ -165,7 +171,7 @@ public class StringListDialog extends JDialog{
 		jPanel2.add(jPanel1, null);
 		jPanel2.add(jBAdd, null);
 		jPanel2.add(jBDel, null);
-		
+
 		this.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
 		this.getContentPane().add(jPanel2, BorderLayout.EAST);
 	}

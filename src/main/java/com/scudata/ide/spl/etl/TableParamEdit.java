@@ -177,7 +177,7 @@ public class TableParamEdit extends JTableEx {
 			byte es = ((Number)editStyle).byteValue(); 
 			if(es==Consts.INPUT_FILE){
 				String fileExt = "ctx,btx,csv,txt,xls,xlsx";
-				File file = GM.dialogSelectFile(fileExt);
+				File file = GM.dialogSelectFile(owner, fileExt);
 				if(file!=null){
 					String txt = file.getAbsolutePath();
 					Object src = e.getSource();

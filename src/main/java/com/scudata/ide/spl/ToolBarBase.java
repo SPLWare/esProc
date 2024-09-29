@@ -3,6 +3,7 @@ package com.scudata.ide.spl;
 import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 
 /**
  * 基础工具栏（无页面打开）
@@ -34,7 +35,7 @@ public class ToolBarBase extends AppToolBar {
 		try {
 			GMSpl.executeCmd(cmdId);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 }

@@ -27,7 +27,7 @@ import com.scudata.ide.common.EditListener;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.SPL;
-import com.scudata.ide.vdb.commonvdb.*;
+import com.scudata.ide.vdb.commonvdb.GC;
 import com.scudata.ide.vdb.config.ConfigFile;
 import com.scudata.ide.vdb.config.ConfigOptions;
 import com.scudata.ide.vdb.control.ConnectionConfig;
@@ -90,7 +90,7 @@ public class VDB extends AppFrame implements EditListener {
 			// Sequence.readLicense(Sequence.P_PROGRAM,
 			// GM.getAbsolutePath(ConfigOptions.sEsprocLic));
 		} catch (Exception e1) {
-			GM.showException(e1);
+			GM.showException(GV.appFrame, e1);
 		}
 		System.setProperty("java.awt.im.style", "on-the-spot");
 
@@ -320,7 +320,7 @@ public class VDB extends AppFrame implements EditListener {
 				} catch (Throwable t) {
 					t.printStackTrace();
 					try {
-						GM.showException(t);
+						GM.showException(GV.appFrame, t);
 					} catch (Exception e) {
 					}
 					System.exit(0);
@@ -360,10 +360,10 @@ public class VDB extends AppFrame implements EditListener {
 				vdbTree.deleteConnect();
 				return;
 			case GCMenu.iCONN_ACHEIVE:
-				GM.showException("Acheive");
+				GM.showException(GV.appFrame, "Acheive");
 				return;
 			case GCMenu.iCONN_PURGE:
-				GM.showException("purge");
+				GM.showException(GV.appFrame, "purge");
 				return;
 			case GCMenu.iCONN_EXIT:
 				exit();
@@ -379,20 +379,20 @@ public class VDB extends AppFrame implements EditListener {
 				vdbTree.deleteNode();
 				return;
 			case GCMenu.iNODE_CREATE:
-				GM.showException("NODE.CREATE");
+				GM.showException(GV.appFrame, "NODE.CREATE");
 				return;
 				// data
 			case GCMenu.iDATA_COPY:
-				GM.showException("DATA.COPY");
+				GM.showException(GV.appFrame, "DATA.COPY");
 				return;
 			case GCMenu.iDATA_PASTE:
-				GM.showException("DATA.PASTE");
+				GM.showException(GV.appFrame, "DATA.PASTE");
 				return;
 			case GCMenu.iDATA_SAVE:
-				GM.showException("DATA.SAVE");
+				GM.showException(GV.appFrame, "DATA.SAVE");
 				return;
 			case GCMenu.iDATA_IMPORT:
-				GM.showException("DATA.IMPORT");
+				GM.showException(GV.appFrame, "DATA.IMPORT");
 				return;
 				// TOOLS
 			case GCMenu.iTOOLS_BINBROWSER:
@@ -410,7 +410,7 @@ public class VDB extends AppFrame implements EditListener {
 				break;
 			}
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 

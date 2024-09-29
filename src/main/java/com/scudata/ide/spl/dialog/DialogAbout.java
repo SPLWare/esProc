@@ -124,11 +124,6 @@ public class DialogAbout extends JDialog {
 	protected String productName = null;
 
 	/**
-	 * 主面板
-	 */
-	protected JFrame parent = null;
-
-	/**
 	 * 按钮面板
 	 */
 	protected JPanel jPButton = new JPanel();
@@ -147,7 +142,6 @@ public class DialogAbout extends JDialog {
 
 	public DialogAbout(JFrame frame, String productName) {
 		super(frame, "", true);
-		this.parent = frame;
 		this.productName = productName;
 	}
 
@@ -160,7 +154,7 @@ public class DialogAbout extends JDialog {
 			GM.setDialogDefaultButton(this, jBClose, jBClose);
 			this.setResizable(false);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -175,6 +169,7 @@ public class DialogAbout extends JDialog {
 
 	/**
 	 * 重写此方法可以替换发布日期
+	 * 
 	 * @return
 	 */
 	protected String getReleaseDate() {
@@ -377,7 +372,7 @@ public class DialogAbout extends JDialog {
 				try {
 					GM.browse(jLbHttp2.getText());
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(DialogAbout.this, x);
 				}
 			}
 		});
@@ -448,7 +443,8 @@ public class DialogAbout extends JDialog {
 				boolean isMacOS = GM.isMacOS();
 				boolean isCmdKey = isMacOS ? e.isMetaDown() : e.isControlDown();
 				if (isCmdKey && e.getKeyCode() == KeyEvent.VK_F) {
-					DialogResourceSearch drs = new DialogResourceSearch(parent);
+					DialogResourceSearch drs = new DialogResourceSearch(
+							DialogAbout.this);
 					drs.setVisible(true);
 				}
 			}
@@ -483,7 +479,7 @@ public class DialogAbout extends JDialog {
 		try {
 			GM.browse(jLbHttp.getText());
 		} catch (Exception x) {
-			GM.showException(x);
+			GM.showException(this, x);
 		}
 	}
 
@@ -506,7 +502,7 @@ public class DialogAbout extends JDialog {
 	 * @param e
 	 */
 	void jBJDK_actionPerformed(ActionEvent e) {
-		DialogInputText dit = new DialogInputText(parent, false);
+		DialogInputText dit = new DialogInputText(this, false);
 		Properties p = System.getProperties();
 		String str = p.toString();
 		try {

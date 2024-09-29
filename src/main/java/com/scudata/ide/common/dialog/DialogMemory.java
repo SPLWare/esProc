@@ -104,7 +104,7 @@ public class DialogMemory extends JDialog {
 			setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 			GM.setDialogDefaultButton(this, jBCancel, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

@@ -121,8 +121,8 @@ public class DialogODBCDataSource extends JDialog {
 	/**
 	 * 构造函数
 	 */
-	public DialogODBCDataSource() {
-		super(GV.appFrame, "ODBC数据源", true);
+	public DialogODBCDataSource(JDialog parent) {
+		super(parent, "ODBC数据源", true);
 		try {
 			setSize(400, 300);
 			initUI();
@@ -130,7 +130,7 @@ public class DialogODBCDataSource extends JDialog {
 			resetLangText();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -336,7 +336,7 @@ public class DialogODBCDataSource extends JDialog {
 			m_option = JOptionPane.OK_OPTION;
 			dispose();
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

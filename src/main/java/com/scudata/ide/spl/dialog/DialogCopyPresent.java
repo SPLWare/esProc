@@ -14,7 +14,6 @@ import java.util.Vector;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 
@@ -48,14 +47,15 @@ public class DialogCopyPresent extends RQDialog {
 			init();
 			GM.centerWindow(this);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 	}
 
 	/**
 	 * 保存选项
 	 * 
-	 * @param showException 是否抛异常
+	 * @param showException
+	 *            是否抛异常
 	 * @return
 	 */
 	private boolean saveOption(boolean showException) {

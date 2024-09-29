@@ -169,7 +169,7 @@ public abstract class AppMenu extends JMenuBar {
 						return;
 					GV.toolWin.refreshSheet(sheet);
 				} catch (Throwable e2) {
-					GM.showException(e2);
+					GM.showException(GV.appFrame, e2);
 				}
 			}
 		};
@@ -289,7 +289,7 @@ public abstract class AppMenu extends JMenuBar {
 					menu.add(connItem[i]);
 			}
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 		return menu;
 	}
@@ -407,9 +407,12 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Get common menu item
 	 * 
-	 * @param menuId Menu ID defined in GC
-	 * @param mneKey The Mnemonic
-	 * @param isMain Whether it is a menu. Menu item when false
+	 * @param menuId
+	 *            Menu ID defined in GC
+	 * @param mneKey
+	 *            The Mnemonic
+	 * @param isMain
+	 *            Whether it is a menu. Menu item when false
 	 * @return
 	 */
 	public JMenu getCommonMenuItem(String menuId, char mneKey, boolean isMain) {
@@ -427,7 +430,8 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Refresh the recent files
 	 * 
-	 * @param fileName The new file name is placed first
+	 * @param fileName
+	 *            The new file name is placed first
 	 * @throws Throwable
 	 */
 	public void refreshRecentFile(String fileName) throws Throwable {
@@ -539,7 +543,7 @@ public abstract class AppMenu extends JMenuBar {
 				try {
 					GV.appFrame.openSheetFile(tt.getText());
 				} catch (Throwable t) {
-					GM.showException(t);
+					GM.showException(GV.appFrame, t);
 					if (StringUtils.isValidString(tt.getText())) {
 						File f = new File(tt.getText());
 						if (!f.exists()) {
@@ -590,7 +594,7 @@ public abstract class AppMenu extends JMenuBar {
 		try {
 			loadRecentFiles(menu, actionNew);
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 		return menu;
 	}
@@ -664,8 +668,8 @@ public abstract class AppMenu extends JMenuBar {
 				try {
 					if (MAINPATH_OTHER.equals(tt.getText())) {
 						// Other
-						String sdir = GM
-								.dialogSelectDirectory(GV.lastDirectory);
+						String sdir = GM.dialogSelectDirectory(GV.appFrame,
+								GV.lastDirectory);
 						if (sdir == null)
 							return;
 						ConfigOptions.sMainPath = sdir;
@@ -702,7 +706,7 @@ public abstract class AppMenu extends JMenuBar {
 						}
 					}
 				} catch (Throwable t) {
-					GM.showException(t);
+					GM.showException(GV.appFrame, t);
 				}
 
 				if (StringUtils.isValidString(tt.getText())) {
@@ -754,7 +758,7 @@ public abstract class AppMenu extends JMenuBar {
 		try {
 			loadRecentMainPaths(menu, actionNew);
 		} catch (Throwable e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 		return menu;
 	}
@@ -805,7 +809,7 @@ public abstract class AppMenu extends JMenuBar {
 				short cmdId = Short.parseShort(menuId);
 				executeCmd(cmdId);
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 		}
 	};
@@ -817,7 +821,7 @@ public abstract class AppMenu extends JMenuBar {
 		try {
 			GMSpl.executeCmd(cmdId);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(GV.appFrame, e);
 		}
 	}
 
@@ -830,9 +834,12 @@ public abstract class AppMenu extends JMenuBar {
 	 * 
 	 * 新建集算器菜单项
 	 * 
-	 * @param cmdId  在GCSpl中定义的命令
-	 * @param menuId 在GCSpl中定义的菜单名
-	 * @param isMain 是否菜单，true菜单，false菜单项
+	 * @param cmdId
+	 *            在GCSpl中定义的命令
+	 * @param menuId
+	 *            在GCSpl中定义的菜单名
+	 * @param isMain
+	 *            是否菜单，true菜单，false菜单项
 	 * @return
 	 */
 	protected JMenu getSplMenuItem(String menuId, char mneKey, boolean isMain) {
@@ -843,12 +850,16 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * 新建集算器菜单项
 	 * 
-	 * @param cmdId  在GCSpl中定义的命令
-	 * @param menuId 在GCSpl中定义的菜单名
-	 * @param mneKey The Mnemonic
-	 * @param mask   int, Because ActionEvent.META_MASK is almost not used. This key
-	 *               seems to be only available on Macintosh keyboards. It is used
-	 *               here instead of no accelerator key.
+	 * @param cmdId
+	 *            在GCSpl中定义的命令
+	 * @param menuId
+	 *            在GCSpl中定义的菜单名
+	 * @param mneKey
+	 *            The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
 	 * @return
 	 */
 	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
@@ -859,13 +870,18 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * 新建集算器菜单项
 	 * 
-	 * @param cmdId   在GCSpl中定义的命令
-	 * @param menuId  在GCSpl中定义的菜单名
-	 * @param mneKey  The Mnemonic
-	 * @param mask    int, Because ActionEvent.META_MASK is almost not used. This
-	 *                key seems to be only available on Macintosh keyboards. It is
-	 *                used here instead of no accelerator key.
-	 * @param hasIcon 菜单项是否有图标
+	 * @param cmdId
+	 *            在GCSpl中定义的命令
+	 * @param menuId
+	 *            在GCSpl中定义的菜单名
+	 * @param mneKey
+	 *            The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
+	 * @param hasIcon
+	 *            菜单项是否有图标
 	 * @return
 	 */
 	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
@@ -880,14 +896,20 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * 新建集算器菜单项
 	 * 
-	 * @param cmdId    在GCSpl中定义的命令
-	 * @param menuId   在GCSpl中定义的菜单名
-	 * @param mneKey   The Mnemonic
-	 * @param mask     int, Because ActionEvent.META_MASK is almost not used. This
-	 *                 key seems to be only available on Macintosh keyboards. It is
-	 *                 used here instead of no accelerator key.
-	 * @param hasIcon  菜单项是否有图标
-	 * @param menuText 菜单项文本
+	 * @param cmdId
+	 *            在GCSpl中定义的命令
+	 * @param menuId
+	 *            在GCSpl中定义的菜单名
+	 * @param mneKey
+	 *            The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
+	 * @param hasIcon
+	 *            菜单项是否有图标
+	 * @param menuText
+	 *            菜单项文本
 	 * @return
 	 */
 	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey,
@@ -902,7 +924,8 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Clone menu item
 	 * 
-	 * @param cmdId Command ID
+	 * @param cmdId
+	 *            Command ID
 	 * @return
 	 */
 	public JMenuItem cloneMenuItem(short cmdId) {
@@ -912,8 +935,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Clone menu item
 	 * 
-	 * @param cmdId    Command ID
-	 * @param listener ActionListener
+	 * @param cmdId
+	 *            Command ID
+	 * @param listener
+	 *            ActionListener
 	 * @return
 	 */
 	public JMenuItem cloneMenuItem(short cmdId, ActionListener listener) {
@@ -941,12 +966,16 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * New menu item
 	 * 
-	 * @param cmdId  Command ID
-	 * @param menuId Menu name
-	 * @param mneKey char, The Mnemonic
-	 * @param mask   int, Because ActionEvent.META_MASK is almost not used. This key
-	 *               seems to be only available on Macintosh keyboards. It is used
-	 *               here instead of no accelerator key.
+	 * @param cmdId
+	 *            Command ID
+	 * @param menuId
+	 *            Menu name
+	 * @param mneKey
+	 *            char, The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
 	 * @return
 	 */
 	protected JMenuItem newCommonMenuItem(short cmdId, String menuId,
@@ -957,13 +986,18 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * New menu item
 	 * 
-	 * @param cmdId   Command ID
-	 * @param menuId  Menu name
-	 * @param mneKey  char, The Mnemonic
-	 * @param mask    int, Because ActionEvent.META_MASK is almost not used. This
-	 *                key seems to be only available on Macintosh keyboards. It is
-	 *                used here instead of no accelerator key.
-	 * @param hasIcon Whether the menu item has an icon
+	 * @param cmdId
+	 *            Command ID
+	 * @param menuId
+	 *            Menu name
+	 * @param mneKey
+	 *            char, The Mnemonic
+	 * @param mask
+	 *            int, Because ActionEvent.META_MASK is almost not used. This
+	 *            key seems to be only available on Macintosh keyboards. It is
+	 *            used here instead of no accelerator key.
+	 * @param hasIcon
+	 *            Whether the menu item has an icon
 	 * @return
 	 */
 	protected JMenuItem newCommonMenuItem(short cmdId, String menuId,
@@ -978,8 +1012,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Set whether the menu is enabled
 	 * 
-	 * @param cmdId   Command ID
-	 * @param enabled Whether the menu is enabled
+	 * @param cmdId
+	 *            Command ID
+	 * @param enabled
+	 *            Whether the menu is enabled
 	 */
 	public void setMenuEnabled(short cmdId, boolean enabled) {
 		JMenuItem mi = menuItems.get(cmdId);
@@ -991,7 +1027,8 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Whether the menu is enabled
 	 * 
-	 * @param cmdId Command ID
+	 * @param cmdId
+	 *            Command ID
 	 * @return
 	 */
 	public boolean isMenuEnabled(short cmdId) {
@@ -1005,8 +1042,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Set whether the menus are enabled
 	 * 
-	 * @param cmdIds  Command IDs
-	 * @param enabled Whether the menus are enabled
+	 * @param cmdIds
+	 *            Command IDs
+	 * @param enabled
+	 *            Whether the menus are enabled
 	 */
 	public void setMenuEnabled(IntArrayList cmdIds, boolean enabled) {
 		if (cmdIds == null) {
@@ -1021,8 +1060,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Set whether the menus are enabled
 	 * 
-	 * @param cmdIds  Command IDs
-	 * @param enabled Whether the menus are enabled
+	 * @param cmdIds
+	 *            Command IDs
+	 * @param enabled
+	 *            Whether the menus are enabled
 	 */
 	public void setMenuEnabled(short[] cmdIds, boolean enabled) {
 		if (cmdIds == null) {
@@ -1037,8 +1078,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Set whether the menu is visible
 	 * 
-	 * @param cmdId   Command ID
-	 * @param visible Whether the menu is visible
+	 * @param cmdId
+	 *            Command ID
+	 * @param visible
+	 *            Whether the menu is visible
 	 */
 	public void setMenuVisible(short cmdId, boolean visible) {
 		JMenuItem mi = menuItems.get(cmdId);
@@ -1050,8 +1093,10 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Set whether the menus are visible
 	 * 
-	 * @param cmdIds  Command IDs
-	 * @param visible Whether the menus are visible
+	 * @param cmdIds
+	 *            Command IDs
+	 * @param visible
+	 *            Whether the menus are visible
 	 */
 	public void setMenuVisible(IntArrayList cmdIds, boolean visible) {
 		if (cmdIds == null) {
@@ -1072,6 +1117,7 @@ public abstract class AppMenu extends JMenuBar {
 
 	/**
 	 * 加载自定义菜单，目前只有帮助菜单
+	 * 
 	 * @return 菜单项列表
 	 */
 	protected List<Object> buildMenuFromConfig() {
@@ -1080,7 +1126,9 @@ public abstract class AppMenu extends JMenuBar {
 
 	/**
 	 * 加载自定义菜单，目前只有帮助菜单
-	 * @param fileName 文件名
+	 * 
+	 * @param fileName
+	 *            文件名
 	 * @return 菜单项列表
 	 */
 	protected List<Object> buildMenuFromConfig(String fileName) {
@@ -1121,7 +1169,8 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Generate Document based on xml file
 	 * 
-	 * @param filename Configuration file name
+	 * @param filename
+	 *            Configuration file name
 	 * @return
 	 * @throws Exception
 	 */

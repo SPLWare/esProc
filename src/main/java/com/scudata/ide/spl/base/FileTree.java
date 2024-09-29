@@ -482,7 +482,7 @@ public class FileTree extends JTree {
 				Desktop.getDesktop().open(
 						new File((String) node.getUserObject()));
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 			break;
 		case OPEN_FILE_DIR:
@@ -491,7 +491,7 @@ public class FileTree extends JTree {
 						.open(new File((String) node.getUserObject())
 								.getParentFile());
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 			break;
 		case REFRESH:
@@ -542,7 +542,7 @@ public class FileTree extends JTree {
 			try {
 				GV.appFrame.openSheetFile((String) node.getUserObject());
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(GV.appFrame, e);
 			}
 		}
 	}

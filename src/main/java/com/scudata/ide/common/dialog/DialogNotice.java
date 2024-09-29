@@ -31,7 +31,7 @@ public class DialogNotice extends RQDialog {
 			setTitle(IdeCommonMessage.get().getMessage("dialognotice.title"));
 			GM.centerWindow(this);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

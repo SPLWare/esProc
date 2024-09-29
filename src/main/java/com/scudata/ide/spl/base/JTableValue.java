@@ -1480,7 +1480,7 @@ public class JTableValue extends JTableEx {
 		try {
 			AppendDataThread.addRecordRow(this, record);
 		} catch (Throwable ex) {
-			GM.showException(ex);
+			GM.showException(GV.appFrame, ex);
 		}
 		setEditStyle(ds, false);
 		return 1;

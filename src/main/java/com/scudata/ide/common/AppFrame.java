@@ -277,7 +277,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 				ds.getDBSession();
 			}
 		} catch (Throwable e2) {
-			GM.showException(e2);
+			GM.showException(GV.appFrame, e2);
 		} finally {
 			setCursor(Cursor.getDefaultCursor());
 		}
@@ -337,7 +337,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 			}
 		}
 		s.toFront();
-		s.show();
+		s.setVisible(true);
 		s.setSelected(true);
 		if (showIcon && s.isIcon())
 			s.setIcon(false);

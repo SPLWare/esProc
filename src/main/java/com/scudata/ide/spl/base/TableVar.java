@@ -27,6 +27,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.TransferableObject;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.AllPurposeEditor;
@@ -89,8 +90,11 @@ public abstract class TableVar extends JPanel {
 
 	/**
 	 * 设置变量列表
-	 * @param pl 变量列表
-	 * @param isReset 是否修改显示值后刷新的
+	 * 
+	 * @param pl
+	 *            变量列表
+	 * @param isReset
+	 *            是否修改显示值后刷新的
 	 */
 	public synchronized void setParamList(ParamList pl, boolean isRefresh) {
 		if (setParamThread != null) {
@@ -153,6 +157,7 @@ public abstract class TableVar extends JPanel {
 
 		/**
 		 * 构造函数
+		 * 
 		 * @param pl
 		 */
 		public SetParamThread(ParamList pl, int dispRows) {
@@ -241,7 +246,7 @@ public abstract class TableVar extends JPanel {
 						dge.startDrag(GM.getDndCursor(), tf);
 					}
 				} catch (Exception x) {
-					GM.showException(x);
+					GM.showException(GV.appFrame, x);
 				}
 			}
 		};
@@ -252,6 +257,7 @@ public abstract class TableVar extends JPanel {
 
 	/**
 	 * 取显示行
+	 * 
 	 * @return
 	 */
 	private int getDispRows() {

@@ -169,7 +169,7 @@ public class DialogInputText extends DialogMaxmizable {
 			jTextPane1.setPage("file:" + file.getAbsolutePath());
 			jTextPane1.setEditable(false);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 

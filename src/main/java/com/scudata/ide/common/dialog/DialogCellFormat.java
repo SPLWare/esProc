@@ -33,7 +33,7 @@ public class DialogCellFormat extends JDialog {
 	/**
 	 * ∏Ò Ω√Ê∞Â
 	 */
-	private PanelCellFormat panelFormat = new PanelCellFormat() {
+	private PanelCellFormat panelFormat = new PanelCellFormat(this) {
 		private static final long serialVersionUID = 1L;
 
 		public void formatSelected() {
@@ -61,7 +61,7 @@ public class DialogCellFormat extends JDialog {
 			pack();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception e) {
-			GM.showException(e);
+			GM.showException(this, e);
 		}
 
 	}

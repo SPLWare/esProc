@@ -61,7 +61,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	/**
 	 * 主机表控件
 	 */
-	private TableSelectName tableHost = new TableSelectName(
+	private TableSelectName tableHost = new TableSelectName(this,
 			mm.getMessage("dialoguploadresult.hostname")) {// 主机名
 		private static final long serialVersionUID = 1L;
 
@@ -118,7 +118,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 			loadFTPInfo();
 			GM.setDialogDefaultButton(this, jBSave, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
@@ -304,7 +304,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 			} catch (Exception e) {
 			}
 		}
-		DialogUploadResult dur = new DialogUploadResult();
+		DialogUploadResult dur = new DialogUploadResult(this);
 		dur.setResult(selectedFtps, successed, exceptions);
 		dur.setVisible(true);
 	}

@@ -72,7 +72,7 @@ public abstract class AppToolBar extends ToolbarGradient {
 				short cmdId = Short.parseShort(menuId);
 				executeCmd(cmdId);
 			} catch (Exception ex) {
-				GM.showException(ex);
+				GM.showException(GV.appFrame, ex);
 			}
 		}
 	};

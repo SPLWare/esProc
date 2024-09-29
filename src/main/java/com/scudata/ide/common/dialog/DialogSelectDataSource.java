@@ -147,7 +147,7 @@ public class DialogSelectDataSource extends JDialog {
 			resetLangText();
 			setResizable(true);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		} finally {
 			preventChange = false;
 		}
@@ -334,7 +334,7 @@ public class DialogSelectDataSource extends JDialog {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			ds.getDBSession();
 		} catch (Throwable x) {
-			GM.showException(GM.handleDSException(ds, x));
+			GM.showException(this, GM.handleDSException(ds, x));
 			return;
 		} finally {
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));

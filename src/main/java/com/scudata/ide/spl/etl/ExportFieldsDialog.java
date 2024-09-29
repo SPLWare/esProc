@@ -27,7 +27,7 @@ import com.scudata.ide.common.swing.VFlowLayout;
  * @author Joancy
  *
  */
-public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
+public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 	private static final long serialVersionUID = 1L;
 	private static MessageManager mm = FuncMessage.get();
 
@@ -47,39 +47,42 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 	JButton jBDel = new JButton();
 
 	private int m_option = JOptionPane.CANCEL_OPTION;
-	
+
 	/**
 	 * 构造函数
-	 * @param owner 父窗口
-	 * @param defineType 定义常量类型
+	 * 
+	 * @param owner
+	 *            父窗口
+	 * @param defineType
+	 *            定义常量类型
 	 */
-	public ExportFieldsDialog(Dialog owner,int defineType) {
+	public ExportFieldsDialog(Dialog owner, int defineType) {
 		super(owner);
 		try {
 			String colNames;
-			if( defineType == EtlConsts.INPUT_FIELDDEFINE_EXP_FIELD){
+			if (defineType == EtlConsts.INPUT_FIELDDEFINE_EXP_FIELD) {
 				colNames = "ExportFieldsDialog.exportfields";
-			}else if(defineType == EtlConsts.INPUT_FIELDDEFINE_FIELD_EXP){
+			} else if (defineType == EtlConsts.INPUT_FIELDDEFINE_FIELD_EXP) {
 				colNames = "ExportFieldsDialog.fieldExps";
-			}else{
+			} else {
 				colNames = "ExportFieldsDialog.renameFields";
 			}
-			exportFields = new JTableEx(mm.getMessage(colNames));	
-			
+			exportFields = new JTableEx(mm.getMessage(colNames));
+
 			init();
 			rqInit();
 			setSize(450, 300);
 			resetText();
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
-			GM.showException(ex);
+			GM.showException(this, ex);
 		}
 	}
 
 	private void resetText() {
 		setTitle(mm.getMessage("ExportFieldsDialog.title"));
 		MessageManager icm = IdeCommonMessage.get();
-		
+
 		jBOK.setText(icm.getMessage("button.ok"));
 		jBCancel.setText(icm.getMessage("button.cancel"));
 		jBAdd.setText(icm.getMessage("button.add"));
@@ -95,13 +98,15 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 
 	/**
 	 * 设置字段定义列表
-	 * @param fields 字段定义列表
+	 * 
+	 * @param fields
+	 *            字段定义列表
 	 */
 	public void setFieldDefines(ArrayList<FieldDefine> fields) {
-		if(fields==null){
+		if (fields == null) {
 			return;
 		}
-		
+
 		for (int i = 0; i < fields.size(); i++) {
 			int row = exportFields.addRow();
 			FieldDefine fd = fields.get(i);
@@ -112,29 +117,29 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 
 	/**
 	 * 获取编辑好的字段定义列表
+	 * 
 	 * @return 字段定义列表
 	 */
 	public ArrayList<FieldDefine> getFieldDefines() {
 		exportFields.acceptText();
-		int rows = exportFields.getRowCount(); 
-		if(rows==0){
+		int rows = exportFields.getRowCount();
+		if (rows == 0) {
 			return null;
 		}
 		ArrayList<FieldDefine> fields = new ArrayList<FieldDefine>();
 		for (int i = 0; i < rows; i++) {
 			String name = (String) exportFields.data.getValueAt(i, COL_EXP);
-			if(!StringUtils.isValidString(name)){
+			if (!StringUtils.isValidString(name)) {
 				continue;
 			}
 			FieldDefine fd = new FieldDefine();
 			fd.setOne(name);
 			fd.setTwo((String) exportFields.data.getValueAt(i, COL_FIELD));
-			
+
 			fields.add(fd);
 		}
 		return fields;
 	}
-
 
 	private void rqInit() {
 		exportFields.setIndexCol(COL_INDEX);
@@ -146,7 +151,7 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
 		jBOK.setText("确定(O)");
-		jBOK.addActionListener(new ActionListener(){
+		jBOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exportFields.acceptText();
 				m_option = JOptionPane.OK_OPTION;
@@ -155,23 +160,23 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 		});
 		jBCancel.setMnemonic('C');
 		jBCancel.setText("取消(C)");
-		jBCancel.addActionListener(new ActionListener(){
+		jBCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		jBAdd.addActionListener(new ActionListener(){
+		jBAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exportFields.addRow();
 			}
 		});
-		jBDel.addActionListener(new ActionListener(){
+		jBDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exportFields.deleteSelectedRows();
 			}
 		});
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter(){
+		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				dispose();
 			}
@@ -186,7 +191,7 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog{
 		jPanel2.add(jPanel1, null);
 		jPanel2.add(jBAdd, null);
 		jPanel2.add(jBDel, null);
-		
+
 		this.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
 		this.getContentPane().add(jPanel2, BorderLayout.EAST);
 	}
