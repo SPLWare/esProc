@@ -218,7 +218,8 @@ public class DialogEditConst extends DialogMaxmizable {
 						title += " : ";
 					}
 					title += STR_DATE_TIME;
-					DatetimeChooser dtc = new DatetimeChooser(GV.appFrame, true);
+					DatetimeChooser dtc = new DatetimeChooser(
+							DialogEditConst.this, true);
 					dtc.setTitle(title);
 					selectedCalendar = java.util.Calendar.getInstance();
 					try {
@@ -661,14 +662,14 @@ public class DialogEditConst extends DialogMaxmizable {
 		for (int i = 0; i < count; i++) {
 			name = (String) tableConst.data.getValueAt(i, COL_NAME);
 			if (usedNames.contains(name)) {
-				GM.messageDialog(GV.appFrame, mm.getMessage(
+				GM.messageDialog(this, mm.getMessage(
 						"dialogeditconst.existname", i + 1 + "", name)); // 第{0}行参数名：{1}已经存在。
 				return false;
 			}
 			kind = ((Byte) tableConst.data.getValueAt(i, COL_KIND)).byteValue();
 			val = tableConst.data.getValueAt(i, COL_VALUE);
 			if (val == null) {
-				GM.messageDialog(GV.appFrame,
+				GM.messageDialog(this,
 						mm.getMessage("dialogeditconst.emptyval", i + 1 + "")); // 第{0}行参数值为空。
 				return false;
 			}
@@ -695,19 +696,19 @@ public class DialogEditConst extends DialogMaxmizable {
 						val = PgmNormalCell.parseConstValue((String) val);
 					}
 					if (!(val instanceof Sequence)) {
-						GM.messageDialog(GV.appFrame, message + STR_SERIES); // 第{0}行参数值类型应该为：序列
+						GM.messageDialog(this, message + STR_SERIES); // 第{0}行参数值类型应该为：序列
 						return false;
 					}
 					break;
 				case GC.KIND_TABLE:
 					if (!(val instanceof Table)) {
-						GM.messageDialog(GV.appFrame, message + STR_TABLE); // 第{0}行参数值类型应该为：序表
+						GM.messageDialog(this, message + STR_TABLE); // 第{0}行参数值类型应该为：序表
 						return false;
 					}
 					break;
 				}
 			} catch (Exception e) {
-				GM.messageDialog(GV.appFrame, message + strKind);
+				GM.messageDialog(this, message + strKind);
 				return false;
 			}
 		}

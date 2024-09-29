@@ -606,7 +606,7 @@ public class DialogSearch extends JDialog {
 		if (search()) {
 		} else {
 			GM.messageDialog(
-					GV.appFrame,
+					this,
 					splMM.getMessage("dialogsearch.cantfindword",
 							jCBSearch.getSelectedItem()));
 		}
@@ -632,7 +632,7 @@ public class DialogSearch extends JDialog {
 		if (replace()) {
 		} else {
 			GM.messageDialog(
-					GV.appFrame,
+					this,
 					splMM.getMessage("dialogsearch.cantfindword",
 							jCBSearch.getSelectedItem()));
 		}
@@ -651,7 +651,7 @@ public class DialogSearch extends JDialog {
 		replace = (String) jCBReplace.getSelectedItem();
 		setSearchConfig(search, replace);
 		int i = replaceAll();
-		GM.messageDialog(GV.appFrame,
+		GM.messageDialog(this,
 				splMM.getMessage("dialogsearch.totalreplace", i + ""));
 
 	}

@@ -527,7 +527,7 @@ public class DialogDataSourcePara extends JDialog {
 			}
 			if (existNames != null) {
 				if (existNames.contains(jTextName.getText())) {
-					GM.messageDialog(GV.appFrame,
+					GM.messageDialog(this,
 							mm.getMessage("dialogdatasource.existdsname")
 									+ jTextName.getText(),
 							mm.getMessage("public.note"),

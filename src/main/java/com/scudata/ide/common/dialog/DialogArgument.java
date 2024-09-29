@@ -369,7 +369,7 @@ public class DialogArgument extends DialogMaxmizable {
 			public void actionPerformed(ActionEvent e) {
 				int[] rows = paraTable.getSelectedRows();
 				if (rows == null || rows.length == 0) {
-					GM.messageDialog(GV.appFrame,
+					GM.messageDialog(DialogArgument.this,
 							mm.getMessage("dialogparameter.selectrow"));
 					return;
 				}
@@ -391,7 +391,7 @@ public class DialogArgument extends DialogMaxmizable {
 			public void actionPerformed(ActionEvent e) {
 				String str = GM.clipBoard();
 				if (!StringUtils.isValidString(str)) {
-					GM.messageDialog(GV.appFrame,
+					GM.messageDialog(DialogArgument.this,
 							mm.getMessage("dialogparameter.copyrow"));
 					return;
 				}
@@ -399,7 +399,7 @@ public class DialogArgument extends DialogMaxmizable {
 					paraTable.acceptText();
 					Matrix m = GM.string2Matrix(str, false);
 					if (m.getColSize() != paraTable.getColumnCount()) {
-						GM.messageDialog(GV.appFrame,
+						GM.messageDialog(DialogArgument.this,
 								mm.getMessage("dialogparameter.copyrow"));
 						return;
 					}

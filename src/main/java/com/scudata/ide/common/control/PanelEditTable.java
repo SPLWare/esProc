@@ -414,7 +414,7 @@ public class PanelEditTable extends JPanel {
 				if (!StringUtils.isValidString(key)) {
 					jTabMain.setSelectedIndex(TAB_NORMAL);
 					GM.messageDialog(
-							GV.appFrame,
+							parent,
 							mm.getMessage("paneledittable.emptyname",
 									String.valueOf(i + 1))); // 第：{0}行字段名为空。
 					return false;
@@ -422,7 +422,7 @@ public class PanelEditTable extends JPanel {
 				if (keys.contains(key)) {
 					jTabMain.setSelectedIndex(TAB_NORMAL);
 					GM.messageDialog(
-							GV.appFrame,
+							parent,
 							mm.getMessage("paneledittable.existname",
 									String.valueOf(i + 1))); // 第：{0}行字段名重复。
 					return false;
@@ -430,7 +430,7 @@ public class PanelEditTable extends JPanel {
 				keys.add(key);
 			}
 		} else {
-			int option = GM.optionDialog(GV.appFrame,
+			int option = GM.optionDialog(parent,
 					mm.getMessage("paneledittable.norow"), // 表结构至少得有一个字段，是否增加缺省字段？
 					mm.getMessage("public.prompt"), // 提示
 					JOptionPane.OK_CANCEL_OPTION);
@@ -603,7 +603,7 @@ public class PanelEditTable extends JPanel {
 
 		if (editingTable.equals(tableNormal)) {
 			if (tableNormal.getRowCount() == 1) {
-				GM.messageDialog(GV.appFrame,
+				GM.messageDialog(parent,
 						mm.getMessage("paneledittable.atleastonerow")); // 表结构至少得有一个字段。
 				// 数据结构的字段数目不能为0
 				return;

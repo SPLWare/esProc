@@ -268,7 +268,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		// ÅĞ¶ÏÊÇ·ñÖØÃû
 		if (dsModel.existDSName(ds.getName())) {
 			GM.messageDialog(
-					GV.appFrame,
+					this,
 					mm.getMessage("dialogdatasource.existdsname", ds.getName()),
 					mm.getMessage("public.closenote"),
 					JOptionPane.ERROR_MESSAGE);
@@ -296,13 +296,13 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		if (index > -1 && index < size) {
 			DataSource ds = (DataSource) dsModel.get(index);
 			if (ds.isSystem()) {
-				GM.messageDialog(GV.appFrame, mm.getMessage(
+				GM.messageDialog(this, mm.getMessage(
 						"dialogdatasource.notdelds", ds.getName()), mm
 						.getMessage("public.note"), JOptionPane.WARNING_MESSAGE);
 				return;
 			} else if (ds.isRemote()) {
 				GM.messageDialog(
-						GV.appFrame,
+						this,
 						mm.getMessage("dialogdatasource.delremote",
 								ds.getName()), mm.getMessage("public.note"),
 						JOptionPane.WARNING_MESSAGE);

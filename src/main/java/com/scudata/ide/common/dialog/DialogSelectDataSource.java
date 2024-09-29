@@ -306,7 +306,7 @@ public class DialogSelectDataSource extends JDialog {
 		switch (tabMain.getSelectedIndex()) {
 		case TAB_CONFIG:
 			if (listDS.isSelectionEmpty()) {
-				GM.messageDialog(GV.appFrame,
+				GM.messageDialog(this,
 						mm.getMessage("dialogselectdatasource.selectds"));
 				return;
 			}
@@ -314,7 +314,7 @@ public class DialogSelectDataSource extends JDialog {
 			break;
 		case TAB_ODBC:
 			if (listODBC.isSelectionEmpty()) {
-				GM.messageDialog(GV.appFrame,
+				GM.messageDialog(this,
 						mm.getMessage("dialogselectdatasource.selectds"));
 				return;
 			}

@@ -229,7 +229,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 		File extLibsDir = new File(extLibsPath);
 		if (!extLibsDir.exists() || !extLibsDir.isDirectory()) {
 			if (showException)
-				GM.messageDialog(GV.appFrame,
+				GM.messageDialog(this,
 						AppMessage.get().getMessage("configutil.noextpath"));
 			else
 				return;
