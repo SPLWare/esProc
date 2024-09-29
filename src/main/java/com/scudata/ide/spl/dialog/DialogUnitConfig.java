@@ -79,7 +79,8 @@ public class DialogUnitConfig extends JDialog {
 			Integer.MAX_VALUE, 1));
 	private JLabel labelBacklog = new JLabel(
 			mm.getMessage("dialogunitconfig.backlog")); // 并发连接数
-	private JSpinner jSBacklog = new JSpinner(new SpinnerNumberModel(10, 1,	50, 1));//操作系统的缺省最大连接数目为50，超过它没有意义
+	private JSpinner jSBacklog = new JSpinner(new SpinnerNumberModel(10, 1, 50,
+			1));// 操作系统的缺省最大连接数目为50，超过它没有意义
 
 	private JLabel labelHost = new JLabel(
 			mm.getMessage("dialogunitconfig.hostlist"));
@@ -99,13 +100,13 @@ public class DialogUnitConfig extends JDialog {
 	private final String TITLE_PORT = mm.getMessage("dialogunitconfig.port"); // 端口
 	private final String TITLE_MAXTASKNUM = mm
 			.getMessage("dialogunitconfig.maxtasknum"); // 最大作业数
-//	private final String TITLE_PREFERREDTASKNUM = mm
-//			.getMessage("dialogunitconfig.preferredtasknum"); // 适合作业数
+	// private final String TITLE_PREFERREDTASKNUM = mm
+	// .getMessage("dialogunitconfig.preferredtasknum"); // 适合作业数
 	private final String TITLE_ISLOCAL = mm
 			.getMessage("dialogunitconfig.islocal"); // 是否本机
 
 	protected JTableEx tableHosts = new JTableEx(new String[] { TITLE_INDEX,
-			TITLE_HOST, TITLE_PORT, TITLE_MAXTASKNUM,TITLE_ISLOCAL});
+			TITLE_HOST, TITLE_PORT, TITLE_MAXTASKNUM, TITLE_ISLOCAL });
 
 	private final int COL_START = 1;
 	private final int COL_END = 2;
@@ -128,8 +129,11 @@ public class DialogUnitConfig extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param parent 父窗体
-	 * @param title 标题
+	 * 
+	 * @param parent
+	 *            父窗体
+	 * @param title
+	 *            标题
 	 */
 	public DialogUnitConfig(JFrame parent, String title) {
 		super(parent, title, true);
@@ -150,7 +154,9 @@ public class DialogUnitConfig extends JDialog {
 
 	/**
 	 * 打开对话框选中一个目录
-	 * @param oldPath 已有的目录
+	 * 
+	 * @param oldPath
+	 *            已有的目录
 	 * @return 选择的目录
 	 */
 	public static String dialogSelectDirectory(String oldPath) {
@@ -160,7 +166,9 @@ public class DialogUnitConfig extends JDialog {
 
 	/**
 	 * 打开对话框选择一个文件
-	 * @param exts 文件的扩展名
+	 * 
+	 * @param exts
+	 *            文件的扩展名
 	 * @return 文件对象
 	 */
 	public static File dialogSelectFile(String exts) {
@@ -169,6 +177,7 @@ public class DialogUnitConfig extends JDialog {
 
 	/**
 	 * 获取分机配置
+	 * 
 	 * @return 分机配置
 	 */
 	public UnitConfig getUnitConfig() {
@@ -177,12 +186,12 @@ public class DialogUnitConfig extends JDialog {
 
 	/**
 	 * 获取窗口的动作选项
+	 * 
 	 * @return 选项
 	 */
 	public int getOption() {
 		return option;
 	}
-
 
 	private void init() {
 		try {
@@ -267,7 +276,7 @@ public class DialogUnitConfig extends JDialog {
 	}
 
 	private boolean isUnitValid() {
-		if (!tableHosts.verifyColumnData(COL_HOST, TITLE_HOST, false))
+		if (!tableHosts.verifyColumnData(COL_HOST, TITLE_HOST, false, this))
 			return false;
 		return true;
 	}
@@ -285,8 +294,9 @@ public class DialogUnitConfig extends JDialog {
 		List<Host> hosts = new ArrayList<Host>();
 		for (int i = 0, count = tableHosts.getRowCount(); i < count; i++) {
 			String ip = (String) tableHosts.data.getValueAt(i, COL_HOST);
-			int port = ((Number) tableHosts.data.getValueAt(i, COL_PORT)).intValue();
-			Host h = new Host(ip,port);
+			int port = ((Number) tableHosts.data.getValueAt(i, COL_PORT))
+					.intValue();
+			Host h = new Host(ip, port);
 			int max = ((Number) tableHosts.data.getValueAt(i, COL_MAXTASKNUM))
 					.intValue();
 			h.setMaxTaskNum(max);
@@ -424,7 +434,7 @@ public class DialogUnitConfig extends JDialog {
 						ip = increaseIP(ip);
 					}
 				}
-				Host h = new Host(ip,port);
+				Host h = new Host(ip, port);
 				int row = tableHosts.addRow();
 				tableHosts.setValueAt(ip, row, COL_HOST);
 				tableHosts.setValueAt(port, row, COL_PORT);
@@ -493,25 +503,25 @@ public class DialogUnitConfig extends JDialog {
 		int rows = tableHosts.getRowCount();
 		int p = port;
 		boolean find = false;
-		while(true) {
-			for(int r=0; r<rows; r++) {
-				int tmp = (Integer)tableHosts.data.getValueAt(r,COL_PORT);
-				if( p == tmp) {
+		while (true) {
+			for (int r = 0; r < rows; r++) {
+				int tmp = (Integer) tableHosts.data.getValueAt(r, COL_PORT);
+				if (p == tmp) {
 					find = true;
 					p++;
 					break;
 				}
-				if(r==rows-1) {
+				if (r == rows - 1) {
 					find = false;
 				}
 			}
-			if( !find ) {
+			if (!find) {
 				break;
 			}
 		}
 		return p;
 	}
-	
+
 	private static String increaseIP(String host) {
 		if (host.indexOf(".") < 0) {
 			return host;

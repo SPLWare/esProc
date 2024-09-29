@@ -379,7 +379,7 @@ public class DialogDataSourcePara extends JDialog {
 	 * @param ds
 	 */
 	public void set(DBConfig ds) {
-		if (!DialogDataSource.isLocalDataSource(new DataSource(ds), false)) {
+		if (!DialogDataSource.isLocalDataSource(this, new DataSource(ds), false)) {
 			jBOK.setEnabled(false);
 		}
 		oldName = ds.getName();

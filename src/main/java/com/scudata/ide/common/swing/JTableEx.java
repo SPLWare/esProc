@@ -106,7 +106,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 构造函数
 	 * 
-	 * @param colNames 列名数组
+	 * @param colNames
+	 *            列名数组
 	 */
 	public JTableEx(String[] colNames) {
 		this();
@@ -121,7 +122,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 构造函数
 	 * 
-	 * @param columnNames 逗号分隔的列名
+	 * @param columnNames
+	 *            逗号分隔的列名
 	 */
 	public JTableEx(String columnNames) {
 		this(new Section(columnNames).toStringArray());
@@ -244,9 +246,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 值是否发生变化了
 	 * 
-	 * @param row      行号
-	 * @param column   列号
-	 * @param newValue 新值
+	 * @param row
+	 *            行号
+	 * @param column
+	 *            列号
+	 * @param newValue
+	 *            新值
 	 * @return
 	 */
 	protected boolean isItemDataChanged(int row, int column, Object newValue) {
@@ -272,9 +277,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 导出数据
 	 * 
-	 * @param exportTitle 是否导出标题
-	 * @param fw          FileWriter
-	 * @param dosFormat   格式
+	 * @param exportTitle
+	 *            是否导出标题
+	 * @param fw
+	 *            FileWriter
+	 * @param dosFormat
+	 *            格式
 	 * @return
 	 * @throws Exception
 	 */
@@ -326,7 +334,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 重设列名
 	 * 
-	 * @param newColNames 列名列表
+	 * @param newColNames
+	 *            列名列表
 	 */
 	public void resetColumns(ArrayList newColNames) {
 		data.setColumnCount(0);
@@ -372,9 +381,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 触发鼠标点击事件
 	 * 
-	 * @param xpos X坐标
-	 * @param ypos Y坐标
-	 * @param e    鼠标事件
+	 * @param xpos
+	 *            X坐标
+	 * @param ypos
+	 *            Y坐标
+	 * @param e
+	 *            鼠标事件
 	 */
 	public void fireClicked(int xpos, int ypos, MouseEvent e) {
 		Iterator it = clickedListener.iterator();
@@ -430,7 +442,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 真正删除了指定的列，包括数据Model
 	 * 
-	 * @param aColumn TableColumn列对象
+	 * @param aColumn
+	 *            TableColumn列对象
 	 */
 	public void deleteColumn(TableColumn aColumn) {
 		String colName = (String) aColumn.getIdentifier();
@@ -452,7 +465,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取列对象
 	 * 
-	 * @param columnIndex 列号
+	 * @param columnIndex
+	 *            列号
 	 * @return
 	 */
 	public TableColumn getColumn(int columnIndex) {
@@ -462,7 +476,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取列对象
 	 * 
-	 * @param colName 列名
+	 * @param colName
+	 *            列名
 	 * @return
 	 */
 	public int getColumnIndex(String colName) {
@@ -472,8 +487,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取列序号
 	 * 
-	 * @param colName            列名
-	 * @param includeHideColumns 是否包含隐藏列
+	 * @param colName
+	 *            列名
+	 * @param includeHideColumns
+	 *            是否包含隐藏列
 	 * @return
 	 */
 	public int getColumnIndex(String colName, boolean includeHideColumns) {
@@ -506,7 +523,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取列数据
 	 * 
-	 * @param colIndex 列号
+	 * @param colIndex
+	 *            列号
 	 * @return
 	 */
 	public Vector<Object> getColumnData(int colIndex) {
@@ -525,7 +543,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 最小化列，即把列的宽度设为0，以至于看不见
 	 * 
-	 * @param colIndex int
+	 * @param colIndex
+	 *            int
 	 */
 	public void minimizeColumn(int columnIndex) {
 		TableColumn tc = getColumn(columnIndex);
@@ -544,7 +563,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 还原最小化的列
 	 * 
-	 * @param colIndex int
+	 * @param colIndex
+	 *            int
 	 */
 	public void recoverColumn(int columnIndex) {
 		TableColumn tc = getColumn(columnIndex);
@@ -571,7 +591,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 隐藏列
 	 * 
-	 * @param columnName 列名
+	 * @param columnName
+	 *            列名
 	 */
 	public void hideColumn(String columnName) {
 		if (!isColumnVisible(columnName)) {
@@ -586,8 +607,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可用
 	 * 
-	 * @param columnIndex 列号
-	 * @param enable      是否可用
+	 * @param columnIndex
+	 *            列号
+	 * @param enable
+	 *            是否可用
 	 */
 	public void setColumnEnable(int columnIndex, boolean enable) {
 		setColumnEnable(getColumnName(columnIndex), enable);
@@ -596,8 +619,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可用
 	 * 
-	 * @param columnName 列名
-	 * @param enable     是否可编辑
+	 * @param columnName
+	 *            列名
+	 * @param enable
+	 *            是否可编辑
 	 */
 	public void setColumnEnable(String columnName, boolean enable) {
 		if (!isColumnVisible(columnName)) {
@@ -631,7 +656,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取列编辑器
 	 * 
-	 * @param columnIndex 列号
+	 * @param columnIndex
+	 *            列号
 	 * @return
 	 */
 	public TableCellEditor getColumnEditor(int columnIndex) {
@@ -642,7 +668,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列缺省编辑控件
 	 * 
-	 * @param columnIndex 列号
+	 * @param columnIndex
+	 *            列号
 	 */
 	public void setColumnDefaultEditor(int columnIndex) {
 		setColumnDefaultEditor(getColumnName(columnIndex));
@@ -651,7 +678,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列缺省编辑控件
 	 * 
-	 * @param columnName 列名
+	 * @param columnName
+	 *            列名
 	 */
 	public void setColumnDefaultEditor(String columnName) {
 		TableColumn col = getColumn(columnName);
@@ -664,7 +692,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列数值编辑控件
 	 * 
-	 * @param columnIndex 列号
+	 * @param columnIndex
+	 *            列号
 	 */
 	public void setColumnSpinner(int columnIndex) {
 		setColumnSpinner(getColumnName(columnIndex));
@@ -673,7 +702,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列数值编辑控件
 	 * 
-	 * @param columnName 列名
+	 * @param columnName
+	 *            列名
 	 */
 	public void setColumnSpinner(String columnName) {
 		DefaultCellEditor integerEditor = new JTextAreaEditor(this,
@@ -685,7 +715,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列复选框控件
 	 * 
-	 * @param columnIndex 列号
+	 * @param columnIndex
+	 *            列号
 	 */
 	public void setColumnCheckBox(int columnIndex) {
 		setColumnCheckBox(getColumnName(columnIndex));
@@ -694,8 +725,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列复选框控件
 	 * 
-	 * @param columnIndex 列号
-	 * @param enable      是否可编辑
+	 * @param columnIndex
+	 *            列号
+	 * @param enable
+	 *            是否可编辑
 	 */
 	public void setColumnCheckBox(int columnIndex, boolean enable) {
 		setColumnCheckBox(getColumnName(columnIndex), enable);
@@ -704,7 +737,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列复选框控件
 	 * 
-	 * @param columnName 列名
+	 * @param columnName
+	 *            列名
 	 */
 	public void setColumnCheckBox(String columnName) {
 		setColumnCheckBox(columnName, true);
@@ -713,8 +747,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列复选框控件
 	 * 
-	 * @param columnName 列名
-	 * @param enable     是否可编辑
+	 * @param columnName
+	 *            列名
+	 * @param enable
+	 *            是否可编辑
 	 */
 	public void setColumnCheckBox(String columnName, final boolean enable) {
 		JCheckBox checkBoxEditor = new JCheckBox();
@@ -759,9 +795,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列下拉控件
 	 * 
-	 * @param columnIndex 列号
-	 * @param codeItems   代码值
-	 * @param dispItems   显示值
+	 * @param columnIndex
+	 *            列号
+	 * @param codeItems
+	 *            代码值
+	 * @param dispItems
+	 *            显示值
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
@@ -773,10 +812,14 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列下拉控件
 	 * 
-	 * @param columnIndex 列号
-	 * @param codeItems   代码值
-	 * @param dispItems   显示值
-	 * @param editable    是否可编辑
+	 * @param columnIndex
+	 *            列号
+	 * @param codeItems
+	 *            代码值
+	 * @param dispItems
+	 *            显示值
+	 * @param editable
+	 *            是否可编辑
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
@@ -791,9 +834,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列下拉控件
 	 * 
-	 * @param columnName 列名
-	 * @param codeItems  代码值
-	 * @param dispItems  显示值
+	 * @param columnName
+	 *            列名
+	 * @param codeItems
+	 *            代码值
+	 * @param dispItems
+	 *            显示值
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(String columnName, Vector codeItems,
@@ -804,10 +850,14 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列下拉控件
 	 * 
-	 * @param columnName 列名
-	 * @param codeItems  代码值
-	 * @param dispItems  显示值
-	 * @param editable   是否可编辑
+	 * @param columnName
+	 *            列名
+	 * @param codeItems
+	 *            代码值
+	 * @param dispItems
+	 *            显示值
+	 * @param editable
+	 *            是否可编辑
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(final String columnName,
@@ -833,8 +883,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可编辑
 	 * 
-	 * @param columnIndex 列号
-	 * @param allowEdit   是否可编辑
+	 * @param columnIndex
+	 *            列号
+	 * @param allowEdit
+	 *            是否可编辑
 	 */
 	public void setColumnEditable(int columnIndex, boolean allowEdit) {
 		setColumnEditable(getColumnName(columnIndex), allowEdit);
@@ -843,9 +895,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可编辑
 	 * 
-	 * @param columnIndex 列号
-	 * @param allowEdit   是否可编辑
-	 * @param centerAlign 是否居中显示
+	 * @param columnIndex
+	 *            列号
+	 * @param allowEdit
+	 *            是否可编辑
+	 * @param centerAlign
+	 *            是否居中显示
 	 */
 	public void setColumnEditable(int columnIndex, boolean allowEdit,
 			boolean centerAlign) {
@@ -855,8 +910,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可编辑
 	 * 
-	 * @param columnName 列名
-	 * @param allowEdit  是否可编辑
+	 * @param columnName
+	 *            列名
+	 * @param allowEdit
+	 *            是否可编辑
 	 */
 	public void setColumnEditable(String columnName, boolean allowEdit) {
 		setColumnEditable(columnName, allowEdit, false);
@@ -865,9 +922,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可编辑
 	 * 
-	 * @param columnName  列名
-	 * @param allowEdit   是否可编辑
-	 * @param centerAlign 是否居中显示
+	 * @param columnName
+	 *            列名
+	 * @param allowEdit
+	 *            是否可编辑
+	 * @param centerAlign
+	 *            是否居中显示
 	 */
 	public void setColumnEditable(String columnName, boolean allowEdit,
 			final boolean centerAlign) {
@@ -938,8 +998,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列的最大宽度
 	 * 
-	 * @param columnIndex 列号
-	 * @param width       宽度
+	 * @param columnIndex
+	 *            列号
+	 * @param width
+	 *            宽度
 	 */
 	public void setColumnFixedWidth(int columnIndex, int width) {
 		String columnName = getColumnName(columnIndex);
@@ -954,8 +1016,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列宽度
 	 * 
-	 * @param columnIndex 列号
-	 * @param width       宽度
+	 * @param columnIndex
+	 *            列号
+	 * @param width
+	 *            宽度
 	 */
 	public void setColumnWidth(int columnIndex, int width) {
 		setColumnWidth(getColumnName(columnIndex), width);
@@ -964,8 +1028,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列宽度
 	 * 
-	 * @param columnName 列名
-	 * @param width      宽度
+	 * @param columnName
+	 *            列名
+	 * @param width
+	 *            宽度
 	 */
 	public void setColumnWidth(String columnName, int width) {
 		if (!isColumnVisible(columnName)) {
@@ -985,8 +1051,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列的横向对齐
 	 * 
-	 * @param columnIndex 列号
-	 * @param alignment   对齐方式
+	 * @param columnIndex
+	 *            列号
+	 * @param alignment
+	 *            对齐方式
 	 */
 	public void setColumnAlign(int columnIndex, int alignment) {
 		setColumnAlign(getColumnName(columnIndex), alignment);
@@ -995,8 +1063,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列的横向对齐
 	 * 
-	 * @param columnName 列名
-	 * @param alignment  对齐方式
+	 * @param columnName
+	 *            列名
+	 * @param alignment
+	 *            对齐方式
 	 */
 	public void setColumnAlign(String columnName, int alignment) {
 		if (!isColumnVisible(columnName)) {
@@ -1022,7 +1092,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取行数据
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return 行数据数组
 	 */
 	public Object[] getRowDataArray(int row) {
@@ -1040,7 +1111,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 取行数据的字符串，由\t分隔
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	public String getRowData(int row) {
@@ -1082,7 +1154,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置数据块的字符串
 	 * 
-	 * @param ls_data 由\t和\n分隔
+	 * @param ls_data
+	 *            由\t和\n分隔
 	 * @return
 	 */
 	public int setBlockData(String ls_data) {
@@ -1159,19 +1232,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 检查列数据
 	 * 
-	 * @param colIndex 列序号
-	 * @param colDesc  列描述
-	 * @return
-	 */
-	public boolean checkColumnData(int colIndex, String colDesc) {
-		return verifyColumnData(colIndex, colDesc);
-	}
-
-	/**
-	 * 检查列数据
-	 * 
-	 * @param colIndex 列序号
-	 * @param colDesc  列描述
+	 * @param colIndex
+	 *            列序号
+	 * @param colDesc
+	 *            列描述
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc) {
@@ -1181,9 +1245,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 检查列数据
 	 * 
-	 * @param colIndex   列序号
-	 * @param colDesc    列描述
-	 * @param caseRepeat 是否检查列数据重复
+	 * @param colIndex
+	 *            列序号
+	 * @param colDesc
+	 *            列描述
+	 * @param caseRepeat
+	 *            是否检查列数据重复
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1194,10 +1261,14 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 检查列数据
 	 * 
-	 * @param colIndex   列序号
-	 * @param colDesc    列描述
-	 * @param caseRepeat 是否检查列数据重复
-	 * @param parent     父组件
+	 * @param colIndex
+	 *            列序号
+	 * @param colDesc
+	 *            列描述
+	 * @param caseRepeat
+	 *            是否检查列数据重复
+	 * @param parent
+	 *            父组件
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1208,11 +1279,16 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 检查列数据
 	 * 
-	 * @param colIndex   列序号
-	 * @param colDesc    列描述
-	 * @param caseNull 是否检查列数据是否为空
-	 * @param caseRepeat 是否检查列数据重复
-	 * @param parent     父组件
+	 * @param colIndex
+	 *            列序号
+	 * @param colDesc
+	 *            列描述
+	 * @param caseNull
+	 *            是否检查列数据是否为空
+	 * @param caseRepeat
+	 *            是否检查列数据重复
+	 * @param parent
+	 *            父组件
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1256,8 +1332,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置列是否可视
 	 * 
-	 * @param colName 列名
-	 * @param vis     是否可视
+	 * @param colName
+	 *            列名
+	 * @param vis
+	 *            是否可视
 	 */
 	public void setColumnVisible(String colName, boolean vis) {
 		if (vis) {
@@ -1279,7 +1357,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 上移指定的记录行
 	 * 
-	 * @param row int，要移动的行号，如果为小于0的数字则移动当前选中的行
+	 * @param row
+	 *            int，要移动的行号，如果为小于0的数字则移动当前选中的行
 	 * @return int，移动后的新行号,返回-1表示没有移动
 	 */
 	public int shiftRowUp(int row) {
@@ -1317,7 +1396,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 下移指定行
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	public int shiftRowDown(int row) {
@@ -1345,7 +1425,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 显示列
 	 * 
-	 * @param columnName 列名
+	 * @param columnName
+	 *            列名
 	 */
 	public void showColumn(String columnName) {
 		if (isColumnVisible(columnName)) {
@@ -1421,7 +1502,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 删除指定行
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	public int removeRow(int row) {
@@ -1445,7 +1527,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 选中指定行
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 */
 	public void selectRow(int row) {
 		DefaultListSelectionModel selectModel = new DefaultListSelectionModel();
@@ -1503,8 +1586,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 在表格的SearchColumn列里面查找对象value
 	 * 
-	 * @param value        Object
-	 * @param searchColumn int
+	 * @param value
+	 *            Object
+	 * @param searchColumn
+	 *            int
 	 * @return int, 找到该对象返回对象所在的行号,否则返回-1
 	 */
 	public int searchValue(Object value, int searchColumn) {
@@ -1521,8 +1606,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 在表格的SearchColumn列里面查找Name
 	 * 
-	 * @param name        String
-	 * @param searchColumn int
+	 * @param name
+	 *            String
+	 * @param searchColumn
+	 *            int
 	 * @return int, 找到该对象返回对象所在的行号,否则返回-1
 	 */
 	public int searchName(String name, int searchColumn, boolean caseSens) {
@@ -1555,7 +1642,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 追加行
 	 * 
-	 * @param resetIndex 是否重置序号列
+	 * @param resetIndex
+	 *            是否重置序号列
 	 * @return
 	 */
 	public int addRow(boolean resetIndex) {
@@ -1565,7 +1653,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 追加行
 	 * 
-	 * @param oa 追加的行数据数组
+	 * @param oa
+	 *            追加的行数据数组
 	 * @return
 	 */
 	public int addRow(Object[] oa) {
@@ -1575,8 +1664,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 追加行
 	 * 
-	 * @param oa         追加的行数据数组
-	 * @param resetIndex 是否重置序号列
+	 * @param oa
+	 *            追加的行数据数组
+	 * @param resetIndex
+	 *            是否重置序号列
 	 * @return
 	 */
 	public int addRow(Object[] oa, boolean resetIndex) {
@@ -1586,8 +1677,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 插入行
 	 * 
-	 * @param row     行号
-	 * @param rowData 行数据数组
+	 * @param row
+	 *            行号
+	 * @param rowData
+	 *            行数据数组
 	 * @return
 	 */
 	public int insertRow(int row, Object[] rowData) {
@@ -1597,9 +1690,12 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 插入行
 	 * 
-	 * @param row        行号
-	 * @param rowData    行数据数组
-	 * @param resetIndex 是否重置序号列
+	 * @param row
+	 *            行号
+	 * @param rowData
+	 *            行数据数组
+	 * @param resetIndex
+	 *            是否重置序号列
 	 * @return
 	 */
 	public int insertRow(int row, Object[] rowData, boolean resetIndex) {
@@ -1624,7 +1720,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 列是否可视
 	 * 
-	 * @param column 列标识符
+	 * @param column
+	 *            列标识符
 	 * @return
 	 */
 	public boolean isColumnVisible(Object column) {
@@ -1642,8 +1739,10 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 行光标变化
 	 * 
-	 * @param oldRow 之前选择的行
-	 * @param newRow 新选择的行
+	 * @param oldRow
+	 *            之前选择的行
+	 * @param newRow
+	 *            新选择的行
 	 */
 	private void fireRowfocusChanged(int oldRow, int newRow) {
 		if (!ifFireRowfocusChangedEvent) {
@@ -1711,7 +1810,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * 设置禁止列的颜色
 	 * 
-	 * @param c Color
+	 * @param c
+	 *            Color
 	 */
 	public void setDisabledColor(Color foreColor, Color backColor) {
 		disabledForeColor = foreColor;
@@ -1721,7 +1821,8 @@ public class JTableEx extends JTable implements MouseListener,
 	/**
 	 * focusGained
 	 * 
-	 * @param e FocusEvent
+	 * @param e
+	 *            FocusEvent
 	 */
 	public void focusGained(FocusEvent e) {
 	}
@@ -1809,7 +1910,8 @@ public class JTableEx extends JTable implements MouseListener,
 		/**
 		 * focusGained
 		 * 
-		 * @param e FocusEvent
+		 * @param e
+		 *            FocusEvent
 		 */
 		public void focusGained(FocusEvent e) {
 			parent.focusGained(e);
@@ -1818,7 +1920,8 @@ public class JTableEx extends JTable implements MouseListener,
 		/**
 		 * focusLost
 		 * 
-		 * @param e FocusEvent
+		 * @param e
+		 *            FocusEvent
 		 */
 		public void focusLost(FocusEvent e) {
 			// 只有在值改动过时触发接受，否则单击表格不能直接编辑，以及会影响到输入法
@@ -1831,7 +1934,8 @@ public class JTableEx extends JTable implements MouseListener,
 		/**
 		 * keyPressed
 		 * 
-		 * @param e KeyEvent
+		 * @param e
+		 *            KeyEvent
 		 */
 		public void keyPressed(KeyEvent e) {
 			parent.keyPressed(e);
@@ -1840,7 +1944,8 @@ public class JTableEx extends JTable implements MouseListener,
 		/**
 		 * keyReleased
 		 * 
-		 * @param e KeyEvent
+		 * @param e
+		 *            KeyEvent
 		 */
 		public void keyReleased(KeyEvent e) {
 			if (e != null) {
@@ -1858,7 +1963,8 @@ public class JTableEx extends JTable implements MouseListener,
 		/**
 		 * keyTyped
 		 * 
-		 * @param e KeyEvent
+		 * @param e
+		 *            KeyEvent
 		 */
 		public void keyTyped(KeyEvent e) {
 		}

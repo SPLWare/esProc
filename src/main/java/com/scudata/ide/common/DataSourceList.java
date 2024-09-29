@@ -29,12 +29,12 @@ public class DataSourceList extends JList<DataSource> {
 	 * 
 	 * @param model
 	 */
-	public DataSourceList(DataSourceListModel model) {
+	public DataSourceList(Component parent, DataSourceListModel model) {
 		this.setModel(model);
 		try {
 			setCellRenderer(new DataSourceRenderer());
 		} catch (Exception x) {
-			GM.showException(GV.appFrame, x);
+			GM.showException(parent, x);
 		}
 	}
 }

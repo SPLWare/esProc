@@ -276,9 +276,9 @@ public class DialogHostManager extends JDialog implements ActionListener {
 			tableHost.acceptText();
 			int count = tableHost.getRowCount();
 			if (count > 0) {
-				if (!tableHost.verifyColumnData(COL_HOST, TITLE_HOST, false))
+				if (!tableHost.verifyColumnData(COL_HOST, TITLE_HOST, false, this))
 					return;
-				if (!tableHost.verifyColumnData(COL_PORT, TITLE_PORT, false))
+				if (!tableHost.verifyColumnData(COL_PORT, TITLE_PORT, false, this))
 					return;
 				for (int i = 0; i < count; i++) {
 					Object port = tableHost.data.getValueAt(i, COL_PORT);

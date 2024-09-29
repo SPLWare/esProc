@@ -652,7 +652,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	private boolean checkData() {
 		tableConst.acceptText();
 		if (!tableConst
-				.verifyColumnData(COL_NAME, mm.getMessage("public.name"))) { // Ãû³Æ
+				.verifyColumnData(COL_NAME, mm.getMessage("public.name"), true, this)) { // Ãû³Æ
 			return false;
 		}
 		int count = tableConst.getRowCount();

@@ -1,6 +1,7 @@
 package com.scudata.ide.common.dialog;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -311,7 +312,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 
 			Object[] options = { mm.getMessage("public.delete"),
 					mm.getMessage("public.cancel") };
-			int option = GM.optionDialog(GV.appFrame,
+			int option = GM.optionDialog(this,
 					mm.getMessage("dialogdatasource.mustdelds", ds.getName()),
 					mm.getMessage("public.note"), JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.QUESTION_MESSAGE, options);
@@ -405,7 +406,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 
 		if (index > -1 && index < size) {
 			ds = (DataSource) dsModel.getElementAt(index);
-			if (!isLocalDataSource(ds, true)) {
+			if (!isLocalDataSource(this, ds, true)) {
 				return;
 			}
 			int option = JOptionPane.CANCEL_OPTION;
@@ -444,11 +445,11 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 *            是否显示异常信息
 	 * @return
 	 */
-	public static boolean isLocalDataSource(DataSource ds, boolean showMessage) {
+	public static boolean isLocalDataSource(Component parent, DataSource ds, boolean showMessage) {
 		if (ds.isSystem()) {
 			if (showMessage) {
 				GM.messageDialog(
-						GV.appFrame,
+						parent,
 						IdeCommonMessage.get().getMessage(
 								"dialogdatasource.canteditds", ds.getName()),
 						IdeCommonMessage.get().getMessage("public.note"),
@@ -585,7 +586,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	public void init(DataSourceListModel dslm) {
 		try {
 			dsModel = dslm;
-			jListDS = new DataSourceList(dslm);
+			jListDS = new DataSourceList(this, dslm);
 			initUI();
 			resetLangText();
 			setSize(GM.isChineseLanguage() ? 400 : 500, 300);

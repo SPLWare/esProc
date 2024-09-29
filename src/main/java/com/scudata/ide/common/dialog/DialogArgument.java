@@ -463,7 +463,7 @@ public class DialogArgument extends DialogMaxmizable {
 	 * @param e
 	 */
 	void jBOK_actionPerformed(ActionEvent e) {
-		if (!paraTable.verifyColumnData(COL_NAME, TITLE_NAME)) {
+		if (!paraTable.verifyColumnData(COL_NAME, TITLE_NAME, true, this)) {
 			return;
 		}
 		if (!saveParamList()) {

@@ -24,7 +24,6 @@ import com.scudata.common.ODBCUtil;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.VFlowLayout;
@@ -157,7 +156,8 @@ public class DialogODBCDataSource extends JDialog {
 	 * @param config
 	 */
 	public void set(DBConfig config) {
-		if (!DialogDataSource.isLocalDataSource(new DataSource(config), false)) {
+		if (!DialogDataSource.isLocalDataSource(this, new DataSource(config),
+				false)) {
 			jBOK.setEnabled(false);
 		}
 		oldDSName = config.getName();
