@@ -1,5 +1,6 @@
 package com.scudata.dm;
 
+import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.math.BigInteger;
 
 import com.scudata.common.DateCache;
 import com.scudata.common.ObjectCache;
+import com.scudata.common.RQException;
 
 /**
  * 用于从输入流读Object，对应的读为ObjectWriter
@@ -59,6 +61,12 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		buffer = new byte[bufSize];
 	}
 
+	public ObjectReader(byte []buffer) {
+		this.buffer = buffer;
+		count = buffer.length;
+		in = new ByteArrayInputStream(buffer, count, count);
+	}
+	
 	private int readBuffer() throws IOException {
 		do {
 			count = in.read(buffer);
@@ -1155,5 +1163,25 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		index = reader.index; // 下一字节在buffer中的索引
 		count = reader.count; // 读入buffer的实际字节数目
 		position = reader.position;
+	}
+	
+	/**
+	 * 把按编码规则写出的序表对象字节数组读成序表
+	 * @param buffer
+	 * @return
+	 */
+	public static Table toTable(byte []buffer) {
+		ObjectReader reader = new ObjectReader(buffer);
+		try {
+			return reader.readTable();
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
 	}
 }
