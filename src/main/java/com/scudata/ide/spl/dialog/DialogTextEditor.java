@@ -25,7 +25,6 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
@@ -82,29 +81,45 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	/**
 	 * 构造函数
 	 */
-	public DialogTextEditor() {
-		this(true);
+	public DialogTextEditor(JFrame parent) {
+		this(parent, true);
 	}
 
 	/**
 	 * 构造函数
-	 * 
-	 * @param isEditable 是否可以编辑
 	 */
-	public DialogTextEditor(boolean isEditable) {
-		this(GV.appFrame, isEditable);
+	public DialogTextEditor(JDialog parent) {
+		this(parent, true);
 	}
 
 	/**
 	 * 构造函数
 	 * 
-	 * @param parent     父组件
-	 * @param isEditable 是否可以编辑
+	 * @param parent
+	 *            父组件
+	 * @param isEditable
+	 *            是否可以编辑
 	 */
 	public DialogTextEditor(JFrame parent, boolean isEditable) {
 		super(parent, "", true);
-		init();
+		rqInit(isEditable);
+	}
 
+	/**
+	 * 构造函数
+	 * 
+	 * @param parent
+	 *            父组件
+	 * @param isEditable
+	 *            是否可以编辑
+	 */
+	public DialogTextEditor(JDialog parent, boolean isEditable) {
+		super(parent, "", true);
+		rqInit(isEditable);
+	}
+
+	private void rqInit(boolean isEditable) {
+		init();
 		GM.setWindowToolSize(this);
 		GM.setDialogDefaultButton(this, okButton, cancelButton);
 		this.setResizable(true);

@@ -119,8 +119,8 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	/**
 	 * 构造函数
 	 */
-	public DialogHostManager() {
-		super(GV.appFrame, "FTP主机管理", true);
+	public DialogHostManager(JDialog parent) {
+		super(parent, "FTP主机管理", true);
 		try {
 			init();
 			setSize(600, 300);

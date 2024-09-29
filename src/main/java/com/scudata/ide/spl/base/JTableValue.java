@@ -2340,7 +2340,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	private void showText(int row, int col, Object cellVal) {
-		DialogTextEditor dte = new DialogTextEditor(false);
+		DialogTextEditor dte = new DialogTextEditor(GV.appFrame, false);
 		dte.setText((String) cellVal);
 		dte.setVisible(true);
 	}

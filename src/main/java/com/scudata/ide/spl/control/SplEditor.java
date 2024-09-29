@@ -134,8 +134,10 @@ public class SplEditor {
 	/**
 	 * 构造函数
 	 * 
-	 * @param sheet   页面对象
-	 * @param context 上下文
+	 * @param sheet
+	 *            页面对象
+	 * @param context
+	 *            上下文
 	 */
 	public SplEditor(SheetSpl sheet) {
 		this.sheet = sheet;
@@ -186,8 +188,10 @@ public class SplEditor {
 	/**
 	 * 构造编辑控件
 	 * 
-	 * @param rows 行数
-	 * @param cols 列数
+	 * @param rows
+	 *            行数
+	 * @param cols
+	 *            列数
 	 * @return EditControl
 	 */
 	protected EditControl newEditControl(int rows, int cols) {
@@ -218,7 +222,8 @@ public class SplEditor {
 	/**
 	 * 设置集算器网格
 	 * 
-	 * @param cellSet 集算器网格对象
+	 * @param cellSet
+	 *            集算器网格对象
 	 * @return
 	 * @throws Exception
 	 */
@@ -254,8 +259,10 @@ public class SplEditor {
 	/**
 	 * 选择格子
 	 * 
-	 * @param row 行号
-	 * @param col 列号
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
 	 */
 	public void selectCell(int row, int col) {
 		if (control.cellSet.getRowCount() < row
@@ -307,7 +314,8 @@ public class SplEditor {
 	/**
 	 * 执行原子命令集
 	 * 
-	 * @param cmds 原子命令集
+	 * @param cmds
+	 *            原子命令集
 	 * @return
 	 */
 	public boolean executeCmd(Vector<IAtomicCmd> cmds) {
@@ -319,7 +327,8 @@ public class SplEditor {
 	/**
 	 * 执行原子命令
 	 * 
-	 * @param aCell 原子命令
+	 * @param aCell
+	 *            原子命令
 	 * @return
 	 */
 	public boolean executeCmd(IAtomicCmd aCell) {
@@ -493,9 +502,12 @@ public class SplEditor {
 	/**
 	 * 取函数对象
 	 * 
-	 * @param row 行号
-	 * @param col 列号
-	 * @param oes 函数对象映射
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param oes
+	 *            函数对象映射
 	 * 
 	 * @return
 	 */
@@ -609,7 +621,8 @@ public class SplEditor {
 	/**
 	 * 插入/追加行
 	 * 
-	 * @param insertBefore 是否插入行。true行前插入，false追加行。
+	 * @param insertBefore
+	 *            是否插入行。true行前插入，false追加行。
 	 * @return
 	 */
 	public boolean insertRow(boolean insertBefore) {
@@ -631,8 +644,10 @@ public class SplEditor {
 	/**
 	 * 插入/追加行
 	 * 
-	 * @param rect         选择区域
-	 * @param insertBefore 是否插入行。true行前插入，false追加行。
+	 * @param rect
+	 *            选择区域
+	 * @param insertBefore
+	 *            是否插入行。true行前插入，false追加行。
 	 * @return
 	 */
 	public boolean insertRow(CellRect rect, boolean insertBefore) {
@@ -683,8 +698,10 @@ public class SplEditor {
 	/**
 	 * 取插入/追加行的原子命令
 	 * 
-	 * @param insertBefore 是否插入行。true行前插入，false追加行。
-	 * @param rect         选中的格子矩阵
+	 * @param insertBefore
+	 *            是否插入行。true行前插入，false追加行。
+	 * @param rect
+	 *            选中的格子矩阵
 	 * @return
 	 */
 	public AtomicSpl getInsertRow(boolean insertBefore, CellRect rect) {
@@ -705,7 +722,8 @@ public class SplEditor {
 	/**
 	 * 复制指定行外观属性的格子,包含行首格
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	private ArrayList<RowCell> getApprCopiedRowCells(int row) {
@@ -727,9 +745,12 @@ public class SplEditor {
 	/**
 	 * 设置单元格属性
 	 * 
-	 * @param type     选择类型
-	 * @param property 格子属性类型
-	 * @param value    值
+	 * @param type
+	 *            选择类型
+	 * @param property
+	 *            格子属性类型
+	 * @param value
+	 *            值
 	 * @return
 	 */
 	public boolean setProperty(byte type, byte property, Object value) {
@@ -834,8 +855,10 @@ public class SplEditor {
 	/**
 	 * 插入/追加列
 	 * 
-	 * @param rect         选择格子区域
-	 * @param insertBefore 是否插入列。true列前插入，false追加列。
+	 * @param rect
+	 *            选择格子区域
+	 * @param insertBefore
+	 *            是否插入列。true列前插入，false追加列。
 	 * @return
 	 */
 	public boolean insertCol(CellRect rect, boolean insertBefore) {
@@ -859,7 +882,8 @@ public class SplEditor {
 	/**
 	 * 追加列
 	 * 
-	 * @param cols 追加的列数
+	 * @param cols
+	 *            追加的列数
 	 */
 	public void appendCols(int cols) {
 		insertCol(new CellRect(1, (int) control.cellSet.getColCount(), 1,
@@ -869,7 +893,8 @@ public class SplEditor {
 	/**
 	 * 取追加列的原子命令
 	 * 
-	 * @param cols 追加的列数
+	 * @param cols
+	 *            追加的列数
 	 * @return
 	 */
 	public IAtomicCmd getAppendCols(int cols) {
@@ -881,7 +906,8 @@ public class SplEditor {
 	/**
 	 * 追加指定的行数到末尾，用于块操作溢出时的添加行
 	 * 
-	 * @param rows 追加的行数
+	 * @param rows
+	 *            追加的行数
 	 */
 	public void appendRows(int rows) {
 		executeCmd(getAppendRows(rows));
@@ -890,7 +916,8 @@ public class SplEditor {
 	/**
 	 * 取追加行的原子命令
 	 * 
-	 * @param rows 追加的行数
+	 * @param rows
+	 *            追加的行数
 	 * @return
 	 */
 	public IAtomicCmd getAppendRows(int rows) {
@@ -901,7 +928,8 @@ public class SplEditor {
 	/**
 	 * 把当前选中的列设为统一的列宽度
 	 * 
-	 * @param newWidth 新的列宽
+	 * @param newWidth
+	 *            新的列宽
 	 */
 	public void setColumnWidth(float newWidth) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -928,7 +956,8 @@ public class SplEditor {
 	/**
 	 * 设置当前选中列的可视属性
 	 * 
-	 * @param visible 是否可视
+	 * @param visible
+	 *            是否可视
 	 */
 	public void setColumnVisible(boolean visible) {
 		if (selectedCols == null || selectedCols.size() == 0) {
@@ -985,8 +1014,10 @@ public class SplEditor {
 	/**
 	 * 设置当前选中列的可视属性
 	 * 
-	 * @param columns 指定的列
-	 * @param visible 是否可视
+	 * @param columns
+	 *            指定的列
+	 * @param visible
+	 *            是否可视
 	 */
 	public void setColumnsVisible(ArrayList<Integer> columns, boolean visible) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1006,7 +1037,8 @@ public class SplEditor {
 	/**
 	 * 把当前选中的行设为统一的行高度
 	 * 
-	 * @param newHeight 新行高
+	 * @param newHeight
+	 *            新行高
 	 */
 	public void setRowHeight(float newHeight) {
 		CellSetParser parser = new CellSetParser(control.getCellSet());
@@ -1083,7 +1115,8 @@ public class SplEditor {
 	/**
 	 * 设置当前选中行的可视属性
 	 * 
-	 * @param visible 是否可视
+	 * @param visible
+	 *            是否可视
 	 */
 	public void setRowVisible(boolean visible) {
 		if (selectedRows == null || selectedRows.size() == 0) {
@@ -1137,8 +1170,10 @@ public class SplEditor {
 	/**
 	 * 设置指定行的可视属性
 	 * 
-	 * @param rows    指定的行号列表
-	 * @param visible 是否可视
+	 * @param rows
+	 *            指定的行号列表
+	 * @param visible
+	 *            是否可视
 	 */
 	public void setRowsVisible(ArrayList<Integer> rows, boolean visible) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1158,7 +1193,8 @@ public class SplEditor {
 	/**
 	 * 按照热键执行相应的插入操作， 相对比较复杂，有数据块的移动等
 	 * 
-	 * @param key byte
+	 * @param key
+	 *            byte
 	 */
 	public void hotKeyInsert(byte key) {
 		CellLocation activeCell = control.getActiveCell();
@@ -1176,8 +1212,10 @@ public class SplEditor {
 	/**
 	 * 执行热键
 	 * 
-	 * @param key  定义的HK常量类型
-	 * @param rect 选择的格子矩阵
+	 * @param key
+	 *            定义的HK常量类型
+	 * @param rect
+	 *            选择的格子矩阵
 	 */
 	private void hotKeyInsert(byte key, CellRect rect) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1282,7 +1320,8 @@ public class SplEditor {
 	/**
 	 * 移动复制
 	 * 
-	 * @param key GCSpl中定义的常量
+	 * @param key
+	 *            GCSpl中定义的常量
 	 */
 	public void moveCopy(short key) {
 		if (this.isMultiRectSelected()) {
@@ -1372,7 +1411,8 @@ public class SplEditor {
 	/**
 	 * 插入/追加列
 	 * 
-	 * @param insertBefore 是否插入列。true插入列，false追加列
+	 * @param insertBefore
+	 *            是否插入列。true插入列，false追加列
 	 * @return
 	 */
 	public boolean insertCol(boolean insertBefore) {
@@ -1394,7 +1434,8 @@ public class SplEditor {
 	/**
 	 * 克隆行
 	 * 
-	 * @param isAdjust 克隆时是否调整表达式
+	 * @param isAdjust
+	 *            克隆时是否调整表达式
 	 */
 	public void dupRow(boolean isAdjust) {
 		if (isMultiRectSelected()) {
@@ -1452,8 +1493,10 @@ public class SplEditor {
 	/**
 	 * 取插入/追加列的原子命令
 	 * 
-	 * @param insertBefore 是否插入列。true插入列，false追加列
-	 * @param rect         选择的格子矩阵
+	 * @param insertBefore
+	 *            是否插入列。true插入列，false追加列
+	 * @param rect
+	 *            选择的格子矩阵
 	 * @return
 	 */
 	public IAtomicCmd getInsertCol(boolean insertBefore, CellRect rect) {
@@ -1475,7 +1518,8 @@ public class SplEditor {
 	/**
 	 * 复制指定列外观属性的格子,包含列首格
 	 * 
-	 * @param col 列号
+	 * @param col
+	 *            列号
 	 * @return
 	 */
 	private ArrayList<ColCell> getApprCopiedColCells(int col) {
@@ -1502,7 +1546,8 @@ public class SplEditor {
 	/**
 	 * 取格子属性映射表
 	 * 
-	 * @param type 选择的状态，GC中定义的常量
+	 * @param type
+	 *            选择的状态，GC中定义的常量
 	 * @return
 	 */
 	private IByteMap getCellByteMap(byte type) {
@@ -1564,7 +1609,8 @@ public class SplEditor {
 	/**
 	 * 删除
 	 * 
-	 * @param cmd GCSpl中定义的常量
+	 * @param cmd
+	 *            GCSpl中定义的常量
 	 * @return
 	 */
 	public boolean delete(short cmd) {
@@ -1599,7 +1645,7 @@ public class SplEditor {
 		control.getContentPanel().submitEditor();
 		NormalCell cell = getDisplayCell();
 		String exp = cell.getExpString();
-		DialogTextEditor dte = new DialogTextEditor();
+		DialogTextEditor dte = new DialogTextEditor(GV.appFrame);
 		dte.setText(exp);
 		try {
 			dte.setVisible(true);
@@ -1716,8 +1762,10 @@ public class SplEditor {
 	/**
 	 * 复制格子，同时生产系统剪贴板串
 	 * 
-	 * @param isCutStatus boolean,是否剪切状态
-	 * @param valueCopy   boolean，是否生成值串化的系统剪贴板
+	 * @param isCutStatus
+	 *            boolean,是否剪切状态
+	 * @param valueCopy
+	 *            boolean，是否生成值串化的系统剪贴板
 	 * @return boolean
 	 */
 	public boolean copy(boolean isCutStatus, boolean valueCopy) {
@@ -1994,7 +2042,8 @@ public class SplEditor {
 	/**
 	 * 将颜色转为html格式
 	 * 
-	 * @param color 颜色
+	 * @param color
+	 *            颜色
 	 * @return
 	 */
 	private String color2Html(Color color) {
@@ -2051,7 +2100,8 @@ public class SplEditor {
 	/**
 	 * 取选择的格子矩阵
 	 * 
-	 * @param rect 选择的格子矩形
+	 * @param rect
+	 *            选择的格子矩形
 	 * @return
 	 */
 	private Matrix getSelectedMatrix(CellRect rect) {
@@ -2061,7 +2111,8 @@ public class SplEditor {
 	/**
 	 * 展开行
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	public boolean expandRow(int row) {
@@ -2092,8 +2143,10 @@ public class SplEditor {
 	/**
 	 * 从剪贴板粘贴格子或者文本数据
 	 * 
-	 * @param isAdjustSelf 粘贴后是否调整自身表达式
-	 * @param pasteOption  粘贴时目标区域清空方式，当有清空方式时，按选择区域循环粘贴功能无效
+	 * @param isAdjustSelf
+	 *            粘贴后是否调整自身表达式
+	 * @param pasteOption
+	 *            粘贴时目标区域清空方式，当有清空方式时，按选择区域循环粘贴功能无效
 	 * @return
 	 */
 	public boolean paste(boolean isAdjustSelf, byte pasteOption) {
@@ -2161,8 +2214,10 @@ public class SplEditor {
 	/**
 	 * 执行选项粘贴
 	 * 
-	 * @param rect   选择的格子矩形
-	 * @param option 粘贴选项
+	 * @param rect
+	 *            选择的格子矩形
+	 * @param option
+	 *            粘贴选项
 	 * @return
 	 */
 	private Vector<IAtomicCmd> executePasteOption(CellRect rect, byte option)
@@ -2207,8 +2262,10 @@ public class SplEditor {
 	/**
 	 * 粘贴格子
 	 * 
-	 * @param isAdjustSelf 粘贴后是否调整自身表达式
-	 * @param cmds         粘贴时需要执行的命令，可能为null
+	 * @param isAdjustSelf
+	 *            粘贴后是否调整自身表达式
+	 * @param cmds
+	 *            粘贴时需要执行的命令，可能为null
 	 * @return
 	 */
 	private boolean pasteCell(boolean isAdjustSelf, Vector<IAtomicCmd> cmds) {
@@ -2365,7 +2422,8 @@ public class SplEditor {
 	/**
 	 * 从系统剪贴板粘贴文本
 	 * 
-	 * @param cmds 粘贴时需要同时执行的原子命令集
+	 * @param cmds
+	 *            粘贴时需要同时执行的原子命令集
 	 * @return
 	 */
 	private boolean pasteValue(Vector<IAtomicCmd> cmds) {
@@ -2430,7 +2488,8 @@ public class SplEditor {
 	/**
 	 * 清除
 	 * 
-	 * @param clearType 清除方式
+	 * @param clearType
+	 *            清除方式
 	 * @return
 	 */
 	public boolean clear(byte clearType) {
@@ -2477,8 +2536,10 @@ public class SplEditor {
 	/**
 	 * 取清除的原子命令集
 	 * 
-	 * @param rect    清理的区域
-	 * @param cmdType 清理的命令
+	 * @param rect
+	 *            清理的区域
+	 * @param cmdType
+	 *            清理的命令
 	 * @return
 	 */
 	private Vector<IAtomicCmd> getClearCmds(CellRect rect, byte cmdType) {
@@ -2501,7 +2562,8 @@ public class SplEditor {
 	/**
 	 * 删除行列
 	 * 
-	 * @param cmd 删除的命令
+	 * @param cmd
+	 *            删除的命令
 	 */
 	private void deleteRowOrCol(short cmd) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -2549,7 +2611,8 @@ public class SplEditor {
 	/**
 	 * 设置选择的区域
 	 * 
-	 * @param selectedAreas 选择的区域
+	 * @param selectedAreas
+	 *            选择的区域
 	 */
 	public void setSelectedAreas(Vector<Object> selectedAreas) {
 		this.selectedAreas = selectedAreas;
@@ -2682,7 +2745,8 @@ public class SplEditor {
 	/**
 	 * 设置选择的状态
 	 * 
-	 * @param state 选择的状态。GC中常量
+	 * @param state
+	 *            选择的状态。GC中常量
 	 */
 	private void setSelectState(byte state) {
 		selectState = state;
@@ -2692,7 +2756,8 @@ public class SplEditor {
 	/**
 	 * 选择区域
 	 * 
-	 * @param scrollActiveCellToVisible 是否滚动到选择区域显示
+	 * @param scrollActiveCellToVisible
+	 *            是否滚动到选择区域显示
 	 */
 	public void selectAreas(boolean scrollActiveCellToVisible) {
 		if (selectedAreas != null && !selectedAreas.isEmpty()) {
@@ -2803,8 +2868,10 @@ public class SplEditor {
 	/**
 	 * 移动区域
 	 * 
-	 * @param srcRect 源区域
-	 * @param tarRect 目标区域
+	 * @param srcRect
+	 *            源区域
+	 * @param tarRect
+	 *            目标区域
 	 * @return
 	 */
 	private boolean moveRect(CellRect srcRect, CellRect tarRect) {
@@ -2814,9 +2881,12 @@ public class SplEditor {
 	/**
 	 * 移动区域
 	 * 
-	 * @param srcRect        源区域
-	 * @param tarRect        目标区域
-	 * @param scrollToTarget 目标区域未显示时，是否滚动到目标区域使其显示
+	 * @param srcRect
+	 *            源区域
+	 * @param tarRect
+	 *            目标区域
+	 * @param scrollToTarget
+	 *            目标区域未显示时，是否滚动到目标区域使其显示
 	 * @return
 	 */
 	private boolean moveRect(CellRect srcRect, CellRect tarRect,
@@ -2836,8 +2906,10 @@ public class SplEditor {
 	/**
 	 * 将connnectRow连接到上一行的upCol位置
 	 * 
-	 * @param connectRow int
-	 * @param upCol      int
+	 * @param connectRow
+	 *            int
+	 * @param upCol
+	 *            int
 	 */
 	private void connectRowUpTo(int connectRow, int upCol) {
 		PgmCellSet cellSet = control.getCellSet();
@@ -2864,7 +2936,8 @@ public class SplEditor {
 	/**
 	 * 获取指定行中使用的列（非空）
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	private int getUsedCols(CellSet ics, int row) {
@@ -2875,7 +2948,8 @@ public class SplEditor {
 	/**
 	 * 获取指定行中空的列
 	 * 
-	 * @param row 行号
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	private int getEmptyColumns(CellSet ics, int row) {

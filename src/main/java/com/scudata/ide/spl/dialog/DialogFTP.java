@@ -415,7 +415,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	 * 主机管理对话框
 	 */
 	private void hostManager() {
-		DialogHostManager dhm = new DialogHostManager();
+		DialogHostManager dhm = new DialogHostManager(this);
 		dhm.setFTPInfo(ftpInfos);
 		dhm.setVisible(true);
 		if (dhm.getOption() == JOptionPane.OK_OPTION) {
