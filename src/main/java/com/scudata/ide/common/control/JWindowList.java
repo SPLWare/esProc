@@ -92,7 +92,7 @@ public abstract class JWindowList extends JWindow {
 		getContentPane().add(textFilter, BorderLayout.NORTH);
 		JScrollPane jSPWin = new JScrollPane(listWindow);
 		getContentPane().add(jSPWin, BorderLayout.CENTER);
-		this.addWindowFocusListener(new WindowAdapter() {
+		addWindowFocusListener(new WindowAdapter() {
 			public void windowLostFocus(WindowEvent e) {
 				if (isClickButton())
 					return;
@@ -174,7 +174,7 @@ public abstract class JWindowList extends JWindow {
 					if (showSheet((String) filterPaths.get(index)))
 						dispose();
 				} catch (Exception e1) {
-					GM.showException(JWindowList.this, e1);
+					GM.showException(e1);
 				}
 			}
 		});
@@ -184,7 +184,7 @@ public abstract class JWindowList extends JWindow {
 			}
 		});
 		textFilter.requestFocusInWindow();
-		this.setBackground(BACK_COLOR);
+		setBackground(BACK_COLOR);
 		textFilter.setBackground(BACK_COLOR);
 		listWindow.setBackground(BACK_COLOR);
 		jSPWin.setBackground(BACK_COLOR);

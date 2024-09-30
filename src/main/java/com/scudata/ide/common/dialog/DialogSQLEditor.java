@@ -509,7 +509,7 @@ public class DialogSQLEditor extends JDialog {
 	 */
 	private void refreshTables() {
 		String realSchema = GM.getRealSchema(jCBSchema.getSelectedItem());
-		Vector<String> v = GM.listSchemaTables(ds, realSchema, false);
+		Vector<String> v = GM.listSchemaTables(this, ds, realSchema, false);
 		if (v == null || v.isEmpty()) {
 			fromListLeft.x_setData(new Vector<Object>(), new Vector<String>());
 		} else {
@@ -797,7 +797,7 @@ public class DialogSQLEditor extends JDialog {
 				whereTable.addRow();
 			}
 		});
-		whereButtonAdd.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		whereButtonAdd.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_addrecord.gif"));
 		initIconButton(whereButtonAdd);
 		whereButtonDel.setToolTipText(mm.getMessage("dialogsqleditor.delete")); // Delete
@@ -806,7 +806,7 @@ public class DialogSQLEditor extends JDialog {
 				whereTable.deleteSelectedRow();
 			}
 		});
-		whereButtonDel.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		whereButtonDel.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_deleterecord.gif"));
 		initIconButton(whereButtonDel);
 		whereTable.setRowHeight(20);
@@ -840,7 +840,7 @@ public class DialogSQLEditor extends JDialog {
 				joinTable.addRow();
 			}
 		});
-		joinButtonAdd.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		joinButtonAdd.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_addrecord.gif"));
 		initIconButton(joinButtonAdd);
 		joinButtonDel.setToolTipText(mm.getMessage("dialogsqleditor.delete")); // Delete
@@ -849,7 +849,7 @@ public class DialogSQLEditor extends JDialog {
 				joinTable.deleteSelectedRow();
 			}
 		});
-		joinButtonDel.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		joinButtonDel.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_deleterecord.gif"));
 		initIconButton(joinButtonDel);
 		joinTable.setRowHeight(20);
@@ -920,7 +920,7 @@ public class DialogSQLEditor extends JDialog {
 		JButton bAuto = new JButton();
 		bAuto.setToolTipText(mm.getMessage("dialogsqleditor.autogen")); // Automatic
 		// generation
-		bAuto.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_loaddb.gif"));
+		bAuto.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "m_loaddb.gif"));
 		bAuto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Section s = new Section(selectListRight.totalItems());
@@ -965,7 +965,7 @@ public class DialogSQLEditor extends JDialog {
 				havingTable.addRow();
 			}
 		});
-		havingButtonAdd.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		havingButtonAdd.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_addrecord.gif"));
 		initIconButton(havingButtonAdd);
 		havingButtonDel.setToolTipText(mm.getMessage("dialogsqleditor.delete"));
@@ -974,7 +974,7 @@ public class DialogSQLEditor extends JDialog {
 				havingTable.deleteSelectedRow();
 			}
 		});
-		havingButtonDel.setIcon(GM.getImageIcon(GC.IMAGES_PATH
+		havingButtonDel.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "m_deleterecord.gif"));
 		initIconButton(havingButtonDel);
 		havingTable.setRowHeight(20);

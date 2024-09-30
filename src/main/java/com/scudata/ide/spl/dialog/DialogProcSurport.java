@@ -116,7 +116,7 @@ public class DialogProcSurport extends JDialog {
 
 		JPanel panelCenter = new JPanel(new BorderLayout());
 		JPanel panelInfo = new JPanel(new GridBagLayout());
-		JLabel labelImage = new JLabel(GM.getImageIcon(GC.IMAGES_PATH
+		JLabel labelImage = new JLabel(GM.getImageIcon(this, GC.IMAGES_PATH
 				+ "contact.png"));
 		JPanel panelImage = new JPanel(new BorderLayout());
 		panelImage.add(labelImage, BorderLayout.CENTER);

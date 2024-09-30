@@ -91,11 +91,11 @@ public class DialogViewValue extends JDialog implements ActionListener {
 		this.getContentPane().setLayout(new BorderLayout());
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		panelNorth.add(new JLabel(), getGBC(1, 1, true));
-		jBUndo.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_pmtundo.gif"));
+		jBUndo.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "m_pmtundo.gif"));
 		jBUndo.setToolTipText(splMM.getMessage("panelvaluebar.undo")); // ºóÍË
 		initButton(jBUndo);
 		panelNorth.add(jBUndo, getGBC(1, 2));
-		jBRedo.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_pmtredo.gif"));
+		jBRedo.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "m_pmtredo.gif"));
 		jBRedo.setToolTipText(splMM.getMessage("panelvaluebar.redo")); // Ç°½ø
 		initButton(jBRedo);
 		panelNorth.add(jBRedo, getGBC(1, 3));

@@ -232,7 +232,7 @@ public class DialogInputArgument extends JDialog {
 							this,
 							ex,
 							true,
-							GM.getLogoImage(true),
+							GM.getLogoImage(this, true),
 							IdeSplMessage.get().getMessage(
 									"dialoginputargument.parseerrorpre", name));
 					return false;

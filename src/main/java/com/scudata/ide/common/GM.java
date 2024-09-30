@@ -607,17 +607,6 @@ public class GM {
 	/**
 	 * Select file dialog
 	 * 
-	 * @param fileExts
-	 * @return
-	 */
-	public static File[] dialogSelectFiles(String fileExts) {
-		return dialogSelectFiles(GV.appFrame, fileExts, GV.lastDirectory, "",
-				null);
-	}
-
-	/**
-	 * Select file dialog
-	 * 
 	 * @param parent
 	 * @param fileExts
 	 * @return
@@ -927,20 +916,6 @@ public class GM {
 			val = formatter.format(cal.getTime());
 		}
 		return val;
-	}
-	
-	/**
-	 * Dialog to select directory
-	 * 
-	 * @param parent
-	 *            Parent window
-	 * @param currentDirectory
-	 *            Initial path
-	 * @return
-	 */
-	public static String dialogSelectDirectory(
-			String currentDirectory) {
-		return dialogSelectDirectory(GV.appFrame, currentDirectory);
 	}
 
 	/**
@@ -1361,6 +1336,10 @@ public class GM {
 		return getImageIcon(filePath, true);
 	}
 
+	public static ImageIcon getImageIcon(Component parent, String filePath) {
+		return getImageIcon(parent, filePath, true);
+	}
+
 	/**
 	 * Read the picture according to the path
 	 * 
@@ -1370,6 +1349,11 @@ public class GM {
 	 * @return
 	 */
 	public static ImageIcon getImageIcon(String filePath, boolean showException) {
+		return getImageIcon(GV.appFrame, filePath, showException);
+	}
+
+	public static ImageIcon getImageIcon(Component parent, String filePath,
+			boolean showException) {
 		try {
 			File f = new File(filePath);
 			InputStream is = null;
@@ -1399,7 +1383,7 @@ public class GM {
 		} catch (Exception e) {
 			// Logger.info(e.getMessage());
 			if (showException) {
-				showException(GV.appFrame, e);
+				showException(parent, e);
 			}
 		}
 		return null;
@@ -1520,7 +1504,8 @@ public class GM {
 		if (pre != null) {
 			msg = pre + "\n" + msg;
 		}
-		if (parent == null) {
+		if (parent == null
+				|| (!(parent instanceof Dialog) && !(parent instanceof Frame))) {
 			parent = GV.appFrame;
 		}
 		if (canCopyMsg) {
@@ -2116,17 +2101,23 @@ public class GM {
 	 * @return
 	 */
 	public static boolean canSaveAsFile(String saveAsFile) {
+		return canSaveAsFile(GV.appFrame, saveAsFile);
+	}
+
+	public static boolean canSaveAsFile(Component parent, String saveAsFile) {
 		if (!StringUtils.isValidString(saveAsFile)) {
-			GM.messageDialog(GV.appFrame,
+			GM.messageDialog(parent,
 					IdeCommonMessage.get().getMessage("gm.inputfilename"));
 			return false;
 		}
 
 		File saveFile = new File(saveAsFile);
 		if (saveFile.exists()) {
-			int r = optionDialog(GV.appFrame, IdeCommonMessage.get()
-					.getMessage("gm.existfile", saveAsFile), IdeCommonMessage
-					.get().getMessage("public.note"),
+			int r = optionDialog(
+					parent,
+					IdeCommonMessage.get().getMessage("gm.existfile",
+							saveAsFile),
+					IdeCommonMessage.get().getMessage("public.note"),
 					JOptionPane.OK_CANCEL_OPTION);
 			if (r != JOptionPane.OK_OPTION) {
 				return false;
@@ -2192,6 +2183,10 @@ public class GM {
 	 * @return
 	 */
 	public static ImageIcon getLogoImage(boolean isGetIcon) {
+		return getLogoImage(GV.appFrame, isGetIcon);
+	}
+
+	public static ImageIcon getLogoImage(Component parent, boolean isGetIcon) {
 		String relativeFile = GC.PATH_LOGO;
 		String pLogo;
 		/* Whether to display a popup window when the logo is not found */
@@ -2220,10 +2215,10 @@ public class GM {
 			if (isGetIcon) {
 				InputStream is = GM.class.getResourceAsStream(relativeFile);
 				if (is == null) {
-					return getLogoImage(false);
+					return getLogoImage(parent, false);
 				}
 			}
-			ii = getImageIcon(relativeFile, isShowException);
+			ii = getImageIcon(parent, relativeFile, isShowException);
 		}
 		return ii;
 
@@ -2430,26 +2425,13 @@ public class GM {
 	 *            Data source
 	 * @param schema
 	 *            The schema name
-	 * @return
-	 */
-	public static Vector<String> listSchemaTables(DataSource ds, String schema) {
-		return listSchemaTables(ds, schema, true, true);
-	}
-
-	/**
-	 * Get the list of table names in the schema
-	 * 
-	 * @param ds
-	 *            Data source
-	 * @param schema
-	 *            The schema name
 	 * @param showMsg
 	 *            Whether to display exception information
 	 * @return
 	 */
 	public static Vector<String> listSchemaTables(DataSource ds, String schema,
 			boolean showMsg) {
-		return listSchemaTables(ds, schema, true, showMsg);
+		return listSchemaTables(GV.appFrame, ds, schema, showMsg);
 	}
 
 	/**
@@ -2465,16 +2447,16 @@ public class GM {
 	 *            Whether to display exception information
 	 * @return
 	 */
-	public static Vector<String> listSchemaTables(DataSource ds, String schema,
-			boolean schemaPrefix, boolean showMsg) {
+	public static Vector<String> listSchemaTables(Component parent,
+			DataSource ds, String schema, boolean showMsg) {
 		try {
 			if (ds == null || ds.isOLAP()) {
 				return new Vector<String>();
 			}
-			return listTableNames(ds, false, schema, schemaPrefix);
+			return listTableNames(ds, false, schema, true);
 		} catch (Throwable e) {
 			if (showMsg) {
-				GM.showException(GV.appFrame, e);
+				GM.showException(parent, e);
 			} else {
 				Logger.debug(e);
 			}
@@ -3474,10 +3456,10 @@ public class GM {
 	 *            The data source
 	 * @return
 	 */
-	public static boolean isExistDataSource(DataSource ds) {
+	public static boolean isExistDataSource(Component parent, DataSource ds) {
 		if (GV.dsModel.existDSName(ds.getName())) {
 			GM.messageDialog(
-					GV.appFrame,
+					parent,
 					IdeCommonMessage.get().getMessage(
 							"dialogdatasource.existdsname", ds.getName()),
 					IdeCommonMessage.get().getMessage("public.note"),

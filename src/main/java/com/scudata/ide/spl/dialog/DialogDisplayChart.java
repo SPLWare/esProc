@@ -67,8 +67,8 @@ import com.scudata.ide.spl.resources.ChartMessage;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * 将画布对象或者已经画好的图像信息
- * 显示为统计图
+ * 将画布对象或者已经画好的图像信息 显示为统计图
+ * 
  * @author Joancy
  *
  */
@@ -106,7 +106,7 @@ public class DialogDisplayChart extends JDialog {
 	MessageManager splMM = IdeSplMessage.get();
 	MessageManager mm = ChartMessage.get();
 
-	/************动画****************/
+	/************ 动画 ****************/
 	private JLabel labelFrameCount = new JLabel("动画帧数");
 	int defCount = 24;
 	private JSpinner spFrameCount = new JSpinner(new SpinnerNumberModel(
@@ -121,7 +121,9 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param imageBytes 图像数据
+	 * 
+	 * @param imageBytes
+	 *            图像数据
 	 */
 	public DialogDisplayChart(byte[] imageBytes) {
 		super(GV.appFrame, "Chart Display", true);
@@ -165,7 +167,9 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 构造函数
-	 * @param data 数据表
+	 * 
+	 * @param data
+	 *            数据表
 	 */
 	public DialogDisplayChart(Table data) {
 		super(GV.appFrame, "Chart Display", true);
@@ -219,6 +223,7 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 获取图形名称
+	 * 
 	 * @return 名称
 	 */
 	public String getGraphName() {
@@ -248,6 +253,7 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 获取属性映射表
+	 * 
 	 * @return 属性值映射表
 	 */
 	public HashMap<String, Object> getProperties() {
@@ -256,7 +262,9 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 设置属性值映射表
-	 * @param properties 属性值
+	 * 
+	 * @param properties
+	 *            属性值
 	 */
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
@@ -438,8 +446,8 @@ public class DialogDisplayChart extends JDialog {
 				if (p > 0) {
 					txt = txt.substring(0, p);
 				}
-				File saveFile = GM.dialogSelectFile(DialogDisplayChart.this, fileExt, GV.lastDirectory,
-						txt, "");
+				File saveFile = GM.dialogSelectFile(DialogDisplayChart.this,
+						fileExt, GV.lastDirectory, txt, "");
 				if (saveFile == null) {
 					return;
 				}
@@ -447,7 +455,7 @@ public class DialogDisplayChart extends JDialog {
 				String sfile = saveFile.getAbsolutePath();
 				GV.lastDirectory = saveFile.getParent();
 
-				if (!GM.canSaveAsFile(sfile)) {
+				if (!GM.canSaveAsFile(DialogDisplayChart.this, sfile)) {
 					return;
 				}
 				// save
@@ -474,8 +482,9 @@ public class DialogDisplayChart extends JDialog {
 							age.addFrame(bi);
 						}
 						age.finish();
-						GM.showException(DialogDisplayChart.this, splMM.getMessage(
-								"dialogdisplaychart.saveinfo", saveFile));
+						GM.showException(DialogDisplayChart.this, splMM
+								.getMessage("dialogdisplaychart.saveinfo",
+										saveFile));
 					} catch (Exception x) {
 						GM.showException(DialogDisplayChart.this, x);
 					}
@@ -748,7 +757,7 @@ public class DialogDisplayChart extends JDialog {
 			this.setSize(800, 600);
 		} else if (ii.getIconWidth() != -1) {
 			int w = ii.getIconWidth() + 100;
-			int h = ii.getIconHeight()+ 30;
+			int h = ii.getIconHeight() + 30;
 			if (w > 700 || h > 570) {
 				w = 800;
 				h = 600;
@@ -768,7 +777,9 @@ public class DialogDisplayChart extends JDialog {
 
 	/**
 	 * 将图像数据复制到系统剪贴板
-	 * @param image 图像
+	 * 
+	 * @param image
+	 *            图像
 	 */
 	public static void setClipboardImage(final Image image) {
 		Transferable trans = new Transferable() {

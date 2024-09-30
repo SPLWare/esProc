@@ -164,7 +164,7 @@ public class DialogAbout extends JDialog {
 	 * @return
 	 */
 	protected ImageIcon getLogoImageIcon() {
-		return GM.getLogoImage(false);
+		return GM.getLogoImage(this, false);
 	}
 
 	/**

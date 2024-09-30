@@ -329,7 +329,7 @@ public class DialogODBCDataSource extends JDialog {
 							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-			} else if (isNameChanged() && GM.isExistDataSource(get())) {
+			} else if (isNameChanged() && GM.isExistDataSource(this, get())) {
 				return;
 			}
 			GM.setWindowDimension(this);

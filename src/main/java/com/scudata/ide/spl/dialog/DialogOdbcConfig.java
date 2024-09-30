@@ -291,8 +291,8 @@ public class DialogOdbcConfig extends JDialog {
 		jBCancel.setMnemonic('C');
 		jPanelButton.add(jBOK, null);
 		jPanelButton.add(jBCancel, null);
-		bAddUser.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_add.gif"));
-		bDeleteUser.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_delete.gif"));
+		bAddUser.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "b_add.gif"));
+		bDeleteUser.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "b_delete.gif"));
 
 		// Normal
 		GridBagConstraints gbc;

@@ -365,8 +365,8 @@ public class DialogUnitConfig extends JDialog {
 		jPanelButton.add(jBOK, null);
 		jPanelButton.add(jBCancel, null);
 
-		ImageIcon iiAdd = GM.getImageIcon(GC.IMAGES_PATH + "b_add.gif");
-		ImageIcon iiDel = GM.getImageIcon(GC.IMAGES_PATH + "b_delete.gif");
+		ImageIcon iiAdd = GM.getImageIcon(this, GC.IMAGES_PATH + "b_add.gif");
+		ImageIcon iiDel = GM.getImageIcon(this, GC.IMAGES_PATH + "b_delete.gif");
 
 		bAddHost.setIcon(iiAdd);
 		bDeleteHost.setIcon(iiDel);
@@ -454,8 +454,8 @@ public class DialogUnitConfig extends JDialog {
 		// clients
 		tableClients.setIndexCol(COL_INDEX);
 		tableClients.setRowHeight(20);
-		bAddClient.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_add.gif"));
-		bDeleteClient.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_delete.gif"));
+		bAddClient.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "b_add.gif"));
+		bDeleteClient.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "b_delete.gif"));
 
 		panelClient.setLayout(new GridBagLayout());
 		panelClient.add(cbCheck, GM.getGBC(1, 1, true));

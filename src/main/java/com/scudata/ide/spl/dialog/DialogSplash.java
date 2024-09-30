@@ -77,13 +77,13 @@ public class DialogSplash extends JWindow {
 			if (f.exists()) {
 				ii = new ImageIcon(path);
 			} else {
-				ii = GM.getImageIcon(splashImage);
+				ii = GM.getImageIcon(this, splashImage);
 			}
 		}
 		if (ii == null) {
 			String imgPath = GC.IMAGES_PATH + getDefaultImageName()
 					+ GM.getLanguageSuffix() + ".png";
-			ii = GM.getImageIcon(imgPath);
+			ii = GM.getImageIcon(this, imgPath);
 		}
 		return ii;
 	}

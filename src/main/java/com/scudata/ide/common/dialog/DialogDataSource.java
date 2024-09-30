@@ -459,7 +459,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		} else if (ds.isRemote()) {
 			if (showMessage) {
 				GM.messageDialog(
-						GV.appFrame,
+						parent,
 						IdeCommonMessage.get().getMessage(
 								"dialogdatasource.editremote", ds.getName()),
 						IdeCommonMessage.get().getMessage("public.note"),
