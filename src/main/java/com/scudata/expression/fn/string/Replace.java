@@ -77,16 +77,31 @@ public class Replace extends Function {
 	private static String replace(String srcString, int pos, String replacement) {
 		if (replacement == null) {
 			return srcString;
+		} else if (pos < srcString.length()) {
+			return srcString.substring(0, pos) + replacement + srcString.substring(pos);
 		} else {
-			return srcString.substring(0, pos) + (String)replacement + srcString.substring(pos);
+			return srcString + replacement;
 		}
 	}
 	
 	private static String replace(String srcString, int pos, int len, String replacement) {
-		if (replacement == null) {
+		int srcLen = srcString.length();
+		if (pos >= srcLen) {
+			if (replacement == null) {
+				return srcString;
+			} else {
+				return srcString + replacement;
+			}
+		} else if (pos + len >= srcLen) {
+			if (replacement == null) {
+				return srcString.substring(0, pos);
+			} else {
+				return srcString.substring(0, pos) + replacement;
+			}
+		} else if (replacement == null) {
 			return srcString.substring(0, pos) + srcString.substring(pos + len);
 		} else {
-			return srcString.substring(0, pos) + (String)replacement + srcString.substring(pos + len);
+			return srcString.substring(0, pos) + replacement + srcString.substring(pos + len);
 		}
 	}
 	
