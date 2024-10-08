@@ -8,6 +8,7 @@ import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -21,6 +22,7 @@ import com.scudata.resources.EngineMessage;
 public class Replace extends Function {
 	private Expression exp1;
 	private Expression exp2;
+	private Expression lenExp;
 	private Expression exp3;
 
 	/**
@@ -30,24 +32,64 @@ public class Replace extends Function {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("replace" + mm.getMessage("function.missingParam"));
-		} else if (param.getSubSize() != 3) {
+		} else if (param.getSubSize() > 3) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("replace" + mm.getMessage("function.invalidParam"));
 		}
 		
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
-		IParam sub3 = param.getSub(2);
-		if (sub1 == null || sub2 == null || sub3 == null) {
+		if (sub1 == null || sub2 == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("replace" + mm.getMessage("function.invalidParam"));
 		}
 		
 		exp1 = sub1.getLeafExpression();
-		exp2 = sub2.getLeafExpression();
-		exp3 = sub3.getLeafExpression();
+		if (sub2.isLeaf()) {
+			exp2 = sub2.getLeafExpression();
+		} else {
+			IParam sub = sub2.getSub(0);
+			if (sub == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("replace" + mm.getMessage("function.invalidParam"));
+			}
+			
+			exp2 = sub.getLeafExpression();
+			sub = sub2.getSub(1);
+			if (sub != null) {
+				lenExp = sub.getLeafExpression();
+			}
+		}
+		
+		if (param.getSubSize() > 2) {
+			IParam sub3 = param.getSub(2);
+			if (sub3 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("replace" + mm.getMessage("function.invalidParam"));
+			}
+			
+			exp3 = sub3.getLeafExpression();
+		} else {
+			exp3 = new Expression(new Constant(""));
+		}
 	}
 
+	private static String replace(String srcString, int pos, String replacement) {
+		if (replacement == null) {
+			return srcString;
+		} else {
+			return srcString.substring(0, pos) + (String)replacement + srcString.substring(pos);
+		}
+	}
+	
+	private static String replace(String srcString, int pos, int len, String replacement) {
+		if (replacement == null) {
+			return srcString.substring(0, pos) + srcString.substring(pos + len);
+		} else {
+			return srcString.substring(0, pos) + (String)replacement + srcString.substring(pos + len);
+		}
+	}
+	
 	public Object calculate(Context ctx) {
 		Object str1 = exp1.calculate(ctx);
 		if (str1 == null) {
@@ -58,7 +100,22 @@ public class Replace extends Function {
 		}
 
 		Object str2 = exp2.calculate(ctx);
-		if (str2 instanceof Sequence) {
+		if (str2 instanceof Number) {
+			int pos = ((Number)str2).intValue() - 1;
+			String str3 = (String)exp3.calculate(ctx);
+			if (lenExp == null) {
+				return replace((String)str1, pos, str3);
+			} else {
+				Object obj = lenExp.calculate(ctx);
+				if (!(obj instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				int len = ((Number)obj).intValue();
+				return replace((String)str1, pos, len, str3);
+			}
+		} else if (str2 instanceof Sequence) {
 			Object obj3 = exp3.calculate(ctx);
 			if (!(obj3 instanceof Sequence)) {
 				MessageManager mm = EngineMessage.get();
@@ -172,6 +229,49 @@ public class Replace extends Function {
 		IArray array3 = exp3.calculateAll(ctx);
 		int size = array1.size();
 
+		if (lenExp != null) {
+			IArray lenArray = lenExp.calculateAll(ctx);
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			if (array2 instanceof ConstArray && lenArray instanceof ConstArray && array3 instanceof ConstArray) {
+				int pos = array2.getInt(1) - 1;
+				int len = lenArray.getInt(1);
+				String str3 = (String)array3.get(1);
+				
+				for (int i = 1; i <= size; ++i) {
+					Object obj = array1.get(i);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, pos, len, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					result.push(str);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					Object obj = array1.get(i);
+					String str = null;
+					if (obj instanceof String) {
+						int pos = array2.getInt(i) - 1;
+						int len = lenArray.getInt(i);
+						String str3 = (String)array3.get(i);
+						str = replace((String)obj, pos, len, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					result.push(str);
+				}
+			}
+			
+			return result;
+		}
+		
 		int flag = Sentence.IGNORE_PARS;
 		boolean isChars = false;
 		
@@ -328,6 +428,45 @@ public class Replace extends Function {
 					
 					return result;
 				}
+			} else if (obj instanceof Number) {
+				int pos = ((Number)obj).intValue() - 1;
+				obj = array3.get(1);
+				if (!(obj instanceof String)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				String str3 = (String)obj;
+				if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, pos, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							str = replace((String)obj, pos, str3);
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
@@ -350,6 +489,9 @@ public class Replace extends Function {
 						}
 					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
 						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
+					} else if ((obj2 instanceof Number) && (obj3 instanceof String)) {
+						int pos = ((Number)obj2).intValue() - 1;
+						str = replace((String)obj, pos, (String)obj3);
 					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
@@ -386,6 +528,59 @@ public class Replace extends Function {
 		IArray array3 = exp3.calculateAll(ctx);
 		int size = array1.size();
 	
+		if (lenExp != null) {
+			IArray lenArray = lenExp.calculateAll(ctx);
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			if (array2 instanceof ConstArray && lenArray instanceof ConstArray && array3 instanceof ConstArray) {
+				int pos = array2.getInt(1) - 1;
+				int len = lenArray.getInt(1);
+				String str3 = (String)array3.get(1);
+				
+				for (int i = 1; i <= size; ++i) {
+					if (signDatas[i] == false) {
+						result.pushNull();
+						continue;
+					}
+					
+					Object obj = array1.get(i);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, pos, len, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					result.push(str);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (signDatas[i] == false) {
+						result.pushNull();
+						continue;
+					}
+					
+					Object obj = array1.get(i);
+					String str = null;
+					if (obj instanceof String) {
+						int pos = array2.getInt(i) - 1;
+						int len = lenArray.getInt(i);
+						String str3 = (String)array3.get(i);
+						str = replace((String)obj, pos, len, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					result.push(str);
+				}
+			}
+			
+			return result;
+		}
+
 		int flag = Sentence.IGNORE_PARS;
 		boolean isChars = false;
 		
@@ -552,6 +747,50 @@ public class Replace extends Function {
 						String str = null;
 						if (obj instanceof String) {
 							str = replace((String)obj, seq2, seq3, flag);
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
+			} else if (obj instanceof Number) {
+				int pos = ((Number)obj).intValue() - 1;
+				obj = array3.get(1);
+				if (!(obj instanceof String)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				String str3 = (String)obj;
+				if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, pos, str3);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							str = replace((String)obj, pos, str3);
 						} else if (obj != null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
@@ -589,6 +828,9 @@ public class Replace extends Function {
 						}
 					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
 						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
+					} else if ((obj2 instanceof Number) && (obj3 instanceof String)) {
+						int pos = ((Number)obj2).intValue() - 1;
+						str = replace((String)obj, pos, (String)obj3);
 					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
