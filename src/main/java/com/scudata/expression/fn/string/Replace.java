@@ -74,19 +74,53 @@ public class Replace extends Function {
 		}
 	}
 
+	// pos从1开始计数，小于表示从后数，0表示追加
 	private static String replace(String srcString, int pos, String replacement) {
 		if (replacement == null) {
 			return srcString;
-		} else if (pos < srcString.length()) {
+		} else if (pos <= 0) {
+			pos += srcString.length();
+			if (pos <= 0) {
+				return replacement + srcString;
+			} else {
+				return srcString.substring(0, pos) + replacement + srcString.substring(pos);
+			}
+		} else if (pos <= srcString.length()) {
+			pos--;
 			return srcString.substring(0, pos) + replacement + srcString.substring(pos);
 		} else {
 			return srcString + replacement;
 		}
 	}
 	
+	// pos从1开始计数，小于表示从后数，0表示追加
 	private static String replace(String srcString, int pos, int len, String replacement) {
 		int srcLen = srcString.length();
-		if (pos >= srcLen) {
+		if (pos <= 0) {
+			pos += srcLen;
+			if (pos <= 0) {
+				pos += len;
+				if (pos <= 0) {
+					if (replacement == null) {
+						return srcString;
+					} else {
+						return replacement + srcString;
+					}
+				} else if (pos < srcLen) {
+					if (replacement == null) {
+						return srcString.substring(pos);
+					} else {
+						return replacement + srcString.substring(pos);
+					}
+				} else {
+					return replacement;
+				}
+			}
+		} else {
+			pos--;
+		}
+		
+		if (pos > srcLen) {
 			if (replacement == null) {
 				return srcString;
 			} else {
@@ -116,7 +150,7 @@ public class Replace extends Function {
 
 		Object str2 = exp2.calculate(ctx);
 		if (str2 instanceof Number) {
-			int pos = ((Number)str2).intValue() - 1;
+			int pos = ((Number)str2).intValue();
 			String str3 = (String)exp3.calculate(ctx);
 			if (lenExp == null) {
 				return replace((String)str1, pos, str3);
@@ -250,7 +284,7 @@ public class Replace extends Function {
 			result.setTemporary(true);
 			
 			if (array2 instanceof ConstArray && lenArray instanceof ConstArray && array3 instanceof ConstArray) {
-				int pos = array2.getInt(1) - 1;
+				int pos = array2.getInt(1);
 				int len = lenArray.getInt(1);
 				String str3 = (String)array3.get(1);
 				
@@ -271,7 +305,7 @@ public class Replace extends Function {
 					Object obj = array1.get(i);
 					String str = null;
 					if (obj instanceof String) {
-						int pos = array2.getInt(i) - 1;
+						int pos = array2.getInt(i);
 						int len = lenArray.getInt(i);
 						String str3 = (String)array3.get(i);
 						str = replace((String)obj, pos, len, str3);
@@ -444,7 +478,7 @@ public class Replace extends Function {
 					return result;
 				}
 			} else if (obj instanceof Number) {
-				int pos = ((Number)obj).intValue() - 1;
+				int pos = ((Number)obj).intValue();
 				obj = array3.get(1);
 				if (!(obj instanceof String)) {
 					MessageManager mm = EngineMessage.get();
@@ -505,7 +539,7 @@ public class Replace extends Function {
 					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
 						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
 					} else if ((obj2 instanceof Number) && (obj3 instanceof String)) {
-						int pos = ((Number)obj2).intValue() - 1;
+						int pos = ((Number)obj2).intValue();
 						str = replace((String)obj, pos, (String)obj3);
 					} else {
 						MessageManager mm = EngineMessage.get();
@@ -549,7 +583,7 @@ public class Replace extends Function {
 			result.setTemporary(true);
 			
 			if (array2 instanceof ConstArray && lenArray instanceof ConstArray && array3 instanceof ConstArray) {
-				int pos = array2.getInt(1) - 1;
+				int pos = array2.getInt(1);
 				int len = lenArray.getInt(1);
 				String str3 = (String)array3.get(1);
 				
@@ -580,7 +614,7 @@ public class Replace extends Function {
 					Object obj = array1.get(i);
 					String str = null;
 					if (obj instanceof String) {
-						int pos = array2.getInt(i) - 1;
+						int pos = array2.getInt(i);
 						int len = lenArray.getInt(i);
 						String str3 = (String)array3.get(i);
 						str = replace((String)obj, pos, len, str3);
@@ -773,7 +807,7 @@ public class Replace extends Function {
 					return result;
 				}
 			} else if (obj instanceof Number) {
-				int pos = ((Number)obj).intValue() - 1;
+				int pos = ((Number)obj).intValue();
 				obj = array3.get(1);
 				if (!(obj instanceof String)) {
 					MessageManager mm = EngineMessage.get();
@@ -844,7 +878,7 @@ public class Replace extends Function {
 					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
 						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
 					} else if ((obj2 instanceof Number) && (obj3 instanceof String)) {
-						int pos = ((Number)obj2).intValue() - 1;
+						int pos = ((Number)obj2).intValue();
 						str = replace((String)obj, pos, (String)obj3);
 					} else {
 						MessageManager mm = EngineMessage.get();
