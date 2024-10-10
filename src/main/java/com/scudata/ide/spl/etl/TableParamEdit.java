@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -16,7 +17,6 @@ import com.scudata.chart.Consts;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.GV;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextAreaEditor;
 import com.scudata.ide.spl.chart.ImageEditor;
@@ -47,7 +47,7 @@ public class TableParamEdit extends JTableEx {
 																											// 类型ArrayList
 																											// 每个对象Object[]
 
-	Dialog owner;
+	private JDialog owner;
 
 	/**
 	 * 构造函数
@@ -55,7 +55,7 @@ public class TableParamEdit extends JTableEx {
 	 * @param owner
 	 *            父窗口
 	 */
-	public TableParamEdit(Dialog owner) {
+	public TableParamEdit(JDialog owner) {
 		this.owner = owner;
 		String[] colNames = new String[] { " ", NAMECOL, VALUECOL, EXPCOL,
 				EDITSTYLECOL, OBJCOL };
@@ -221,7 +221,7 @@ public class TableParamEdit extends JTableEx {
 			return;
 		}
 
-		DialogTextEditor dte = new DialogTextEditor(GV.appFrame);
+		DialogTextEditor dte = new DialogTextEditor(owner);
 		String exp = (String) val;
 		dte.setText(exp);
 		dte.setVisible(true);
