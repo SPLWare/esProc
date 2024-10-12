@@ -139,7 +139,7 @@ public class DateFormatFactory {
 	public DateFormatX getDateFormatX() {
 		return getFormatX(dateFormat);
 	}
-
+	
 	/**
 	 * 取系统设定的时间格式串对应的格式对象
 	 */
@@ -152,5 +152,37 @@ public class DateFormatFactory {
 	 */
 	public DateFormatX getDateTimeFormatX() {
 		return getFormatX(dateTimeFormat);
+	}
+	
+	/**
+	 * 取指定格式串的格式对象
+	 */
+	public static DateFormatX newFormatX(String fmt) {
+		DateFormatX df = new DateFormatX(fmt);
+		df.getCalendar().setLenient(false);
+		return df;
+	}
+
+	/**
+	 * 新产生一个系统设定的日期格式串对应的格式对象
+	 * @return
+	 */
+	public static DateFormatX newDateFormatX() {
+		return newFormatX(dateFormat);
+	}
+
+	/**
+	 * 新产生一个系统设定的日期时间格式串对应的格式对象
+	 * @return
+	 */
+	public static DateFormatX newDateTimeFormatX() {
+		return newFormatX(dateTimeFormat);
+	}
+	
+	/**
+	 * 新产生一个系统设定的时间格式串对应的格式对象
+	 */
+	public static DateFormatX newTimeFormatX() {
+		return newFormatX(timeFormat);
 	}
 }

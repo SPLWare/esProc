@@ -24,7 +24,6 @@ import com.scudata.util.Variant;
  */
 public final class LineImporter implements ILineInput {
 	private static final int BOM_SIZE = 4; // BOM头最大的大小
-	
 	private static final int PARSEMODE_DEFAULT = 0; // 对列进行类型转换，如果转不到指定的类型则尝试转成其它类型
 	private static final int PARSEMODE_DELETE = 1; // 对列进行类型转换，如果转不到指定的类型则删除行
 	private static final int PARSEMODE_EXCEPTION = 2; // 对列进行类型转换，如果转不到指定的类型则抛异常
@@ -344,21 +343,21 @@ public final class LineImporter implements ILineInput {
 		for (int i = 0; i < count; ++i) {
 			if (types[i] == Types.DT_DATE) {
 				if (strFmts == null || strFmts[i] == null) {
-					fmts[i] = DateFormatFactory.get().getDateFormatX();
+					fmts[i] = DateFormatFactory.newDateFormatX();
 				} else {
-					fmts[i] = DateFormatFactory.get().getFormatX(strFmts[i]);
+					fmts[i] = DateFormatFactory.newFormatX(strFmts[i]);
 				}
 			} else if (types[i] == Types.DT_DATETIME) {
 				if (strFmts == null || strFmts[i] == null) {
-					fmts[i] = DateFormatFactory.get().getDateTimeFormatX();
+					fmts[i] = DateFormatFactory.newDateTimeFormatX();
 				} else {
-					fmts[i] = DateFormatFactory.get().getFormatX(strFmts[i]);
+					fmts[i] = DateFormatFactory.newFormatX(strFmts[i]);
 				}
 			} else if (types[i] == Types.DT_TIME) {
 				if (strFmts == null || strFmts[i] == null) {
-					fmts[i] = DateFormatFactory.get().getTimeFormatX();
+					fmts[i] = DateFormatFactory.newTimeFormatX();
 				} else {
-					fmts[i] = DateFormatFactory.get().getFormatX(strFmts[i]);
+					fmts[i] = DateFormatFactory.newFormatX(strFmts[i]);
 				}
 			} else if (types[i] == Types.DT_SERIALBYTES) {
 				serialByteLens[i] = Integer.parseInt(strFmts[i]);
@@ -2000,11 +1999,11 @@ public final class LineImporter implements ILineInput {
 			types[col] = Variant.getObjectType(val);
 			
 			if (types[col] == Types.DT_DATE) {
-				fmts[col] = DateFormatFactory.get().getDateFormatX();
+				fmts[col] = DateFormatFactory.newDateFormatX();
 			} else if (types[col] == Types.DT_DATETIME) {
-				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+				fmts[col] = DateFormatFactory.newDateTimeFormatX();
 			} else if (types[col] == Types.DT_TIME) {
-				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+				fmts[col] = DateFormatFactory.newTimeFormatX();
 			}
 			
 			return val;
@@ -2135,11 +2134,11 @@ public final class LineImporter implements ILineInput {
 			types[col] = Variant.getObjectType(val);
 			
 			if (types[col] == Types.DT_DATE) {
-				fmts[col] = DateFormatFactory.get().getDateFormatX();
+				fmts[col] = DateFormatFactory.newDateFormatX();
 			} else if (types[col] == Types.DT_DATETIME) {
-				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+				fmts[col] = DateFormatFactory.newDateTimeFormatX();
 			} else if (types[col] == Types.DT_TIME) {
-				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+				fmts[col] = DateFormatFactory.newTimeFormatX();
 			}
 			
 			return val;
@@ -2294,11 +2293,11 @@ public final class LineImporter implements ILineInput {
 			types[col] = Variant.getObjectType(outValue[col]);
 			
 			if (types[col] == Types.DT_DATE) {
-				fmts[col] = DateFormatFactory.get().getDateFormatX();
+				fmts[col] = DateFormatFactory.newDateFormatX();
 			} else if (types[col] == Types.DT_DATETIME) {
-				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+				fmts[col] = DateFormatFactory.newDateTimeFormatX();
 			} else if (types[col] == Types.DT_TIME) {
-				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+				fmts[col] = DateFormatFactory.newTimeFormatX();
 			}
 			
 			return true;
@@ -2499,11 +2498,11 @@ public final class LineImporter implements ILineInput {
 			types[col] = Variant.getObjectType(outValue[col]);
 			
 			if (types[col] == Types.DT_DATE) {
-				fmts[col] = DateFormatFactory.get().getDateFormatX();
+				fmts[col] = DateFormatFactory.newDateFormatX();
 			} else if (types[col] == Types.DT_DATETIME) {
-				fmts[col] = DateFormatFactory.get().getDateTimeFormatX();
+				fmts[col] = DateFormatFactory.newDateTimeFormatX();
 			} else if (types[col] == Types.DT_TIME) {
-				fmts[col] = DateFormatFactory.get().getTimeFormatX();
+				fmts[col] = DateFormatFactory.newTimeFormatX();
 			}
 			
 			return true;
