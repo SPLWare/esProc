@@ -285,6 +285,7 @@ public final class FunctionLib {
 		addFunction("between", "com.scudata.expression.fn.Between");
 		addFunction("case", "com.scudata.expression.fn.Case");
 		addFunction("cmp", "com.scudata.expression.fn.Compare");
+		addFunction("cmps", "com.scudata.expression.fn.Compares");
 		addFunction("clipboard", "com.scudata.expression.fn.Clipboard");
 		addFunction("eval", "com.scudata.expression.fn.Eval");
 		addFunction("if", "com.scudata.expression.fn.If");
