@@ -13,11 +13,9 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xo.xlsmove(s,s’;xo’) 
+ * xo.xlsmove(s,s’;xo’)
  * 
- * 把xo中名为s的sheet移动到xo’，命名为s’；
- * xo’省略，表示sheet改名，s’也省略表示删除；
- * xo’未省略，s’省略表示用s的原名
+ * 把xo中名为s的sheet移动到xo’，命名为s’； xo’省略，表示sheet改名，s’也省略表示删除； xo’未省略，s’省略表示用s的原名
  * 
  * @c 复制
  */
@@ -110,7 +108,7 @@ public class XlsMove extends XOFunction {
 				|| (xo1 != null && ((XlsFileObject) xo1).getFileType() != XlsFileObject.TYPE_NORMAL)) {
 			// : xlsopen@r or @w does not support xlsmove
 			throw new RQException("xlsmove"
-					+ AppMessage.get().getMessage("filexls.rwcell"));
+					+ AppMessage.get().getMessage("filexls.rwmove"));
 		}
 
 		try {
@@ -125,8 +123,11 @@ public class XlsMove extends XOFunction {
 
 	/**
 	 * 对节点做优化
-	 * @param ctx 计算上下文
-	 * @param Node 优化后的节点
+	 * 
+	 * @param ctx
+	 *            计算上下文
+	 * @param Node
+	 *            优化后的节点
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
