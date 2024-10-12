@@ -984,6 +984,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			skipFully(4);
 			break;
 		case ObjectWriter.DATETIME64:
+		case ObjectWriter.DATE64:
 			skipFully(8);
 			break;
 		case ObjectWriter.DATE24:

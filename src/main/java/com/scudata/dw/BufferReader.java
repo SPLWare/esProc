@@ -671,6 +671,7 @@ public class BufferReader {
 			skipFully(4);
 			break;
 		case BufferWriter.DATETIME64:
+		case BufferWriter.DATE64:
 			skipFully(8);
 			break;
 		case BufferWriter.DATE24:
