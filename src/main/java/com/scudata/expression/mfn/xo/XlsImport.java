@@ -30,6 +30,7 @@ public class XlsImport extends XOFunction {
 					+ mm.getMessage("filexls.coptwithr"));
 		}
 		boolean hasTitle = opt != null && opt.indexOf("t") > -1;
+		boolean isN = opt != null && opt.indexOf("n") > -1;
 		boolean removeBlank = opt != null && opt.indexOf("b") > -1;
 		if (isCursor && removeBlank) {
 			throw new RQException(AppMessage.get().getMessage("xlsimport.nocb"));
@@ -37,7 +38,7 @@ public class XlsImport extends XOFunction {
 
 		if (param == null) {
 			try {
-				return file.xlsimport(hasTitle, isCursor, removeBlank);
+				return file.xlsimport(hasTitle, isCursor, isN, removeBlank);
 			} catch (Exception e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -149,7 +150,7 @@ public class XlsImport extends XOFunction {
 
 		try {
 			return file.xlsimport(fields, s, start, end, hasTitle, isCursor,
-					removeBlank);
+					isN, removeBlank);
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		}
@@ -157,8 +158,11 @@ public class XlsImport extends XOFunction {
 
 	/**
 	 * 对节点做优化
-	 * @param ctx 计算上下文
-	 * @param Node 优化后的节点
+	 * 
+	 * @param ctx
+	 *            计算上下文
+	 * @param Node
+	 *            优化后的节点
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {

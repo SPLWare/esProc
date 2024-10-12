@@ -191,14 +191,15 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 *            Has title line
 	 * @param isCursor
 	 *            Whether to return the cursor
+	 * @param isN
 	 * @param removeBlank
 	 *            Delete blank lines at the beginning and end
 	 * @return
 	 * @throws Exception
 	 */
-	public Object xlsimport(boolean hasTitle, boolean isCursor,
+	public Object xlsimport(boolean hasTitle, boolean isCursor, boolean isN,
 			boolean removeBlank) throws Exception {
-		return xlsimport(null, null, 0, 0, hasTitle, isCursor, removeBlank);
+		return xlsimport(null, null, 0, 0, hasTitle, isCursor, isN, removeBlank);
 	}
 
 	/**
@@ -220,20 +221,21 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 *            Has title line
 	 * @param isCursor
 	 *            Whether to return the cursor
+	 * @param isN
 	 * @param removeBlank
 	 *            Delete blank lines at the beginning and end
 	 * @return
 	 */
 	public Object xlsimport(String[] fields, Object s, int startRow,
-			int endRow, boolean hasTitle, boolean isCursor, boolean removeBlank)
-			throws Exception {
+			int endRow, boolean hasTitle, boolean isCursor, boolean isN,
+			boolean removeBlank) throws Exception {
 		if (fileType == TYPE_WRITE) {
 			throw new RQException("xlsimport"
 					+ AppMessage.get().getMessage("filexls.wimport"));
 		}
 		SheetObject sx = getSheetObject(s, false);
 		Object result = sx.xlsimport(fields, startRow, endRow, hasTitle,
-				isCursor, removeBlank);
+				isCursor, isN, removeBlank);
 		return result;
 	}
 
@@ -398,9 +400,8 @@ public abstract class XlsFileObject extends Table implements IResource {
 	}
 
 	/**
-	 * 把xo中名为s的sheet移动到xo’，命名为s’；
-	 * xo’省略，表示sheet改名，s’也省略表示删除；
-	 * xo’未省略，s’省略表示用s的原名
+	 * 把xo中名为s的sheet移动到xo’，命名为s’； xo’省略，表示sheet改名，s’也省略表示删除； xo’未省略，s’省略表示用s的原名
+	 * 
 	 * @param s
 	 * @param s1
 	 * @param xo1
@@ -448,11 +449,13 @@ public abstract class XlsFileObject extends Table implements IResource {
 
 	/**
 	 * 复制sheet到另一个excel工作簿
+	 * 
 	 * @param fromWorkbook
 	 * @param fromSheet
 	 * @param toWorkbook
 	 * @param toSheet
-	 * @param styleMap 避免生成重复的样式，每个xo持有一个
+	 * @param styleMap
+	 *            避免生成重复的样式，每个xo持有一个
 	 */
 	private void copySheet(Workbook fromWorkbook, Sheet fromSheet,
 			Workbook toWorkbook, Sheet toSheet, Map<Integer, CellStyle> styleMap) {
@@ -580,11 +583,17 @@ public abstract class XlsFileObject extends Table implements IResource {
 
 	/**
 	 * 克隆样式
-	 * @param fromWorkbook 源工作簿
-	 * @param fromStyle 源样式
-	 * @param toWorkbook 目标工作簿
-	 * @param styleMap 存储相同样式防止多次创建
-	 * @param isSameFileType 工作簿是否相同格式（XLS,XLSX）
+	 * 
+	 * @param fromWorkbook
+	 *            源工作簿
+	 * @param fromStyle
+	 *            源样式
+	 * @param toWorkbook
+	 *            目标工作簿
+	 * @param styleMap
+	 *            存储相同样式防止多次创建
+	 * @param isSameFileType
+	 *            工作簿是否相同格式（XLS,XLSX）
 	 * @return
 	 */
 	private CellStyle cloneCellStyle(Workbook fromWorkbook,
@@ -610,6 +619,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 
 	/**
 	 * XLS和XLSX之间不支持cloneStyle，需要自己复制
+	 * 
 	 * @param fromWorkbook
 	 * @param fromStyle
 	 * @param toWorkbook
@@ -661,6 +671,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 
 	/**
 	 * 复制字体，跨XLS,XLSX无法clone字体
+	 * 
 	 * @param workbook
 	 * @param fromFont
 	 * @return

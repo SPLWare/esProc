@@ -320,13 +320,14 @@ public class SheetXls extends SheetObject {
 	 *            Include title line
 	 * @param isCursor
 	 *            Whether to return the cursor
+	 * @param isN
 	 * @param removeBlank
 	 *            Whether to delete blank lines at the beginning and end
 	 * @return
 	 * @throws Exception
 	 */
 	public Object xlsimport(String[] fields, int startRow, int endRow,
-			boolean bTitle, boolean isCursor, boolean removeBlank)
+			boolean bTitle, boolean isCursor, boolean isN, boolean removeBlank)
 			throws IOException {
 		Object[] line;
 		int totalCount = getTotalCount();
