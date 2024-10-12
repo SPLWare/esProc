@@ -47,6 +47,8 @@ public class BFileFetchCursor extends ICursor {
 	private byte[] titleBytes;
 	private long fileSize;
 	
+	private boolean isClosed = false;
+	
 	/**
 	 * @param reader
 	 * @param fields
@@ -386,6 +388,7 @@ public class BFileFetchCursor extends ICursor {
 	}
 	
 	public void close() {
+		isClosed = true;
 		super.close();
 		try {
 			if (importer != null) {
@@ -416,5 +419,9 @@ public class BFileFetchCursor extends ICursor {
 
 	public byte[] getTitleBytes() {
 		return titleBytes;
+	}
+	
+	public boolean isClosed() {
+		return isClosed;
 	}
 }

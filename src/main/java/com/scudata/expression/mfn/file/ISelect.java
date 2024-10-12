@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Types;
 import com.scudata.dm.BFileReader;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
@@ -21,6 +22,7 @@ import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
+import com.scudata.expression.ParamInfo3;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -39,25 +41,79 @@ public class ISelect extends FileFunction {
 		}
 
 		IParam valParam;
-		String []selFields = null;
+		String []fields = null;
+		byte []types = null;
+		String []fmts = null;
 		String s = null;
+		
 		if (param.getType() == IParam.Semicolon) {
 			valParam = param.getSub(0);
 			IParam fieldParam = param.getSub(1);
-			if (fieldParam == null) {
-			} else if (fieldParam.isLeaf()) {
-				selFields = new String[]{fieldParam.getLeafExpression().getIdentifierName()};
-			} else {
-				int size = fieldParam.getSubSize();
-				selFields = new String[size];
-				for (int i = 0; i < size; ++i) {
-					IParam sub = fieldParam.getSub(i);
-					if (sub == null || !sub.isLeaf()) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("iselect" + mm.getMessage("function.invalidParam"));
-					}
+			
+			if (fieldParam != null) {
+				ParamInfo3 pi = ParamInfo3.parse(fieldParam, "iselect", true, false, false);
+				fields = pi.getExpressionStrs1();
+				String []typeNames = pi.getExpressionStrs2();
+				
+				int fcount = fields.length;
+				Expression []exps = pi.getExpressions3();
 
-					selFields[i] = sub.getLeafExpression().getIdentifierName();
+				for (int i = 0; i < fcount; ++i) {
+					String type = typeNames[i];
+					if (type == null) continue;
+					if (types == null) types = new byte[fcount];
+
+					if (type.equals("string")) {
+						types[i] = Types.DT_STRING;
+					} else if (type.equals("int")) {
+						types[i] = Types.DT_INT;
+					} else if (type.equals("float")) {
+						types[i] = Types.DT_DOUBLE;
+					} else if (type.equals("long")) {
+						types[i] = Types.DT_LONG;
+					} else if (type.equals("decimal")) {
+						types[i] = Types.DT_DECIMAL;
+					} else if (type.equals("date")) {
+						types[i] = Types.DT_DATE;
+					} else if (type.equals("datetime")) {
+						types[i] = Types.DT_DATETIME;
+					} else if (type.equals("time")) {
+						types[i] = Types.DT_TIME;
+					} else if (type.equals("bool")) {
+						types[i] = Types.DT_BOOLEAN;
+					} else {
+						try {
+							int len = Integer.parseInt(type);
+							if (len < 1) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(type + mm.getMessage("engine.unknownType"));
+							}
+							
+							types[i] = Types.DT_SERIALBYTES;
+							if (fmts == null) {
+								fmts = new String[fcount];
+							}
+							
+							fmts[i] = type;
+						} catch (NumberFormatException e) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(type + mm.getMessage("engine.unknownType"));
+						}
+					}
+					
+					if (exps[i] != null) {
+						Object obj = exps[i].calculate(ctx);
+						if (!(obj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("iselect" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						if (fmts == null) {
+							fmts = new String[fcount];
+						}
+						
+						fmts[i] = (String)obj;
+					}
 				}
 			}
 
@@ -109,7 +165,7 @@ public class ISelect extends FileFunction {
 				throw new RQException("iselect" + mm.getMessage("function.paramTypeError"));
 			}
 				
-			return search(file, exp, values, selFields, s, option, ctx);
+			return search(file, exp, values, fields, types, fmts, s, option, ctx);
 		} else {
 			if (sub0.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -134,12 +190,12 @@ public class ISelect extends FileFunction {
 				throw new RQException("iselect" + mm.getMessage("function.paramTypeError"));
 			}
 				
-			return search(file, exp, startVal, endVal, selFields, s, option, ctx);
+			return search(file, exp, startVal, endVal, fields, types, fmts, s, option, ctx);
 		}
 	}	
 	
 	private static ICursor search(FileObject fo, Expression exp, Sequence values,
-								 String []selFields, String s, String opt, Context ctx) {
+								 String []selFields, byte []types, String []fmts, String s, String opt, Context ctx) {
 		boolean isCsv = false;
 		boolean isMultiId = false;
 		boolean isExist = true;
@@ -169,7 +225,7 @@ public class ISelect extends FileFunction {
 		}
 
 
-		Table table = iselect_t(fo, exp, values, separator, opt, isMultiId, ctx);
+		Table table = iselect_t(fo, exp, values, selFields, types, fmts, separator, opt, isMultiId, ctx);
 		
 		if (selFields != null) {
 			DataStruct ds = table.dataStruct();
@@ -218,13 +274,15 @@ public class ISelect extends FileFunction {
 	 * @param startVal		起始值
 	 * @param endVal		结束值
 	 * @param selFields		组成结果的字段
+	 * @param types			字段类型
+	 * @param fmts			日期字段格式
 	 * @param s				
 	 * @param opt			读取文件参数
 	 * @param ctx			上下文变量
 	 * @return				返回结果cursor
 	 */
 	private static ICursor search(FileObject fo, Expression exp, Object startVal,
-			 Object endVal, String []selFields, String s, String opt, Context ctx) {
+			 Object endVal, String []selFields, byte []types, String []fmts, String s, String opt, Context ctx) {
 		boolean isCsv = false;
 		if (opt != null) {
 			// 如果是二进制文件，生成二进制文件的cursor
@@ -274,7 +332,7 @@ public class ISelect extends FileFunction {
 		
 		long start = 0;
 		if (startVal != null) {
-			start = iselect_t(fo, exp, startVal, separator, opt, true, ctx);
+			start = iselect_t(fo, exp, startVal, selFields, types, fmts, separator, opt, true, ctx);
 			if (start < 0) {
 				start = -start;
 			}
@@ -282,7 +340,7 @@ public class ISelect extends FileFunction {
 		
 		long end;
 		if (endVal != null) {
-			end = iselect_t(fo, exp, endVal, separator, opt, false, ctx);
+			end = iselect_t(fo, exp, endVal, selFields, types, fmts, separator, opt, false, ctx);
 			if (end < 0) {
 				end = -end;
 			}
@@ -290,7 +348,8 @@ public class ISelect extends FileFunction {
 			end = fo.size();
 		}
 		
-		FileCursor cursor = new FileCursor(fo, 0, 0, selFields, null, s, opt, ctx);
+		FileCursor cursor = new FileCursor(fo, 0, 0, selFields, types, s, opt, ctx);
+		cursor.setFormats(fmts);
 		cursor.setStart(start);
 		cursor.setEnd(end);
 		return cursor;
@@ -307,6 +366,7 @@ public class ISelect extends FileFunction {
 	 * @return				用取得的记录组成的table
 	 */
 	private static Table iselect_t(FileObject fo, Expression exp, Sequence values, 
+			String []selFields, byte []types, String []fmts, 
 			byte[] separator, String opt, boolean isMultiId, Context ctx) {
 		boolean isTitle = false;
 		if (opt != null) {
@@ -323,16 +383,6 @@ public class ISelect extends FileFunction {
 		try {
 			importer = new LineImporter(file.getInputStream(), charset, separator, opt, 1024);
 			line = importer.readLine();
-			if (line == null) {
-				return null;
-			}
-			
-			byte []colTypes = new byte[line.length];
-			importer.setColTypes(colTypes, null);
-
-			if (isTitle) {
-				start = importer.getCurrentPosition() - 2;
-			}
 		} catch(IOException e) {
 			try {
 				if (importer != null) {
@@ -358,19 +408,40 @@ public class ISelect extends FileFunction {
 			throw new RQException(exp.getIdentifierName() + mm.getMessage("ds.fieldNotExist"));
 		}
 
-		int fcount = line.length;
 		DataStruct ds;
+		int fcount = line.length;
+		byte []colTypes = new byte[fcount];
+		String []colFormats = null;
+		if (fmts != null) {
+			colFormats = new String[fcount];
+		}
+		
 		if (isTitle) {
+			start = importer.getCurrentPosition() - 2;
 			String[] items = new String[fcount];
 			for (int f = 0; f < fcount; ++f) {
 				items[f] = Variant.toString(line[f]);
 			}
 
 			ds = new DataStruct(items);
+			if (types != null) {
+				for (int f = 0; f < selFields.length; ++f) {
+					int findex = ds.getFieldIndex(selFields[f]);
+					if (findex != -1) {
+						colTypes[findex] = types[f];
+						if (fmts != null) {
+							colFormats[findex] = fmts[f];
+						}
+					}
+				}
+			}
 		} else {
 			String[] items = new String[fcount];
 			ds = new DataStruct(items);
 		}
+		
+		// 设置字段类型
+		importer.setColTypes(colTypes, colFormats);
 		
 		rec = new Record(ds);
 		int valCount = values.length();
@@ -520,6 +591,7 @@ public class ISelect extends FileFunction {
 	 * 
 	 */
 	private static long iselect_t(FileObject fo, Expression exp, Object value, 
+			String []selFields, byte []types, String []fmts, 
 			byte[] separator, String opt, boolean isStart, Context ctx) {
 		boolean isTitle = false, isKey = true;
 		if (opt != null) {
@@ -540,8 +612,12 @@ public class ISelect extends FileFunction {
 				return -1;
 			}
 			
-			byte []colTypes = new byte[line.length];
-			importer.setColTypes(colTypes, null);
+			int fcount = line.length;
+			byte []colTypes = new byte[fcount];
+			String []colFormats = null;
+			if (fmts != null) {
+				colFormats = new String[fcount];
+			}
 			
 			// 初始化记录变量
 			String[] fields = new String[line.length];
@@ -552,8 +628,20 @@ public class ISelect extends FileFunction {
 				}
 			}
 			
-			
 			DataStruct ds = new DataStruct(fields);
+			if (types != null) {
+				for (int f = 0; f < selFields.length; ++f) {
+					int findex = ds.getFieldIndex(selFields[f]);
+					if (findex != -1) {
+						colTypes[findex] = types[f];
+						if (fmts != null) {
+							colFormats[findex] = fmts[f];
+						}
+					}
+				}
+			}
+			
+			importer.setColTypes(colTypes, colFormats);
 			Record rec = new Record(ds);
 			
 			while (low <= high) {
