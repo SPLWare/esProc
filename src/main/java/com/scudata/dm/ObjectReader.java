@@ -1185,4 +1185,50 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			}
 		}
 	}
+	
+	private Table readTable(String []names, int len) throws IOException {
+		int fcount = names.length;
+		Table table = new Table(names, len);
+		
+		for (int i = 1; i <= len; ++i) {
+			BaseRecord r = table.newLast();
+			for (int f = 0; f < fcount; ++f) {
+				r.setNormalFieldValue(f, readObject());
+			}
+		}
+		
+		return table;
+	}
+	
+	/**
+	 * 把按编码规则写出的序表对象字节数组读成序表
+	 * @param buffers
+	 * @return
+	 */
+	public static Table toTable(byte [][]buffers) {
+		ObjectReader reader = new ObjectReader(buffers[0]);
+		try {
+			int fcount = reader.readInt();
+			String []names = new String[fcount];
+			for (int i = 0; i < fcount; ++i) {
+				names[i] = reader.readString();
+			}
+			
+			reader.close();
+			reader = new ObjectReader(buffers[1]);
+			int len = reader.readInt();
+			reader.close();
+			
+			reader = new ObjectReader(buffers[2]);
+			return reader.readTable(names, len);
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+	}
 }
