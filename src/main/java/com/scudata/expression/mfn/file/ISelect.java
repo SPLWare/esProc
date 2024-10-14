@@ -198,15 +198,13 @@ public class ISelect extends FileFunction {
 								 String []selFields, byte []types, String []fmts, String s, String opt, Context ctx) {
 		boolean isCsv = false;
 		boolean isMultiId = false;
-		boolean isExist = true;
 		if (opt != null) {
 			if (opt.indexOf('b') != -1) {
 				BFileReader reader = new BFileReader(fo);
-				return reader.iselect(exp, values, selFields, ctx);
+				return reader.iselect(exp, values, selFields, opt, ctx);
 			}
 			
 			if (opt.indexOf('c') != -1) isCsv = true;
-			if (opt.indexOf('e') != -1) isExist = false;
 			if (opt.indexOf('r') != -1) isMultiId = true;
 		}
 
@@ -226,37 +224,8 @@ public class ISelect extends FileFunction {
 
 
 		Table table = iselect_t(fo, exp, values, selFields, types, fmts, separator, opt, isMultiId, ctx);
-		
 		if (selFields != null) {
-			DataStruct ds = table.dataStruct();
-			int fcount = selFields.length;
-			int []index = new int[fcount];
-			String []names = ds.getFieldNames();
-			for (int f = 0; f < fcount; ++f) {
-				index[f] = ds.getFieldIndex(selFields[f]);
-				if (index[f] < 0) {
-					if (isExist) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(selFields[f] + mm.getMessage("ds.fieldNotExist"));
-					}
-				} else {
-					selFields[f] = names[index[f]];
-				}
-			}
-
-			int len = table.length();
-			Table selTable = new Table(selFields, len);
-			for (int i = 1; i <= len; ++i) {
-				BaseRecord nr = selTable.newLast();
-				BaseRecord r = (BaseRecord)table.get(i);
-				for (int f = 0; f < fcount; ++f) {
-					if (index[f] >= 0) {
-						nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
-					}
-				}
-			}
-
-			table = selTable;
+			table = table.fieldsValues(selFields, opt);
 		}
 		
 		if (table != null && table.length() > 0) {
@@ -288,7 +257,7 @@ public class ISelect extends FileFunction {
 			// 如果是二进制文件，生成二进制文件的cursor
 			if (opt.indexOf('b') != -1) {
 				BFileReader reader = new BFileReader(fo);
-				return reader.iselect(exp, startVal, endVal, selFields, ctx);
+				return reader.iselect(exp, startVal, endVal, selFields, opt, ctx);
 			}
 			
 			if (opt.indexOf('c') != -1) isCsv = true;

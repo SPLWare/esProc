@@ -1396,7 +1396,7 @@ public final class CursorUtil {
 						}
 						
 						reader.open();
-						valueSeq = reader.iselectFields(refFields, pkSeq, null, ctx).fetch();
+						valueSeq = reader.iselectFields(refFields, pkSeq, null, null, ctx).fetch();
 						reader.close();
 					}
 				} catch (IOException e) {

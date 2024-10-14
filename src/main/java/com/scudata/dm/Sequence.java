@@ -11331,6 +11331,47 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 取指定字段构成新序表
+	 * @param fieldNames 字段名数组
+	 * @param opt e：字段在源序表中不存在时将生成null，缺省将报错
+	 * @return
+	 */
+	public Table fieldsValues(String[] fieldNames, String opt) {
+		if (opt == null || opt.indexOf('e') == -1) {
+			return fieldsValues(fieldNames);
+		}
+		
+		int len = length();
+		if (len == 0) {
+			return new Table(fieldNames);
+		}
+		
+		DataStruct ds = ((BaseRecord)ifn()).dataStruct();
+		int fcount = fieldNames.length;
+		int []index = new int[fcount];
+		String []names = ds.getFieldNames();
+		for (int f = 0; f < fcount; ++f) {
+			index[f] = ds.getFieldIndex(fieldNames[f]);
+			if (index[f] != -1) {
+				fieldNames[f] = names[index[f]];
+			}
+		}
+
+		Table result = new Table(fieldNames, len);
+		for (int i = 1; i <= len; ++i) {
+			BaseRecord nr = result.newLast();
+			BaseRecord r = (BaseRecord)getMem(i);
+			for (int f = 0; f < fcount; ++f) {
+				if (index[f] >= 0) {
+					nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	/**
 	 * 修改排列所有记录指定字段的字段值
 	 * @param exps 值表达式数组
 	 * @param fields 字段名数组

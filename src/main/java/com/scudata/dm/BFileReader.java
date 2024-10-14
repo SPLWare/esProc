@@ -596,10 +596,11 @@ public class BFileReader {
 	 * @param key		已经排好序的字段的字段名。
 	 * @param values	参考值，由key字段与这些值做对比
 	 * @param fields	字段名列表，最终得结果表，由这些字段组成
+	 * @param opt		e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param ctx		上下文变量
 	 * @return			返回筛选出的数据集的游标
 	 */
-	public ICursor iselect(String key, Sequence values, String []fields, Context ctx) {
+	public ICursor iselect(String key, Sequence values, String []fields, String opt, Context ctx) {
 		int count = values.length();
 		if (count == 0) {
 			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
@@ -762,7 +763,7 @@ public class BFileReader {
 				return new MemoryCursor(null);
 			}
 						
-			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
+			return new PFileCursor(file, posArray.toArray(), 1024, fields, opt, ctx);
 		} catch (IOException e) {
 			throw new RQException(e);
 		} finally {
@@ -780,10 +781,11 @@ public class BFileReader {
 	 * @param startVal	筛选数据的起始值
 	 * @param endVal	筛选数据的结束值
 	 * @param fields	字段名列表，最终得结果表，由这些字段组成
+	 * @param opt		e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param ctx		上下文变量
 	 * @return
 	 */
-	public ICursor iselect(String key, Object startVal, Object endVal, String []fields, Context ctx) {
+	public ICursor iselect(String key, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
 		int startBlock;
 		int endBlock ;
 		int keyField;
@@ -888,7 +890,7 @@ public class BFileReader {
 			}
 			
 			if (startPos < endPos) {
-				BFileCursor cursor = new BFileCursor(file, fields, null, ctx);
+				BFileCursor cursor = new BFileCursor(file, fields, opt, ctx);
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
@@ -982,10 +984,11 @@ public class BFileReader {
 	 * @param exp		表达式
 	 * @param values	对比结果
 	 * @param fields	组成结果的字段
+	 * @param opt		e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param ctx		上下文变量
 	 * @return			返回筛选出的记录
 	 */
-	public ICursor iselect(Expression exp, Sequence values, String []fields, Context ctx) {
+	public ICursor iselect(Expression exp, Sequence values, String []fields, String opt, Context ctx) {
 		if (exp == null) {
 			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
 			return new MemoryCursor(null);
@@ -1016,21 +1019,14 @@ public class BFileReader {
 				
 				if (seqArray == null || seqArray.size() == 0) {
 					return new MemoryCursor(null);
+				} else if (fields == null) {
+					result = result.get(new Sequence(seqArray));
+					return new MemoryCursor(result);
+				} else {
+					result = result.get(new Sequence(seqArray));
+					result = result.fieldsValues(fields, opt);
+					return new MemoryCursor(result);
 				}
-
-				result = result.get(new Sequence(seqArray));
-				MemoryCursor cs = new MemoryCursor(result);
-				if (fields != null) {
-					int fcount = fields.length;
-					Expression []exps = new Expression[fcount];
-					for (int f = 0; f < fcount; ++f) {
-						exps[f] = new Expression(fields[f]);
-					}
-					
-					cs.newTable(null, exps, fields, null, ctx);
-				}
-				
-				return cs;
 			}
 			
 			if (fieldNames != null) {
@@ -1053,9 +1049,9 @@ public class BFileReader {
 		
 				
 		if (fieldNames != null) {
-			return iselectFields(fieldNames, values, fields, ctx);
+			return iselectFields(fieldNames, values, fields, opt, ctx);
 		} else {
-			return iselectExpression(exp, values, fields, ctx);
+			return iselectExpression(exp, values, fields, opt, ctx);
 		}
 	}
 	
@@ -1065,12 +1061,13 @@ public class BFileReader {
 	 * @param	refFields	参考字段
 	 * @param	values		参考字段的参考值
 	 * @param	fields      构成新表的字段，可以不包括参考字段
+	 * @param	opt			e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param	ctx			上下文变量
 	 * 
 	 * @return	返回筛选出的数据集cursor
 	 * 
 	*/
-	public ICursor iselectFields(String[] refFields, Sequence values, String []fields, Context ctx) {
+	public ICursor iselectFields(String[] refFields, Sequence values, String []fields, String opt, Context ctx) {
 		// 查找对应列的索引
 		int fcount = ds.getFieldCount();
 		int[] selFields = new int[fcount];
@@ -1242,7 +1239,7 @@ public class BFileReader {
 				return new MemoryCursor(null);
 			}
 						
-			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
+			return new PFileCursor(file, posArray.toArray(), 1024, fields, opt, ctx);
 		} catch (IOException e) {
 			throw new RQException(e);
 		} finally {
@@ -1253,7 +1250,7 @@ public class BFileReader {
 		}
 	}
 	
-	private ICursor iselectExpression(Expression exp, Sequence values, String []fields, Context ctx) {
+	private ICursor iselectExpression(Expression exp, Sequence values, String []fields, String opt, Context ctx) {
 		int count = values.length();
 		if (count == 0) {
 			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
@@ -1413,7 +1410,7 @@ public class BFileReader {
 				return new MemoryCursor(null);
 			}
 			
-			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
+			return new PFileCursor(file, posArray.toArray(), 1024, fields, opt, ctx);
 		} catch (IOException e) {
 			throw new RQException(e);
 		} finally {
@@ -1430,12 +1427,13 @@ public class BFileReader {
 	 * @param	startVal	起始值
 	 * @param	endVal		结束值
 	 * @param	fields      构成新表的字段，可以不包括参考字段
+	 * @param	opt			e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param	ctx			上下文变量
 	 * 
 	 * @return	返回对应的游标
 	*/
 	public ICursor iselect(Expression exp, Object startVal,
-			Object endVal, String []fields, Context ctx) {
+			Object endVal, String []fields, String opt, Context ctx) {
 		if (exp == null) {
 			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
 			return new MemoryCursor(null);
@@ -1471,20 +1469,13 @@ public class BFileReader {
 				
 				if (end < start) {
 					return new MemoryCursor(null);
+				} else if (fields == null) {
+					return new MemoryCursor(result, start, end + 1);
+				} else {
+					result = result.get(start, end + 1);
+					result = result.fieldsValues(fields, opt);
+					return new MemoryCursor(result);
 				}
-
-				MemoryCursor cs = new MemoryCursor(result, start, end + 1);
-				if (fields != null) {
-					int fcount = fields.length;
-					Expression []exps = new Expression[fcount];
-					for (int f = 0; f < fcount; ++f) {
-						exps[f] = new Expression(fields[f]);
-					}
-					
-					cs.newTable(null, exps, fields, null, ctx);
-				}
-				
-				return cs;
 			}
 		} catch (IOException e) {
 			MessageManager mm = EngineMessage.get();
@@ -1508,14 +1499,15 @@ public class BFileReader {
 			}
 			
 			if (multi) {
-				return iselectFields(fieldNames, startVal, endVal, fields, ctx);
+				return iselectFields(fieldNames, startVal, endVal, fields, opt, ctx);
 			}
 		}
 		
 		// 走普通的流程
 		
-		return iselectExpression(exp, startVal, endVal, fields, ctx);
+		return iselectExpression(exp, startVal, endVal, fields, opt, ctx);
 	}
+	
 	/**
 	 * 单字段、多字段值，在startVal和endVal之间的记录
 	 * 
@@ -1523,11 +1515,12 @@ public class BFileReader {
 	 * @param	startVal	起始值
 	 * @param	endVal		结束值
 	 * @param	fields      构成新表的字段，可以不包括参考字段
+	 * @param	opt			e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param	ctx			上下文变量
 	 * 
 	 * @return	返回对应的游标
 	*/
-	private ICursor iselectFields(String[] refFields, Object startVal, Object endVal, String []fields, Context ctx) {
+	private ICursor iselectFields(String[] refFields, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
 		int startBlock;
 		int endBlock ;
 		long firstPos;
@@ -1643,7 +1636,7 @@ public class BFileReader {
 			}
 			
 			if (startPos < endPos) {
-				BFileCursor cursor = new BFileCursor(file, fields, null, ctx);
+				BFileCursor cursor = new BFileCursor(file, fields, opt, ctx);
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
@@ -1667,11 +1660,12 @@ public class BFileReader {
 	 * @param	startVal	起始值
 	 * @param	endVal		结束值
 	 * @param	fields      构成新表的字段，可以不包括参考字段
+	 * @param	opt			e：字段在源序表中不存在时将生成null，缺省将报错
 	 * @param	ctx			上下文变量
 	 * 
 	 * @return	返回对应的游标
 	*/
-	private ICursor iselectExpression(Expression exp, Object startVal, Object endVal, String []fields, Context ctx) {
+	private ICursor iselectExpression(Expression exp, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
 		int startBlock;
 		int endBlock ;
 		long firstPos;
@@ -1776,7 +1770,7 @@ public class BFileReader {
 			}
 			
 			if (startPos < endPos) {
-				BFileCursor cursor = new BFileCursor(file, fields, null, ctx);
+				BFileCursor cursor = new BFileCursor(file, fields, opt, ctx);
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {

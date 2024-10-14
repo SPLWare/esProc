@@ -33,6 +33,7 @@ public class PFileCursor extends ICursor {
 	// 如果skip所有则不需要排序
 	private boolean isSorted = false; // 位置数组是否已排序
 	private boolean isEnd = false; // 是否取数结束
+	private boolean isExist = true; // 字段是否都在文件中
 	
 	/**
 	 * 构建读取指定位置记录的游标
@@ -52,6 +53,7 @@ public class PFileCursor extends ICursor {
 		
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) isSorted = true;
+			if (opt.indexOf('e') != -1) isExist = false;
 		}
 	}
 
@@ -135,18 +137,18 @@ public class PFileCursor extends ICursor {
 
 				for (int i = 0, count = selFields.length; i < count; ++i) {
 					int q = ds.getFieldIndex(selFields[i]);
-					if (q < 0) {
+					if (q >= 0) {
+						if (selIndex[q] != -1) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(selFields[i] + mm.getMessage("ds.colNameRepeat"));
+						}
+	
+						selIndex[q] = i;
+						selFields[i] = ds.getFieldName(q);
+					} else if (isExist) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(selFields[i] + mm.getMessage("ds.fieldNotExist"));
 					}
-
-					if (selIndex[q] != -1) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(selFields[i] + mm.getMessage("ds.colNameRepeat"));
-					}
-
-					selIndex[q] = i;
-					selFields[i] = ds.getFieldName(q);
 				}
 
 				selDs = new DataStruct(selFields);
