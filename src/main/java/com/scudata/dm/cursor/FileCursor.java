@@ -2,6 +2,7 @@ package com.scudata.dm.cursor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -32,6 +33,7 @@ public class FileCursor extends ICursor {
 	private String []selFields; // 选出字段名数组
 	private byte []types; // 字段类型
 	private String []fmts; // 字段值格式，用于日期时间
+	private int []fieldLens; // 字段的大小，用于固定长度的文件，列间没有分隔符
 	private int []selIndex; // 选出字段在源结构中的序号
 	private DataStruct selDs; // 结果集数据结构
 	private String opt; // 选项
@@ -160,6 +162,18 @@ public class FileCursor extends ICursor {
 		this.fmts = fmts;
 	}
 	
+	public int[] getFieldLens() {
+		return fieldLens;
+	}
+
+	/**
+	 * 设置字段的大小，用于固定长度的文件，列间没有分隔符
+	 * @param fieldLens
+	 */
+	public void setFieldLens(int[] fieldLens) {
+		this.fieldLens = fieldLens;
+	}
+
 	/**
 	 * 取文件游标对应的文件对象
 	 * @return FileObject
@@ -200,7 +214,94 @@ public class FileCursor extends ICursor {
 			String charset = fileObject.getCharset();
 			importer = new LineImporter(in, charset, colSeparator, opt);
 			
-			if (isTitle) {
+			if (fieldLens != null) {
+				if (isExist) {
+					int fcount = selFields.length;
+					selIndex = new int[fcount];
+					ArrayList<String> fieldList = new ArrayList<String>(fcount);
+					
+					for (int f = 0; f < fcount; ++f) {
+						if (fieldLens[f] < 1) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(selFields[f] + mm.getMessage("ds.fieldNotExist"));
+						}
+						
+						if (selFields[f] != null && selFields[f].length() > 0) {
+							selIndex[f] = fieldList.size();
+							fieldList.add(selFields[f]);
+						} else {
+							selIndex[f] = -1;
+						}
+					}
+					
+					ds = new DataStruct(selFields);
+					if (fieldList.size() == fcount) {
+						selDs = ds;
+					} else {
+						String []fieldNames = new String[fieldList.size()];
+						fieldList.toArray(fieldNames);
+						selDs = new DataStruct(fieldNames);
+						importer.setColSelectIndex(selIndex);
+					}
+					
+					importer.setColLens(fieldLens);
+					importer.setColTypes(types, fmts);
+				} else {
+					int totalFieldCount = selFields.length;
+					int fileFieldCount = 0;
+					int resultFieldCount = 0;
+					
+					for (int f = 0; f < totalFieldCount; ++f) {
+						if (selFields[f] != null && selFields[f].length() > 0) {
+							resultFieldCount++;
+							if (fieldLens[f] > 0) {
+								fileFieldCount++;
+							}
+						} else {
+							fileFieldCount++;
+							if (fieldLens[f] < 1) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
+							}
+						}
+					}
+					
+					selIndex = new int[fileFieldCount];
+					int []lens = new int[fileFieldCount];
+					byte []fileFieldTypes = new byte[fileFieldCount];
+					String []fileFieldFormats = new String[fileFieldCount];
+					String []fileFields = new String[fileFieldCount];
+					String []resultFields = new String[resultFieldCount];
+					
+					fileFieldCount = 0;
+					resultFieldCount = 0;
+					for (int f = 0; f < totalFieldCount; ++f) {
+						if (selFields[f] != null && selFields[f].length() > 0) {
+							resultFields[resultFieldCount] = selFields[f];
+							if (fieldLens[f] > 0) {
+								selIndex[fileFieldCount] = resultFieldCount;
+								lens[fileFieldCount] = fieldLens[f];
+								fileFields[fileFieldCount] = selFields[f];
+								fileFieldTypes[fileFieldCount] = types[f];
+								fileFieldFormats[fileFieldCount] = fmts[f];
+								fileFieldCount++;
+							}
+							
+							resultFieldCount++;
+						} else {
+							selIndex[fileFieldCount] = -1;
+							lens[fileFieldCount] = fieldLens[f];
+							fileFieldCount++;
+						}
+					}
+					
+					ds = new DataStruct(fileFields);
+					selDs = new DataStruct(resultFields);
+					importer.setColLens(lens);
+					importer.setColTypes(fileFieldTypes, fileFieldFormats);
+					importer.setColSelectIndex(selIndex);
+				}
+			} else if (isTitle) {
 				// 第一行是标题
 				Object []line = importer.readFirstLine();
 				if (line == null) {
@@ -567,7 +668,7 @@ public class FileCursor extends ICursor {
 		if (importer == null) return null;
 
 		try {
-			if (selFields == null) {
+			if (selFields == null || ds == selDs) {
 				return fetchAll(importer, n);
 			} else {
 				return fetchFields(importer, n);

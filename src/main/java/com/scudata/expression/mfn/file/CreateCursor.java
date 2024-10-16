@@ -153,19 +153,31 @@ public class CreateCursor extends FileFunction {
 		String []fields = null;
 		byte []types = null;
 		String []fmts = null;
+		int []fieldLens = null;
 		int segSeq = 1;
 		int segCount = 1;
 		String s = null;
 
 		if (fieldParam != null) {
-			ParamInfo3 pi = ParamInfo3.parse(fieldParam, "cursor", true, false, false);
+			ParamInfo3 pi = ParamInfo3.parse(fieldParam, "cursor", false, false, false);
 			fields = pi.getExpressionStrs1();
 			String []typeNames = pi.getExpressionStrs2();
 			
 			int fcount = fields.length;
 			Expression []exps = pi.getExpressions3();
-
+			boolean isFixedLength = option != null && option.indexOf('y') != -1;
+			if (isFixedLength) {
+				types = new byte[fcount];
+				fmts = new String[fcount];
+				fieldLens = new int[fcount];
+			}
+			
 			for (int i = 0; i < fcount; ++i) {
+				if (!isFixedLength && (fields[i] == null || fields[i].length() == 0)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(fnName + mm.getMessage("function.invalidParam"));
+				}
+				
 				String type = typeNames[i];
 				if (type == null) continue;
 				if (types == null) types = new byte[fcount];
@@ -210,16 +222,21 @@ public class CreateCursor extends FileFunction {
 				
 				if (exps[i] != null) {
 					Object obj = exps[i].calculate(ctx);
-					if (!(obj instanceof String)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(fnName + mm.getMessage("function.paramTypeError"));
-					}
-					
 					if (fmts == null) {
 						fmts = new String[fcount];
 					}
 					
-					fmts[i] = (String)obj;
+					if (obj instanceof String) {
+						fmts[i] = (String)obj;
+						if (isFixedLength) {
+							fieldLens[i] = fmts[i].length();
+						}
+					} else if (obj instanceof Number && isFixedLength) {
+						fieldLens[i] = ((Number)obj).intValue();
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fnName + mm.getMessage("function.paramTypeError"));
+					}
 				}
 			}
 		}
@@ -291,6 +308,7 @@ public class CreateCursor extends FileFunction {
 			} else {
 				for (int i = 0; i < segCount; ++i) {
 					FileCursor cursor = new FileCursor(fo, i + 1, segCount, fields, types, s, option, ctx);
+					cursor.setFieldLens(fieldLens);
 					cursor.setFormats(fmts);
 					cursors[i] = cursor;
 				}
@@ -302,6 +320,7 @@ public class CreateCursor extends FileFunction {
 				return new BFileCursor(fo, fields, segSeq, segCount, option, ctx);
 			} else {
 				FileCursor cursor = new FileCursor(fo, segSeq, segCount, fields, types, s, option, ctx);
+				cursor.setFieldLens(fieldLens);
 				cursor.setFormats(fmts);
 				return cursor;
 			}

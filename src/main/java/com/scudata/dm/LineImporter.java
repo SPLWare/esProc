@@ -45,6 +45,7 @@ public final class LineImporter implements ILineInput {
 	private byte colSeparator; // 列间隔
 	private byte []colSeparators; // 多字符列间隔，如果不为空则忽略colSeparator
 	
+	private int []colLens; // 字段的大小，用于固定长度的文件，列间没有分隔符
 	private byte []colTypes; // 列类型
 	private DateFormatX []fmts; // 日期时间的格式
 	private int []serialByteLens; // 排号字段的长度
@@ -363,6 +364,14 @@ public final class LineImporter implements ILineInput {
 				serialByteLens[i] = Integer.parseInt(strFmts[i]);
 			}
 		}
+	}
+
+	/**
+	 * 设置字段的大小，用于固定长度的文件，列间没有分隔符
+	 * @param fieldLens
+	 */
+	public void setColLens(int[] colLens) {
+		this.colLens = colLens;
 	}
 
 	/**
@@ -1549,7 +1558,9 @@ public final class LineImporter implements ILineInput {
 	 * @throws IOException
 	 */
 	public Object[] readLine() throws IOException {
-		if (isStringMode) {
+		if (colLens != null) {
+			return readFixedLengthLine();
+		} else if (isStringMode) {
 			if (parseMode == PARSEMODE_DELETE) {
 				while (true) {
 					String line = readLineString();
@@ -3061,6 +3072,35 @@ public final class LineImporter implements ILineInput {
 		
 		if (colIndex < colCount && (selIndex == null || selIndex[colIndex] != -1)) {
 			values[colIndex] = parse(buffer, start, end, colIndex);
+		}
+
+		return values;
+	}
+	
+	private Object[] readFixedLengthLine() throws IOException {
+		String line = readLineString();
+		if (line == null) {
+			return null;
+		}
+		
+		int count = line.length();
+		if (count < 1) {
+			return new Object[colTypes.length];
+		}
+
+		byte []colTypes = this.colTypes;
+		int []colLens = this.colLens;
+		int []selIndex = this.selIndex;
+		int colCount = colTypes.length;
+		Object []values = new Object[colCount];
+		
+		for (int colIndex = 0, start = 0; colIndex < colCount; ++colIndex) {
+			if (selIndex == null || selIndex[colIndex] != -1) {
+				String str = line.substring(start, start + colLens[colIndex]);
+				values[colIndex] = parse(str, colIndex);
+			}
+			
+			start += colLens[colIndex];
 		}
 
 		return values;
