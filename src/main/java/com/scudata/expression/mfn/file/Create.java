@@ -102,11 +102,19 @@ public class Create extends FileFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileAlreadyExist", fo.getFileName()));
 		} else if (opt != null && opt.indexOf('y') != -1 && file.exists()) {
+			ComTable table = null;
 			try {
-				ComTable table = ComTable.open(file, ctx);
+				table = ComTable.open(file, ctx);
 				table.delete();
-			} catch (IOException e) {
-				throw new RQException(e.getMessage(), e);
+			} catch (Exception e) {
+				try {
+					if (table != null) {
+						table.close();
+					}
+					file.delete();
+				} catch (Exception e1) {
+					throw new RQException(e1.getMessage(), e1);
+				}
 			}
 		}
 
