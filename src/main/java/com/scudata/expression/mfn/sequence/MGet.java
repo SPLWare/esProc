@@ -117,9 +117,15 @@ public class MGet extends SequenceFunction {
 					throw new RQException("m" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				pos0 = convert(srcLen, ((Number)obj0).intValue(), isRepeat);
+				int n = ((Number)obj0).intValue();
+				pos0 = convert(srcLen, n, isRepeat);
 				if (pos0 == 0) {
-					return null;
+					if (n < 0) {
+						// 起始位置左越界则从1开始
+						pos0 = 1;
+					} else {
+						return null;
+					}
 				}
 			} else {
 				pos0 = 1;
@@ -134,9 +140,15 @@ public class MGet extends SequenceFunction {
 					throw new RQException("m" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				pos1 = convert(srcLen, ((Number)obj1).intValue(), isRepeat);
+				int n = ((Number)obj1).intValue();
+				pos1 = convert(srcLen, n, isRepeat);
 				if (pos1 == 0) {
-					return null;
+					if (n > srcLen) {
+						// 结束位置右越界则取到结尾
+						pos1 = srcLen;
+					} else {
+						return null;
+					}
 				}
 			} else {
 				pos1 = srcLen;
@@ -222,9 +234,15 @@ public class MGet extends SequenceFunction {
 							throw new RQException("m" + mm.getMessage("function.paramTypeError"));
 						}
 						
-						pos0 = convert(srcLen, ((Number)obj0).intValue(), isRepeat);
+						int n = ((Number)obj0).intValue();
+						pos0 = convert(srcLen, n, isRepeat);
 						if (pos0 == 0) {
-							continue;
+							if (n < 0) {
+								// 起始位置左越界则从1开始
+								pos0 = 1;
+							} else {
+								continue;
+							}
 						}
 					} else {
 						pos0 = 1;
@@ -240,9 +258,15 @@ public class MGet extends SequenceFunction {
 							throw new RQException("m" + mm.getMessage("function.paramTypeError"));
 						}
 						
-						pos1 = convert(srcLen, ((Number)obj1).intValue(), isRepeat);
+						int n = ((Number)obj1).intValue();
+						pos1 = convert(srcLen, n, isRepeat);
 						if (pos1 == 0) {
-							continue;
+							if (n > srcLen) {
+								// 结束位置右越界则取到结尾
+								pos1 = srcLen;
+							} else {
+								continue;
+							}
 						}
 					} else {
 						pos1 = srcLen;
