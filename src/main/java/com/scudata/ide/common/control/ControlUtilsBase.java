@@ -261,7 +261,25 @@ public class ControlUtilsBase {
 			boolean editable) {
 		Shape oldShape = g.getClip();
 		try {
-			g.setClip(x, y, w, h);
+			Rectangle drawRect = oldShape.getBounds();
+			// ²»ÄÜ³ödrawRect·¶Î§
+			int drawX = x;
+			int drawY = y;
+			int drawWidth = w;
+			int drawHeight = h;
+			if (x < drawRect.x) {
+				drawX = drawRect.x;
+			}
+			if (y < drawRect.y) {
+				drawY = drawRect.y;
+			}
+			if (x + w > drawRect.x + drawRect.width) {
+				drawWidth -= x + w - (drawRect.x + drawRect.width);
+			}
+			if (y + h > drawRect.y + drawRect.height) {
+				drawHeight -= y + h - (drawRect.y + drawRect.height);
+			}
+			g.setClip(drawX, drawY, drawWidth, drawHeight);
 			Color fontColor = Color.black;
 			if (backColor.equals(Color.gray)) {
 				fontColor = Color.white;
