@@ -2158,11 +2158,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence merge(Expression[] exps, String opt, Context ctx) {
-		boolean bUnion = false, bIsect = false, bDiff = false;
+		boolean bUnion = false, bIsect = false, bDiff = false, bXor = false;
 		if (opt != null) {
-			if (opt.indexOf('u') != -1)bUnion = true;
-			if (opt.indexOf('i') != -1)bIsect = true;
-			if (opt.indexOf('d') != -1)bDiff = true;
+			if (opt.indexOf('u') != -1) {
+				bUnion = true;
+			} else if (opt.indexOf('i') != -1) {
+				bIsect = true;
+			} else if (opt.indexOf('d') != -1) {
+				bDiff = true;
+			} else if (opt.indexOf('x') != -1) {
+				bXor = true;
+			}
 			
 			if (opt.indexOf('o') != -1) {
 				if (bUnion) {
@@ -4333,7 +4339,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						current.setCurrent(i);
 						Object obj = c.calculate(ctx);
 						
-						if (obj instanceof Boolean && ((Boolean)obj).booleanValue()) {
+						if (Variant.isTrue(obj)) {
 							break;
 						}
 						
@@ -4358,7 +4364,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						current.setCurrent(i);
 						Object obj = c.calculate(ctx);
 						
-						if (obj instanceof Boolean && ((Boolean)obj).booleanValue()) {
+						if (Variant.isTrue(obj)) {
 							break;
 						}
 						
