@@ -1074,18 +1074,18 @@ abstract public class ComTable implements IBlockStorage {
 			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 			ICursor cs = baseTable.cursor();
 			
-			// 检查归并的游标是否兼容
-			DataStruct ds1 = cs.getDataStruct();
-			DataStruct ds2 = cursor.getDataStruct();
-			for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
-				if (!ds1.getFieldName(i).equals(ds2.getFieldName(i))) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("reset" + mm.getMessage("engine.dsNotMatch"));
-				}
-			}
-			
 			// 归并或者连接游标
 			if (cursor != null) {
+				// 检查归并的游标是否兼容
+				DataStruct ds1 = cs.getDataStruct();
+				DataStruct ds2 = cursor.getDataStruct();
+				for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
+					if (!ds1.getFieldName(i).equals(ds2.getFieldName(i))) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("reset" + mm.getMessage("engine.dsNotMatch"));
+					}
+				}
+				
 				if (hasW) {
 					int deleteField = baseTable.getDeleteFieldIndex(null, ds1.getFieldNames());
 					ICursor[] cursors = new ICursor[] {cs, cursor};

@@ -15,6 +15,7 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.Cuboid;
 import com.scudata.dw.DataBlockType;
+import com.scudata.dw.BlockLink;
 import com.scudata.dw.BlockLinkReader;
 import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.ColumnMetaData;
@@ -38,6 +39,7 @@ public class Structure extends FileFunction {
 	private static final String FIELD_NAMES[] = { "field", "key", "del", "row", "zip", "seg", "zonex", "attach", "block" };
 	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "attach" };
 	private static final String COL_FIELD_FIELD_NAMES[] = {"name", "dim", "type", "type-len", "dict"};
+	private static final String COL_FIELD_FIELD_NAMES_EXT[] = {"name", "dim", "type", "type-len", "dict", "block_nums"};
 	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
 	private static final String CUBOID_FIELD_NAMES2[] = { "keys", "aggr" };
@@ -117,7 +119,7 @@ public class Structure extends FileFunction {
 		}
 		
 		String[] colNames = table.getAllColNames();
-		rec.setNormalFieldValue(idx++, getTableColumnStruct(table));
+		rec.setNormalFieldValue(idx++, getTableColumnStruct(table, option));
 		rec.setNormalFieldValue(idx++, table.hasPrimaryKey());
 		if (table.isBaseTable()) {
 			rec.setNormalFieldValue(idx++, table.getGroupTable().hasDeleteKey());
@@ -148,14 +150,22 @@ public class Structure extends FileFunction {
 	/**
 	 * 获得table的列的结构
 	 * @param table
+	 * @param option 
 	 * @return
 	 */
-	protected static Sequence getTableColumnStruct(PhyTable table) {
+	protected static Sequence getTableColumnStruct(PhyTable table, String option) {
 		Sequence seq = new Sequence();
 		if (table instanceof ColPhyTable) {
 			ColumnMetaData[] columns = ((ColPhyTable) table).getColumns();
+			boolean isExt = option != null && option.indexOf("e") != -1;
+			DataStruct ds;
+			if (isExt) {
+				ds = new DataStruct(COL_FIELD_FIELD_NAMES_EXT);
+			} else {
+				ds = new DataStruct(COL_FIELD_FIELD_NAMES);
+			}
 			for (ColumnMetaData column: columns ) {
-				Record rec = new Record(new DataStruct(COL_FIELD_FIELD_NAMES));
+				Record rec = new Record(ds);
 				rec.setNormalFieldValue(0, column.getColName());
 				rec.setNormalFieldValue(1, column.isKey());
 				rec.setNormalFieldValue(2, DataBlockType.getTypeName(column.getDataType()));
@@ -165,6 +175,10 @@ public class Structure extends FileFunction {
 					dict = null;
 				}
 				rec.setNormalFieldValue(4, dict);
+				
+				if (isExt) {
+					rec.setNormalFieldValue(5, getTableRowInfo(column));
+				}
 				seq.add(rec);
 			}
 		} else {
@@ -285,6 +299,7 @@ public class Structure extends FileFunction {
 		return rec;
 	}
 	
+	//统计组表的分段信息
 	private Sequence getTableBlockInfo(ColPhyTable table) {
 		String[] keys = table.getAllKeyColNames();
 		if (keys == null) return null;
@@ -351,5 +366,11 @@ public class Structure extends FileFunction {
 			}
 		}
 		return result;
-	} 
+	}
+	
+	//统计组表各列的信息
+	private static int getTableRowInfo(ColumnMetaData column) {
+		BlockLink blockLink = column.getDataBlockLink();
+		return blockLink.getBlockCount();
+	}
 }

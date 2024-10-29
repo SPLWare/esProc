@@ -66,5 +66,9 @@ public class BlockLink {
 	
 	public int getFreeIndex() {
 		return freeIndex;
+	}
+
+	public int getBlockCount() {
+		return blockCount;
 	}	
 }

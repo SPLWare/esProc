@@ -59,6 +59,7 @@ public class ColumnMetaData {
 		isDim = src.isDim;
 		isKey = src.isKey;
 		serialBytesLen = src.serialBytesLen;
+		hasMaxMinValues = src.hasMaxMinValues;
 	}
 	
 	/**
