@@ -2317,6 +2317,21 @@ public final class CursorUtil {
 	}
 	
 	/**
+	 * 返回两个序列的异或值，即不同的元素组成的序列
+	 * @param seq1 序列
+	 * @param seq2 序列
+	 * @param exps 表达式数组
+	 * @param ctx 计算上下文
+	 * @return 异或序列
+	 */
+	public static Sequence xor(Sequence seq1, Sequence seq2, Expression []exps, Context ctx) {
+		Sequence s1 = diff(seq1, seq2, exps, ctx);
+		Sequence s2 = diff(seq2, seq1, exps, ctx);
+		s1.addAll(s2);
+		return s1;
+	}
+	
+	/**
 	 * 先按gexp对数据进行分组，同组的汇总一下写到一个临时文件，最后再对每个临时文件进行二次汇总
 	 * 分组字段相同的记录gexp也要相同，gexp是分组字段的大分组
 	 * @param cursor 游标

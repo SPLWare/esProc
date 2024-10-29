@@ -2051,6 +2051,84 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		return result;
 	}
+	
+	// 根据值序列来合并源序列，值序列有序
+	private static Sequence mergeXor(Sequence[] sources, Sequence[] values) {
+		int count = values.length;
+		int leaveCount = count;
+		int[] len = new int[count];
+		int[] index = new int[count];
+		int totalLen = 0;
+
+		IArray[] srcMems = new IArray[count];
+		IArray[] valMems = new IArray[count];
+
+		for (int i = 0; i < count; ++i) {
+			valMems[i] = values[i].getMems();
+			srcMems[i] = sources[i].getMems();
+
+			index[i] = 1;
+			len[i] = valMems[i].size();
+			totalLen += len[i];
+			if (len[i] == 0) {
+				leaveCount--;
+			}
+		}
+
+		Object minValue = null; ;
+		int[] minIndex = new int[count];
+		Sequence result = new Sequence(totalLen);
+		IArray resultMems = result.getMems();
+
+		while (leaveCount > 1) {
+			for (int i = 0; i < count; ++i) {
+				if (index[i] <= len[i]) {
+					minValue = valMems[i].get(index[i]);
+					minIndex[0] = i;
+					break;
+				}
+			}
+
+			int sameCount = 1;
+			for (int i = minIndex[0] + 1; i < count; ++i) {
+				if (index[i] <= len[i]) {
+					Object value = valMems[i].get(index[i]);
+					int cmp = Variant.compare(minValue, value, true);
+					if (cmp > 0) {
+						minValue = value;
+						minIndex[0] = i;
+						sameCount = 1;
+					} else if (cmp == 0) {
+						minIndex[sameCount] = i;
+						sameCount++;
+					} // < 0
+				}
+			}
+
+			if (sameCount == 1) {
+				resultMems.add(srcMems[minIndex[0]].get(index[minIndex[0]]));
+			}
+			
+			for (int i = 0; i < sameCount; ++i) {
+				index[minIndex[i]]++;
+				if (index[minIndex[i]] > len[minIndex[i]]) {
+					leaveCount--;
+				}
+			}
+		}
+
+		for (int i = 0; i < count; ++i) {
+			if (index[i] <= len[i]) {
+				for (int j = index[i]; j <= len[i]; ++j) {
+					resultMems.add(srcMems[i].get(j));
+				}
+				
+				break;
+			}
+		}
+
+		return result;
+	}
 
 	// 根据值序列来合并源序列，值序列有序
 	private static Sequence mergeIsect(Sequence[] sources, Sequence[] values) {
@@ -2177,6 +2255,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					return isect(exps, ctx);
 				} else if (bDiff) {
 					return diff(exps, ctx);
+				} else if (bXor) {
+					return xor(exps, ctx);
 				} else {
 					return conj(null);
 				}
@@ -2250,6 +2330,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 
 				return mergeDiff(sequences, values);
+			}
+		} else if (bXor) {
+			if (exps == null || exps.length == 0) {
+				return mergeXor(sequences, sequences);
+			} else {
+				Sequence[] values = new Sequence[count];
+				for (int i = 0; i < count; ++i) {
+					values[i] = sequences[i].calc(exps, ctx);
+				}
+
+				return mergeXor(sequences, values);
 			}
 		} else {
 			return mergeConj(sequences, exps, ctx);
@@ -4047,6 +4138,38 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			obj = mems.get(i);
 			if (obj instanceof Sequence) {
 				result = CursorUtil.union(result, (Sequence)obj, exps, ctx);
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needSeriesMember"));
+			}
+		}
+		
+		return result;
+	}
+	
+	public Sequence xor(Expression []exps, Context ctx) {
+		IArray mems = getMems();
+		int size = mems.size();
+		if (size < 1) {
+			return new Sequence(0);
+		}
+
+		Object obj = mems.get(1);
+		Sequence result;
+
+		if (obj instanceof Sequence) {
+			result = (Sequence)obj;
+		} else if (obj != null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.needSeriesMember"));
+		} else {
+			result = new Sequence(0);
+		}
+
+		for (int i = 2; i <= size; ++i) {
+			obj = mems.get(i);
+			if (obj instanceof Sequence) {
+				result = CursorUtil.xor(result, (Sequence)obj, exps, ctx);
 			} else if (obj != null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("engine.needSeriesMember"));
