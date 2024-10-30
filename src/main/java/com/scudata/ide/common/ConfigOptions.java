@@ -148,7 +148,7 @@ public class ConfigOptions {
 	/** Column width */
 	public static Float fColWidth = new Float(150);
 	/** Constant cell foreground color */
-	public static Color iConstFColor = new Color(255, 0, 255);
+	public static Color iConstFColor = Color.MAGENTA;
 	/** Constant cell background color */
 	public static Color iConstBColor = Color.white;
 	/** Comment cell foreground color */
@@ -163,6 +163,8 @@ public class ConfigOptions {
 	public static Color iNValueFColor = Color.black;
 	/** Unvalued cell background color */
 	public static Color iNValueBColor = Color.white;
+	/** BreakPoint cell background color */
+	public static Color iBreakPointBColor = Color.MAGENTA;
 	/** Font name */
 	public static String sFontName = "Dialog";
 	/** Font size */
@@ -217,7 +219,7 @@ public class ConfigOptions {
 	/** Ref */
 	public static Color COLOR_REF = Color.CYAN.darker();
 	/** NULL */
-	public static Color COLOR_NULL = new Color(255, 0, 255);
+	public static Color COLOR_NULL = Color.MAGENTA;
 
 	/**
 	 * Increase the background color configuration of some positions in the
@@ -324,6 +326,7 @@ public class ConfigOptions {
 		options.put("iValueBColor", new Integer(iValueBColor.getRGB()));
 		options.put("iNValueFColor", new Integer(iNValueFColor.getRGB()));
 		options.put("iNValueBColor", new Integer(iNValueBColor.getRGB()));
+		options.put("iBreakPointBColor", new Integer(iBreakPointBColor.getRGB()));
 		options.put("iRowCount", iRowCount);
 		options.put("iColCount", iColCount);
 		options.put("fRowHeight", fRowHeight);
@@ -481,6 +484,8 @@ public class ConfigOptions {
 				iNValueFColor = new Color(ii.intValue());
 			} else if (option.equalsIgnoreCase("iNValueBColor")) {
 				iNValueBColor = new Color(ii.intValue());
+			} else if (option.equalsIgnoreCase("iBreakPointBColor")) {
+				iBreakPointBColor = new Color(ii.intValue());
 			} else if (option.equalsIgnoreCase("iFontSize")) {
 				iFontSize = new Short(ii.shortValue());
 			} else if (option.equalsIgnoreCase("iHAlign")) {

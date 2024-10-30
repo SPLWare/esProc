@@ -641,7 +641,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				}
 
 				if (control.isBreakPointCell(row, col)) {
-					g.setColor(Color.magenta);
+					g.setColor(ConfigOptions.iBreakPointBColor);
 					int r = row;
 					int c = col;
 					g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
