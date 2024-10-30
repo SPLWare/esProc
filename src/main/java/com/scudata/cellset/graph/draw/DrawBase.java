@@ -957,6 +957,25 @@ public abstract class DrawBase implements IGraph {
 
 	}
 
+	protected String getTitle(String tips,Object categoryValue,Object legendValue,String fmtedVal) {
+		String title = "";
+		if (StringUtils.isValidString(tips)) {
+			title = tips;
+		} else {
+			if (StringUtils.isValidString(categoryValue)) {
+				title = categoryValue.toString();
+			}
+			if (StringUtils.isValidString(legendValue)) {
+				title += " " + legendValue.toString();
+			}
+			if (fmtedVal != null) {
+				title += " " + fmtedVal;
+			}
+		}
+		title = replaceAll(title, "\"", "&quot;");
+		return title;
+	}
+	
 	protected String getStgLinkHtml(String link, String shape, String coords,
 			Object target, Object legendValue, Object categoryValue,
 			String fmtedVal, String tips) {
@@ -975,13 +994,20 @@ public abstract class DrawBase implements IGraph {
 				link = replaceAll(link, "@title", tips);
 			}
 		}
+
+		String title = getTitle(tips,categoryValue,legendValue,fmtedVal);
 		StringBuffer sb = new StringBuffer(128);
 		if (isSVG()) {
-			if (!StringUtils.isValidString(link)) {
-				return null;
+			sb.append("<a");
+			if (StringUtils.isValidString(link)) {
+				sb.append(" xlink:href=\"").append(link).append("\" target=\"");
+				sb.append(target).append("\"");
 			}
-			sb.append("<a xlink:href=\"").append(link).append("\" target=\"");
-			sb.append(target).append("\">\n");
+			sb.append(">\n");
+			if (StringUtils.isValidString(title)) {
+				sb.append("<title>").append(title);
+				sb.append("</title>");
+			}
 
 			sb.append("<").append(shape);
 			sb.append(" ").append(coords);
@@ -995,21 +1021,6 @@ public abstract class DrawBase implements IGraph {
 				sb.append("\" href=\"").append(link).append("\" target=\"")
 						.append(target);
 			}
-			String title = "";
-			if (StringUtils.isValidString(tips)) {
-				title = tips;
-			} else {
-				if (StringUtils.isValidString(categoryValue)) {
-					title = categoryValue.toString();
-				}
-				if (StringUtils.isValidString(legendValue)) {
-					title += " " + legendValue.toString();
-				}
-				if (fmtedVal != null) {
-					title += " " + fmtedVal;
-				}
-			}
-			title = replaceAll(title, "\"", "&quot;");
 
 			if (StringUtils.isValidString(title)) {
 				sb.append("\" title=\"").append(title);
@@ -1907,10 +1918,10 @@ public abstract class DrawBase implements IGraph {
 		}
 		String coordx;
 		if (isSVG()) {
-			if (!StringUtils.isValidString(egp.getLink())) {
-				Logger.debug("SVG graph must specify hyper link to generate dynamic links.");
-				return;
-			}
+//			if (!StringUtils.isValidString(egp.getLink())) {
+//				Logger.debug("SVG graph must specify hyper link to generate dynamic links.");
+//				return;
+//			}
 
 			coordx = "x=\"" + (int)x1 + "\" y=\"" + (int)y1 + "\" width=\"" + (int)w
 					+ "\" height=\"" + (int)h + "\"";
