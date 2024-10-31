@@ -577,7 +577,9 @@ public abstract class DrawBase implements IGraph {
 		}
 
 		// 超连接处理
-		String coordx = x + "," + (y - nFontHeight) + ",";
+		int x1 = x;
+		int y1 = y-nFontHeight;
+//		String coordx = x + "," + (y - nFontHeight) + ",";
 		x += fontHeight + egp.getLegendHorizonGap();
 		if (isGongZi) {
 			stmp = stmp.substring(stmp.indexOf(".") + 1);
@@ -599,11 +601,20 @@ public abstract class DrawBase implements IGraph {
 			gp.GFV_LEGEND.outText(x, y, sectText);
 			y += fontHeight;
 		}
-		coordx += (x + textWidth) + "," + y;
-		if (StringUtils.isValidString(egp.getLegendLink())) {
-			htmlBuffer.append(getStgLinkHtml(egp.getLegendLink(), "rect",
-					coordx, egp.getLinkTarget(), stmp));
+		int w = textWidth;
+		int h = y - y1;
+//		coordx += (x + textWidth) + "," + y;
+
+		String coordx;
+		if (isSVG()) {
+			coordx = "x=\"" + (int)x1 + "\" y=\"" + (int)y1 + "\" width=\"" + (int)w
+					+ "\" height=\"" + (int)h + "\"";
+		} else {
+			coordx = (int)x1 + "," + (int)y1 + "," + (int)(x1 + w) + "," + (int)(y1 + h);
 		}
+		
+		htmlBuffer.append(getStgLinkHtml(egp.getLegendLink(), "rect",
+				coordx, egp.getLinkTarget(), stmp));
 	}
 
 	protected boolean isLegendOnSide() {
