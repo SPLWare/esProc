@@ -674,19 +674,22 @@ public class JTableValue extends JTableEx {
 	private void resetSelection() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				ListSelectionModel selectModel = getSelectionModel();
-				selectModel.clearSelection();
-				if (!selectedRows.isEmpty()) {
-					int r;
-					for (int i = 0; i < selectedRows.size(); i++) {
-						r = selectedRows.getInt(i);
-						r = r - panelValue.sbValue.getValue() + 1;
-						if (r > -1 && r < getRowCount()) {
-							selectModel.addSelectionInterval(r, r);
+				try {
+					ListSelectionModel selectModel = getSelectionModel();
+					selectModel.clearSelection();
+					if (!selectedRows.isEmpty()) {
+						int r;
+						for (int i = 0; i < selectedRows.size(); i++) {
+							r = selectedRows.getInt(i);
+							r = r - panelValue.sbValue.getValue() + 1;
+							if (r > -1 && r < getRowCount()) {
+								selectModel.addSelectionInterval(r, r);
+							}
 						}
 					}
+					JTableValue.this.setSelectionModel(selectModel);
+				} catch (Throwable t) {
 				}
-				JTableValue.this.setSelectionModel(selectModel);
 			}
 		});
 
@@ -736,6 +739,7 @@ public class JTableValue extends JTableEx {
 			s = (Sequence) value;
 			break;
 		default:
+			resetSelection();
 			return;
 		}
 		resetThread = new ResetDataThread(s, index, m_type);
