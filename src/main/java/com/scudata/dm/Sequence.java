@@ -7094,6 +7094,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			getMems().addAll(sequence.getMems());
 		}
 	}
+	
+	/**
+	 * 把给定序列中的指定位置开始的元素添加到当前序列尾端，不产生新序列
+	 * @param sequence
+	 * @param index 给定序列的起始元素位置
+	 * @param count 要添加的元素的数量
+	 */
+	public void append(Sequence sequence, int index, int count) {
+		getMems().addAll(sequence.getMems(), index, count);
+	}
 
 	/**
 	 * 把多元素添加到序列尾端，不产生新序列

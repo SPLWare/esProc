@@ -1220,8 +1220,10 @@ public final class CursorUtil {
 	 * @return ICursor 结果集游标
 	 */
 	public static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
-		boolean isPJoin = false, isIsect = false, isDiff = false;
+		boolean isPJoin = false, isIsect = false, isDiff = false, isXJoin = false;
 		if (opt != null) {
+			isXJoin = opt.indexOf('x') != -1;
+			
 			if (opt.indexOf('p') != -1) {
 				isPJoin = true;
 			} else if (opt.indexOf('i') != -1) {
@@ -1288,7 +1290,11 @@ public final class CursorUtil {
 						Context tmpCtx = ctx.newComputeContext();
 						Expression exp1 = Operation.dupExpression(exps[0][0], tmpCtx);
 						Expression exp2 = Operation.dupExpression(exps[1][0], tmpCtx);
-						result[i] = new JoinxCursor2(multiCursors[0][i], exp1, multiCursors[1][i], exp2, names, opt, tmpCtx);
+						if (isXJoin) {
+							result[i] = new JoinmCursor(multiCursors[0][i], exp1, multiCursors[1][i], exp2, names, opt, tmpCtx);
+						} else {
+							result[i] = new JoinxCursor2(multiCursors[0][i], exp1, multiCursors[1][i], exp2, names, opt, tmpCtx);
+						}
 					} else {
 						ICursor []curs = new ICursor[count];
 						for (int c = 0; c < count; ++c) {
@@ -1311,7 +1317,11 @@ public final class CursorUtil {
 		} else {
 			if (count == 2 && exps[0].length == 1) {
 				// 对关联字段个数为1的两表连接做优化
-				return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+				if (isXJoin) {
+					return new JoinmCursor(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+				} else {
+					return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+				}
 			} else {
 				return new JoinxCursor(cursors, exps, names, opt, ctx);
 			}
