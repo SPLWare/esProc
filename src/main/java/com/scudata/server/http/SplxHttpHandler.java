@@ -278,7 +278,7 @@ public class SplxHttpHandler implements HttpHandler {
 								fileName = path.substring( 1 );
 								String args = queryParams.trim();
 								if( args.length() > 0 ) {
-									SegmentSet segs = new SegmentSet( args, '&' );
+									SegmentSet segs = new SegmentSet( args, true, '&' );
 									Iterator it = segs.keySet().iterator();
 									while( it.hasNext() ) {
 										String paramName = (String)it.next();
