@@ -20,6 +20,10 @@ public class Constant extends Node {
 		this.value = value;
 	}
 
+	public Object getValue() {
+		return value;
+	}
+
 	public byte calcExpValueType(Context ctx) {
 		if (value instanceof DBObject) {
 			return Expression.TYPE_DB;

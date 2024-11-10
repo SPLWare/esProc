@@ -331,6 +331,12 @@ public class Cursor extends IDWCursor {
 			right = ((ColumnsOr) right).getNode();
 		}*/
 		
+		if (left instanceof Constant && Variant.isTrue(((Constant)left).getValue())) {
+			return right;
+		} else if (right instanceof Constant && Variant.isTrue(((Constant)right).getValue())) {
+			return left;
+		}
+		
 		if (left instanceof IFilter) {
 			if (right instanceof IFilter) {
 				IFilter f1 = (IFilter)left;
@@ -582,6 +588,11 @@ public class Cursor extends IDWCursor {
 	}
 	
 	private void parseFilter() {
+		// 有的程序拼接的过滤条件会有1==1这种情形
+		if (filter.getHome() instanceof Constant && Variant.isTrue(filter.calculate(ctx))) {
+			return;
+		}
+		
 		Object obj = parseFilter(table, filter, ctx);
 		Expression unknownFilter = null;
 		
