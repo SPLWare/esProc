@@ -443,8 +443,10 @@ public final class MultithreadUtil {
 			Expression []tempAssignExps = new Expression[colCount];
 			Expression []tmpExps = new Expression[colCount];
 			for (int k = 0; k < colCount; ++k) {
-				tempAssignExps [k] = assignExps[k].newExpression(tmpCtx);
 				tmpExps [k] = exps[k].newExpression(tmpCtx);
+				if (assignExps[k] != null) {
+					tempAssignExps [k] = assignExps[k].newExpression(tmpCtx);
+				}
 			}
 			
 			jobs[i] = new RunJob(src, start, end, tempAssignExps, tmpExps, tmpCtx);
