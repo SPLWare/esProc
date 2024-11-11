@@ -85,17 +85,42 @@ public class PFind extends SequenceFunction {
 		if (leftArray instanceof ConstArray) {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
-				Sequence srcSequence = (Sequence)leftValue;
-				if (prevSequence != srcSequence) {
-					prevSequence = srcSequence;
-					indexTable = srcSequence.newIndexTable();
+				boolean isSorted = false, isZero = false;;
+				if (option != null) {
+					if (option.indexOf('b') != -1)isSorted = true;
+					if (option.indexOf('0') != -1)isZero = true;
 				}
 				
+				Sequence srcSequence = (Sequence)leftValue;
 				IArray array = param.getLeafExpression().calculateAll(ctx);
-				int []index = indexTable.findAllPos(array);
-				boolean []signs = null;
+				int []index;
 				
-				if (option == null || option.indexOf('0') == -1) {
+				if (isSorted) {
+					int len = array.size();
+					index = new int[len + 1];
+					
+					for (int i = 1; i <= len; i++) {
+						index[i] = srcSequence.pfindByKey(array.get(i), true);
+					}
+					
+					if (isZero) {
+						for (int i = 1; i <= len; i++) {
+							if (index[i] < 0) {
+								index[i] = 0;
+							}
+						}
+					}
+				} else {
+					if (prevSequence != srcSequence) {
+						prevSequence = srcSequence;
+						indexTable = srcSequence.newIndexTable();
+					}
+					
+					index = indexTable.findAllPos(array);
+				}
+				
+				boolean []signs = null;
+				if (!isZero) {
 					int len = index.length;
 					signs = new boolean[len];
 					for (int i = 1; i < len; ++i) {
@@ -124,18 +149,45 @@ public class PFind extends SequenceFunction {
 		if (leftArray instanceof ConstArray) {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
-				Sequence srcSequence = (Sequence)leftValue;
-				if (prevSequence != srcSequence) {
-					prevSequence = srcSequence;
-					indexTable = srcSequence.newIndexTable();
+				boolean isSorted = false, isZero = false;;
+				if (option != null) {
+					if (option.indexOf('b') != -1)isSorted = true;
+					if (option.indexOf('0') != -1)isZero = true;
 				}
-				
+
+				Sequence srcSequence = (Sequence)leftValue;
 				BoolArray boolArray = ArrayUtil.booleanValue(signArray, sign);
 				IArray array = param.getLeafExpression().calculateAll(ctx, boolArray, true);
-				int []index = indexTable.findAllPos(array, boolArray);
-				boolean []signs = null;
+				int []index;
 				
-				if (option == null || option.indexOf('0') == -1) {
+				if (isSorted) {
+					int len = array.size();
+					index = new int[len + 1];
+					
+					for (int i = 1; i <= len; i++) {
+						if (boolArray.isTrue(i)) {
+							index[i] = srcSequence.pfindByKey(array.get(i), true);
+						}
+					}
+					
+					if (isZero) {
+						for (int i = 1; i <= len; i++) {
+							if (index[i] < 0) {
+								index[i] = 0;
+							}
+						}
+					}
+				} else {
+					if (prevSequence != srcSequence) {
+						prevSequence = srcSequence;
+						indexTable = srcSequence.newIndexTable();
+					}
+					
+					index = indexTable.findAllPos(array, boolArray);
+				}
+				
+				boolean []signs = null;
+				if (!isZero) {
 					int len = index.length;
 					signs = new boolean[len];
 					for (int i = 1; i < len; ++i) {
@@ -164,18 +216,27 @@ public class PFind extends SequenceFunction {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
 				Sequence srcSequence = (Sequence)leftValue;
-				if (prevSequence != srcSequence) {
-					prevSequence = srcSequence;
-					indexTable = srcSequence.newIndexTable();
-				}
-				
 				BoolArray result = leftResult.isTrue();
 				IArray array = param.getLeafExpression().calculateAll(ctx, result, true);
-				int []index = indexTable.findAllPos(array, result);
-
-				for (int i = 1, len = index.length; i < len; ++i) {
-					if (index[i] < 1) {
-						result.set(i, false);
+				
+				if (option != null && option.indexOf('b') != -1) {
+					int len = array.size();
+					for (int i = 1; i <= len; i++) {
+						if (result.isTrue(i) && srcSequence.pfindByKey(array.get(i), true) < 1) {
+							result.set(i, false);
+						}
+					}
+				} else {
+					if (prevSequence != srcSequence) {
+						prevSequence = srcSequence;
+						indexTable = srcSequence.newIndexTable();
+					}
+					
+					int []index = indexTable.findAllPos(array, result);
+					for (int i = 1, len = index.length; i < len; ++i) {
+						if (index[i] < 1) {
+							result.set(i, false);
+						}
 					}
 				}
 				
