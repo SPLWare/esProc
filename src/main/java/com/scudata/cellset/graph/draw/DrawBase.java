@@ -612,9 +612,10 @@ public abstract class DrawBase implements IGraph {
 		} else {
 			coordx = (int)x1 + "," + (int)y1 + "," + (int)(x1 + w) + "," + (int)(y1 + h);
 		}
-		
-		htmlBuffer.append(getStgLinkHtml(egp.getLegendLink(), "rect",
-				coordx, egp.getLinkTarget(), stmp));
+		if(htmlBuffer!=null) {
+			htmlBuffer.append(getStgLinkHtml(egp.getLegendLink(), "rect",
+					coordx, egp.getLinkTarget(), stmp));
+		}
 	}
 
 	protected boolean isLegendOnSide() {
@@ -1916,7 +1917,7 @@ public abstract class DrawBase implements IGraph {
 	 */
 	public void htmlLink(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
-		if (disableLink()) {
+		if (disableLink() || sb==null) {
 			return;
 		}
 		// 超连接处理
@@ -1957,7 +1958,7 @@ public abstract class DrawBase implements IGraph {
 	public void htmlLink2(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
 		// 超连接处理
-		if (disableLink()) {
+		if (disableLink() || sb==null) {
 			return;
 		}
 		int minimum = 10;
