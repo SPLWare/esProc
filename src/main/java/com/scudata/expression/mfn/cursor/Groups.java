@@ -7,6 +7,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
@@ -236,6 +237,10 @@ public class Groups extends CursorFunction {
 			ClusterCursor clusterCursor = (ClusterCursor)cursor;
 			return clusterCursor.groups(exps, names, tempExps, tempNames, option, ctx, maxGroupCount, senNames, senExps);
 		} else {
+			if (option != null && !(cursor instanceof MultipathCursors)) {
+				//当不是多路游标时去掉@z
+				option = option.replaceAll("z", "");
+			}
 			result = cursor.groups(exps, names, tempExps, tempNames, option, ctx, maxGroupCount);
 			
 			if (senNames != null && result != null) {

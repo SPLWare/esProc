@@ -117,6 +117,8 @@ public class UnknownNodeFilter extends IFilter {
 				}
 			}
 			colCount = columns.size() + otherNames.size();
+		} else {
+			colCount = 0;
 		}
 		priority = Integer.MAX_VALUE;
 	}
