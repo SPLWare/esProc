@@ -113,7 +113,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Constructor
 	 * 
-	 * @param type Constants defined above
+	 * @param type
+	 *            Constants defined above
 	 */
 	public ResultSetMetaData(byte type) {
 		JDBCUtil.log("ResultSetMetaData-1");
@@ -537,13 +538,16 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		tableNames = initArrayList(colCount);
 		nullables = new int[colCount];
 
+		initColumnProperties();
 	}
 
 	/**
 	 * Constructor
 	 * 
-	 * @param names Column names
-	 * @param types Column data types
+	 * @param names
+	 *            Column names
+	 * @param types
+	 *            Column data types
 	 * @throws SQLException
 	 */
 	public ResultSetMetaData(String[] names, int[] types) throws SQLException {
@@ -562,10 +566,23 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		properties = new int[colCount];
 		tableNames = new ArrayList<Object>(colCount);
 		nullables = new int[colCount];
-
+		
 		for (int i = 0; i < names.length; i++) {
 			columnNames.add(names[i]);
 			columnLabels.add(names[i]);
+			columnTypeNames.add(JDBCUtil.getTypeName(columnTypes[i]));
+		}
+		initColumnProperties();
+	}
+	
+	private void initColumnProperties(){
+		for (int i = 0; i < columnNames.size(); i++) {
+			columnClassNames.add(JDBCUtil.getTypeClassName(columnTypes[i]));
+			columnDisplaySizes[i] = Integer.MAX_VALUE;
+			precisions[i] = 0;
+			scales[i] = 0;
+			properties[i] = 0x00100110;
+			nullables[i] = ResultSetMetaData.columnNullable;
 		}
 	}
 
@@ -582,7 +599,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates whether the designated column is automatically numbered.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * @return true if so; false otherwise
 	 */
 	public boolean isAutoIncrement(int column) throws SQLException {
@@ -593,7 +611,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates whether a column's case matters.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -606,7 +625,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * Indicates whether the designated column can be used in a where clause.
 	 * 
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -620,7 +640,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * 
 	 * 
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -632,7 +653,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates the nullability of values in the designated column.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -644,7 +666,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates whether values in the designated column are signed numbers.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -656,10 +679,11 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates the designated column's normal maximum width in characters.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
-	 * @return the normal maximum number of characters allowed as the width of the
-	 *         designated column
+	 * @return the normal maximum number of characters allowed as the width of
+	 *         the designated column
 	 */
 	public int getColumnDisplaySize(int column) throws SQLException {
 		JDBCUtil.log("ResultSetMetaData-11");
@@ -668,11 +692,12 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 
 	/**
 	 * Gets the designated column's suggested title for use in printouts and
-	 * displays. The suggested title is usually specified by the SQL AS clause. If a
-	 * SQL AS is not specified, the value returned from getColumnLabel will be the
-	 * same as the value returned by the getColumnName method.
+	 * displays. The suggested title is usually specified by the SQL AS clause.
+	 * If a SQL AS is not specified, the value returned from getColumnLabel will
+	 * be the same as the value returned by the getColumnName method.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return the suggested column title
 	 */
@@ -687,7 +712,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Get the designated column's name.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return column name
 	 */
@@ -703,7 +729,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * Get the designated column's table's schema.
 	 * 
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return schema name or "" if not applicable
 	 */
@@ -713,15 +740,16 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	}
 
 	/**
-	 * Get the designated column's specified column size. For numeric data, this is
-	 * the maximum precision. For character data, this is the length in characters.
-	 * For datetime datatypes, this is the length in characters of the String
-	 * representation (assuming the maximum allowed precision of the fractional
-	 * seconds component). For binary data, this is the length in bytes. For the
-	 * ROWID datatype, this is the length in bytes. 0 is returned for data types
-	 * where the column size is not applicable.
+	 * Get the designated column's specified column size. For numeric data, this
+	 * is the maximum precision. For character data, this is the length in
+	 * characters. For datetime datatypes, this is the length in characters of
+	 * the String representation (assuming the maximum allowed precision of the
+	 * fractional seconds component). For binary data, this is the length in
+	 * bytes. For the ROWID datatype, this is the length in bytes. 0 is returned
+	 * for data types where the column size is not applicable.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return precision
 	 */
@@ -733,10 +761,11 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	}
 
 	/**
-	 * Gets the designated column's number of digits to right of the decimal point.
-	 * 0 is returned for data types where the scale is not applicable.
+	 * Gets the designated column's number of digits to right of the decimal
+	 * point. 0 is returned for data types where the scale is not applicable.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return scale
 	 */
@@ -744,14 +773,15 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		JDBCUtil.log("ResultSetMetaData-16");
 		if (scales == null || scales.length <= column - 1)
 			return 0;
-		JDBCUtil.log("ResultSetMetaData-16" + scales[column - 1]);
+		JDBCUtil.log("ResultSetMetaData-16:" + scales[column - 1]);
 		return scales[column - 1];
 	}
 
 	/**
 	 * Gets the designated column's table name.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return table name or "" if not applicable
 	 */
@@ -766,7 +796,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Gets the designated column's table's catalog name.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return the name of the catalog for the table in which the given column
 	 *         appears or "" if not applicable
@@ -783,7 +814,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * Retrieves the designated column's SQL type.
 	 * 
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return SQL type from java.sql.Types
 	 */
@@ -800,10 +832,11 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Retrieves the designated column's database-specific type name.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
-	 * @return type name used by the database. If the column type is a user-defined
-	 *         type, then a fully-qualified type name is returned.
+	 * @return type name used by the database. If the column type is a
+	 *         user-defined type, then a fully-qualified type name is returned.
 	 */
 	public String getColumnTypeName(int column) throws SQLException {
 		JDBCUtil.log("ResultSetMetaData-20");
@@ -816,7 +849,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Indicates whether the designated column is definitely not writable.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -829,7 +863,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * Indicates whether it is possible for a write on the designated column to
 	 * succeed.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -839,9 +874,11 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	}
 
 	/**
-	 * Indicates whether a write on the designated column will definitely succeed.
+	 * Indicates whether a write on the designated column will definitely
+	 * succeed.
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return true if so; false otherwise
 	 */
@@ -852,17 +889,18 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 
 	/**
 	 * Returns the fully-qualified name of the Java class whose instances are
-	 * manufactured if the method ResultSet.getObject is called to retrieve a value
-	 * from the column. ResultSet.getObject may return a subclass of the class
-	 * returned by this method.
+	 * manufactured if the method ResultSet.getObject is called to retrieve a
+	 * value from the column. ResultSet.getObject may return a subclass of the
+	 * class returned by this method.
 	 * 
 	 * 
-	 * @param column the first column is 1, the second is 2, ...
+	 * @param column
+	 *            the first column is 1, the second is 2, ...
 	 * 
 	 * @return the fully-qualified name of the class in the Java programming
 	 *         language that would be used by the method ResultSet.getObject to
-	 *         retrieve the value in the specified column. This is the class name
-	 *         used for custom mapping.
+	 *         retrieve the value in the specified column. This is the class
+	 *         name used for custom mapping.
 	 */
 	public String getColumnClassName(int column) throws SQLException {
 		JDBCUtil.log("ResultSetMetaData-24");
@@ -873,20 +911,22 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	}
 
 	/**
-	 * Returns true if this either implements the interface argument or is directly
-	 * or indirectly a wrapper for an object that does. Returns false otherwise. If
-	 * this implements the interface then return true, else if this is a wrapper
-	 * then return the result of recursively calling isWrapperFor on the wrapped
-	 * object. If this does not implement the interface and is not a wrapper, return
-	 * false. This method should be implemented as a low-cost operation compared to
-	 * unwrap so that callers can use this method to avoid expensive unwrap calls
-	 * that may fail. If this method returns true then calling unwrap with the same
-	 * argument should succeed.
+	 * Returns true if this either implements the interface argument or is
+	 * directly or indirectly a wrapper for an object that does. Returns false
+	 * otherwise. If this implements the interface then return true, else if
+	 * this is a wrapper then return the result of recursively calling
+	 * isWrapperFor on the wrapped object. If this does not implement the
+	 * interface and is not a wrapper, return false. This method should be
+	 * implemented as a low-cost operation compared to unwrap so that callers
+	 * can use this method to avoid expensive unwrap calls that may fail. If
+	 * this method returns true then calling unwrap with the same argument
+	 * should succeed.
 	 * 
-	 * @param iface a Class defining an interface.
+	 * @param iface
+	 *            a Class defining an interface.
 	 * 
-	 * @return true if this implements the interface or directly or indirectly wraps
-	 *         an object that does.
+	 * @return true if this implements the interface or directly or indirectly
+	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("ResultSetMetaData-27");
@@ -895,16 +935,17 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 
 	/**
 	 * Returns an object that implements the given interface to allow access to
-	 * non-standard methods, or standard methods not exposed by the proxy. If the
-	 * receiver implements the interface then the result is the receiver or a proxy
-	 * for the receiver. If the receiver is a wrapper and the wrapped object
-	 * implements the interface then the result is the wrapped object or a proxy for
-	 * the wrapped object. Otherwise return the the result of calling unwrap
-	 * recursively on the wrapped object or a proxy for that result. If the receiver
-	 * is not a wrapper and does not implement the interface, then an SQLException
-	 * is thrown.
+	 * non-standard methods, or standard methods not exposed by the proxy. If
+	 * the receiver implements the interface then the result is the receiver or
+	 * a proxy for the receiver. If the receiver is a wrapper and the wrapped
+	 * object implements the interface then the result is the wrapped object or
+	 * a proxy for the wrapped object. Otherwise return the the result of
+	 * calling unwrap recursively on the wrapped object or a proxy for that
+	 * result. If the receiver is not a wrapper and does not implement the
+	 * interface, then an SQLException is thrown.
 	 * 
-	 * @param iface A Class defining an interface that the result must implement.
+	 * @param iface
+	 *            A Class defining an interface that the result must implement.
 	 * 
 	 * @return an object that implements the interface. May be a proxy for the
 	 *         actual implementing object.
@@ -966,14 +1007,12 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	/**
 	 * Initialization list
 	 * 
-	 * @param colCount Number of columns
+	 * @param colCount
+	 *            Number of columns
 	 * @return
 	 */
 	private ArrayList<Object> initArrayList(int colCount) {
 		ArrayList<Object> list = new ArrayList<Object>(colCount);
-		for (int i = 0; i < colCount; i++) {
-			list.add(null);
-		}
 		return list;
 	}
 

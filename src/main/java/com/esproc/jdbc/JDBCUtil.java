@@ -1565,7 +1565,7 @@ public class JDBCUtil {
 	 * @param type
 	 * @return String
 	 */
-	public static String getTypeDisp(int type) {
+	public static String getTypeName(int type) {
 		switch (type) {
 		case java.sql.Types.INTEGER:
 			return "INTEGER";
@@ -1593,6 +1593,36 @@ public class JDBCUtil {
 			return "BINARY";
 		}
 		return "JAVA_OBJECT";
+	}
+
+	public static String getTypeClassName(int type) {
+		switch (type) {
+		case java.sql.Types.INTEGER:
+			return "java.lang.Integer";
+		case java.sql.Types.SMALLINT:
+			return "java.lang.Short";
+		case java.sql.Types.BIGINT:
+			return "java.lang.Long";
+		case java.sql.Types.FLOAT:
+			return "java.lang.Float";
+		case java.sql.Types.DOUBLE:
+			return "java.lang.Double";
+		case java.sql.Types.DECIMAL:
+			return "java.math.BigDecimal";
+		case java.sql.Types.DATE:
+			return "java.sql.Date";
+		case java.sql.Types.TIME:
+			return "java.sql.Time";
+		case java.sql.Types.TIMESTAMP:
+			return "java.sql.Timestamp";
+		case java.sql.Types.VARCHAR:
+			return "java.lang.String";
+		case java.sql.Types.BOOLEAN:
+			return "java.lang.Boolean";
+		case java.sql.Types.BINARY:
+			return "java.lang.Object";
+		}
+		return "java.lang.Object";
 	}
 
 	/**

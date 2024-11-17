@@ -240,6 +240,16 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
+	 * ¥¶¿Ìsql
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	protected String handleSql(String sql) {
+		return JDBCUtil.trimSql(sql);
+	}
+
+	/**
 	 * Execute JDBC statement
 	 * 
 	 * @param sql
@@ -262,7 +272,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			if (!StringUtils.isValidString(sql)) {
 				return null;
 			}
-			sql = JDBCUtil.trimSql(sql);
+			sql = handleSql(sql);
 			byte sqlType = getJdbcSqlType(sql);
 
 			boolean isOnlyServer = con.isOnlyServer();

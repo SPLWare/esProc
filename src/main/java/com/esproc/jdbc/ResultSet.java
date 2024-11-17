@@ -248,7 +248,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 						list.add(record.getFieldValue(JDBCConsts.TABLE_NAME));
 						list.add(record.getFieldValue(JDBCConsts.COLUMN_NAME));
 						list.add(sqlType);
-						list.add(JDBCUtil.getTypeDisp(sqlType));
+						list.add(JDBCUtil.getTypeName(sqlType));
 						list.add(null);
 						list.add(null);
 						list.add(null);
