@@ -143,19 +143,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[6] = java.sql.Types.VARCHAR;
 			columnTypes[7] = java.sql.Types.INTEGER;
 			columnTypes[8] = java.sql.Types.VARCHAR;
-
-			columnTypeNames = initArrayList(colCount);
-
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("NULL");
-			columnTypeNames.add("NULL");
-			columnTypeNames.add("NULL");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
-
 		} else if (type == ResultSet.GET_PROCEDURE_COLUMNS) {
 			colCount = 20;
 			columnNames = new ArrayList<Object>(colCount);
@@ -204,27 +191,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[18] = java.sql.Types.VARCHAR;
 			columnTypes[19] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("Short");
-			columnTypeNames.add("int");
-			columnTypeNames.add("String");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("short");
-			columnTypeNames.add("short");
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_SCHEMAS) {
 			colCount = 2;
 			columnNames = new ArrayList<Object>(colCount);
@@ -236,9 +202,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[0] = java.sql.Types.VARCHAR;
 			columnTypes[1] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_TABLES) {
 			colCount = 10;
 			columnNames = new ArrayList<Object>(colCount);
@@ -265,18 +228,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[7] = java.sql.Types.VARCHAR;
 			columnTypes[8] = java.sql.Types.VARCHAR;
 			columnTypes[9] = java.sql.Types.VARCHAR;
-
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
 
 		} else if (type == ResultSet.GET_COLUMNS) {
 			colCount = 24;
@@ -333,31 +284,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[22] = java.sql.Types.VARCHAR;
 			columnTypes[23] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("int");
-			columnTypeNames.add("String");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("int");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_CATALOGS) {
 			colCount = 1;
 			columnNames = new ArrayList<Object>(colCount);
@@ -365,9 +291,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 
 			columnTypes = new int[colCount];
 			columnTypes[0] = java.sql.Types.VARCHAR;
-
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_TABLE_TYPES) {
 			colCount = 1;
 			columnNames = new ArrayList<Object>(colCount);
@@ -376,8 +299,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes = new int[colCount];
 			columnTypes[0] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_EMPTY_RESULT) {
 			colCount = 1;
 			columnNames = new ArrayList<Object>(colCount);
@@ -386,8 +307,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes = new int[colCount];
 			columnTypes[0] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
 		} else if (type == ResultSet.GET_IMPORTED_KEYS) {
 			colCount = 14;
 			columnNames = new ArrayList<Object>(colCount);
@@ -425,24 +344,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[11] = java.sql.Types.VARCHAR;
 			columnTypes[12] = java.sql.Types.VARCHAR;
 			columnTypes[13] = java.sql.Types.INTEGER;
-
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
-			columnTypeNames.add("short");
-
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
 		} else if (type == ResultSet.GET_EXPORTED_KEYS) {
 			colCount = 14;
 			columnNames = new ArrayList<Object>(colCount);
@@ -481,23 +382,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[12] = java.sql.Types.VARCHAR;
 			columnTypes[13] = java.sql.Types.INTEGER;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
-			columnTypeNames.add("short");
-
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
 		} else if (type == ResultSet.GET_PRIMARY_KEYS) {
 			colCount = 6;
 			columnNames = new ArrayList<Object>(colCount);
@@ -516,18 +400,12 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypes[4] = java.sql.Types.INTEGER;
 			columnTypes[5] = java.sql.Types.VARCHAR;
 
-			columnTypeNames = initArrayList(colCount);
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("String");
-			columnTypeNames.add("short");
-			columnTypeNames.add("String");
 		}
 
 		columnLabels = new ArrayList<Object>(colCount);
 		columnLabels.addAll(columnNames);
 
+		columnTypeNames = new ArrayList<Object>(colCount);
 		columnClassNames = initArrayList(colCount);
 		columnDisplaySizes = new int[colCount];
 		schemaNames = initArrayList(colCount);
@@ -570,13 +448,13 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		for (int i = 0; i < names.length; i++) {
 			columnNames.add(names[i]);
 			columnLabels.add(names[i]);
-			columnTypeNames.add(JDBCUtil.getTypeName(columnTypes[i]));
 		}
 		initColumnProperties();
 	}
 	
 	private void initColumnProperties(){
 		for (int i = 0; i < columnNames.size(); i++) {
+			columnTypeNames.add(JDBCUtil.getTypeName(columnTypes[i]));
 			columnClassNames.add(JDBCUtil.getTypeClassName(columnTypes[i]));
 			columnDisplaySizes[i] = Integer.MAX_VALUE;
 			precisions[i] = 0;
