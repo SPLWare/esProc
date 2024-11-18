@@ -2204,12 +2204,15 @@ public class ColPhyTable extends PhyTable {
 		try {
 			ObjectReader []readers = new ObjectReader[fcount];
 			Object []blockMinVals = new Object[fcount];
+			Object []blockMaxVals = new Object[fcount];
+			Object []prevMaxVals = new Object[fcount];
+			
 			for (int f = 0; f < fcount; ++f) {
 				readers[f] = sortedCols[f].getSegmentReader();
 				readers[f].readLong40();
-				readers[f].skipObject();
-				readers[f].skipObject();
-				blockMinVals[f] = readers[f].readObject(); //startValue
+				readers[f].skipObject(); // 最小值
+				blockMaxVals[f] = readers[f].readObject(); // 最大值
+				blockMinVals[f] = readers[f].readObject(); // 第一条记录的值
 			}
 			
 			Next:
@@ -2253,17 +2256,30 @@ public class ColPhyTable extends PhyTable {
 						continue Next;
 					} else if (cmp == 0) {
 						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
-						((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock);
-						startBlock = currentBlock;
+						
+						// 前一块中可能有与下一路游标起始值相等的
+						if (currentBlock > 0 && Variant.compareArrays(prevMaxVals, nextMinValue) >= 0) {
+							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock - 1);
+							startBlock = currentBlock - 1;
+							appendSegs[nextSeg] = s;
+						} else {
+							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock);
+							startBlock = currentBlock;
+						}
+						
 						continue Next;
 					} else {
 						currentBlock++;
 						if (currentBlock < blockCount) {
+							Object []tmp = prevMaxVals;
+							prevMaxVals = blockMaxVals;
+							blockMaxVals = tmp;
+							
 							for (int f = 0; f < fcount; ++f) {
 								readers[f].readLong40();
-								readers[f].skipObject();
-								readers[f].skipObject();
-								blockMinVals[f] = readers[f].readObject(); //startValue
+								readers[f].skipObject(); // 最小值
+								blockMaxVals[f] = readers[f].readObject(); // 最大值
+								blockMinVals[f] = readers[f].readObject(); // 第一条记录的值
 							}
 						}
 					}
