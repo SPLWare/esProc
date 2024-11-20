@@ -38,7 +38,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * Constructor
 	 */
 	public InternalDriver() {
-		JDBCUtil.log("InternalDriver-1");
+		JDBCUtil.log("InternalDriver()");
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 *            arguments.
 	 */
 	public Connection connect(String url, Properties info) throws SQLException {
-		JDBCUtil.log("InternalDriver-2");
+		JDBCUtil.log("InternalDriver.connect(" + url + "," + info + ")");
 		return connect(url, info, null);
 	}
 
@@ -86,7 +86,6 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	public Connection connect(String url, Properties info, RaqsoftConfig rc)
 			throws SQLException {
-		JDBCUtil.log("InternalDriver-3");
 		if (!acceptsURL(url)) {
 			// The URL format is incorrect. Expected: {0}.
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -144,7 +143,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return true if this driver understands the given URL; false otherwise
 	 */
 	public boolean acceptsURL(String url) throws SQLException {
-		JDBCUtil.log("InternalDriver-4");
+		JDBCUtil.log("InternalDriver.acceptsURL(" + url + ")");
 		if (url == null) {
 			return false;
 		}
@@ -179,7 +178,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
 			throws SQLException {
-		JDBCUtil.log("InternalDriver-5");
+		JDBCUtil.log("InternalDriver.getPropertyInfo(" + url + "," + info + ")");
 		Map<String, String> propMap = getPropertyMap(url, info);
 		DriverPropertyInfo[] dpis = new DriverPropertyInfo[2];
 		dpis[0] = new DriverPropertyInfo(KEY_CONFIG, propMap.get(KEY_CONFIG));
@@ -194,7 +193,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return this driver's major version number
 	 */
 	public int getMajorVersion() {
-		JDBCUtil.log("InternalDriver-6");
+		JDBCUtil.log("InternalDriver.getMajorVersion()");
 		return 1;
 	}
 
@@ -204,7 +203,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return this driver's minor version number
 	 */
 	public int getMinorVersion() {
-		JDBCUtil.log("InternalDriver-7");
+		JDBCUtil.log("InternalDriver.getMinorVersion()");
 		return 0;
 	}
 
@@ -216,7 +215,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return true if this driver is JDBC Compliant; false otherwise
 	 */
 	public boolean jdbcCompliant() {
-		JDBCUtil.log("InternalDriver-8");
+		JDBCUtil.log("InternalDriver.jdbcCompliant()");
 		return true;
 	}
 
@@ -232,7 +231,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	public java.util.logging.Logger getParentLogger()
 			throws SQLFeatureNotSupportedException {
-		JDBCUtil.log("InternalDriver-9");
+		JDBCUtil.log("InternalDriver.getParentLogger()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getParentLogger()"));
 		return null;
@@ -435,10 +434,9 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 										logConfig));
 							}
 						} else {
-							Logger.debug(JDBCMessage.get()
-									.getMessage(
-											"internaldriver.logconfignotfound",
-											logConfig));
+							Logger.debug(JDBCMessage.get().getMessage(
+									"internaldriver.logconfignotfound",
+									logConfig));
 						}
 					} catch (Exception e1) {
 						// Log configuration file: {0} failed to load.

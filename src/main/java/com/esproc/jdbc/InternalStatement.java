@@ -100,7 +100,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            The statement ID
 	 */
 	public InternalStatement(int id) {
-		JDBCUtil.log("InternalStatement-1");
 		this.id = id;
 		initContext();
 	}
@@ -470,7 +469,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         query; never null
 	 */
 	public java.sql.ResultSet executeQuery(String sql) throws SQLException {
-		JDBCUtil.log("InternalStatement-2");
+		JDBCUtil.log("InternalStatement.executeQuery(" + sql + ")");
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -498,7 +497,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
 	public int executeUpdate(String sql) throws SQLException {
-		JDBCUtil.log("InternalStatement-3");
+		JDBCUtil.log("InternalStatement.executeUpdate(" + sql + ")");
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -515,7 +514,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * finished with them to avoid tying up database resources.
 	 */
 	public void close() throws SQLException {
-		JDBCUtil.log("InternalStatement-4");
+		JDBCUtil.log("InternalStatement.close()");
 		if (result != null) {
 			if (result instanceof IResource) {
 				((IResource) result).close();
@@ -591,7 +590,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         binary values; zero means there is no limit
 	 */
 	public int getMaxFieldSize() throws SQLException {
-		JDBCUtil.log("InternalStatement-5");
+		JDBCUtil.log("InternalStatement.getMaxFieldSize()");
 		return 0;
 	}
 
@@ -608,7 +607,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            limit
 	 */
 	public void setMaxFieldSize(int max) throws SQLException {
-		JDBCUtil.log("InternalStatement-6");
+		JDBCUtil.log("InternalStatement.setMaxFieldSize(" + max + ")");
 	}
 
 	/**
@@ -620,7 +619,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         produced by this Statement object; zero means there is no limit
 	 */
 	public int getMaxRows() throws SQLException {
-		JDBCUtil.log("InternalStatement-7");
+		JDBCUtil.log("InternalStatement.getMaxRows()");
 		return 0;
 	}
 
@@ -633,7 +632,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            the new max rows limit; zero means there is no limit
 	 */
 	public void setMaxRows(int max) throws SQLException {
-		JDBCUtil.log("InternalStatement-8");
+		JDBCUtil.log("InternalStatement.setMaxRows(" + max + ")");
 	}
 
 	/**
@@ -645,7 +644,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            true to enable escape processing; false to disable it
 	 */
 	public void setEscapeProcessing(boolean enable) throws SQLException {
-		JDBCUtil.log("InternalStatement-9");
+		JDBCUtil.log("InternalStatement.setEscapeProcessing(" + enable + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setEscapeProcessing(boolean enable)"));
 	}
@@ -658,7 +657,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         no limit
 	 */
 	public int getQueryTimeout() throws SQLException {
-		JDBCUtil.log("InternalStatement-10");
+		JDBCUtil.log("InternalStatement.getQueryTimeout()");
 		return queryTimeout;
 	}
 
@@ -674,7 +673,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            limit
 	 */
 	public void setQueryTimeout(int seconds) throws SQLException {
-		JDBCUtil.log("InternalStatement-11");
+		JDBCUtil.log("InternalStatement.setQueryTimeout(" + seconds + ")");
 		this.queryTimeout = seconds;
 	}
 
@@ -684,7 +683,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * cancel a statement that is being executed by another thread.
 	 */
 	public void cancel() throws SQLException {
-		JDBCUtil.log("InternalStatement-12");
+		JDBCUtil.log("InternalStatement.cancel()");
 		if (execThread != null) {
 			InternalConnection connt = getConnection();
 			if (connt == null || connt.isClosed()) {
@@ -717,7 +716,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @return the first SQLWarning object or null if there are no warnings
 	 */
 	public SQLWarning getWarnings() throws SQLException {
-		JDBCUtil.log("InternalStatement-13");
+		JDBCUtil.log("InternalStatement.getWarnings()");
 		return null;
 	}
 
@@ -727,7 +726,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * warning is reported for this Statement object.
 	 */
 	public void clearWarnings() throws SQLException {
-		JDBCUtil.log("InternalStatement-14");
+		JDBCUtil.log("InternalStatement.clearWarnings()");
 	}
 
 	/**
@@ -744,7 +743,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            the new cursor name, which must be unique within a connection
 	 */
 	public void setCursorName(String name) throws SQLException {
-		JDBCUtil.log("InternalStatement-15");
+		JDBCUtil.log("InternalStatement.setCursorName(" + name + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setCursorName(String name)"));
 	}
@@ -760,7 +759,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            any SQL statement
 	 */
 	public boolean execute(String sql) throws SQLException {
-		JDBCUtil.log("InternalStatement-17");
+		JDBCUtil.log("InternalStatement.execute(" + sql + ")");
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -783,7 +782,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         an update count or there are no more results
 	 */
 	public java.sql.ResultSet getResultSet() throws SQLException {
-		JDBCUtil.log("InternalStatement-18");
+		JDBCUtil.log("InternalStatement.getResultSet()");
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -820,7 +819,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         is a ResultSet object or there are no more results
 	 */
 	public int getUpdateCount() throws SQLException {
-		JDBCUtil.log("InternalStatement-19");
+		JDBCUtil.log("InternalStatement.getUpdateCount()");
 		return updateCount;
 	}
 
@@ -833,7 +832,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         update count or there are no more results
 	 */
 	public boolean getMoreResults() throws SQLException {
-		JDBCUtil.log("InternalStatement-20");
+		JDBCUtil.log("InternalStatement.getMoreResults()");
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -874,7 +873,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            the initial direction for processing rows
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
-		JDBCUtil.log("InternalStatement-21");
+		JDBCUtil.log("InternalStatement.setFetchDirection(" + direction + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setFetchDirection(int direction)"));
 	}
@@ -889,7 +888,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         Statement object
 	 */
 	public int getFetchDirection() throws SQLException {
-		JDBCUtil.log("InternalStatement-22");
+		JDBCUtil.log("InternalStatement.getFetchDirection()");
 		return ResultSet.FETCH_FORWARD;
 	}
 
@@ -903,7 +902,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            the number of rows to fetch
 	 */
 	public void setFetchSize(int rows) throws SQLException {
-		JDBCUtil.log("InternalStatement-23");
+		JDBCUtil.log("InternalStatement.setFetchSize(" + rows + ")");
 		fetchSize = rows;
 	}
 
@@ -917,7 +916,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         Statement object
 	 */
 	public int getFetchSize() throws SQLException {
-		JDBCUtil.log("InternalStatement-24");
+		JDBCUtil.log("InternalStatement.getFetchSize()");
 		return fetchSize;
 	}
 
@@ -928,7 +927,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @return either ResultSet.CONCUR_READ_ONLY or ResultSet.CONCUR_UPDATABLE
 	 */
 	public int getResultSetConcurrency() throws SQLException {
-		JDBCUtil.log("InternalStatement-25");
+		JDBCUtil.log("InternalStatement.getResultSetConcurrency()");
 		return ResultSet.CONCUR_READ_ONLY;
 	}
 
@@ -941,7 +940,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         ResultSet.TYPE_SCROLL_SENSITIVE
 	 */
 	public int getResultSetType() throws SQLException {
-		JDBCUtil.log("InternalStatement-26");
+		JDBCUtil.log("InternalStatement.getResultSetType()");
 		return ResultSet.TYPE_FORWARD_ONLY;
 	}
 
@@ -957,7 +956,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            typically this is a SQL INSERT or UPDATE statement
 	 */
 	public void addBatch(String sql) throws SQLException {
-		JDBCUtil.log("InternalStatement-27");
+		JDBCUtil.log("InternalStatement.addBatch(" + sql + ")");
 		splList.add(sql);
 	}
 
@@ -965,7 +964,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * Empties this Statement object's current list of SQL commands.
 	 */
 	public void clearBatch() throws SQLException {
-		JDBCUtil.log("InternalStatement-28");
+		JDBCUtil.log("InternalStatement.clearBatch()");
 		splList.clear();
 	}
 
@@ -982,7 +981,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         the order in which commands were added to the batch.
 	 */
 	public int[] executeBatch() throws SQLException {
-		JDBCUtil.log("InternalStatement-29");
+		JDBCUtil.log("InternalStatement.executeBatch()");
 		return executeBatch(null);
 	}
 
@@ -1055,7 +1054,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         update count or there are no more results
 	 */
 	public boolean getMoreResults(int current) throws SQLException {
-		JDBCUtil.log("InternalStatement-31");
+		JDBCUtil.log("InternalStatement.getMoreResults(" + current + ")");
 		return false;
 	}
 
@@ -1068,7 +1067,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         by the execution of this Statement object
 	 */
 	public java.sql.ResultSet getGeneratedKeys() throws SQLException {
-		JDBCUtil.log("InternalStatement-32");
+		JDBCUtil.log("InternalStatement.getGeneratedKeys()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getGeneratedKeys()"));
 		return JDBCUtil.getEmptyResultSet();
@@ -1096,7 +1095,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int executeUpdate(String sql, int autoGeneratedKeys)
 			throws SQLException {
-		JDBCUtil.log("InternalStatement-33");
+		JDBCUtil.log("InternalStatement.executeUpdate(" + sql + ","
+				+ autoGeneratedKeys + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"executeUpdate(String sql, int autoGeneratedKeys)"));
 		return 0;
@@ -1123,7 +1123,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int executeUpdate(String sql, int[] columnIndexes)
 			throws SQLException {
-		JDBCUtil.log("InternalStatement-34");
+		JDBCUtil.log("InternalStatement.executeUpdate(" + sql + ","
+				+ JDBCUtil.array2String(columnIndexes) + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"executeUpdate(String sql, int[] columnIndexes)"));
 		return 0;
@@ -1150,7 +1151,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int executeUpdate(String sql, String[] columnNames)
 			throws SQLException {
-		JDBCUtil.log("InternalStatement-35");
+		JDBCUtil.log("InternalStatement.executeUpdate(" + sql + ","
+				+ JDBCUtil.array2String(columnNames) + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"executeUpdate(String sql, String[] columnNames)"));
 		return 0;
@@ -1175,7 +1177,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean execute(String sql, int autoGeneratedKeys)
 			throws SQLException {
-		JDBCUtil.log("InternalStatement-36");
+		JDBCUtil.log("InternalStatement.execute(" + sql + ","
+				+ autoGeneratedKeys + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"execute(String sql, int autoGeneratedKeys)"));
 		return false;
@@ -1201,7 +1204,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         update count or there are no results
 	 */
 	public boolean execute(String sql, int[] columnIndexes) throws SQLException {
-		JDBCUtil.log("InternalStatement-37");
+		JDBCUtil.log("InternalStatement.execute(" + sql + ","
+				+ JDBCUtil.array2String(columnIndexes) + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"execute(String sql, int[] columnIndexes)"));
 		return false;
@@ -1228,7 +1232,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean execute(String sql, String[] columnNames)
 			throws SQLException {
-		JDBCUtil.log("InternalStatement-38");
+		JDBCUtil.log("InternalStatement.execute(" + sql + ","
+				+ JDBCUtil.array2String(columnNames) + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"execute(String sql, String[] columnNames)"));
 		return false;
@@ -1242,7 +1247,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 */
 	public int getResultSetHoldability() throws SQLException {
-		JDBCUtil.log("InternalStatement-39");
+		JDBCUtil.log("InternalStatement.getResultSetHoldability()");
 		return ResultSet.HOLD_CURSORS_OVER_COMMIT;
 	}
 
@@ -1255,7 +1260,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         open
 	 */
 	public boolean isClosed() throws SQLException {
-		JDBCUtil.log("InternalStatement-40");
+		JDBCUtil.log("InternalStatement.isClosed()");
 		return false;
 	}
 
@@ -1266,7 +1271,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         statement not be pooled if false
 	 */
 	public boolean isPoolable() throws SQLException {
-		JDBCUtil.log("InternalStatement-41");
+		JDBCUtil.log("InternalStatement.isPoolable()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"isPoolable()"));
 		return false;
@@ -1283,7 +1288,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *            statement not be pooled if false
 	 */
 	public void setPoolable(boolean poolable) throws SQLException {
-		JDBCUtil.log("InternalStatement-42");
+		JDBCUtil.log("InternalStatement.setPoolable(" + poolable + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setPoolable(boolean poolable)"));
 	}
@@ -1307,7 +1312,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		JDBCUtil.log("InternalStatement-43");
+		JDBCUtil.log("InternalStatement.isWrapperFor(Class<?> iface)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"isWrapperFor(Class<?> iface)"));
 		return false;
@@ -1331,7 +1336,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         actual implementing object.
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		JDBCUtil.log("InternalStatement-44");
+		JDBCUtil.log("InternalStatement.unwrap(Class<T> iface)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"unwrap(Class<T> iface)"));
 		return null;
@@ -1343,7 +1348,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * any result sets, this method has no effect.
 	 */
 	public void closeOnCompletion() throws SQLException {
-		JDBCUtil.log("InternalStatement-45");
+		JDBCUtil.log("InternalStatement.closeOnCompletion()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"closeOnCompletion()"));
 	}
@@ -1356,7 +1361,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 *         result sets are closed; false otherwise
 	 */
 	public boolean isCloseOnCompletion() throws SQLException {
-		JDBCUtil.log("InternalStatement-46");
+		JDBCUtil.log("InternalStatement.isCloseOnCompletion()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"isCloseOnCompletion()"));
 		return false;
@@ -1368,28 +1373,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @return int
 	 */
 	public int getID() {
-		JDBCUtil.log("InternalStatement-51");
 		return id;
-	}
-
-	/**
-	 * Get the SQL
-	 * 
-	 * @return String
-	 */
-	public String getSql() {
-		JDBCUtil.log("InternalStatement-53");
-		return this.sql;
-	}
-
-	/**
-	 * Set the SQL
-	 * 
-	 * @param sql
-	 *            The SQL string
-	 */
-	public void setSql(String sql) {
-		JDBCUtil.log("InternalStatement-54");
-		this.sql = sql;
 	}
 }

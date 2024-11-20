@@ -55,7 +55,6 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public InternalCStatement(int id, String sql) {
 		super(id, sql);
-		JDBCUtil.log("InternalCStatement-2");
 	}
 
 	/**
@@ -207,7 +206,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Array getArray(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-8");
+		JDBCUtil.log("InternalCStatement.getArray(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getArray(int parameterIndex)"));
 		return null;
@@ -225,7 +224,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Array getArray(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-9");
+		JDBCUtil.log("InternalCStatement.getArray(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getArray(String parameterName)"));
 		return null;
@@ -243,7 +242,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         the result is null.
 	 */
 	public BigDecimal getBigDecimal(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-10");
+		JDBCUtil.log("InternalCStatement.getBigDecimal(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBigDecimal(int parameterIndex)"));
 		return null;
@@ -260,7 +259,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         the result is null.
 	 */
 	public BigDecimal getBigDecimal(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-11");
+		JDBCUtil.log("InternalCStatement.getBigDecimal(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBigDecimal(String parameterName)"));
 		return null;
@@ -280,7 +279,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public BigDecimal getBigDecimal(int parameterIndex, int scale)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-12");
+		JDBCUtil.log("InternalCStatement.getBigDecimal(" + parameterIndex + ","
+				+ scale + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBigDecimal(int parameterIndex, int scale)"));
 		return null;
@@ -296,7 +296,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Blob getBlob(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-13");
+		JDBCUtil.log("InternalCStatement.getBlob(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBlob(int parameterIndex)"));
 		return null;
@@ -313,7 +313,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Blob getBlob(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-14");
+		JDBCUtil.log("InternalCStatement.getBlob(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBlob(String parameterName)"));
 		return null;
@@ -330,7 +330,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         false.
 	 */
 	public boolean getBoolean(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-15");
+		JDBCUtil.log("InternalCStatement.getBoolean(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBoolean(int parameterIndex)"));
 		return false;
@@ -346,7 +346,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         false.
 	 */
 	public boolean getBoolean(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-16");
+		JDBCUtil.log("InternalCStatement.getBoolean(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBoolean(String parameterName)"));
 		return false;
@@ -361,7 +361,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public byte getByte(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-17");
+		JDBCUtil.log("InternalCStatement.getByte(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getByte(int parameterIndex)"));
 		return 0;
@@ -377,7 +377,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public byte getByte(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-18");
+		JDBCUtil.log("InternalCStatement.getByte(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getByte(String parameterName)"));
 		return 0;
@@ -394,7 +394,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public byte[] getBytes(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-19");
+		JDBCUtil.log("InternalCStatement.getBytes(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBytes(int parameterIndex)"));
 		return null;
@@ -412,7 +412,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public byte[] getBytes(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-20");
+		JDBCUtil.log("InternalCStatement.getBytes(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getBytes(String parameterName)"));
 		return null;
@@ -429,7 +429,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Clob getClob(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-21");
+		JDBCUtil.log("InternalCStatement.getClob(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getClob(int parameterIndex)"));
 		return null;
@@ -445,7 +445,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Clob getClob(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-22");
+		JDBCUtil.log("InternalCStatement.getClob(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getClob(String parameterName)"));
 		return null;
@@ -461,7 +461,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public java.sql.Date getDate(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-23");
+		JDBCUtil.log("InternalCStatement.getDate(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDate(int parameterIndex)"));
 		return null;
@@ -477,7 +477,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public java.sql.Date getDate(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-24");
+		JDBCUtil.log("InternalCStatement.getDate(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDate(String parameterName)"));
 		return null;
@@ -500,7 +500,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public java.sql.Date getDate(int parameterIndex, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-25");
+		JDBCUtil.log("InternalCStatement.getDate(" + parameterIndex + "," + cal
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDate(int parameterIndex, Calendar cal)"));
 		return null;
@@ -522,7 +523,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public java.sql.Date getDate(String parameterName, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-26");
+		JDBCUtil.log("InternalCStatement.getDate(" + parameterName + "," + cal
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDate(String parameterName, Calendar cal)"));
 		return null;
@@ -538,7 +540,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public double getDouble(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-27");
+		JDBCUtil.log("InternalCStatement.getDouble(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDouble(int parameterIndex)"));
 		return 0;
@@ -553,7 +555,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public double getDouble(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-28");
+		JDBCUtil.log("InternalCStatement.getDouble(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getDouble(String parameterName)"));
 		return 0;
@@ -569,7 +571,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public float getFloat(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-29");
+		JDBCUtil.log("InternalCStatement.getFloat(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getFloat(int parameterIndex)"));
 		return 0;
@@ -585,7 +587,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public float getFloat(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-30");
+		JDBCUtil.log("InternalCStatement.getFloat(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getFloat(String parameterName)"));
 		return 0;
@@ -601,7 +603,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public int getInt(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-31");
+		JDBCUtil.log("InternalCStatement.getInt(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getInt(int parameterIndex)"));
 		return 0;
@@ -616,7 +618,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public int getInt(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-32");
+		JDBCUtil.log("InternalCStatement.getInt(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getInt(String parameterName)"));
 		return 0;
@@ -631,7 +633,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public long getLong(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-33");
+		JDBCUtil.log("InternalCStatement.getLong(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getLong(int parameterIndex)"));
 		return 0;
@@ -646,7 +648,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public long getLong(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-34");
+		JDBCUtil.log("InternalCStatement.getLong(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getLong(String parameterName)"));
 		return 0;
@@ -663,7 +665,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return A java.lang.Object holding the OUT parameter value
 	 */
 	public Object getObject(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-35");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(int parameterIndex)"));
 		return null;
@@ -678,7 +680,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return A java.lang.Object holding the OUT parameter value.
 	 */
 	public Object getObject(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-36");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(String parameterName)"));
 		return null;
@@ -695,7 +697,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Ref getRef(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-37");
+		JDBCUtil.log("InternalCStatement.getRef(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getRef(int parameterIndex)"));
 		return null;
@@ -712,7 +714,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public Ref getRef(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-38");
+		JDBCUtil.log("InternalCStatement.getRef(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getRef(String parameterName)"));
 		return null;
@@ -727,7 +729,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public short getShort(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-39");
+		JDBCUtil.log("InternalCStatement.getShort(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getShort(int parameterIndex)"));
 		return 0;
@@ -742,7 +744,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return the parameter value. If the value is SQL NULL, the result is 0.
 	 */
 	public short getShort(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-40");
+		JDBCUtil.log("InternalCStatement.getShort(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getShort(String parameterName)"));
 		return 0;
@@ -758,7 +760,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public String getString(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-41");
+		JDBCUtil.log("InternalCStatement.getString(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getString(int parameterIndex)"));
 		return null;
@@ -775,7 +777,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public String getString(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-42");
+		JDBCUtil.log("InternalCStatement.getString(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getString(String parameterName)"));
 		return null;
@@ -791,7 +793,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Time getTime(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-43");
+		JDBCUtil.log("InternalCStatement.getTime(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTime(int parameterIndex)"));
 		return null;
@@ -806,7 +808,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Time getTime(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-44");
+		JDBCUtil.log("InternalCStatement.getTime(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTime(String parameterName)"));
 		return null;
@@ -827,7 +829,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Time getTime(int parameterIndex, Calendar cal) throws SQLException {
-		JDBCUtil.log("InternalCStatement-45");
+		JDBCUtil.log("InternalCStatement.getTime(" + parameterIndex + "," + cal
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTime(int parameterIndex, Calendar cal)"));
 		return null;
@@ -849,7 +852,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Time getTime(String parameterName, Calendar cal) throws SQLException {
-		JDBCUtil.log("InternalCStatement-46");
+		JDBCUtil.log("InternalCStatement.getTime(" + parameterName + "," + cal
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTime(String parameterName, Calendar cal)"));
 		return null;
@@ -866,7 +870,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Timestamp getTimestamp(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-47");
+		JDBCUtil.log("InternalCStatement.getTimestamp(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTimestamp(int parameterIndex)"));
 		return null;
@@ -882,7 +886,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         null.
 	 */
 	public Timestamp getTimestamp(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-48");
+		JDBCUtil.log("InternalCStatement.getTimestamp(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTimestamp(String parameterName)"));
 		return null;
@@ -907,7 +911,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public Timestamp getTimestamp(int parameterIndex, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-49");
+		JDBCUtil.log("InternalCStatement.getTimestamp(" + parameterIndex + ","
+				+ cal + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTimestamp(int parameterIndex, Calendar cal)"));
 		return null;
@@ -930,7 +935,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public Timestamp getTimestamp(String parameterName, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-50");
+		JDBCUtil.log("InternalCStatement.getTimestamp(" + parameterName + ","
+				+ cal + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getTimestamp(String parameterName, Calendar cal)"));
 		return null;
@@ -946,7 +952,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         used as the designated parameter
 	 */
 	public URL getURL(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-51");
+		JDBCUtil.log("InternalCStatement.getURL(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getURL(int parameterIndex)"));
 		return null;
@@ -964,7 +970,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         is returned.
 	 */
 	public URL getURL(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-52");
+		JDBCUtil.log("InternalCStatement.getURL(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getURL(String parameterName)"));
 		return null;
@@ -986,7 +992,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(int parameterIndex, int sqlType)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-53");
+		JDBCUtil.log("InternalCStatement.registerOutParameter("
+				+ parameterIndex + "," + sqlType + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"registerOutParameter(int parameterIndex, int sqlType)"));
 	}
@@ -1006,7 +1013,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(String parameterName, int sqlType)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-54");
+		JDBCUtil.log("InternalCStatement.registerOutParameter(" + parameterName
+				+ "," + sqlType + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"registerOutParameter(String parameterName, int sqlType)"));
 	}
@@ -1028,7 +1036,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(int parameterIndex, int sqlType, int scale)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-55");
+		JDBCUtil.log("InternalCStatement.registerOutParameter("
+				+ parameterIndex + "," + sqlType + "," + scale + ")");
 		Logger.debug(JDBCMessage
 				.get()
 				.getMessage("error.methodnotimpl",
@@ -1051,7 +1060,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(int parameterIndex, int sqlType,
 			String typeName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-56");
+		JDBCUtil.log("InternalCStatement.registerOutParameter("
+				+ parameterIndex + "," + sqlType + "," + typeName + ")");
 		Logger.debug(JDBCMessage
 				.get()
 				.getMessage("error.methodnotimpl",
@@ -1077,7 +1087,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(String parameterName, int sqlType,
 			int scale) throws SQLException {
-		JDBCUtil.log("InternalCStatement-57");
+		JDBCUtil.log("InternalCStatement.registerOutParameter(" + parameterName
+				+ "," + sqlType + "," + scale + ")");
 		Logger.debug(JDBCMessage
 				.get()
 				.getMessage(
@@ -1103,7 +1114,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void registerOutParameter(String parameterName, int sqlType,
 			String typeName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-58");
+		JDBCUtil.log("InternalCStatement.registerOutParameter(" + parameterName
+				+ "," + sqlType + "," + typeName + ")");
 		Logger.debug(JDBCMessage
 				.get()
 				.getMessage("error.methodnotimpl",
@@ -1128,7 +1140,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setAsciiStream(String parameterName, InputStream x, int length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-59");
+		JDBCUtil.log("InternalCStatement.setAsciiStream(" + parameterName
+				+ ",InputStream x," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setAsciiStream(paramIndex, x, length);
 	}
@@ -1145,7 +1158,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBigDecimal(String parameterName, BigDecimal x)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-60");
+		JDBCUtil.log("InternalCStatement.setBigDecimal(" + parameterName + ","
+				+ x + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBigDecimal(paramIndex, x);
 	}
@@ -1166,7 +1180,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBinaryStream(String parameterName, InputStream x, int length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-61");
+		JDBCUtil.log("InternalCStatement.setBinaryStream(" + parameterName
+				+ ",InputStream x," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBinaryStream(paramIndex, x, length);
 	}
@@ -1183,7 +1198,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setBoolean(String parameterName, boolean x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-62");
+		JDBCUtil.log("InternalCStatement.setBoolean(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBoolean(paramIndex, x);
 	}
@@ -1198,7 +1214,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setByte(String parameterName, byte x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-63");
+		JDBCUtil.log("InternalCStatement.setByte(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setByte(paramIndex, x);
 	}
@@ -1215,7 +1232,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setBytes(String parameterName, byte[] x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-64");
+		JDBCUtil.log("InternalCStatement.setBytes(" + parameterName
+				+ ",byte[] x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setBytes(paramIndex, x);
 	}
@@ -1239,7 +1257,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setCharacterStream(String parameterName, Reader reader,
 			int length) throws SQLException {
-		JDBCUtil.log("InternalCStatement-65");
+		JDBCUtil.log("InternalCStatement.setCharacterStream(" + parameterName
+				+ ",Reader reader," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setCharacterStream(paramIndex, reader, length);
 	}
@@ -1256,7 +1275,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setDate(String parameterName, Date x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-66");
+		JDBCUtil.log("InternalCStatement.setDate(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setDate(paramIndex, x);
 	}
@@ -1281,7 +1301,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setDate(String parameterName, Date x, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-67");
+		JDBCUtil.log("InternalCStatement.setDate(" + parameterName + "," + x
+				+ "," + cal + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setDate(paramIndex, x, cal);
 	}
@@ -1296,7 +1317,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setDouble(String parameterName, double x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-68");
+		JDBCUtil.log("InternalCStatement.setDouble(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setDouble(paramIndex, x);
 	}
@@ -1311,7 +1333,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setFloat(String parameterName, float x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-69");
+		JDBCUtil.log("InternalCStatement.setFloat(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setFloat(paramIndex, x);
 	}
@@ -1326,7 +1349,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setInt(String parameterName, int x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-70");
+		JDBCUtil.log("InternalCStatement.setInt(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setInt(paramIndex, x);
 	}
@@ -1341,7 +1365,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setLong(String parameterName, long x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-71");
+		JDBCUtil.log("InternalCStatement.setLong(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setLong(paramIndex, x);
 	}
@@ -1355,7 +1380,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the SQL type code defined in java.sql.Types
 	 */
 	public void setNull(String parameterName, int sqlType) throws SQLException {
-		JDBCUtil.log("InternalCStatement-72");
+		JDBCUtil.log("InternalCStatement.setNull(" + parameterName + ","
+				+ sqlType + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNull(paramIndex, sqlType);
 	}
@@ -1376,7 +1402,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNull(String parameterName, int sqlType, String typeName)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-73");
+		JDBCUtil.log("InternalCStatement.setNull(" + parameterName + ","
+				+ sqlType + "," + typeName + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNull(paramIndex, sqlType, typeName);
 	}
@@ -1390,7 +1417,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the object containing the input parameter value
 	 */
 	public void setObject(String parameterName, Object x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-74");
+		JDBCUtil.log("InternalCStatement.setObject(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setObject(paramIndex, x);
 	}
@@ -1412,7 +1440,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setObject(String parameterName, Object x, int targetSqlType)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-75");
+		JDBCUtil.log("InternalCStatement.setObject(" + parameterName + "," + x
+				+ "," + targetSqlType + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setObject(paramIndex, x, targetSqlType);
 	}
@@ -1434,7 +1463,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setObject(String parameterName, Object x, int targetSqlType,
 			int scale) throws SQLException {
-		JDBCUtil.log("InternalCStatement-76");
+		JDBCUtil.log("InternalCStatement.setObject(" + parameterName + "," + x
+				+ "," + targetSqlType + "," + scale + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setObject(paramIndex, x, targetSqlType, scale);
 	}
@@ -1449,7 +1479,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setShort(String parameterName, short x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-77");
+		JDBCUtil.log("InternalCStatement.setShort(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setShort(paramIndex, x);
 	}
@@ -1466,7 +1497,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setString(String parameterName, String x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-78");
+		JDBCUtil.log("InternalCStatement.setString(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setString(paramIndex, x);
 	}
@@ -1482,7 +1514,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setTime(String parameterName, Time x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-79");
+		JDBCUtil.log("InternalCStatement.setTime(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setTime(paramIndex, x);
 	}
@@ -1505,7 +1538,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setTime(String parameterName, Time x, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-80");
+		JDBCUtil.log("InternalCStatement.setTime(" + parameterName + "," + x
+				+ "," + cal + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setTime(paramIndex, x, cal);
 	}
@@ -1522,7 +1556,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setTimestamp(String parameterName, Timestamp x)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-81");
+		JDBCUtil.log("InternalCStatement.setTimestamp(" + parameterName + ","
+				+ x + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setTimestamp(paramIndex, x);
 	}
@@ -1546,7 +1581,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setTimestamp(String parameterName, Timestamp x, Calendar cal)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-82");
+		JDBCUtil.log("InternalCStatement.setTimestamp(" + parameterName + ","
+				+ x + "," + cal + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setTimestamp(paramIndex, x, cal);
 	}
@@ -1563,7 +1599,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setURL(String parameterName, URL val) throws SQLException {
-		JDBCUtil.log("InternalCStatement-83");
+		JDBCUtil.log("InternalCStatement.setURL(" + parameterName + "," + val
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setURL(paramIndex, val);
 	}
@@ -1577,7 +1614,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return true if the last parameter read was SQL NULL; false otherwise
 	 */
 	public boolean wasNull() throws SQLException {
-		JDBCUtil.log("InternalCStatement-84");
+		JDBCUtil.log("InternalCStatement.wasNull()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"wasNull()"));
 		return false;
@@ -1595,7 +1632,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         programming language.
 	 */
 	public Reader getCharacterStream(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-86");
+		JDBCUtil.log("InternalCStatement.getCharacterStream(" + parameterIndex
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getCharacterStream(int parameterIndex)"));
 		return null;
@@ -1612,7 +1650,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         programming language
 	 */
 	public Reader getCharacterStream(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-87");
+		JDBCUtil.log("InternalCStatement.getCharacterStream(" + parameterName
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getCharacterStream(String parameterName)"));
 		return null;
@@ -1630,7 +1669,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         programming language.
 	 */
 	public Reader getNCharacterStream(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-88");
+		JDBCUtil.log("InternalCStatement.getNCharacterStream(" + parameterIndex
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNCharacterStream(int parameterIndex)"));
 		return null;
@@ -1648,7 +1688,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         programming language
 	 */
 	public Reader getNCharacterStream(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-89");
+		JDBCUtil.log("InternalCStatement.getNCharacterStream(" + parameterName
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNCharacterStream(String parameterName)"));
 		return null;
@@ -1665,7 +1706,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public NClob getNClob(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-90");
+		JDBCUtil.log("InternalCStatement.getNClob(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNClob(int parameterIndex)"));
 		return null;
@@ -1682,7 +1723,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         language. If the value was SQL NULL, the value null is returned.
 	 */
 	public NClob getNClob(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-91");
+		JDBCUtil.log("InternalCStatement.getNClob(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNClob(String parameterName)"));
 		return null;
@@ -1699,7 +1740,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         value
 	 */
 	public String getNString(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-92");
+		JDBCUtil.log("InternalCStatement.getNString(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNString(int parameterIndex)"));
 		return null;
@@ -1716,7 +1757,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         value
 	 */
 	public String getNString(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-93");
+		JDBCUtil.log("InternalCStatement.getNString(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getNString(String parameterName)"));
 		return null;
@@ -1734,7 +1775,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public Object getObject(int parameterIndex, Map<String, Class<?>> map)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-94");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterIndex + ","
+				+ map + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(int parameterIndex, Map<String, Class<?>> map)"));
 		return null;
@@ -1752,7 +1794,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public Object getObject(String parameterName, Map<String, Class<?>> map)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-95");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterName + ","
+				+ map + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(String parameterName, Map<String, Class<?>> map)"));
 		return null;
@@ -1769,7 +1812,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         then a null value is returned.
 	 */
 	public RowId getRowId(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-96");
+		JDBCUtil.log("InternalCStatement.getRowId(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getRowId(int parameterIndex)"));
 		return null;
@@ -1786,7 +1829,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *         then a null value is returned.
 	 */
 	public RowId getRowId(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-97");
+		JDBCUtil.log("InternalCStatement.getRowId(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getRowId(String parameterName)"));
 		return null;
@@ -1801,7 +1844,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return a SQLXML object that maps an SQL XML value
 	 */
 	public SQLXML getSQLXML(int parameterIndex) throws SQLException {
-		JDBCUtil.log("InternalCStatement-98");
+		JDBCUtil.log("InternalCStatement.getSQLXML(" + parameterIndex + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getSQLXML(int parameterIndex)"));
 		return null;
@@ -1817,7 +1860,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return a SQLXML object that maps an SQL XML value
 	 */
 	public SQLXML getSQLXML(String parameterName) throws SQLException {
-		JDBCUtil.log("InternalCStatement-99");
+		JDBCUtil.log("InternalCStatement.getSQLXML(" + parameterName + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getSQLXML(String parameterName)"));
 		return null;
@@ -1838,7 +1881,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setAsciiStream(String parameterName, InputStream x)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-100");
+		JDBCUtil.log("InternalCStatement.setAsciiStream(" + parameterName
+				+ ",InputStream x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setAsciiStream(paramIndex, x);
 	}
@@ -1861,7 +1905,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setAsciiStream(String parameterName, InputStream x, long length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-101");
+		JDBCUtil.log("InternalCStatement.setAsciiStream(" + parameterName
+				+ ",InputStream x," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setAsciiStream(paramIndex, x, length);
 	}
@@ -1880,7 +1925,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBinaryStream(String parameterName, InputStream x)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-102");
+		JDBCUtil.log("InternalCStatement.setBinaryStream(" + parameterName
+				+ ",InputStream x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setBinaryStream(paramIndex, x);
 	}
@@ -1903,7 +1949,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBinaryStream(String parameterName, InputStream x, long length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-103");
+		JDBCUtil.log("InternalCStatement.setBinaryStream(" + parameterName
+				+ ",InputStream x," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBinaryStream(paramIndex, x, length);
 	}
@@ -1919,7 +1966,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            a Blob object that maps an SQL BLOB value
 	 */
 	public void setBlob(String parameterName, Blob x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-104");
+		JDBCUtil.log("InternalCStatement.setBlob(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBlob(paramIndex, x);
 	}
@@ -1940,7 +1988,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBlob(String parameterName, InputStream inputStream)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-105");
+		JDBCUtil.log("InternalCStatement.setBlob(" + parameterName
+				+ ",InputStream x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setBlob(paramIndex, inputStream);
 	}
@@ -1966,7 +2015,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setBlob(String parameterName, InputStream inputStream,
 			long length) throws SQLException {
-		JDBCUtil.log("InternalCStatement-106");
+		JDBCUtil.log("InternalCStatement.setBlob(" + parameterName
+				+ ",InputStream x," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setBlob(paramIndex, inputStream, length);
 	}
@@ -1987,7 +2037,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setCharacterStream(String parameterName, Reader reader)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-107");
+		JDBCUtil.log("InternalCStatement.setCharacterStream(" + parameterName
+				+ ",Reader reader)");
 		int paramIndex = getParameterIndex(parameterName);
 		setCharacterStream(paramIndex, reader);
 	}
@@ -2010,7 +2061,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setCharacterStream(String parameterName, Reader reader,
 			long length) throws SQLException {
-		JDBCUtil.log("InternalCStatement-108");
+		JDBCUtil.log("InternalCStatement.setCharacterStream(" + parameterName
+				+ ",Reader reader," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setCharacterStream(paramIndex, reader, length);
 	}
@@ -2027,7 +2079,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            a Clob object that maps an SQL CLOB value
 	 */
 	public void setClob(String parameterName, Clob x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-109");
+		JDBCUtil.log("InternalCStatement.setClob(" + parameterName + "," + x
+				+ ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setClob(paramIndex, x);
 	}
@@ -2048,7 +2101,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setClob(String parameterName, Reader reader)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-110");
+		JDBCUtil.log("InternalCStatement.setClob(" + parameterName
+				+ ",Reader reader)");
 		int paramIndex = getParameterIndex(parameterName);
 		setClob(paramIndex, reader);
 	}
@@ -2073,7 +2127,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setClob(String parameterName, Reader reader, long length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-111");
+		JDBCUtil.log("InternalCStatement.setClob(" + parameterName
+				+ ",Reader reader," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setClob(paramIndex, reader, length);
 	}
@@ -2091,7 +2146,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNCharacterStream(String parameterName, Reader value)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-112");
+		JDBCUtil.log("InternalCStatement.setNCharacterStream(" + parameterName
+				+ ",Reader reader)");
 		int paramIndex = getParameterIndex(parameterName);
 		setNCharacterStream(paramIndex, value);
 	}
@@ -2112,7 +2168,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNCharacterStream(String parameterName, Reader value,
 			long length) throws SQLException {
-		JDBCUtil.log("InternalCStatement-113");
+		JDBCUtil.log("InternalCStatement.setNCharacterStream(" + parameterName
+				+ ",Reader reader," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNCharacterStream(paramIndex, value, length);
 	}
@@ -2129,7 +2186,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setNClob(String parameterName, NClob value) throws SQLException {
-		JDBCUtil.log("InternalCStatement-114");
+		JDBCUtil.log("InternalCStatement.setNClob(" + parameterName + ","
+				+ value + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNClob(paramIndex, value);
 	}
@@ -2151,7 +2209,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNClob(String parameterName, Reader reader)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-115");
+		JDBCUtil.log("InternalCStatement.setNClob(" + parameterName
+				+ ",Reader reader)");
 		int paramIndex = getParameterIndex(parameterName);
 		setNClob(paramIndex, reader);
 	}
@@ -2176,7 +2235,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNClob(String parameterName, Reader reader, long length)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-116");
+		JDBCUtil.log("InternalCStatement.setNClob(" + parameterName
+				+ ",Reader reader," + length + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNClob(paramIndex, reader, length);
 	}
@@ -2192,7 +2252,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setNString(String parameterName, String value)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-117");
+		JDBCUtil.log("InternalCStatement.setNString(" + parameterName + ","
+				+ value + ")");
 		int paramIndex = getParameterIndex(parameterName);
 		setNString(paramIndex, value);
 	}
@@ -2207,7 +2268,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setRowId(String parameterName, RowId x) throws SQLException {
-		JDBCUtil.log("InternalCStatement-118");
+		JDBCUtil.log("InternalCStatement.setRowId(" + parameterName + ",RowId x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setRowId(paramIndex, x);
 	}
@@ -2224,7 +2285,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setSQLXML(String parameterName, SQLXML xmlObject)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-119");
+		JDBCUtil.log("InternalCStatement.setSQLXML(" + parameterName + ",SQLXML xmlObject)");
 		int paramIndex = getParameterIndex(parameterName);
 		setSQLXML(paramIndex, xmlObject);
 	}
@@ -2244,7 +2305,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public <T> T getObject(int parameterIndex, Class<T> type)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-145");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterIndex + ","
+				+ type + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(int parameterIndex, Class<T> type)"));
 		return null;
@@ -2267,7 +2329,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public <T> T getObject(String parameterName, Class<T> type)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement-146");
+		JDBCUtil.log("InternalCStatement.getObject(" + parameterName + ","
+				+ type + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(String parameterName, Class<T> type)"));
 		return null;

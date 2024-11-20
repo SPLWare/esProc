@@ -108,6 +108,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * Constructor
 	 */
 	public ResultSetMetaData() {
+		JDBCUtil.log("ResultSetMetaData()");
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *            Constants defined above
 	 */
 	public ResultSetMetaData(byte type) {
-		JDBCUtil.log("ResultSetMetaData-1");
+		JDBCUtil.log("ResultSetMetaData(" + type + ")");
 		if (type == ResultSet.GET_PROCEDURES) {
 			colCount = 9;
 			columnNames = new ArrayList<Object>(colCount);
@@ -429,7 +430,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @throws SQLException
 	 */
 	public ResultSetMetaData(String[] names, int[] types) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-2");
+		JDBCUtil.log("ResultSetMetaData(" + JDBCUtil.array2String(names) + ","
+				+ JDBCUtil.array2String(types) + ")");
 		colCount = names.length;
 		columnNames = new ArrayList<Object>(colCount);
 		columnTypes = types;
@@ -444,15 +446,15 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		properties = new int[colCount];
 		tableNames = new ArrayList<Object>(colCount);
 		nullables = new int[colCount];
-		
+
 		for (int i = 0; i < names.length; i++) {
 			columnNames.add(names[i]);
 			columnLabels.add(names[i]);
 		}
 		initColumnProperties();
 	}
-	
-	private void initColumnProperties(){
+
+	private void initColumnProperties() {
 		for (int i = 0; i < columnNames.size(); i++) {
 			columnTypeNames.add(JDBCUtil.getTypeName(columnTypes[i]));
 			columnClassNames.add(JDBCUtil.getTypeClassName(columnTypes[i]));
@@ -470,7 +472,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return the number of columns
 	 */
 	public int getColumnCount() throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-4");
+		JDBCUtil.log("ResultSetMetaData.getColumnCount()");
 		return colCount;
 	}
 
@@ -482,7 +484,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isAutoIncrement(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-5");
+		JDBCUtil.log("ResultSetMetaData.isAutoIncrement(" + column + ")");
 		return (properties[column - 1] & (1 << AUTO_INCREMENT)) != 0;
 	}
 
@@ -495,7 +497,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isCaseSensitive(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-6");
+		JDBCUtil.log("ResultSetMetaData.isCaseSensitive(" + column + ")");
 		return (properties[column - 1] & (1 << CASE_SENSITIVE)) != 0;
 	}
 
@@ -509,7 +511,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isSearchable(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-7");
+		JDBCUtil.log("ResultSetMetaData.isSearchable(" + column + ")");
 		return (properties[column - 1] & (1 << SEARCHABLE)) != 0;
 	}
 
@@ -524,7 +526,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isCurrency(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-8");
+		JDBCUtil.log("ResultSetMetaData.isCurrency(" + column + ")");
 		return (properties[column - 1] & (1 << CURRENCY)) != 0;
 	}
 
@@ -537,7 +539,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public int isNullable(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-9");
+		JDBCUtil.log("ResultSetMetaData.isNullable(" + column + ")");
 		return nullables[column - 1];
 	}
 
@@ -550,7 +552,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isSigned(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-10");
+		JDBCUtil.log("ResultSetMetaData.isSigned(" + column + ")");
 		return (properties[column - 1] & (1 << SIGNED)) != 0;
 	}
 
@@ -564,7 +566,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         the designated column
 	 */
 	public int getColumnDisplaySize(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-11");
+		JDBCUtil.log("ResultSetMetaData.getColumnDisplaySize(" + column + ")");
 		return 10000;
 	}
 
@@ -580,7 +582,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return the suggested column title
 	 */
 	public String getColumnLabel(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-12");
+		JDBCUtil.log("ResultSetMetaData.getColumnLabel(" + column + ")");
 		if (columnLabels == null || columnLabels.size() <= column - 1)
 			return null;
 		Object o = columnLabels.get(column - 1);
@@ -596,7 +598,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return column name
 	 */
 	public String getColumnName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-13");
+		JDBCUtil.log("ResultSetMetaData.getColumnName(" + column + ")");
 		if (columnNames == null || columnNames.size() <= column - 1)
 			return null;
 		Object o = columnNames.get(column - 1);
@@ -613,7 +615,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return schema name or "" if not applicable
 	 */
 	public String getSchemaName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-14");
+		JDBCUtil.log("ResultSetMetaData.getSchemaName(" + column + ")");
 		return "";
 	}
 
@@ -632,7 +634,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return precision
 	 */
 	public int getPrecision(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-15");
+		JDBCUtil.log("ResultSetMetaData.getPrecision(" + column + ")");
 		if (precisions == null || precisions.length <= column - 1)
 			return 0;
 		return precisions[column - 1];
@@ -648,10 +650,10 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return scale
 	 */
 	public int getScale(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-16");
+		JDBCUtil.log("ResultSetMetaData.getScale(" + column + ")");
 		if (scales == null || scales.length <= column - 1)
 			return 0;
-		JDBCUtil.log("ResultSetMetaData-16:" + scales[column - 1]);
+		JDBCUtil.log("ResultSetMetaData.()16:" + scales[column - 1]);
 		return scales[column - 1];
 	}
 
@@ -664,7 +666,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return table name or "" if not applicable
 	 */
 	public String getTableName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-17");
+		JDBCUtil.log("ResultSetMetaData.getTableName(" + column + ")");
 		if (tableNames == null || tableNames.size() <= column - 1)
 			return null;
 		Object o = tableNames.get(column - 1);
@@ -681,7 +683,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         appears or "" if not applicable
 	 */
 	public String getCatalogName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-18");
+		JDBCUtil.log("ResultSetMetaData.getCatalogName(" + column + ")");
 		if (catalogNames == null || catalogNames.size() <= column - 1)
 			return null;
 		Object o = catalogNames.get(column - 1);
@@ -698,10 +700,10 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return SQL type from java.sql.Types
 	 */
 	public int getColumnType(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-19");
+		JDBCUtil.log("ResultSetMetaData.getColumnType(" + column + ")");
 		if (columnTypes == null || columnTypes.length <= column - 1)
 			return Types.VARCHAR;
-		JDBCUtil.log("ResultSetMetaData-19-type[" + columnTypes[column - 1]
+		JDBCUtil.log("ResultSetMetaData.()19-type[" + columnTypes[column - 1]
 				+ "]");
 		return columnTypes[column - 1] == 0 ? Types.VARCHAR
 				: columnTypes[column - 1];
@@ -717,7 +719,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         user-defined type, then a fully-qualified type name is returned.
 	 */
 	public String getColumnTypeName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-20");
+		JDBCUtil.log("ResultSetMetaData.getColumnTypeName(" + column + ")");
 		if (columnTypeNames == null || columnTypeNames.size() <= column - 1)
 			return null;
 		Object o = columnTypeNames.get(column - 1);
@@ -733,7 +735,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isReadOnly(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-21");
+		JDBCUtil.log("ResultSetMetaData.isReadOnly(" + column + ")");
 		return (properties[column - 1] & (1 << READ_ONLY)) != 0;
 	}
 
@@ -747,7 +749,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isWritable(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-22");
+		JDBCUtil.log("ResultSetMetaData.isWritable(" + column + ")");
 		return (properties[column - 1] & (1 << WRITABLE)) != 0;
 	}
 
@@ -761,7 +763,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 * @return true if so; false otherwise
 	 */
 	public boolean isDefinitelyWritable(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-23");
+		JDBCUtil.log("ResultSetMetaData.isDefinitelyWritable(" + column + ")");
 		return (properties[column - 1] & (1 << DEFINITELY_WRITABLE)) != 0;
 	}
 
@@ -781,7 +783,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         name used for custom mapping.
 	 */
 	public String getColumnClassName(int column) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-24");
+		JDBCUtil.log("ResultSetMetaData.getColumnClassName(" + column + ")");
 		if (columnClassNames == null || columnClassNames.size() <= column - 1)
 			return null;
 		Object o = columnClassNames.get(column - 1);
@@ -807,7 +809,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-27");
+		JDBCUtil.log("ResultSetMetaData.isWrapperFor(Class<?> iface)");
 		return false;
 	}
 
@@ -829,7 +831,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 *         actual implementing object.
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		JDBCUtil.log("ResultSetMetaData-28");
+		JDBCUtil.log("ResultSetMetaData.unwrap(Class<T> iface)");
 		return null;
 	}
 
@@ -838,7 +840,7 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 	 */
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
-		JDBCUtil.log("ResultSetMetaData-25");
+		JDBCUtil.log("ResultSetMetaData.readExternal(ObjectInput in)");
 		in.readByte();
 
 		colCount = in.readInt();
@@ -855,14 +857,14 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		tableNames = JDBCUtil.readArrayList(in);
 		properties = (int[]) in.readObject();
 		nullables = (int[]) in.readObject();
-		JDBCUtil.log("ResultSetMetaData-25-end");
+		JDBCUtil.log("ResultSetMetaData.()25-end");
 	}
 
 	/**
 	 * Realize the serialization function of Externalizable interface
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
-		JDBCUtil.log("ResultSetMetaData-26");
+		JDBCUtil.log("ResultSetMetaData.writeExternal(ObjectOutput out)");
 		out.writeByte(1);
 
 		out.writeInt(colCount);
@@ -879,7 +881,6 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 		JDBCUtil.writeArrayList(out, tableNames);
 		out.writeObject(properties);
 		out.writeObject(nullables);
-		JDBCUtil.log("ResultSetMetaData-26-end");
 	}
 
 	/**

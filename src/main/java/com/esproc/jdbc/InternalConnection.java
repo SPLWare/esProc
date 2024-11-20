@@ -124,7 +124,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public InternalConnection(InternalDriver driver, RaqsoftConfig config,
 			List<String> hostNames) throws SQLException {
-		JDBCUtil.log("InternalConnection-2");
 		closed = false;
 		raqsoftConfig = config;
 		this.hostNames = hostNames;
@@ -209,7 +208,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return int
 	 */
 	protected synchronized int nextStatementId() {
-		JDBCUtil.log("InternalConnection-1");
 		if (stMaxId == Integer.MAX_VALUE)
 			stMaxId = 1;
 		stMaxId++;
@@ -233,7 +231,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @throws SQLException
 	 */
 	public InternalStatement getStatement(int id) throws SQLException {
-		JDBCUtil.log("InternalConnection-3");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -269,7 +266,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @throws SQLException
 	 */
 	public List<InternalStatement> getStatements() throws SQLException {
-		JDBCUtil.log("InternalConnection-46");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -277,7 +273,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	public void closeStatement(InternalStatement st) throws SQLException {
-		JDBCUtil.log("InternalConnection-47");
 		if (st == null)
 			return;
 		if (closed)
@@ -302,7 +297,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return String
 	 */
 	public String getUrl() {
-		JDBCUtil.log("InternalConnection-52");
 		return url;
 	}
 
@@ -312,7 +306,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @param url
 	 */
 	public void setUrl(String url) {
-		JDBCUtil.log("InternalConnection-53");
 		this.url = url;
 	}
 
@@ -434,24 +427,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public ResultSet getProcedures(String procedureNamePattern)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-17");
-		// Map<String, String> map = Server.getSplList(procedureNamePattern);
-		// String[] names, files;
-		// Iterator<String> iter = map.keySet().iterator();
-		// names = new String[map.size()];
-		// files = new String[map.size()];
-		// int count = 0;
-		// while (iter.hasNext()) {
-		// String key = iter.next().toString();
-		// String value = map.get(key).toString();
-		// names[count] = value;
-		// files[count] = key;
-		// count++;
-		// }
-		// ArrayList<Object> procs = new ArrayList<Object>();
-		// procs.add(names);
-		// procs.add(files);
-
+		JDBCUtil.log("InternalConnection.getProcedures(" + procedureNamePattern
+				+ ")");
 		Table t;
 		if (isOnlyServer()) {
 			UnitClient uc = getUnitClient(connectTimeout);
@@ -484,7 +461,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public ResultSet getProcedureColumns(String procedureNamePattern,
 			String columnNamePattern) throws SQLException {
-		JDBCUtil.log("InternalConnection-18");
+		JDBCUtil.log("InternalConnection.getProcedureColumns("
+				+ procedureNamePattern + "," + columnNamePattern + ")");
 		Table t;
 		if (isOnlyServer()) {
 			UnitClient uc = getUnitClient(connectTimeout);
@@ -516,7 +494,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @throws SQLException
 	 */
 	public ResultSet getTables(String tableNamePattern) throws SQLException {
-		JDBCUtil.log("InternalConnection-19");
+		JDBCUtil.log("InternalConnection.getTables(" + tableNamePattern + ")");
 		Table t;
 		if (isOnlyServer()) {
 			UnitClient uc = getUnitClient(connectTimeout);
@@ -548,7 +526,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public ResultSet getColumns(String tableNamePattern,
 			String columnNamePattern) throws SQLException {
-		JDBCUtil.log("InternalConnection-20");
+		JDBCUtil.log("InternalConnection.getColumns(" + tableNamePattern + ","
+				+ columnNamePattern + ")");
 		Table t;
 		if (isOnlyServer()) {
 			UnitClient uc = getUnitClient(connectTimeout);
@@ -582,7 +561,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return a new default Statement object
 	 */
 	public Statement createStatement() throws SQLException {
-		JDBCUtil.log("InternalConnection-5");
+		JDBCUtil.log("InternalConnection.createStatement()");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -609,7 +588,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         pre-compiled SQL statement
 	 */
 	public PreparedStatement prepareStatement(String sql) throws SQLException {
-		JDBCUtil.log("InternalConnection-6");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ")");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -639,7 +618,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         pre-compiled SQL statement
 	 */
 	public CallableStatement prepareCall(String sql) throws SQLException {
-		JDBCUtil.log("InternalConnection-7");
+		JDBCUtil.log("InternalConnection.prepareCall(" + sql + ")");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -668,7 +647,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the native form of this statement
 	 */
 	public String nativeSQL(String sql) throws SQLException {
-		JDBCUtil.log("InternalConnection-9");
+		JDBCUtil.log("InternalConnection.nativeSQL(" + sql + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"nativeSQL(String sql)"));
 		return null;
@@ -686,7 +665,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            true to enable auto-commit mode; false to disable it
 	 */
 	public void setAutoCommit(boolean autoCommit) throws SQLException {
-		JDBCUtil.log("InternalConnection-10");
+		JDBCUtil.log("InternalConnection.setAutoCommit(" + autoCommit + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setAutoCommit(boolean autoCommit)"));
 	}
@@ -697,7 +676,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the current state of this Connection object's auto-commit mode
 	 */
 	public boolean getAutoCommit() throws SQLException {
-		JDBCUtil.log("InternalConnection-11");
+		JDBCUtil.log("InternalConnection.getAutoCommit()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getAutoCommit()"));
 		return false;
@@ -709,7 +688,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * This method should be used only when auto-commit mode has been disabled.
 	 */
 	public void commit() throws SQLException {
-		JDBCUtil.log("InternalConnection-12");
+		JDBCUtil.log("InternalConnection.commit()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"commit()"));
 	}
@@ -720,7 +699,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * should be used only when auto-commit mode has been disabled.
 	 */
 	public void rollback() throws SQLException {
-		JDBCUtil.log("InternalConnection-13");
+		JDBCUtil.log("InternalConnection.rollback()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"rollback()"));
 	}
@@ -730,7 +709,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * instead of waiting for them to be automatically released.
 	 */
 	public void close() throws SQLException {
-		JDBCUtil.log("InternalConnection-14");
+		JDBCUtil.log("InternalConnection.close()");
 		synchronized (stats) {
 			for (int i = 0; i < this.stats.size(); i++) {
 				stats.get(i).close();
@@ -771,7 +750,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         open
 	 */
 	public boolean isClosed() throws SQLException {
-		JDBCUtil.log("InternalConnection-15");
+		JDBCUtil.log("InternalConnection.isClosed()");
 		return closed;
 	}
 
@@ -785,7 +764,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return a DatabaseMetaData object for this Connection object
 	 */
 	public java.sql.DatabaseMetaData getMetaData() throws SQLException {
-		JDBCUtil.log("InternalConnection-16");
+		JDBCUtil.log("InternalConnection.getMetaData()");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
@@ -810,7 +789,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            true enables read-only mode; false disables it
 	 */
 	public void setReadOnly(boolean readOnly) throws SQLException {
-		JDBCUtil.log("InternalConnection-21");
+		JDBCUtil.log("InternalConnection.setReadOnly(" + readOnly + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setReadOnly(boolean readOnly)"));
 	}
@@ -821,7 +800,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return true if this Connection object is read-only; false otherwise
 	 */
 	public boolean isReadOnly() throws SQLException {
-		JDBCUtil.log("InternalConnection-22");
+		JDBCUtil.log("InternalConnection.isReadOnly()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"isReadOnly()"));
 		return true;
@@ -836,7 +815,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            database) in which to work
 	 */
 	public void setCatalog(String catalog) throws SQLException {
-		JDBCUtil.log("InternalConnection-23");
+		JDBCUtil.log("InternalConnection.setCatalog(" + catalog + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setCatalog(String catalog)"));
 	}
@@ -847,7 +826,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the current catalog name or null if there is none
 	 */
 	public String getCatalog() throws SQLException {
-		JDBCUtil.log("InternalConnection-24");
+		JDBCUtil.log("InternalConnection.getCatalog()");
 		return null;
 	}
 
@@ -866,7 +845,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            specifies that transactions are not supported.)
 	 */
 	public void setTransactionIsolation(int level) throws SQLException {
-		JDBCUtil.log("InternalConnection-25");
+		JDBCUtil.log("InternalConnection.setTransactionIsolation(" + level
+				+ ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setTransactionIsolation(int level)"));
 	}
@@ -882,7 +862,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         Connection.TRANSACTION_NONE.
 	 */
 	public int getTransactionIsolation() throws SQLException {
-		JDBCUtil.log("InternalConnection-26");
+		JDBCUtil.log("InternalConnection.getTransactionIsolation()");
 		return Connection.TRANSACTION_NONE;
 	}
 
@@ -895,7 +875,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the first SQLWarning object or null if there are none
 	 */
 	public SQLWarning getWarnings() throws SQLException {
-		JDBCUtil.log("InternalConnection-27");
+		JDBCUtil.log("InternalConnection.getWarnings()");
 		return null;
 	}
 
@@ -905,7 +885,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * reported for this Connection object.
 	 */
 	public void clearWarnings() throws SQLException {
-		JDBCUtil.log("InternalConnection-28");
+		JDBCUtil.log("InternalConnection.clearWarnings()");
 	}
 
 	/**
@@ -927,7 +907,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public Statement createStatement(int resultSetType, int resultSetConcurrency)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-29");
+		JDBCUtil.log("InternalConnection.createStatement(" + resultSetType
+				+ "," + resultSetConcurrency + ")");
 		return createStatement();
 	}
 
@@ -954,7 +935,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public PreparedStatement prepareStatement(String sql, int resultSetType,
 			int resultSetConcurrency) throws SQLException {
-		JDBCUtil.log("InternalConnection-30");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ","
+				+ resultSetType + "," + resultSetConcurrency + ")");
 		return prepareStatement(sql);
 	}
 
@@ -982,7 +964,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public CallableStatement prepareCall(String sql, int resultSetType,
 			int resultSetConcurrency) throws SQLException {
-		JDBCUtil.log("InternalConnection-31");
+		JDBCUtil.log("InternalConnection.prepareCall(" + sql + ","
+				+ resultSetType + "," + resultSetConcurrency + ")");
 		return prepareCall(sql);
 	}
 
@@ -993,7 +976,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the java.util.Map object associated with this Connection object
 	 */
 	public Map<String, Class<?>> getTypeMap() throws SQLException {
-		JDBCUtil.log("InternalConnection-32");
+		JDBCUtil.log("InternalConnection.getTypeMap()");
 		return typeMap;
 	}
 
@@ -1007,7 +990,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            this Connection object's default type map
 	 */
 	public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
-		JDBCUtil.log("InternalConnection-65");
+		JDBCUtil.log("InternalConnection.setTypeMap(Map<String, Class<?>> map)");
 		this.typeMap = map;
 	}
 
@@ -1023,7 +1006,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 */
 	public void setHoldability(int holdability) throws SQLException {
-		JDBCUtil.log("InternalConnection-33");
+		JDBCUtil.log("InternalConnection.setHoldability(" + holdability + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setHoldability(int holdability)"));
 	}
@@ -1036,7 +1019,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 */
 	public int getHoldability() throws SQLException {
-		JDBCUtil.log("InternalConnection-34");
+		JDBCUtil.log("InternalConnection.getHoldability()");
 		return ResultSet.HOLD_CURSORS_OVER_COMMIT;
 	}
 
@@ -1047,7 +1030,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the new Savepoint object
 	 */
 	public Savepoint setSavepoint() throws SQLException {
-		JDBCUtil.log("InternalConnection-35");
+		JDBCUtil.log("InternalConnection.setSavepoint()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setSavepoint()"));
 		return null;
@@ -1061,7 +1044,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            a String containing the name of the savepoint
 	 */
 	public Savepoint setSavepoint(String name) throws SQLException {
-		JDBCUtil.log("InternalConnection-36");
+		JDBCUtil.log("InternalConnection.setSavepoint(" + name + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setSavepoint(String name)"));
 		return null;
@@ -1074,7 +1057,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            the Savepoint object to roll back to
 	 */
 	public void rollback(Savepoint savepoint) throws SQLException {
-		JDBCUtil.log("InternalConnection-37");
+		JDBCUtil.log("InternalConnection.rollback(Savepoint savepoint)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"rollback(Savepoint savepoint)"));
 	}
@@ -1088,7 +1071,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            the Savepoint object to be removed
 	 */
 	public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-		JDBCUtil.log("InternalConnection-38");
+		JDBCUtil.log("InternalConnection.releaseSavepoint(Savepoint savepoint)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"releaseSavepoint(Savepoint savepoint)"));
 	}
@@ -1117,7 +1100,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	public Statement createStatement(int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-39");
+		JDBCUtil.log("InternalConnection.createStatement(" + resultSetType
+				+ "," + resultSetConcurrency + "," + resultSetHoldability + ")");
 		return createStatement();
 	}
 
@@ -1147,7 +1131,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	public PreparedStatement prepareStatement(String sql, int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-40");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ","
+				+ resultSetType + "," + resultSetConcurrency + ","
+				+ resultSetHoldability + ")");
 		return prepareStatement(sql);
 	}
 
@@ -1180,7 +1166,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	public CallableStatement prepareCall(String sql, int resultSetType,
 			int resultSetConcurrency, int resultSetHoldability)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-41");
+		JDBCUtil.log("InternalConnection.prepareCall(" + sql + ","
+				+ resultSetType + "," + resultSetConcurrency + ","
+				+ resultSetHoldability + ")");
 		return prepareCall(sql);
 	}
 
@@ -1205,7 +1193,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-42");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ","
+				+ autoGeneratedKeys + ")");
 		return prepareStatement(sql);
 	}
 
@@ -1231,7 +1220,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public PreparedStatement prepareStatement(String sql, int[] columnIndexes)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-43");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ","
+				+ JDBCUtil.array2String(columnIndexes) + ")");
 		return prepareStatement(sql);
 	}
 
@@ -1256,7 +1246,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public PreparedStatement prepareStatement(String sql, String[] columnNames)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-44");
+		JDBCUtil.log("InternalConnection.prepareStatement(" + sql + ","
+				+ JDBCUtil.array2String(columnNames) + ")");
 		return prepareStatement(sql);
 	}
 
@@ -1275,7 +1266,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public Array createArrayOf(String typeName, Object[] elements)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-54");
+		JDBCUtil.log("InternalConnection.createArrayOf(" + typeName
+				+ ",Object[] elements)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createArrayOf(String typeName, Object[] elements)"));
 		return null;
@@ -1289,7 +1281,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return An object that implements the Blob interface
 	 */
 	public Blob createBlob() throws SQLException {
-		JDBCUtil.log("InternalConnection-55");
+		JDBCUtil.log("InternalConnection.createBlob()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createBlob()"));
 		return null;
@@ -1304,7 +1296,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return An object that implements the Clob interface
 	 */
 	public Clob createClob() throws SQLException {
-		JDBCUtil.log("InternalConnection-56");
+		JDBCUtil.log("InternalConnection.createClob()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createClob()"));
 		return null;
@@ -1319,7 +1311,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return An object that implements the NClob interface
 	 */
 	public NClob createNClob() throws SQLException {
-		JDBCUtil.log("InternalConnection-57");
+		JDBCUtil.log("InternalConnection.createNClob()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createNClob()"));
 		return null;
@@ -1334,7 +1326,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return An object that implements the SQLXML interface
 	 */
 	public SQLXML createSQLXML() throws SQLException {
-		JDBCUtil.log("InternalConnection-58");
+		JDBCUtil.log("InternalConnection.createSQLXML()");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createSQLXML()"));
 		return null;
@@ -1355,7 +1347,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public Struct createStruct(String typeName, Object[] attributes)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-59");
+		JDBCUtil.log("InternalConnection.createStruct(" + typeName
+				+ ",Object[] attributes)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"createStruct(String typeName, Object[] attributes)"));
 		return null;
@@ -1377,7 +1370,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return true if the connection is valid, false otherwise
 	 */
 	public boolean isValid(int timeout) throws SQLException {
-		JDBCUtil.log("InternalConnection-62");
+		JDBCUtil.log("InternalConnection.isValid(" + timeout + ")");
 		return !isClosed();
 	}
 
@@ -1391,7 +1384,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         each of the client info properties supported by the driver.
 	 */
 	public Properties getClientInfo() throws SQLException {
-		JDBCUtil.log("InternalConnection-60");
+		JDBCUtil.log("InternalConnection.getClientInfo()");
 		return clientInfo;
 	}
 
@@ -1408,7 +1401,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return The value of the client info property specified
 	 */
 	public String getClientInfo(String name) throws SQLException {
-		JDBCUtil.log("InternalConnection-61");
+		JDBCUtil.log("InternalConnection.getClientInfo(" + name + ")");
 		if (clientInfo == null)
 			return null;
 		return clientInfo.getProperty(name);
@@ -1429,7 +1422,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void setClientInfo(Properties properties)
 			throws SQLClientInfoException {
-		JDBCUtil.log("InternalConnection-63");
+		JDBCUtil.log("InternalConnection.setClientInfo(Properties properties)");
 		this.clientInfo = properties;
 	}
 
@@ -1445,7 +1438,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void setClientInfo(String name, String value)
 			throws SQLClientInfoException {
-		JDBCUtil.log("InternalConnection-64");
+		JDBCUtil.log("InternalConnection.setClientInfo(" + name + "," + value
+				+ ")");
 		if (clientInfo == null) {
 			clientInfo = new Properties();
 		}
@@ -1470,7 +1464,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         wraps an object that does.
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		JDBCUtil.log("InternalConnection-66");
+		JDBCUtil.log("InternalConnection.isWrapperFor(Class<?> iface)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"isWrapperFor(Class<?> iface)"));
 		return false;
@@ -1494,7 +1488,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         wraps an object that does.
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		JDBCUtil.log("InternalConnection-67");
+		JDBCUtil.log("InternalConnection.unwrap(Class<?> iface)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"unwrap(Class<T> iface)"));
 		return null;
@@ -1507,7 +1501,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            the name of a schema in which to work
 	 */
 	public void setSchema(String schema) throws SQLException {
-		JDBCUtil.log("InternalConnection-68");
+		JDBCUtil.log("InternalConnection.setSchema(" + schema + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setSchema(String schema)"));
 	}
@@ -1518,7 +1512,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @return the current schema name or null if there is none
 	 */
 	public String getSchema() throws SQLException {
-		JDBCUtil.log("InternalConnection-69");
+		JDBCUtil.log("InternalConnection.getSchema()");
 		return null;
 	}
 
@@ -1529,7 +1523,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *            The Executor implementation which will be used by abort.
 	 */
 	public void abort(Executor executor) throws SQLException {
-		JDBCUtil.log("InternalConnection-70");
+		JDBCUtil.log("InternalConnection.abort(Executor executor)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"abort(Executor executor)"));
 	}
@@ -1558,10 +1552,9 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void setNetworkTimeout(Executor executor, int milliseconds)
 			throws SQLException {
-		JDBCUtil.log("InternalConnection-71");
+		JDBCUtil.log("InternalConnection.setNetworkTimeout(Executor executor,"
+				+ milliseconds + ")");
 		this.connectTimeout = milliseconds;
-		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-		// "setNetworkTimeout(Executor executor, int milliseconds)"));
 	}
 
 	/**
@@ -1572,7 +1565,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 *         limit
 	 */
 	public int getNetworkTimeout() throws SQLException {
-		JDBCUtil.log("InternalConnection-72");
+		JDBCUtil.log("InternalConnection.getNetworkTimeout()");
 		return connectTimeout;
 	}
 

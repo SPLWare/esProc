@@ -1766,4 +1766,42 @@ public class JDBCUtil {
 					MAX_SPL_LENGTH));
 		}
 	}
+
+	/**
+	 * 用于数组参数输出到日志
+	 * @param objs
+	 * @return
+	 */
+	public static String array2String(Object[] objs) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("[");
+		if (objs != null) {
+			for (Object obj : objs) {
+				if (buf.length() > 0)
+					buf.append(",");
+				buf.append(obj);
+			}
+		}
+		buf.append("]");
+		return buf.toString();
+	}
+
+	/**
+	 * 用于数组参数输出到日志
+	 * @param ints
+	 * @return
+	 */
+	public static String array2String(int[] ints) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("[");
+		if (ints != null) {
+			for (int i : ints) {
+				if (buf.length() > 0)
+					buf.append(",");
+				buf.append(i);
+			}
+		}
+		buf.append("]");
+		return buf.toString();
+	}
 }
