@@ -1811,6 +1811,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		int count = sequences.length;
+		int expCount = exps.length;
 		IArray []lists = new IArray[count];
 		int []lens = new int[count];
 		int total = 0;
@@ -1846,12 +1847,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return result;
 			}
 
-			Object []values1 = new Object[exps.length];
-			Object []values2 = new Object[exps.length];
+			Object []values1 = new Object[expCount];
+			Object []values2 = new Object[expCount];
 
 			sequences[0].calc(len1, exps, ctx, values1);
 			sequences[1].calc(1, exps, ctx, values2);
-			if (Variant.compare(values1, values2, true) <= 0) {
+			if (Variant.compareArrays(values1, values2, expCount) <= 0) {
 				resultList.addAll(list1);
 				resultList.addAll(list2);
 				return result;
@@ -1859,7 +1860,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			sequences[0].calc(1, exps, ctx, values1);
 			sequences[1].calc(len2, exps, ctx, values2);
-			if (Variant.compare(values2, values1, true) <= 0) {
+			if (Variant.compareArrays(values2, values1, expCount) <= 0) {
 				resultList.addAll(list2);
 				resultList.addAll(list1);
 				return result;
@@ -1869,7 +1870,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			sequences[1].calc(1, exps, ctx, values2);
 			int s1 = 1, s2 = 1;
 			while (true) {
-				int cmp = Variant.compare(values1, values2, true);
+				int cmp = Variant.compareArrays(values1, values2, expCount);
 				if (cmp == 0) {
 					resultList.add(list1.get(s1));
 					resultList.add(list2.get(s2));
@@ -1920,7 +1921,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					continue Next;
 				}
 
-				Object []values = new Object[exps.length];
+				Object []values = new Object[expCount];
 				sequences[i].calc(1, exps, ctx, values);
 				itemVals[i] = values;
 
@@ -1929,7 +1930,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						items[j] = i;
 						items[i] = -1;
 						continue Next;
-					} else if (Variant.compare(values, itemVals[items[j]], true) < 0) {
+					} else if (Variant.compareArrays(values, itemVals[items[j]], expCount) < 0) {
 						for (int k = i; k > j; --k) {
 							items[k] = items[k - 1];
 						}
@@ -1954,7 +1955,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Object []values = itemVals[item];
 					sequences[item].calc(index[item], exps, ctx, values);
 					for (int j = 1; j < count; ++j) {
-						if (items[j] == -1 || Variant.compare(values, itemVals[items[j]], true) <= 0) {
+						if (items[j] == -1 || Variant.compareArrays(values, itemVals[items[j]], expCount) <= 0) {
 							items[j - 1] = item;
 							continue Next;
 						} else {
