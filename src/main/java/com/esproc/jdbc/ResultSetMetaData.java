@@ -459,7 +459,11 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData,
 			columnTypeNames.add(JDBCUtil.getTypeName(columnTypes[i]));
 			columnClassNames.add(JDBCUtil.getTypeClassName(columnTypes[i]));
 			columnDisplaySizes[i] = Integer.MAX_VALUE;
-			precisions[i] = 0;
+			if (columnTypes[i] == java.sql.Types.VARCHAR) {
+				precisions[i] = Integer.MAX_VALUE;
+			} else {
+				precisions[i] = 0;
+			}
 			scales[i] = 0;
 			properties[i] = 0x00100110;
 			nullables[i] = ResultSetMetaData.columnNullable;

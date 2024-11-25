@@ -24,6 +24,7 @@ import java.sql.SQLXML;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -246,30 +247,35 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 						int sqlType = JDBCUtil.getSQLTypeByType(colType);
 						ArrayList<Object> list = new ArrayList<Object>(
 								rsmd.getColumnCount());
-						list.add(null);
-						list.add(null);
-						list.add(record.getFieldValue(JDBCConsts.TABLE_NAME));
-						list.add(record.getFieldValue(JDBCConsts.COLUMN_NAME));
-						list.add(sqlType);
-						list.add(JDBCUtil.getTypeName(sqlType));
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(DatabaseMetaData.columnNullableUnknown);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add("YES");
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
-						list.add(null);
+						list.add(null); // TABLE_CAT
+						list.add(null);// TABLE_SCHEM
+						list.add(record.getFieldValue(JDBCConsts.TABLE_NAME));// TABLE_NAME
+						list.add(record.getFieldValue(JDBCConsts.COLUMN_NAME));// COLUMN_NAME
+						list.add(sqlType); // DATA_TYPE
+						list.add(JDBCUtil.getTypeName(sqlType));// TYPE_NAME
+						// COLUMN_SIZE
+						if (sqlType == Types.VARCHAR) {
+							list.add(Integer.MAX_VALUE);
+						} else {
+							list.add(null);
+						}
+						list.add(0); // BUFFER_LENGTH
+						list.add(0);// DECIMAL_DIGITS
+						list.add(0);// NUM_PREC_RADIX
+						list.add(DatabaseMetaData.columnNullable); // NULLABLE
+						list.add(null); // REMARKS
+						list.add(null);// COLUMN_DEF
+						list.add(sqlType); // SQL_DATA_TYPE unused
+						list.add(0); // SQL_DATETIME_SUB unused
+						list.add(Integer.MAX_VALUE); // CHAR_OCTET_LENGTH
+						list.add(i); // ORDINAL_POSITION
+						list.add("YES"); // IS_NULLABLE
+						list.add(null); // SCOPE_CATALOG
+						list.add(null);// SCOPE_SCHEMA
+						list.add(null);// SCOPE_TABLE
+						list.add(null);// SOURCE_DATA_TYPE
+						list.add("NO");// IS_AUTOINCREMENT
+						list.add("NO");// IS_GENERATEDCOLUMN
 						dataArray.add(list);
 					}
 				}
