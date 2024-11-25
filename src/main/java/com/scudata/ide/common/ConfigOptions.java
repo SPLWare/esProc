@@ -175,6 +175,9 @@ public class ConfigOptions {
 	public static Boolean bItalic = Boolean.FALSE;
 	/** Is underline */
 	public static Boolean bUnderline = Boolean.FALSE;
+	/** Show grid line */
+	public static Boolean bGridline = Boolean.TRUE;
+	
 	/** Horizontal alignment */
 	public static Byte iHAlign = new Byte(IStyle.HALIGN_LEFT);
 	/** Vertical alignment */
@@ -336,6 +339,7 @@ public class ConfigOptions {
 		options.put("bBold", bBold);
 		options.put("bItalic", bItalic);
 		options.put("bUnderline", bUnderline);
+		options.put("bGirdLine", bGridline);
 		options.put("iHAlign", iHAlign);
 		options.put("iVAlign", iVAlign);
 		options.put("iIndent", iIndent);
@@ -562,6 +566,8 @@ public class ConfigOptions {
 				bItalic = ii;
 			} else if (option.equalsIgnoreCase("bUnderline")) {
 				bUnderline = ii;
+			} else if (option.equalsIgnoreCase("bGirdLine")) {
+				bGridline = ii;
 			} else if (option.equalsIgnoreCase("bShowDBStruct")) {
 				bShowDBStruct = ii;
 			} else if (option.equalsIgnoreCase("bAutoShowTip")) {

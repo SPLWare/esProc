@@ -363,6 +363,10 @@ public class DialogOptions extends JDialog {
 	 */
 	private JCheckBox jCBUnderline;
 	/**
+	 * 网格线复选框
+	 */
+	private JCheckBox jCBGridline;
+	/**
 	 * 间隔编辑控件
 	 */
 	private JSpinner jSPIndent;
@@ -708,6 +712,7 @@ public class DialogOptions extends JDialog {
 		ConfigOptions.bBold = new Boolean(jCBBold.isSelected());
 		ConfigOptions.bItalic = new Boolean(jCBItalic.isSelected());
 		ConfigOptions.bUnderline = new Boolean(jCBUnderline.isSelected());
+		ConfigOptions.bGridline = new Boolean(jCBGridline.isSelected());
 		ConfigOptions.iIndent = (Integer) jSPIndent.getValue();
 		ConfigOptions.iSequenceDispMembers = (Integer) jSSeqMembers.getValue();
 		ConfigOptions.iHAlign = (Byte) jCBHAlign.x_getSelectedItem();
@@ -880,6 +885,7 @@ public class DialogOptions extends JDialog {
 		jCBBold.setSelected(ConfigOptions.bBold.booleanValue());
 		jCBItalic.setSelected(ConfigOptions.bItalic.booleanValue());
 		jCBUnderline.setSelected(ConfigOptions.bUnderline.booleanValue());
+		jCBGridline.setSelected(ConfigOptions.bGridline.booleanValue());
 		jSPIndent.setValue(ConfigOptions.iIndent);
 		jSSeqMembers.setValue(ConfigOptions.iSequenceDispMembers);
 		jCBHAlign
@@ -1228,6 +1234,7 @@ public class DialogOptions extends JDialog {
 		jCBBold = new JCheckBox(mm.getMessage("dialogoptions.bold")); // 加粗
 		jCBItalic = new JCheckBox(mm.getMessage("dialogoptions.italic")); // 倾斜
 		jCBUnderline = new JCheckBox(mm.getMessage("dialogoptions.underline")); // 下划线
+		jCBGridline = new JCheckBox(mm.getMessage("dialogoptions.gridline")); // 网格线
 		jSPIndent = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
 		jSSeqMembers = new JSpinner(new SpinnerNumberModel(3, 1,
 				Integer.MAX_VALUE, 1));
@@ -1269,12 +1276,13 @@ public class DialogOptions extends JDialog {
 		gbc8.gridwidth = 4;
 		JPanel panel8 = new JPanel();
 		GridLayout gl8 = new GridLayout();
-		gl8.setColumns(3);
+		gl8.setColumns(4);
 		gl8.setRows(1);
 		panel8.setLayout(gl8);
 		panel8.add(jCBBold);
 		panel8.add(jCBItalic);
 		panel8.add(jCBUnderline);
+		panel8.add(jCBGridline);
 		panelSplGrid.add(panel8, gbc8);
 		panelSplGrid.add(labelIndent, GM.getGBC(7, 3));
 		panelSplGrid.add(jSPIndent, GM.getGBC(7, 4, true));

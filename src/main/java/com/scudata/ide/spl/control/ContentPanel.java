@@ -590,9 +590,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 
 				drawFlag(g, x, y, parser, row, col, scale);
 				// draw border
-				CellBorder.setEnv(g, borderStyle, row, col,
-						parser.getRowCount(), parser.getColCount(), isEditing);
-				CellBorder.drawBorder(x, y, width, height);
+				if (ConfigOptions.bGridline) { // 根据选项是否画网格线
+					CellBorder.setEnv(g, borderStyle, row, col,
+							parser.getRowCount(), parser.getColCount(),
+							isEditing);
+					CellBorder.drawBorder(x, y, width, height);
+				}
 
 				// draw selectedCell
 				if (isCellSelected(row, col)) {
