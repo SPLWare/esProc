@@ -159,6 +159,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 
 	/**
 	 * Get application image icon
+	 * 
 	 * @return
 	 */
 	public ImageIcon getFrameIcon() {
@@ -179,17 +180,6 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		}
 		setTitle(fixTitle);
 		return fixTitle;
-	}
-
-	public static final String RELEASE_DATE = "2024-09-26";
-
-	/**
-	 * 取发布时间
-	 * 
-	 * @return
-	 */
-	public String getReleaseDate() {
-		return RELEASE_DATE;
 	}
 
 	/**
@@ -414,6 +404,17 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 			sheetNameList.add(jInternalFrame.getTitle());
 		}
 		return sheetNameList;
+	}
+
+	public static final String RELEASE_DATE = "2024-11-26";
+
+	/**
+	 * 取发布时间
+	 * 
+	 * @return
+	 */
+	public String getReleaseDate() {
+		return RELEASE_DATE;
 	}
 
 }
