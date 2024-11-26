@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hdfs_upload()</title>
+<title>hdfs_import()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,317 +13,568 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hdfs_upload()<a
-name="hdfs_upload"></a></span></span><span
-style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan lines-together'><span style='mso-bookmark:
+_Hlt161066090'><a name="_hdfs_import()891892"><span lang=EN-US
+style='mso-fareast-font-family:宋体'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">hdfs_import()</ins></span></span></a><a
+name="hdfs_import"></a></span><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_hdfs_import\(\)891892"'></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_hdfs_import\(\)891892"'></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_hdfs_import\(\)891892"'><span
+lang=EN-US style='mso-fareast-font-family:宋体'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></span></h2></div>
+	<span style='mso-bookmark:"_hdfs_import\(\)891892"'></span>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Description:</span></b></span></p>
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:17">Description:</ins></span><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-language:AR'>Upload a local file to a specific position.</span></span></p>
+style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:19">Ret</ins></span><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:20">rieve
+ORC/Parquet data.</ins></span></span><span lang=EN-US><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Syntax:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></span></p>
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:17">Syntax:</ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt;mso-bidi-language:
+AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15"> </ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt'><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:AR'>hdfs_upload(</span></code></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-language:
-AR'> </span></span><span style='mso-bookmark:_Hlt161066090'><var><span
-lang=EN-US style='mso-bidi-language:AR'>hd, local, remote</span></var></span><span
-style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-"Times New Roman","serif";mso-bidi-language:AR'>)</span></code></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><i><span
+lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15">f</ins></span></span></i><span lang=EN-US><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">.hdfs_import</ins></span></span></b><span
+lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15">(<i>[col,…</i>])</ins></span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Note:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></span></p>
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:17">Note:</ins></span><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"> </ins></span></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
-lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
-italic'>The external library function </span></var><span lang=EN-US
-style='mso-bidi-font-style:italic'>(See </span></span><a
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:等线'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:18">External library function
+</ins></span></span><span lang=EN-US style='mso-bidi-font-style:italic'><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:18">(See </ins></span></span></span><a
 href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
+lang=EN-US style='mso-bidi-font-style:italic'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:18">External Library Guide</ins></span></span></span><span
 style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>) </span></span><span
-style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
-AR;font-style:normal;mso-bidi-font-style:italic'>uploads a local file or folder
-</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
-lang=EN-US style='mso-bidi-language:AR'>local </span></var></span><span
-style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
-AR;font-style:normal;mso-bidi-font-style:italic'>to a remote file/folder </span></var></span><span
-style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
-AR'>remote</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
-lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
-italic'>.</span></var></span></p>
+lang=EN-US style='mso-bidi-font-style:italic'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:19"> for uses</ins></span><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:18">).</ins></span></span><span
+lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15"></ins></span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Parameter:</span></b></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=138 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
-  lang=EN-US style='mso-bidi-language:AR'>hd</span></var></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=544 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
-  lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
-  italic'>An</span></var></span><span style='mso-bookmark:_Hlt161066090'><var><span
-  lang=EN-US style='mso-bidi-language:AR'> hd</span></var></span><span
-  style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
-  AR;mso-bidi-font-style:italic'> </span></var></span><span style='mso-bookmark:
-  _Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:AR;font-style:
-  normal'>connection</span></var><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=138 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
-  lang=EN-US style='mso-bidi-language:AR'>local</span></var></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=544 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  local file or folder</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=138 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
-  lang=EN-US style='mso-bidi-language:AR'>remote</span></var></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=544 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-language:AR'>A </span><span lang=EN-US>remote file or folder</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-language:
-  AR'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Option:</span></b></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-language:
-  AR'>@d</span><span lang=EN-US></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-language:AR'>Upload all files in the specified folder to the
-  specified path, and require both the source and directories are folders</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Return value:</span></b></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:17">&nbsp;</ins></span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-language:AR'>Boolean</span></span></p>
+style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:19">It retrieves ORC or
+Parquet data from local or HDFS files.</ins></span></span><span lang=EN-US><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-language:AR'>Example:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></span></p>
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:17">Parameter:</ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt;mso-bidi-language:
+AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15"> </ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt'><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:22.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=109 valign=top style='width:54.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">f</ins></span></span></var></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=693 valign=top style='width:346.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:20">A </ins></span><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:21">local
+  or HDFS </ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:20">file object of ORC or Parquet format</ins></span><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:21">. </ins></span><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=109 valign=top style='width:54.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">col</ins></span></span></var></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=693 valign=top style='width:346.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:21">A to-be-retrieved
+  column; return all fields by default.</ins></span></span><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:18">Option:</ins></span><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"> </ins></span></span></b></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:22.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=109 valign=top style='width:54.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">@c</ins></span></span></b><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=693 valign=top style='width:346.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:21">Enable
+  returning a curso</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:22">r.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=109 valign=top style='width:54.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><b><span
+  lang=EN-US style='mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">@p</ins></span></span></b></var></span><span
+  style='mso-bookmark:_Hlt161066090'><var><span lang=EN-US style='mso-bidi-language:
+  AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></var></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=693 valign=top style='width:346.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:22">Enable retrieving
+  Parquet data; retrieve ORC data by default.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:18">Return value:</ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt;mso-bidi-language:
+AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15"> </ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.5pt'><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:18">Table
+sequence</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:15"></ins></span></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+datetime="2024-10-09T14:18">Example:</ins></span><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"> </ins></span></span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'><span class=msoIns><ins
+cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></b></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1064
+ style='margin-left:22.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">&nbsp;</ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=683 valign=top style='width:341.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>A</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">A</ins></span></span></code><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  <td width=354 valign=top style='width:176.9pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">&nbsp;</ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>1</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">1</ins></span></span></code><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></code></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US style='mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">=file(&quot;F:/tmp/mytest.orc&quot;)</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-language:AR'>Connect to HDFS file system</span><span
-  lang=EN-US>.</span></span></p>
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:23">Open a local ORC format
+  data file.</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>2</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">2</ins></span></span></code><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_upload(A1,&quot;emp.txt&quot;,&quot;/user&quot;) </span></code></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=A1.hdfs_import()</ins></span></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  local file <i>emp.txt</i> to the path <i>/user</i>.</span></span></p>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:23">Retrieve
+  the ORC file and return all its fields.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>3</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">3</ins></span></span></code><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_upload(A1,&quot;stu.txt&quot;,&quot;/user/stu1.txt&quot;) </span></code></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=A1.hdfs_import@c()</ins></span></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  local file <i>stu.txt</i> to the path <i>/user, </i>and rename it <i>stu1.txt</i>.</span></span></p>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:23">Return</ins></span><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:24"> a
+  cursor.</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>4</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">4</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_upload(A1,&quot;/h1&quot;,&quot;/s1&quot;)</span></code></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">=file(&quot;hdfs://localhost:9000/user/hive/warehouse/test1.orc&quot;)</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  local file <i>/h1</i> to path <i>/s1</i>.</span></span></p>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:24">Open
+  an ORC format data file in HDFS.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>5</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">5</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_upload@d(A1,&quot;/h1&quot;,&quot;/s1&quot;) </span></code></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">=A4.hdfs_import(&quot;product&quot;,&quot;store&quot;)</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  all files in the local folder <i>/h1</i> to path <i>/s1</i>.</span></span></p>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:24">Retrieve
+  certain fields.</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";mso-bidi-language:AR'>6</span></code></span></p>
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">6</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=354 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=hive_open(&quot;hdfs://localhost:9000&quot;,&quot;thrift://localhost:9083&quot;,&quot;hive&quot;,&quot;asus&quot;)</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR;mso-bidi-font-weight:bold'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:25">Connect
+  to Hive database.</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">7</ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=hive_table@p(A6)</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR;mso-bidi-font-weight:bold'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:25">Retrieve
+  all Parquet format tables.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">8</ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=A7.select(tableName==&quot;myParquet&quot;)</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR;mso-bidi-font-weight:bold'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:25">Select
+  myParquet</ins></span><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:26"> table</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:25">.</ins></span><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">9</ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=file(A8.location)</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR;mso-bidi-font-weight:bold'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:26">Load
+  the corresponding HDFS file.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:10;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">10</ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+  lang=EN-US><span class=msoIns><ins cite="mailto:LIJUN%20HAN"
+  datetime="2024-10-09T14:15">=A9.hdfs_import@p()</ins></span></span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR;mso-bidi-font-weight:bold'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:26">Retrieve
+  data from the table.</ins></span><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15"></ins></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes;mso-table-inserted:"LIJUN HAN" 20241009T1415'>
+  <td width=27 valign=top style='width:13.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-bidi-language:AR'><span class=msoIns><ins
+  cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">11</ins></span></span></code></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=683 style='width:341.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
-  AR'>=hdfs_close(A1)</span></code></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">=hive_close(A6)</ins></span></span></code></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <td width=354 style='width:176.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+  class=msoIns><ins cite="mailto:LIJUN%20HAN" datetime="2024-10-09T14:15">&nbsp;</ins></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -341,7 +592,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

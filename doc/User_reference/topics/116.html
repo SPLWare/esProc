@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Configure User-defined Function File</title>
+<title>Function Assist Editor</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,48 +13,64 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='mso-pagination:widow-orphan lines-together'><span lang=EN-US
-style='mso-fareast-font-family:黑体;mso-bidi-font-family:"Times New Roman"'>Configure
-User-defined Function File</span></h1></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>This
-item lets you configure a special file in order to use a user-defined function
-written for achieving a specific purpose. After registering the user-define
-function, you can directly use it in an SPL script as you use any other
-built-in functions.</span></p>
+	<div id="centent-title"><h1 align=left style='text-align:left;text-indent:18.05pt;mso-char-indent-count:
+1.0;mso-pagination:widow-orphan lines-together'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>Function Assist Editor</span></h1></div>
+	<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The item is designed
+to help users edit function expressions. The visualized Function assist editor
+allows users to select the desired function, and configure its parameters,
+options and other information. </span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-bidi-font-family:"Times New Roman";color:#333333'>&nbsp;as shown
+below:</span></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-text-indent:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;mso-bidi-font-family:
-"Times New Roman";mso-font-kerning:0pt'>The user-defined function configuration
-file is </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:
-宋体;mso-bidi-font-family:"Times New Roman"'>customFunction.properties</span></i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;
-mso-bidi-font-family:"Times New Roman"'>, whose format is shown below:</span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体;
-mso-bidi-font-family:"Times New Roman";mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=523 height=245
+src="User_reference.files/image030.png" v:shapes="_x0000_i1041"></span></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-text-indent:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
-style='font-size:12.0pt;mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman";
-mso-font-kerning:0pt'><img border=0 width=628 height=121
-src="User_reference.files/image068.jpg" alt=.. v:shapes="_x0000_i1060"></span></p>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Select a cell:</span></b><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'> The selected cell will be used as the function prefix.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>In
-this file, each line is a function definition, where the part on the left of
-the equals sign is the function name, which is unique across the whole function
-system; namesake functions (including user-defined functions) are forbidden. We
-split the part on the right of the equals sign into two parts according to the
-comma. The first has a value of 0 or 1; 0 represents a regular function and 0
-denotes an object’s member function, such as s.len(), which is the string
-object function. The second is the complete Java class name for the
-user-defined function. </span></p>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Select a function:</span></b><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'> Select the desired function.
+Here functions available will be automatically listed according to return value
+type of the cell selected in “Select a cell”.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-fareast-font-family:宋体;mso-bidi-font-family:"Times New Roman"'>Learn
-more about user-defined functions in <i><a
-href="http://c.raqsoft.com/article/1635748192152">SPL User-defined Functions</a></i>.</span></p>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Property settings:</span></b><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'> In this area you can configure
+the selected function’s parameters and options. The Property auto-adjusts
+according to the currently-selected function’s name; you can edit the parameter
+expression when the<b style='mso-bidi-font-weight:normal'> Value</b> cell
+displays an edit box, and select an item when it contains a drop-down list. You
+can also define the desired property value under property expression <b
+style='mso-bidi-font-weight:normal'>Exp</b>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Click the URL in the
+lower part of the interface to jump to the current function webpage.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The functions now
+supported by Function Assist Editor mainly perform these operations &#8211; perform
+grouping, sorting or join on data retrieved from databases or files, and output
+the result data. </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US>Detailed uses are explained in <i style='mso-bidi-font-style:normal'><a
+href="https://c.scudata.com/article/1731929214636">SPL Visual Scripting</a></i>.
+</span><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="117.html">Next</a></div>
@@ -67,7 +83,7 @@ href="http://c.raqsoft.com/article/1635748192152">SPL User-defined Functions</a>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

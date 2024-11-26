@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>stax_open()</title>
+<title>splserver()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,317 +13,434 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>stax_open()<a
-name="stax_open"></a></span></span><span
-style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h2></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan lines-together'><span style='mso-bookmark:
+_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US
+style='mso-fareast-font-family:宋体'>splserver()<a name="splserver_port_cfg"></a></span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-fareast-font-family:宋体'></span></span></span></h2></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-connection to the Cassandra database.</span></span></p>
+<p style='margin:0cm;margin-bottom:.0001pt;text-align:justify;text-justify:
+inter-ideograph;mso-pagination:none'><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US style='font-size:10.5pt;
+font-family:"Times New Roman",serif;mso-font-kerning:1.0pt;mso-bidi-language:
+AR'>Start or stop an SPL process on the current machine.</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:
-</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'> </span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>stax_open</span></b></span><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>(<span class=var1>nodes[:port][,keyspace][,user:pwd][,compressor][,version:verX][,clusterName:nameX][,queryOptions:optionX]</span>)<span
-style='mso-spacerun:yes'>&nbsp; </span></span></i></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-bidi-language:AR;mso-bidi-font-style:italic'>splserver</span></b></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>(<i style='mso-bidi-font-style:normal'>port,cfg</i>)</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-style:italic'>External library function (See </span></span><a
-href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>). The username and password are
-not required if the Cassandra database is started under the </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>PasswordAuthenticator</span></i><span
-lang=EN-US> mode; but required if <span style='mso-bidi-font-style:italic'>the
-Cassandra database is started under the </span><i style='mso-bidi-font-style:
-normal'>authorizer: AllowAllAuthorizer</i> mode.<span style='mso-bidi-font-style:
-italic'>Use keyspace.table format in a CQL query when parameter </span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>keyspace</span></span><span
-lang=EN-US style='mso-bidi-font-style:italic'> is absent.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US style='mso-bidi-language:
+AR'>The function starts or stops the SPL process on the current machine.
+Parameter <i>port</i> is port number, which cannot be omitted. Parameter <i>cfg</i>
+is the XML configuration file. When <i>cfg</i> is present, the function starts
+SPL process; when it is absent, the function stops the process. Below is
+content of the XML configuration file:</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:
-</span></b></span></p>
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;?xml
+version</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US style='mso-bidi-language:
+AR'>=</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US style='font-size:10.0pt;
+mso-font-kerning:0pt'>&quot;1.0&quot; <span style='color:#2A00FF'>encoding</span></span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>=</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'>&quot;UTF-8&quot;<span
+style='color:#2A00FF'>?&gt;</span></span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US
+style='mso-bidi-language:AR'></span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;SERVER&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// esProc
+root directory</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;SplHome&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>D:/raqsoft</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>
+&lt;/SplHome&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;JVMArgs&gt;-</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>Xms128m -Xmx1024m</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/JVMArgs&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// temp
+file timeout (hour)</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;TempTimeOut&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>12</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/TempTimeOut&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Check
+timeout interval (second)</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;Interval&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>0</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/Interval&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Proxy
+timeout (hour)</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US style='font-size:10.0pt;
+color:#2A00FF;mso-font-kerning:0pt'></span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;ProxyTimeOut&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>12</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/ProxyTimeOut&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Log
+file path</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;LogPath&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>D:/raqsoft/esProc/log/splserverlog</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/LogPath&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Path
+of esProc configuration file <i>raqsoftConfig.xml</i></span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&lt;SplConfig&gt;</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>D:/raqsoft/esProc/config/raqsoftConfig.xml</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/SplConfig&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&lt;/SERVER&gt;</span></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='mso-bidi-language:AR'>Name and path of the configuration file
+can be user-defined; just make sure that the reference in parameter <i>cfg</i>
+is the same</span></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Parameter: </span></b></span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>nodes</span></i></span></p>
+  <td width=85 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-bidi-font-weight:bold'>port</span></span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=170><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  to-be-connected database’s IP address </span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=682 valign=top style='width:340.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>The port number.</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>port</span></i></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=85 valign=top style='width:42.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-bidi-font-weight:bold'>cfg</span></span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'></span></i></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Port
-  number; can be omitted</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=682 valign=top style='width:340.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>XML configuration file
+  name; stop the process at the specified port when it is absent.</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>user:pwd</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>User
-  name and password; can be omitted</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>keyspace</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  keyspace name; can be omitted</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>compressor</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  compression algorithm, which is LZ4, Snappy and none; default is none</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>version</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Protocol
-  version information; can be absent</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>queryOptions</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  query option, which includes ANY, ONE, TOW, THREE, ALL and QUORUM; there are
-  details in Cssandra documentation</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
-value: </span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Return value: </span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Database
-connection</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>Boolean value</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:
-</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:14.0pt'> </span></span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>Below is content of <i>test.splx</i>:</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+lang=EN-US style='font-size:14.0pt'></span></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=804
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  lang=EN-US>&nbsp;</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 valign=top style='width:221.45pt;border:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=528 valign=top style='width:263.8pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=244 valign=top style='width:122.15pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>B</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>1</span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 valign=top style='width:221.45pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=528 valign=top style='width:263.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
-  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;)</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>=connect(&quot;demo&quot;).query(&quot;select
+  * from SCORES<span style='mso-spacerun:yes'>&nbsp; </span>where
+  SUBJECT=?&quot;,arg1)</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cassandra
-  database connection under <span style='mso-bidi-font-style:italic'>the </span><i
-  style='mso-bidi-font-style:normal'>authorizer: AllowAllAuthorizer</i> mode<span
-  style='mso-bidi-font-style:italic'>.</span></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=244 valign=top style='width:122.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=528 valign=top style='width:263.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='tab-stops:59.7pt'><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>return A1</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=244 valign=top style='width:122.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>return A1.(SCORE)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>&nbsp;</span></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>&nbsp;</span></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=43 valign=top style='width:21.4pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  lang=EN-US>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=633 valign=top style='width:316.4pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=539 valign=top style='width:269.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=43 valign=top style='width:21.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=633 style='width:316.4pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>=splserver(8281,&quot;D:/SplServer.xml&quot;)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=539 style='width:269.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>Start the process at
+  port number 8281 on the current machine<span style='mso-bidi-font-style:italic'>.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=43 valign=top style='width:21.4pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>2</span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=633 style='width:316.4pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
-  &quot;mycasdb&quot;)</span></span></span><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;];[&quot;127.0.0.1:8281&quot;])</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cassandra
-  database connection under <span style='mso-bidi-font-style:italic'>the </span><i
-  style='mso-bidi-font-style:normal'>PasswordAuthenticator</i> mode<span
-  style='mso-bidi-font-style:italic'>.</span></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=539 style='width:269.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>Allocate task to node </span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>127.0.0.1:8281 </span></span><span
+  lang=EN-US>to execute the spl script<span style='mso-bidi-font-style:italic'>.</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=43 valign=top style='width:21.4pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=633 style='width:316.4pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
-  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;:&quot;lz4&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>=splserver(8281)</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
-  compression algorithm as LZ4<span style='mso-bidi-font-style:italic'>.</span></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
+  <td width=539 style='width:269.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:"_sqlparse\(\)"'><span lang=EN-US>Stop the process at
+  port number 8281 on the current machine<span style='mso-bidi-font-style:italic'>.</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter
-  </span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>keyspace</span></span><span lang=EN-US> is absent<span
-  style='mso-bidi-font-style:italic'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_query(A1,&quot;select
-  * from mycasdb.user&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  <span style='mso-bidi-font-style:italic'>keyspace.table format in the CQL
-  query.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqlparse\(\)"'></span></span>
  </tr>
 </table>
 	</div>
@@ -339,7 +456,7 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

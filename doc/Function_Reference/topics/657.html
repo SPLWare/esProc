@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ch.news()</title>
+<title>T.new(A/cs:K…,x:C,…;wi)</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,806 +13,1255 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><a name="ch_news"></a><span lang=EN-US>ch.news()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph;tab-stops:-179.95pt'><span
+style='mso-bookmark:_Hlt161066090'><a name="OLE_LINK7"></a><a name="_next{}"></a><a
+name=next></a><span style='mso-bookmark:OLE_LINK7'><span lang=EN-US>T.new(A/cs:K…,x:C,…;wi)<a
+name="T_new_Acs_K_x_C_wi"></a></span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span></h3></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-records according to the given condition, concatenate them into a new table
-sequence and return it to the original channel.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>Return a
+table sequence/cursor consisting of the specified fields according to the
+correspondence between the composite table’s key (/dimension) and the
+corresponding field in the table sequence/cursor.</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:
-</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US>ch.</span></i><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-bidi-font-style:italic'>news</span></b><span lang=EN-US
-style='mso-bidi-font-style:italic'>(<i>X;</i></span></span><span
-style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>x<sub>i</sub></span></i><span lang=EN-US>:</span></span><span
-style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>F<sub>i</sub></span></i><span lang=EN-US>,…<span style='mso-bidi-font-style:
-italic'>)</span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>T</span></i></span></span><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>.new(</span></span><i><span
+lang=EN-US>A/cs:K…,x:C,…;wi</span></i></span></span><span style='mso-bookmark:
+_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>) </span></span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:
-</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></span></p>
 
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function attaches a
-computation to channel <i style='mso-bidi-font-style:normal'>ch</i>, which will
-compute expression </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>x</span></span></span><span style='mso-bookmark:
-_Hlt161066090'><span class=a5><span lang=EN-US>i</span></span><span lang=EN-US>
-on record sequence <i style='mso-bidi-font-style:normal'>X</i><span
-style='mso-bidi-font-style:italic'>, use the results as values of the new field
-</span></span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>F</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=a5><span lang=EN-US>i</span></span><i style='mso-bidi-font-style:normal'><span
-lang=EN-US> </span></i><span lang=EN-US>to generate multiple records and form a
-new table sequence, and returns the result to the original channel.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>Composite
+table <i>T</i> is the primary table ; table sequence/cursor <i>A/cs </i>is the
+subtable.<i> </i>They have a one-to-many relationship. The function matches </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
+lang=EN-US style='color:black'>’s key (/dimension) field with the corresponding
+fields of <i>A/cs</i> (begin the correspondence from the first field) and
+returns a table sequence/cursor made up of <i>x:C</i> fields. <i>A/cs</i> is
+ordered by the first key field, which should have same order as </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
+lang=EN-US style='color:black'>’s key (/dimension). </span></span></span></p>
 
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>&nbsp;</span></span></span></p>
 
-<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This is an attachment
-computation.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>With a
+table sequence parameter, the function returns a table sequence, and with a
+cursor parameter, it returns a cursor or a multicursor.</span><span lang=EN-US>
+Align the returned result set to <i style='mso-bidi-font-style:normal'>T</i>
+and set key/dimension for it; support aggregations on fields of the subtable.</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:
-</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>ch</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'></span></i></span></p>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>T</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  channel</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>A composite table</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>X</span></i></span></p>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>A/cs</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  record sequence</span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>A table sequence/cur sor</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>x<sub>i</sub></span></i></span></p>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>K</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Expression,
-  whose results will be field values; the sign ~ used in the parameter
-  references data from <i style='mso-bidi-font-style:normal'>X</i> instead of <i
-  style='mso-bidi-font-style:normal'>A</i>. The sign # is used to represent a
-  field with a sequence number</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='mso-bidi-font-style:
+  italic'>Name of the <i>A</i></span><span lang=EN-US>/<i>cs</i>’s<span
+  style='mso-bidi-font-style:italic'> field that corresponds to <i>T</i>’s key
+  (/dimension)<i> </i></span>Field of <i>A</i>/<i>cs</i><span style='mso-bidi-font-style:
+  italic'>; when it is specified, use it to match with </span><i
+  style='mso-bidi-font-style:normal'>T</i><span style='color:black'>’s key (/dimension);
+  when it is absent, use the first field of</span><i> A</i>/<i>cs</i><span
+  style='color:black'> to perform the matching; when there are multiple </span><i><span
+  style='mso-spacerun:yes'>&nbsp;</span>K</i>s, use<i> </i>colon (:) to<i> </i><span
+  style='mso-bidi-font-style:italic'>separate them</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub></span></i></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>x</span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Field
-  name in the given channel; will be automatically identified if the parameter
-  is omitted</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Field expression or aggregate
+  function count/sum/max/min/avg</span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>C</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Column alias; can be absent</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=var1><span lang=EN-US>wi</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Filtering condition on <i
+  style='mso-bidi-font-style:normal'>T</i>; retrieve the whole set when this
+  parameter is absent; separate multiple conditions by comma(s) and their
+  relationships are AND; besides regular filtering expressions, you can also
+  use the following five types of syntax in a filtering condition, where <i
+  style='mso-bidi-font-style:normal'>K</i> is a non-key field in entity table <i
+  style='mso-bidi-font-style:normal'>T</i>:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>1</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>．</span><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>K</span></i><span lang=EN-US>=<i style='mso-bidi-font-style:normal'>w</i></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>w </span></i><span lang=EN-US>usually uses expression <i
+  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub></i>.find(<i style='mso-bidi-font-style:normal'>K</i>)
+  or <i style='mso-bidi-font-style:normal'>T<sub><span style='color:black;
+  mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i style='mso-bidi-font-style:
+  normal'>K</i>), where <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i </span></sub></i>is a table
+  sequence. When value of <i style='mso-bidi-font-style:normal'>w </i>is null
+  or false, the corresponding record in the entity table will be filtered away;
+  when <i style='mso-bidi-font-style:normal'>w </i>is expression <i
+  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub></i>.find(<i style='mso-bidi-font-style:normal'>K</i>)
+  and the to-be-selected fields <i style='mso-bidi-font-style:normal'>C</i>,...
+  contain <i style='mso-bidi-font-style:normal'>K</i>, <i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>’s
+  referencing field will be assigned<span style='mso-bidi-font-style:italic'> to</span><i
+  style='mso-bidi-font-style:normal'> K</i>;<span style='mso-bidi-font-style:
+  italic'> </span>when <i style='mso-bidi-font-style:normal'>w </i>is
+  expression <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i
+  style='mso-bidi-font-style:normal'>K</i>) and the to-be-selected fields <i
+  style='mso-bidi-font-style:normal'>C</i>,... contain <i style='mso-bidi-font-style:
+  normal'>K</i>, sequence numbers of <i style='mso-bidi-font-style:normal'>K</i>
+  values in <i style='mso-bidi-font-style:normal'>T<sub><span style='color:
+  black;mso-bidi-font-style:italic'>i </span></sub></i>will be assigned<span
+  style='mso-bidi-font-style:italic'> to</span><i style='mso-bidi-font-style:
+  normal'> K</i>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>2</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>．</span><span lang=EN-US>(<i style='mso-bidi-font-style:
+  normal'>K<sub><span style='color:black;mso-bidi-font-style:italic'>1</span></sub></i>=<i
+  style='mso-bidi-font-style:normal'>w<sub><span style='color:black;mso-bidi-font-style:
+  italic'>1</span></sub></i>,</span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span style='font-family:
+  宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></span></i><span
+  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>,<i
+  style='mso-bidi-font-style:normal'>w</i>)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>K<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></span></i><span
+  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i> is an
+  assignment expression. Generally, parameter <i style='mso-bidi-font-style:
+  normal'>w<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub>
+  </i>can use expression <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.find(<i
+  style='mso-bidi-font-style:normal'>K<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub></i>) or <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i
+  style='mso-bidi-font-style:normal'>K</i>), where <i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i </span></sub></i>is
+  a table sequence; when <i style='mso-bidi-font-style:normal'>w<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub> </i>is
+  expression <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.find(<i
+  style='mso-bidi-font-style:normal'>K<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub></i>) and the to-be-selected fields <i
+  style='mso-bidi-font-style:normal'>C</i>,... contain <i style='mso-bidi-font-style:
+  normal'>K<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>,
+  <i style='mso-bidi-font-style:normal'>T<sub><span style='color:black;
+  mso-bidi-font-style:italic'>i</span></sub></i>’s referencing field will be
+  assigned<span style='mso-bidi-font-style:italic'> to</span><i
+  style='mso-bidi-font-style:normal'> K<sub><span style='color:black;
+  mso-bidi-font-style:italic'>i </span></sub></i>correspondingly; when <i
+  style='mso-bidi-font-style:normal'>w<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub> </i>is expression <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i
+  style='mso-bidi-font-style:normal'>K<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i</span></sub></i>) and the to-be-selected fields <i
+  style='mso-bidi-font-style:normal'>C</i>,... contain <i style='mso-bidi-font-style:
+  normal'>K<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>,
+  sequence numbers of <i style='mso-bidi-font-style:normal'>K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i> values in <i
+  style='mso-bidi-font-style:normal'>T<sub><span style='color:black;mso-bidi-font-style:
+  italic'>i </span></sub></i>will be assigned<span style='mso-bidi-font-style:
+  italic'> to</span><i style='mso-bidi-font-style:normal'> K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>. </span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>w</span></i><span lang=EN-US> is a filter expression; you can
+  reference <i style='mso-bidi-font-style:normal'>K<sub><span style='color:
+  black;mso-bidi-font-style:italic'>i</span></sub></i> in <i style='mso-bidi-font-style:
+  normal'>w</i>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>3</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>．</span><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>K</span></i><span lang=EN-US>:<i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>T<sub><span style='color:black;mso-bidi-font-style:italic'>i </span></sub></span></i><span
+  lang=EN-US>is a table sequence. Compare <i style='mso-bidi-font-style:normal'>K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i </span></sub></i>value in
+  the entity table with key values of <i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i> and discard
+  records whose <i style='mso-bidi-font-style:normal'>K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i </span></sub></i>value does
+  not match; when the to-be-selected fields <i style='mso-bidi-font-style:normal'>C</i>,...
+  contain <i style='mso-bidi-font-style:normal'>K</i>, <i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>’s
+  referencing field will be assigned<span style='mso-bidi-font-style:italic'> to</span><i
+  style='mso-bidi-font-style:normal'> K</i>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>4</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>．</span><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>K</span></i><span lang=EN-US>:<i style='mso-bidi-font-style:normal'>T<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>:null</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Filter away all records that
+  satisfy <i style='mso-bidi-font-style:normal'>K</i>:<i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Option:</span></b></span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=835
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>@1</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>@r</span></span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=var1><span lang=EN-US></span></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Enable
-  a left join; when a record in the given record sequence is empty, create an
-  empty record for the new table sequence</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=773 valign=top style='width:386.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Copy records of the primary
+  table and return result set aligned by<i style='mso-bidi-font-style:normal'>
+  A/cs</i></span></span></span></p>
   </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
-value:</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Return value:</span></b></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Channel</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Table sequence/Cursor</span></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1195
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1462
  style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>&nbsp;</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>A</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  lang=EN-US>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=connect(&quot;demo&quot;).cursor(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>STATEID,CAPITAL from
+  STATECAPITAL&quot;)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Return a cursor<span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=file(&quot;spec-new.ctx&quot;)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'></span></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>3</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A2.create@y(#STATEID,CAPITAL)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Create a composite table and
+  set STATEID as the key<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>4</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A3.append@i(A1)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Append data in cursor A1 to
+  the composite table; below is content of the result table:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US><img border=0 width=205 height=391
+  src="Function_Reference.files/image2132.jpg" v:shapes="_x0000_i2288"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>5</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>STATEID,CID,NAME,POPULATION from
+  CITIES&quot;).sort(STATEID)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Return a table sequence:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'><img border=0 width=409 height=469
+  src="Function_Reference.files/image2134.jpg" v:shapes="_x0000_i2289"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>6</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A4.new(A5:STATEID,CAPITAL,sum(POPULATION):STA_POP)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>A4 is the primary table and
+  A5 is the subtable; perform the matching between the composite table’s key
+  STATEID and the table sequence’s STATEID field and return a table sequence
+  consisting of CAPITAL field and STA_POP field whose contents are results of
+  performing an aggregate operation on the subtable’s POPULATION field:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US><img border=0 width=183 height=444
+  src="Function_Reference.files/image2136.jpg" v:shapes="_x0000_i2290"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>7</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black'>=A4.new(A5,CAPITAL,sum(POPULATION):STA_POP)</span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>As
+  parameter <i>K</i> is absent, perform matching between the composite table’s
+  key and the table sequence’s first field &#8211; STATEID and return same result as
+  A6</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>8</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black'>=A4.new@r(A5:STATEID,CAPITAL,NAME,POPULATION)</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'></span></span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Use @r option to copy the
+  primary table records and return a result set aligned to the subtable:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US><img border=0 width=330 height=414
+  src="Function_Reference.files/image2138.jpg" v:shapes="_x0000_i2291"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=16 valign=top style='width:7.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'></span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=993 valign=top style='width:496.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A4.new@r(A5:STATEID,STATEID,CAPITAL,NAME,POPULATION;STATEID&lt;3,left(CAPITAL,1)==&quot;M&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black'></span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=453 valign=top style='width:226.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>Filter
+  A4’s data according to filter condition &#8211; STATEID&lt;3 and the first letter
+  of CAPTIAL value is M &#8211; during the association:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=452 height=87
+  src="Function_Reference.files/image2140.jpg" v:shapes="_x0000_i2292"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>&nbsp;</span></b></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><span lang=EN-US>When there are multiple <i>K</i>
+parameters:</span></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1477
+ style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=37 valign=top style='width:18.35pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US>&nbsp;</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=827 valign=top style='width:413.25pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=613 valign=top style='width:306.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'></span></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  lang=EN-US>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=37 valign=top style='width:18.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=827 valign=top style='width:413.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=file(&quot;stu.ctx&quot;).open()</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=613 valign=top style='width:306.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>Open a
+  composite table; its content is as follows:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'><img border=0 width=439 height=305
+  src="Function_Reference.files/image2142.jpg" v:shapes="_x0000_i2293"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=37 valign=top style='width:18.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=827 valign=top style='width:413.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=file(&quot;sco.txt&quot;).import@t()</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=613 valign=top style='width:306.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>Return a
+  table sequence as follows:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'><img border=0 width=291 height=767
+  src="Function_Reference.files/image2144.jpg" v:shapes="_x0000_i2294"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=37 valign=top style='width:18.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=827 valign=top style='width:413.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A1.new(A2:Class:StudentID,NAME,sum(SCORE):TotalScore)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=613 valign=top style='width:306.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'>A1 is the
+  primary table and A2 is the subtable; perform the matching between the
+  composite table’s key and the table sequence’s Class and StudentID and return
+  a table sequence consisting of NAME field and TotalScore field, whose
+  contents are results of performing aggregation on subtable’s SCORE field:</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'><img border=0 width=227 height=305
+  src="Function_Reference.files/image2146.jpg" v:shapes="_x0000_i2295"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=37 valign=top style='width:18.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=827 valign=top style='width:413.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>=A1.new@r(A2:Class:StudentID,NAME,SUBJECT,SCORE)</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+  <td width=613 valign=top style='width:306.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US>Use @r option to copy the
+  primary table records and return a result set aligned to the subtable:<span
+  style='color:black'></span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bookmark:OLE_LINK7'><span lang=EN-US style='color:black'><img border=0 width=277 height=831
+  src="Function_Reference.files/image2148.jpg" v:shapes="图片_x0020_2035"></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK7'></span></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span
+style='mso-bookmark:OLE_LINK7'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'>&nbsp;</span></b></span></span></p>
+
+<span style='mso-bookmark:OLE_LINK7'></span>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a name="T_new_A_cs"></a><a
+name="T_new_A_cs_"></a><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+special types of filtering conditions:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1700
+ style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=1098 valign=top style='width:549.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>A</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>1</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select
-  EID,NAME,DEPT,GENDER,BIRTHDAY,SALARY from EMPLOYEE&quot;)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
+  * from STUDENTS&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a cursor.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Below
+  is content of the cursor:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=392 height=245
+  src="Function_Reference.files/image2150.jpg" v:shapes="_x0000_i2297"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>2</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;students.ctx&quot;)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.create@y(#ID,NAME,GENDER,AGE)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+  a composite table<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.append@i(A1)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Append
+  cursor A1’s data to the composite table’s base table<span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select
-  EID,NAME,DEPT,GENDER,BIRTHDAY,SALARY from EMPLOYEE&quot;)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
+  top 12 STUDENTID,SUBJECT,SCORE<span style='mso-spacerun:yes'>&nbsp;
+  </span>from SCORES&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
   a table sequence:</span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=496 height=286
-  src="Function_Reference.files/image2082.jpg" v:shapes="_x0000_i2327"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group(GENDER;~:gup)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Group table sequence A2
-  by GENDER field and return the following result:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=398 height=56
-  src="Function_Reference.files/image2084.jpg" v:shapes="图片_x0020_1285"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.groupx(GENDER;avg(SALARY):avg)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Group table sequence A1
-  by GENDER field, compute average SALARY values in each group and return a
-  cursor. Below is the returned data:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=235 height=56
-  src="Function_Reference.files/image2086.jpg" v:shapes="图片_x0020_1286"></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.join(GENDER,A3:GENDER,gup)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Attach a computation to
-  cursor A4, which will perform a foreign-key-style join with table A3, and
-  return the original cursor A4. Below is the returned data of A4 executing
-  A5’s compuation:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=488 height=55
-  src="Function_Reference.files/image2088.jpg" v:shapes="图片_x0020_1287"></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'></span></span></p>
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=372 height=395
+  src="Function_Reference.files/image2152.jpg" v:shapes="_x0000_i2298"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>6</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>6</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=channel(A5)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME,AGE)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create a channel and be
-  ready to push cursor A5’s data to the channel, but the push action needs to
-  wait.</span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-size:12.0pt;mso-font-kerning:0pt'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Match
+  the composite table’s key values to table sequence’s fields and retrieve
+  corresponding composite table fields and return a table sequence<span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal;mso-bidi-font-weight:bold'>:</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=327 height=161
+  src="Function_Reference.files/image2154.jpg" v:shapes="_x0000_i2299"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:7'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>7</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>7</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.news(gup;EID,#2:Lname,GENDER,age(~.BIRTHDAY):Age,SALARY+50:
-  Salary,avg:AvgSalary)</span></b><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体;
-  font-weight:normal'></span></span></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(NAME,Num).record([&quot;Emily&quot;,12,&quot;Lauren&quot;,45]).keys(NAME)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Attach
-  a computation to channel A6, which will get values for gup table - #2</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span><span
-  lang=EN-US>Lname means renaming the table’s second field Lname, and form a
-  table sequence consisiting of fields EID, Lname,GENDER, Age, Salary and AvgSalary,
-  and return the result to the original channel.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
+  a table sequence using NAME as the key:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=246 height=101
+  src="Function_Reference.files/image2156.jpg" v:shapes="_x0000_i2300"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:8'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>8</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>8</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.fetch()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME,AGE;NAME=A7.find(NAME))</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Execute the result set
-  function in channel A6 and keep the current data in channel.</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>9</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.fetch()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch data from cursor A5
-  while pushing data to channel A6 to execute the attached computation and keep
-  the result.</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
-  <td width=21 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体'>10</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=627 valign=top style='width:376.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.result()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=546 valign=top style='width:327.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get channel A6’s result:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=432 height=258
-  src="Function_Reference.files/image2090.jpg" v:shapes="图片_x0020_1288"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use @1 option:</span></span><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=803
- style='margin-left:-1.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=demo.cursor(&quot;select EID,NAME,DEPT,GENDER,BIRTHDAY,SALARY from
-  EMPLOYEE&quot;)<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a cursor.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=demo.query(&quot;select EID,NAME,DEPT,GENDER,BIRTHDAY,SALARY from
-  EMPLOYEE where GENDER='M' &quot;)<span class=code><span style='font-family:
-  "Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a table sequence:</span></span></p>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=498 height=231
-  src="Function_Reference.files/image2092.jpg" v:shapes="_x0000_i2332"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A2.group(GENDER;~:gup)<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Group
-  table sequence A2 by GENDER field and return the following result:</span></span></p>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=379 height=39
-  src="Function_Reference.files/image2094.jpg" v:shapes="_x0000_i2333"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A1.groupx(GENDER;avg(SALARY):avg)<span class=code><span
-  style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Group
-  table sequence A1 by GENDER field, compute average SALARY values in each
-  group and return a cursor. Below is the returned data:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=235 height=56
-  src="Function_Reference.files/image2095.jpg" v:shapes="_x0000_i2334"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A4.join(GENDER,A3:GENDER,gup)<span class=code><span style='font-family:
-  "Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Attach
-  a computation to cursor A4, which will perform a foreign-key-style join with
-  table A3, and return the original cursor A4. Below is the returned data of A4
-  executing A5’s compuation:</span></span></p>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=457 height=54
-  src="Function_Reference.files/image2097.jpg" v:shapes="_x0000_i2335"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>6</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=channel(A5)<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  a channel and be ready to push cursor A5’s data to the channel, but the push
-  action needs to wait.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>7</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A6.news@1(gup;EID,NAME,GENDER,age(~.BIRTHDAY):Age,Salary,avg:AvgSalary)<span
-  class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Attach
-  a computation to channel A6, which will get values for gup table - #2</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span><span
-  lang=EN-US>Lname means renaming the table’s second field Lname, and form a
-  table sequence consisiting of fields EID, Lname,GENDER, Age, Salary and AvgSalary,
-  and return the result to the original channel.</span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  @1 option to perform a left join; create an empty record for the result table
-  sequence when a record in the record sequene is empty.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>8</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A6.fetch()<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Execute
-  the result set function in channel A6 and keep the current data in channel.</span></span></p>
+  <i style='mso-bidi-font-style:normal'>K</i>=<i style='mso-bidi-font-style:
+  normal'>w </i><span style='mso-bidi-font-style:italic'>filtering</span><i
+  style='mso-bidi-font-style:normal'> </i><span style='mso-bidi-font-style:
+  italic'>mode; in this case </span><i style='mso-bidi-font-style:normal'>w </i>is<i
+  style='mso-bidi-font-style:normal'> T<sub><span style='color:black;
+  mso-bidi-font-style:italic'>i</span></sub></i>.find(<i style='mso-bidi-font-style:
+  normal'>K</i>) and entity table records making NAME=A7.find(NAME) get null or
+  false are discarded; NAME is the selected field, to which table sequence A7’s
+  referencing field is assigned<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=351 height=222
+  src="Function_Reference.files/image2158.jpg" v:shapes="_x0000_i2301"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:9'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>9</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>9</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A5.fetch()<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME;NAME=A7.pfind(NAME))</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch
-  data from cursor A5 while pushing data to channel A6 to execute the attached
-  computation and keep the result.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+  <i style='mso-bidi-font-style:normal'>K</i>=<i style='mso-bidi-font-style:
+  normal'>w </i><span style='mso-bidi-font-style:italic'>filtering</span><i
+  style='mso-bidi-font-style:normal'> </i><span style='mso-bidi-font-style:
+  italic'>mode; in this case </span><i style='mso-bidi-font-style:normal'>w </i>is<i
+  style='mso-bidi-font-style:normal'> T<sub><span style='color:black;
+  mso-bidi-font-style:italic'>i</span></sub></i>.pfind(<i style='mso-bidi-font-style:
+  normal'>K</i>) and entity table records making NAME=A7.find(NAME) get null or
+  false are discarded; NAME is the selected field, to which its sequence
+  numbers in table sequence A7 are assigned<span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=239 height=97
+  src="Function_Reference.files/image2160.jpg" v:shapes="_x0000_i2302"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
-  <td width=30 valign=top style='width:17.9pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:10'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>10</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>10</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=396 valign=top style='width:237.5pt;border-top:none;border-left:
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=A6.result()<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME;NAME:A7)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:226.6pt;border:none;mso-border-left-alt:
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  channel A6’s result:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=497 height=198
-  src="Function_Reference.files/image2099.jpg" v:shapes="_x0000_i2336"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+  <i style='mso-bidi-font-style:normal'>K</i>:<i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i </span></sub></i><span
+  style='mso-bidi-font-style:italic'>filtering</span><i style='mso-bidi-font-style:
+  normal'> </i><span style='mso-bidi-font-style:italic'>mode; compare the entity
+  table’s NAME values with the table sequence’s key values and discard entity
+  table records that cannot match</span><span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=198 height=97
+  src="Function_Reference.files/image2162.jpg" v:shapes="_x0000_i2303"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>11</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,GENDER;NAME:A7)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
+  is a case where <i style='mso-bidi-font-style:normal'>K</i> isn’t selected;
+  NAME isn’t the selected field, so only filtering is performed<span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=251 height=97
+  src="Function_Reference.files/image2164.jpg" v:shapes="_x0000_i2304"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>12</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME;NAME:A7:null)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+  <i style='mso-bidi-font-style:normal'>K</i>:<i style='mso-bidi-font-style:
+  normal'>T<sub><span style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>:null
+  filtering mode; <span style='mso-bidi-font-style:italic'>compare the entity
+  table’s NAME values with the table sequence’s key values and discard entity
+  table records that can match</span><span class=code><span style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;font-weight:normal;
+  mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=233 height=97
+  src="Function_Reference.files/image2166.jpg" v:shapes="_x0000_i2305"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>13</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(Age,Chinese_zodiac_sign).record([14,&quot;tiger&quot;,15,&quot;ox&quot;,16,&quot;rat&quot;]).keys(Age)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
+  a table sequence using AGE as the key<span class=code><span style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;font-weight:normal;
+  mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=321 height=128
+  src="Function_Reference.files/image2168.jpg" v:shapes="图片_x0020_123"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:14;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:11.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>14</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1098 valign=top style='width:549.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.new(A5:STUDENTID,ID,NAME,AGE;(AGE=A13.find(AGE),NAME=A7.find(NAME),AGE!=null&amp;&amp;NAME!=null))</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=579 valign=top style='width:289.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+  (<i style='mso-bidi-font-style:normal'>K<sub><span style='color:black;
+  mso-bidi-font-style:italic'>1</span></sub></i>=<i style='mso-bidi-font-style:
+  normal'>w<sub><span style='color:black;mso-bidi-font-style:italic'>1</span></sub></i>,</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>…</span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>K<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></span></i><span
+  lang=EN-US>=<i style='mso-bidi-font-style:normal'>w<sub><span
+  style='color:black;mso-bidi-font-style:italic'>i</span></sub></i>,<i
+  style='mso-bidi-font-style:normal'>w</i>) filtering mode; return records that
+  meet all conditions<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=579 height=194
+  src="Function_Reference.files/image2170.jpg" v:shapes="_x0000_i2307"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -824,13 +1273,13 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="655.html">news()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="652.html">new()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2017 <a href="http://www.raqsoft.com" target="_Blank">RAQSOFT Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
