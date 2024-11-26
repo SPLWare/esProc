@@ -5932,7 +5932,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Object select(Expression exp, String opt, Context ctx) {
-		boolean isAll = true, isForward = true, isBool = true, isOrg = false;
+		boolean isAll = true, isForward = true, isBool = true, isOrg = false, returnTable = false;
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
 				return MultithreadUtil.select(this, exp, ctx);
@@ -5942,11 +5942,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('z') != -1) isForward = false;
 			if (opt.indexOf('b') != -1) isBool = false;
 			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('t') != -1) returnTable = true;
 		}
 
 		if (length() == 0) {
 			if (isOrg) {
 				return this;
+			} else if (returnTable && dataStruct() != null) {
+				return new Table(dataStruct());
 			} else if (isAll) {
 				return new Sequence(0);
 			} else {
@@ -5991,6 +5994,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int total = 0;
 			for (Region region : list) {
 				total += region.end - region.start + 1;
+			}
+			
+			if (total == 0) {
+				if (returnTable && dataStruct() != null) {
+					return new Table(dataStruct());
+				} else if (isAll) {
+					return new Sequence(0);
+				} else {
+					return null;
+				}
 			}
 			
 			IArray resultArray = mems.newInstance(total);
@@ -6502,10 +6515,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		final int end = length();
 		if (end == 0) {
-			if (bOne) {
-				return isOrg ? this : null;
-			} else {
+			if (isOrg) {
 				return this;
+			} else if (returnTable && dataStruct() != null) {
+				return new Table(dataStruct());
+			} else if (bOne) {
+				return null;
+			} else {
+				return new Sequence(0);
 			}
 		}
 
