@@ -244,7 +244,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @param sql
 	 * @return
 	 */
-	protected String handleSql(String sql) {
+	protected String handleSql(String sql) throws SQLException{
 		return JDBCUtil.trimSql(sql);
 	}
 

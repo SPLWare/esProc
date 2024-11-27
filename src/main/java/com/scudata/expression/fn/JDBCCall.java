@@ -13,7 +13,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 函数仅用于JDBC调用 jdbccall(spl,…)。文件名无后缀时，按splx,spl,dfx顺序查找
+ * 函数仅用于JDBC调用 jdbccall(spl,…)。文件名无后缀时，按splx,spl,dfx顺序查找。增加了@r选项，返回第一个结果集
  */
 public class JDBCCall extends Function {
 	public Node optimize(Context ctx) {
@@ -33,6 +33,8 @@ public class JDBCCall extends Function {
 	}
 
 	public Object calculate(Context ctx) {
+		String opt = option;
+		boolean isR = opt != null && opt.indexOf("r") > -1;
 		PgmCellSet pcs;
 		IParam param = this.param;
 		Sequence args = null;
@@ -92,6 +94,8 @@ public class JDBCCall extends Function {
 		}
 		Context csCtx = pcs.getContext();
 		csCtx.setEnv(ctx);
+		if (isR)
+			return pcs.execute();
 		pcs.calculateResult();
 		return pcs;
 	}

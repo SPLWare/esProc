@@ -30,6 +30,7 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.Command;
@@ -289,120 +290,9 @@ public class JTextPaneEx extends JTextPane {
 		return cas;
 	}
 
-	/**
-	 * ∆•≈‰¿®∫≈
-	 * 
-	 * @param caret
-	 * @return
-	 */
 	private int[] matchBrackets(int caret) {
-		try {
-			String text = getText();
-			if (!StringUtils.isValidString(text))
-				return null;
-			if (caret >= text.length()) {
-				caret--;
-			}
-			int matchDot = -1;
-			int md = findBrackets(caret);
-			if (md > -1) {
-				matchDot = md;
-			} else if (caret > 0) {
-				caret--;
-				md = findBrackets(caret);
-				if (md > -1) {
-					matchDot = md;
-				}
-			}
-			if (matchDot > -1) {
-				return new int[] { caret, matchDot };
-			}
-		} catch (Throwable t) {
-			// t.printStackTrace();
-		}
-		return null;
-	}
-
-	/**
-	 * ’“¿®∫≈
-	 * 
-	 * @param caret
-	 * @return
-	 */
-	private int findBrackets(int caret) {
 		String text = getText();
-		char c = text.charAt(caret);
-		int inBrackets = 0;
-		if (c == '(') {
-			if (!isValidChar(caret)) {
-				return -1;
-			}
-			inBrackets++;
-			for (int i = caret + 1; i < text.length(); i++) {
-				char c1 = text.charAt(i);
-				if (c1 == '(') {
-					if (isValidChar(i)) {
-						inBrackets++;
-					}
-				} else if (c1 == ')') {
-					if (isValidChar(i)) {
-						inBrackets--;
-						if (inBrackets == 0) {
-							return i;
-						} else if (inBrackets < 0) { // ¿®∫≈≤ª∆•≈‰
-							return -1;
-						}
-					}
-				}
-			}
-		} else if (c == ')') {
-			if (!isValidChar(caret)) {
-				return -1;
-			}
-			inBrackets++;
-			for (int i = caret - 1; i >= 0; i--) {
-				char c1 = text.charAt(i);
-				if (c1 == ')') {
-					if (isValidChar(i)) {
-						inBrackets++;
-					}
-				} else if (c1 == '(') {
-					if (isValidChar(i)) {
-						inBrackets--;
-						if (inBrackets == 0) {
-							return i;
-						} else if (inBrackets < 0) { // ¿®∫≈≤ª∆•≈‰
-							return -1;
-						}
-					}
-				}
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * ◊÷∑˚ «∑Ò∫œ∑®
-	 * 
-	 * @param index
-	 * @return
-	 */
-	private boolean isValidChar(int index) {
-		return isValidString(index, 1);
-	}
-
-	/**
-	 * ◊÷∑˚¥Æ «∑Ò∫œ∑®
-	 * 
-	 * @param index
-	 * @param len
-	 * @return
-	 */
-	private boolean isValidString(int index, int len) {
-		String text = getText();
-		int i = Sentence.indexOf(text, index,
-				text.substring(index, index + len), SEARCH_FLAG);
-		return index == i;
+		return AppUtil.matchBrackets(text, caret, SEARCH_FLAG);
 	}
 
 	public Point getLocationOnScreen() {

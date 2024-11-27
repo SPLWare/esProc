@@ -320,8 +320,13 @@ public class JDBCUtil {
 	 * @return String
 	 * @throws SQLException
 	 */
-	private static String getCallExp(String splName, String params,
+	public static String getCallExp(String splName, String params,
 			int paramCount) throws SQLException {
+		return getCallExp(splName, params, paramCount, null);
+	}
+
+	public static String getCallExp(String splName, String params,
+			int paramCount, String opt) throws SQLException {
 		if (!StringUtils.isValidString(params)) {
 			StringBuffer buf = new StringBuffer();
 			for (int i = 0; i < paramCount; i++) {
@@ -332,7 +337,12 @@ public class JDBCUtil {
 			params = buf.toString();
 		} else
 			params = params.trim();
-		String sql = "jdbccall(\"" + splName + "\""
+		if (StringUtils.isValidString(opt)) {
+			opt = "@" + opt;
+		} else {
+			opt = "";
+		}
+		String sql = "jdbccall" + opt + "(\"" + splName + "\""
 				+ (params.length() > 0 ? ("," + params) : "") + ")";
 		return sql;
 	}
@@ -1769,6 +1779,7 @@ public class JDBCUtil {
 
 	/**
 	 * 用于数组参数输出到日志
+	 * 
 	 * @param objs
 	 * @return
 	 */
@@ -1788,6 +1799,7 @@ public class JDBCUtil {
 
 	/**
 	 * 用于数组参数输出到日志
+	 * 
 	 * @param ints
 	 * @return
 	 */

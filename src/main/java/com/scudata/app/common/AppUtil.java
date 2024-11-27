@@ -36,6 +36,7 @@ import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Types;
 import com.scudata.dm.ComputeStack;
@@ -1147,4 +1148,117 @@ public class AppUtil {
 		}
 	}
 
+	/**
+	 * ∆•≈‰¿®∫≈
+	 * 
+	 * @param caret
+	 * @return
+	 */
+	public static int[] matchBrackets(String text, int caret, int searchType) {
+		try {
+			if (!StringUtils.isValidString(text))
+				return null;
+			if (caret >= text.length()) {
+				caret--;
+			}
+			int matchDot = -1;
+			int md = findBrackets(text, caret, searchType);
+			if (md > -1) {
+				matchDot = md;
+			} else if (caret > 0) {
+				caret--;
+				md = findBrackets(text, caret, searchType);
+				if (md > -1) {
+					matchDot = md;
+				}
+			}
+			if (matchDot > -1) {
+				return new int[] { caret, matchDot };
+			}
+		} catch (Throwable t) {
+			// t.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * ’“¿®∫≈
+	 * 
+	 * @param caret
+	 * @return
+	 */
+	private static int findBrackets(String text, int caret, int searchType) {
+		char c = text.charAt(caret);
+		int inBrackets = 0;
+		if (c == '(') {
+			if (!isValidChar(text, caret, searchType)) {
+				return -1;
+			}
+			inBrackets++;
+			for (int i = caret + 1; i < text.length(); i++) {
+				char c1 = text.charAt(i);
+				if (c1 == '(') {
+					if (isValidChar(text, i, searchType)) {
+						inBrackets++;
+					}
+				} else if (c1 == ')') {
+					if (isValidChar(text, i, searchType)) {
+						inBrackets--;
+						if (inBrackets == 0) {
+							return i;
+						} else if (inBrackets < 0) { // ¿®∫≈≤ª∆•≈‰
+							return -1;
+						}
+					}
+				}
+			}
+		} else if (c == ')') {
+			if (!isValidChar(text, caret, searchType)) {
+				return -1;
+			}
+			inBrackets++;
+			for (int i = caret - 1; i >= 0; i--) {
+				char c1 = text.charAt(i);
+				if (c1 == ')') {
+					if (isValidChar(text, i, searchType)) {
+						inBrackets++;
+					}
+				} else if (c1 == '(') {
+					if (isValidChar(text, i, searchType)) {
+						inBrackets--;
+						if (inBrackets == 0) {
+							return i;
+						} else if (inBrackets < 0) { // ¿®∫≈≤ª∆•≈‰
+							return -1;
+						}
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * ◊÷∑˚ «∑Ò∫œ∑®
+	 * 
+	 * @param index
+	 * @return
+	 */
+	private static boolean isValidChar(String text, int index, int searchType) {
+		return isValidString(text, index, 1, searchType);
+	}
+
+	/**
+	 * ◊÷∑˚¥Æ «∑Ò∫œ∑®
+	 * 
+	 * @param index
+	 * @param len
+	 * @return
+	 */
+	private static boolean isValidString(String text, int index, int len,
+			int searchType) {
+		int i = Sentence.indexOf(text, index,
+				text.substring(index, index + len), searchType);
+		return index == i;
+	}
 }
