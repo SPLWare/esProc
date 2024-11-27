@@ -3050,6 +3050,143 @@ public class Variant {
 	public static long interval(Date date1, Date date2, String opt) {
 		if (opt == null) {
 			return dayInterval(date1, date2);
+		} else if (opt.indexOf("ymd") != -1) { // 返回成形如yymmdd的整数
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date1);
+			int y1 = calendar.get(Calendar.YEAR);
+			int m1 = calendar.get(Calendar.MONTH) + 1;
+			int d1 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay1 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			calendar.setTime(date2);
+			int y2 = calendar.get(Calendar.YEAR);
+			int m2 = calendar.get(Calendar.MONTH) + 1;
+			int d2 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			int dayDiff;
+			int monthDiff = 0;
+			
+			if (d2 >= d1) {
+				if (d1 == maxDay1) {
+					if (d2 == maxDay2) {
+						dayDiff = 0;
+					} else {
+						dayDiff = d2;
+						monthDiff = -1;
+					}
+				} else {
+					dayDiff = d2 - d1;
+				}
+			} else {
+				if (d2 == maxDay2) {
+					dayDiff = 0;
+				} else {
+					//dayDiff = maxDay1 - d1 + d2;
+					// 设置日期为前一个月的d1天
+					calendar.set(Calendar.MONTH, m2 - 2);
+					calendar.set(Calendar.DATE, d1);
+					dayDiff = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - d1;
+					if (dayDiff < 0) {
+						dayDiff = d2;
+					} else {
+						dayDiff += d2;
+					}
+					
+					monthDiff = -1;
+				}
+			}
+			
+			monthDiff += (m2 - m1);
+			int yearDiff = y2 - y1;
+			if (monthDiff < 0) {
+				yearDiff -= 1;
+				monthDiff += 12;
+			}
+			
+			return yearDiff * 10000 + monthDiff * 100 + dayDiff;
+		} else if (opt.indexOf("ym") != -1) { // 返回成形如yymm的整数
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date1);
+			int y1 = calendar.get(Calendar.YEAR);
+			int m1 = calendar.get(Calendar.MONTH) + 1;
+			int d1 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay1 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			calendar.setTime(date2);
+			int y2 = calendar.get(Calendar.YEAR);
+			int m2 = calendar.get(Calendar.MONTH) + 1;
+			int d2 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			int monthDiff = 0;
+			if (d2 >= d1) {
+				if (d1 == maxDay1 && d2 != maxDay2) {
+					monthDiff = -1;
+				}
+			} else {
+				if (d2 != maxDay2) {
+					monthDiff = -1;
+				}
+			}
+			
+			monthDiff += (m2 - m1);
+			int yearDiff = y2 - y1;
+			if (monthDiff < 0) {
+				yearDiff -= 1;
+				monthDiff += 12;
+			}
+			
+			return yearDiff * 100 + monthDiff;
+		} else if (opt.indexOf("md") != -1) { // 返回成形如mmdd的整数
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date1);
+			int y1 = calendar.get(Calendar.YEAR);
+			int m1 = calendar.get(Calendar.MONTH) + 1;
+			int d1 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay1 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			calendar.setTime(date2);
+			int y2 = calendar.get(Calendar.YEAR);
+			int m2 = calendar.get(Calendar.MONTH) + 1;
+			int d2 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			int dayDiff;
+			int monthDiff = 0;
+			
+			if (d2 >= d1) {
+				if (d1 == maxDay1) {
+					if (d2 == maxDay2) {
+						dayDiff = 0;
+					} else {
+						dayDiff = d2;
+						monthDiff = -1;
+					}
+				} else {
+					dayDiff = d2 - d1;
+				}
+			} else {
+				if (d2 == maxDay2) {
+					dayDiff = 0;
+				} else {
+					//dayDiff = maxDay1 - d1 + d2;
+					// 设置日期为前一个月的d1天
+					calendar.set(Calendar.MONTH, m2 - 2);
+					calendar.set(Calendar.DATE, d1);
+					dayDiff = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - d1;
+					if (dayDiff < 0) {
+						dayDiff = d2;
+					} else {
+						dayDiff += d2;
+					}
+					
+					monthDiff = -1;
+				}
+			}
+			
+			monthDiff += (m2 - m1) + (y2 - y1) * 12;			
+			return monthDiff * 100 + dayDiff;
 		} else if (opt.indexOf("ms") != -1) { // 毫秒
 			return millisecondInterval(date1, date2);
 		} else if (opt.indexOf('y') != -1) { // 年

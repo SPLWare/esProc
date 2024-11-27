@@ -43,9 +43,20 @@ public class Split extends StringFunction {
 		int count = lens.length;
 		int index = 0;
 		Sequence result = new Sequence(count);
+		int strLen = srcStr.length();
+		
 		for (int i = 0; i < count; ++i) {
 			if (lens[i] > 0) {
+				if (index >= strLen) {
+					result.add("");
+					continue;
+				}
+				
 				int end = index + lens[i];
+				if (end >= strLen) {
+					end = strLen;
+				}
+				
 				String sub = srcStr.substring(index, end);
 				index = end;
 				

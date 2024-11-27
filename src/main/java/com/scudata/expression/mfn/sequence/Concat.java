@@ -44,8 +44,13 @@ public class Concat extends SequenceFunction {
 				}
 
 				Sequence sequence = (Sequence)srcSequence.getMem(r);
+				int count = sequence.length();
 				for (int f = 0; f < fcount; ++f) {
-					Object obj = sequence.get(f + 1);
+					Object obj = null;
+					if (f < count) {
+						obj = sequence.get(f + 1);
+					}
+
 					if (obj instanceof String) {
 						String str = (String)obj;
 						sb.append(str);
@@ -80,8 +85,13 @@ public class Concat extends SequenceFunction {
 				}
 			}
 		} else {
+			int count = srcSequence.length();
 			for (int f = 0; f < fcount; ++f) {
-				Object obj = srcSequence.get(f + 1);
+				Object obj = null;
+				if (f < count) {
+					obj = srcSequence.get(f + 1);
+				}
+				
 				if (obj instanceof String) {
 					String str = (String)obj;
 					sb.append(str);
