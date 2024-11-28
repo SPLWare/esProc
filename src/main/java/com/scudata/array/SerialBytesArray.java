@@ -632,10 +632,22 @@ public class SerialBytesArray implements IArray {
 	 * @param minCapacity 最小容量
 	 */
 	public void ensureCapacity(int minCapacity) {
-		if (datas1.length <= minCapacity) {
-			int newCapacity = (datas1.length * 3) / 2;
-			if (newCapacity <= minCapacity) {
-				newCapacity = minCapacity + 1;
+		int oldCapacity = datas1.length;
+		if (oldCapacity <= minCapacity) {
+			int newCapacity;
+			if (minCapacity < 8) {
+				newCapacity = 8;
+			} else {
+				newCapacity = oldCapacity + (oldCapacity >> 1);
+				if (newCapacity < 0) {
+					// 超过Integer上限
+					newCapacity = oldCapacity + 0xfffffff;
+					if (newCapacity < 0) {
+						newCapacity = Integer.MAX_VALUE;
+					}
+				} else if (newCapacity <= minCapacity) {
+					newCapacity = minCapacity + 1;
+				}
 			}
 
 			long []newDatas1 = new long[newCapacity];

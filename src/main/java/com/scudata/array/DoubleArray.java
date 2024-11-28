@@ -914,10 +914,22 @@ public class DoubleArray implements NumberArray {
 	 * @param minCapacity 最小容量
 	 */
 	public void ensureCapacity(int minCapacity) {
-		if (datas.length <= minCapacity) {
-			int newCapacity = (datas.length * 3) / 2;
-			if (newCapacity <= minCapacity) {
-				newCapacity = minCapacity + 1;
+		int oldCapacity = datas.length;
+		if (oldCapacity <= minCapacity) {
+			int newCapacity;
+			if (minCapacity < 8) {
+				newCapacity = 8;
+			} else {
+				newCapacity = oldCapacity + (oldCapacity >> 1);
+				if (newCapacity < 0) {
+					// 超过Integer上限
+					newCapacity = oldCapacity + 0xfffffff;
+					if (newCapacity < 0) {
+						newCapacity = Integer.MAX_VALUE;
+					}
+				} else if (newCapacity <= minCapacity) {
+					newCapacity = minCapacity + 1;
+				}
 			}
 
 			double []newDatas = new double[newCapacity];

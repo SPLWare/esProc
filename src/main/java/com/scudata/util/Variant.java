@@ -3138,6 +3138,79 @@ public class Variant {
 			}
 			
 			return yearDiff * 100 + monthDiff;
+		} else if (opt.indexOf("yd") != -1) { // 返回成形如yddd的整数
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date1);
+			int y1 = calendar.get(Calendar.YEAR);
+			int m1 = calendar.get(Calendar.MONTH);
+			int d1 = calendar.get(Calendar.DAY_OF_MONTH);
+			int maxDay1 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			calendar.setTime(date2);
+			int y2 = calendar.get(Calendar.YEAR);
+			if (y2 == y1) {
+				return dayInterval(date1, date2);
+			}
+
+			int m2 = calendar.get(Calendar.MONTH);
+			int d2 = calendar.get(Calendar.DAY_OF_MONTH);
+			if (y2 == y1 + 1) {
+				if (m2 < m1) {
+					return dayInterval(date1, date2);
+				} else if (m2 == m1) {
+					if (d1 == maxDay1) {
+						int maxDay2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+						if (d2 == maxDay2) {
+							return 1000;
+						} else {
+							return dayInterval(date1, date2);
+						}
+					} else if (d2 < d1) {
+						return dayInterval(date1, date2);
+					} else if (d2 == d1) {
+						return 1000; // 正好1年
+					} else {
+						return 1000 + d2 - d1;
+					}
+				}
+			}
+			
+			int yearDiff;
+			if (m2 < m1) {
+				yearDiff = y2 - y1 - 1;
+				calendar.set(y2 - 1, m1, d1);
+				if (d1 == maxDay1) {
+					calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+				}
+			} else if (m2 == m1) {
+				if (d1 == maxDay1) {
+					int maxDay2 = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+					if (d2 == maxDay2) {
+						return (y2 - y1) * 1000;
+					} else {
+						yearDiff = y2 - y1 - 1;
+						calendar.set(y2 - 1, m1, d1);
+						calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+					}
+				} else if (d1 < d2){
+					yearDiff = y2 - y1;
+					calendar.set(y2, m1, d1);
+				} else if (d1 == d2) {
+					return (y2 - y1) * 1000;
+				} else {
+					yearDiff = y2 - y1 - 1;
+					calendar.set(y2 - 1, m1, d1);
+				}
+			} else {
+				yearDiff = y2 - y1;
+				calendar.set(y2, m1, d1);
+				if (d1 == maxDay1) {
+					calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+				}
+			}
+			
+			date1 = calendar.getTime();
+			return yearDiff * 1000 + dayInterval(date1, date2);
 		} else if (opt.indexOf("md") != -1) { // 返回成形如mmdd的整数
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date1);
