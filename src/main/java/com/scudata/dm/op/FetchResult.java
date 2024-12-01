@@ -40,9 +40,10 @@ public class FetchResult implements IResult {
 	 * @param ctx 计算上下文
 	 */
 	public void finish(Context ctx) {
-		if (filePipe != null) {
-			filePipe.close();
-		}
+		// 多路管道时对应同一个FilePipe，会多次调用
+		//if (filePipe != null) {
+		//	filePipe.close();
+		//}
 	}
 	
 	 /**
@@ -50,6 +51,10 @@ public class FetchResult implements IResult {
 	  * @return 结果
 	  */
 	public Object result() {
+		if (filePipe != null) {
+			filePipe.close();
+		}
+		
 		Sequence seq = result;
 		if (seq == null || seq.length() == 0) {
 			return null;

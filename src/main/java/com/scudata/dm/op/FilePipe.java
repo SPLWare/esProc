@@ -67,7 +67,8 @@ public class FilePipe implements IPipe, IResource {
 	 * @param ctx
 	 */
 	public synchronized void finish(Context ctx) {
-		close();
+		// 多路管道时对应同一个FilePipe，会多次调用
+		//close();
 	}
 	
 	/**
