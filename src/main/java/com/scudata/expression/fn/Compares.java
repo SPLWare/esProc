@@ -48,7 +48,7 @@ public class Compares extends Function {
 		
 		if (subSize == 3) {
 			rightParam = param.getSub(2);
-			if (rightParam == null || leftExps.length != rightParam.getSubSize()) {
+			if (rightParam == null || leftParam.getSubSize() != rightParam.getSubSize()) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("cmps" + mm.getMessage("function.invalidParam"));
 			}
