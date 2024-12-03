@@ -39,7 +39,7 @@ public class Structure extends FileFunction {
 	private static final String FIELD_NAMES[] = { "field", "key", "del", "row", "zip", "seg", "zonex", "attach", "block" };
 	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "attach" };
 	private static final String COL_FIELD_FIELD_NAMES[] = {"name", "dim", "type", "type-len", "dict"};
-	private static final String COL_FIELD_FIELD_NAMES_EXT[] = {"name", "dim", "type", "type-len", "dict", "block_nums"};
+	private static final String COL_FIELD_FIELD_NAMES_EXT[] = {"name", "dim", "type", "type-len", "dict", "block-nums", "block-ratio"};
 	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
 	private static final String CUBOID_FIELD_NAMES2[] = { "keys", "aggr" };
@@ -159,11 +159,18 @@ public class Structure extends FileFunction {
 			ColumnMetaData[] columns = ((ColPhyTable) table).getColumns();
 			boolean isExt = option != null && option.indexOf("e") != -1;
 			DataStruct ds;
+			double blockCount = 0.0;
+			
 			if (isExt) {
 				ds = new DataStruct(COL_FIELD_FIELD_NAMES_EXT);
+				for (ColumnMetaData column: columns ) {
+					blockCount += getTableRowInfo(column);
+				}
+				
 			} else {
 				ds = new DataStruct(COL_FIELD_FIELD_NAMES);
 			}
+			
 			for (ColumnMetaData column: columns ) {
 				Record rec = new Record(ds);
 				rec.setNormalFieldValue(0, column.getColName());
@@ -177,7 +184,9 @@ public class Structure extends FileFunction {
 				rec.setNormalFieldValue(4, dict);
 				
 				if (isExt) {
-					rec.setNormalFieldValue(5, getTableRowInfo(column));
+					int num = getTableRowInfo(column);
+					rec.setNormalFieldValue(5, num);
+					rec.setNormalFieldValue(6, String.format("%.2f", num / blockCount * 100));
 				}
 				seq.add(rec);
 			}
@@ -362,7 +371,7 @@ public class Structure extends FileFunction {
 					segmentReaders[i].close();
 				}
 				rowCountReader.close();
-			} catch (IOException e) {;
+			} catch (IOException e) {
 			}
 		}
 		return result;

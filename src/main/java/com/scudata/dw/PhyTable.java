@@ -2346,7 +2346,7 @@ abstract public class PhyTable implements IPhyTable {
 	public int getDeleteFieldIndex(Expression []exps, String []fields) {
 		if (getGroupTable().hasDeleteKey()) {
 			//删除键在主键后面
-			String[] colNames = this.colNames;
+			String[] colNames = (parent == null) ? this.colNames : this.allColNames;
 			String[] keyNames = getAllKeyColNames();
 			if (keyNames == null) return -1;
 			int keyCount = keyNames.length;
