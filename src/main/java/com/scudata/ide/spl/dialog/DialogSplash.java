@@ -25,7 +25,8 @@ public class DialogSplash extends JWindow {
 	/**
 	 * 构造函数
 	 * 
-	 * @param splashImage splash图片路径
+	 * @param splashImage
+	 *            splash图片路径
 	 */
 	public DialogSplash(String splashImage) {
 		try {
@@ -50,7 +51,11 @@ public class DialogSplash extends JWindow {
 	 */
 	private void initUI(String splashImage) throws Exception {
 		ImageIcon ii = getImageIcon(splashImage);
-		Image image = ii.getImage();
+		Image image = null;
+		if (ii != null) {
+			this.setSize(ii.getIconWidth(), ii.getIconHeight());
+			image = ii.getImage();
+		}
 		panelImage = new ImagePanel(image);
 		panelImage.setOpaque(false);
 		panelImage.setLayout(new FreeLayout());
@@ -90,6 +95,7 @@ public class DialogSplash extends JWindow {
 
 	/**
 	 * 默认的图标文件名
+	 * 
 	 * @return
 	 */
 	protected String getDefaultImageName() {
@@ -109,7 +115,8 @@ public class DialogSplash extends JWindow {
 		}
 
 		public void paint(Graphics g) {
-			g.drawImage(image, 0, 0, null);
+			if (image != null)
+				g.drawImage(image, 0, 0, null);
 			super.paint(g);
 		}
 	}
