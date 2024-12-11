@@ -29,7 +29,7 @@ public class Maxp extends Gather {
 
 	public Object calculate(Context ctx) {
 		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Expression.unknownFunction") + "minp");
+		throw new RQException(mm.getMessage("Expression.unknownFunction") + "maxp");
 	}
 
 	public void prepare(Context ctx) {
