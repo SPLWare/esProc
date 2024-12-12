@@ -130,6 +130,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					value = Variant.parse(valueStr);
 				}
 				Env.setParamValue(paramName, value);
+				JDBCUtil.log("env(" + paramName + "," + value + ")");
 			}
 		}
 		JDBCUtil.log(KEY_GLOBAL + "=" + sglobal);
@@ -528,8 +529,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (url != null) {
 					try {
 						in = url.openStream();
-						Logger.info("JDBC config load from : "
-								+ url.toString());
+						Logger.info("JDBC config load from : " + url.toString());
 					} catch (Exception e) {
 					}
 				}
