@@ -123,12 +123,6 @@ public class FileXls extends XlsFileObject {
 				}
 			}
 			dataFormat = wb.createDataFormat();
-			evaluator = wb.getCreationHelper().createFormulaEvaluator();
-			// POI支持重算公式格
-			if (evaluator != null) {
-				evaluator.clearAllCachedResultValues();
-				evaluator.evaluateAll();
-			}
 			initTableInfo();
 		} catch (RQException e) {
 			throw e;

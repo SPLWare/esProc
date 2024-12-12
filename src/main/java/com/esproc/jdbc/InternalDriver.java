@@ -512,7 +512,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					if (url != null) {
 						try {
 							in = url.openStream();
-							Logger.info("jdbc config from : " + url.toString());
+							if (in != null) {
+								Logger.info("JDBC config load from : "
+										+ url.toString());
+							}
 						} catch (Exception e) {
 						}
 					}
@@ -526,7 +529,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (url != null) {
 					try {
 						in = url.openStream();
-						Logger.info("raqsoftConfig.xml load from : "
+						Logger.info("JDBC config load from : "
 								+ url.toString());
 					} catch (Exception e) {
 					}
