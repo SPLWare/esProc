@@ -110,8 +110,6 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
 
 		if (StringUtils.isValidString(sglobal)) {
-			// 有此参数时才输出
-			JDBCUtil.log(KEY_GLOBAL + "=" + sglobal);
 			// 设置全局变量
 			// global=varname1:value1,varname2:value2,...
 			ArgumentTokenizer at = new ArgumentTokenizer(sglobal);
@@ -134,6 +132,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				Env.setParamValue(paramName, value);
 			}
 		}
+		JDBCUtil.log(KEY_GLOBAL + "=" + sglobal);
 
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
