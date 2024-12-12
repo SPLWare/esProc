@@ -104,6 +104,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	protected List<String> hostNames = null;
 
+	protected Map<String, Object> gatewayParams = null;
+
 	/**
 	 * 连接持有的父Context
 	 */
@@ -257,6 +259,24 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public boolean isOnlyServer() {
 		return isOnlyServer;
+	}
+
+	/**
+	 * 执行网关时传递给计算用的Context
+	 * 
+	 * @param gatewayParams
+	 */
+	public void setGatewayParams(Map<String, Object> gatewayParams) {
+		this.gatewayParams = gatewayParams;
+	}
+
+	/**
+	 * 执行网关时传递给计算用的Context
+	 * 
+	 * @return
+	 */
+	public Map<String, Object> getGatewayParams() {
+		return gatewayParams;
 	}
 
 	/**

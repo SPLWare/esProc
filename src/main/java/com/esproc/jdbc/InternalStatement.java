@@ -244,7 +244,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @param sql
 	 * @return
 	 */
-	protected String handleSql(String sql) throws SQLException{
+	protected String handleSql(String sql) throws SQLException {
 		return JDBCUtil.trimSql(sql);
 	}
 
@@ -304,7 +304,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 				 */
 				try {
 					return JDBCUtil.executeGateway(sql,
-							(ArrayList<Object>) parameters, ctx, gateway);
+							(ArrayList<Object>) parameters, ctx, gateway,
+							con.getGatewayParams());
 				} catch (RetryException re) {
 					/*
 					 * If the gateway throws a RetryException, it will be
