@@ -58,12 +58,8 @@ public class XlsImporter implements IExcelTool {
 			wb = new HSSFWorkbook(fis);
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
-			evaluator = wb.getCreationHelper().createFormulaEvaluator();
-			// POI支持重算公式格
-			if (evaluator != null) {
-				evaluator.clearAllCachedResultValues();
-				evaluator.evaluateAll();
-			}
+			// 计算时可能出错，先去掉
+			// formulaEvaluate();
 		} catch (EncryptedDocumentException e) { // xls格式
 			if (pwd == null) {
 				// Excel文件是加密文件，请输入密码。
@@ -173,4 +169,16 @@ public class XlsImporter implements IExcelTool {
 	public void writeLine(Object[] items) {
 	}
 
+	/**
+	 * 计算公式格
+	 */
+	private void formulaEvaluate() {
+		if (evaluator != null) // 只计算一次
+			return;
+		evaluator = wb.getCreationHelper().createFormulaEvaluator();
+		if (evaluator != null) {
+			evaluator.clearAllCachedResultValues();
+			evaluator.evaluateAll();
+		}
+	}
 }

@@ -17,17 +17,20 @@ import java.util.Properties;
 
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.dm.LocalFile;
+import com.scudata.util.Variant;
 
 /**
  * esProc jdbc驱动类，实现了java.sql.Driver。 URL参数如下:
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
+ * global=varname1:value1,varname2:value2,...设置全局变量(ENV)
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
  * compatiblesql=true/false。简单SQL现在以$开头，true时兼容不以$开头的。兼容一段时间后取消此选项。
  */
@@ -94,6 +97,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		Map<String, String> propMap = getPropertyMap(url, info);
 		String sconfig = propMap.get(KEY_CONFIG);
 		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
+		String sglobal = propMap.get(KEY_GLOBAL);
 		String sdebugmode = propMap.get(KEY_DEBUGMODE);
 		String scompatiblesql = propMap.get(KEY_COMPATIBLESQL);
 		boolean isOnlyServer = false;
@@ -104,6 +108,32 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				Logger.warn("Invalid onlyServer parameter: " + sonlyServer);
 			}
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
+
+		if (StringUtils.isValidString(sglobal)) {
+			// 有此参数时才输出
+			JDBCUtil.log(KEY_GLOBAL + "=" + sglobal);
+			// 设置全局变量
+			// global=varname1:value1,varname2:value2,...
+			ArgumentTokenizer at = new ArgumentTokenizer(sglobal);
+			while (at.hasMoreTokens()) {
+				String pv = at.nextToken();
+				if (!StringUtils.isValidString(pv))
+					continue;
+				int index = pv.indexOf(":");
+				if (index < 1 || index == pv.length() - 1)
+					continue;
+				String paramName = pv.substring(0, index);
+				String valueStr = pv.substring(index + 1, pv.length());
+				if (!StringUtils.isValidString(paramName))
+					continue;
+				paramName = paramName.trim();
+				Object value = null;
+				if (StringUtils.isValidString(valueStr)) {
+					value = Variant.parse(valueStr);
+				}
+				Env.setParamValue(paramName, value);
+			}
+		}
 
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
@@ -271,6 +301,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
 		String sdebugmode = info.getProperty(KEY_DEBUGMODE);
 		String scompatibleSql = info.getProperty(KEY_COMPATIBLESQL);
+		String sglobal = info.getProperty(KEY_GLOBAL);
 		if (url != null) {
 			String[] parts = url.split("&");
 			for (int i = 0; i < parts.length; i++) {
@@ -282,6 +313,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 						KEY_DEBUGMODE.toLowerCase() + "=");
 				int i4 = parts[i].toLowerCase().indexOf(
 						KEY_COMPATIBLESQL.toLowerCase() + "=");
+				int i5 = parts[i].toLowerCase().indexOf(
+						KEY_GLOBAL.toLowerCase() + "=");
 				if (i1 >= 0)
 					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
 				if (i2 >= 0)
@@ -293,6 +326,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (i4 >= 0)
 					scompatibleSql = parts[i].substring(i4
 							+ KEY_COMPATIBLESQL.length() + 1);
+				if (i5 >= 0)
+					sglobal = parts[i].substring(i5 + KEY_GLOBAL.length() + 1);
 			}
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -300,6 +335,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		map.put(KEY_ONLY_SERVER, sonlyServer);
 		map.put(KEY_DEBUGMODE, sdebugmode);
 		map.put(KEY_COMPATIBLESQL, scompatibleSql);
+		map.put(KEY_GLOBAL, sglobal);
 		return map;
 	}
 
@@ -519,9 +555,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 
 	private static final String KEY_CONFIG = "config";
 	private static final String KEY_ONLY_SERVER = "onlyServer";
+	private static final String KEY_GLOBAL = "global";
 
 	// 仅调试用
 	private static final String KEY_DEBUGMODE = "debugmode";
 	// 兼容之前简单SQL没有$开头时的用法
 	private static final String KEY_COMPATIBLESQL = "compatiblesql";
+
 }

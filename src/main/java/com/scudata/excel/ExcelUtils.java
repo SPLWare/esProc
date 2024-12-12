@@ -549,11 +549,6 @@ public class ExcelUtils {
 		short maxCol = row.getLastCellNum();
 		if (maxCol < 0)
 			return new Object[0];
-		// POI支持重算公式格
-		// if (evaluator!=null) {
-		// evaluator.clearAllCachedResultValues();
-		// evaluator.evaluateAll();
-		// }
 
 		short firstCol = 0;
 		Object[] items = new Object[maxCol - firstCol];

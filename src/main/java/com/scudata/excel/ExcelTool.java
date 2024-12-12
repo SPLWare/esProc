@@ -655,8 +655,10 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	/**
 	 * Read a row of data
 	 * 
-	 * @param isN @n
-	 * @param isW @w
+	 * @param isN
+	 * @n
+	 * @param isW
+	 * @w
 	 * @return
 	 * @throws IOException
 	 */
