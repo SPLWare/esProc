@@ -579,10 +579,13 @@ public class SheetXls extends SheetObject {
 	 * @throws IOException
 	 */
 	public void xlsexport(Sequence series, Expression[] exps, String[] names,
-			boolean bTitle, boolean isAppend, int startRow, Context ctx)
-			throws IOException {
+			boolean bTitle, boolean isAppend, int startRow, boolean isW,
+			Context ctx) throws IOException {
 		this.writeTitle = bTitle;
 		this.isAppend = isAppend;
+		if (isW) {
+			fileXlsExportW(series, startRow);
+		}
 		int colCount = 1;
 		if (exps == null) {
 			int fcount = 1;
@@ -659,6 +662,24 @@ public class SheetXls extends SheetObject {
 	}
 
 	/**
+	 * Export excel file using option @w
+	 * 
+	 * @param seq
+	 *            Sequence
+	 * @throws IOException
+	 */
+	private void fileXlsExportW(Sequence seq, int startRow) throws IOException {
+		if (seq == null || seq.length() == 0)
+			return;
+		Object[] line;
+		for (int i = 1, len = seq.length(); i <= len; i++) {
+			Object rowData = seq.get(i);
+			line = ExcelTool.getLine(rowData);
+			writeLine(startRow + i - 1, line);
+		}
+	}
+
+	/**
 	 * Binary file block size
 	 */
 	private static final int BLOCKCOUNT = 999;
@@ -683,10 +704,13 @@ public class SheetXls extends SheetObject {
 	 * @throws IOException
 	 */
 	public void xlsexport(ICursor cursor, Expression[] exps, String[] names,
-			boolean bTitle, boolean isAppend, int startRow, Context ctx)
-			throws IOException {
+			boolean bTitle, boolean isAppend, int startRow, boolean isW,
+			Context ctx) throws IOException {
 		this.writeTitle = bTitle;
 		this.isAppend = isAppend;
+		if (isW) {
+			fileXlsExportW(cursor, startRow);
+		}
 		Sequence table = cursor.fetch(BLOCKCOUNT);
 		if (table == null || table.length() == 0)
 			return;
@@ -779,6 +803,32 @@ public class SheetXls extends SheetObject {
 		}
 		sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), startRow));
 		sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), colCount));
+	}
+
+	/**
+	 * Export excel file using option @w
+	 * 
+	 * @param cursor
+	 *            ICursor
+	 * @throws IOException
+	 */
+	private void fileXlsExportW(ICursor cursor, int startRow)
+			throws IOException {
+		if (cursor == null)
+			return;
+		Sequence seq;
+		Object[] line;
+		while (true) {
+			seq = cursor.fetch(BLOCKCOUNT);
+			if (seq == null || seq.length() == 0)
+				break;
+			for (int i = 1, len = seq.length(); i <= len; i++) {
+				Object rowData = seq.get(i);
+				line = ExcelTool.getLine(rowData);
+				writeLine(startRow, line);
+				startRow++;
+			}
+		}
 	}
 
 	/**

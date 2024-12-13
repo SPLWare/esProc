@@ -1020,7 +1020,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @param rowData
 	 * @return
 	 */
-	private Object[] getLine(Object rowData) {
+	public static Object[] getLine(Object rowData) {
 		Object[] line = null;
 		if (rowData != null) {
 			if (rowData instanceof Sequence) {

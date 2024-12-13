@@ -254,7 +254,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 */
 	public void xlsexport(SheetObject so, Object A, Expression[] exps,
 			String[] fields, Object s, boolean bTitle, boolean isAppend,
-			int startRow, Context ctx) throws Exception {
+			int startRow, boolean isW, Context ctx) throws Exception {
 		if (fileType == TYPE_READ) {
 			// : xlsopen@r does not support xlsexport
 			throw new RQException("xlsexport"
@@ -263,10 +263,10 @@ public abstract class XlsFileObject extends Table implements IResource {
 		SheetXls sx = (SheetXls) so;
 		if (A instanceof Sequence) {
 			sx.xlsexport((Sequence) A, exps, fields, bTitle, isAppend,
-					startRow, ctx);
+					startRow, isW, ctx);
 		} else if (A instanceof ICursor) {
 			sx.xlsexport((ICursor) A, exps, fields, bTitle, isAppend, startRow,
-					ctx);
+					isW, ctx);
 		}
 		resetSheetInfo(sx.sheetInfo);
 	}

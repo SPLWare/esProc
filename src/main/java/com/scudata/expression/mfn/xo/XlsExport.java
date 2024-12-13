@@ -15,6 +15,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.XOFunction;
+import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -110,9 +111,6 @@ public class XlsExport extends XOFunction {
 			s = param1.getLeafExpression().calculate(ctx);
 		}
 
-		// 检查sheet名称
-		ExcelUtils.checkSheetName(s);
-
 		String opt = option;
 		boolean isTitle = false, isAppend = false;
 		if (opt != null) {
@@ -121,6 +119,35 @@ public class XlsExport extends XOFunction {
 			if (opt.indexOf('a') != -1)
 				isAppend = true;
 		}
+		boolean isW = opt != null && opt.indexOf("w") > -1;
+		boolean isP = opt != null && opt.indexOf("p") > -1;
+		if (isW) {
+			if (isTitle) {
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsexport.nowt", "t"));
+			}
+			if (file.supportCursor()) {
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsexport.nowt", "w"));
+			}
+
+			if (exps != null) {
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsexport.nowfields"));
+			}
+		}
+
+		if (!isW) {
+			if (isP) {
+				// 选项@{0}只能和选项@w同时使用。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsimport.pnnotw", "p"));
+			}
+		}
+
+		// 检查sheet名称
+		ExcelUtils.checkSheetName(s);
+
 		int startRow, maxRowCount;
 		SheetObject so = null;
 		try {
@@ -147,9 +174,28 @@ public class XlsExport extends XOFunction {
 
 		Sequence seq = null;
 		ICursor cursor = null;
+		boolean isStr = false;
+		if (isW) {
+			if (src != null && src instanceof String) { // 是由\n\t拼成的串
+				src = com.scudata.expression.mfn.file.XlsExport
+						.parseSequence((String) src);
+				isStr = true;
+			}
+		}
 		if (src == null) {
 			return null;
-		} else if (src instanceof Sequence) {
+		}
+		if (src instanceof Sequence) {
+			seq = (Sequence) src;
+			if (!isStr) {// 串不处理
+				if (isP) {
+					seq = ExcelUtils.transpose(seq);
+					src = seq;
+				}
+			}
+		}
+
+		if (src instanceof Sequence) {
 			seq = (Sequence) src;
 			if (seq.length() > maxCount) {
 				cursor = new MemoryCursor(seq, 1, maxCount + 1);
@@ -167,10 +213,10 @@ public class XlsExport extends XOFunction {
 		try {
 			if (seq != null) {
 				file.xlsexport(so, seq, exps, names, s, isTitle, isAppend,
-						startRow, ctx);
+						startRow, isW, ctx);
 			} else {
 				file.xlsexport(so, cursor, exps, names, s, isTitle, isAppend,
-						startRow, ctx);
+						startRow, isW, ctx);
 			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
@@ -180,8 +226,11 @@ public class XlsExport extends XOFunction {
 
 	/**
 	 * 对节点做优化
-	 * @param ctx 计算上下文
-	 * @param Node 优化后的节点
+	 * 
+	 * @param ctx
+	 *            计算上下文
+	 * @param Node
+	 *            优化后的节点
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {

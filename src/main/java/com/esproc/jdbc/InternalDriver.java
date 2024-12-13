@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
@@ -30,7 +32,7 @@ import com.scudata.util.Variant;
  * esProc jdbc驱动类，实现了java.sql.Driver。 URL参数如下:
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
- * global=varname1:value1,varname2:value2,...设置全局变量(ENV)
+ * jobVars=varname1:value1,varname2:value2,...设置全局变量(ENV)
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
  * compatiblesql=true/false。简单SQL现在以$开头，true时兼容不以$开头的。兼容一段时间后取消此选项。
  */
@@ -94,12 +96,12 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"jdbcdriver.incorrecturl", getDemoUrl()));
 		}
-		Map<String, String> propMap = getPropertyMap(url, info);
-		String sconfig = propMap.get(KEY_CONFIG);
-		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
-		String sjobVars = propMap.get(KEY_JOB_VARS);
-		String sdebugmode = propMap.get(KEY_DEBUGMODE);
-		String scompatiblesql = propMap.get(KEY_COMPATIBLESQL);
+		Properties props = getProperties(url, info);
+		String sconfig = props.getProperty(KEY_CONFIG);
+		String sonlyServer = props.getProperty(KEY_ONLY_SERVER);
+		String sjobVars = props.getProperty(KEY_JOB_VARS);
+		String sdebugmode = props.getProperty(KEY_DEBUGMODE);
+		String scompatiblesql = props.getProperty(KEY_COMPATIBLESQL);
 		boolean isOnlyServer = false;
 		if (StringUtils.isValidString(sonlyServer))
 			try {
@@ -161,7 +163,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			con.setUrl(url);
 			con.setClientInfo(info);
 			con.setOnlyServer(isOnlyServer);
-//			con.setGatewayParams(gatewayParams);
+			// con.setGatewayParams(gatewayParams);
 		}
 		return con;
 	}
@@ -212,11 +214,12 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
 			throws SQLException {
 		JDBCUtil.log("InternalDriver.getPropertyInfo(" + url + "," + info + ")");
-		Map<String, String> propMap = getPropertyMap(url, info);
+		Properties props = getProperties(url, info);
 		DriverPropertyInfo[] dpis = new DriverPropertyInfo[2];
-		dpis[0] = new DriverPropertyInfo(KEY_CONFIG, propMap.get(KEY_CONFIG));
+		dpis[0] = new DriverPropertyInfo(KEY_CONFIG,
+				props.getProperty(KEY_CONFIG));
 		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER,
-				propMap.get(KEY_ONLY_SERVER));
+				props.getProperty(KEY_ONLY_SERVER));
 		return dpis;
 	}
 
@@ -300,50 +303,55 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	protected void checkRunState() throws SQLException {
 	}
 
-	protected Map<String, String> getPropertyMap(String url, Properties info) {
-		if (info == null)
-			info = new Properties();
-		String config = info.getProperty(KEY_CONFIG);
-		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
-		String sdebugmode = info.getProperty(KEY_DEBUGMODE);
-		String scompatibleSql = info.getProperty(KEY_COMPATIBLESQL);
-		String sjobVars = info.getProperty(KEY_JOB_VARS);
+	protected Properties getProperties(String url, Properties info) {
+		Properties props = new Properties();
+		if (info != null) {
+			props.putAll(info);
+		}
 		if (url != null) {
+			List<String> paramNames = getValidParamNames();
 			String[] parts = url.split("&");
-			for (int i = 0; i < parts.length; i++) {
-				int i1 = parts[i].toLowerCase().indexOf(
-						KEY_CONFIG.toLowerCase() + "=");
-				int i2 = parts[i].toLowerCase().indexOf(
-						KEY_ONLY_SERVER.toLowerCase() + "=");
-				int i3 = parts[i].toLowerCase().indexOf(
-						KEY_DEBUGMODE.toLowerCase() + "=");
-				int i4 = parts[i].toLowerCase().indexOf(
-						KEY_COMPATIBLESQL.toLowerCase() + "=");
-				int i5 = parts[i].toLowerCase().indexOf(
-						KEY_JOB_VARS.toLowerCase() + "=");
-				if (i1 >= 0)
-					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
-				if (i2 >= 0)
-					sonlyServer = parts[i].substring(i2
-							+ KEY_ONLY_SERVER.length() + 1);
-				if (i3 >= 0)
-					sdebugmode = parts[i].substring(i3 + KEY_DEBUGMODE.length()
+			for (String part : parts) {
+				for (String paramName : paramNames) {
+					int index = part.toLowerCase().indexOf(paramName + "=");
+					if (index < 0)
+						continue;
+					String key = part.substring(index,
+							index + paramName.length());
+					String value = part.substring(index + paramName.length()
 							+ 1);
-				if (i4 >= 0)
-					scompatibleSql = parts[i].substring(i4
-							+ KEY_COMPATIBLESQL.length() + 1);
-				if (i5 >= 0)
-					sjobVars = parts[i].substring(i5
-							+ KEY_JOB_VARS.length() + 1);
+					try {
+						key = URLDecoder.decode(key,
+								StandardCharsets.UTF_8.toString());
+						value = URLDecoder.decode(value,
+								StandardCharsets.UTF_8.toString());
+					} catch (Exception ex) {
+						Logger.warn("Invalid URL parameter: " + part);
+						continue;
+					}
+					props.put(key, value);
+				}
 			}
 		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put(KEY_CONFIG, config);
-		map.put(KEY_ONLY_SERVER, sonlyServer);
-		map.put(KEY_DEBUGMODE, sdebugmode);
-		map.put(KEY_COMPATIBLESQL, scompatibleSql);
-		map.put(KEY_JOB_VARS, sjobVars);
-		return map;
+		return props;
+	}
+
+	protected boolean isValidParamName(String paramName) {
+		return getValidParamNames().contains(paramName.toLowerCase());
+	}
+
+	private List<String> paramNames = null;
+
+	protected List<String> getValidParamNames() {
+		if (paramNames == null) {
+			paramNames = new ArrayList<String>();
+			paramNames.add(KEY_CONFIG.toLowerCase());
+			paramNames.add(KEY_ONLY_SERVER.toLowerCase());
+			paramNames.add(KEY_DEBUGMODE.toLowerCase());
+			paramNames.add(KEY_COMPATIBLESQL.toLowerCase());
+			paramNames.add(KEY_JOB_VARS.toLowerCase());
+		}
+		return paramNames;
 	}
 
 	/**

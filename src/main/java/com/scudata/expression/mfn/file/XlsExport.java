@@ -310,7 +310,7 @@ public class XlsExport extends FileFunction {
 	 *            Òª½âÎöµÄ×Ö·û´®
 	 * @return
 	 */
-	private Sequence parseSequence(String str) {
+	public static Sequence parseSequence(String str) {
 		try {
 			str = str.replaceAll("\r\n", "\n");
 			str = str.replaceAll("\r", "\n");

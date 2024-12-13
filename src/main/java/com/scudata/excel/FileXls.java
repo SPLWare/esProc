@@ -190,7 +190,7 @@ public class FileXls extends XlsFileObject {
 	 * Whether to support cursor
 	 */
 	public boolean supportCursor() {
-		return false;
+		return fileType == TYPE_WRITE;
 	}
 
 	/**
