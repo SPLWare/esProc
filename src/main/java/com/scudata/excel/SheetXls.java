@@ -585,6 +585,7 @@ public class SheetXls extends SheetObject {
 		this.isAppend = isAppend;
 		if (isW) {
 			fileXlsExportW(series, startRow);
+			return;
 		}
 		int colCount = 1;
 		if (exps == null) {
@@ -710,6 +711,7 @@ public class SheetXls extends SheetObject {
 		this.isAppend = isAppend;
 		if (isW) {
 			fileXlsExportW(cursor, startRow);
+			return;
 		}
 		Sequence table = cursor.fetch(BLOCKCOUNT);
 		if (table == null || table.length() == 0)
