@@ -23,22 +23,30 @@ public class XlsImport extends XOFunction {
 	 */
 	public Object calculate(Context ctx) {
 		String opt = option;
+
+		com.scudata.expression.mfn.file.XlsImport.checkOptions(opt);
+
 		boolean isCursor = opt != null && opt.indexOf("c") > -1;
 		if (isCursor && !file.supportCursor()) {
 			MessageManager mm = AppMessage.get();
 			throw new RQException("xlsimport"
 					+ mm.getMessage("filexls.coptwithr"));
 		}
-		boolean hasTitle = opt != null && opt.indexOf("t") > -1;
-		boolean isN = opt != null && opt.indexOf("n") > -1;
-		boolean removeBlank = opt != null && opt.indexOf("b") > -1;
-		if (isCursor && removeBlank) {
-			throw new RQException(AppMessage.get().getMessage("xlsimport.nocb"));
+
+		if (file.supportCursor()) {
+			boolean isW = opt != null && opt.indexOf("w") > -1;
+			boolean isS = opt != null && opt.indexOf("s") > -1;
+			String wOrSText = isW ? "w" : "s";
+			if (isW || isS) {
+				MessageManager mm = AppMessage.get();
+				throw new RQException("xlsimport"
+						+ mm.getMessage("filexls.wswithr", wOrSText));
+			}
 		}
 
 		if (param == null) {
 			try {
-				return file.xlsimport(hasTitle, isCursor, isN, removeBlank);
+				return file.xlsimport(opt);
 			} catch (Exception e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -147,10 +155,11 @@ public class XlsImport extends XOFunction {
 						+ mm.getMessage("function.paramTypeError"));
 			}
 		}
+		com.scudata.expression.mfn.file.XlsImport
+				.checkFieldOptions(fields, opt);
 
 		try {
-			return file.xlsimport(fields, s, start, end, hasTitle, isCursor,
-					isN, removeBlank);
+			return file.xlsimport(fields, s, start, end, opt);
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		}

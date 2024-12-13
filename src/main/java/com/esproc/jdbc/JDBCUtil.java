@@ -215,12 +215,6 @@ public class JDBCUtil {
 		return o;
 	}
 
-	public static Object executeGateway(String sql,
-			ArrayList<Object> parameters, Context ctx, String gateway)
-			throws SQLException, RetryException {
-		return executeGateway(sql, parameters, ctx, gateway, null);
-	}
-
 	/**
 	 * Execute the gateway spl file. The gateway is configured in
 	 * raqsoftConfig.xml.
@@ -233,16 +227,13 @@ public class JDBCUtil {
 	 *            The Context object
 	 * @param gateway
 	 *            网关
-	 * @param gatewayParams
-	 *            网关参数
 	 * @return The result of execution
 	 * @throws SQLException
 	 *             ,RetryException时将按无网关方式执行
 	 */
 	public static Object executeGateway(String sql,
-			ArrayList<Object> parameters, Context ctx, String gateway,
-			Map<String, Object> gatewayParams) throws SQLException,
-			RetryException {
+			ArrayList<Object> parameters, Context ctx, String gateway)
+			throws SQLException, RetryException {
 		/*
 		 * After the gateway is configured, the statements are parsed by spl and
 		 * the table sequence or cursor is returned. spl only has parameters sql
@@ -270,17 +261,6 @@ public class JDBCUtil {
 		Context csCtx = cellSet.getContext();
 		ParamList list = cellSet.getParamList();
 		if (list != null) {
-			// 网关参数和网关splx文件参数不能重名
-			if (gatewayParams != null) {
-				for (int i = 0; i < list.count(); i++) {
-					Param p = list.get(i);
-					if (gatewayParams.containsKey(p.getName())) {
-						throw new SQLException(JDBCMessage.get().getMessage(
-								"jdbcutil.samepname", p.getName()));
-					}
-				}
-			}
-
 			// 取出所有变量，常量不设置
 			ParamList varList = new ParamList();
 			list.getAllVarParams(varList);
@@ -307,15 +287,6 @@ public class JDBCUtil {
 					args.insert(1, sql);
 					AppUtil.setParamToCellSet(cellSet, args);
 				}
-			}
-		}
-		if (gatewayParams != null) {
-			// 上面检查过同名了，不会影响正常网格参数
-			Iterator<String> it = gatewayParams.keySet().iterator();
-			while (it.hasNext()) {
-				String paramName = it.next();
-				Object value = gatewayParams.get(paramName);
-				csCtx.setParamValue(paramName, value);
 			}
 		}
 		csCtx.setEnv(ctx);

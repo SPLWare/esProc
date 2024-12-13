@@ -58,12 +58,11 @@ public class SheetXlsR extends SheetObject {
 	 * @throws Exception
 	 */
 	public synchronized Object xlsimport(String[] fields, int startRow,
-			int endRow, boolean bTitle, boolean isCursor, boolean isN,
-			boolean removeBlank) throws Exception {
+			int endRow, String opt) throws Exception {
 		String s = sheetInfo.getSheetName();
 		sheetParser = new XlsxSSheetParser(xssfReader, fields, startRow,
-				endRow, s, bTitle, isN, removeBlank);
-		return sheetParser.xlsimport(isCursor);
+				endRow, s, opt);
+		return sheetParser.xlsimport();
 	}
 
 	/**

@@ -749,7 +749,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	/**
 	 * Line separator
 	 */
-	public static final String ROW_SEP = "\n";
+	public static final String ROW_SEP = ExcelUtils.getLineSeparator();
 	/**
 	 * Column separator
 	 */

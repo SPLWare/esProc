@@ -54,6 +54,8 @@ public class XlsxSSheetParser implements ILineInput {
 	 * Has title line
 	 */
 	private boolean bTitle;
+	
+	private boolean isCursor;
 	/**
 	 * Option @n
 	 */
@@ -85,18 +87,16 @@ public class XlsxSSheetParser implements ILineInput {
 	 * @param startRow
 	 * @param endRow
 	 * @param s
-	 * @param bTitle
-	 * @param isN
-	 * @param removeBlank
+	 * @param opt
 	 */
 	public XlsxSSheetParser(XSSFReader xssfReader, String[] fields,
-			int startRow, int endRow, Object s, boolean bTitle, boolean isN,
-			boolean removeBlank) {
+			int startRow, int endRow, Object s, String opt) {
 		try {
 			this.fields = fields;
-			this.bTitle = bTitle;
-			this.isN = isN;
-			this.removeBlank = removeBlank;
+			this.isCursor = opt != null && opt.indexOf("c") > -1;
+			this.bTitle = opt != null && opt.indexOf("t") > -1;
+			this.isN = opt != null && opt.indexOf("n") > -1;
+			this.removeBlank = opt != null && opt.indexOf("b") > -1;
 			if (startRow > 0) {
 				startRow--;
 			} else if (startRow < 0) {
@@ -275,7 +275,7 @@ public class XlsxSSheetParser implements ILineInput {
 	 * @param isCursor
 	 * @return
 	 */
-	public Object xlsimport(boolean isCursor) {
+	public Object xlsimport() {
 		if (isCursor) {
 			String cursorOpt = "";
 			if (bTitle)

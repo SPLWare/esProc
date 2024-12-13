@@ -316,19 +316,15 @@ public class SheetXls extends SheetObject {
 	 *            Start row
 	 * @param endRow
 	 *            End row
-	 * @param bTitle
-	 *            Include title line
-	 * @param isCursor
-	 *            Whether to return the cursor
-	 * @param isN
-	 * @param removeBlank
-	 *            Whether to delete blank lines at the beginning and end
+	 * @param opt
+	 *            Options
 	 * @return
 	 * @throws Exception
 	 */
 	public Object xlsimport(String[] fields, int startRow, int endRow,
-			boolean bTitle, boolean isCursor, boolean isN, boolean removeBlank)
-			throws IOException {
+			String opt) throws IOException {
+		boolean bTitle = opt != null && opt.indexOf('t') != -1;
+		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
 		Object[] line;
 		int totalCount = getTotalCount();
 		// If the start line is specified, the title line is at the start line.
@@ -354,7 +350,17 @@ public class SheetXls extends SheetObject {
 		if (endRow < startRow)
 			return null;
 
-		line = readLine(startRow);
+		boolean isW = opt != null && opt.indexOf('w') != -1;
+		if (isW) {
+			return xlsImportW(startRow, endRow, opt);
+		}
+		boolean isS = opt != null && opt.indexOf('s') != -1;
+		if (isS)
+			return xlsImportS(startRow, endRow, opt);
+
+		boolean isN = opt != null && opt.indexOf('n') != -1;
+
+		line = readLine(startRow, isN, false);
 
 		if (line == null)
 			return null;
@@ -364,7 +370,7 @@ public class SheetXls extends SheetObject {
 				startRow++;
 				if (startRow > endRow)
 					return null;
-				line = readLine(startRow);
+				line = readLine(startRow, isN, false);
 				if (line == null)
 					return null;
 			}
@@ -392,7 +398,7 @@ public class SheetXls extends SheetObject {
 		if (fields == null || fields.length == 0) {
 			table = new Table(ds);
 			while (startRow <= endRow) {
-				line = readLine(startRow);
+				line = readLine(startRow, isN, false);
 				if (line == null)
 					break;
 
@@ -456,6 +462,101 @@ public class SheetXls extends SheetObject {
 			ExcelTool.removeTableTailBlank(table);
 
 		return table;
+	}
+
+	/**
+	 * Use option @w when importing excel file.
+	 * 
+	 * @param startRow
+	 *            Start row
+	 * @param endRow
+	 *            End row
+	 * @param opt
+	 *            The options
+	 * @return
+	 * @throws IOException
+	 */
+	public Sequence xlsImportW(int startRow, int endRow, String opt)
+			throws IOException {
+		boolean isP = opt != null && opt.indexOf("p") > -1;
+		boolean isN = opt != null && opt.indexOf("n") > -1;
+		Sequence seq = new Sequence();
+		Object[] line;
+		while (startRow <= endRow) {
+			line = readLine(startRow, isN, true);
+			if (line == null)
+				break;
+			startRow++;
+			Sequence subSeq = new Sequence(line.length);
+			for (Object data : line) {
+				subSeq.add(data);
+			}
+			seq.add(subSeq);
+		}
+		if (isP)
+			seq = ExcelUtils.transpose(seq);
+		return seq;
+	}
+
+	/**
+	 * Use option @s when importing excel file.
+	 * 
+	 * @param startRow
+	 *            Start row
+	 * @param endRow
+	 *            End row
+	 * @param opt
+	 *            The option
+	 * @return
+	 * @throws IOException
+	 */
+	public String xlsImportS(int startRow, int endRow, String opt)
+			throws IOException {
+		boolean isN = opt != null && opt.indexOf("n") != -1;
+		StringBuffer buf = new StringBuffer();
+		Object[] line;
+		boolean firstLine = true;
+		while (startRow <= endRow) {
+			line = readLine(startRow, isN, false);
+			if (line == null)
+				break;
+			startRow++;
+			if (firstLine) {
+				firstLine = false;
+			} else {
+				buf.append(ExcelTool.ROW_SEP);
+			}
+			for (int c = 0; c < line.length; c++) {
+				if (c > 0) {
+					buf.append(ExcelTool.COL_SEP);
+				}
+				buf.append(line[c] == null ? "" : line[c].toString());
+			}
+		}
+		return buf.toString();
+	}
+
+	/**
+	 * Read a row of data
+	 * 
+	 * @param isN
+	 * @n
+	 * @param isW
+	 * @w
+	 * @return
+	 * @throws IOException
+	 */
+	private Object[] readLine(int row, boolean isN, boolean isW)
+			throws IOException {
+		Object[] line = readLine(row);
+		if (line == null)
+			return null;
+		if (isN) {
+			for (int i = 0; i < line.length; i++) {
+				line[i] = ExcelUtils.trim(line[i], isW);
+			}
+		}
+		return line;
 	}
 
 	/**
@@ -722,15 +823,6 @@ public class SheetXls extends SheetObject {
 	private static final String ROW_COL_SEP = "_";
 
 	/**
-	 * Line Separator
-	 */
-	protected static final String ROW_SEP = ExcelUtils.getLineSeparator();
-	/**
-	 * Column Separator
-	 */
-	protected static final char COL_SEP = '\t';
-
-	/**
 	 * Read data from excel cells
 	 * 
 	 * @param pos1
@@ -797,7 +889,7 @@ public class SheetXls extends SheetObject {
 				break;
 			}
 			if (i > startRow) {
-				buf.append(ROW_SEP);
+				buf.append(ExcelTool.ROW_SEP);
 			}
 			line = readLine(i);
 			if (line == null || line.length == 0)
@@ -816,7 +908,7 @@ public class SheetXls extends SheetObject {
 			}
 			for (int c = 0; c < cutLine.length; c++) {
 				if (c > 0)
-					buf.append(COL_SEP);
+					buf.append(ExcelTool.COL_SEP);
 				Object val = Variant.toExportString(cutLine[c]);
 				if (val == null)
 					val = "";

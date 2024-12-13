@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -116,16 +117,23 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	private JobSpace jobSpace = null;
 
+	public InternalConnection(InternalDriver driver, RaqsoftConfig config,
+			List<String> hostNames) throws SQLException {
+		this(driver, config, hostNames, null);
+	}
+
 	/**
 	 * Constructor
 	 * 
-	 * @param drv
-	 * @param id
+	 * @param driver
 	 * @param config
+	 * @param hostNames
+	 * @param gatewayParams
 	 * @throws SQLException
 	 */
 	public InternalConnection(InternalDriver driver, RaqsoftConfig config,
-			List<String> hostNames) throws SQLException {
+			List<String> hostNames, Map<String, Object> gatewayParams)
+			throws SQLException {
 		closed = false;
 		raqsoftConfig = config;
 		this.hostNames = hostNames;
@@ -135,7 +143,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
-		initContext(parentCtx);
+		initContext(parentCtx, gatewayParams);
 	}
 
 	public abstract void checkExec() throws SQLException;
@@ -158,8 +166,17 @@ public abstract class InternalConnection implements Connection, Serializable {
 		return false;
 	}
 
-	private void initContext(Context ctx) {
+	private void initContext(Context ctx, Map<String, Object> gatewayParams) {
 		ctx.setJobSpace(getJobSpace());
+		if (jobSpace != null && gatewayParams != null) {
+			// 上面检查过同名了，不会影响正常网格参数
+			Iterator<String> it = gatewayParams.keySet().iterator();
+			while (it.hasNext()) {
+				String paramName = it.next();
+				Object value = gatewayParams.get(paramName);
+				jobSpace.setParamValue(paramName, value);
+			}
+		}
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
 		}
@@ -266,18 +283,18 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @param gatewayParams
 	 */
-	public void setGatewayParams(Map<String, Object> gatewayParams) {
-		this.gatewayParams = gatewayParams;
-	}
+	// public void setGatewayParams(Map<String, Object> gatewayParams) {
+	// this.gatewayParams = gatewayParams;
+	// }
 
 	/**
 	 * 执行网关时传递给计算用的Context
 	 * 
 	 * @return
 	 */
-	public Map<String, Object> getGatewayParams() {
-		return gatewayParams;
-	}
+	// public Map<String, Object> getGatewayParams() {
+	// return gatewayParams;
+	// }
 
 	/**
 	 * Get the list of the statements

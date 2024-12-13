@@ -79,8 +79,6 @@ public class XlsxSImporter implements ILineInput {
 		POIFSFileSystem pfs = null;
 		BufferedInputStream bis = null;
 		try {
-			boolean bTitle = opt != null && opt.indexOf('t') != -1;
-			boolean isN = opt != null && opt.indexOf("n") != -1;
 			String filePath = fo.getFileName();
 			if (fo.isRemoteFile()) {
 				is = fo.getInputStream();
@@ -106,7 +104,7 @@ public class XlsxSImporter implements ILineInput {
 			}
 			XSSFReader xssfReader = new XSSFReader(this.xlsxPackage);
 			sheetParser = new XlsxSSheetParser(xssfReader, fields, startRow,
-					endRow, s, bTitle, isN, false);
+					endRow, s, opt);
 		} catch (RQException e) {
 			throw e;
 		} catch (Exception e) {

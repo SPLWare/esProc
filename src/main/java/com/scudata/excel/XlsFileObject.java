@@ -187,19 +187,13 @@ public abstract class XlsFileObject extends Table implements IResource {
 	/**
 	 * xo.xlsimport(). Get the sequence from the first sheet.
 	 * 
-	 * @param hasTitle
-	 *            Has title line
-	 * @param isCursor
-	 *            Whether to return the cursor
-	 * @param isN
-	 * @param removeBlank
-	 *            Delete blank lines at the beginning and end
+	 * @param opt
+	 *            Options
 	 * @return
 	 * @throws Exception
 	 */
-	public Object xlsimport(boolean hasTitle, boolean isCursor, boolean isN,
-			boolean removeBlank) throws Exception {
-		return xlsimport(null, null, 0, 0, hasTitle, isCursor, isN, removeBlank);
+	public Object xlsimport(String opt) throws Exception {
+		return xlsimport(null, null, 0, 0, opt);
 	}
 
 	/**
@@ -217,25 +211,18 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 *            Start row
 	 * @param endRow
 	 *            End row
-	 * @param hasTitle
-	 *            Has title line
-	 * @param isCursor
-	 *            Whether to return the cursor
-	 * @param isN
-	 * @param removeBlank
-	 *            Delete blank lines at the beginning and end
+	 * @param opt
+	 *            Options
 	 * @return
 	 */
 	public Object xlsimport(String[] fields, Object s, int startRow,
-			int endRow, boolean hasTitle, boolean isCursor, boolean isN,
-			boolean removeBlank) throws Exception {
+			int endRow, String opt) throws Exception {
 		if (fileType == TYPE_WRITE) {
 			throw new RQException("xlsimport"
 					+ AppMessage.get().getMessage("filexls.wimport"));
 		}
 		SheetObject sx = getSheetObject(s, false);
-		Object result = sx.xlsimport(fields, startRow, endRow, hasTitle,
-				isCursor, isN, removeBlank);
+		Object result = sx.xlsimport(fields, startRow, endRow, opt);
 		return result;
 	}
 

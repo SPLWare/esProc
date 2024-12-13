@@ -38,31 +38,9 @@ public class XlsImport extends FileFunction {
 	 */
 	public Object calculate(Context ctx) {
 		String opt = option;
+		checkOptions(opt);
 		boolean isCursor = opt != null && opt.indexOf("c") > -1;
 		boolean hasTitle = opt != null && opt.indexOf("t") > -1;
-		boolean removeBlank = opt != null && opt.indexOf("b") > -1;
-		if (isCursor && removeBlank) {
-			throw new RQException(AppMessage.get().getMessage("xlsimport.nocb"));
-		}
-
-		boolean isW = opt != null && opt.indexOf("w") > -1;
-		boolean isS = opt != null && opt.indexOf("s") > -1;
-		boolean isP = opt != null && opt.indexOf("p") > -1;
-		String wOrSText = isW ? "w" : "s";
-		if (isW || isS) {
-			if (hasTitle || removeBlank || isCursor) {
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.nowtbc", wOrSText));
-			}
-		}
-
-		if (!isW) {
-			if (isP) {
-				// 选项@{0}只能和选项@w同时使用。
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.pnnotw", "p"));
-			}
-		}
 
 		if (param == null) {
 			InputStream in = null;
@@ -231,12 +209,7 @@ public class XlsImport extends FileFunction {
 					+ mm.getMessage("xlsfile.needxlsx"));
 		}
 
-		if (isW || isS) {
-			if (fields != null) {
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.nowfields", wOrSText));
-			}
-		}
+		checkFieldOptions(fields, opt);
 
 		InputStream in = null;
 		BufferedInputStream bis = null;
@@ -287,5 +260,44 @@ public class XlsImport extends FileFunction {
 		}
 
 		return this;
+	}
+
+	public static void checkOptions(String opt) {
+		boolean isCursor = opt != null && opt.indexOf("c") > -1;
+		boolean hasTitle = opt != null && opt.indexOf("t") > -1;
+		boolean removeBlank = opt != null && opt.indexOf("b") > -1;
+		if (isCursor && removeBlank) {
+			throw new RQException(AppMessage.get().getMessage("xlsimport.nocb"));
+		}
+
+		boolean isW = opt != null && opt.indexOf("w") > -1;
+		boolean isS = opt != null && opt.indexOf("s") > -1;
+		boolean isP = opt != null && opt.indexOf("p") > -1;
+		String wOrSText = isW ? "w" : "s";
+		if (isW || isS) {
+			if (hasTitle || removeBlank || isCursor) {
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsimport.nowtbc", wOrSText));
+			}
+		}
+		if (!isW) {
+			if (isP) {
+				// 选项@{0}只能和选项@w同时使用。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsimport.pnnotw", "p"));
+			}
+		}
+	}
+
+	public static void checkFieldOptions(String[] fields, String opt) {
+		boolean isW = opt != null && opt.indexOf("w") > -1;
+		boolean isS = opt != null && opt.indexOf("s") > -1;
+		String wOrSText = isW ? "w" : "s";
+		if (isW || isS) {
+			if (fields != null) {
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsimport.nowfields", wOrSText));
+			}
+		}
 	}
 }

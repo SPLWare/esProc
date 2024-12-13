@@ -97,7 +97,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		Map<String, String> propMap = getPropertyMap(url, info);
 		String sconfig = propMap.get(KEY_CONFIG);
 		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
-		String sgatewayParams = propMap.get(KEY_GATEWAY_PARAMS);
+		String sjobVars = propMap.get(KEY_JOB_VARS);
 		String sdebugmode = propMap.get(KEY_DEBUGMODE);
 		String scompatiblesql = propMap.get(KEY_COMPATIBLESQL);
 		boolean isOnlyServer = false;
@@ -109,11 +109,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			}
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
 
-		Map<String,Object> gatewayParams = null;
-		if (StringUtils.isValidString(sgatewayParams)) {
+		Map<String, Object> gatewayParams = null;
+		if (StringUtils.isValidString(sjobVars)) {
 			// 设置全局变量
 			// global=varname1:value1,varname2:value2,...
-			ArgumentTokenizer at = new ArgumentTokenizer(sgatewayParams);
+			ArgumentTokenizer at = new ArgumentTokenizer(sjobVars);
 			while (at.hasMoreTokens()) {
 				String pv = at.nextToken();
 				if (!StringUtils.isValidString(pv))
@@ -131,11 +131,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					value = Variant.parse(valueStr);
 				}
 				if (gatewayParams == null)
-					gatewayParams = new HashMap<String,Object>();
+					gatewayParams = new HashMap<String, Object>();
 				gatewayParams.put(paramName, value);
 			}
 		}
-		JDBCUtil.log(KEY_GATEWAY_PARAMS + "=" + sgatewayParams);
+		JDBCUtil.log(KEY_JOB_VARS + "=" + sjobVars);
 
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
@@ -156,12 +156,12 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		JDBCUtil.isCompatiblesql = isCompatiblesql;
 
 		initConfig(rc, sconfig);
-		InternalConnection con = newConnection();
+		InternalConnection con = newConnection(config, hostNames, gatewayParams);
 		if (con != null) {
 			con.setUrl(url);
 			con.setClientInfo(info);
 			con.setOnlyServer(isOnlyServer);
-			con.setGatewayParams(gatewayParams);
+//			con.setGatewayParams(gatewayParams);
 		}
 		return con;
 	}
@@ -276,8 +276,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return
 	 * @throws SQLException
 	 */
-	protected InternalConnection newConnection() throws SQLException {
-		InternalConnection con = new InternalConnection(this, config, hostNames) {
+	protected InternalConnection newConnection(RaqsoftConfig config,
+			List<String> hostNames, Map<String, Object> gatewayParams)
+			throws SQLException {
+		InternalConnection con = new InternalConnection(this, config,
+				hostNames, gatewayParams) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -304,7 +307,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
 		String sdebugmode = info.getProperty(KEY_DEBUGMODE);
 		String scompatibleSql = info.getProperty(KEY_COMPATIBLESQL);
-		String sgatewayParams = info.getProperty(KEY_GATEWAY_PARAMS);
+		String sjobVars = info.getProperty(KEY_JOB_VARS);
 		if (url != null) {
 			String[] parts = url.split("&");
 			for (int i = 0; i < parts.length; i++) {
@@ -317,7 +320,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				int i4 = parts[i].toLowerCase().indexOf(
 						KEY_COMPATIBLESQL.toLowerCase() + "=");
 				int i5 = parts[i].toLowerCase().indexOf(
-						KEY_GATEWAY_PARAMS.toLowerCase() + "=");
+						KEY_JOB_VARS.toLowerCase() + "=");
 				if (i1 >= 0)
 					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
 				if (i2 >= 0)
@@ -330,8 +333,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					scompatibleSql = parts[i].substring(i4
 							+ KEY_COMPATIBLESQL.length() + 1);
 				if (i5 >= 0)
-					sgatewayParams = parts[i].substring(i5
-							+ KEY_GATEWAY_PARAMS.length() + 1);
+					sjobVars = parts[i].substring(i5
+							+ KEY_JOB_VARS.length() + 1);
 			}
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -339,7 +342,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		map.put(KEY_ONLY_SERVER, sonlyServer);
 		map.put(KEY_DEBUGMODE, sdebugmode);
 		map.put(KEY_COMPATIBLESQL, scompatibleSql);
-		map.put(KEY_GATEWAY_PARAMS, sgatewayParams);
+		map.put(KEY_JOB_VARS, sjobVars);
 		return map;
 	}
 
@@ -561,7 +564,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 
 	private static final String KEY_CONFIG = "config";
 	private static final String KEY_ONLY_SERVER = "onlyServer";
-	private static final String KEY_GATEWAY_PARAMS = "gatewayParams";
+	private static final String KEY_JOB_VARS = "jobVars";
 
 	// 仅调试用
 	private static final String KEY_DEBUGMODE = "debugmode";

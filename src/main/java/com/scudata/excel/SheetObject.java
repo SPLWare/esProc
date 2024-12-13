@@ -39,7 +39,7 @@ public abstract class SheetObject {
 	 * @throws Exception
 	 */
 	public abstract Object xlsimport(String[] fields, int startRow, int endRow,
-			boolean bTitle, boolean isCursor, boolean isN, boolean removeBlank)
+			String opt)
 			throws Exception;
 
 	/**

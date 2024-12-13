@@ -304,8 +304,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				 */
 				try {
 					return JDBCUtil.executeGateway(sql,
-							(ArrayList<Object>) parameters, ctx, gateway,
-							con.getGatewayParams());
+							(ArrayList<Object>) parameters, ctx, gateway);
 				} catch (RetryException re) {
 					/*
 					 * If the gateway throws a RetryException, it will be
