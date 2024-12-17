@@ -200,7 +200,7 @@ public class XlsExport extends FileFunction {
 		}
 		if (isM) {
 			try {
-				xlsExportM(src, maxCount, et, s, exps, names, isTitle, isW, ctx);
+				xlsExportM(src, maxCount, et, s, exps, names, opt, ctx);
 			} catch (Exception e) {
 				throw new RQException(e.getMessage(), e);
 			} finally {
@@ -229,9 +229,9 @@ public class XlsExport extends FileFunction {
 
 		try {
 			if (seq != null) {
-				et.fileXlsExport(seq, exps, names, isTitle, isW, ctx);
+				et.fileXlsExport(seq, exps, names, opt, ctx);
 			} else {
-				et.fileXlsExport(cursor, exps, names, isTitle, isW, ctx);
+				et.fileXlsExport(cursor, exps, names, opt, ctx);
 			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
@@ -248,8 +248,11 @@ public class XlsExport extends FileFunction {
 
 	/**
 	 * 对节点做优化
-	 * @param ctx 计算上下文
-	 * @param Node 优化后的节点
+	 * 
+	 * @param ctx
+	 *            计算上下文
+	 * @param Node
+	 *            优化后的节点
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
@@ -261,8 +264,8 @@ public class XlsExport extends FileFunction {
 	}
 
 	private void xlsExportM(Object src, int maxCount, ExcelTool et, Object s,
-			Expression[] exps, String[] names, boolean isTitle, boolean isW,
-			Context ctx) throws Exception {
+			Expression[] exps, String[] names, String opt, Context ctx)
+			throws Exception {
 		Sequence seq = null;
 		ICursor cursor = null;
 		if (src instanceof Sequence) {
@@ -276,13 +279,13 @@ public class XlsExport extends FileFunction {
 					cursor = new MemoryCursor(seq, start, start + maxCount);
 					if (index > 1)
 						et.setSheet(sheetName + index);
-					et.fileXlsExport(cursor, exps, names, isTitle, isW, ctx);
+					et.fileXlsExport(cursor, exps, names, opt, ctx);
 					start += maxCount;
 					index++;
 					totalCount -= maxCount;
 				}
 			} else {
-				et.fileXlsExport(seq, exps, names, isTitle, isW, ctx);
+				et.fileXlsExport(seq, exps, names, opt, ctx);
 			}
 		} else if (src instanceof ICursor) {
 			cursor = (ICursor) src;
@@ -293,7 +296,7 @@ public class XlsExport extends FileFunction {
 				subCursor = new SubCursor(cursor, maxCount);
 				if (index > 1)
 					et.setSheet(sheetName + index);
-				et.fileXlsExport(subCursor, exps, names, isTitle, isW, ctx);
+				et.fileXlsExport(subCursor, exps, names, opt, ctx);
 				index++;
 			}
 		} else {

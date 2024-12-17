@@ -417,68 +417,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @throws IOException
 	 */
 	public Object fileXlsImport(String opt) throws IOException {
-		boolean isW = opt != null && opt.indexOf('w') != -1;
-		if (isW) {
-			return xlsImportW(0, Integer.MAX_VALUE, opt);
-		}
-		boolean isS = opt != null && opt.indexOf('s') != -1;
-		if (isS)
-			return xlsImportS(0, Integer.MAX_VALUE, opt);
-		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
-		boolean isN = opt != null && opt.indexOf('n') != -1;
-		Object[] line = readLine(isN, false);
-		if (line == null)
-			return null;
-		if (removeBlank) {
-			/* Remove blank lines at the head */
-			while (ExcelUtils.isBlankRow(line)) {
-				line = readLine(isN, false);
-				/* Null means the end. The blank line is Object[0]. */
-				if (line == null)
-					return null;
-			}
-		}
-		int fcount = line.length;
-		if (fcount == 0)
-			return null;
-
-		Table table;
-		if (opt != null && opt.indexOf('t') != -1) {
-			String[] items = new String[fcount];
-			for (int f = 0; f < fcount; ++f) {
-				items[f] = Variant.toString(line[f]);
-			}
-
-			table = new Table(items);
-		} else {
-			String[] items = new String[fcount];
-			table = new Table(items);
-
-			BaseRecord r = table.newLast();
-			for (int f = 0; f < fcount; ++f) {
-				r.setNormalFieldValue(f, line[f]);
-			}
-		}
-
-		while (true) {
-			line = readLine(isN, false);
-			if (line == null)
-				break;
-
-			int curLen = line.length;
-			if (curLen > fcount)
-				curLen = fcount;
-			BaseRecord r = table.newLast();
-			for (int f = 0; f < curLen; ++f) {
-				r.setNormalFieldValue(f, line[f]);
-			}
-		}
-
-		table.trimToSize();
-
-		if (removeBlank)
-			removeTableTailBlank(table);
-		return table;
+		return fileXlsImport(null, 0, Integer.MAX_VALUE, null, opt);
 	}
 
 	/**
@@ -500,9 +439,6 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 */
 	public Object fileXlsImport(String[] fields, int startRow, int endRow,
 			Object s, String opt) throws IOException {
-		boolean bTitle = opt != null && opt.indexOf('t') != -1;
-		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
-		Object[] line;
 		if (s instanceof String) {
 			setSheet((String) s);
 		} else if (s instanceof Number) {
@@ -512,12 +448,56 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			throw new RQException("import"
 					+ mm.getMessage("function.paramTypeError"));
 		}
+		IXlsImporter xlsImporter = new IXlsImporter() {
 
+			public Object[] readLine(int row, boolean isN, boolean isW)
+					throws IOException {
+				Object[] line = ExcelTool.this.readLine();
+				if (line == null)
+					return null;
+				if (isN) {
+					for (int i = 0; i < line.length; i++) {
+						line[i] = ExcelUtils.trim(line[i], isW);
+					}
+				}
+				return line;
+			}
+
+			public int totalCount() {
+				return ExcelTool.this.totalCount();
+			}
+
+			public void setStartRow(int startRow) {
+				ExcelTool.this.setStartRow(startRow);
+			}
+
+		};
+		return fileXlsImport(fields, startRow, endRow, opt, xlsImporter);
+	}
+
+	/**
+	 * Import excel file
+	 * 
+	 * @param fields
+	 *            The names of the fields to be imported. Null means import all
+	 *            fields.
+	 * @param startRow
+	 *            Start row
+	 * @param endRow
+	 *            End row
+	 * @param opt
+	 *            The options
+	 * @return
+	 * @throws IOException
+	 */
+	public static Object fileXlsImport(String[] fields, int startRow,
+			int endRow, String opt, IXlsImporter xlsImporter)
+			throws IOException {
 		/* If the start line is specified, the title line is at the start line. */
 		if (startRow > 0) {
 			startRow--;
 		} else if (startRow < 0) {
-			int rowCount = totalCount();
+			int rowCount = xlsImporter.totalCount();
 			startRow += rowCount;
 
 			if (startRow < 0)
@@ -527,37 +507,39 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		if (endRow > 0) {
 			endRow--;
 		} else if (endRow == 0) {
-			endRow = totalCount() - 1;
+			endRow = xlsImporter.totalCount() - 1;
 		} else if (endRow < 0) {
-			int rowCount = totalCount();
+			int rowCount = xlsImporter.totalCount();
 			endRow += rowCount;
 		}
 
 		if (endRow < startRow)
 			return null;
 
-		setStartRow(startRow);
+		xlsImporter.setStartRow(startRow);
 
 		boolean isW = opt != null && opt.indexOf('w') != -1;
 		if (isW) {
-			return xlsImportW(startRow, endRow, opt);
+			return xlsImportW(startRow, endRow, opt, xlsImporter);
 		}
 		boolean isS = opt != null && opt.indexOf('s') != -1;
 		if (isS)
-			return xlsImportS(startRow, endRow, opt);
+			return xlsImportS(startRow, endRow, opt, xlsImporter);
 
 		boolean isN = opt != null && opt.indexOf('n') != -1;
-		line = readLine(isN, false);
+		Object[] line;
+		line = xlsImporter.readLine(startRow, isN, false);
 		if (line == null)
 			return null;
-
+		boolean bTitle = opt != null && opt.indexOf('t') != -1;
+		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
 		if (removeBlank) {
 			/* Remove blank lines at the head */
 			while (ExcelUtils.isBlankRow(line)) {
 				startRow++;
 				if (startRow > endRow)
 					return null;
-				line = readLine(isN, false);
+				line = xlsImporter.readLine(startRow, isN, false);
 				/* Null means the end. The blank line is Object[0]. */
 				if (line == null)
 					return null;
@@ -581,13 +563,13 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		} else {
 			String[] items = new String[fcount];
 			ds = new DataStruct(items);
-			setStartRow(startRow);
+			xlsImporter.setStartRow(startRow);
 		}
 
 		if (fields == null || fields.length == 0) {
 			table = new Table(ds);
 			while (startRow <= endRow) {
-				line = readLine(isN, false);
+				line = xlsImporter.readLine(startRow, isN, false);
 				if (line == null)
 					break;
 
@@ -628,7 +610,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			DataStruct newDs = new DataStruct(fields);
 			table = new Table(newDs);
 			while (startRow <= endRow) {
-				line = readLine(isN, false);
+				line = xlsImporter.readLine(startRow, isN, false);
 				if (line == null)
 					break;
 
@@ -686,14 +668,14 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @return
 	 * @throws IOException
 	 */
-	public Sequence xlsImportW(int startRow, int endRow, String opt)
-			throws IOException {
+	public static Sequence xlsImportW(int startRow, int endRow, String opt,
+			IXlsImporter xlsImporter) throws IOException {
 		boolean isP = opt != null && opt.indexOf("p") > -1;
 		boolean isN = opt != null && opt.indexOf("n") > -1;
 		Sequence seq = new Sequence();
 		Object[] line;
 		while (startRow <= endRow) {
-			line = readLine(isN, true);
+			line = xlsImporter.readLine(startRow, isN, true);
 			if (line == null)
 				break;
 			startRow++;
@@ -720,14 +702,14 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @return
 	 * @throws IOException
 	 */
-	public String xlsImportS(int startRow, int endRow, String opt)
-			throws IOException {
+	public static String xlsImportS(int startRow, int endRow, String opt,
+			IXlsImporter xlsImporter) throws IOException {
 		boolean isN = opt != null && opt.indexOf("n") != -1;
 		StringBuffer buf = new StringBuffer();
 		Object[] line;
 		boolean firstLine = true;
 		while (startRow <= endRow) {
-			line = readLine(isN, false);
+			line = xlsImporter.readLine(startRow, isN, false);
 			if (line == null)
 				break;
 			startRow++;
@@ -795,75 +777,14 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @throws IOException
 	 */
 	public void fileXlsExport(Sequence series, Expression[] exps,
-			String[] names, boolean bTitle, boolean isW, Context ctx)
-			throws IOException {
-		if (isW) {
-			fileXlsExportW(series);
-			return;
-		}
-		if (exps == null) {
-			int fcount = 1;
-			DataStruct ds = series.dataStruct();
-			if (ds == null) {
-				int len = series.length();
-				if (bTitle && len > 0)
-					writeLine(new String[] { FileObject.S_FIELDNAME });
+			String[] names, String opt, Context ctx) throws IOException {
+		IXlsExporter xlsExporter = new IXlsExporter() {
 
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1; i <= len; ++i) {
-					lineObjs[0] = series.getMem(i);
-					writeLine(lineObjs);
-				}
-			} else {
-				fcount = ds.getFieldCount();
-				if (bTitle)
-					writeLine(ds.getFieldNames());
-
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1, len = series.length(); i <= len; ++i) {
-					BaseRecord r = (BaseRecord) series.getMem(i);
-					Object[] vals = r.getFieldValues();
-					for (int f = 0; f < fcount; ++f) {
-						if (vals[f] instanceof BaseRecord) {
-							lineObjs[f] = ((BaseRecord) vals[f]).value();
-						} else {
-							lineObjs[f] = vals[f];
-						}
-					}
-
-					writeLine(lineObjs);
-				}
+			public void writeLine(int row, Object[] items) throws IOException {
+				ExcelTool.this.writeLine(items);
 			}
-		} else {
-			ComputeStack stack = ctx.getComputeStack();
-			Current current = new Current(series);
-			stack.push(current);
-
-			try {
-				int fcount = exps.length;
-				if (bTitle) {
-					if (names == null)
-						names = new String[fcount];
-					series.getNewFieldNames(exps, names, "export");
-					writeLine(names);
-				}
-
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1, len = series.length(); i <= len; ++i) {
-					current.setCurrent(i);
-					for (int f = 0; f < fcount; ++f) {
-						lineObjs[f] = exps[f].calculate(ctx);
-						if (lineObjs[f] instanceof BaseRecord) {
-							lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
-						}
-					}
-
-					writeLine(lineObjs);
-				}
-			} finally {
-				stack.pop();
-			}
-		}
+		};
+		fileXlsExport(series, exps, names, 0, opt, ctx, xlsExporter);
 	}
 
 	/**
@@ -884,26 +805,141 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 * @throws IOException
 	 */
 	public void fileXlsExport(ICursor cursor, Expression[] exps,
-			String[] names, boolean bTitle, boolean isW, Context ctx)
-			throws IOException {
+			String[] names, String opt, Context ctx) throws IOException {
+		IXlsExporter xlsExporter = new IXlsExporter() {
+
+			public void writeLine(int row, Object[] items) throws IOException {
+				ExcelTool.this.writeLine(items);
+			}
+		};
+		fileXlsExport(cursor, exps, names, 0, opt, ctx, xlsExporter);
+	}
+
+	/**
+	 * Export excel file
+	 * 
+	 * @param series
+	 * @param exps
+	 * @param names
+	 * @param opt
+	 * @param ctx
+	 * @param xlsExporter
+	 * @return
+	 * @throws IOException
+	 */
+	public static int[] fileXlsExport(Sequence series, Expression[] exps,
+			String[] names, int startRow, String opt, Context ctx,
+			IXlsExporter xlsExporter) throws IOException {
+		boolean isW = opt != null && opt.indexOf("w") != -1;
+		boolean bTitle = opt != null && opt.indexOf("t") != -1;
 		if (isW) {
-			fileXlsExportW(cursor);
-			return;
+			return fileXlsExportW(series, startRow, xlsExporter);
+		}
+		int colCount = -1;
+		if (exps == null) {
+			int fcount = 1;
+			DataStruct ds = series.dataStruct();
+			if (ds == null) {
+				int len = series.length();
+				if (bTitle && len > 0) {
+					xlsExporter.writeLine(startRow,
+							new String[] { FileObject.S_FIELDNAME });
+					startRow++;
+				}
+
+				Object[] lineObjs = new Object[fcount];
+				for (int i = 1; i <= len; ++i) {
+					lineObjs[0] = series.getMem(i);
+					xlsExporter.writeLine(startRow, lineObjs);
+					startRow++;
+				}
+			} else {
+				fcount = ds.getFieldCount();
+				if (bTitle) {
+					xlsExporter.writeLine(startRow, ds.getFieldNames());
+					startRow++;
+				}
+				Object[] lineObjs = new Object[fcount];
+				for (int i = 1, len = series.length(); i <= len; ++i) {
+					BaseRecord r = (BaseRecord) series.getMem(i);
+					Object[] vals = r.getFieldValues();
+					for (int f = 0; f < fcount; ++f) {
+						if (vals[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) vals[f]).value();
+						} else {
+							lineObjs[f] = vals[f];
+						}
+					}
+
+					xlsExporter.writeLine(startRow, lineObjs);
+					startRow++;
+				}
+			}
+			colCount = fcount;
+		} else {
+			ComputeStack stack = ctx.getComputeStack();
+			Current current = new Current(series);
+			stack.push(current);
+
+			try {
+				int fcount = exps.length;
+				if (bTitle) {
+					if (names == null)
+						names = new String[fcount];
+					series.getNewFieldNames(exps, names, "export");
+					xlsExporter.writeLine(startRow, names);
+					startRow++;
+				}
+
+				Object[] lineObjs = new Object[fcount];
+				for (int i = 1, len = series.length(); i <= len; ++i) {
+					current.setCurrent(i);
+					for (int f = 0; f < fcount; ++f) {
+						lineObjs[f] = exps[f].calculate(ctx);
+						if (lineObjs[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
+						}
+					}
+
+					xlsExporter.writeLine(startRow, lineObjs);
+					startRow++;
+				}
+				colCount = fcount;
+			} finally {
+				stack.pop();
+			}
+		}
+		return new int[] { startRow, colCount };
+	}
+
+	public static int[] fileXlsExport(ICursor cursor, Expression[] exps,
+			String[] names, int startRow, String opt, Context ctx,
+			IXlsExporter xlsExporter) throws IOException {
+		boolean isW = opt != null && opt.indexOf("w") != -1;
+		boolean bTitle = opt != null && opt.indexOf("t") != -1;
+		if (isW) {
+			return fileXlsExportW(cursor, startRow, xlsExporter);
 		}
 		Sequence table = cursor.fetch(BLOCKCOUNT);
 		if (table == null || table.length() == 0)
-			return;
+			return null;
 
+		int colCount = -1;
 		if (exps == null) {
 			int fcount = 1;
 			DataStruct ds = table.dataStruct();
 			if (ds == null) {
-				if (bTitle)
-					writeLine(new String[] { FileObject.S_FIELDNAME });
+				if (bTitle) {
+					xlsExporter.writeLine(startRow,
+							new String[] { FileObject.S_FIELDNAME });
+					startRow++;
+				}
 			} else {
 				fcount = ds.getFieldCount();
-				if (bTitle)
-					writeLine(ds.getFieldNames());
+				if (bTitle) {
+					xlsExporter.writeLine(startRow, ds.getFieldNames());
+					startRow++;
+				}
 			}
 
 			Object[] lineObjs = new Object[fcount];
@@ -911,7 +947,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (ds == null) {
 					for (int i = 1, len = table.length(); i <= len; ++i) {
 						lineObjs[0] = table.getMem(i);
-						writeLine(lineObjs);
+						xlsExporter.writeLine(startRow, lineObjs);
+						startRow++;
 					}
 				} else {
 					for (int i = 1, len = table.length(); i <= len; ++i) {
@@ -925,7 +962,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 							}
 						}
 
-						writeLine(lineObjs);
+						xlsExporter.writeLine(startRow, lineObjs);
+						startRow++;
 					}
 				}
 
@@ -933,6 +971,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (table == null || table.length() == 0)
 					break;
 			}
+			colCount = fcount;
 		} else {
 			int fcount = exps.length;
 			Object[] lineObjs = new Object[fcount];
@@ -940,7 +979,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (names == null)
 					names = new String[fcount];
 				table.getNewFieldNames(exps, names, "export");
-				writeLine(names);
+				xlsExporter.writeLine(startRow, names);
+				startRow++;
 			}
 
 			ComputeStack stack = ctx.getComputeStack();
@@ -959,7 +999,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 							}
 						}
 
-						writeLine(lineObjs);
+						xlsExporter.writeLine(startRow, lineObjs);
+						startRow++;
 					}
 				} finally {
 					stack.pop();
@@ -969,7 +1010,9 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (table == null || table.length() == 0)
 					break;
 			}
+			colCount = fcount;
 		}
+		return new int[] { startRow, colCount };
 	}
 
 	/**
@@ -979,15 +1022,21 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 *            Sequence
 	 * @throws IOException
 	 */
-	private void fileXlsExportW(Sequence seq) throws IOException {
+	private static int[] fileXlsExportW(Sequence seq, int startRow,
+			IXlsExporter xlsExporter) throws IOException {
 		if (seq == null || seq.length() == 0)
-			return;
+			return null;
+		int colCount = 1;
 		Object[] line;
 		for (int i = 1, len = seq.length(); i <= len; i++) {
 			Object rowData = seq.get(i);
 			line = getLine(rowData);
-			writeLine(line);
+			xlsExporter.writeLine(startRow, line);
+			startRow++;
+			if (line != null)
+				colCount = Math.max(colCount, line.length);
 		}
+		return new int[] { startRow, colCount };
 	}
 
 	/**
@@ -997,11 +1046,13 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 *            ICursor
 	 * @throws IOException
 	 */
-	private void fileXlsExportW(ICursor cursor) throws IOException {
+	private static int[] fileXlsExportW(ICursor cursor, int startRow,
+			IXlsExporter xlsExporter) throws IOException {
 		if (cursor == null)
-			return;
+			return null;
 		Sequence seq;
 		Object[] line;
+		int colCount = 1;
 		while (true) {
 			seq = cursor.fetch(BLOCKCOUNT);
 			if (seq == null || seq.length() == 0)
@@ -1009,9 +1060,14 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			for (int i = 1, len = seq.length(); i <= len; i++) {
 				Object rowData = seq.get(i);
 				line = getLine(rowData);
-				writeLine(line);
+				xlsExporter.writeLine(startRow, line);
+				startRow++;
+				if (line != null) {
+					colCount = Math.max(colCount, line.length);
+				}
 			}
 		}
+		return new int[] { startRow, colCount };
 	}
 
 	/**
@@ -1046,5 +1102,5 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	/**
 	 * Binary file block size
 	 */
-	private static final int BLOCKCOUNT = 999;
+	private static final int BLOCKCOUNT = 1000;
 }

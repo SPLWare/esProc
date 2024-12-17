@@ -212,11 +212,9 @@ public class XlsExport extends XOFunction {
 
 		try {
 			if (seq != null) {
-				file.xlsexport(so, seq, exps, names, s, isTitle, isAppend,
-						startRow, isW, ctx);
+				file.xlsexport(so, seq, exps, names, s, startRow, opt, ctx);
 			} else {
-				file.xlsexport(so, cursor, exps, names, s, isTitle, isAppend,
-						startRow, isW, ctx);
+				file.xlsexport(so, cursor, exps, names, s, startRow, opt, ctx);
 			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);

@@ -232,29 +232,20 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 * 
 	 * @t There is a title. When the sheet has content, it is considered that
 	 *    the last row with content is the title.
-	 * 
+	 * @param so
 	 * @param A
-	 *            The sequence to be exported. When xo is opened with @w, A can
-	 *            be a cursor.
 	 * @param exps
-	 *            Field expressions
 	 * @param fields
-	 *            Fields to be exported
 	 * @param s
-	 *            sheet name or sheet serial number
-	 * @param bTitle
-	 *            Has title line
 	 * @param isAppend
-	 *            Whether to append export
 	 * @param startRow
-	 *            Start row
+	 * @param opt
 	 * @param ctx
-	 *            Context
 	 * @throws Exception
 	 */
 	public void xlsexport(SheetObject so, Object A, Expression[] exps,
-			String[] fields, Object s, boolean bTitle, boolean isAppend,
-			int startRow, boolean isW, Context ctx) throws Exception {
+			String[] fields, Object s, int startRow, String opt, Context ctx)
+			throws Exception {
 		if (fileType == TYPE_READ) {
 			// : xlsopen@r does not support xlsexport
 			throw new RQException("xlsexport"
@@ -262,11 +253,9 @@ public abstract class XlsFileObject extends Table implements IResource {
 		}
 		SheetXls sx = (SheetXls) so;
 		if (A instanceof Sequence) {
-			sx.xlsexport((Sequence) A, exps, fields, bTitle, isAppend,
-					startRow, isW, ctx);
+			sx.xlsexport((Sequence) A, exps, fields, startRow, opt, ctx);
 		} else if (A instanceof ICursor) {
-			sx.xlsexport((ICursor) A, exps, fields, bTitle, isAppend, startRow,
-					isW, ctx);
+			sx.xlsexport((ICursor) A, exps, fields, startRow, opt, ctx);
 		}
 		resetSheetInfo(sx.sheetInfo);
 	}

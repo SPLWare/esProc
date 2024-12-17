@@ -29,21 +29,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.scudata.common.CellLocation;
 import com.scudata.common.Matrix;
-import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
-import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.Current;
-import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
-import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.AppMessage;
-import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
@@ -232,7 +225,7 @@ public class SheetXls extends SheetObject {
 		return ExcelUtils.getRowData(row, dataFormat, evaluator);
 	}
 
-	public int getTotalCount() {
+	public int totalCount() {
 		return sheet.getLastRowNum() + 1;
 	}
 
@@ -323,145 +316,31 @@ public class SheetXls extends SheetObject {
 	 */
 	public Object xlsimport(String[] fields, int startRow, int endRow,
 			String opt) throws IOException {
-		boolean bTitle = opt != null && opt.indexOf('t') != -1;
-		boolean removeBlank = opt != null && opt.indexOf('b') != -1;
-		Object[] line;
-		int totalCount = getTotalCount();
-		// If the start line is specified, the title line is at the start line.
-		if (startRow > 0) {
-			startRow--;
-		} else if (startRow < 0) {
-			int rowCount = totalCount;
-			startRow += rowCount;
+		IXlsImporter xlsImporter = new IXlsImporter() {
 
-			if (startRow < 0)
-				startRow = 0;
-		}
-
-		if (endRow > 0) {
-			endRow--;
-		} else if (endRow == 0) {
-			endRow = totalCount - 1;
-		} else if (endRow < 0) {
-			int rowCount = totalCount;
-			endRow += rowCount;
-		}
-
-		if (endRow < startRow)
-			return null;
-
-		boolean isW = opt != null && opt.indexOf('w') != -1;
-		if (isW) {
-			return xlsImportW(startRow, endRow, opt);
-		}
-		boolean isS = opt != null && opt.indexOf('s') != -1;
-		if (isS)
-			return xlsImportS(startRow, endRow, opt);
-
-		boolean isN = opt != null && opt.indexOf('n') != -1;
-
-		line = readLine(startRow, isN, false);
-
-		if (line == null)
-			return null;
-
-		if (removeBlank) {
-			while (ExcelUtils.isBlankRow(line)) {
-				startRow++;
-				if (startRow > endRow)
-					return null;
-				line = readLine(startRow, isN, false);
+			public Object[] readLine(int row, boolean isN, boolean isW)
+					throws IOException {
+				Object[] line = SheetXls.this.readLine(row);
 				if (line == null)
 					return null;
-			}
-		}
-
-		int fcount = line.length;
-		if (fcount == 0)
-			return null;
-
-		Table table;
-		DataStruct ds;
-		if (bTitle) {
-			String[] items = new String[fcount];
-			for (int f = 0; f < fcount; ++f) {
-				items[f] = Variant.toString(line[f]);
-			}
-
-			ds = new DataStruct(items);
-			startRow++;
-		} else {
-			String[] items = new String[fcount];
-			ds = new DataStruct(items);
-		}
-
-		if (fields == null || fields.length == 0) {
-			table = new Table(ds);
-			while (startRow <= endRow) {
-				line = readLine(startRow, isN, false);
-				if (line == null)
-					break;
-
-				startRow++;
-				int curLen = line.length;
-				if (curLen > fcount)
-					curLen = fcount;
-
-				BaseRecord r = table.newLast();
-				for (int f = 0; f < curLen; ++f) {
-					r.setNormalFieldValue(f, line[f]);
+				if (isN) {
+					for (int i = 0; i < line.length; i++) {
+						line[i] = ExcelUtils.trim(line[i], isW);
+					}
 				}
-			}
-		} else {
-			int[] index = new int[fcount];
-			for (int i = 0; i < fcount; ++i) {
-				index[i] = -1;
+				return line;
 			}
 
-			for (int i = 0, count = fields.length; i < count; ++i) {
-				int q = ds.getFieldIndex(fields[i]);
-				if (q < 0) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[i]
-							+ mm.getMessage("ds.fieldNotExist"));
-				}
-
-				if (index[q] != -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[i]
-							+ mm.getMessage("ds.colNameRepeat"));
-				}
-
-				index[q] = i;
-				fields[i] = ds.getFieldName(q);
+			public int totalCount() {
+				return SheetXls.this.totalCount();
 			}
 
-			DataStruct newDs = new DataStruct(fields);
-			table = new Table(newDs);
-			while (startRow <= endRow) {
-				line = readLine(startRow);
-				if (line == null)
-					break;
-
-				startRow++;
-				int curLen = line.length;
-				if (curLen > fcount)
-					curLen = fcount;
-
-				BaseRecord r = table.newLast();
-				for (int f = 0; f < curLen; ++f) {
-					if (index[f] != -1)
-						r.setNormalFieldValue(index[f], line[f]);
-				}
+			public void setStartRow(int startRow) {
 			}
-		}
 
-		table.trimToSize();
-
-		if (removeBlank)
-			ExcelTool.removeTableTailBlank(table);
-
-		return table;
+		};
+		return ExcelTool.fileXlsImport(fields, startRow, endRow, opt,
+				xlsImporter);
 	}
 
 	/**
@@ -476,27 +355,27 @@ public class SheetXls extends SheetObject {
 	 * @return
 	 * @throws IOException
 	 */
-	public Sequence xlsImportW(int startRow, int endRow, String opt)
-			throws IOException {
-		boolean isP = opt != null && opt.indexOf("p") > -1;
-		boolean isN = opt != null && opt.indexOf("n") > -1;
-		Sequence seq = new Sequence();
-		Object[] line;
-		while (startRow <= endRow) {
-			line = readLine(startRow, isN, true);
-			if (line == null)
-				break;
-			startRow++;
-			Sequence subSeq = new Sequence(line.length);
-			for (Object data : line) {
-				subSeq.add(data);
-			}
-			seq.add(subSeq);
-		}
-		if (isP)
-			seq = ExcelUtils.transpose(seq);
-		return seq;
-	}
+	// public Sequence xlsImportW(int startRow, int endRow, String opt)
+	// throws IOException {
+	// boolean isP = opt != null && opt.indexOf("p") > -1;
+	// boolean isN = opt != null && opt.indexOf("n") > -1;
+	// Sequence seq = new Sequence();
+	// Object[] line;
+	// while (startRow <= endRow) {
+	// line = readLine(startRow, isN, true);
+	// if (line == null)
+	// break;
+	// startRow++;
+	// Sequence subSeq = new Sequence(line.length);
+	// for (Object data : line) {
+	// subSeq.add(data);
+	// }
+	// seq.add(subSeq);
+	// }
+	// if (isP)
+	// seq = ExcelUtils.transpose(seq);
+	// return seq;
+	// }
 
 	/**
 	 * Use option @s when importing excel file.
@@ -510,31 +389,31 @@ public class SheetXls extends SheetObject {
 	 * @return
 	 * @throws IOException
 	 */
-	public String xlsImportS(int startRow, int endRow, String opt)
-			throws IOException {
-		boolean isN = opt != null && opt.indexOf("n") != -1;
-		StringBuffer buf = new StringBuffer();
-		Object[] line;
-		boolean firstLine = true;
-		while (startRow <= endRow) {
-			line = readLine(startRow, isN, false);
-			if (line == null)
-				break;
-			startRow++;
-			if (firstLine) {
-				firstLine = false;
-			} else {
-				buf.append(ExcelTool.ROW_SEP);
-			}
-			for (int c = 0; c < line.length; c++) {
-				if (c > 0) {
-					buf.append(ExcelTool.COL_SEP);
-				}
-				buf.append(line[c] == null ? "" : line[c].toString());
-			}
-		}
-		return buf.toString();
-	}
+	// public String xlsImportS(int startRow, int endRow, String opt)
+	// throws IOException {
+	// boolean isN = opt != null && opt.indexOf("n") != -1;
+	// StringBuffer buf = new StringBuffer();
+	// Object[] line;
+	// boolean firstLine = true;
+	// while (startRow <= endRow) {
+	// line = readLine(startRow, isN, false);
+	// if (line == null)
+	// break;
+	// startRow++;
+	// if (firstLine) {
+	// firstLine = false;
+	// } else {
+	// buf.append(ExcelTool.ROW_SEP);
+	// }
+	// for (int c = 0; c < line.length; c++) {
+	// if (c > 0) {
+	// buf.append(ExcelTool.COL_SEP);
+	// }
+	// buf.append(line[c] == null ? "" : line[c].toString());
+	// }
+	// }
+	// return buf.toString();
+	// }
 
 	/**
 	 * Read a row of data
@@ -546,18 +425,18 @@ public class SheetXls extends SheetObject {
 	 * @return
 	 * @throws IOException
 	 */
-	private Object[] readLine(int row, boolean isN, boolean isW)
-			throws IOException {
-		Object[] line = readLine(row);
-		if (line == null)
-			return null;
-		if (isN) {
-			for (int i = 0; i < line.length; i++) {
-				line[i] = ExcelUtils.trim(line[i], isW);
-			}
-		}
-		return line;
-	}
+	// private Object[] readLine(int row, boolean isN, boolean isW)
+	// throws IOException {
+	// Object[] line = readLine(row);
+	// if (line == null)
+	// return null;
+	// if (isN) {
+	// for (int i = 0; i < line.length; i++) {
+	// line[i] = ExcelUtils.trim(line[i], isW);
+	// }
+	// }
+	// return line;
+	// }
 
 	/**
 	 * Export excel sheet
@@ -579,111 +458,23 @@ public class SheetXls extends SheetObject {
 	 * @throws IOException
 	 */
 	public void xlsexport(Sequence series, Expression[] exps, String[] names,
-			boolean bTitle, boolean isAppend, int startRow, boolean isW,
-			Context ctx) throws IOException {
-		this.writeTitle = bTitle;
-		this.isAppend = isAppend;
-		if (isW) {
-			fileXlsExportW(series, startRow);
-			return;
-		}
-		int colCount = 1;
-		if (exps == null) {
-			int fcount = 1;
-			DataStruct ds = series.dataStruct();
-			if (ds == null) {
-				if (bTitle) {
-					writeLine(startRow, new String[] { FileObject.S_FIELDNAME });
-					startRow++;
-				}
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1, len = series.length(); i <= len; ++i) {
-					lineObjs[0] = series.getMem(i);
-					writeLine(startRow, lineObjs);
-					startRow++;
-				}
-			} else {
-				fcount = ds.getFieldCount();
-				if (bTitle) {
-					writeLine(startRow, ds.getFieldNames());
-					startRow++;
-				}
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1, len = series.length(); i <= len; ++i) {
-					BaseRecord r = (BaseRecord) series.getMem(i);
-					Object[] vals = r.getFieldValues();
-					for (int f = 0; f < fcount; ++f) {
-						if (vals[f] instanceof BaseRecord) {
-							lineObjs[f] = ((BaseRecord) vals[f]).value();
-						} else {
-							lineObjs[f] = vals[f];
-						}
-					}
+			int startRow, String opt, Context ctx) throws IOException {
+		this.writeTitle = opt != null && opt.indexOf("t") != -1;
+		this.isAppend = opt != null && opt.indexOf("a") != -1;
 
-					writeLine(startRow, lineObjs);
-					startRow++;
-				}
+		IXlsExporter xlsExporter = new IXlsExporter() {
+
+			public void writeLine(int row, Object[] items) throws IOException {
+				SheetXls.this.writeLine(row, items);
 			}
-			colCount = fcount;
-		} else {
-			ComputeStack stack = ctx.getComputeStack();
-			Current current = new Current(series);
-			stack.push(current);
-
-			try {
-				int fcount = exps.length;
-				if (bTitle) {
-					if (names == null)
-						names = new String[fcount];
-					series.getNewFieldNames(exps, names, "export");
-					writeLine(startRow, names);
-					startRow++;
-				}
-
-				Object[] lineObjs = new Object[fcount];
-				for (int i = 1, len = series.length(); i <= len; ++i) {
-					current.setCurrent(i);
-					for (int f = 0; f < fcount; ++f) {
-						lineObjs[f] = exps[f].calculate(ctx);
-						if (lineObjs[f] instanceof BaseRecord) {
-							lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
-						}
-					}
-
-					writeLine(startRow, lineObjs);
-					startRow++;
-				}
-				colCount = fcount;
-			} finally {
-				stack.pop();
-			}
-		}
-		sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), startRow));
-		sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), colCount));
-	}
-
-	/**
-	 * Export excel file using option @w
-	 * 
-	 * @param seq
-	 *            Sequence
-	 * @throws IOException
-	 */
-	private void fileXlsExportW(Sequence seq, int startRow) throws IOException {
-		if (seq == null || seq.length() == 0)
-			return;
-		Object[] line;
-		for (int i = 1, len = seq.length(); i <= len; i++) {
-			Object rowData = seq.get(i);
-			line = ExcelTool.getLine(rowData);
-			writeLine(startRow + i - 1, line);
+		};
+		int[] rc = ExcelTool.fileXlsExport(series, exps, names, startRow, opt,
+				ctx, xlsExporter);
+		if (rc != null) {
+			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), rc[0]));
+			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), rc[1]));
 		}
 	}
-
-	/**
-	 * Binary file block size
-	 */
-	private static final int BLOCKCOUNT = 999;
 
 	/**
 	 * Export excel sheet
@@ -705,131 +496,20 @@ public class SheetXls extends SheetObject {
 	 * @throws IOException
 	 */
 	public void xlsexport(ICursor cursor, Expression[] exps, String[] names,
-			boolean bTitle, boolean isAppend, int startRow, boolean isW,
-			Context ctx) throws IOException {
-		this.writeTitle = bTitle;
-		this.isAppend = isAppend;
-		if (isW) {
-			fileXlsExportW(cursor, startRow);
-			return;
-		}
-		Sequence table = cursor.fetch(BLOCKCOUNT);
-		if (table == null || table.length() == 0)
-			return;
-		int colCount = 1;
-		if (exps == null) {
-			int fcount = 1;
-			DataStruct ds = table.dataStruct();
-			if (ds == null) {
-				if (bTitle) {
-					writeLine(startRow, new String[] { FileObject.S_FIELDNAME });
-					startRow++;
-				}
-			} else {
-				fcount = ds.getFieldCount();
-				if (bTitle) {
-					writeLine(startRow, ds.getFieldNames());
-					startRow++;
-				}
+			int startRow, String opt, Context ctx) throws IOException {
+		this.writeTitle = opt != null && opt.indexOf("t") != -1;
+		this.isAppend = opt != null && opt.indexOf("a") != -1;
+		IXlsExporter xlsExporter = new IXlsExporter() {
+
+			public void writeLine(int row, Object[] items) throws IOException {
+				SheetXls.this.writeLine(row, items);
 			}
-
-			Object[] lineObjs = new Object[fcount];
-			while (true) {
-				if (ds == null) {
-					for (int i = 1, len = table.length(); i <= len; ++i) {
-						lineObjs[0] = table.getMem(i);
-						writeLine(startRow, lineObjs);
-						startRow++;
-					}
-				} else {
-					for (int i = 1, len = table.length(); i <= len; ++i) {
-						BaseRecord r = (BaseRecord) table.getMem(i);
-						Object[] vals = r.getFieldValues();
-						for (int f = 0; f < fcount; ++f) {
-							if (vals[f] instanceof BaseRecord) {
-								lineObjs[f] = ((BaseRecord) vals[f]).value();
-							} else {
-								lineObjs[f] = vals[f];
-							}
-						}
-
-						writeLine(startRow, lineObjs);
-						startRow++;
-					}
-				}
-
-				table = cursor.fetch(BLOCKCOUNT);
-				if (table == null || table.length() == 0)
-					break;
-			}
-			colCount = fcount;
-		} else {
-			int fcount = exps.length;
-			Object[] lineObjs = new Object[fcount];
-			if (bTitle) {
-				if (names == null)
-					names = new String[fcount];
-				table.getNewFieldNames(exps, names, "export");
-				writeLine(startRow, names);
-				startRow++;
-			}
-
-			ComputeStack stack = ctx.getComputeStack();
-			while (true) {
-				Current current = new Current(table);
-				stack.push(current);
-
-				try {
-					for (int i = 1, len = table.length(); i <= len; ++i) {
-						current.setCurrent(i);
-						for (int f = 0; f < fcount; ++f) {
-							lineObjs[f] = exps[f].calculate(ctx);
-							if (lineObjs[f] instanceof BaseRecord) {
-								lineObjs[f] = ((BaseRecord) lineObjs[f])
-										.value();
-							}
-						}
-
-						writeLine(startRow, lineObjs);
-						startRow++;
-					}
-				} finally {
-					stack.pop();
-				}
-
-				table = cursor.fetch(BLOCKCOUNT);
-				if (table == null || table.length() == 0)
-					break;
-			}
-			colCount = fcount;
-		}
-		sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), startRow));
-		sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), colCount));
-	}
-
-	/**
-	 * Export excel file using option @w
-	 * 
-	 * @param cursor
-	 *            ICursor
-	 * @throws IOException
-	 */
-	private void fileXlsExportW(ICursor cursor, int startRow)
-			throws IOException {
-		if (cursor == null)
-			return;
-		Sequence seq;
-		Object[] line;
-		while (true) {
-			seq = cursor.fetch(BLOCKCOUNT);
-			if (seq == null || seq.length() == 0)
-				break;
-			for (int i = 1, len = seq.length(); i <= len; i++) {
-				Object rowData = seq.get(i);
-				line = ExcelTool.getLine(rowData);
-				writeLine(startRow, line);
-				startRow++;
-			}
+		};
+		int[] rc = ExcelTool.fileXlsExport(cursor, exps, names, startRow, opt,
+				ctx, xlsExporter);
+		if (rc != null) {
+			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), rc[0]));
+			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), rc[1]));
 		}
 	}
 
@@ -1045,7 +725,7 @@ public class SheetXls extends SheetObject {
 			setCellGraph(startRow, startCol, (byte[]) content);
 			return;
 		}
-		int totalCount = getTotalCount();
+		int totalCount = totalCount();
 		if (content instanceof Sequence) {
 			Sequence seq = (Sequence) content;
 			int rowCount = seq.length();
