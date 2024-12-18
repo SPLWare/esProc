@@ -46,4 +46,12 @@ public class PCSFunction extends Function {
 		PgmCellSet pcs = (PgmCellSet)cs;
 		return pcs.executeFunc(funcInfo, args, option);
 	}
+
+	/**
+	 * 取函数调用信息
+	 * @return
+	 */
+	public PgmCellSet.FuncInfo getFuncInfo() {
+		return funcInfo;
+	}
 }
