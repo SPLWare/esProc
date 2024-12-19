@@ -178,9 +178,6 @@ public class FunInfoManager {
 						String sDbType = getAttribute(info, KEY_DB_TYPE);
 						String sValue = getAttribute(info, KEY_CLASS_NAME);
 						
-						if (sDbType.equalsIgnoreCase("ESPROC") && sValue == null) {
-						}
-						
 						if (sDbType==null || sDbType.trim().length()==0) sDbType = "ESPROC";
 						
 						if (sValue == null || sValue.trim().length() == 0) {
