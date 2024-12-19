@@ -405,11 +405,11 @@
     </FUNCTION>
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
-    <FUNCTION classname="com.scudata.dm.sql.simple.Coalesce" name="coalesce">
-    	<INFO dbtype="ESPROC" classname="com.scudata.dm.sql.simple.Coalesce"/>
+    <FUNCTION name="coalesce">
+    	<INFO dbtype="ESPROC" script='"ifn(" + ?.concat@c() +")"'/>
     </FUNCTION>
-    <FUNCTION classname="com.scudata.dm.sql.simple.Concat" name="concat">
-    	<INFO dbtype="ESPROC" classname="com.scudata.dm.sql.simple.Concat"/>
+    <FUNCTION  name="concat">
+    	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
     </FUNCTION>
   </FUNCTIONS>
 </STANDARD>
