@@ -16,7 +16,11 @@ import org.w3c.dom.NodeList;
 
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.dm.sql.simple.IFunction;
+import com.scudata.expression.fn.Eval;
+import com.scudata.util.Variant;
 
 //函数信息管理器(函数信息增加时按名称及参数个数排序)
 //***暂未考虑数据库不同版本中的函数差异
@@ -31,7 +35,7 @@ public class FunInfoManager {
 	private static TreeMap<FunInfo, FunInfo> funMap = new TreeMap<FunInfo, FunInfo>(); // [FunInfo-FunInfo]
 
 
-	//<dbtype<name<paramcount:value>>>
+	//<dbtype<name<paramcount:value>>> 参数个数-1表示不固定参数函数，-2表达式是SPL脚本的不固定参数函数
 	public static Map<String, Map<String, Map<Integer, String>>> dbMap = new HashMap<String,Map<String, Map<Integer, String>>>();
 
 	static { // 自动加载函数文件
@@ -173,9 +177,23 @@ public class FunInfoManager {
 						}
 						String sDbType = getAttribute(info, KEY_DB_TYPE);
 						String sValue = getAttribute(info, KEY_CLASS_NAME);
-						if (sValue == null || sValue.trim().length() == 0) sValue = defValue;
+						
+						if (sDbType.equalsIgnoreCase("ESPROC") && sValue == null) {
+						}
+						
 						if (sDbType==null || sDbType.trim().length()==0) sDbType = "ESPROC";
-						addInfo(sDbType, name, paramCount, sValue);
+						
+						if (sValue == null || sValue.trim().length() == 0) {
+							sValue = getAttribute(info, KEY_SCRIPT);
+							if (sValue != null && sValue.length() > 0) {
+								addInfo(sDbType, name, -2, sValue);
+							} else {
+								addInfo(sDbType, name, paramCount, defValue);
+							}
+						} else {
+							addInfo(sDbType, name, paramCount, sValue);
+						}
+						
 					}
 				}
 				
@@ -206,6 +224,8 @@ public class FunInfoManager {
 	public static final String KEY_VALUE = "value";
 
 	public static final String KEY_CLASS_NAME = "classname";
+	
+	public static final String KEY_SCRIPT = "script";
 
 	private static String getAttribute(Node node, String attrName) {
 		NamedNodeMap attrs = node.getAttributes();
@@ -247,75 +267,70 @@ public class FunInfoManager {
 		}
 	}
 	
-	public static String getFunctionExp(String dbtype, String name, String[] params)
-	{
-		String exp = null;
+	public static String getFunctionExp(String dbtype, String name, String[] params) {
 		//String dbname = DBTypes.getDBTypeName(dbtype);
 		Map<String, Map<Integer, String>> thisdb = dbMap.get(dbtype.toUpperCase());
 		if (thisdb == null) {
 			throw new RQException("unknown database : "+dbtype);
 		}
+		
 		Map<Integer, String> typeFunctionMap = thisdb.get(name.toLowerCase());
-		if(typeFunctionMap != null)
-		{
-			int count = params.length;
-			String formula = typeFunctionMap.get(count);
-			if(formula != null)
-			{
-				if(formula.isEmpty())
-				{
-					StringBuffer sb = new StringBuffer();
-					sb.append(name);
-					sb.append("(");
-					for(int i = 0; i < params.length; i++)
-					{
-						sb.append("?"+(i+1));
-						if(i > 0)
-						{
-							sb.append(",");
-						}
-					}
-					sb.append(")");
-					formula = sb.toString();
-				}
-				else if(formula.equalsIgnoreCase("N/A"))
-				{
-					throw new RQException("此函数系统暂不支持:"+name);
-				}
-				else if(count == 1)
-				{
-					formula = formula.replace("?1", "?");
-					formula = formula.replace("?", "?1");
-				}
+		if(typeFunctionMap == null) {
+			return null;
+		}
+		
+		int count = params.length;
+		String formula = typeFunctionMap.get(count);
+		if(formula != null) {
+			if(formula.isEmpty()) {
+				StringBuffer sb = new StringBuffer();
+				sb.append(name);
+				sb.append("(");
 				for(int i = 0; i < params.length; i++)
 				{
-					formula = formula.replace("?"+(i+1), params[i]);
-				}
-				exp = formula;
-			}
-			else
-			{
-				String className = typeFunctionMap.get(-1);
-				if(className != null)
-				{
-					try 
+					sb.append("?"+(i+1));
+					if(i > 0)
 					{
-						IFunction functionClass = (IFunction)Class.forName(className).newInstance();
-						exp = functionClass.getFormula(params);
-					} 
-					catch (Exception e) 
-					{
-						throw new RQException("加载非固定参数个数的函数的自定义类时出现错误", e);
+						sb.append(",");
 					}
 				}
+				sb.append(")");
+				formula = sb.toString();
+			} else if(formula.equalsIgnoreCase("N/A")) {
+				throw new RQException("此函数系统暂不支持:"+name);
+			} else if(count == 1) {
+				formula = formula.replace("?1", "?");
+				formula = formula.replace("?", "?1");
 			}
-//			if(exp == null)
-//			{
-//				throw new RQException("未知的函数定义, 名称:"+name+", 参数个数:"+params.length);
-//			}
+			
+			for(int i = 0; i < params.length; i++) {
+				formula = formula.replace("?"+(i+1), params[i]);
+			}
+			
+			return formula;
+		} else {
+			String className = typeFunctionMap.get(-1);
+			if(className != null) {
+				try {
+					IFunction functionClass = (IFunction)Class.forName(className).newInstance();
+					return functionClass.getFormula(params);
+				} catch (Exception e) {
+					throw new RQException("加载非固定参数个数的函数的自定义类时出现错误", e);
+				}
+			} else {
+				className = typeFunctionMap.get(-2);
+				if(className != null) {
+					Sequence seq = new Sequence(1);
+					seq.add(new Sequence(params));
+					Context ctx = new Context();
+					Object result = Eval.calc(className, seq, null, ctx);
+					return Variant.toString(result);
+				}
+			}
 		}
-
-		return exp;
+		
+		//throw new RQException("未知的函数定义, 名称:"+name+", 参数个数:"+params.length);
+		return null;
 	}
 
 	
