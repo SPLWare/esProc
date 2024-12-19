@@ -32,7 +32,7 @@ import com.scudata.util.Variant;
  * esProc jdbc驱动类，实现了java.sql.Driver。 URL参数如下:
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
- * jobVars=varname1:value1,varname2:value2,...设置全局变量(ENV)
+ * jobVars=varname1:value1,varname2:value2,...设置任务变量(JobSpace)
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
  * compatiblesql=true/false。简单SQL现在以$开头，true时兼容不以$开头的。兼容一段时间后取消此选项。
  */

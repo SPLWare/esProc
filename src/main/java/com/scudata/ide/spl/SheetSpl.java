@@ -32,6 +32,7 @@ import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmCellSet.FuncInfo;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.ByteMap;
@@ -57,6 +58,7 @@ import com.scudata.expression.fn.Call;
 import com.scudata.expression.fn.Eval;
 import com.scudata.expression.fn.Func;
 import com.scudata.expression.fn.Func.CallInfo;
+import com.scudata.expression.fn.PCSFunction;
 import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
@@ -421,7 +423,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GM.saveAsExt = fileExt;
 		// 取消另存为dfx类型了
 		String fileExts = AppConsts.FILE_SPLX + "," + AppConsts.FILE_SPL; // AppConsts.SPL_FILE_EXTS
-		File saveFile = GM.dialogSelectFile(GV.appFrame, fileExts, GV.lastDirectory,
+		File saveFile = GM.dialogSelectFile(GV.appFrame, fileExts,
+				GV.lastDirectory,
 				IdeCommonMessage.get().getMessage("public.saveas"), path);
 		GM.saveAsExt = null;
 		if (saveFile == null) {
@@ -1480,7 +1483,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	protected void stepInto(PgmNormalCell pnc) {
 		Expression exp = pnc.getExpression();
 		if (exp != null) {
-			CallInfo ci = null;
 			CellLocation exeCellLocation = null; // 子网开始计算的坐标
 			CellLocation funcLocation = null;
 			PgmCellSet subCellSet = null;
@@ -1496,24 +1498,25 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				subCellSet.setCurrent(subCellSet.getPgmNormalCell(1, 1));
 				subCellSet.setNext(1, 1, true); // 从子格开始执行
 				filePath = call.getDfxPathName(splCtx);
-			} else if (home instanceof Func) { // Func块
+			} else if (home instanceof Func || home instanceof PCSFunction) { // 函数块
 				stepType = StepInfo.TYPE_FUNC;
-				// Func使用新网是为了支持递归
-				Func func = (Func) home;
-				ci = func.getCallInfo(splCtx);
-				PgmCellSet cellSet = ci.getPgmCellSet();
-				int row = ci.getRow();
-				int col = ci.getCol();
-				Object[] args = ci.getArgs();
+				// 函数块使用新网是为了支持递归
+				IdeFuncInfo ideFuncInfo = getIdeFuncInfo(home, splCtx);
+				PgmCellSet cellSet = ideFuncInfo.cellSet;
+				PgmNormalCell cell = ideFuncInfo.cell;
+				if (cell == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.callNeedSub"));
+				}
+				int row = cell.getRow();
+				int col = cell.getCol();
 				int rc = cellSet.getRowCount();
 				int cc = cellSet.getColCount();
 				if (row < 1 || row > rc || col < 1 || col > cc) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.callNeedSub"));
 				}
-
-				PgmNormalCell nc = cellSet.getPgmNormalCell(row, col);
-				Command command = nc.getCommand();
+				Command command = cell.getCommand();
 				if (command == null || command.getType() != Command.FUNC) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.callNeedSub"));
@@ -1530,26 +1533,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						subCellSet.setCell(r, c, cellClone);
 					}
 				}
-				int colCount = subCellSet.getColCount();
+				// 设置参数
+				setFuncArgs(ideFuncInfo, subCellSet);
 
-				// 把参数值设到func单元格上及后面的格子
-				if (args != null) {
-					int paramRow = row;
-					int paramCol = col;
-					for (int i = 0, pcount = args.length; i < pcount; ++i) {
-						subCellSet.getPgmNormalCell(paramRow, paramCol)
-								.setValue(args[i]);
-						if (paramCol < colCount) {
-							paramCol++;
-						} else {
-							break;
-						}
-					}
-				}
 				subCellSet.setCurrent(subCellSet.getPgmNormalCell(row, col));
 				subCellSet.setNext(row, col + 1, false); // 从子格开始执行
 				exeCellLocation = new CellLocation(row, col + 1);
-				funcLocation = new CellLocation(ci.getRow(), ci.getCol());
+				funcLocation = new CellLocation(row, col);
 
 				if (stepInfo == null) { // 当前是主程序
 					filePath = this.filePath;
@@ -1564,18 +1554,105 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					pnc.getCol());
 			openSubSheet(parentLocation, stepType, subCellSet, funcLocation,
 					exeCellLocation, endRow, filePath);
-			// final SheetSpl subSheet = getSubSheet();
-			// if (subSheet != null) {
-			// SwingUtilities.invokeLater(new Runnable() {
-			// public void run() {
-			// try {
-			// subSheet.debug(DebugThread.STEP_INTO_WAIT);
-			// } catch (Exception e) {
-			// GM.showException(e);
-			// }
-			// }
-			// });
-			// }
+
+		}
+	}
+
+	/**
+	 * IDE需要的函数块信息
+	 *
+	 */
+	class IdeFuncInfo {
+		public static final byte TYPE_FUNC = 0;
+		public static final byte TYPE_PCS = 1;
+		byte type = TYPE_FUNC;
+		PgmCellSet cellSet; // 网格
+		PgmNormalCell cell; // 函数格
+		String funcName;
+		String[] argNames; // 参数名，PCSFunction才有，Func没有
+		Object[] args; // 参数值
+	}
+
+	/**
+	 * 从函数块对象获取到IDE需要的信息
+	 * 
+	 * @param home
+	 *            目前有Func和PCSFunction
+	 * @return
+	 */
+	protected IdeFuncInfo getIdeFuncInfo(Object home, Context ctx) {
+		IdeFuncInfo ideFuncInfo = new IdeFuncInfo();
+		if (home instanceof Func) {
+			ideFuncInfo.type = IdeFuncInfo.TYPE_FUNC;
+			Func func = (Func) home;
+			CallInfo ci = func.getCallInfo(ctx);
+			PgmCellSet cellSet = ci.getPgmCellSet();
+			PgmNormalCell cell = (PgmNormalCell) ci.getCell();
+			String funcName = ci.getFnName();
+			ideFuncInfo.cellSet = cellSet;
+			ideFuncInfo.cell = cell;
+			ideFuncInfo.funcName = funcName;
+			ideFuncInfo.args = ci.getArgs();
+			if (ideFuncInfo.cell == null) {
+				if (StringUtils.isValidString(funcName)) {
+					FuncInfo fi = ideFuncInfo.cellSet.getFuncInfo(funcName);
+					if (fi == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(funcName
+								+ mm.getMessage("Expression.unknownFunction"));
+					}
+					ideFuncInfo.cell = fi.getCell();
+					ideFuncInfo.argNames = fi.getArgNames();
+				}
+			}
+		} else if (home instanceof PCSFunction) {
+			ideFuncInfo.type = IdeFuncInfo.TYPE_PCS;
+			PCSFunction func = (PCSFunction) home;
+			FuncInfo fi = func.getFuncInfo();
+			ideFuncInfo.cellSet = (PgmCellSet) func.getCellSet();
+			ideFuncInfo.cell = fi.getCell();
+			ideFuncInfo.funcName = fi.getFnName();
+			ideFuncInfo.argNames = fi.getArgNames();
+			ideFuncInfo.args = func.prepareArgs(ctx);
+		} else {
+			// 外面判断过不应该走这里
+			return null;
+		}
+		return ideFuncInfo;
+	}
+
+	protected void setFuncArgs(IdeFuncInfo ideFuncInfo, PgmCellSet subCellSet) {
+		String[] argNames = ideFuncInfo.argNames;
+		Object[] args = ideFuncInfo.args;
+		if (argNames != null) {
+			// 把参数设到上下文中
+			int argCount = argNames.length;
+			if (args == null || args.length != argCount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(ideFuncInfo.funcName
+						+ mm.getMessage("function.paramCountNotMatch"));
+			}
+			Context ctx = subCellSet.getContext();
+			for (int i = 0; i < argCount; ++i) {
+				ctx.setParamValue(argNames[i], args[i]);
+			}
+		} else if (ideFuncInfo.type == IdeFuncInfo.TYPE_FUNC) {
+			if (args != null) {
+				// 把参数值设到func单元格上及后面的格子
+				PgmNormalCell cell = ideFuncInfo.cell;
+				int colCount = subCellSet.getColCount();
+				int paramRow = cell.getRow();
+				int paramCol = cell.getCol();
+				for (int i = 0, pcount = args.length; i < pcount; ++i) {
+					subCellSet.getPgmNormalCell(paramRow, paramCol).setValue(
+							args[i]);
+					if (paramCol < colCount) {
+						paramCol++;
+					} else {
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -2429,7 +2506,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				Expression exp = nc.getExpression();
 				if (exp != null) {
 					Node home = exp.getHome();
-					if (home instanceof Call || home instanceof Func) {
+					if (home instanceof Call || home instanceof Func
+							|| home instanceof PCSFunction) {
 						return true;
 					}
 				}
