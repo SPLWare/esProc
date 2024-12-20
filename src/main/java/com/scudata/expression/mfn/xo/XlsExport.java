@@ -158,6 +158,9 @@ public class XlsExport extends XOFunction {
 				throw new RQException("xlsexport"
 						+ " : xlsopen@r does not support xlsexport");
 			}
+			if (s == null) {
+				s = new Integer(1);
+			}
 			so = file.getSheetObject(s, true, !isAppend);
 			SheetXls sx = (SheetXls) so;
 			startRow = sx.getStartRow(isTitle);
