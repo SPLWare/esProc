@@ -9329,7 +9329,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else if (opt.indexOf('o') != -1) {
 			return seq.group_o(exp, opt, ctx);
 		} else if (opt.indexOf('i') != -1) {
-			return seq.group_i(exp, ctx);
+			return seq.group_i(exp, opt, ctx);
 		} else if (opt.indexOf('n') != -1) {
 			return seq.group_n(exp, opt, ctx);
 		} else {
@@ -9337,7 +9337,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	private Sequence group_i(Expression exp, Context ctx) {
+	private Sequence group_i(Expression exp, String opt, Context ctx) {
 		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
@@ -9352,23 +9352,77 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			Sequence group = new Sequence(7);
-			group.add(mems.get(1));
-			resultMems.add(group);
-			
-			// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
-			current.setCurrent(1);
-			exp.calculate(ctx);
-			
-			for (int i = 2; i <= size; ++i) {
-				current.setCurrent(i);
-				if (Variant.isTrue(exp.calculate(ctx))) {
-					// 新组
-					group = new Sequence(7);
-					group.add(mems.get(i));
+			if (opt.indexOf('p') == -1) {
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(mems.get(1));
 					resultMems.add(group);
+					
+					// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
+					current.setCurrent(1);
+					exp.calculate(ctx);
+					
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						if (Variant.isTrue(exp.calculate(ctx))) {
+							// 新组
+							group = new Sequence(7);
+							group.add(mems.get(i));
+							resultMems.add(group);
+						} else {
+							group.add(mems.get(i));
+						}
+					}
 				} else {
-					group.add(mems.get(i));
+					resultMems.add(mems.get(1));
+					
+					// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
+					current.setCurrent(1);
+					exp.calculate(ctx);
+					
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						if (Variant.isTrue(exp.calculate(ctx))) {
+							// 新组
+							resultMems.add(mems.get(i));
+						}
+					}
+				}
+			} else {
+				if (opt.indexOf('1') == -1) {
+					Sequence group = new Sequence(7);
+					group.add(ObjectCache.getInteger(1));
+					resultMems.add(group);
+					
+					// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
+					current.setCurrent(1);
+					exp.calculate(ctx);
+					
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						if (Variant.isTrue(exp.calculate(ctx))) {
+							// 新组
+							group = new Sequence(7);
+							group.add(ObjectCache.getInteger(i));
+							resultMems.add(group);
+						} else {
+							group.add(ObjectCache.getInteger(i));
+						}
+					}
+				} else {
+					resultMems.add(ObjectCache.getInteger(1));
+					
+					// 用第一条记录计算一下表达式，防止表达式x中有赋值运算影响计算结果
+					current.setCurrent(1);
+					exp.calculate(ctx);
+					
+					for (int i = 2; i <= size; ++i) {
+						current.setCurrent(i);
+						if (Variant.isTrue(exp.calculate(ctx))) {
+							// 新组
+							resultMems.add(ObjectCache.getInteger(i));
+						}
+					}
 				}
 			}
 		} finally {
