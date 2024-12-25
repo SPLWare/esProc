@@ -11,7 +11,8 @@
 
 ##	About esProc SPL
 
-esProc SPL is a pure Java developed software that can serve as a programming language for data analysis, a middleware for report data preparation, and an efficient big data computing engine.
+esProc is a pure Java developed software that can serve as a programming language for data analysis, a middleware for report data preparation, and an efficient big data computing engine.
+SPL(short for Structured Process Language) is the programming language used in esProc, specifically designed to process structured data. Currently, SPL is available only in  esProc, so we often use 'SPL' or the full term 'esProc SPL' interchangeably to refer to the same product, 'esProc'.
  
 ### [esProc Analytics](https://www.scudata.com/langding-page-spl-data-analysis/)
 SPL adopts a unique grid programming approach, where code is written in cells and the results of each calculation step can be viewed in real-time through the cells. It has the same strong interactivity as Excel and can also be embedded into Excel to work, making it very suitable for exploratory data analysis.
