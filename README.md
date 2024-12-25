@@ -11,20 +11,20 @@
 
 ##	About esProc SPL
 
-esProc is a pure Java developed software that can serve as a programming language for data analysis, a middleware for report data preparation, and an efficient big data computing engine.
+esProc is a pure Java developed software that can serve as a programming language for data analysis, a middleware for report data preparation, and an efficient big data computing engine.  
 SPL(short for Structured Process Language) is the programming language used in esProc, specifically designed to process structured data. Currently, SPL is available only in  esProc, so we often use 'SPL' or the full term 'esProc SPL' interchangeably to refer to the same product, 'esProc'.
  
 ### [esProc Analytics](https://www.scudata.com/langding-page-spl-data-analysis/)
-SPL adopts a unique grid programming approach, where code is written in cells and the results of each calculation step can be viewed in real-time through the cells. It has the same strong interactivity as Excel and can also be embedded into Excel to work, making it very suitable for exploratory data analysis.
+SPL adopts a unique grid programming approach, where code is written in cells and the results of each calculation step can be viewed in real-time through the cells. It has the same strong interactivity as Excel and can also be embedded into Excel to work, making it very suitable for exploratory data analysis.  
 SPL provides a rich computing library, particularly adept at set and order-related operations, enabling complex calculations without the need for multiple layers of nesting and lengthy code, making it simpler than SQL and Python. It supports simple parallel computing at the same time, fully ensuring the computational performance during big data analysis.
  
 ### [esProc Reporting](https://www.scudata.com/esproc-for-Reporting/)
-SPL is developed in Java and can be seamlessly embedded into Java reporting tools. The interpreted executed code supports hot swap, making it very suitable for the ever-changing reporting businesses.
-SPL has lightweight multi-source computing capabilities, without the need for a logical data warehouse, and can directly perform mixed computing based on multi-source data such as text, databases, NoSQL, and cloud data, naturally supporting real-time hot data reporting.
+SPL is developed in Java and can be seamlessly embedded into Java reporting tools. The interpreted executed code supports hot swap, making it very suitable for the ever-changing reporting businesses.  
+SPL has lightweight multi-source computing capabilities, without the need for a logical data warehouse, and can directly perform mixed computing based on multi-source data such as text, databases, NoSQL, and cloud data, naturally supporting real-time hot data reporting.  
 SPL syntax is more concise, which can greatly simplify the difficulty of complex SQL coding in reports and quickly implement report development. Specifically, SPL also provides the ability to migrate SQL across databases for existing SQL reports.
  
 ### [esProc BigData](https://www.scudata.com/esproc-spl/)
-SPL does not adopt the relational algebra-based SQL syntax. It invents an algebraic system called discrete data set instead to solve the problems of hard-to-code complex SQL. SPL makes it convenient to achieve high-performance algorithms and thus obtains much higher computing performance than the traditional relational data warehouse. It can make the most use of the hardware resources by using creative algorithms. According to many practical instances, esProc can achieve, even exceed, the performance that the distributed databases have on a single machine.
+SPL does not adopt the relational algebra-based SQL syntax. It invents an algebraic system called discrete data set instead to solve the problems of hard-to-code complex SQL. SPL makes it convenient to achieve high-performance algorithms and thus obtains much higher computing performance than the traditional relational data warehouse. It can make the most use of the hardware resources by using creative algorithms. According to many practical instances, esProc can achieve, even exceed, the performance that the distributed databases have on a single machine.  
 Running as a data warehouse, esProc abandons the concept of “house” , breaks the closedness featured by the conventional databases and creates an open computing system, making it qualified to replace most MPP data warehouses at lower resource-cost and with lighter framework.
 
 
