@@ -10485,6 +10485,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int gcount = gexps.length;
 		int vcount;
 		
+		for (int i = 0; i < gcount; ++i) {
+			if (gnames[i] == null || gnames[i].length() == 0) {
+				gnames[i] = gexps[i].getFieldName(ds);
+			}
+		}
+		
 		if (ds == null) {
 			if (vexps == null) {
 				MessageManager mm = EngineMessage.get();
@@ -10493,9 +10499,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			vcount = vexps.length;
 			Expression []exps = new Expression[gcount + vcount];
+			String []names = new String[gcount + vcount];
+			System.arraycopy(gnames, 0, names, 0, gcount);
 			System.arraycopy(gexps, 0, exps, 0, gcount);
 			System.arraycopy(vexps, 0, exps, gcount, vcount);
-			table = newTable(null, exps, ctx);
+			table = newTable(names, exps, ctx);
+			ds = table.dataStruct();
 		} else {
 			boolean isOrder = true; // 分组字段和值字段是否是按顺序出现的
 			for (int i = 0; i < gcount; ++i) {
@@ -10527,6 +10536,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					table = fieldsValues(cols);
+					ds = table.dataStruct();
 				}
 			} else {
 				vcount = vexps.length;
@@ -10541,14 +10551,23 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				if (!isOrder) {
 					Expression []exps = new Expression[gcount + vcount];
+					String []names = new String[gcount + vcount];
+					System.arraycopy(gnames, 0, names, 0, gcount);
 					System.arraycopy(gexps, 0, exps, 0, gcount);
 					System.arraycopy(vexps, 0, exps, gcount, vcount);
-					table = newTable(null, exps, ctx);
+					table = newTable(names, exps, ctx);
+					ds = table.dataStruct();
 				}
 			}
 		}
 		
-		Sequence groups = table.group(gexps, "u", ctx);
+		// 字段顺序做了调整后，引用的表达式需要改变
+		Expression []gexps2 = new Expression[gcount];
+		for (int i = 1; i <= gcount; ++i) {
+			gexps2[i - 1] = new Expression(ctx, "#" + i);
+		}
+		
+		Sequence groups = table.group(gexps2, "u", ctx);
 		int resultCount = groups.length();
 		int maxCount = 1;
 		for (int i = 1; i <= resultCount; ++i) {
@@ -10560,13 +10579,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		int maxNewCount = maxCount * vcount;
 		String []totalNames = new String[gcount + maxNewCount];
-		for (int i = 0; i < gcount; ++i) {
-			if (gnames != null && gnames[i] != null) {
-				totalNames[i] = gnames[i];
-			} else {
-				totalNames[i] = gexps[i].getFieldName(ds);
-			}
-		}
+		System.arraycopy(gnames, 0, totalNames, 0, gcount);
 		
 		if (newNames != null) {
 			if (newNames.length >= maxNewCount) {
