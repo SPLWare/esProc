@@ -111,10 +111,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			}
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
 
-		Map<String, Object> gatewayParams = null;
+		Map<String, Object> jobVars = null;
 		if (StringUtils.isValidString(sjobVars)) {
-			// 设置全局变量
-			// global=varname1:value1,varname2:value2,...
+			// 设置任务变量
+			// jobVars=varname1:value1,varname2:value2,...
 			ArgumentTokenizer at = new ArgumentTokenizer(sjobVars);
 			while (at.hasMoreTokens()) {
 				String pv = at.nextToken();
@@ -132,9 +132,9 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (StringUtils.isValidString(valueStr)) {
 					value = Variant.parse(valueStr);
 				}
-				if (gatewayParams == null)
-					gatewayParams = new HashMap<String, Object>();
-				gatewayParams.put(paramName, value);
+				if (jobVars == null)
+					jobVars = new HashMap<String, Object>();
+				jobVars.put(paramName, value);
 			}
 		}
 		JDBCUtil.log(KEY_JOB_VARS + "=" + sjobVars);
@@ -158,12 +158,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		JDBCUtil.isCompatiblesql = isCompatiblesql;
 
 		initConfig(rc, sconfig);
-		InternalConnection con = newConnection(config, hostNames, gatewayParams);
+		InternalConnection con = newConnection(config, hostNames, jobVars);
 		if (con != null) {
 			con.setUrl(url);
 			con.setClientInfo(info);
 			con.setOnlyServer(isOnlyServer);
-			// con.setGatewayParams(gatewayParams);
 		}
 		return con;
 	}
@@ -215,11 +214,13 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			throws SQLException {
 		JDBCUtil.log("InternalDriver.getPropertyInfo(" + url + "," + info + ")");
 		Properties props = getProperties(url, info);
-		DriverPropertyInfo[] dpis = new DriverPropertyInfo[2];
+		DriverPropertyInfo[] dpis = new DriverPropertyInfo[3];
 		dpis[0] = new DriverPropertyInfo(KEY_CONFIG,
 				props.getProperty(KEY_CONFIG));
 		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER,
 				props.getProperty(KEY_ONLY_SERVER));
+		dpis[1] = new DriverPropertyInfo(KEY_JOB_VARS,
+				props.getProperty(KEY_JOB_VARS));
 		return dpis;
 	}
 
@@ -280,10 +281,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @throws SQLException
 	 */
 	protected InternalConnection newConnection(RaqsoftConfig config,
-			List<String> hostNames, Map<String, Object> gatewayParams)
+			List<String> hostNames, Map<String, Object> jobVars)
 			throws SQLException {
 		InternalConnection con = new InternalConnection(this, config,
-				hostNames, gatewayParams) {
+				hostNames, jobVars) {
 
 			private static final long serialVersionUID = 1L;
 

@@ -1605,7 +1605,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 		if (rows >= 1)
 			fetchSize = rows;
 		else {
-			throw new SQLException("Rows must be greater than 0.");
+			// 设置0或者负数，使用缺省值
+			fetchSize = JDBCConsts.DEFAULT_FETCH_SIZE;
 		}
 	}
 

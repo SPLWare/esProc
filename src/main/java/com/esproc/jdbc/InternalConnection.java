@@ -105,7 +105,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 
 	protected List<String> hostNames = null;
 
-	protected Map<String, Object> gatewayParams = null;
+	protected Map<String, Object> jobVars = null;
 
 	/**
 	 * 连接持有的父Context
@@ -128,11 +128,11 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * @param driver
 	 * @param config
 	 * @param hostNames
-	 * @param gatewayParams
+	 * @param jobVars
 	 * @throws SQLException
 	 */
 	public InternalConnection(InternalDriver driver, RaqsoftConfig config,
-			List<String> hostNames, Map<String, Object> gatewayParams)
+			List<String> hostNames, Map<String, Object> jobVars)
 			throws SQLException {
 		closed = false;
 		raqsoftConfig = config;
@@ -143,7 +143,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
-		initContext(parentCtx, gatewayParams);
+		initContext(parentCtx, jobVars);
 	}
 
 	public abstract void checkExec() throws SQLException;
@@ -166,14 +166,14 @@ public abstract class InternalConnection implements Connection, Serializable {
 		return false;
 	}
 
-	private void initContext(Context ctx, Map<String, Object> gatewayParams) {
+	private void initContext(Context ctx, Map<String, Object> jobVars) {
 		ctx.setJobSpace(getJobSpace());
-		if (jobSpace != null && gatewayParams != null) {
+		if (jobSpace != null && jobVars != null) {
 			// 上面检查过同名了，不会影响正常网格参数
-			Iterator<String> it = gatewayParams.keySet().iterator();
+			Iterator<String> it = jobVars.keySet().iterator();
 			while (it.hasNext()) {
 				String paramName = it.next();
-				Object value = gatewayParams.get(paramName);
+				Object value = jobVars.get(paramName);
 				jobSpace.setParamValue(paramName, value);
 			}
 		}
@@ -277,24 +277,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 	public boolean isOnlyServer() {
 		return isOnlyServer;
 	}
-
-	/**
-	 * 执行网关时传递给计算用的Context
-	 * 
-	 * @param gatewayParams
-	 */
-	// public void setGatewayParams(Map<String, Object> gatewayParams) {
-	// this.gatewayParams = gatewayParams;
-	// }
-
-	/**
-	 * 执行网关时传递给计算用的Context
-	 * 
-	 * @return
-	 */
-	// public Map<String, Object> getGatewayParams() {
-	// return gatewayParams;
-	// }
 
 	/**
 	 * Get the list of the statements
