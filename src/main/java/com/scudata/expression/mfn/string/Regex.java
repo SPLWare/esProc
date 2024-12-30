@@ -10,6 +10,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 用正则表达式对串做匹配，返回拆出项组成的序列，不匹配返回空
@@ -59,9 +60,16 @@ public class Regex extends StringFunction {
 				}
 				
 				Sequence seq = new Sequence(3);
-				do {
-					seq.add(m.group(1));
-				} while(m.find());
+				if (option == null || option.indexOf('p') == -1) {
+					do {
+						seq.add(m.group(1));
+					} while(m.find());
+				} else {
+					do {
+						String s = m.group(1);
+						seq.add(Variant.parse(s));
+					} while(m.find());
+				}
 				
 				return seq;
 			} else {
@@ -70,11 +78,20 @@ public class Regex extends StringFunction {
 				}
 				
 				Sequence seq = new Sequence(gcount);
-				do {
-					for (int i = 1; i <= gcount; ++i) {
-						seq.add(m.group(i));
-					}
-				} while (m.find());
+				if (option == null || option.indexOf('p') == -1) {
+					do {
+						for (int i = 1; i <= gcount; ++i) {
+							seq.add(m.group(i));
+						}
+					} while (m.find());
+				} else {
+					do {
+						for (int i = 1; i <= gcount; ++i) {
+							String s = m.group(i);
+							seq.add(Variant.parse(s));
+						}
+					} while (m.find());
+				}
 				
 				return seq;
 			}

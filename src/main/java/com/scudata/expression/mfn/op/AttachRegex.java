@@ -118,7 +118,7 @@ public class AttachRegex extends OperableFunction {
 			names = null;
 		}
 		
-		Regex regex = new Regex(this, pattern, names, exp);
+		Regex regex = new Regex(this, pattern, names, exp, option);
 		if (cs != null) {
 			regex.setCurrentCell(cs.getCurrent());
 		}

@@ -14,6 +14,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 对序列做模式匹配，如果有拆出项则进行拆分返回成序表
@@ -173,21 +174,42 @@ public class Regex extends SequenceFunction {
 			
 			return result;
 		} else {
+			boolean doParse = option != null && option.indexOf('p') != -1;
 			int gcount = names.length;
 			Table table = new Table(names, len);
-			for (int i = 1; i <= len; ++i) {
-				Object obj = strMems.get(i);
-				if (obj instanceof String) {
-					m = pattern.matcher((String)obj);
-					if (m.find()) {
-						BaseRecord r = table.newLast();
-						for (int g = 1; g <= gcount; ++g) {
-							r.setNormalFieldValue(g - 1, m.group(g));
+			
+			if (doParse) {
+				for (int i = 1; i <= len; ++i) {
+					Object obj = strMems.get(i);
+					if (obj instanceof String) {
+						m = pattern.matcher((String)obj);
+						if (m.find()) {
+							BaseRecord r = table.newLast();
+							for (int g = 1; g <= gcount; ++g) {
+								String s = m.group(g);
+								r.setNormalFieldValue(g - 1, Variant.parse(s));
+							}
 						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needStringExp"));
 					}
-				} else if (obj != null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(mm.getMessage("engine.needStringExp"));
+				}
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Object obj = strMems.get(i);
+					if (obj instanceof String) {
+						m = pattern.matcher((String)obj);
+						if (m.find()) {
+							BaseRecord r = table.newLast();
+							for (int g = 1; g <= gcount; ++g) {
+								r.setNormalFieldValue(g - 1, m.group(g));
+							}
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needStringExp"));
+					}
 				}
 			}
 

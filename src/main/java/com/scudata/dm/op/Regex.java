@@ -13,6 +13,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 游标或管道附加的模式匹配运算处理类
@@ -25,17 +26,20 @@ public class Regex extends Operation {
 	private String []names; // 字段名数组
 	private Expression exp; // 需要做匹配的字段，缺省用~
 	private DataStruct ds; // 结果集数据结构，等于空时返回源记录
+	private String opt;
+	private boolean doParse;
 
-	public Regex(Pattern pattern, String []names, Expression exp) {
-		this(null, pattern, names, exp);
+	public Regex(Pattern pattern, String []names, Expression exp, String opt) {
+		this(null, pattern, names, exp, opt);
 	}
 	
-	public Regex(Function function, Pattern pattern, String []names, Expression exp) {
+	public Regex(Function function, Pattern pattern, String []names, Expression exp, String opt) {
 		super(function);
 		this.pattern = pattern;
 		this.names = names;
 		this.exp = exp;
-		
+		this.opt = opt;
+		this.doParse = opt != null && opt.indexOf('p') != -1;
 		if (names != null) {
 			ds = new DataStruct(names);
 		}
@@ -48,7 +52,7 @@ public class Regex extends Operation {
 	 */
 	public Operation duplicate(Context ctx) {
 		Expression dupExp = dupExpression(exp, ctx);
-		return new Regex(function, pattern, names, dupExp);
+		return new Regex(function, pattern, names, dupExp, opt);
 	}
 
 	/**
@@ -84,8 +88,16 @@ public class Regex extends Operation {
 					} else {
 						Record r = new Record(ds);
 						data.add(r);
-						for (int g = 1; g <= gcount; ++g) {
-							r.setNormalFieldValue(g - 1, m.group(g));
+						
+						if (doParse) {
+							for (int g = 1; g <= gcount; ++g) {
+								String s = m.group(g);
+								r.setNormalFieldValue(g - 1, Variant.parse(s));
+							}
+						} else {
+							for (int g = 1; g <= gcount; ++g) {
+								r.setNormalFieldValue(g - 1, m.group(g));
+							}
 						}
 					}
 				}
