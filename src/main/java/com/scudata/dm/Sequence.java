@@ -10518,25 +10518,53 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int fcount = ds.getFieldCount();
 				vcount = fcount - gcount;
 				if (!isOrder) {
+					int expCount = 0;
 					int []cols = new int[fcount];
 					for (int i = 0; i < gcount; ++i) {
 						cols[i] = gexps[i].getFieldIndex(ds);
+						if (cols[i] == -1) {
+							expCount++;
+						}
 					}
 					
-					Next:
-					for (int f = 0, q = gcount; f < fcount; ++f) {
-						for (int g = 0; g < gcount; ++g) {
-							if (cols[g] == f) {
-								continue Next;
+					if (expCount > 0) {
+						vcount += expCount;
+						Expression []exps = new Expression[fcount + expCount];
+						String []names = new String[fcount + expCount];
+						System.arraycopy(gnames, 0, names, 0, gcount);
+						System.arraycopy(gexps, 0, exps, 0, gcount);
+						
+						Next:
+						for (int f = 0, q = gcount; f < fcount; ++f) {
+							for (int g = 0; g < gcount; ++g) {
+								if (cols[g] == f) {
+									continue Next;
+								}
 							}
+							
+							exps[q] = new Expression(ctx, "#" + (f+1));
+							names[q] = ds.getFieldName(f);
+							q++;
+						}
+
+						table = newTable(names, exps, ctx);
+						ds = table.dataStruct();
+					} else {
+						Next:
+						for (int f = 0, q = gcount; f < fcount; ++f) {
+							for (int g = 0; g < gcount; ++g) {
+								if (cols[g] == f) {
+									continue Next;
+								}
+							}
+							
+							cols[q] = f;
+							q++;
 						}
 						
-						cols[q] = f;
-						q++;
+						table = fieldsValues(cols);
+						ds = table.dataStruct();
 					}
-					
-					table = fieldsValues(cols);
-					ds = table.dataStruct();
 				}
 			} else {
 				vcount = vexps.length;
