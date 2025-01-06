@@ -2286,8 +2286,15 @@ public class ColPhyTable extends PhyTable {
 				}
 				
 				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
-				((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
-				startBlock = blockCount;
+				if (s + 1 == segCount) {
+					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
+					startBlock = blockCount;
+				} else {
+					// 当前表已到最后一段，对照表的多路游标还没到最后一路
+					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount - 1);
+					startBlock = blockCount - 1;
+					appendSegs[nextSeg] = s;
+				}
 			}
 			
 			for (int i = segCount - 1; i > 0; --i) {
