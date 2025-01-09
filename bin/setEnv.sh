@@ -1,4 +1,5 @@
-START_HOME=/raqsoft
-JAVA_HOME=$START_HOME/common
+START_HOME=../../../scudata
+JAVA_HOME=$JAVA_HOME
 EXEC_JAVA=$JAVA_HOME/jre/bin/java
-language=zh
+RAQCLASSPATH=$START_HOME/esProc/lib/*:$START_HOME/common/jdbc/*
+language=en
