@@ -3,6 +3,7 @@ package com.scudata.expression.mfn.string;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
@@ -14,6 +15,25 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Sbs extends StringFunction {
+	private static String substring(String srcStr, Sequence sequence) {
+		int strLen = srcStr.length();
+		int size = sequence.length();
+		char []chars = new char[size];
+		int count = 0;
+		
+		for (int i = 1; i <= size; ++i) {
+			Object obj = sequence.get(i);
+			if (obj instanceof Number) {
+				int n = ((Number)obj).intValue();
+				if (n > 0 && n <= strLen) {
+					chars[count++] = srcStr.charAt(n - 1);
+				}
+			}
+		}
+		
+		return new String(chars, 0, count);
+	}
+
 	private static String substring(String srcStr, int n) {
 		int len = srcStr.length();
 		if (n > len) {
@@ -92,12 +112,14 @@ public class Sbs extends StringFunction {
 			throw new RQException("sbs" + mm.getMessage("function.missingParam"));
 		} else if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Number)) {
+			if (obj instanceof Number) {
+				return substring(srcStr, ((Number)obj).intValue());
+			} else if (obj instanceof Sequence) {
+				return substring(srcStr, (Sequence)obj);
+			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("sbs" + mm.getMessage("function.paramTypeError"));
 			}
-			
-			return substring(srcStr, ((Number)obj).intValue());
 		} else if (param.getType() == IParam.Colon) { // :
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
