@@ -27,6 +27,8 @@ public class Sbs extends StringFunction {
 				int n = ((Number)obj).intValue();
 				if (n > 0 && n <= strLen) {
 					chars[count++] = srcStr.charAt(n - 1);
+				} else if (n < 0 && n >= -strLen) {
+					chars[count++] = srcStr.charAt(n + strLen);
 				}
 			}
 		}
