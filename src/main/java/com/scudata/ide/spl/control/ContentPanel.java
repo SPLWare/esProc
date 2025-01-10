@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -19,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.TextHitInfo;
+import java.awt.geom.Rectangle2D;
 import java.awt.im.InputMethodRequests;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedCharacterIterator.Attribute;
@@ -577,18 +579,101 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				cellY[row][col] = y;
 				cellH[row][col] = height;
 
-				// fill back color
-				Color bkcolor = parser.getBackColor(row, col);
-				if (bkcolor != null) {
-					g.setColor(bkcolor);
-					g.fillRect(x, y, width, height);
-				}
+				// 画格子之前统一设置一下不能冲出格子显示
+				Shape oldClip = g.getClip();
+				try {
+					double dispWidth = width;
+					double dispHeight = height;
+					if (displayWin != null) {
+						if (x + width > displayWin.x + displayWin.width) {
+							dispWidth = Math.min(width, displayWin.x
+									+ displayWin.width - x);
+						}
+						if (y + height > displayWin.y + displayWin.height) {
+							dispHeight = Math.min(height, displayWin.y
+									+ displayWin.height - y);
+						}
+					}
+					// 格子可能画不全，起始位置也要调整
+					double clipx = x;
+					double clipy = y;
+					if (displayWin != null) {
+						clipx = Math.max(x, displayWin.x);
+						clipy = Math.max(y, displayWin.y);
+					}
+					Rectangle2D oldRect = oldClip.getBounds2D();
+					if (clipx + dispWidth > oldRect.getX() + oldRect.getWidth()) {
+						dispWidth = oldRect.getX() + oldRect.getWidth() - clipx;
+					}
+					if (clipy + dispHeight > oldRect.getY()
+							+ oldRect.getHeight()) {
+						dispHeight = oldRect.getY() + oldRect.getHeight()
+								- clipy;
+					}
+					g.setClip(new Rectangle2D.Double(clipx, clipy, dispWidth,
+							dispHeight));
 
-				if (!ConfigOptions.bDispOutCell.booleanValue()) {
-					drawText(g, row, col, x, y, width, height, scale);
-				}
+					// fill back color
+					Color bkcolor = parser.getBackColor(row, col);
+					if (bkcolor != null) {
+						g.setColor(bkcolor);
+						g.fillRect(x, y, width, height);
+					}
 
-				drawFlag(g, x, y, parser, row, col, scale);
+					if (!ConfigOptions.bDispOutCell.booleanValue()) {
+						drawText(g, row, col, x, y, width, height, scale);
+					}
+
+					drawFlag(g, x, y, parser, row, col, scale);
+
+					// draw selectedCell
+					if (isCellSelected(row, col)) {
+
+						/**
+						 * 更改单元格背景色
+						 */
+						Color selectCellBkcolor;
+						if (ConfigOptions.getCellColor() != null) {
+							selectCellBkcolor = ConfigOptions.getCellColor();
+						} else {
+							selectCellBkcolor = Color.black;
+							g.setXORMode(XOR_COLOR);
+						}
+						g.setColor(selectCellBkcolor);
+
+						g.fillRect(cellX[row][col], cellY[row][col],
+								cellW[row][col], cellH[row][col]);
+						g.setPaintMode();
+					}
+
+					if (control.isBreakPointCell(row, col)) {
+						g.setColor(ConfigOptions.iBreakPointBColor);
+						int r = row;
+						int c = col;
+						g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
+								cellH[r][c]);
+						g.setPaintMode();
+					}
+					if (control.getStepPosition() != null) {
+						CellLocation cp = control.getStepPosition();
+						int r = cp.getRow();
+						int c = cp.getCol();
+						if (r == row && c == col) {
+							g.setColor(new Color(0, 255, 255));
+							g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
+									cellH[r][c]);
+							g.setPaintMode();
+
+							if (!ConfigOptions.bDispOutCell.booleanValue()) {
+								drawText(g, row, col, x, y, width, height,
+										scale);
+							}
+						}
+					}
+
+				} finally {
+					g.setClip(oldClip);
+				}
 				// draw border
 				if (ConfigOptions.bGridline) { // 根据选项是否画网格线
 					CellBorder.setEnv(g, borderStyle, row, col,
@@ -597,25 +682,6 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					CellBorder.drawBorder(x, y, width, height);
 				}
 
-				// draw selectedCell
-				if (isCellSelected(row, col)) {
-
-					/**
-					 * 更改单元格背景色
-					 */
-					Color selectCellBkcolor;
-					if (ConfigOptions.getCellColor() != null) {
-						selectCellBkcolor = ConfigOptions.getCellColor();
-					} else {
-						selectCellBkcolor = Color.black;
-						g.setXORMode(XOR_COLOR);
-					}
-					g.setColor(selectCellBkcolor);
-
-					g.fillRect(cellX[row][col], cellY[row][col],
-							cellW[row][col], cellH[row][col]);
-					g.setPaintMode();
-				}
 				// draw refcell
 				if (editor != null && editor.isVisible()) {
 					if (editor == multiEditor) {
@@ -639,30 +705,6 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 								((Graphics2D) g).setStroke(oldStroke);
 								g.setPaintMode();
 							}
-						}
-					}
-				}
-
-				if (control.isBreakPointCell(row, col)) {
-					g.setColor(ConfigOptions.iBreakPointBColor);
-					int r = row;
-					int c = col;
-					g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
-							cellH[r][c]);
-					g.setPaintMode();
-				}
-				if (control.getStepPosition() != null) {
-					CellLocation cp = control.getStepPosition();
-					int r = cp.getRow();
-					int c = cp.getCol();
-					if (r == row && c == col) {
-						g.setColor(new Color(0, 255, 255));
-						g.fillRect(cellX[r][c], cellY[r][c], cellW[r][c],
-								cellH[r][c]);
-						g.setPaintMode();
-
-						if (!ConfigOptions.bDispOutCell.booleanValue()) {
-							drawText(g, row, col, x, y, width, height, scale);
 						}
 					}
 				}
