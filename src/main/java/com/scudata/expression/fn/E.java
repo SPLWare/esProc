@@ -15,6 +15,7 @@ import com.scudata.excel.ExcelUtils;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.resources.EngineMessage;
 
@@ -30,6 +31,24 @@ import com.scudata.resources.EngineMessage;
  * 
  */
 public class E extends Function {
+
+	/**
+	 * 对节点做优化
+	 * 
+	 * @param ctx
+	 *            计算上下文
+	 * @param Node
+	 *            优化后的节点
+	 */
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			// 对参数做优化
+			param.optimize(ctx);
+		}
+
+		return this;
+	}
+
 	/**
 	 * 计算
 	 */
