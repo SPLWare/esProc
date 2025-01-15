@@ -13,6 +13,8 @@ import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -897,6 +899,7 @@ public final class FunctionLib {
 						"load customFunction file inputstream failed.");
 			} else {
 				loadCustomFunctions(is);
+				JOptionPane.showMessageDialog(null, "Load custom functions from "+fileName+" OK.");
 			}
 		} catch (Exception x) {
 		}

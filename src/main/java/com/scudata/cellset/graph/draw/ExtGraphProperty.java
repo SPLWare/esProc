@@ -504,6 +504,11 @@ public class ExtGraphProperty {
 		if (topN <= 0 || topN > (originCatNum - 2)) { // 如果Other只有一个分类甚至没有时,没有意义
 			return;
 		}
+
+//		categories的成员ExtGraphproperty按照sumSeries系列和实现了Compare方法，可以使用如下sort
+//		但是取前三，必须先sort为正序，然后再反转，光reverse仅仅是将座位反一下
+//		xq 2025年1月15日
+		Collections.sort(categories);
 		Collections.reverse(categories);
 //		com.scudata.ide.common.GM.sort(categories, false); // 按照每个分类的系列和排序,取前TopN个
 

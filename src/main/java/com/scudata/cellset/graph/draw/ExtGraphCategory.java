@@ -135,4 +135,7 @@ public class ExtGraphCategory implements Comparable{
 	return self.compareTo( other );
   }
 
+  public String toString() {
+	  return name+":"+getSumSeries();
+  }
 }
