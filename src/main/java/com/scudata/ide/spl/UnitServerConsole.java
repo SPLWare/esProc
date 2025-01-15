@@ -28,6 +28,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.scudata.app.common.Section;
+import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -130,6 +131,15 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		isServerStarting = starting;
 	}
 
+	private boolean isEE() {
+		try {
+			Class cls = Class.forName("com.scudata.ide.spl.EsprocsEE");
+			return true;
+		}catch(Exception x) {
+			return false;
+		}
+	}
+
 	/**
 	 * 初始化界面语言
 	 */
@@ -169,7 +179,9 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		refreshUI();
 		publicConsole = generateConsole();
 		autoStart();
-
+		if(isEE()) {
+			currentTA.setForeground(Color.CYAN);
+		}
 		setSize(800, 600);
 		GM.setDialogDefaultButton(this, jBQuit, jBQuit);
 	}

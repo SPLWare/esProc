@@ -133,6 +133,7 @@ public final class FunctionLib {
 			}
 
 			fnMap.put(fnName, funClass);
+
 		} catch (Throwable e) {
 			throw new RQException(className, e);
 		}
@@ -899,7 +900,6 @@ public final class FunctionLib {
 						"load customFunction file inputstream failed.");
 			} else {
 				loadCustomFunctions(is);
-				JOptionPane.showMessageDialog(null, "Load custom functions from "+fileName+" OK.");
 			}
 		} catch (Exception x) {
 		}
