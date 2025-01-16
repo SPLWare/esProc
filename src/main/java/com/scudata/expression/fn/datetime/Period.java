@@ -108,6 +108,17 @@ public class Period extends Function {
 			field = Calendar.DATE;
 		}
 
+		int endSign = 0; // 0：要最后，1：最后正好是期满则要最后，-1：不要最后
+		if (opt != null) {
+			if (opt.indexOf('x') != -1) {
+				if (opt.indexOf('e') == -1) {
+					endSign = -1;
+				} else {
+					endSign = 1;
+				}
+			}
+		}
+		
 		Sequence series = new Sequence();
 		series.add(start);
 
@@ -152,8 +163,14 @@ public class Period extends Function {
 					if (cmp < 0) {
 						series.add(tmp);
 						prev = tmp;
+					} else if (cmp == 0) {
+						if (endSign != -1) {
+							series.add(end);
+						}
+						
+						break;
 					} else {
-						if (opt == null || opt.indexOf('x') == -1) {
+						if (endSign == 0) {
 							series.add(end);
 						}
 						
@@ -173,8 +190,14 @@ public class Period extends Function {
 					if (cmp < 0) {
 						series.add(tmp);
 						times++;
+					} else if (cmp == 0) {
+						if (endSign != -1) {
+							series.add(end);
+						}
+						
+						break;
 					} else {
-						if (opt == null || opt.indexOf('x') == -1) {
+						if (endSign == 0) {
 							series.add(end);
 						}
 						
@@ -258,6 +281,17 @@ public class Period extends Function {
 	}
 
 	private Sequence periodA(Date start, Date end, int distance, String opt) {
+		int endSign = 0; // 0：要最后，1：最后正好是期满则要最后，-1：不要最后
+		if (opt != null) {
+			if (opt.indexOf('x') != -1) {
+				if (opt.indexOf('e') == -1) {
+					endSign = -1;
+				} else {
+					endSign = 1;
+				}
+			}
+		}
+		
 		Calendar gc = Calendar.getInstance();
 		gc.setTime(start);
 
@@ -343,11 +377,17 @@ public class Period extends Function {
 				if (cmp < 0) {
 					series.add(tmp);
 					times++;
-				} else {
-					if (opt == null || opt.indexOf('x') == -1) {
+				} else if (cmp == 0) {
+					if (endSign != -1) {
 						series.add(end);
 					}
-
+					
+					break;
+				} else {
+					if (endSign == 0) {
+						series.add(end);
+					}
+					
 					break;
 				}
 			}
