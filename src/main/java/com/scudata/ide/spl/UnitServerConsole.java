@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +29,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.scudata.app.common.Section;
-import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -133,8 +133,9 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 
 	private boolean isEE() {
 		try {
-			Class cls = Class.forName("com.scudata.ide.spl.EsprocsEE");
-			return true;
+			Class clz = Class.forName("com.scudata.ide.spl.EsprocsEE");
+			Method m = clz.getMethod("isQLoaded", null);
+			return (boolean)m.invoke(clz, null);
 		}catch(Exception x) {
 			return false;
 		}
@@ -181,6 +182,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		autoStart();
 		if(isEE()) {
 			currentTA.setForeground(Color.CYAN);
+			Logger.info("        <<   Enterprise Edition   >>");
 		}
 		setSize(800, 600);
 		GM.setDialogDefaultButton(this, jBQuit, jBQuit);
