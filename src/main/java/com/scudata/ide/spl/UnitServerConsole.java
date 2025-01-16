@@ -135,7 +135,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		try {
 			Class clz = Class.forName("com.scudata.ide.spl.EsprocsEE");
 			Method m = clz.getMethod("isQLoaded", null);
-			return (Boolean)m.invoke(clz, null);
+			return ((Boolean)m.invoke(clz, null)).booleanValue();
 		}catch(Exception x) {
 			return false;
 		}
