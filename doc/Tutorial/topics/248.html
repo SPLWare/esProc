@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.1.3 Launching clustered servers</title>
+<title>10.1.1 esProc server cluster</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,59 +15,58 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>10.1.3 Launching clustered servers</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Now click on <b style='mso-bidi-font-weight:normal'>Start</b> button
-on the following window to run clustered servers. Click <b style='mso-bidi-font-weight:
-normal'>Stop</b> to suspend the server service; after that, you can click <b
-style='mso-bidi-font-weight:normal'>Quit</b> to exit the service. Click <b
-style='mso-bidi-font-weight:normal'>Reset</b> to initialize and restart the
-server and to remove all global variables and release memory at the same time.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=864 height=584
-src="Tutorial.files/image2073.jpg" v:shapes="_x0000_i2139"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+14.0pt;mso-bidi-font-size:10.0pt'>10.1.1 esProc server cluster</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The node starting action will start the unstarted
-nodes in the specified node list. We can view the execution information on
-corresponding node window.</span></p>
+21.0pt'><span lang=EN-US>A cluster computing system usually consists of
+multiple nodes. There is a <b style='mso-bidi-font-weight:normal'>main node</b>
+at the highest level of all processes that controls the computing jobs on all
+nodes. A running node receives computing tasks, computes <b style='mso-bidi-font-weight:
+normal'>local cellset files</b> and returns results to the main node. In a
+cluster network, nodes may run on multiple machines or a single machine. Each
+node is identified through the IP address and the port number. In a cluster
+system, one computational transaction is called an <b>assignment</b>; each
+assignment consists of one or more <b>task</b>s. Tasks are assigned to nodes by
+the main node for execution. One node can perform multiple tasks concurrently.
+All running nodes form a cluster system for parallel processing. </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Run<i style='mso-bidi-font-style:normal'>
-ServerConsole.sh</i> to launch the server cluster class under Linux:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=600 height=60
-src="Tutorial.files/image2075.jpg" v:shapes="_x0000_i2140"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The node running information window under Linux is the
-same as that under Windows:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=780 height=490
-src="Tutorial.files/image2077.jpg" v:shapes="_x0000_i2141"></span></p>
+21.0pt'><span lang=EN-US>esProc provides the server class &#8211; </span><span
+class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>com.scudata.ide.spl.ServerConsole</span></i></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US> </span></i><span
+lang=EN-US>&#8211; to get addresses and ports according to the configuration files
+and to launch clustered servers.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>We can also add the <i style='mso-bidi-font-style:
-normal'>&#8211;p</i> parameter in the execution command to launch a clustered server
-in a non-GUI way to directly execute operations on it:</span></p>
+21.0pt'><span lang=EN-US>esProc parallel system <b style='mso-bidi-font-weight:
+normal'>hasn’t a certain single &quot;manager&quot; node centrally conducting a
+group of &quot;worker&quot; nodes. An available computer is designated to serve
+as the provisional node for execution of each parallel task.</b></span></p>
 
-<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=780 height=499
-src="Tutorial.files/image2079.jpg" v:shapes="_x0000_i2142"></span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Yet each assignment has its logical center &#8211; the main
+node &#8211; from which instructions are given and to which results are returned for
+being combined. The task usually fails if a node malfunctions; in certain
+cases, <b style='mso-bidi-font-weight:normal'>the main node will redistribute
+the subtask</b> to another capable one. To know more about the execution of
+parallel tasks in esProc, see <i style='mso-bidi-font-style:normal'><a
+ href="jiqunjisuan2.html#Cluster_computations">Cluster computations</a></i>.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Data can be also stored on a Network File System
+(NFS), such as HDFS, over which it can be accessed by the computing nodes. The
+NFS redundancy management is simpler than the strategy of storing data on
+certain computing nodes for fault-tolerance. But compared with accessing files
+stored locally, it may sacrifice some performance due to the network transmission.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="249.html">Next</a></div>
@@ -75,13 +74,13 @@ lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="245.html">10.1 The Server Cluster</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="247.html">10.1 The Server Cluster</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

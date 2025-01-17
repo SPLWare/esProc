@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>7.1.1 What is cursor</title>
+<title>Chapter7 External Memory Computations</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,60 +13,17 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>7.1.1 What is cursor
-</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Using cursor on the database enables returning data in
-batches, without having to retrieve all of it into the memory at a time. A
-cursor is like a pointer, retrieving one row each time from the result set by
-moving its position. This mechanism of retrieving data in a row-wise manner is
-usually used to process the big data table, which cannot be entirely loaded
-into the memory that has the capacity limit.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Compared with directly returning the whole result, the
-database cursor is flexible enough to avoid the memory overflow but is
-relatively slow in handling data retrieval. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>There are differences, however, between an esProc
-cursor and a database cursor: </span></p>
-
-<p class=T-StepsCxSpFirst style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l34 level1 lfo45'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>An esProc cursor is only used
-to fetch data but won’t modify a result set. </span></p>
-
-<p class=T-StepsCxSpMiddle style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l34 level1 lfo45'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>An esProc cursor traverses data
-only once in forward direction, which is similar to the setting of
-TYPE_FORWARD_ONLY in JDBC. </span></p>
-
-<p class=T-StepsCxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l34 level1 lfo45'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>An esProc cursor can be created
-based on either the database table or the data file, or the in-memory record
-sequence. </span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Different types of esProc cursors have similar uses and can be used
-together to suit requirements. </span></p>
+	<div id="centent-title"><h1 style='mso-list:l22 level1 lfo1'><span lang=EN-US
+style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>Chapter7<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>External Memory Computations</span></h1></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>With the development of internet technologies, organizations are
+trying to cope with data with an ever-increasing size. Unlike the smaller
+conventional data tables, a massive amount data cannot be imported into the
+memory at a time. We need to batch import and process a huge amount of data
+with a cursor using the external memory computing. This chapter explains how to
+use the cursor to do that in esProc.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="186.html">Next</a></div>
@@ -74,13 +31,23 @@ together to suit requirements. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="184.html">7.1 The Concept of Cursor</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="186.html">7.1 The Concept of Cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="191.html">7.2 Basic Uses of Cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="195.html">7.3 Cursor-based Aggregate Operations</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="199.html">7.4 Merge and Join Operations on Cursors</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="202.html">7.5 Methods of External Memory Grouping for Large Result Sets</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="203.html">7.6 Method of External Memory Sorting</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="206.html">7.7 Text Files</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="210.html">7.8 Bin Files</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="213.html">7.9 Group Cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="216.html">7.10 Cross-cellset Cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="221.html">7.11 Channel</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

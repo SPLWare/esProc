@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.2 Coordinate Systems and Transformation</title>
+<title>12.1.2 Editing chart elements visually</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,21 +13,79 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l24 level2 lfo55'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>12.2<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Coordinate Systems and Transformation<a
-name="Coordinate_Systems_and_Transformation"></a></span></h2></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Regarding the chart element plotting, compared with setting the
-appearance properties for a chart element like color and line style, it is more
-important to specify its position. When plotting a chart, statistical values
-are used to determine its position. Therefore you will need to create a
-coordinate system on the canvas according to the chart style, and then
-transform the statistical values to chart-specific data based on coordinate
-system settings. </span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>12.1.2 Editing chart elements visually</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>esProc provides a variety of chart elements. Each is
+defined by many parameters and with a distinct way. So it is complicated to
+plot chart elements using <b style='mso-bidi-font-weight:normal'><i>G</i>.plot()
+</b></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>function</span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>.</span></b><span lang=EN-US> To streamline settings and
+modification of the parameters in plotting a chart element, esProc offers a
+visual editing environment. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Right-click on the cell for plotting a chart element
+and choose <b style='mso-bidi-font-weight:normal'>Graphics editor</b> from the
+menu to edit a plotting algorithm (or click <span class=T-Bold>Edit</span>&gt;<span
+class=T-Bold>Graphics editor</span> on the menu bar to do this):</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=291 height=117
+src="Tutorial.files/image1224.png" v:shapes="_x0000_i2354"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Do the editing on the pop-up visual editor interface: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=514 height=338
+src="Tutorial.files/image1225.png" v:shapes="_x0000_i2355"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>At the top left of the window, select a canvas from
+the drop-down list. And select the desired chart element from the drop-down
+list at the top right. Then in the lower section, configure the properties of
+the selected chart element:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=514 height=338
+src="Tutorial.files/image1226.png" v:shapes="_x0000_i2356"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The properties of the numeric axis element can be set
+on this list. Detailed information about these properties and their
+configuration will be covered in <i style='mso-bidi-font-style:normal'><a
+ href="zhoutuyuan.html#The_Axis_Element">The Axis Element</a></i>. The other chart elements
+will be discussed through a series of sections including <i style='mso-bidi-font-style:
+normal'><a  href="xiantuyuan.html#The_Line_Element">The Line Element</a></i>, <i
+style='mso-bidi-font-style:normal'><a  href="wbty.html#The_Text_Element">The Text Element</a></i>.<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>After properties of the desired chart element are
+configured, a plotting string expression, </span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>=</span></span><span
+class=T-Var><b style='mso-bidi-font-weight:normal'><span lang=EN-US>G</span></b></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.plot(…),</span></span><span
+lang=EN-US> will be automatically generated. The properties can be modified
+later through <b style='mso-bidi-font-weight:normal'>Graphics editor</b>, yet
+the selected canvas and the chart style can’t be changed. If they really need
+to be changed, modify the expression, or delete it and replot the chart
+element.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="279.html">Next</a></div>
@@ -35,15 +93,13 @@ system settings. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="273.html">Chapter12 Charts</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="279.html">12.2.1 Coordinate systems and axes</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="280.html">12.2.2 Physical axes and logical axes</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="276.html">12.1 The Basics</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

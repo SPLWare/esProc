@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>4.6.2 Four Levels of Transaction Isolation</title>
+<title>4.6.1 Types of SQL statements</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,69 +14,67 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>4.6.2 Four Levels of
-Transaction Isolation</span></h3></div>
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>4.6.1 Types of SQL
+statements</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A transaction isolation level determines whether the
-changes made by one data access operation become visible when there is
-concurrent execution of transactions trying to update the data in a database.
-esProc defines a transaction as the execution of a set of SQL statements within
-one database connection.</span></p>
+21.0pt'><span lang=EN-US>SQL is an abbreviation for Structured Query Language.
+Functionally, the SQL statements are divided into four categories:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Generally data will be committed or rolled back only
-when a corresponding TCL statement is executed in a transaction. But when a DDL
-statement is executed in a transaction, a COMMIT will be automatically executed
-to update the unstored data into the database. For instance, a COMMIT operation
-will be automatically executed for a CREATE TABLE statement creating a table in
-the database.</span></p>
+21.0pt'><span lang=EN-US>(1) Data definition language</span><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>（</span><span lang=EN-US>DDL</span><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>）</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>There are four levels of transaction isolation:</span></p>
+21.0pt'><span lang=EN-US>(2) Data manipulation language</span><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>（</span><span lang=EN-US>DML</span><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>）</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>(1) Read committed. This is the default isolation
-level supported by most of the databases. It allows a transaction to read the
-committed data.</span></p>
+21.0pt'><span lang=EN-US>(3) Data control language</span><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>（</span><span lang=EN-US>DCL</span><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>）</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>(2) Read uncommitted. The isolation level allows each
-transaction to read the uncommitted data of any other running transaction. The
-data read by a transaction may not be the final result, which is called dirty
-reads.</span></p>
+21.0pt'><span lang=EN-US>(4) Transaction control language</span><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>（</span><span lang=EN-US>TCL</span><span style='font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>）</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>(3) Repeatable read. The isolation level allows
-multiple parallel instances in one transaction to read the same data. These
-instances may influence each other and lead to phantom reads.</span></p>
+21.0pt'><span lang=EN-US>DDL statements define or describe the different
+structures in a database by letting you create, modify and remove a database, a
+database table, a database index, etc. The statements include CREATE DATABASE,
+DROP TABLE, and so on. Since DDL statements cause changes to the database
+definition, they may need to be disabled in projects requiring high security.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>(4) Serializable. This is the highest isolation level.
-It guarantees a serializable execution of the concurrent transactions,
-preventing dirty reads or phantom reads as well as having the lowest efficiency
-because of time override or competition for the shared lock.</span></p>
+21.0pt'><span lang=EN-US>DML statements and Data Query Language statements
+(DQL) query and manipulate database data, like SELECT, INSERT, DELETE and
+UPDATE. DML statements are the most used when accessing and querying data in a
+database. </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc supports using options in the connect function
-to specifiy different transation isolation levels - @ c for read committed, @u
-for read uncommitted, @r for repeatable read, and @s for serializable.</span></p>
+21.0pt'><span lang=EN-US>DCL statements give or take back privilleges to access
+data in a database, including GRANT, DENY, and REVOK, etc. Generally the
+statements are useless in esProc.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-bidi-font-style:italic'>esProc also
-provides <span class=T-Var><b style='mso-bidi-font-weight:normal'>db</b></span></span><span
-class=T-Bold><span lang=EN-US>.isolate() </span></span><span lang=EN-US
-style='mso-bidi-font-style:italic'>function to get the transaction isolation
-level in an existing database connection, or to change the isolation level by
-adding different options.</span></p>
+21.0pt'><span lang=EN-US>TCL statements manage transactions in a database,
+including SAVEPOINT, ROLLBACK, and COMMIT, etc. In esProc, the statements are
+expressed by a set of functions.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="139.html">Next</a></div>
@@ -84,13 +82,13 @@ adding different options.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="136.html">4.6 Transaction Isolation Levels</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="137.html">4.6 Transaction Isolation Levels</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

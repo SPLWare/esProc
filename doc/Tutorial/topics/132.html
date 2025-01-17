@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>4.5.2 Calling stored procedures that return a single value</title>
+<title>4.5.1 Calling stored procedures without return values</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,22 +15,26 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>4.5.2 Calling stored procedures that return a
-single value</span></h3></div>
+14.0pt;mso-bidi-font-size:10.0pt'>4.5.1 Calling stored procedures without
+return values</span></h3></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>Stored procedures with returned
-values can be called only by <b style='mso-bidi-font-weight:normal'>proc</b>
-function. The stored procedure below returns one parameter value, so <b
-style='mso-bidi-font-weight:normal'>proc</b> function, instead of <b
-style='mso-bidi-font-weight:normal'>execute</b> function, will be used.</span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Stored procedures are used to
+return query results or only to implement the database operations without
+returning results. Let’s first look at how to call stored procedures without
+return values. Take an oracle stored procedure as an example. The stored
+procedure <b style='mso-bidi-font-weight:normal'>proc1</b> has only one input
+parameter and no output parameter: </span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=EN-US style='mso-bidi-font-size:11.0pt'>&nbsp;</span></p>
 
 <p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>create
-or replace procedure testb</span></i></p>
+or replace procedure pro1</span></i></p>
 
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>(para1
-in varchar2,para2 out varchar2)<span style='mso-spacerun:yes'>&nbsp; </span></span></i></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>(pid
+IN VARCHAR)</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>as</span></i></p>
@@ -39,16 +43,28 @@ style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>as</
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>begin</span></i></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>select
-name into para2 from emp where id= para1;</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>insert
+into emp values(pid,'mike');</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>update
+emp set name='rose' where id=pid;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>commit;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>end
-testb;</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>end;</span></i><span
+lang=EN-US style='font-size:9.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt'>&nbsp;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>Here’s the code for calling this
-stored procedure by esProc:</span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt'>You can use <b style='mso-bidi-font-weight:
+normal'>execute</b> function or <b style='mso-bidi-font-weight:normal'>proc</b>
+function to call this stored procedure:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -58,14 +74,14 @@ stored procedure by esProc:</span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -74,14 +90,14 @@ stored procedure by esProc:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>1</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -91,48 +107,32 @@ stored procedure by esProc:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>2</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.proc(&quot;{call
-  testb(?,?)}&quot;,1:0:&quot;i&quot;:,:11:&quot;o&quot;:name)</span></p>
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.execute(&quot;{call
+  proc1(?)}&quot;,4)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>3</span></p>
+  <p class=TabLaEnd10><span lang=EN-US>3</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=name</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>4</span></p>
-  </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -143,45 +143,129 @@ stored procedure by esProc:</span></p>
 </table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>A1 connects to the database and A4
-closes the connection. </span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A1 connects to the database. A2
+uses <b style='mso-bidi-font-weight:normal'>execute</b> function to call the
+stored procedure in which the input parameter value is 4. When the stored
+procedure is executed, database connection is closed in A3. </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>1</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=connect(&quot;ora&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>2</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.proc(&quot;{call
+  proc1(?)}&quot;,4:0:&quot;i&quot;:)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd10><span lang=EN-US>3</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>A2 uses <b style='mso-bidi-font-weight:
-normal'>proc</b> function to call the stored procedure <i style='mso-bidi-font-style:
-normal'>testb</i>. Here two parameters are used: one is <b style='mso-bidi-font-weight:
-normal'><span style='mso-bidi-font-style:italic'>1:0: &quot;i&quot;</span></b>
-whose value is <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
-italic'>1</span></b> and which is an input mode with automatically identified
-data type; the other is <i>11: &quot;o&quot;:name</i> in which <i>11</i>
-represents the string type (see <i style='mso-bidi-font-style:normal'><a
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A1 connects to the database and A3
+closes the connection. Different from the previous code, a description is added
+after the parameter when A2 calls the stored procedure <b style='mso-bidi-font-weight:
+normal'>proc1</b>. esProc’s <b style='mso-bidi-font-weight:normal'>proc</b>
+function can be used to call stored procedures without return parameters, like <b
+style='mso-bidi-font-weight:normal'>proc1</b>, though it is mainly used to call
+stored procedures that return values and result sets. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>The complete format of each
+parameter for calling a stored procedure is <b style='mso-bidi-font-weight:
+normal'><i>a</i></b></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></b><b style='mso-bidi-font-weight:
+normal'><i><span lang=EN-US style='mso-bidi-font-size:11.0pt'>t</span></i></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>:</span></b><b style='mso-bidi-font-weight:normal'><i><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>m</span></i></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></b><b
+style='mso-bidi-font-weight:normal'><i><span lang=EN-US style='mso-bidi-font-size:
+11.0pt'>v</span></i></b><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+mso-bidi-font-style:italic'>, in which<b style='mso-bidi-font-weight:normal'><i>
+a</i></b><i> </i>is the parameter value, <b style='mso-bidi-font-weight:normal'><i>t</i></b><i>
+</i>represents the parameter’s data type, <b style='mso-bidi-font-weight:normal'><i>m</i></b><i>
+</i>is an input or output mode of the parameter and <b style='mso-bidi-font-weight:
+normal'><i>v</i></b> is the name of the variable representing the returned
+result if the stored procedure has one. In this piece of code,<i> </i><b
+style='mso-bidi-font-weight:normal'>4:0:&quot;i&quot;:</b> defines a parameter
+whose value is <b style='mso-bidi-font-weight:normal'>4</b>, whose data type,
+specified by <b style='mso-bidi-font-weight:normal'>0</b>, will be
+automatically identified by esProc and which is an input mode specified by </span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;i&quot;</span></b><span lang=EN-US style='mso-bidi-font-size:
+11.0pt;mso-bidi-font-style:italic'>. To specify the data type manually, the
+code can be written as<i> </i><b style='mso-bidi-font-weight:normal'>4:1:&quot;i&quot;:</b></span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>, where the <b style='mso-bidi-font-weight:
+normal'><span style='mso-bidi-font-style:italic'>1</span></b> in the middle
+represents the integer type(<b style='mso-bidi-font-weight:normal'>int</b>).
+For more information about the parameter data types supported by esProc, refer
+to <i style='mso-bidi-font-style:normal'><a
  href="flcslxdy.html#Appendix_Definitions_of_Parameter_Types">Appendix: Definitions of
-Parameter Data Types</a></i> for more), <i>&quot;o&quot;</i><b
-style='mso-bidi-font-weight:normal'> </b>represents an output mode and <i
-style='mso-bidi-font-style:normal'>name</i> defines an esProc variable to
-receive the return value. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>A3 gets the value of the variable <i
-style='mso-bidi-font-style:normal'>name</i>, which is the output result of the
-stored procedure. The data type of the variable value is determined by the
-stored procedure. In this example, <i style='mso-bidi-font-style:normal'>name</i>
-is used to return the name of the employee of specified number and the data
-type of the returned result is string.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>For a stored procedure, there’re 3
-parameter modes &#8211; input, output and input&amp;output &#8211; represented respectively
-by </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>&quot;i&quot;</span></i><span lang=EN-US
-style='mso-bidi-font-size:11.0pt'>,</span><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>&quot;o&quot;</span></i><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'> and </span><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&quot;io&quot;</span></i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>. The input&amp;output parameter
-can both input data and get assigned by the stored procedure.<b
-style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US
-style='mso-bidi-font-size:11.0pt'></span></p>
+Parameter Data Types</a></i>.<span style='mso-bidi-font-style:italic'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="133.html">Next</a></div>
@@ -189,13 +273,13 @@ style='mso-bidi-font-size:11.0pt'></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="130.html">4.5 Calling Database Stored Procedures</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="131.html">4.5 Calling Database Stored Procedures</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

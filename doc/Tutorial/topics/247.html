@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.1.2 Configuring clustered servers</title>
+<title>10.1 The Server Cluster</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,197 +13,22 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>10.1.2 Configuring clustered servers</span></h3></div>
+	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
+mso-list:l31 level2 lfo51'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>10.1<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
+lang=EN-US>The Server<a name="The_Server"></a> Cluster</span></h2></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Run the <i style='mso-bidi-font-style:normal'>esprocs.exe</i>
-file under esProc installation directory’s <i style='mso-bidi-font-style:normal'>esProc\bin</i>
-path to launch or configure<span style='mso-spacerun:yes'>&nbsp;
-</span>clustered servers. The jars needed by the file will be automatically
-loaded under the installation directory. Note that the configuration files &#8211; <i
-style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i> and <i
-style='mso-bidi-font-style:normal'>unitServer.xml</i> &#8211; must be placed under
-the<i style='mso-bidi-font-style:normal'> esProc\config</i> path in esProc
-installation directory. The following window pops up after the server is
-started:</span></p>
+21.0pt'><span lang=EN-US>There are two forms of parallel computing - the
+multithreading executed on a single computer and the cluster computing executed
+across a cluster system formed by a unified group of computers.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=864 height=621
-src="Tutorial.files/image2064.jpg" v:shapes="_x0000_i2134"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>During the execution of <i style='mso-bidi-font-style:normal'>esprocs.exe</i>,
-the window displays the loaded initial information, which is set in the
-configuration file<i style='mso-bidi-font-style:normal'> raqsoftConfig.xml.</i>
-Click<b style='mso-bidi-font-weight:normal'> Options</b> on the right-side menu
-to configure information of clustered servers. We have the following pop-up
-window and modify the main path:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=805 height=577
-src="Tutorial.files/image2066.jpg" v:shapes="_x0000_i2135"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>On the page, you can configure main path, search path,
-date and time format, default charset, log level, number of bytes in the file
-buffer area and other information. For the <b style='mso-bidi-font-weight:normal'>Log
-Level</b>, there are OFF, SEVERE, WARNIGN, INFO, AND DEBUG, whose priorities
-decrese from left to right. The OFF level turns of any log output. The INFO
-level outputs information of levels on and below it, including SEVERE, WARNING
-and INFO. Other levels also output information in this way.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The configuration information is the same as the
-configuration in esProc IDE. It can be viewed or modified in <b
-style='mso-bidi-font-weight:normal'>Tool&gt;Options&gt;Environment</b>:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=805 height=492
-src="Tutorial.files/image2067.jpg" v:shapes="_x0000_i2136"></span></p>
-
-<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>When exiting a clustered server from esProc IDE or changing
-configurations of a node, the current or modified configuration parameters will
-be saved in <i>raqsoftConfig.xml</i>. So, pay attention to the probable
-collision when modification is needed.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click<b style='mso-bidi-font-weight:normal'> Config</b>
-on the right-side menu to configure node information on<b style='mso-bidi-font-weight:
-normal'> Node</b> page:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=864 height=337
-src="Tutorial.files/image2069.jpg" v:shapes="_x0000_i2137"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Temp file
-timeout</span></b><span lang=EN-US> sets the life span (Hours) for a temporary
-file. <b style='mso-bidi-font-weight:normal'>Check interval</b> is the number of
-seconds between two expiration checks, which must be a positive value or 0. <b
-style='mso-bidi-font-weight:normal'>Proxy</b> timeout is the agent life span,
-i.e. the remote cursor and task space’s life span (Hours). Do not perform
-expiration check if <b style='mso-bidi-font-weight:normal'>Temp file timeOut</b>
-or <b style='mso-bidi-font-weight:normal'>Proxy timeout </b>is set as 0.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Under <b style='mso-bidi-font-weight:normal'>Host list</b>,
-you can configure IP addresses and port numbers of <b style='mso-bidi-font-weight:
-normal'>all</b> nodes on the local machine that potentially can run servers. A
-server, at the launch, automatically searches the node list for an idle one
-that will be given an assignment to execute. The IP address should be real, and
-multiple IP addresses are allowed when there are network adapters. <b>Auto
-start server</b>, once selected, will automatically start clustered servers
-after the server cluster begins to run.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Under <b style='mso-bidi-font-weight:normal'>Host list</b>,<b
-style='mso-bidi-font-weight:normal'> Max task num</b> is the <b
-style='mso-bidi-font-weight:normal'>maximum number of tasks</b> a node is
-allowed to perform. For a same IP address, you can configure multiple nodes
-that access data in different <b>data zones</b>.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The Node Server’s <b style='mso-bidi-font-weight:normal'>Enable
-clients</b> tab offers the settings of client-side whitelist:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=831 height=184
-src="Tutorial.files/image2071.jpg" v:shapes="_x0000_i2138"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Select <b style='mso-bidi-font-weight:normal'>Check
-clients</b> to configure an IP whitelist that can invoke clustered servers<b
-style='mso-bidi-font-weight:normal'> </b>under<b style='mso-bidi-font-weight:
-normal'> Clients hosts</b>. IP addresses that are not in the whitelist cannot
-invoke clustered servers for computations.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>When configurations for clustered servers are done,
-click <b style='mso-bidi-font-weight:normal'>OK</b> to automatically set the
-corresponding configuration file <i style='mso-bidi-font-style:normal'>unitServer.xml</i>,
-as shown below:</span></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
-version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;SERVER
-Version=&quot;3&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;TempTimeOut&gt;12&lt;/TempTimeOut&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Interval&gt;6&lt;/Interval&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ProxyTimeOut&gt;12&lt;/ProxyTimeOut&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Hosts&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt;
-mso-bidi-font-size:11.0pt'>&lt;Host ip=&quot;192.168.1.112&quot; <span
-style='mso-bidi-font-style:italic'>port=&quot;8281&quot; </span>maxTaskNum=&quot;3&quot;
-preferredTaskNum=&quot;4&quot;&gt;</span></i><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-size:9.0pt'></span></i></p>
-
-<p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size:
-11.0pt'>&gt;</span><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Host&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Hosts&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;EnabledClients
-check=&quot;true&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;Host
-start=&quot;</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>192.168.1.112</span></i><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&quot;&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/Host&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/EnabledClients&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/SERVER&gt;</span></i></p>
+21.0pt'><span lang=EN-US>This section discusses configuration of clustered
+servers and server cluster application in esProc, giving you basic ideas about
+the cluster computing.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="248.html">Next</a></div>
@@ -211,13 +36,17 @@ style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="245.html">10.1 The Server Cluster</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="246.html">Chapter10 Cluster Computing</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="248.html">10.1.1 esProc server cluster</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="249.html">10.1.2 Configuring clustered servers</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="250.html">10.1.3 Launching clustered servers</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="251.html">10.1.4 Application</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

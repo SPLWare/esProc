@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>4.5.4 Calling stored procedures that return multiple result sets</title>
+<title>4.5.3 Calling stored procedures that return a single result set</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,54 +15,48 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>4.5.4 Calling stored procedures that return
-multiple result sets</span></h3></div>
+14.0pt;mso-bidi-font-size:10.0pt'>4.5.3 Calling stored procedures that return a
+single result set</span></h3></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>Stored procedures can also return
-multiple result sets. For example, the following oracle stored procedure
-returns two result sets using the cursor:</span></p>
+lang=EN-US>In more cases, stored procedures return result sets. The following
+stored procedure <i style='mso-bidi-font-style:normal'>RQ_TEST_CUR</i> returns
+a single result set:</span></p>
 
 <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>create
-or replace procedure proAA</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>CREATE
+OR REPLACE PROCEDURE RQ_TEST_CUR</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>(</span></i></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>out_var
-out sys_refcursor,</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>V_TEMP
+OUT TYPE.RQ_REF_CURSOR,</span></i></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>out_var2
-out sys_refcursor</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>PID
+IN VARCHAR</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>)</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>as</span></i></p>
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>AS</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>begin</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>openout_var
-for select * from emp;</span></i></p>
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>BEGIN</span></i></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>open
-out_var2 for select * from test;</span></i></p>
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>OPEN
+V_TEMP FOR SELECT * FROM TEST WHERE ID =PID;</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>end;</span></i><span
-lang=EN-US style='font-size:9.0pt'></span></p>
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>END
+RQ_TEST_CUR;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>The simple stored procedure
-returns the result sets of querying two tables <i>emp</i> and <i>test</i>.
-Below is the esProc program for calling the stored procedure and for receiving
-the two result sets:</span></p>
+lang=EN-US>The stored procedure has an input parameter and returns a result set
+using a cursor. Here’s the code for calling the stored procedure in esProc:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -72,14 +66,14 @@ the two result sets:</span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -88,14 +82,14 @@ the two result sets:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>1</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -105,80 +99,48 @@ the two result sets:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>2</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.proc(&quot;{call
-  proAA(?,?)}&quot;,:101:&quot;o&quot;:a,:101:&quot;o&quot;:b)</span></p>
+  RQ_TEST_CUR(?,?)}&quot;,:101:&quot;o&quot;:table1,1:0:&quot;i&quot;:)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>3</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2(1)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=table1</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>4</span></p>
+  <p class=TabLaEnd10><span lang=EN-US>4</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=a</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>5</span></p>
-  </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=b</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>6</span></p>
-  </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -192,53 +154,50 @@ the two result sets:</span></p>
 lang=EN-US style='mso-bidi-font-size:11.0pt'>A2 uses <b style='mso-bidi-font-weight:
 normal'>proc</b> function to call the stored procedure: </span><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>=</span></b><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>A1.proc(&quot;{call
-proAA(?,?)}&quot;,:101:&quot;o&quot;:a,:101:&quot;o&quot;:b)</span></i><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>, which returns two result sets
-(table sequences) to form a set of table sequences, i.e. a sequence, to be
-assigned to A2. The following explains the parameters used in<b
-style='mso-bidi-font-weight:normal'> proc</b> function.</span></p>
+10.5pt'>=A1.proc(&quot;{call RQ_TEST_CUR(?,?)}&quot;,:101:&quot;o&quot;:table1,
+1:0:&quot;i&quot;:)</span></b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>.
+The following explains the parameters defined in <b style='mso-bidi-font-weight:
+normal'>proc</b> function.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>The SQL string <i>&quot;{call
-proAA(?,?)}&quot;</i> contains the stored procedure name. The question marks
-represent the SQL parameters. </span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt'>The SQL string <b
+style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:italic'>&quot;{call
+RQ_TEST_CUR(?,?)}&quot;</span></b> contains the stored procedure name. The
+question marks represent SQL parameters. </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>:101:&quot;o&quot;:a</span></i><b
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Let’s look at the stored procedure
+parameters:</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-11.0pt'> </span></b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>defines
-an output parameter. <i>101</i> represents the cursor data type, <i>&quot;o&quot;</i>
-represents an output mode and <b style='mso-bidi-font-weight:normal'><span
-style='mso-bidi-font-style:italic'>a</span></b> is a variable for storing the
-returned result.</span></p>
+11.0pt;mso-bidi-font-style:italic'>:101:&quot;o&quot;:table1</span></b><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'> defines an output parameter. That
+it begins directly with a colon means it hasn’t an input value. <b
+style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:italic'>101</span></b>
+represents a cursor data type, <b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-style:italic'>&quot;o&quot;</span></b> represents an
+output mode, and <b style='mso-bidi-font-weight:normal'>table1</b> defines a
+variable to reference the returned result. </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>:101:&quot;o&quot;:b</span></i><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'> defines another output parameter.
-<i>101</i> represents the cursor data type, <i>&quot;o&quot;</i> represents an
-output mode and <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
-italic'>b</span></b> is a variable for storing the returned result.</span></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt;mso-bidi-font-style:italic'>1:0:&quot;i&quot;:</span></b><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'> defines an input parameter. <b
+style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:italic'>1</span></b><i>
+</i>is the parameter value, <b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-style:italic'>0</span></b> indicates that its data type is
+automatically identified by esProc, and</span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'> &quot;i&quot; </span></b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>represents </span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>an input mode. That it ends
+directly with a colon means that there is no need to output the result.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>A3 returns A2’s first table
-sequence (result set of querying the <b style='mso-bidi-font-weight:normal'>emp</b>
-table).</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt'>A4 and A5 respectively use the
-output variables <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
-italic'>a</span></b><i> </i>and <b style='mso-bidi-font-weight:normal'><span
-style='mso-bidi-font-style:italic'>b</span></b> in A2 to obtain the
-corresponding result of executing the stored procedure. <b style='mso-bidi-font-weight:
-normal'><span style='mso-bidi-font-style:italic'>a</span></b> corresponds to
-the result of querying the <b style='mso-bidi-font-weight:normal'>emp</b> table<i>
-</i>and is assigned to A4; <b style='mso-bidi-font-weight:normal'><span
-style='mso-bidi-font-style:italic'>b</span></b> corresponds to the result of
-querying the <b style='mso-bidi-font-weight:normal'>test</b> table and is
-assigned to A5. Actually, the result of A2 is the sequence composed of the
-table sequences in A4 and A5. </span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A3 references the result of
+executing the stored procedure using A2’s output variable. Both A2 and A3 have
+the same result, which is a table sequence containing results of querying the <b
+style='mso-bidi-font-weight:normal'>TEST</b> table.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="135.html">Next</a></div>
@@ -246,13 +205,13 @@ table sequences in A4 and A5. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="130.html">4.5 Calling Database Stored Procedures</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="131.html">4.5 Calling Database Stored Procedures</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

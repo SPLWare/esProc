@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.3 Coordinate Axes</title>
+<title>12.2.1 Coordinate systems and axes</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,24 +13,81 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l24 level2 lfo55'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>12.3<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Coordinate Axes<a name="Coordinate_Axes"></a></span></h2></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US><a
- href="zbxyzh.html#Coordinate_Systems_and_Transformation">Coordinate Systems and
-Transformation</a></span></i><span lang=EN-US> discussed the relation between
-logical axes and physical axes, as well as how to position coordinate axes on
-the canvas and then plot a chart element, during chart plotting with esProc.
-esProc provides a variety of logical axes for plotting different styles of
-charts. Different types of logical axes require different settings to perform
-coordinate transformation correctly. The main purpose of defining the logical
-axes is to convert the logical coordinates on the chart elements to the
-physical coordinates for plotting a chart. The positioning of a chart element
-will not be affected whether the logical axes are actually plotted or not. </span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>12.2.1 Coordinate systems and axes
+</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc provides two commonly used coordinate systems &#8211; <b
+style='mso-bidi-font-weight:normal'>Cartesian coordinate</b> <b
+style='mso-bidi-font-weight:normal'>system</b> and <b style='mso-bidi-font-weight:
+normal'>polar coordinate system</b>. </span></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Different coordinate systems have different types of coordinate axes
+&#8211; <b style='mso-bidi-font-weight:normal'>x-axis</b> and <b style='mso-bidi-font-weight:
+normal'>y-axis</b>, or <b style='mso-bidi-font-weight:normal'>polar axis</b>
+and <b style='mso-bidi-font-weight:normal'>radial axis</b>. Each type of axis
+has its own plotting properties with which the corresponding coordinate
+transformation operation is handled. </span></p>
+
+<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Cartesian
+coordinate system</span></b></p>
+
+<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>A
+Cartesian coordinate system has two mutually perpendicular axes, denoted the
+x-axis and y-axis. The logical coordinates on the horizontal x-axis determine
+the horizontal location of the chart, and those on the vertical y-axis
+determine the vertical location of the chart. Actually, in a Cartesian coordinate
+system the abscissa and ordinate of physical coordinates can be calculated
+individually based on their corresponding logical axes, without any mutual
+influences. </span></p>
+
+<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>In all
+the examples we have cited, the system of Cartesian coordinates is used to
+position chart elements. The native physical axes on the canvas also belong to
+a Cartesian coordinate system. The system is used in plotting most of the
+charts such as column chart, line chart, area chart, scatter chart, bubble
+chart and stock chart. </span></p>
+
+<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Polar coordinate
+system</span></b></p>
+
+<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
+axes in a polar coordinate system are polar axis and radial axis. For the polar
+axis, you need to define the <b style='mso-bidi-font-weight:normal'>pole</b>
+position and the <b style='mso-bidi-font-weight:normal'>polar axis length</b>;
+and for the radial axis, the <b style='mso-bidi-font-weight:normal'>start angle</b>
+and <b style='mso-bidi-font-weight:normal'>end angle</b> of the polar
+coordinates. Conventionally the angle horizontally from the pole to the right
+is 0&#61616; and the counterclockwise angle from the polar axis is positive. By
+default the start angle of a polar coordinate system is 0 and the end angle is
+360.</span></p>
+
+<p class=T-Par0372CxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
+system of polar coordinates is used to plot pie chart, doughnut chart, radar
+chart and etc. </span></p>
+
+<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>When
+performing coordinate transformation operation with polar coordinates, a
+point’s line segment length is calculated from the coordinates on the polar
+axis and its polar angle is calculated from the coordinates on the radial axis.
+</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="282.html">Next</a></div>
@@ -38,18 +95,13 @@ will not be affected whether the logical axes are actually plotted or not. </spa
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="273.html">Chapter12 Charts</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="282.html">12.3.1 Numeric axis</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="283.html">12.3.2 Date axis</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="284.html">12.3.3 Enumeration axis</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="285.html">12.3.4 Polar axis and radial axis in the polar coordinate system</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="286.html">12.3.5 Legends</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="280.html">12.2 Coordinate Systems and Transformation</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

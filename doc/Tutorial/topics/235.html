@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.3 XML data</title>
+<title>9.1.3 Using esProc in Excel</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,343 +13,189 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
-mso-list:l29 level2 lfo49'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.3<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US>XML data</span></h2></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The XML format is suitable to store tree-structured data. It is thus
-usually used to store configuration files. The format can also store data in
-string format. </span></p>
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;mso-list:none;tab-stops:21.0pt'><span
+lang=EN-US>9.1.3 Using esProc in Excel</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>The
+features explained in this section only appear in esProc Desktop edition. Users
+using the other editions can choose to skip them.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The basic form of spl() function is spl(<i>exp</i>).
+Compute the expression in esProc and return the result. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=98
+src="Tutorial.files/image944.png" v:shapes="图片_x0020_1733"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Enter =spl(&quot;=5.(rand(10))&quot;) in
+cell A1 in the above Excel file. The esProc expression &quot;=5.(rand(10))&quot;
+is a string headed by the equals sign. Then press <span class=T-Bold>Enter</span>,
+confirm the expression, and get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=98
+src="Tutorial.files/image945.png" v:shapes="图片_x0020_1734"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>A random integer within 10 is entered into
+A1. Actually, the result of computing A1’s expression should have been a
+sequence. If you need to return the whole result, press <span class=T-Bold>Ctrl+Enter
+</span>while confirming the expression. Reselect cell A1 and press Ctrl+Enter
+at the same time to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image946.png" v:shapes="图片_x0020_1735"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Now A1’s expression is recomputed and the
+result sequence is entered to the Excel spreadsheet.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can add parameters to spl() function in
+the form of <span class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:
+bold'>spl(</span></i></span><span class=var0><span style='font-weight:normal;
+mso-bidi-font-weight:bold;font-style:normal;mso-bidi-font-style:italic'>exp</span></span><span
+class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:bold'>, </span></i></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold;
+font-style:normal;mso-bidi-font-style:italic'>arg1</span></span><span
+class=T-Bold><i><span style='font-weight:normal;mso-bidi-font-weight:bold'>,…)</span></i></span>,
+which is similar to the use of eval() function. We use quotation marks (?) to
+represent the parameters in the expression in order; or use <span class=T-Bold><span
+style='font-weight:normal;mso-bidi-font-weight:bold'>?</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>n</span></span><b>
+</b>to represent the n<sup>th</sup> parameter. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image947.png" v:shapes="图片_x0020_1736"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Compute the average score of two tests
+using spl() function in D2. The expression can also be written as =spl(&quot;(?1+?2)/2&quot;,A2,B2),
+which returns the following result after execution:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image948.png" v:shapes="图片_x0020_1737"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>If we select D2 at the left corner and
+drag it to D4, its expression will apply to the whole selected area, where
+parameters will be adjusted according to position:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image949.png" v:shapes="图片_x0020_1738"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When using esProc add-ins in Excel, we
+often use E() function to generate a table sequence. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image950.png" v:shapes="图片_x0020_1739"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When the parameter of spl() function is
+set up as a stretch of cells in the Excel file, data items in them will be
+transformed to a two-dimensional sequence and passed to esProc for computation.
+It is convenient to do this with E() function. To type in formula =spl(&quot;=E(?)&quot;,A1:B4)
+in D1 and press Ctrl+Enter to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image951.png" v:shapes="图片_x0020_1740"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>When result of computing spl() function is
+entered, it overwrites the original data in the Excel spreadsheet. So, you need
+to pay special attention to it. The spl() function can perform more
+computations on the table sequence generated by E() function and get the
+expected result. To modify D2’s expression into =spl(&quot;=E(?).derive((#1+#2)/2:Avg)&quot;,A1:B4),
+for example, and press Ctrl+Enter to get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=462 height=175
+src="Tutorial.files/image952.png" v:shapes="图片_x0020_1741"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>There is another point. Different from
+Java, Excel uses its own format for datetime data. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=460 height=122
+src="Tutorial.files/image953.png" v:shapes="图片_x0020_1757"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=460 height=122
+src="Tutorial.files/image954.png" v:shapes="图片_x0020_1758"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>esProc gets a date data in a different
+format from that in Excel, which uses a unique datetime format. We can use <span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>E(</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span><span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>)</span>
+</span>function in a spl statement to convert an Excel date specified by <span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span>
+to a generally used format. For example:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=460 height=122
+src="Tutorial.files/image955.png" v:shapes="图片_x0020_1759"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=460 height=122
+src="Tutorial.files/image956.png" v:shapes="图片_x0020_1760"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Note that results of both B1 and B2 are
+actually strings displayed in esProc, which are different from the Excel format
+date data. If you need to an Excel format date, just use <span class=T-Bold><span
+style='font-weight:normal;mso-bidi-font-weight:bold'>E(</span></span><span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span><span
+class=T-Bold><span style='font-weight:normal;mso-bidi-font-weight:bold'>)</span>
+</span>function again to convert a general format date specified by <span
+class=var0><span style='font-weight:normal;mso-bidi-font-weight:bold'>x</span></span>
+to an Excel datetime, as shown below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=391 height=149
+src="Tutorial.files/image957.png" v:shapes="图片_x0020_1761"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Execute the statement and get the
+following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=391 height=149
+src="Tutorial.files/image958.png" v:shapes="图片_x0020_1762"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The value of B3 is a number, which is the
+actual value for the Excel date. Once B3’s format is set as date, the date can
+be displayed normally:</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US><img border=0 width=391 height=149
+src="Tutorial.files/image959.png" v:shapes="图片_x0020_1763"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Let’s look at how to use XML data as the data source through a
-simple example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=284 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>1</span></p>
-  </td>
-  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;data.xml&quot;)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>2</span></p>
-  </td>
-  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml(A1.read())</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>3</span></p>
-  </td>
-  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml(A1.read(), &quot;data&quot;)</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A1 reads string data from the <i style='mso-bidi-font-style:normal'>data.xml
-</i>file. Below is the file:</span></p>
-
-<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
-version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;1&lt;/CID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;New
-York&quot;&lt;/NAME&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;8084316&lt;/POPULATION&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;32&lt;/STATEID&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;2&lt;/CID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Los
-Angeles&quot;&lt;/NAME&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;3798981&lt;/POPULATION&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;5&lt;/STATEID&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;3&lt;/CID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Chicago&quot;&lt;/NAME&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;2886251&lt;/POPULATION&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;13&lt;/STATEID&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;1&lt;/STATEID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alabama&quot;&lt;/NAME&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AL&quot;&lt;/ABBR&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;2&lt;/STATEID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alaska&quot;&lt;/NAME&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:54.65pt;mso-char-indent-count:6.07'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AK&quot;&lt;/ABBR&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The <i style='mso-bidi-font-style:normal'>xml</i> defines the
-highest level node <i style='mso-bidi-font-style:normal'>data</i> and stores
-data of two tables: <i style='mso-bidi-font-style:normal'>cities</i> and <i
-style='mso-bidi-font-style:normal'>state</i>. The node name for each record is
-the table name, under which fields and corresponding values are listed. A2
-reads a string from the file using the <b style='mso-bidi-font-weight:normal'>read</b>
-function and imports it with the<b style='mso-bidi-font-weight:normal'> xml()</b>
-function:</span></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=750 height=62
-src="Tutorial.files/image1984.jpg" v:shapes="_x0000_i2092"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The XML string will be parsed as one record. Double click each field
-to see the detailed data:</span></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=750 height=293
-src="Tutorial.files/image1986.jpg" v:shapes="_x0000_i2093"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>cities</span></i><span
-lang=EN-US> and <i style='mso-bidi-font-style:normal'>state</i> are interpred
-as the two fields of the record. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>You can specify the node to be read in the <b style='mso-bidi-font-weight:
-normal'>xml()</b> function, as shown in A3. Here’s A4’s result:</span></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=750 height=62
-src="Tutorial.files/image1988.jpg" v:shapes="_x0000_i2094"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The XML format supports using various ways to define the value of a
-node. For example:</span></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
-version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
-NAME=&quot;Alabama&quot; ABBR=&quot;AL&quot;&gt;1&lt;/STATEID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
-NAME=&quot; Alaska&quot; ABBR=&quot;AK&quot;&gt;2&lt;/STATEID&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;
-</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>We use the <b style='mso-bidi-font-weight:normal'>xml@s()</b> function
-to read this types of XML data:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=284 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>1</span></p>
-  </td>
-  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>file(&quot;data2.xml&quot;)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
-  </td>
-  <td width=284 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml@s(A1.read())</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Here’s A2’s result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=421 height=236
-src="Tutorial.files/image1990.jpg" v:shapes="_x0000_i2095"></span><span
+lang=EN-US>Find more about executing Excel data handling in esProc in <a
+href="http://c.raqsoft.com/article/1651916536524">esProc Desktop and Excel Pro<span
+style='mso-bookmark:_Hlt165037721'><span style='mso-bookmark:_Hlt165037722'>c</span></span>essing</a><a
+name="_Hlt165037722"></a><a name="_Hlt165037721"></a>.</span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 	</div>
 	<div id="previous-next">
@@ -358,13 +204,13 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="229.html">Chapter9 Heterogeneous Data Sources</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="233.html">9.1.1 Using Excel file data</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.5.4 User-defined cursor</title>
+<title>9.5.2 Returning results as needed</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,174 +15,37 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>9.5.4 User-defined cursor</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>To return a cursor based on a user-defined function, the return
-class should be one that implements the interface <i style='mso-bidi-font-style:
-normal'>com.scudata.dm.IlineInput</i>. The following <i style='mso-bidi-font-style:
-normal'>test.RandDataCursor</i> file is such an example: </span></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>package
-test;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-class RandDataCursor implements com.scudata.dm.ILineInput {</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>private
-int rowno = 0;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>private
-int range = 1000;</span></i></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:18.0pt;mso-char-indent-count:
-2.0'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:
-9.0pt;mso-bidi-font-size:11.0pt'><span style='mso-tab-count:1'> </span></span></i></p>
+14.0pt;mso-bidi-font-size:10.0pt'>9.5.2 Returning results as needed</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>The user-defined functions may or may not return results.
+For example: </span></span></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-RandDataCursor(Integer rg) {</span></i></p>
+static void distance3(Number loc1, Number loc2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>System.out.println(Double.toString(len));</span></i></p>
 
 <p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>this.range
-= rg;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt;
-mso-bidi-font-size:11.0pt'></span></i></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:18.0pt;mso-char-indent-count:
-2.0'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:
-9.0pt;mso-bidi-font-size:11.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-Object[] readLine() throws java.io.IOException {</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>rowno++;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>Object[]
-result = new Object[2];</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result[0]
-= Integer.valueOf(rowno);</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result[1]
-= Integer.valueOf((int) (Math.random() * range ));</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-result;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:18.0pt;mso-char-indent-count:
-2.0'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:
-9.0pt;mso-bidi-font-size:11.0pt'><span style='mso-tab-count:1'> </span></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-boolean skipLine() throws java.io.IOException {</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>rowno++;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>if
-(rowno &lt;= 10000) return true;</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-false;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormalCxSpMiddle style='text-indent:18.0pt;mso-char-indent-count:
-2.0'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:
-9.0pt'>&nbsp;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-void close() throws IOException {</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>rowno
-= 10001;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The <i style='mso-bidi-font-style:normal'>IlineInput</i>
-class should implement three methods: readLine, <i style='mso-bidi-font-style:
-normal'>skipLine</i>, and <i style='mso-bidi-font-style:normal'>close</i>. Here
-the simple <i style='mso-bidi-font-style:normal'>RandDataCursor </i>file aims
-to generate a sequence comprising random integers, whose range can be specified
-through a parameter. Every record returned from <i style='mso-bidi-font-style:
-normal'>readLine</i> method is made up of a row number, which increases
-sequentially, and a random integer, which are similar to two fields of a table
-sequence. the<i style='mso-bidi-font-style:normal'> skipLine</i> method skips
-one record and then returns whether or not there is still data in the cursor.
-In the above file, it specifies that the cursor will return 10000 records at
-most. The <i style='mso-bidi-font-style:normal'>close</i> method is used to
-closes the cursor to delete unwanted resources, like the database connection. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Thus the user-defined cursor that returns a cursor can
-take RandDataCursor as a return class. For example:</span></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>package
-test;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-class Calc02 {</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
-static test.RandDataCursor getCursor(Integer range) {</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>RandDataCursor
-rdc = new RandDataCursor(range);</span></i></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
-rdc;</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
-
-<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Here the user-defined function needs to define only one parameter,
-the range for the random intergers, and returns a cursor <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>RandDataCorsor</i></b>, which
-will generate random records. But the returned <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>IlineInput</i></b> class can’t be
-directly used as a cursor. You need to call the newCursor method of the <b
-style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>com.scudata.dm.UserUtils</i></b>
-class to transfer it to a cursor. For example: </span></p>
+lang=EN-US>When the computation with static method <b style='mso-bidi-font-weight:
+normal'>distance3</b> is completed, the result will only be printed out to the
+system console but won’t be returned. Such methods are similar to the
+executable cells in a cellset, and &gt; can be used when they are invoked. For
+example: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -192,14 +55,348 @@ class to transfer it to a cursor. For example: </span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd10><span lang=EN-US>1</span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;invoke(test.Calc01.distance3,-12.3,15)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Now the output data can be viewed in the console. To access the
+console, click <b style='mso-bidi-font-weight:normal'>Tool&gt;Options </b>on
+the menu bar, and check <b style='mso-bidi-font-weight:normal'>Console takeover</b>
+on the <b style='mso-bidi-font-weight:normal'>General</b> page. The result is
+as follows: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=470 height=90
+src="Tutorial.files/image1000.png" v:shapes="_x0000_i2128"></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>If a user-defined function uses parameters or returns
+result, it should use data types supported by esProc; otherwise, errors may
+occur during presentation or invocation. Following lists the commonly-used data
+types in esProc and their counterparts in Java: </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:30.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:17.0pt;mso-height-rule:
+  exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Integer</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Integer</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Long integer</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Long</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Floating point number</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Double</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Big decimal</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.math.BigInteger</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Real number</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Number</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.Boolean</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>String</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.lang.String</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Date<span style='mso-tab-count:1'> </span></span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.Date</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Time</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.Time</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Datetime</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>java.sql.TimeStamp</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Sequence<span style='mso-tab-count:1'> </span></span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>com.scudata.dm.Sequence</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:17.0pt;mso-height-rule:exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Table sequence</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>com.scudata.dm.Table</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:17.0pt;mso-height-rule:
+  exactly'>
+  <td width=230 valign=top style='width:172.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.0pt'><span lang=EN-US>Binary data</span></p>
+  </td>
+  <td width=233 valign=top style='width:175.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:17.0pt;mso-height-rule:exactly'>
+  <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+  mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
+  text-indent:21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:
+  "Times New Roman",serif'>byte[]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>In the previous examples, all the returned results are of Double
+object, which corresponds to the floating point number in esProc; all
+parameters are Number data type, which corresponds to Real number in esProc.
+User-defined function can return results of different data types as needed. For
+instance, add another two user-defined functions to test.Calc01 to return
+results of different data types: </span></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static String distance4(Number loc1, Number loc2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
+Double.toString(len);</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static Sequence distance5(Number loc1, Number loc2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.abs(loc1.doubleValue()-loc2.doubleValue());</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>com.scudata.dm.Sequence
+result = new com.scudata.dm.Sequence();</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc1);</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(loc2);</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>result.add(Double.valueOf(len));</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
+result;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>These two static methods are also used to compute the distance
+between two points in a numerical axis. <b style='mso-bidi-font-weight:normal'>distance4</b>
+returns a result of string type and <b style='mso-bidi-font-weight:normal'>distance5
+</b>returns a result in a form of a sequence storing the coordinates of the two
+points and the distance between them. The <b style='mso-bidi-font-weight:normal'>invoke</b>
+function is still used to invoke the two methods in a cellset: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -208,101 +405,78 @@ class to transfer it to a cursor. For example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>1</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc02.getCursor,1000000)</span></p>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance2,-12.3,15)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>2</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(com.scudata.dm.UserUtils.newCursor,A1,&quot;&quot;)</span></p>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance4,-12.3,15)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel0><span lang=EN-US>3</span></p>
+  <p class=TabLaEnd10><span lang=EN-US>3</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A2.skip(100)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>4</span></p>
-  </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.fetch@x(100)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=invoke(test.Calc01.distance5,-12.3,15)</span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>A1 returns a user-defined cursor class, RandDataCursor. A2 invokes
-UserUtils’s newCursor method to pass A1’s result as a parameter; its result is
-an esProc cursor. A3 skips the first 100 records in the cursor. A4 then fetches
-100 records from the cursor, and closes it. Below is A4’s result:</span></p>
+lang=EN-US>For the convenience of comparison, A1 calls <b style='mso-bidi-font-weight:
+normal'>distance2</b> used in the previous example. After the code is executed,
+results of A1~A3 are as follows:<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=368 height=345
-src="Tutorial.files/image2060.jpg" v:shapes="_x0000_i2132"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image1001.png" v:shapes="_x0000_i2129"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image1002.png" v:shapes="_x0000_i2130"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
+src="Tutorial.files/image1003.png" v:shapes="_x0000_i2131"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Similar to retriveing text data, @t option can be used here when
-returning data, which will take the first row it fetches as the headers. You
-can also use @1 option to fetch data out as one column. By rewriting A2’s code
-as =<b style='mso-bidi-font-weight:normal'>invoke(com.scudata.dm.UserUtils.newCursor,A1,&quot;t&quot;)</b>,
-the function will work as an @t option is used. Below is A4’s result:</span></p>
-
-<p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=368 height=345
-src="Tutorial.files/image2062.jpg" v:shapes="_x0000_i2133"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>In fact RandDataCursor doesn’t specify any column names. But the
-first row will be returned as the column names. As you can see, the second
-column, which consists of random integers, in the result set is different from
-the previous one.</span></p>
+lang=EN-US>Notice that the results of A1 and A2 are of different data types and
+are thus displayed differently. The return results of user-defined functions
+can be used for later computation. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="244.html">Next</a></div>
@@ -310,13 +484,13 @@ the previous one.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="239.html">9.5 User-defined Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="241.html">9.5 User-defined Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

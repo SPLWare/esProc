@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Table Sequence Functions</title>
+<title>Sequence Functions</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,1075 +14,693 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h1><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-family:
-"Times New Roman",serif'>Table Sequence Functions</span></span><span
+"Times New Roman",serif'>Sequence Functions</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></h1></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp; </span>Learn about table sequence
-functions that are unique in esProc and that handle table sequence values.</span></span></p>
+style='mso-spacerun:yes'>&nbsp; </span>esProc offers sequence functions
+that handle sequence values.</span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span class=a1><span
   lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
   mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
   Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="alter1.html#T_alter_Fi_Fi"><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>T</span></i><span lang=EN-US>.alt<span style='mso-bookmark:_Hlt86308779'>e</span>r()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt86308779"></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></span></p>
+   href="ai2.html#A_i"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span style='mso-bookmark:_Hlt404252677'><span
+  style='mso-bookmark:_Hlt384368547'><span style='mso-bookmark:_Hlt342478807'><span
+  style='mso-bookmark:_Hlt415047424'><span style='mso-bookmark:_Hlt414977207'><span
+  style='mso-bookmark:_Hlt414977206'><span style='mso-bookmark:_Hlt342478841'><span
+  lang=EN-US>(</span></span></span></span></span></span></span></span><span
+  style='mso-bookmark:_Hlt346032671'><span style='mso-bookmark:_Hlt384368520'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>i</span></i></span></span><span
+  lang=EN-US>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt384368520"></a><a name="_Hlt346032671"></a><a name="_Hlt342478841"></a><a
+  name="_Hlt414977206"></a><a name="_Hlt414977207"></a><a name="_Hlt415047424"></a><a
+  name="_Hlt342478807"></a><a name="_Hlt384368547"></a><a name="_Hlt404252677"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Alter
-  fields in a table sequence.</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  a member from a sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="afieldf.html#A_field_i"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>A</span></i><span lang=EN-US>.field(<i style='mso-bidi-font-style:
-  normal'>F</i>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-  style='mso-bookmark:_Hlt161066090'></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="fz.html#Assignment"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  style='mso-bookmark:_Hlt344471100'><span lang=EN-US>(</span></span><span
+  style='mso-bookmark:_Hlt342478854'><span style='mso-bookmark:_Hlt342479521'><span
+  style='mso-bookmark:_Hlt342478945'><span style='mso-bookmark:_Hlt404252684'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>i</span></i></span><span
+  style='mso-bookmark:_Hlt344471626'><span lang=EN-US>)</span></span></span></span></span><span
+  style='mso-bookmark:_Hlt346032678'><span style='mso-bookmark:_Hlt414977298'><span
+  style='mso-bookmark:_Hlt384368560'><span style='mso-bookmark:_Hlt342479419'><span
+  lang=EN-US>=</span></span></span></span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>x</span></i></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt342479419"></a><a name="_Hlt384368560"></a><a name="_Hlt414977298"></a><a
+  name="_Hlt346032678"></a><a name="_Hlt344471626"></a><a name="_Hlt404252684"></a><a
+  name="_Hlt342478945"></a><a name="_Hlt342479521"></a><a name="_Hlt342478854"></a><a
+  name="_Hlt344471100"></a><span style='mso-bookmark:_Hlt161066090'><span
+  class=a1><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US> </span></span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
-  italic'>values in</span></span><sup><span lang=EN-US> </span></sup></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'>a specified</span></span><span
-  lang=EN-US> field of a sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
+  values to members of a sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>&Oslash;<span
-  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="afieldfx.html#A_field_i_x"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-  lang=EN-US>.field(<span style='mso-bookmark:_Hlt477528515'><i
-  style='mso-bidi-font-style:normal'>F</i></span><span style='mso-bookmark:
-  _Hlt478106705'><i style='mso-bidi-font-style:normal'>,</i></span><i
-  style='mso-bidi-font-style:normal'>x</i>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt478106705"></a><a name="_Hlt477528515"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-weight:bold'> </span></i></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="ap.html#A_p1"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span style='mso-bookmark:_Hlt414977312'><span
+  lang=EN-US>(</span></span><span style='mso-bookmark:_Hlt415047413'><span
+  style='mso-bookmark:_Hlt344305010'><span style='mso-bookmark:_Hlt404252691'><span
+  style='mso-bookmark:_Hlt344292139'><span style='mso-bookmark:_Hlt344714404'><span
+  style='mso-bookmark:_Hlt384368564'><span style='mso-bookmark:_Hlt346032689'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>p</span></i></span></span></span></span></span></span></span><span
+  lang=EN-US>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt346032689"></a><a name="_Hlt384368564"></a><a name="_Hlt344714404"></a><a
+  name="_Hlt344292139"></a><a name="_Hlt404252691"></a><a name="_Hlt344305010"></a><a
+  name="_Hlt415047413"></a><a name="_Hlt414977312"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  the value of a specified field in a sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+  a new sequence by getting members from a sequence according to</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'> the sequence numbers of
+  members of an integer sequence</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="arecord.html#A_record"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>A</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>.record()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="fz.html#Assignment"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  lang=EN-US>(<span style='mso-bookmark:_Hlt404252696'><span style='mso-bookmark:
+  _Hlt344471885'><span style='mso-bookmark:_Hlt384368568'><span
+  style='mso-bookmark:_Hlt428801018'><span style='mso-bookmark:_Hlt415047419'><i
+  style='mso-bidi-font-style:normal'>p</i></span></span></span></span></span><span
+  style='mso-bookmark:_Hlt344207633'><span style='mso-bookmark:_Hlt414977348'>)</span></span><span
+  style='mso-bookmark:_Hlt414977360'><span style='mso-bookmark:_Hlt346032693'>=</span></span><span
+  style='mso-bookmark:_Hlt344305046'><i style='mso-bidi-font-style:normal'>X</i></span></span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt344305046"></a><a name="_Hlt346032693"></a><a name="_Hlt414977360"></a><a
+  name="_Hlt414977348"></a><a name="_Hlt344207633"></a><a name="_Hlt415047419"></a><a
+  name="_Hlt428801018"></a><a name="_Hlt384368568"></a><a name="_Hlt344471885"></a><a
+  name="_Hlt404252696"></a><span style='mso-bookmark:_Hlt161066090'><span
+  class=a1><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a table sequence from a sequence of sequences</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
+  members of sequence </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US>X </span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>to corresponding members of another sequence in
+  order</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="fz.html#Assignment"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  style='mso-bookmark:_Hlt346032699'><span style='mso-bookmark:_Hlt384368573'><span
+  lang=EN-US>(</span></span></span><span style='mso-bookmark:_Hlt344471881'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>p</span></i></span><span
+  style='mso-bookmark:_Hlt404252751'><span lang=EN-US>)</span></span><span
+  style='mso-bookmark:_Hlt344292709'><span style='mso-bookmark:_Hlt344305146'><span
+  style='mso-bookmark:_Hlt414977352'><span lang=EN-US>=</span></span></span></span><span
+  style='mso-bookmark:_Hlt529191097'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>x</span></i></span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt529191097"></a><a name="_Hlt414977352"></a><a name="_Hlt344305146"></a><a
+  name="_Hlt344292709"></a><a name="_Hlt404252751"></a><a name="_Hlt344471881"></a><a
+  name="_Hlt384368573"></a><a name="_Hlt346032699"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
+  value </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US>x </span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>to </span></span><span lang=EN-US>corresponding
+  members of another sequence </span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="adelete.html#A_delete"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  lang=EN-US>.d<span style='mso-bookmark:_Hlt384368577'><span style='mso-bookmark:
+  _Hlt342479533'><span style='mso-bookmark:_Hlt346032706'>e</span></span></span><span
+  style='mso-bookmark:_Hlt406673775'><span style='mso-bookmark:_Hlt318706254'>l</span></span>e<span
+  style='mso-bookmark:_Hlt404252761'><span style='mso-bookmark:_Hlt406673817'>t</span></span><span
+  style='mso-bookmark:_Hlt414977370'>e</span>()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt414977370"></a><a name="_Hlt406673817"></a><a name="_Hlt404252761"></a><a
+  name="_Hlt318706254"></a><a name="_Hlt406673775"></a><a name="_Hlt346032706"></a><a
+  name="_Hlt342479533"></a><a name="_Hlt384368577"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
+  specified members from a sequence</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
   Wingdings;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>&Oslash;<span
   style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="arecordn.html#A_record_n"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-weight:
-  bold'>A</span></i><span lang=EN-US style='mso-bidi-font-weight:bold;
-  mso-bidi-font-style:italic'>.record(</span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='mso-bidi-font-weight:bold'>n</span></i><span
-  lang=EN-US style='mso-bidi-font-weight:bold;mso-bidi-font-style:italic'>)</span></span><span
+   href="ai2.html#A_i"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='mso-bidi-font-weight:bold'>A</span></i><span
+  lang=EN-US style='mso-bidi-font-weight:bold;mso-bidi-font-style:italic'>.i()</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-weight:
   bold'></span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a table sequence consisting of a specified number of columns based on a
-  specific sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="parray.html#P_array"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-weight:bold'>P</span></i><span lang=EN-US
-  style='mso-bidi-font-weight:bold;mso-bidi-font-style:italic'>.array()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Transform
-  each record of a table sequence/record sequence and return a sequence of
-  sequences</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
-  Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="pcreate.html#P_create"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  12.0pt'>P.</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:12.0pt;mso-bidi-font-style:italic'>cre<span
-  style='mso-bookmark:_Hlt83398503'><span style='mso-bookmark:_Hlt83400106'>a</span></span>te()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt83400106"></a><a name="_Hlt83398503"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-size:12.0pt'></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a new empty table sequence by copying data structure of a specific record
-  sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Convert
+  a specified sequence to a pure sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:7'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
-  Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="pi2.html#P_i"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='mso-bidi-font-size:12.0pt'>P</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  12.0pt;mso-bidi-font-style:italic'>.i()</span></span><span style='mso-bookmark:
-  _Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  12.0pt'></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Convert
-  a specified table sequence to a pure one</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
-  Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="po.html#P_o"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='mso-bidi-font-size:12.0pt'>P</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  12.0pt;mso-bidi-font-style:italic'>.<span style='mso-bookmark:_Hlt121148926'><span
-  style='mso-bookmark:_Hlt121148927'><span style='mso-bookmark:_Hlt121148993'>o</span></span></span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt121148993"></a><a name="_Hlt121148927"></a><a name="_Hlt121148926"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-size:12.0pt'></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Convert
-  a pure table sequence to an ordinary one</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="prunxifi.html#P_run"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-size:12.0pt'>P</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.r<span style='mso-bookmark:_Hlt432455206'>u</span><span
-  style='mso-bookmark:_Hlt432455007'><span style='mso-bookmark:_Hlt432377933'><span
-  style='mso-bookmark:_Hlt432455008'>n</span></span></span><span
-  style='mso-bookmark:_Hlt432456495'><span style='mso-bookmark:_Hlt432377896'>(</span></span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt432377896"></a><a name="_Hlt432456495"></a><a name="_Hlt432455008"></a><a
-  name="_Hlt432377933"></a><a name="_Hlt432455007"></a><a name="_Hlt432455206"></a><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Compute
-  the given expression for each record of the record sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tcreate.html#T_create"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>T</span></i><span style='mso-bookmark:_Hlt346032773'><span
-  lang=EN-US>.</span></span><span lang=EN-US>cr<span style='mso-bookmark:_Hlt346094752'><span
-  style='mso-bookmark:_Hlt344714310'>e</span></span><span style='mso-bookmark:
-  _Hlt384368682'><span style='mso-bookmark:_Hlt414979317'><span
-  style='mso-bookmark:_Hlt344472463'><span style='mso-bookmark:_Hlt384368709'><span
-  style='mso-bookmark:_Hlt346094739'><span style='mso-bookmark:_Hlt404252872'>a</span></span></span></span></span></span><span
-  style='mso-bookmark:_Hlt346032824'>t</span><span style='mso-bookmark:_Hlt344714329'><span
-  style='mso-bookmark:_Hlt346094730'>e</span></span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt346094730"></a><a name="_Hlt344714329"></a><a name="_Hlt346032824"></a><a
-  name="_Hlt404252872"></a><a name="_Hlt346094739"></a><a name="_Hlt384368709"></a><a
-  name="_Hlt344472463"></a><a name="_Hlt414979317"></a><a name="_Hlt384368682"></a><a
-  name="_Hlt344714310"></a><a name="_Hlt346094752"></a><a name="_Hlt346032773"></a><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  an empty table sequence by duplicating the data structure of another table
-  sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span class=a1><span
   lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
   mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
   Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="tdelete.html#T_delete"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>T</span></i><span lang=EN-US>.<span style='mso-bookmark:_Hlt404252877'>d</span>el<span
-  style='mso-bookmark:_Hlt406675165'><span style='mso-bookmark:_Hlt414979337'>e</span></span><span
-  style='mso-bookmark:_Hlt346033401'><span style='mso-bookmark:_Hlt384368717'>t</span></span>e()</span></span><span
+   href="ainsert.html#A_insert"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  lang=EN-US>.i<span style='mso-bookmark:_Hlt404252771'><span style='mso-bookmark:
+  _Hlt406673990'>n</span></span><span style='mso-bookmark:_Hlt406673940'>s</span><span
+  style='mso-bookmark:_Hlt342479548'><span style='mso-bookmark:_Hlt315789792'><span
+  style='mso-bookmark:_Hlt384368584'>e</span></span></span><span
+  style='mso-bookmark:_Hlt414977535'>r</span><span style='mso-bookmark:_Hlt346032716'>t</span>()</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt384368717"></a><a name="_Hlt346033401"></a><a name="_Hlt414979337"></a><a
-  name="_Hlt406675165"></a><a name="_Hlt404252877"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  name="_Hlt346032716"></a><a name="_Hlt414977535"></a><a name="_Hlt384368584"></a><a
+  name="_Hlt315789792"></a><a name="_Hlt342479548"></a><a name="_Hlt406673940"></a><a
+  name="_Hlt406673990"></a><a name="_Hlt404252771"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></i></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
-  specified records from a table sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Insert
+  members into a sequence</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="ainvp.html#A_inv_p"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span lang=EN-US>.in<span
+  style='mso-bookmark:_Hlt477514785'>v</span>()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt477514785"></a><span style='mso-bookmark:_Hlt161066090'><span
+  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Adjust
+  the order of members of a sequence</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="alen.html#A_len"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span lang=EN-US>.l<span
+  style='mso-bookmark:_Hlt404252775'>e</span><span style='mso-bookmark:_Hlt346032720'><span
+  style='mso-bookmark:_Hlt384368588'><span style='mso-bookmark:_Hlt342479540'>n</span></span></span><span
+  style='mso-bookmark:_Hlt414977760'>(</span>)</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt414977760"></a><a name="_Hlt342479540"></a><a name="_Hlt384368588"></a><a
+  name="_Hlt346032720"></a><a name="_Hlt404252775"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></i></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  the length of a sequence</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="am.html#A_m"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span style='mso-bookmark:_Hlt384368622'><span
+  lang=EN-US>.</span></span><span style='mso-bookmark:_Hlt346032724'><span
+  lang=EN-US>m</span></span><span style='mso-bookmark:_Hlt414977775'><span
+  style='mso-bookmark:_Hlt384368592'><span style='mso-bookmark:_Hlt404252831'><span
+  style='mso-bookmark:_Hlt342479552'><span lang=EN-US>(</span></span></span></span></span><span
+  lang=EN-US>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt342479552"></a><a name="_Hlt404252831"></a><a name="_Hlt384368592"></a><a
+  name="_Hlt414977775"></a><a name="_Hlt346032724"></a><a name="_Hlt384368622"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></i></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  members of a sequence at specified positions</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+  </span></span></span></span><a  href="amabcde.html#A_m_a_b"><span
+  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>A.</span></i><span lang=EN-US>m(<i style='mso-bidi-font-style:
+  normal'>a:<span style='mso-bookmark:_Hlt476149469'>b</span><span
+  style='mso-bookmark:_Hlt478106413'>,</span>c<span style='mso-bookmark:_Hlt476169730'><span
+  style='mso-bookmark:_Hlt476149360'>,</span></span>d<span style='mso-bookmark:
+  _Hlt476149835'>:</span>e</i>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt476149835"></a><a name="_Hlt476149360"></a><a name="_Hlt476169730"></a><a
+  name="_Hlt478106413"></a><a name="_Hlt476149469"></a><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  members of a sequence at specified positions to form a new sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:12'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tfnamei.html#T_fname_i"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=PT-BR style='mso-bidi-font-size:10.5pt;mso-ansi-language:PT-BR'>T</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=PT-BR style='mso-fareast-font-family:
-  黑体;mso-ansi-language:PT-BR'>.fn<span style='mso-bookmark:_Hlt404252884'><span
-  style='mso-bookmark:_Hlt414979408'>a</span></span><span style='mso-bookmark:
-  _Hlt384368727'><span style='mso-bookmark:_Hlt374976056'><span
-  style='mso-bookmark:_Hlt374976057'>m</span></span></span>e<span
-  style='mso-bookmark:_Hlt375300380'>(</span>)</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="amodify.html#A_modify"><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'>A</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>.mo<span style='mso-bookmark:
+  _Hlt384368631'><span style='mso-bookmark:_Hlt404252834'><span
+  style='mso-bookmark:_Hlt346032728'>d</span></span></span><span
+  style='mso-bookmark:_Hlt414977808'>i</span><span style='mso-bookmark:_Hlt342479606'>f</span>y()</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt375300380"></a><a name="_Hlt374976057"></a><a name="_Hlt374976056"></a><a
-  name="_Hlt384368727"></a><a name="_Hlt414979408"></a><a name="_Hlt404252884"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
+  name="_Hlt342479606"></a><a name="_Hlt414977808"></a><a name="_Hlt346032728"></a><a
+  name="_Hlt404252834"></a><a name="_Hlt384368631"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'></span></i></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  names of fields of a table sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
+  values to one or more members of a sequence according to the specified
+  position(s)</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:13'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tfnof.html#T_fno_F"><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>T</span><span lang=EN-US>.f<span style='mso-bookmark:_Hlt414979450'><span
-  style='mso-bookmark:_Hlt404252913'>n</span></span><span style='mso-bookmark:
-  _Hlt342481321'><span style='mso-bookmark:_Hlt371325781'><span
-  style='mso-bookmark:_Hlt384368732'>o</span></span></span><span
-  style='mso-bookmark:_Hlt346032855'>(</span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt346032855"></a><a name="_Hlt384368732"></a><a name="_Hlt371325781"></a><a
-  name="_Hlt342481321"></a><a name="_Hlt404252913"></a><a name="_Hlt414979450"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  sequencr number(s) of a single or multiple specified fields in a table
-  sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tindex.html#T_index"><span
-  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>T.</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>ind<span
-  style='mso-bookmark:_Hlt478106721'><span style='mso-bookmark:_Hlt478106795'>e</span></span><span
-  style='mso-bookmark:_Hlt476218012'>x</span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt476218012"></a><a name="_Hlt478106795"></a><a name="_Hlt478106721"></a><span
-  style='mso-bookmark:_Hlt161066090'></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Create an index table for the key of a
-  table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:15'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tinsert.html#T_insert"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>T</span></i><span lang=EN-US>.ins<span style='mso-bookmark:_Hlt384368740'><span
-  style='mso-bookmark:_Hlt346033414'><span style='mso-bookmark:_Hlt404252922'>e</span></span></span>r<span
-  style='mso-bookmark:_Hlt414979535'>t</span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414979535"></a><a name="_Hlt404252922"></a><a name="_Hlt346033414"></a><a
-  name="_Hlt384368740"></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Insert
-  one or more records into a table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:16'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tkeysk.html#T_keys"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>T.</span></i><span lang=EN-US>keys<span style='mso-bookmark:_Hlt478106806'>(</span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt478106806"></a><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
-  a key for a table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:17'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
   Wingdings;mso-bidi-font-style:italic'><span style='mso-list:Ignore'>&Oslash;<span
   style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="tkeyskin.html#T_keys_Ki_n"><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-style:italic'>T.keys@<span style='mso-bookmark:
-  _Hlt132267601'>i</span>(</span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>Ki,…;n</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt132267601"></a><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-style:italic'></span></span></p>
+   href="ao.html#A_o"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span lang=EN-US style='mso-bidi-font-style:
+  italic'>.o()</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
+  italic'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
-  primary key for a table sequence and in the meantime create index on it</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Convert
+  a sequence to an ordinary one</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-style:normal'><span style='mso-list:Ignore'>&Oslash;<span
+  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="apip.html#A_p"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span lang=EN-US>.<span
+  style='mso-bookmark:_Hlt415047431'><span style='mso-bookmark:_Hlt384368635'><span
+  style='mso-bookmark:_Hlt406674268'>p</span></span></span><span
+  style='mso-bookmark:_Hlt414977843'><span style='mso-bookmark:_Hlt346032733'>(</span></span>)</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt346032733"></a><a name="_Hlt414977843"></a><a name="_Hlt406674268"></a><a
+  name="_Hlt384368635"></a><a name="_Hlt415047431"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='mso-bidi-font-style:normal'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  sequence numbers of the members at specified positions</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+  </span></span></span></span><a  href="apad.html#A_pad"><span
+  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>A.</span></i><span lang=EN-US>p<span style='mso-bookmark:_Hlt477523513'><span
+  style='mso-bookmark:_Hlt477523510'>a</span></span><span style='mso-bookmark:
+  _Hlt476573600'><span style='mso-bookmark:_Hlt476557226'><span
+  style='mso-bookmark:_Hlt476573565'><span style='mso-bookmark:_Hlt476573546'><span
+  style='mso-bookmark:_Hlt477523419'><span style='mso-bookmark:_Hlt476577446'>d</span></span></span></span></span></span>()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt476577446"></a><a name="_Hlt477523419"></a><a name="_Hlt476573546"></a><a
+  name="_Hlt476573565"></a><a name="_Hlt476557226"></a><a name="_Hlt476573600"></a><a
+  name="_Hlt477523510"></a><a name="_Hlt477523513"></a><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Add
+  members of a sequence to another one until the latter reaches a certain
+  length</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:16'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+  </span></span></span></span><a  href="arvs.html#A_rvs"><span
+  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US>A</span></i><span
+  lang=EN-US>.rv<span style='mso-bookmark:_Hlt476901998'>s</span>()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt476901998"></a><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
+  a new sequence by reversing the members in a sequence</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:17'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+  </span></span></span></span><a  href="ashift.html#A_shift"><span
+  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>A</span></i><span lang=EN-US>.s<span style='mso-bookmark:_Hlt501123649'><span
+  style='mso-bookmark:_Hlt501123621'>h</span></span><span style='mso-bookmark:
+  _Hlt501207575'>i</span><span style='mso-bookmark:_Hlt501530124'><span
+  style='mso-bookmark:_Hlt501530123'>f</span></span>t()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt501530123"></a><a name="_Hlt501530124"></a><a name="_Hlt501207575"></a><a
+  name="_Hlt501123621"></a><a name="_Hlt501123649"></a><span
+  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US></span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  a shuffled sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:18'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tmodify.html#T_modify"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US>.m<span
-  style='mso-bookmark:_Hlt384368745'>o</span><span style='mso-bookmark:_Hlt404252932'>d</span><span
-  style='mso-bookmark:_Hlt346033423'><span style='mso-bookmark:_Hlt342481997'>i</span></span>f<span
-  style='mso-bookmark:_Hlt414979556'>y</span><span style='mso-bookmark:_Hlt432456536'>(</span>)</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-style:normal'><span style='mso-list:Ignore'>&Oslash;<span
+  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="astepmk.html#A_step"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>A</span></i><span lang=EN-US>.s<span
+  style='mso-bookmark:_Hlt428801081'>t</span>e<span style='mso-bookmark:_Hlt406674281'><span
+  style='mso-bookmark:_Hlt384368639'><span style='mso-bookmark:_Hlt414977852'>p</span></span></span><span
+  style='mso-bookmark:_Hlt346032737'>(</span>)</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt432456536"></a><a name="_Hlt414979556"></a><a name="_Hlt342481997"></a><a
-  name="_Hlt346033423"></a><a name="_Hlt404252932"></a><a name="_Hlt384368745"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
+  name="_Hlt346032737"></a><a name="_Hlt414977852"></a><a name="_Hlt384368639"></a><a
+  name="_Hlt406674281"></a><a name="_Hlt428801081"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='mso-bidi-font-style:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  one or more records of a table sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+  a sequence by getting members from a sequence according to the specified
+  starting position and step</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:19'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
   Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tpasteafk.html#T_paste"><span
+  </span></span></span></span><a  href="sswappq.html#A_swap"><span
   style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.paste<span style='mso-bookmark:_Hlt432253736'><span style='mso-bookmark:
-  _Hlt432456605'>(</span></span>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt432456605"></a><a name="_Hlt432253736"></a><span
-  style='mso-bookmark:_Hlt161066090'></span></p>
+  lang=EN-US>A.</span></i><span lang=EN-US>swa<span style='mso-bookmark:_Hlt476557145'><span
+  style='mso-bookmark:_Hlt476557083'>p</span></span>()</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt476557083"></a><a name="_Hlt476557145"></a><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Loop
-  through the records of a sequence to modify the specified field of a table
-  sequence in order.</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
+  a new sequence by swapping the positions of two intervals in a sequence
+  specified by two integer sequences</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:20'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
   Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="trecord.html#T_record"><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>T.rec<span
-  style='mso-bookmark:_Hlt404252939'>o</span><span style='mso-bookmark:_Hlt384368754'><span
-  style='mso-bookmark:_Hlt342482015'><span style='mso-bookmark:_Hlt346033427'>r</span></span></span>d<span
-  style='mso-bookmark:_Hlt519785353'>(</span><span style='mso-bookmark:_Hlt414979595'>)</span></span></span><span
+  </span></span></span></span><a  href="ato.html#A_to"><span style='mso-bookmark:
+  _Hlt161066090'><i><span lang=EN-US>A</span></i><span lang=EN-US>.<span
+  style='mso-bookmark:_Hlt342479688'><span style='mso-bookmark:_Hlt428801178'><span
+  style='mso-bookmark:_Hlt342479710'><span style='mso-bookmark:_Hlt346032742'>t</span></span></span></span><span
+  style='mso-bookmark:_Hlt344715831'>o</span><span style='mso-bookmark:_Hlt405450653'><span
+  style='mso-bookmark:_Hlt414977870'><span style='mso-bookmark:_Hlt405450654'><span
+  style='mso-bookmark:_Hlt344715760'><span style='mso-bookmark:_Hlt384368643'>(</span></span></span></span></span>)</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414979595"></a><a name="_Hlt519785353"></a><a name="_Hlt346033427"></a><a
-  name="_Hlt342482015"></a><a name="_Hlt384368754"></a><a name="_Hlt404252939"></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
+  name="_Hlt384368643"></a><a name="_Hlt344715760"></a><a name="_Hlt405450654"></a><a
+  name="_Hlt414977870"></a><a name="_Hlt405450653"></a><a name="_Hlt344715831"></a><a
+  name="_Hlt346032742"></a><a name="_Hlt342479710"></a><a name="_Hlt428801178"></a><a
+  name="_Hlt342479688"></a><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  the members of a sequence to form new records of a table sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  members from a sequence starting from a specified position to create a new
+  sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:21'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="treset.html#T_reset"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-style:italic'>T.reset()</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings;mso-bidi-font-style:italic'><span style='mso-list:Ignore'>&Oslash;<span
+  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
+   href="kl.html#Empty_sequence"><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-style:italic'>[]</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
+  lang=EN-US style='mso-bidi-font-style:italic'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Clear
-  the members of a table sequence</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define<span
+  class=a1><span style='font-family:"Times New Roman",serif'> </span></span>an
+  empty sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:22'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span class=a1><span
   lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
   mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
   Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="trename.html#T_rename"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
-  lang=EN-US>.r<span style='mso-bookmark:_Hlt404252963'>e</span><span
-  style='mso-bookmark:_Hlt414979636'>n</span>ame()</span></span><span
+   href="a1an.html#a1_an"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>[<span
+  style='mso-bookmark:_Hlt384368652'><i>a</i></span><sub>1</sub>,<span
+  style='mso-bookmark:_Hlt344737410'><span style='mso-bookmark:_Hlt406674355'>…</span></span><span
+  style='mso-bookmark:_Hlt344471005'><span style='mso-bookmark:_Hlt344472085'><span
+  style='mso-bookmark:_Hlt428801250'><span style='mso-bookmark:_Hlt344305240'>,</span></span></span></span><span
+  style='mso-bookmark:_Hlt346032754'><i>a</i></span><span style='mso-bookmark:
+  _Hlt414977961'><i><sub>n</sub></i></span>]</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414979636"></a><a name="_Hlt404252963"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
+  name="_Hlt414977961"></a><a name="_Hlt346032754"></a><a name="_Hlt344305240"></a><a
+  name="_Hlt428801250"></a><a name="_Hlt344472085"></a><a name="_Hlt344471005"></a><a
+  name="_Hlt406674355"></a><a name="_Hlt344737410"></a><a name="_Hlt384368652"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  field names</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
+  a sequence constant</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:23'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="aselect.html#T_select"><span
-  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US>T</span></i><span
-  lang=EN-US>.select@i()</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US></span></i></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span
+  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
+  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
+   href="ifax.html#ifa"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>i<span
+  style='mso-bookmark:_Hlt342479544'><span style='mso-bookmark:_Hlt384368656'>f</span></span><span
+  style='mso-bookmark:_Hlt414977974'><span style='mso-bookmark:_Hlt346032759'>a</span></span><span
+  style='mso-bookmark:_Hlt312679156'>(</span>)</span></span><span
+  style='mso-bookmark:_Hlt161066090'></span></a><a
+  name="_Hlt312679156"></a><a name="_Hlt346032759"></a><a name="_Hlt414977974"></a><a
+  name="_Hlt384368656"></a><a name="_Hlt342479544"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  members of a table sequence/in-memory table which satisfy a condition</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Find
+  whether an object is a sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:24'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="createfi.html#create_Fi"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>cre<span
-  style='mso-bookmark:_Hlt346032868'>a</span>t<span style='mso-bookmark:_Hlt414979653'><span
-  style='mso-bookmark:_Hlt406675494'>e</span></span><span style='mso-bookmark:
-  _Hlt384368762'>(</span>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt384368762"></a><a name="_Hlt406675494"></a><a name="_Hlt414979653"></a><a
-  name="_Hlt346032868"></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  an empty table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:25'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
   Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="createxfi.html#create_F"><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>crea<span
-  style='mso-bookmark:_Hlt486842614'>t</span>e(<span style='mso-bookmark:_Hlt486702514'><span
-  style='mso-bookmark:_Hlt487207061'><span style='mso-bookmark:_Hlt487207062'>#</span></span></span><span
-  style='mso-bookmark:_Hlt497311865'><span style='mso-bookmark:_Hlt497311864'>F</span></span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt497311864"></a><a name="_Hlt497311865"></a><a name="_Hlt487207062"></a><a
-  name="_Hlt487207061"></a><a name="_Hlt486702514"></a><a name="_Hlt486842614"></a><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  an empty table sequence with one or more keys set</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:26'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="ifr.html#ifr"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>if<span
-  style='mso-bookmark:_Hlt426468231'><span style='mso-bookmark:_Hlt414979677'><span
-  style='mso-bookmark:_Hlt434945017'><span style='mso-bookmark:_Hlt342481380'>r</span></span></span></span><span
-  style='mso-bookmark:_Hlt406675500'><span style='mso-bookmark:_Hlt346032874'><span
-  style='mso-bookmark:_Hlt426468310'><span style='mso-bookmark:_Hlt346032893'><span
-  style='mso-bookmark:_Hlt426468248'><span style='mso-bookmark:_Hlt384368767'><span
-  style='mso-bookmark:_Hlt426468275'>(</span></span></span></span></span></span></span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt426468275"></a><a name="_Hlt384368767"></a><a name="_Hlt426468248"></a><a
-  name="_Hlt346032893"></a><a name="_Hlt426468310"></a><a name="_Hlt346032874"></a><a
-  name="_Hlt406675500"></a><a name="_Hlt342481380"></a><a name="_Hlt434945017"></a><a
-  name="_Hlt414979677"></a><a name="_Hlt426468231"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Find
-  whether an object is a record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:27'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="ift.html#ift"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>if<span
-  style='mso-bookmark:_Hlt384368771'><span style='mso-bookmark:_Hlt342481384'><span
-  style='mso-bookmark:_Hlt346032897'><span style='mso-bookmark:_Hlt414979852'>t</span></span></span></span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414979852"></a><a name="_Hlt346032897"></a><a name="_Hlt342481384"></a><a
-  name="_Hlt384368771"></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Find
-  whether an object is a table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:28'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings;mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>&Oslash;<span
-  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span><a
-   href="ifpure.html#ifpure_x"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>ifp<span style='mso-bookmark:_Hlt144465424'>u</span>re()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt144465424"></a><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Judge
-  whether a data object is a pure sequence or a pure table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:29'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rf.html#r_F"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>r</span></i><span lang=EN-US>.<span
-  style='mso-bookmark:_Hlt406675539'><span style='mso-bookmark:_Hlt384368775'><span
-  style='mso-bookmark:_Hlt346032901'><span style='mso-bookmark:_Hlt414979859'><span
-  style='mso-bookmark:_Hlt346032922'><i style='mso-bidi-font-style:normal'>F</i></span></span></span></span></span></span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt346032922"></a><a name="_Hlt414979859"></a><a name="_Hlt346032901"></a><a
-  name="_Hlt384368775"></a><a name="_Hlt406675539"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>Get</span></span><span
-  class=a1><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  lang=EN-US>value for field </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>F</span></span><span lang=EN-US> <span
-  style='mso-bidi-font-style:italic'>of</span> <span style='mso-bidi-font-style:
-  italic'>record </span></span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>r</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:30'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rfx.html#r_F_x"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>r</span></i><span lang=EN-US>.<span
-  style='mso-bookmark:_Hlt346032941'><i style='mso-bidi-font-style:normal'>F</i></span><span
-  style='mso-bookmark:_Hlt414979873'><span style='mso-bookmark:_Hlt346032927'>=</span></span><span
-  style='mso-bookmark:_Hlt344472742'><span style='mso-bookmark:_Hlt344472724'><span
-  style='mso-bookmark:_Hlt384368780'>x</span></span></span></span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt344472742"></a><a name="_Hlt344472724"></a><a name="_Hlt384368780"></a><a
-  name="_Hlt346032927"></a><a name="_Hlt414979873"></a><a name="_Hlt346032941"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
-  <i style='mso-bidi-font-style:normal'>x</i> to field </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>F</span></span><span
-  lang=EN-US> of record </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>r</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:31'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rarray.html#r_array"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>r</span></i><span lang=EN-US>.ar<span
-  style='mso-bookmark:_Hlt406675654'>r</span>ay<span style='mso-bookmark:_Hlt414979888'>(</span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414979888"></a><a name="_Hlt406675654"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the field values from a record respectively and return them as a sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:32'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="ralter.html#r_alter_Fi_FI"><span
+  </span></span></span></span><a  href="pinvk.html#p_inv_k"><span
   style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>r</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>.a<span
-  style='mso-bookmark:_Hlt169531906'>l</span>ter()</span></span><span
+  lang=EN-US>p</span></i><span lang=EN-US>.in<span style='mso-bookmark:_Hlt478106693'>v</span>(k)</span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt169531906"></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
+  name="_Hlt478106693"></a><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='color:black'>Modify fields of a record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:33'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="tcreatefx.html#r_create"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>r.</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>create()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  a table sequence by copying the data structure of a specified record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:34'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rfieldf.html#r_field"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>r</span></i><span lang=EN-US>.fie<span
-  style='mso-bookmark:_Hlt346032946'><span style='mso-bookmark:_Hlt414979950'><span
-  style='mso-bookmark:_Hlt346033026'>l</span></span></span><span
-  style='mso-bookmark:_Hlt384368786'>d</span>(<i style='mso-bidi-font-style:
-  normal'>F</i>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt384368786"></a><a name="_Hlt346033026"></a><a name="_Hlt414979950"></a><a
-  name="_Hlt346032946"></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the value of a certain field in a record</span></span></p>
+  sequence numbers of an integer sequence’s members in another integer sequence</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:35'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:25;mso-yfti-lastrow:yes'>
+  <td width=158 valign=top style='width:118.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
   style='mso-bookmark:_Hlt161066090'><span class=a1><span
   lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
   mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
   Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rfieldfx.html#r_field_i_x"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>r</span></i><span
-  lang=EN-US>.fie<span style='mso-bookmark:_Hlt406155182'><span
-  style='mso-bookmark:_Hlt406155181'>l</span></span><span style='mso-bookmark:
-  _Hlt373740448'>d</span><span style='mso-bookmark:_Hlt383791788'>(</span><span
-  style='mso-bookmark:_Hlt519607834'><i style='mso-bidi-font-style:normal'>F</i></span><i
-  style='mso-bidi-font-style:normal'>,x</i>)</span></span><span
+   href="to1.html#to"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>to<span style='mso-bookmark:_Hlt405450658'><span
+  style='mso-bookmark:_Hlt406674531'><span style='mso-bookmark:_Hlt346032763'><span
+  style='mso-bookmark:_Hlt384368660'><span style='mso-bookmark:_Hlt414977987'>(</span></span></span></span></span><span
+  style='mso-bookmark:_Hlt342479703'>)</span></span></span><span
   style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt519607834"></a><a name="_Hlt383791788"></a><a name="_Hlt373740448"></a><a
-  name="_Hlt406155181"></a><a name="_Hlt406155182"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
+  name="_Hlt342479703"></a><a name="_Hlt414977987"></a><a name="_Hlt384368660"></a><a
+  name="_Hlt346032763"></a><a name="_Hlt406674531"></a><a name="_Hlt405450658"></a><span
+  style='mso-bookmark:_Hlt161066090'><span class=a1><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  values in the specified field of a record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:36'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rfnamei.html#r_fname_i"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=PT-BR style='mso-bidi-font-size:
-  10.5pt;mso-ansi-language:PT-BR'>r</span></i></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=PT-BR style='mso-fareast-font-family:黑体;mso-ansi-language:
-  PT-BR'>.f<span style='mso-bookmark:_Hlt383792057'>n</span><span
-  style='mso-bookmark:_Hlt375300395'><span style='mso-bookmark:_Hlt414979995'>a</span></span><span
-  style='mso-bookmark:_Hlt404254010'><span style='mso-bookmark:_Hlt384368797'>m</span></span>e()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt384368797"></a><a name="_Hlt404254010"></a><a name="_Hlt414979995"></a><a
-  name="_Hlt375300395"></a><a name="_Hlt383792057"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the name of a field of the record according to the sequence number of the
-  field</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:37'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rfnof.html#r_fno_F"><span style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>r</span></i><span
-  lang=EN-US>.f<span style='mso-bookmark:_Hlt383792082'><span style='mso-bookmark:
-  _Hlt346033031'>n</span></span><span style='mso-bookmark:_Hlt384368803'><span
-  style='mso-bookmark:_Hlt404254016'><span style='mso-bookmark:_Hlt342481369'>o</span></span></span>(<span
-  style='mso-bookmark:_Hlt414980025'>)</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414980025"></a><a name="_Hlt342481369"></a><a name="_Hlt404254016"></a><a
-  name="_Hlt384368803"></a><a name="_Hlt346033031"></a><a name="_Hlt383792082"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the sequence number of field <i style='mso-bidi-font-style:normal'>F</i> of
-  record <i style='mso-bidi-font-style:normal'>r</i> in a table sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:38'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="rkey.html#r_key"><span
-  style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>r.</span></i><span lang=EN-US>ke<span style='mso-bookmark:_Hlt478106802'>y</span>()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt478106802"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the primary key value of a record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:39'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rmodifyxifi.html#r_modify_xi_Fi"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>r</span></i><span lang=EN-US>.m<span style='mso-bookmark:_Hlt404254022'>o</span>d<span
-  style='mso-bookmark:_Hlt414980048'><span style='mso-bookmark:_Hlt346033523'>i</span></span>f<span
-  style='mso-bookmark:_Hlt384368807'>y</span><span style='mso-bookmark:_Hlt342481963'>(</span>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt342481963"></a><a name="_Hlt384368807"></a><a name="_Hlt346033523"></a><a
-  name="_Hlt414980048"></a><a name="_Hlt404254022"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  the field values of a record</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:40'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="rrecord.html#r_record"><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>r</span></i><span
-  lang=EN-US>.re<span style='mso-bookmark:_Hlt519785447'>c</span><span
-  style='mso-bookmark:_Hlt422906187'><span style='mso-bookmark:_Hlt422906186'><span
-  style='mso-bookmark:_Hlt406675935'>o</span></span></span><span
-  style='mso-bookmark:_Hlt414980094'>r</span>d()</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt414980094"></a><a name="_Hlt406675935"></a><a name="_Hlt422906186"></a><a
-  name="_Hlt422906187"></a><a name="_Hlt519785447"></a><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  field values of a record<i style='mso-bidi-font-style:normal'> </i>with
-  members of a sequence </span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:41'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span class=a1><span
-  lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-  mso-bidi-font-family:Wingdings;font-weight:normal'><span style='mso-list:
-  Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span></span></span><a
-   href="v0.html#v_v"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>v<span
-  style='mso-bookmark:_Hlt384368825'>.</span><span style='mso-bookmark:_Hlt434862286'><span
-  style='mso-bookmark:_Hlt404254049'><span style='mso-bookmark:_Hlt434862287'><span
-  style='mso-bookmark:_Hlt406675970'>v</span></span></span></span><span
-  style='mso-bookmark:_Hlt355599572'><span style='mso-bookmark:_Hlt346033202'>(</span></span><span
-  style='mso-bookmark:_Hlt342481674'><span style='mso-bookmark:_Hlt355620361'><span
-  style='mso-bookmark:_Hlt414980120'>)</span></span></span></span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><a
-  name="_Hlt342481674"></a><a name="_Hlt355620361"></a><a name="_Hlt414980120"></a><a
-  name="_Hlt346033202"></a><a name="_Hlt355599572"></a><a name="_Hlt406675970"></a><a
-  name="_Hlt434862287"></a><a name="_Hlt404254049"></a><a name="_Hlt434862286"></a><a
-  name="_Hlt384368825"></a><span style='mso-bookmark:_Hlt161066090'><span
-  class=a1><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the primary key value of the record pointed by a referencing field</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:42'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="jlcs.html#record_constant"><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>{Fi:…,…}</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>JSON-style
-  record constant</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:43;mso-yfti-lastrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:0cm;text-indent:0cm;mso-list:l15 level1 lfo9'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
-  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-  </span></span></span></span><a  href="xbcs.html#table_sequence_constant"><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>[{Fi:…,…},…]</span></span><span
-  style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>JSON-style
-  table sequence constant</span></span></p>
+  <td width=388 valign=top style='width:290.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
+  a sequence composed of a series of consecutive integers</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -1099,7 +717,7 @@ functions that are unique in esProc and that handle table sequence values.</span
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

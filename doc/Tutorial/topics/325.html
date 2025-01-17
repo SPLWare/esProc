@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.11.1 Column graph</title>
+<title>12.10.3 Using SVG</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,12 +15,19 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>12.11.1 Column graph</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Column chart is among the most commonly used types of charts. Use <b
-style='mso-bidi-font-weight:normal'>Column graph</b> in esProc to plot a column
-chart. Take the following plotting algorithm as an example: </span></p>
+14.0pt;mso-bidi-font-size:10.0pt'>12.10.3 Using SVG
+</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>You can choose to output an SVG vector image for a
+chart plotted with esProc. There are some differences, however, between an SVG
+image and a png, jpg or gif image. </span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The first is the plotting algorithm. Below is a
+plotting algorithm (<span class=T-Bold><i style='mso-bidi-font-style:normal'>ChartSVG.splx</i></span>)
+of a column chart showing an athlete’s scores. </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -30,13 +37,13 @@ chart. Take the following plotting algorithm as an example: </span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  <td width=416 valign=top style='width:311.8pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -45,14 +52,14 @@ chart. Take the following plotting algorithm as an example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>1</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -63,338 +70,143 @@ chart. Take the following plotting algorithm as an example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>2</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from FRUITS&quot;)</span></p>
+  * from GYMSCORE where NAME=?&quot;,name)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>3</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;GraphColumn&quot;,&quot;categories&quot;:A2.(NAME),&quot;values&quot;:A2.(UNITPRICE))</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;BackGround&quot;)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>4</span></p>
+  <p class=TabLabel0><span lang=EN-US>4</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.draw@p(400,250)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;EnumAxis&quot;,&quot;name&quot;:&quot;x&quot;,&quot;xEnd&quot;:0.9,&quot;xPosition&quot;:0.7)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>5</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;NumericAxis&quot;,&quot;name&quot;:&quot;y&quot;,&quot;location&quot;:2,&quot;yStart&quot;:0.7)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>6</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Column&quot;,&quot;htmlLink&quot;:&quot;testChartSVG.jsp?spl=ChartSVGMain&quot;,&quot;linkTarget&quot;:&quot;_self&quot;,&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(EVENT),&quot;axis2&quot;:&quot;y&quot;,&quot;data2&quot;:A2.(SCORE))</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>7</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Text&quot;,&quot;text&quot;:name,&quot;textFont&quot;:&quot;Arial&quot;,&quot;textStyle&quot;:3,&quot;textSize&quot;:16,&quot;textColor&quot;:-10092340,&quot;data1&quot;:0.5,&quot;data2&quot;:-30)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd10><span lang=EN-US>8</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  A1.draw(550,200)</span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>You can see that the algorithm becomes much simpler
-with the ready-made column graph. It is unnecessary to plot chart elements,
-like axes, a figure, legend, and titles, that are components of a chart one by
-one. A1 creates a canvas and A2 retrieves the data for chart plotting:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=408 height=152
-src="Tutorial.files/image2871.jpg" v:shapes="_x0000_i2546"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A3 plots a column chart: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=642
-src="Tutorial.files/image2873.jpg" v:shapes="_x0000_i2547"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>You only need to set data properties of <b
-style='mso-bidi-font-weight:normal'>Categories</b> and <b style='mso-bidi-font-weight:
-normal'>Values</b> to plot the chart. Here’s A4’s plotting result:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2875.png" v:shapes="_x0000_i2548"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Using ready-made graphs is convenient by setting fewer
-parameters. Yet they produce fixed plotting styles. You can adjust the plotting
-effect by modifying the chart parameters, some of which, such as title text,
-axis color and legend properties, are shared by all the ready-made graphs. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>First let’s look at the title text setting for the
-horizontal and vertical axes. Modify A3 into </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.plot(&quot;GraphColumn&quot;,&quot;categories&quot;:A2.(NAME),&quot;values&quot;:A2.(UNITPRICE),&quot;xTitle&quot;:&quot;Fruits&quot;,&quot;xTitleFont&quot;:&quot;Vivaldi&quot;,&quot;xTitleSize&quot;:16,&quot;xTitleColor&quot;:-16764007,&quot;yTitle&quot;:&quot;Unit
-Price&quot;,&quot;yTitleFont&quot;:&quot;Vivaldi&quot;,&quot;yTitleSize&quot;:16,
-&quot;yTitleColor&quot;:-16737946,&quot;yTitleAngle&quot;:90)</span></b><span
-lang=EN-US> to change the properties of column graph:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=642
-src="Tutorial.files/image2877.jpg" v:shapes="_x0000_i2549"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Titles are added for both the horizontal axis and
-vertical axis beside data labels. Thus A4’s plotting result is:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2879.png" v:shapes="_x0000_i2550"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Modify properties of x-axis labels of the column
-graph: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=360
-src="Tutorial.files/image2881.jpg" v:shapes="_x0000_i2551"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Font and color are changed and A4’s plotting result
-becomes this:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2883.png" v:shapes="_x0000_i2552"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The font properties of labels are similar to
-properties of titles, only with an extra <b style='mso-bidi-font-weight:normal'>Interval</b>
-for displaying labels at certain interval. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The vertical axis of a column graph is a numeric axis,
-for which you can set font properties of labels as well as change value range,
-number of marks, and so on. Modify properties of y-axis labels:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=450
-src="Tutorial.files/image2885.jpg" v:shapes="_x0000_i2553"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>By doing so A3’s code is:</span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;GraphColumn&quot;,&quot;categories&quot;:A2.(NAME),&quot;values&quot;:A2.(UNITPRICE),&quot;xTitle&quot;:&quot;Fruits&quot;,&quot;xTitleFont&quot;:&quot;Vivaldi&quot;,&quot;xTitleSize&quot;:16,&quot;xTitleColor&quot;:-16764007,&quot;yTitle&quot;:&quot;Unit
-Price&quot;,&quot;yTitleFont&quot;:&quot;Vivaldi&quot;,&quot;yTitleSize&quot;:16,&quot;yTitleColor&quot;:-16737946,&quot;yTitleAngle&quot;:90,&quot;xLabelFont&quot;:&quot;Georgia&quot;,</span></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.1pt'><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>&quot;xLabelColor&quot;:-16764007,&quot;yLabelFont&quot;:&quot;Georgia&quot;,&quot;yLabelColor&quot;:-16737946,
-&quot;yEndValue&quot;:5,&quot;yMinMarks&quot;:5)</span></span><span lang=EN-US>.
-And A4’s plotting result is:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2887.png" v:shapes="_x0000_i2554"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>On the numeric y-axis, you can plot grid lines and the
-warning line. Grid lines are reference lines plotted according to tick marks.
-The warning line is plotted according to a specified warning value. Modify
-column graph properties as follows:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=360
-src="Tutorial.files/image2889.jpg" v:shapes="_x0000_i2555"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Here’s A4’s plotting result, on which you can see the
-grid lines and the warning line: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2891.png" v:shapes="_x0000_i2556"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Change the axis color by modifying A3’s chart
-parameters:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=248
-src="Tutorial.files/image2893.jpg" v:shapes="_x0000_i2557"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>This way the axis color will change accordingly. A4’s
-plotting result is:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2895.png" v:shapes="_x0000_i2558"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Besides, you can modify <b style='mso-bidi-font-weight:
-normal'>Border</b> properties to change the graph outline; or modify <b
-style='mso-bidi-font-weight:normal'>Graph title</b> properties to plot a title
-on the top of the graph. Modify column graph properties through A3:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=248
-src="Tutorial.files/image2897.jpg" v:shapes="_x0000_i2559"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>And you get the following plotting result:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2899.png" v:shapes="_x0000_i2560"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Add data markers on the top of each column by modifying
-column graph’s <b style='mso-bidi-font-weight:normal'>Data marker</b>
-properties:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=383
-src="Tutorial.files/image2901.jpg" v:shapes="_x0000_i2561"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Choose to display the initial data values and data
-markers will be added to each column. Below is the plotting result:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2903.png" v:shapes="_x0000_i2562"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>With a ready-made graph, set <b style='mso-bidi-font-weight:
-normal'>Legend</b> properties to plot a legend:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=345
-src="Tutorial.files/image2905.jpg" v:shapes="_x0000_i2563"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Then the plotting result is:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2907.png" v:shapes="_x0000_i2564"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Modify A3’s chart parameters to change chart area
-color, allow text overlapping or not, and set other properties:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=158
-src="Tutorial.files/image2909.jpg" v:shapes="_x0000_i2565"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=194
-src="Tutorial.files/image2911.jpg" v:shapes="_x0000_i2566"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The modification involves setting <b style='mso-bidi-font-weight:
-normal'>Canvas color</b> (of chart area), <b style='mso-bidi-font-weight:normal'>Back
-color</b> (of the plane) and <b style='mso-bidi-font-weight:normal'>Legend
-border color</b> (of legend outline), as well as changing <b style='mso-bidi-font-weight:
-normal'>Allow text overlapping</b> to <b style='mso-bidi-font-weight:normal'>false</b>,
-which means not plotting text if it may overlay the existing text, such as the <i
-style='mso-bidi-font-style:normal'>Strawberry</i> label on the horizontal axis
-in the above chart. Here’s A4’s plotting result:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2913.png" v:shapes="_x0000_i2567"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>These chart properties can be set not only for column
-graphs, but also for all other ready-made graphs. Here the property setting for
-them will be omitted. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Furthermore, the column graph can be used to plot a
-column chart with category and series, a column chart showing gym scores, for
-example: </span></p>
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>This plotting algorithm and the one in the first section use the
+same parameter: <i style='mso-bidi-font-style:normal'>name</i>. Main
+differences are that <b style='mso-bidi-font-weight:normal'><i
+style='mso-bidi-font-style:normal'>G</i>.draw() </b>in A8<b style='mso-bidi-font-weight:
+normal'> </b>doesn’t use any option and that no <b style='mso-bidi-font-weight:
+normal'><i style='mso-bidi-font-style:normal'>G</i>.hlink()</b> is used to
+return the hyperlink data. Instead, a hyperlink is defined with <span
+class=T-Bold><i style='mso-bidi-font-style:normal'><span style='font-weight:
+normal'>testChartSVG.jsp</span></i></span>. Related code will be explained
+later. In this case the column chart displaying scores for all athletes can be
+plotted using the following plotting algorithm <span class=T-Bold><i
+style='mso-bidi-font-style:normal'><span style='font-weight:normal'>ChartSVGMain.splx</span></i></span>:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -404,13 +216,13 @@ example: </span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  <td width=416 valign=top style='width:311.8pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -419,14 +231,14 @@ example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>1</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -437,14 +249,14 @@ example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>2</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -455,104 +267,502 @@ example: </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel0><span lang=EN-US>3</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;GraphColumn&quot;,&quot;categories&quot;:A2.(NAME+&quot;,&quot;+
-  EVENT),&quot;values&quot;:A2.(SCORE))</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;BackGround&quot;)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLaEnd10><span lang=EN-US>4</span></p>
+  <p class=TabLabel0><span lang=EN-US>4</span></p>
   </td>
-  <td width=454 style='width:226.75pt;border-top:none;border-left:none;
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.draw@p(400,250)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;EnumAxis&quot;,&quot;name&quot;:&quot;x&quot;,&quot;xEnd&quot;:0.9,&quot;xPosition&quot;:0.7)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>5</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;NumericAxis&quot;,&quot;name&quot;:&quot;y&quot;,&quot;location&quot;:2,&quot;yStart&quot;:0.7)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>6</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Column&quot;,&quot;stackType&quot;:2,&quot;htmlLink&quot;:
+  A2.(&quot;testChartSVG.jsp?spl=ChartSVG&amp;arg=&quot;+NAME),&quot;linkTarget&quot;:&quot;_self&quot;,
+  &quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(NAME+&quot;,&quot;+EVENT),&quot;axis2&quot;:&quot;y&quot;,&quot;data2&quot;:A2.(SCORE))</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel0><span lang=EN-US>7</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Text&quot;,&quot;text&quot;:&quot;GYMSCORE&quot;,&quot;textFont&quot;:&quot;Arial&quot;,&quot;textStyle&quot;:3,&quot;textSize&quot;:16,&quot;textColor&quot;:-16750900,&quot;data1&quot;:0.5,&quot;data2&quot;:-30)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd10><span lang=EN-US>8</span></p>
+  </td>
+  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  A1.draw(550,200)</span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A2 retrieves data for chart plotting:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=561 height=392
-src="Tutorial.files/image2915.jpg" v:shapes="_x0000_i2568"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A3 sets properties for the column chart:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=248
-src="Tutorial.files/image2917.jpg" v:shapes="_x0000_i2569"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Like setting properties for an enumeration axis
-discussed in <i style='mso-bidi-font-style:normal'><a  href="zuobiaozhou.html#Coordinate_Axes">Coordinate
-Axes</a></i>, setting <b style='mso-bidi-font-weight:normal'>Categories</b>
-data for a column chart with both category and series should include both
-category value and series value. Here <b style='mso-bidi-font-weight:normal'>NAME</b>
-is set as the category and <b style='mso-bidi-font-weight:normal'>EVENT </b>set
-as the series. By default each category will be plotted as a cluster of columns
-of series. Below is A4’s plotting result:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2919.png" v:shapes="_x0000_i2570"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Set <b style='mso-bidi-font-weight:normal'>Column type</b>
-as <b style='mso-bidi-font-weight:normal'>Stacked Column</b> to convert the
-column chart easily to a two-dimensional stacked column chart:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=721 height=396
-src="Tutorial.files/image2921.jpg" v:shapes="_x0000_i2571"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>And the plotting result is:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400;mso-no-proof:yes'><img border=0 width=600 height=375
-src="Tutorial.files/image2923.png" v:shapes="_x0000_i2572"></span></p>
+21.0pt'><span lang=EN-US>Likewise, the plotting algorithm returns an SVG image
+with a hyperlink using<i style='mso-bidi-font-style:normal'> testChartSVG.jsp</i>.
+</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>After converting to a two-dimensional chart, the 3D
-axes become normal lines. By changing column type, you can use the column graph
-to plot a 3D stacked column chart, bar chart and many other charts. </span></p>
+21.0pt'><span lang=EN-US>Below is the code for <i style='mso-bidi-font-style:
+normal'>testChartSVG.jsp</i>:</span></p>
+
+<p class=TConfig2CxSpFirst style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;<i
+style='mso-bidi-font-style:normal'>%@page contentType=&quot;text/html;
+charset=gb2312&quot; language=&quot;java&quot; import=&quot;java.sql.*&quot;
+errorPage=&quot;&quot;%&gt;</i></span></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;!DOCTYPE html&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;%</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Stringspl = request.getParameter(&quot;spl&quot;);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>String arg = request.getParameter(&quot;arg&quot;);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Connection con = null;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>java.sql.</span><span lang=EN-US style='mso-bidi-font-style:
+italic'>CallableStatement</span></i><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> st;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>String svg = &quot;&quot;;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>try {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Class.forName(&quot;com.esproc.jdbc.InternalDriver&quot;);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>con=
+DriverManager.getConnection(&quot;jdbc:esproc:local://&quot;);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>String callSpl =spl;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>if (arg != null) {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>callSpl += &quot;(\&quot;&quot;+arg+&quot;\&quot;)&quot;;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>callSpl += &quot;()&quot;;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>st =con.prepareCall(&quot;call &quot;+callSpl);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>st.execute();</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>ResultSet rs = st.getResultSet();</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>rs.next();</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>Object o = rs.getObject(1);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>byte[] bytes = (byte[]) rs.getObject(1);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>svg = new String(bytes, &quot;UTF-8&quot;);</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>catch (Exception e) {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>finally {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>if (con != null) {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>try {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:127.55pt;
+mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con.close();</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>catch (Exception e) {</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:127.55pt;
+mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>e.printStackTrace();</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:106.3pt;mso-char-indent-count:
+11.81'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>%&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;html&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;head&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;meta http-equiv=&quot;Content-Type&quot;
+content=&quot;text/html; charset=gb2312&quot;&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;title&gt;testSVG&lt;/title&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;/head&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;body&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:3.0cm;mso-char-indent-count:
+9.45'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;%=svg%&gt;</span></i></p>
+
+<p class=TConfig2CxSpMiddle style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
+7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;/body&gt;</span></i></p>
+
+<p class=TConfig2CxSpLast style='margin:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;mso-para-margin-top:0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:
+0cm;mso-para-margin-left:0gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
+4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'>&lt;/html&gt;</span></i><span lang=EN-US style='mso-bidi-font-family:
+"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Compared with the <i style='mso-bidi-font-style:normal'>testChart.jsp</i>
+in the first section, it is not necessary here to use <i style='mso-bidi-font-style:
+normal'>readChart.jsp</i> to handle the returned image. Instead, the SVG image
+code is generated right through the returned byte array and can be used
+directly in HTML.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The SVG code is allowed to include the hyperlink
+information, so there is no need to use the method introduced in the second
+section to enable the hyperlink. But note that SVG code is available only with
+web browsers supporting HTML5.0, such as IE9 version or above. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>By accessing the website
+http://localhost:8080/testChart/testChartSVG.jsp?spl=ChartSVGMain through web
+browser, you’ll get the following result:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=530 height=240
+src="Tutorial.files/image1412.png" v:shapes="_x0000_i2544"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Click on a column and the hyperlink will jump to the
+chart you desire: </span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=530 height=240
+src="Tutorial.files/image1413.png" v:shapes="_x0000_i2545"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="326.html">Next</a></div>
@@ -560,13 +770,13 @@ to plot a 3D stacked column chart, bar chart and many other charts. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="324.html">12.11 Using Ready-made Graphs</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="322.html">12.10 Web Integration and Hyperlink</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
