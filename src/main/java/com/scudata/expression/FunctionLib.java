@@ -995,10 +995,14 @@ public final class FunctionLib {
 				}
 			}
 		}
+		System.out.println("FunctionLib:" + FunctionLib.class.getClassLoader());
 
 		// loader√ª÷∏∂®∏∏
 		URLClassLoader loader = new URLClassLoader(list.toArray(new URL[] {}),
 				FunctionLib.class.getClassLoader());
+		
+		System.out.println("loader:" + loader);
+		
 		Pattern p = Pattern
 				.compile("com/scudata/lib/(\\w+)/functions.properties");
 

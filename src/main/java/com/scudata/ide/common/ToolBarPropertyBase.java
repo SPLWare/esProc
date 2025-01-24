@@ -228,6 +228,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 
 	/**
 	 * 设置编辑器字体
+	 * 
 	 * @param font
 	 */
 	protected void setEditorFont(Font font) {
@@ -497,6 +498,16 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		textEditor.setEnabled(enabled);
 		btEdit.setEnabled(enabled);
 		jBExt.setEnabled(enabled);
+		if (!enabled) {
+			try {
+				preventAction = true;
+				cellName.setText(null);
+				textEditor.setText("");
+			} catch (Exception ex) {
+			} finally {
+				preventAction = false;
+			}
+		}
 	}
 
 	// 类名:SpeedButton

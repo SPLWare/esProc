@@ -2,6 +2,7 @@ package com.scudata.ide.common.swing;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -46,7 +47,8 @@ public class JLabelUnderLine extends JLabel {
 	/**
 	 * 设置值
 	 * 
-	 * @param value 值
+	 * @param value
+	 *            值
 	 */
 	public void setValue(Object value) {
 		this.value = value;
@@ -99,10 +101,11 @@ public class JLabelUnderLine extends JLabel {
 			halign = IStyle.HALIGN_RIGHT;
 			break;
 		}
-		FontMetrics fm = getFontMetrics(getFont());
+		Font font = getFont();
+		FontMetrics fm = getFontMetrics(font);
 		int indent = fm.stringWidth(" ");
 		ControlUtilsBase.drawText(g, dispText, 0, 0, getWidth(), getHeight(),
-				underLine, halign, IStyle.VALIGN_MIDDLE, getFont(),
-				getForeground(), indent, false);
+				underLine, halign, IStyle.VALIGN_MIDDLE, font, getForeground(),
+				indent, false);
 	}
 }

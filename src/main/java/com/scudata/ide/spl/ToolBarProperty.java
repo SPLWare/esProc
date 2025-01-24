@@ -46,8 +46,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	/**
 	 * 设置编辑框的文本
 	 * 
-	 * @param newText   新文本
-	 * @param isRefresh 是否刷新
+	 * @param newText
+	 *            新文本
+	 * @param isRefresh
+	 *            是否刷新
 	 */
 	public void setTextEditorText(String newText, boolean isRefresh) {
 		if (!isRefresh && !GV.isCellEditing) {
@@ -75,6 +77,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 			} catch (Exception e) {
 				// 第三方文本框控件会打印异常，但是显示不会出现错误。
 				// 先把异常信息屏蔽了。
+			}
+			try {
+				textEditor.checkFont();
+			} catch (Exception e) {
 			}
 			textEditor.initRefCells(false);
 			textChanged();
@@ -119,6 +125,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 
 	/**
 	 * 设置网格编辑监听器
+	 * 
 	 * @return
 	 */
 	protected void addCellEditingListener(JTextComponent jtext,
@@ -131,8 +138,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	/**
 	 * 刷新Cell属性到工具栏
 	 * 
-	 * @param selectState byte 暂时没用
-	 * @param values      IByteMap
+	 * @param selectState
+	 *            byte 暂时没用
+	 * @param values
+	 *            IByteMap
 	 */
 	public void refresh(byte selectState, IByteMap values) {
 		if (GVSpl.cmdSender == this) {
@@ -232,7 +241,8 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	/**
 	 * 增加文本
 	 * 
-	 * @param text 文本
+	 * @param text
+	 *            文本
 	 */
 	public void addText(String text) {
 		if (!this.isEnabled()) {

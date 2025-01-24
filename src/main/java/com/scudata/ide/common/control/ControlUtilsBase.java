@@ -1214,6 +1214,26 @@ public class ControlUtilsBase {
 		return cp;
 	}
 
+	public static boolean canDisplayText(Font font, String text) {
+		try {
+			if (font != null && text != null) {
+				if (!font.getName().equalsIgnoreCase("DIALOG")) {
+					int[] codePoints = ControlUtilsBase.getCodePoints(text);
+					if (codePoints != null) {
+						int count = codePoints.length;
+						for (int i = 0; i < count; i++) {
+							if (!font.canDisplay(codePoints[i])) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception ex) {
+		}
+		return true;
+	}
+
 	/**
 	 * 当前格的背景色
 	 */

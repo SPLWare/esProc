@@ -1,6 +1,7 @@
 package com.scudata.ide.common.swing;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -45,6 +46,7 @@ import com.scudata.expression.IParam;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
+import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.control.SplControl;
 
@@ -188,7 +190,37 @@ public class JTextPaneEx extends JTextPane {
 	protected void docUpdate() {
 		if (preventChanged)
 			return;
+		checkFont();
 		initRefCells(true);
+	}
+
+	/**
+	 * 检查当前字体能否绘制文本，不能绘制时使用Dialog字体
+	 */
+	public void checkFont() {
+		try {
+			Font font = getFont();
+			if (!canDisplayText()) {
+				font = new Font("Dialog", font.getStyle(), font.getSize());
+				super.setFont(font);
+			}
+		} catch (Exception ex) {
+		}
+	}
+
+	public void setFont(Font font) {
+		if (!canDisplayText()) {
+			font = new Font("Dialog", font.getStyle(), font.getSize());
+		}
+		super.setFont(font);
+	}
+
+	protected boolean canDisplayText() {
+		try {
+			return ControlUtilsBase.canDisplayText(getFont(), getText());
+		} catch (Exception ex) {
+			return true;
+		}
 	}
 
 	// 太长的文本通常是数据就不辅助编辑了，要不然太慢了
