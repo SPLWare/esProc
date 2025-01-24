@@ -55,8 +55,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 * Take over the console
 	 */
 	public static void holdConsole() {
-		Font font = GC.font; // new Font("Dialog", GC.font.getStyle(),
-								// GC.font.getSize());
+		Font font = new Font("Dialog", GC.font.getStyle(), GC.font.getSize());
 		if (GV.console == null) {
 			JTextArea jta = new JTextArea();
 			jta.setFont(font);
