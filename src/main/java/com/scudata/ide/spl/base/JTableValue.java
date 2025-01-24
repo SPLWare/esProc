@@ -1750,7 +1750,10 @@ public class JTableValue extends JTableEx {
 					isSelected, hasFocus, row, column);
 			c.setBackground(table.getBackground());
 			c.setForeground(table.getForeground());
-			c.setFont(getScaleFont());
+			Font scaleFont = getScaleFont();
+			Font headerFont = new Font("Dialog", scaleFont.getStyle(),
+					scaleFont.getSize());
+			c.setFont(headerFont);
 			if (c instanceof JLabel) {
 				((JLabel) c).setText((String) value);
 				((JLabel) c).setHorizontalAlignment(JLabel.CENTER);
