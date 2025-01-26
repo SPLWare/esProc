@@ -1102,7 +1102,8 @@ public class SplEditor {
 			if (!parser.isColVisible(col)) {
 				continue;
 			}
-			float width = GMSpl.getMaxColWidth(control.getCellSet(), col);
+			float width = GMSpl.getMaxColWidth(control.getCellSet(), col,
+					control.scale);
 			ColCell cell = (ColCell) control.getCellSet().getColCell(col);
 			AtomicCell ac = new AtomicCell(control, cell);
 			ac.setProperty(AtomicCell.COL_WIDTH);
