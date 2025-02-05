@@ -128,7 +128,7 @@ public class DialogAbout extends JDialog {
 	 */
 	protected JPanel jPButton = new JPanel();
 
-	public static final int DIALOG_HEIGHT = GM.isChineseLanguage() ? 360 : 290;
+	public static final int DIALOG_HEIGHT = GM.isChineseLanguage() ? 360 : 325;
 	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 445 : 500;
 	public static final int ROW_HEIGHT = 25;
 
@@ -391,7 +391,7 @@ public class DialogAbout extends JDialog {
 		jLCompanyName.setForeground(SystemColor.textHighlight);
 		jLTel.setForeground(SystemColor.textHighlight);
 		getContentPane().add(panelTop, BorderLayout.CENTER);
-		boolean isCN = GM.isChineseLanguage();
+		 boolean isCN = GM.isChineseLanguage();
 		panelTop.add(jLabelLogo, new FreeConstraints(0, 0, 145, 123));
 		// panelTop.add(jLProductName, new FreeConstraints(163, 15, -1, -1));
 		int bottomY = placeCenter();
@@ -403,21 +403,21 @@ public class DialogAbout extends JDialog {
 				BOTTOM_L1, -1));
 		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY,
 				BOTTOM_L2, -1));
-		if (isCN) {
-			bottomY += ROW_HEIGHT;
-			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY,
-					BOTTOM_L2, -1));
-		}
+		 if (isCN) {
+		bottomY += ROW_HEIGHT;
+		panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY,
+				BOTTOM_L2, -1));
+		 }
 		bottomY += ROW_HEIGHT;
 		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY,
 				BOTTOM_L1, -1));
 		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY,
 				BOTTOM_L2, -1));
-		if (isCN) {
-			bottomY += ROW_HEIGHT;
-			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY,
-					BOTTOM_L2, -1));
-		}
+		// if (isCN) {
+		bottomY += ROW_HEIGHT;
+		panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY,
+				BOTTOM_L2, -1));
+		// }
 		if (isTelVisible()) {
 			bottomY += ROW_HEIGHT;
 			panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY,
