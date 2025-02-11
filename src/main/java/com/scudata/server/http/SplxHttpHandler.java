@@ -432,6 +432,23 @@ public class SplxHttpHandler implements HttpHandler {
 			
 			try{
 				String encoding = "UTF-8"; 
+				byte[] bytes = null;
+				if( result instanceof String ) {
+					bytes = ((String)result).getBytes(encoding);
+				}
+				else {
+					bytes = (byte[])result;
+					String type = FileUtils.getFileFormat( bytes );
+					if( FileUtils.FORMAT_GIF.equals( type )	|| FileUtils.FORMAT_JPG.equals( type ) || FileUtils.FORMAT_PNG.equals( type ) ) {
+						contentType = "image";
+					}
+				}
+				if( status == 404 ) {
+					httpExchange.sendResponseHeaders( 404, -1 );
+				}
+				else {
+					httpExchange.sendResponseHeaders( status, bytes.length );
+				}
 				Headers hs = httpExchange.getResponseHeaders();
 				boolean hasContentType = false;
 				if( headers != null && headers.trim().length() > 0 ) {
@@ -451,17 +468,6 @@ public class SplxHttpHandler implements HttpHandler {
 						else hs.add( key, jo.getString( key ) );
 					}
 				}
-				byte[] bytes = null;
-				if( result instanceof String ) {
-					bytes = ((String)result).getBytes(encoding);
-				}
-				else {
-					bytes = (byte[])result;
-					String type = FileUtils.getFileFormat( bytes );
-					if( FileUtils.FORMAT_GIF.equals( type )	|| FileUtils.FORMAT_JPG.equals( type ) || FileUtils.FORMAT_PNG.equals( type ) ) {
-						contentType = "image";
-					}
-				}
 				if( !hasContentType ) {
 					hs.add( "Content-Type", contentType );
 				}
@@ -472,14 +478,18 @@ public class SplxHttpHandler implements HttpHandler {
 				hs.add("Access-Control-Allow-Headers", "*");
 				hs.add("Access-Control-Allow-Credentials", "true");
 				
-				if( status == 404 ) {
-					httpExchange.sendResponseHeaders( 404, -1 );
-				}
-				else {
-					httpExchange.sendResponseHeaders( status, bytes.length );
-					OutputStream os = httpExchange.getResponseBody();
-					os.write(bytes);
-					os.close();
+				if( status != 404 ) {
+					try {
+						OutputStream os = httpExchange.getResponseBody();
+						os.write(bytes);
+						os.close();
+					}
+					catch( Throwable th ) {
+						String msg = th.getMessage();
+						if( msg == null || msg.indexOf( "not sent" ) < 0 ) {  //response headers not sent yet类错误不影响使用，不用报错
+							throw th;
+						}
+					}
 				}
 			}
 			catch(Throwable x){
