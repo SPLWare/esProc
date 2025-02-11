@@ -552,7 +552,10 @@ public class Esprocx {
 		String[] fields = ds.getFieldNames();
 		int s = fields.length;
 		for(int i=0; i<s; i++) {
-			System.out.print(fields[i]+"\t");
+			System.out.print(fields[i]);
+			if(i<s-1) {
+				System.out.print("\t");
+			}
 		}
 		System.out.println();
 	}
