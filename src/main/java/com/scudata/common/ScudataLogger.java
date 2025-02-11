@@ -216,11 +216,12 @@ public class ScudataLogger {
 			String file = tmp;
 			tmp = p.getProperty(name + ".Encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
+			String maxSize =p.getProperty(name + ".maxSize");
 			boolean isFixedFileName = false;
 			if (StringUtils.isValidString(buf)) {
 				isFixedFileName = Boolean.parseBoolean(buf);
 			}
-			h = logger.new FileHandler(file, tmp, isFixedFileName);
+			h = logger.new FileHandler(file, tmp, isFixedFileName,maxSize);
 		}
 		tmp = p.getProperty(name + ".Level");
 		if (StringUtils.isValidString(tmp)) {
@@ -422,66 +423,6 @@ public class ScudataLogger {
 		return formatter.format(new Date());
 	}
 
-	private ArrayList<String> bufFiles = new ArrayList<String>();
-	private Object[] getLogFile(String fileName, boolean isFixedFileName) {
-		Object[] files = new Object[2];//第0返回工作File，第1返回绝对路径
-		File f = new File(fileName);
-		if (!f.isAbsolute()) {
-			String home = System.getProperty("start.home");
-			if (home != null) {
-				f = new File(home, fileName);
-			} else {
-				ServletContext sc = Env.getApplication();
-				if (sc != null) {
-					home = sc.getRealPath("/");
-				}
-				if (home != null) {
-					f = new File(home, fileName);// 相对于web应用的根目录
-				} else {
-					// 这种情况为war包发布时，home仍然会为null，此时相对于当前的工作路径，也即web
-					// server的启动exe的路径。
-					f = new File(f.getAbsolutePath());// 在当前工作路径下文件
-				}
-			}
-			files[1] = f.getAbsolutePath();
-		}
-		String filePath;
-		if (isFixedFileName) {
-			filePath = f.getAbsolutePath();
-		} else {
-			String parentPath = f.getParent();
-			String file = f.getName();
-			if (!parentPath.endsWith(File.separator)) {
-				parentPath += File.separator;
-			}
-			String pattern = parentPath;// + File.separator;
-			if (file.endsWith(".log")) {
-				pattern += file.substring(0, file.length() - 4);
-			} else {
-				pattern += file;
-			}
-			currentMark = getDateMark();
-			filePath = pattern + "_" + currentMark + ".log";
-		}
-		if(!bufFiles.contains(filePath)) {
-			if(!Logger.isUseSLF4J()) {//使用框架时，设置的日志配置便用不上了
-				System.err.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
-			}
-			
-			bufFiles.add(filePath);
-			if(bufFiles.size()>1024) {
-				bufFiles.clear();
-			}
-		}
-
-		f = new File(filePath);
-		File p = f.getParentFile();
-		if (!p.exists()) {
-			p.mkdirs();
-		}
-		files[0] = f;
-		return files;
-	}
 
 	abstract class Handler {
 		int logLevel = iDEBUG;// iINFO;
@@ -520,24 +461,27 @@ public class ScudataLogger {
 	public class FileHandler extends Handler {
 		String fileName, encoding = "UTF-8";
 		boolean isFixedFileName = false;
+		int maxFileSize = 10*1024*1024;
 		String absolutePath = null;//由于构造相对路径的文件时，构造条件的不同可能造成绝对路径不一致，加上绝对路径，用于一旦文件生成绝对路径后，以后所有路径都用该绝对路径
+		File currentFile = null;
 		BufferedWriter br = null;
 		FileOutputStream fos = null;
 
 		public FileHandler(String file) throws Exception {
-			this(file, null,false);
+			this(file, null,false,null);
 		}
-
-		public FileHandler(String file, String encode,boolean isFixedFileName) throws Exception {
+//		maxSize:  单位为M， 可以写10， 或者10M
+		public FileHandler(String file, String encode,boolean isFixedFileName,String maxSize) throws Exception {
 			this.fileName = file;
 			this.isFixedFileName = isFixedFileName;
+			setMaxFileSize(maxSize);
 			if (encode != null && !encode.isEmpty()) {
 				this.encoding = encode;
 			}
 			Object[] files = getLogFile( getBaseFile(), isFixedFileName);
-			File f = (File)files[0];
+			currentFile = (File)files[0];
 			absolutePath = (String)files[1];
-			fos = new FileOutputStream(f, true);
+			fos = new FileOutputStream(currentFile, true);
 			br = new BufferedWriter(new OutputStreamWriter(fos, encoding));
 		}
 
@@ -553,16 +497,36 @@ public class ScudataLogger {
 			isFixedFileName = fix;
 		}
 
+		/**
+		 * 设置最大文件尺寸，单位M
+		 * @param maxSize
+		 */
+		public void setMaxFileSize(String maxSize) {
+			if(StringUtils.isValidString(maxSize)) {
+				try {
+					if(maxSize.toLowerCase().endsWith("m")) {
+						int len = maxSize.length();
+						maxSize = maxSize.substring(0,len-1);
+					}
+					maxFileSize = Integer.parseInt(maxSize)*1024*1024;
+				}catch(Exception x) {
+					
+				}
+			}
+		}
+
 		void doLog(int level, String msg) {
 			if (level > logLevel)
 				return;
 			if (!isFixedFileName) {
 				String mark = getDateMark();
-				if (!currentMark.equals(mark)) {
+				
+				if (!currentMark.equals(mark) ||
+						(currentFile!=null && currentFile.length()>maxFileSize)) {
 					try {
 						br.close();
-						File f = (File)getLogFile(getBaseFile(),isFixedFileName)[0];
-						fos = new FileOutputStream(f, true);
+						currentFile = (File)getLogFile(getBaseFile(),isFixedFileName)[0];
+						fos = new FileOutputStream(currentFile, true);
 						br = new BufferedWriter(new OutputStreamWriter(fos,
 								encoding));
 					} catch (Exception e1) {
@@ -586,6 +550,76 @@ public class ScudataLogger {
 			} catch (Exception e) {
 			}
 		}
+		
+		private ArrayList<String> bufFiles = new ArrayList<String>();
+		private Object[] getLogFile(String fileName, boolean isFixedFileName) {
+			Object[] files = new Object[2];//第0返回工作File，第1返回绝对路径
+			File f = new File(fileName);
+			if (!f.isAbsolute()) {
+				String home = System.getProperty("start.home");
+				if (home != null) {
+					f = new File(home, fileName);
+				} else {
+					ServletContext sc = Env.getApplication();
+					if (sc != null) {
+						home = sc.getRealPath("/");
+					}
+					if (home != null) {
+						f = new File(home, fileName);// 相对于web应用的根目录
+					} else {
+						// 这种情况为war包发布时，home仍然会为null，此时相对于当前的工作路径，也即web
+						// server的启动exe的路径。
+						f = new File(f.getAbsolutePath());// 在当前工作路径下文件
+					}
+				}
+				files[1] = f.getAbsolutePath();
+			}
+			String filePath;
+			if (isFixedFileName) {
+				filePath = f.getAbsolutePath();
+			} else {
+				String parentPath = f.getParent();
+				String file = f.getName();
+				if (!parentPath.endsWith(File.separator)) {
+					parentPath += File.separator;
+				}
+				String pattern = parentPath;// + File.separator;
+				if (file.endsWith(".log")) {
+					pattern += file.substring(0, file.length() - 4);
+				} else {
+					pattern += file;
+				}
+				currentMark = getDateMark();
+				int count=0;
+				filePath = pattern + "_" + currentMark+ count + ".log";
+				File tmp = new File(filePath);
+				while(tmp.length()>maxFileSize) {
+					count = count + 1;
+					filePath = pattern + "_" + currentMark+ count + ".log";
+					tmp = new File(filePath);
+				}
+			}
+			if(!bufFiles.contains(filePath)) {
+				if(!Logger.isUseSLF4J()) {//使用框架时，设置的日志配置便用不上了
+					System.err.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+				}
+				
+				bufFiles.add(filePath);
+				if(bufFiles.size()>1024) {
+					bufFiles.clear();
+				}
+			}
+
+			f = new File(filePath);
+			
+			File p = f.getParentFile();
+			if (!p.exists()) {
+				p.mkdirs();
+			}
+			files[0] = f;
+			return files;
+		}
+		
 	}
 
 	public static void main(String[] args) throws Exception {
