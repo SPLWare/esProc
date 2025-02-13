@@ -28,6 +28,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.JobSpace;
 import com.scudata.dm.Param;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -2993,6 +2994,16 @@ public class SimpleSelect
 		init();
 	}
 	
+	public static File getAppHome(Context ctx) {
+		if (ctx != null) {
+			JobSpace js = ctx.getJobSpace();
+			if (js != null) return js.getAppHome();
+		}
+		
+		return null;
+	}
+	
+	
 	private void init()
 	{
 		this.hasDistinct = false;
@@ -3702,13 +3713,17 @@ public class SimpleSelect
 				}
 				
 				boolean fileExists = false;
+				File f = new File("");
+				
 				//System.out.println("tableName " + tableName);
-				File[] fs = FileUtil.getFiles(tableName);
+				File appHome = getAppHome(ctx);
+				//.getAbsolutePath();
+				File[] fs = FileUtil.getFiles((appHome != null?appHome.getAbsolutePath()+"/":"")+tableName);
 				if (fs == null) {
-					fs = FileUtil.getFiles(Env.getMainPath()+"/"+tableName);
+					fs = FileUtil.getFiles((appHome != null?appHome.getAbsolutePath()+"/":"")+Env.getMainPath()+"/"+tableName);
 					if (fs == null && Env.getPaths() != null) {
 						for (int i=0; i<Env.getPaths().length; i++) {
-							fs = FileUtil.getFiles(Env.getPaths()[i]+"/"+tableName);
+							fs = FileUtil.getFiles((appHome != null?appHome.getAbsolutePath()+"/":"")+Env.getPaths()[i]+"/"+tableName);
 							if (fs != null) break;
 						}
 					}
