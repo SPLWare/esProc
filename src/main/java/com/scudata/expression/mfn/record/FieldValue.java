@@ -7,6 +7,7 @@ import com.scudata.dm.DataStruct;
 import com.scudata.expression.IParam;
 import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 取记录指定字段的值或设置指定字段的值
@@ -18,12 +19,61 @@ public class FieldValue extends RecordFunction {
 	private String prevName; // 上一次计算的字段名
 	private DataStruct prevDs; // 上一条记录的数据结构
 	private int prevCol; // 上一条记录字段的序号
-	
-	public Object calculate(Context ctx) {
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("field" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+	
+	// '+=' 赋值运算
+	public Object addAssign(Object value, Context ctx) {
+		if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (obj instanceof Number) {
+				int findex = ((Number)obj).intValue();
+				if (findex > 0) {
+					// 字段从0开始计数
+					findex--;
+				} else if (findex == 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("0" + mm.getMessage("ds.fieldNotExist"));
+				} // 小于0从后数
+				
+				Object result = Variant.add(srcRecord.getFieldValue(findex), value);
+				srcRecord.set(findex, result);
+				return result;
+			} else if (obj instanceof String) {
+				if (obj != prevName || srcRecord.dataStruct() != prevDs) {
+					prevName = (String)obj;
+					prevDs = srcRecord.dataStruct();
+					prevCol = prevDs.getFieldIndex(prevName);
+					
+					if (prevCol < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(prevName + mm.getMessage("ds.fieldNotExist"));
+					}
+				}
+				
+				Object result = Variant.add(srcRecord.getNormalFieldValue(prevCol), value);
+				srcRecord.setNormalFieldValue(prevCol, result);
+				return result;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("field" + mm.getMessage("function.paramTypeError"));
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("field" + mm.getMessage("function.invalidParam"));
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();

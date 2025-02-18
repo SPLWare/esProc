@@ -103,23 +103,57 @@ public class DotOperator extends Operator {
 	}
 	
 	public Object assign(Object value, Context ctx) {
-		Object result1 = getLeftObject(ctx);
-		if (result1 == null) {
-			return value;
+		Object leftValue = getLeftObject(ctx);
+		if (leftValue == null) {
+			return null;
+		}
+
+		Node right = this.right;
+		while (right != null) {
+			if (right.isLeftTypeMatch(leftValue)) {
+				right.setDotLeftObject(leftValue);
+				return right.assign(value, ctx);
+			} else {
+				right = right.getNextFunction();
+			}
 		}
 		
-		right.setDotLeftObject(result1);
-		return right.assign(value, ctx);
+		String fnName;
+		if (this.right instanceof Function) {
+			fnName = ((Function)this.right).getFunctionName();
+		} else {
+			fnName = "";
+		}
+		
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
 	}
 
 	public Object addAssign(Object value, Context ctx) {
-		Object result1 = getLeftObject(ctx);
-		if (result1 == null) {
+		Object leftValue = getLeftObject(ctx);
+		if (leftValue == null) {
 			return null;
 		}
+
+		Node right = this.right;
+		while (right != null) {
+			if (right.isLeftTypeMatch(leftValue)) {
+				right.setDotLeftObject(leftValue);
+				return right.addAssign(value, ctx);
+			} else {
+				right = right.getNextFunction();
+			}
+		}
 		
-		right.setDotLeftObject(result1);
-		return right.addAssign(value, ctx);
+		String fnName;
+		if (this.right instanceof Function) {
+			fnName = ((Function)this.right).getFunctionName();
+		} else {
+			fnName = "";
+		}
+		
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
 	}
 
 	public Object move(Move node, Context ctx) {
