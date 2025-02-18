@@ -656,11 +656,26 @@ public class Engine {
 		baos.close();
 
 		byte[] bs = baos.toByteArray();
-		String links = generateHyperLinks(false);
+		
+		//尝试代码设置SVG根元素宽高，不生效
+//        Element svgRoot = document.getDocumentElement();
+//        svgRoot.setAttribute("width", w+"");
+//        svgRoot.setAttribute("height", h+"");
+//		使用串硬拼
+		String buf = new String(bs, "UTF-8");
+		int n = buf.lastIndexOf("<svg");
+		StringBuffer sb = new StringBuffer();
+		sb.append(buf.substring(0, n+4));
+		String view = " width=\""+w+"\" height=\""+h+"\" ";
+		sb.append(view);
+		sb.append(buf.substring(n+5));
+		bs = sb.toString().getBytes("UTF-8");
+
+        String links = generateHyperLinks(false);
 		if (links != null) {// 拼接上超链接
-			String buf = new String(bs, "UTF-8");
-			int n = buf.lastIndexOf("</svg");
-			StringBuffer sb = new StringBuffer();
+			buf = new String(bs, "UTF-8");
+			n = buf.lastIndexOf("</svg");
+			sb = new StringBuffer();
 			sb.append(buf.substring(0, n));
 			sb.append(links);
 			sb.append("</svg>");

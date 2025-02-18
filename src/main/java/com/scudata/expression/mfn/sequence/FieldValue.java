@@ -9,6 +9,7 @@ import com.scudata.dm.Table;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 取排列指定字段的值或设置指定字段的值
@@ -26,7 +27,65 @@ public class FieldValue extends SequenceFunction {
 			throw new RQException("field" + mm.getMessage("function.missingParam"));
 		}
 	}
+	
+	// '+=' 赋值运算
+	public Object addAssign(Object value, Context ctx) {
+		if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (obj instanceof Number) {
+				int findex = ((Number)obj).intValue();
+				if (findex > 0) {
+					// 字段从0开始计数
+					findex--;
+				} else if (findex == 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("0" + mm.getMessage("ds.fieldNotExist"));
+				} // 小于0从后数
+				
+				Sequence src = this.srcSequence;
+				int size = src.length();
+				Sequence result = new Sequence(size);
 
+				for (int i = 1; i <= size; ++i) {
+					BaseRecord cur = (BaseRecord)src.getMem(i);
+					if (cur == null) {
+						result.add(null);
+					} else {
+						Object val = Variant.add(cur.getFieldValue(findex), value);
+						cur.set(findex, val);
+						result.add(val);
+					}
+				}
+
+				return result;
+			} else if (obj instanceof String) {
+				String fname = (String)obj;
+				Sequence src = this.srcSequence;
+				int size = src.length();
+				Sequence result = new Sequence(size);
+
+				for (int i = 1; i <= size; ++i) {
+					BaseRecord cur = (BaseRecord)src.getMem(i);
+					if (cur == null) {
+						result.add(null);
+					} else {
+						Object val = Variant.add(cur.getFieldValue(fname), value);
+						cur.set(fname, val);
+						result.add(val);
+					}
+				}
+
+				return result;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("field" + mm.getMessage("function.paramTypeError"));
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("field" + mm.getMessage("function.invalidParam"));
+		}
+	}
+	
 	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
