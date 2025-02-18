@@ -410,6 +410,12 @@
     </FUNCTION>
     <FUNCTION  name="concat">
     	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
+		<INFO dbtype="ORACLE" script=' ?.concat("||") '/>
+		<INFO dbtype="DB2" script=' ?.concat("||")'/>
+		<INFO dbtype="SQLSVR" script=' ?.concat("+")'/>
+		<INFO dbtype="POSTGRES" script=' ?.concat("||")'/>
+		<INFO dbtype="TERADATA" script=' ?.concat("||")'/>
+		<INFO dbtype="HSQL" script=' ?.concat("||")'/>
     </FUNCTION>
   </FUNCTIONS>
 </STANDARD>

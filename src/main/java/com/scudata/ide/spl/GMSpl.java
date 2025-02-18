@@ -333,7 +333,7 @@ public class GMSpl extends GM {
 	 *            ап
 	 * @return
 	 */
-	public static float getMaxColWidth(CellSet cs, int col) {
+	public static float getMaxColWidth(CellSet cs, int col, float scale) {
 		if (cs == null || cs.getColCount() < col || col < 1) {
 			return -1;
 		}
@@ -341,7 +341,7 @@ public class GMSpl extends GM {
 		NormalCell nc;
 		String cellText;
 		float maxWidth = -1, temp;
-		Font font = GC.font;
+		Font font = GM.getScaleFont(scale);
 		for (int row = 1; row <= rc; row++) {
 			nc = (NormalCell) cs.getCell(row, col);
 			if (nc == null) {
@@ -385,7 +385,7 @@ public class GMSpl extends GM {
 			if (nc == null) {
 				continue;
 			}
-			Font font = GC.font;
+			Font font = GM.getScaleFont(scale);
 			cellText = nc.getExpString();
 			if (cellText == null) {
 				continue;

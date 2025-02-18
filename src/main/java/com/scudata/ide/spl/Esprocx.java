@@ -24,6 +24,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
@@ -544,6 +545,21 @@ public class Esprocx {
 		}
 	}
 
+	private static void printStruct(DataStruct ds) {
+		if(ds==null) {
+			return;
+		}
+		String[] fields = ds.getFieldNames();
+		int s = fields.length;
+		for(int i=0; i<s; i++) {
+			System.out.print(fields[i]);
+			if(i<s-1) {
+				System.out.print("\t");
+			}
+		}
+		System.out.println();
+	}
+	
 	/**
 	 * 将执行的结果打印到控制台
 	 * @param result 计算结果
@@ -551,10 +567,12 @@ public class Esprocx {
 	public static void printResult(Object result) {
 		if (result instanceof Sequence) {
 			Sequence atoms = (Sequence) result;
+			printStruct(atoms.dataStruct());
 			print(atoms);
 		} else if (result instanceof ICursor) {
 			ICursor cursor = (ICursor) result;
 			Sequence seq = cursor.fetch(1024);
+			printStruct(seq.dataStruct());
 			while (seq != null) {
 				print(seq);
 				seq = cursor.fetch(1024);

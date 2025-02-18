@@ -861,7 +861,7 @@ public class JTableValue extends JTableEx {
 					}
 				}
 				if (isFirst) { // ×ÔÊÊÓ¦ÁÐ¿í
-					FontMetrics fm = getFontMetrics(GC.font);
+					FontMetrics fm = getFontMetrics(getScaleFont());
 					int cc = getColumnCount();
 					int rc = getRowCount();
 					Object val;
@@ -1651,7 +1651,7 @@ public class JTableValue extends JTableEx {
 			final int startCol = hasIndexCol ? 1 : 0;
 			for (int i = startCol; i < cc; i++) {
 				tc = getColumn(i);
-				int titleWidth = getFontMetrics(GC.font).stringWidth(
+				int titleWidth = getFontMetrics(getScaleFont()).stringWidth(
 						getColumnName(i));
 				if (isPK(pkIndex, i - startCol)) {
 					tc.setHeaderRenderer(new PKRenderer());

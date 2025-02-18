@@ -952,7 +952,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		int indent = ConfigOptions.iIndent.intValue();
 		float cw = parser.getColWidth(cc, scale) - indent;
 		float ch = parser.getRowHeight(cr, scale);
-		float textH = ControlUtils.getStringHeight(drawText, cw, GC.font);
+		float textH = ControlUtils.getStringHeight(drawText, cw,
+				GM.getScaleFont(scale));
 		if (ch > textH) {
 			return w;
 		}
@@ -999,8 +1000,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		int w = parser.getColWidth(col, scale);
 
 		if (ConfigOptions.bDispOutCell.booleanValue()) {
-			int textWidth = ControlUtils
-					.getStringMaxWidth(editingText, GC.font);
+			int textWidth = ControlUtils.getStringMaxWidth(editingText,
+					GM.getScaleFont(scale));
 
 			for (int c = col + 1; c <= cellSet.getColCount(); c++) {
 				if (!parser.isColVisible(c))
@@ -1033,7 +1034,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			float scale) {
 		int h = parser.getRowHeight(row, scale);
 		// 编辑控件本身要占宽度,多留出5个点
-		float textH = ControlUtils.getStringHeight(text, maxW - 5, GC.font);
+		float textH = ControlUtils.getStringHeight(text, maxW - 5,
+				GM.getScaleFont(scale));
 		for (int r = row + 1; r <= cellSet.getRowCount(); r++) {
 			if (!parser.isRowVisible(r)) {
 				continue;
@@ -1541,8 +1543,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			editor.requestFocus();
 			text = ControlUtils.getCellText(cellSet, row, col, isEditing);
 			CellRect rect = getEditorBounds(text, row, col, control.scale);
-			editor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
-					rect.getRowCount(), rect.getColCount());
+			// editor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
+			// rect.getRowCount(), rect.getColCount());
 			spEditor.setBounds(rect.getBeginRow(), rect.getBeginCol(),
 					rect.getRowCount(), rect.getColCount());
 			preventChange = true;
