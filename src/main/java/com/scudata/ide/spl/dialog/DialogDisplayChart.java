@@ -42,6 +42,7 @@ import javax.swing.event.ChangeListener;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.dom.svg.SVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
+import org.w3c.dom.svg.SVGAnimatedLength;
 import org.w3c.dom.svg.SVGDocument;
 
 import com.scudata.cellset.graph.config.GraphTypes;
@@ -198,7 +199,8 @@ public class DialogDisplayChart extends JDialog {
 	private void resetLangText() {
 		String svgTip = "";
 		if (!copy.isEnabled()) {
-			svgTip = splMM.getMessage("dialogdisplaychart.svgtip");
+			//SVG已经加上了宽高属性
+			svgTip = "";//splMM.getMessage("dialogdisplaychart.svgtip");
 		}
 		setTitle(splMM.getMessage("dialogdisplaychart.title", svgTip)); // 图形预览
 		close.setText(splMM.getMessage("button.close")); // 关闭
@@ -397,18 +399,22 @@ public class DialogDisplayChart extends JDialog {
 			}
 			return centerLabel;
 		}
-		// SVG画板暂时没有合适的获取宽高的属性，故只能绘制固定800*600区域。
 		JSVGCanvas svgCanvas = new JSVGCanvas();
 
 		SVGDocumentFactory factory = new SAXSVGDocumentFactory(null);
 		ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
 		SVGDocument svgDocument = factory.createSVGDocument(null, bais);
+		SVGAnimatedLength sw = svgDocument.getRootElement().getWidth();
+		int w = (int)sw.getBaseVal().getValue();
+		SVGAnimatedLength sh = svgDocument.getRootElement().getHeight();
+		int h = (int)sh.getBaseVal().getValue();
+
 		svgCanvas.setSVGDocument(svgDocument);
 		svgCanvas.setEnableImageZoomInteractor(true);
 		svgCanvas.setEnableZoomInteractor(true);
 		svgCanvas.setEnableResetTransformInteractor(true);
-		svgCanvas.setSize(800, 600);
-		svgCanvas.repaint(0, 0, 800, 600);
+		svgCanvas.setSize(w, h);
+		svgCanvas.repaint(0, 0, w, h);
 		return svgCanvas;
 	}
 
