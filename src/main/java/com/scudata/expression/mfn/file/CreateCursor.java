@@ -178,11 +178,13 @@ public class CreateCursor extends FileFunction {
 					throw new RQException(fnName + mm.getMessage("function.invalidParam"));
 				}
 				
+				if (types == null) {
+					types = new byte[fcount];
+				}
+				
 				String type = typeNames[i];
-				if (type == null) continue;
-				if (types == null) types = new byte[fcount];
-
-				if (type.equals("string")) {
+				if (type == null) {
+				} else if (type.equals("string")) {
 					types[i] = Types.DT_STRING;
 				} else if (type.equals("int")) {
 					types[i] = Types.DT_INT;
