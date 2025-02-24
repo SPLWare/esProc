@@ -2,9 +2,7 @@ package com.scudata.ide.spl;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
@@ -13,7 +11,6 @@ import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.CellLocation;
-import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
 import com.scudata.dm.BaseRecord;
@@ -26,6 +23,7 @@ import com.scudata.dm.LocalFile;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.ide.common.ConfigOptions;
+import com.scudata.ide.common.GV;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.util.CellSetUtil;
 import com.scudata.util.DatabaseUtil;
@@ -51,31 +49,31 @@ public class VSCodeApi {
 
 		String envFile = Esprocx.getAbsolutePath("/config/raqsoftConfig.xml");
 		config = ConfigUtil.load(envFile);
-
+		GV.config = config;
 		try {
 			ConfigOptions.load2(false, false);
 		} catch (Throwable e) {
 			System.err.println(AppUtil.getThrowableString(e));
 		}
 
-		String init = Esprocx.getConfigValue("init");
-		if (StringUtils.isValidString(init)) {
-			StringTokenizer st = new StringTokenizer(init);
-			while (st.hasMoreElements()) {
-				String token = st.nextToken();
-				int dot = token.lastIndexOf('.');
-				if (dot > 0) {
-					String clsName = token.substring(0, dot);
-					String method = token.substring(dot + 1);
-					try {
-						Class clz = Class.forName(clsName);
-						Method m = clz.getMethod(method, null);
-						remoteStore = m.invoke(clz, null);
-					} catch (Throwable t) {
-					}
-				}
-			}
-		}
+		// String init = Esprocx.getConfigValue("init");
+		// if (StringUtils.isValidString(init)) {
+		// StringTokenizer st = new StringTokenizer(init);
+		// while (st.hasMoreElements()) {
+		// String token = st.nextToken();
+		// int dot = token.lastIndexOf('.');
+		// if (dot > 0) {
+		// String clsName = token.substring(0, dot);
+		// String method = token.substring(dot + 1);
+		// try {
+		// Class clz = Class.forName(clsName);
+		// Method m = clz.getMethod(method, null);
+		// remoteStore = m.invoke(clz, null);
+		// } catch (Throwable t) {
+		// }
+		// }
+		// }
+		// }
 	}
 
 	/**
@@ -90,7 +88,7 @@ public class VSCodeApi {
 	}
 
 	private static void exit() {
-		Esprocx.closeRemoteStore(remoteStore);
+		// Esprocx.closeRemoteStore(remoteStore);
 		System.exit(0);
 	}
 
@@ -209,7 +207,7 @@ public class VSCodeApi {
 						loadArg = true;
 					}
 
-				} 
+				}
 			}
 		}
 
