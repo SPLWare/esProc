@@ -11,9 +11,13 @@ SPL provides standard programming language features like branching, looping, and
   
 You can try it at: https://try.esproc.com/splx?3VU, and find more code exmples at: https://c.esproc.com/article/1688024127696#toc_h2_2.  
 
+
 SPL stands for **Structured Process Language**, and its main goal is structured data computation. Currently, SQL is the mainstream language in this field, but SQL has many limitations and often requires external help, such as Python, to implement a full computational task. SPL introduces discreteness based on set operations for structured data tables, integrating the shared advantages of SQL and Java, allowing you to achieve the effect of SQL+Python using only SPL.  
+
 From this essay [The most powerful grouping operation in history, bar none](https://c.esproc.com/article/1739934617514), you can gain insight into one aspect of SPL's stronger language capabilities and understand why SPL can cover SQL+Python. With even more powerful features yet to be explored, SPL has the potential to revolutionize how complex data processing tasks are handled.  
+
 We are constantly collecting practical SQL problems and solving them in SPL here: https://c.esproc.com/tag/Application. Through these examples, you'll further appreciate SPL's elegance and powerful cappabilities.  
+
 
 esProc is developed entirely in Java, allowing it to be seamlessly integrated into Java applications and deployed as part of them. SPL also offers robust multi-data source capabilities, supporting a variety of data sources, including RDBs, NoSQL, and more - possibly the most in the industry.  
  
