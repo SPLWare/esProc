@@ -2766,8 +2766,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return sort(null).id("o");
 			}
 		} else if (opt.indexOf('h') != -1) {
-			return sort(null).id("o");
+			return sort(null).id(opt.replace('h', 'o'));
 		} else if (opt.indexOf('o') != -1) {
+			boolean containNull = opt.indexOf('0') == -1;
 			IArray mems = getMems();
 			int size = mems.size();
 			Sequence result = new Sequence(size);
@@ -2777,13 +2778,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			IArray resultMems = result.getMems();
 			Object prev = mems.get(1);
-			resultMems.add(prev);
+			
+			if (containNull || prev != null) {
+				resultMems.add(prev);
+			}
 
 			for (int i = 2; i <= size; ++i) {
 				Object obj = mems.get(i);
 				if (!Variant.isEquals(prev, obj)) {
 					prev = obj;
-					resultMems.add(obj);
+					
+					if (containNull || obj != null) {
+						resultMems.add(obj);
+					}
 				}
 			}
 
@@ -2796,7 +2803,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (length() > SORT_HASH_LEN) {
 				return CursorUtil.hashId(this, opt);
 			} else {
-				return sort(null).id("o");
+				return sort(null).id("o" + opt);
 			}
 		}
 	}

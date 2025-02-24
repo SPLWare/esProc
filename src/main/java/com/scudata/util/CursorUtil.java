@@ -637,9 +637,14 @@ public final class CursorUtil {
 		} else {
 			final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 			ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
-
+			boolean removeNull = opt != null && opt.indexOf('0') != -1;
+			
 			for (int i = 1; i <= len; ++i) {
 				Object item = src.getMem(i);
+				if (removeNull && item == null) {
+					continue;
+				}
+				
 				int hash = hashUtil.hashCode(item);
 				if (groups[hash] == null) {
 					groups[hash] = new ListBase1(INIT_GROUPSIZE);
