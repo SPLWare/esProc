@@ -19,7 +19,7 @@ SPL provides standard programming language features like branching, looping, and
 ![image](https://www.esproc.com/wp-content/themes/scudata-en/github_esproc_img/2.png)
  
   
-You can try it at: https://try.esproc.com/splx?3VU, and find more code exmples at: https://c.esproc.com/article/1688024127696#toc_h2_2.  
+You can try it at: https://try.esproc.com/splx?3VU, and find more code examples at: https://c.esproc.com/article/1688024127696#toc_h2_2.  
 
 
 SPL stands for **Structured Process Language**, and its main goal is structured data computation. Currently, SQL is the mainstream language in this field, but SQL has many limitations and often requires external help, such as Python, to implement a full computational task. SPL introduces discreteness based on set operations for structured data tables, integrating the shared advantages of SQL and Java, allowing you to achieve the effect of SQL+Python using only SPL.  
@@ -41,7 +41,7 @@ For open-source users, we have not provided an automatic installation package, b
 For other editions, installation packages can be downloaded from https://www.esproc.com/download-esproc/. No further instructions are necessary, as the installation process is straightforward.  
 
 
-##	To Learn esProc SPL
+## Learn esProc SPL
 
 This book: [SPL Programming](http://c.esproc.com/article/1634722432114) is a good start for learning SPL syntax. The book intends for beginners who do not have any programming experiences. Look it through quickly if you are a veteran, but the object understanding explained in section 4.4 is worth a study. Chapter 5 is important, too. It explains SPL’s set-oriented way of thinking, which is quite different from the other languages. But once you understand and master SPL, you can write elegant code. Chapters 8-10 are staple of SPL learning. It regards the structured data computations in a different perspective from SQL. This is significant even for the professional programmers! From the SPL point of view, SQL is a little simple in understanding the structured data as the world is complex. **The knowledges you obtained in various database courses are not broad and profound enough! You need a review and brush-up！**
 
