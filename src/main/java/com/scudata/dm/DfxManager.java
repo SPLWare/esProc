@@ -1,5 +1,6 @@
 package com.scudata.dm;
 
+import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,14 @@ public class DfxManager {
 		}
 	}
 	
+	public void clearDfx(String name) {
+		synchronized(dfxRefMap) {
+			File file = new File(name);
+			name = file.getPath();
+			dfxRefMap.remove(name);
+		}
+	}
+	
 	/**
 	 * 使用完dfx，还给缓存管理器
 	 * @param dfx PgmCellSet
@@ -60,7 +69,10 @@ public class DfxManager {
 	 * @return PgmCellSet
 	 */
 	public PgmCellSet removeDfx(String name, Context ctx) {
+		File file = new File(name);
+		name = file.getPath();
 		PgmCellSet dfx = null;
+		
 		synchronized(dfxRefMap) {
 			SoftReference<PgmCellSet> sr = dfxRefMap.remove(name);
 			if (sr != null) dfx = (PgmCellSet)sr.get();
@@ -84,7 +96,9 @@ public class DfxManager {
 	 */
 	public PgmCellSet removeDfx(FileObject fo, Context ctx) {
 		PgmCellSet dfx = null;
-		String name = fo.getFileName();
+		File file = new File(fo.getFileName());
+		String name = file.getPath();
+		
 		synchronized(dfxRefMap) {
 			SoftReference<PgmCellSet> sr = dfxRefMap.remove(name);
 			if (sr != null) dfx = (PgmCellSet)sr.get();

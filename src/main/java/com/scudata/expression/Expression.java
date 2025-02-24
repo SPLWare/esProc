@@ -22,7 +22,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.expression.fn.Call;
 import com.scudata.expression.fn.PCSFunction;
 import com.scudata.expression.operator.*;
 import com.scudata.resources.EngineMessage;
@@ -794,23 +793,10 @@ public class Expression {
 				return fn;
 			}
 			
-			String dfx = FunctionLib.getDFXFunction(fnName);
+			DfxFunction dfx = FunctionLib.getDFXFunction(fnName);
 			if (dfx != null) {
-				Function fun = new Call();
-				if (fnOpt == null) {
-					fun.setOption("r");
-				} else {
-					fun.setOption("r" + fnOpt);
-				}
-				
 				String param = scanParameter();
-				if (param == null || param.length() == 0) {
-					fun.setParameter(cs, ctx, '"' + dfx + '"');
-				} else {
-					fun.setParameter(cs, ctx, '"' + dfx + '"' + ',' + param);
-				}
-				
-				return fun;
+				return dfx.newFunction(cs, ctx, fnOpt, param);
 			}
 			
 			if (cs instanceof PgmCellSet) {

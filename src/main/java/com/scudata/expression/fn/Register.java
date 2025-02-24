@@ -66,7 +66,7 @@ public class Register extends Function {
 			throw new RQException("register" + mm.getMessage("function.paramTypeError"));
 		}
 		
-		FunctionLib.addDFXFunction((String)name, (String)dfx);
+		FunctionLib.addDFXFunction((String)name, (String)dfx, option);
 		return name;
 	}
 }
