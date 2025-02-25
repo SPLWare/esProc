@@ -428,22 +428,22 @@ public class GraphFontView {
 		}else {
 //			旋转角度仅支持0-90度
 			double rotateAngle = Math.toRadians(angle);
-			Rectangle tmpTA = getTextSize(text);
+//			Rectangle tmpTA = getTextSize(text);
 			
 			FontMetrics tfm = db.g.getFontMetrics(font);
 			int tw = tfm.stringWidth(text);
 			int th = tfm.getAscent();
 			double  dotLeft = th * Math.sin(rotateAngle );
 			double  dotRight = tw * Math.cos(rotateAngle );
-			double halfW = tmpTA.width/2;
-			double halfH = tmpTA.height/2;
+			double halfW = TA.width/2;
+			double halfH = TA.height/2;
 			switch (direction) {
 			case TEXT_ON_BOTTOM:
-				x += halfW-dotLeft;
-				y += tmpTA.height;
+				x -= dotRight;
+				y += TA.height;
 				break;
 			case TEXT_ON_TOP:
-				x += halfW-dotLeft;
+//				x += halfW-dotLeft;
 				break;
 			case TEXT_ON_LEFT:
 				x -= dotRight;
