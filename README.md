@@ -16,7 +16,7 @@ esProc SPL is a programming language. Unlike most text-based programming languag
 
   
 SPL provides standard programming language features like branching, looping, and even recursion. Notably, SPL has powerful set operation capabilities, making the code more concise. For instance, the famous eight queens puzzle can be solved in just a few lines.
-![image](https://www.esproc.com/wp-content/themes/scudata-en/github_esproc_img/2.png)
+![image](https://www.esproc.com/wp-content/themes/scudata-en/github_esproc_img/22.png)
  
   
 You can try it at: https://try.esproc.com/splx?3VU, and find more code examples at: https://c.esproc.com/article/1688024127696#toc_h2_2.  
