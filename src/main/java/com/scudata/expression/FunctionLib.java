@@ -17,7 +17,6 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.DfxManager;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Properties;
@@ -53,16 +52,10 @@ public final class FunctionLib {
 	}
 
 	// 全局函数映射表
-	private static HashMap<String, Class<? extends Function>> fnMap = new HashMap<String, Class<? extends Function>>(
-			256);
+	private static HashMap<String, Class<? extends Function>> fnMap = new HashMap<String, Class<? extends Function>>(256);
 
 	// 成员函数映射表
-	private static HashMap<String, ClassLink> mfnMap = new HashMap<String, ClassLink>(
-			256);
-
-	// 程序网格函数映射表，[函数名,程序网路径名]
-	private static HashMap<String, DfxFunction> dfxFnMap = new HashMap<String, DfxFunction>(
-			256);
+	private static HashMap<String, ClassLink> mfnMap = new HashMap<String, ClassLink>(256);
 
 	private FunctionLib() {
 	}
@@ -70,50 +63,6 @@ public final class FunctionLib {
 	static {
 		// 自定义函数不再自动加载，提供函数让上层设置
 		loadSystemFunctions();
-	}
-
-	/**
-	 * 添加程序网函数
-	 * 
-	 * @param fnName
-	 *            函数名
-	 * @param dfxPathName
-	 *            程序网路径名
-	 */
-	public static void addDFXFunction(String fnName, String dfxPathName, String opt) {
-		// 不能与全局函数重名
-		if (fnMap.containsKey(fnName)) {// || dfxFnMap.containsKey(fnName)
-			MessageManager mm = EngineMessage.get();
-			throw new RuntimeException(
-					mm.getMessage("FunctionLib.repeatedFunction") + fnName);
-		}
-
-		// 用新函数替换旧的
-		DfxFunction old = dfxFnMap.put(fnName, new DfxFunction(dfxPathName, opt));
-		if (old != null) {
-			// 清除缓存
-			DfxManager.getInstance().clearDfx(dfxPathName);
-		}
-	}
-
-	/**
-	 * 删除程序网函数
-	 * 
-	 * @param fnName
-	 *            函数名
-	 */
-	public static void removeDFXFunction(String fnName) {
-		dfxFnMap.remove(fnName);
-	}
-
-	/**
-	 * 根据函数名取程序网
-	 * 
-	 * @param fnName 函数名
-	 * @return 程序网函数
-	 */
-	public static DfxFunction getDFXFunction(String fnName) {
-		return dfxFnMap.get(fnName);
 	}
 
 	/**

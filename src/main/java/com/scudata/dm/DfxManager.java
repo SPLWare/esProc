@@ -120,7 +120,7 @@ public class DfxManager {
 	 * @param ctx 计算上下文
 	 * @return PgmCellSet
 	 */
-	public PgmCellSet readDfx(FileObject fo, Context ctx) {
+	public static PgmCellSet readDfx(FileObject fo, Context ctx) {
 		PgmCellSet dfx = fo.readPgmCellSet();
 		dfx.resetParam();
 		
@@ -136,7 +136,7 @@ public class DfxManager {
 	 * @param ctx 计算上下文
 	 * @return PgmCellSet
 	 */
-	public PgmCellSet readDfx(String name, Context ctx) {
+	public static PgmCellSet readDfx(String name, Context ctx) {
 		return readDfx(new FileObject(name, null, "s", ctx), ctx);
 	}
 	

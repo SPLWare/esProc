@@ -27,25 +27,46 @@ public class PCSFunction extends Function {
 
 	public Object calculate(Context ctx) {
 		Object[] args = null;
+		boolean hasOptParam = funcInfo.hasOptParam();
+		
 		if (param != null) {
-			if (param.isLeaf()) {
-				Object val = param.getLeafExpression().calculate(ctx);
-				args = new Object[] { val };
-			} else {
-				int size = param.getSubSize();
-				args = new Object[size];
+			if (hasOptParam) {
+				if (param.isLeaf()) {
+					Object val = param.getLeafExpression().calculate(ctx);
+					args = new Object[] {option, val};
+				} else {
+					int size = param.getSubSize();
+					args = new Object[size + 1];
+					args[0] = option;
 
-				for (int i = 0; i < size; ++i) {
-					IParam sub = param.getSub(i);
-					if (sub != null) {
-						args[i] = sub.getLeafExpression().calculate(ctx);
+					for (int i = 0; i < size; ++i) {
+						IParam sub = param.getSub(i);
+						if (sub != null) {
+							args[i + 1] = sub.getLeafExpression().calculate(ctx);
+						}
+					}
+				}
+			} else {
+				if (param.isLeaf()) {
+					Object val = param.getLeafExpression().calculate(ctx);
+					args = new Object[] { val };
+				} else {
+					int size = param.getSubSize();
+					args = new Object[size];
+
+					for (int i = 0; i < size; ++i) {
+						IParam sub = param.getSub(i);
+						if (sub != null) {
+							args[i] = sub.getLeafExpression().calculate(ctx);
+						}
 					}
 				}
 			}
+		} else if (hasOptParam) {
+			args = new Object[] {option};
 		}
 
-		PgmCellSet pcs = (PgmCellSet) cs;
-		return pcs.executeFunc(funcInfo, args, option);
+		return funcInfo.execute(args, option);
 	}
 
 	/**

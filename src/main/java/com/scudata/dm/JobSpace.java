@@ -2,9 +2,15 @@ package com.scudata.dm;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.MessageManager;
+import com.scudata.expression.DfxFunction;
 import com.scudata.expression.Expression;
+import com.scudata.expression.FunctionLib;
 import com.scudata.parallel.UnitClient;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 任务空间
@@ -19,6 +25,9 @@ public class JobSpace {
 
 	private ArrayList<UnitClient> unitClients = new ArrayList<UnitClient>();
 	private ResourceManager rm = new ResourceManager();
+
+	// 程序网格函数映射表，[函数名,程序网路径名]
+	private HashMap<String, DfxFunction> dfxFnMap = new HashMap<String, DfxFunction>(256);
 	
 	 public JobSpace(String ID) {
 		this.id = ID;
@@ -242,4 +251,50 @@ public class JobSpace {
 		return new File(this.appHome, "prog");
 	}
 	
+	/**
+	 * 添加程序网函数
+	 * @param fnName 函数名
+	 * @param dfxPathName 程序网路径名
+	 */
+	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
+		// 不能与全局函数重名
+		if (FunctionLib.isFnName(fnName)) {// || dfxFnMap.containsKey(fnName)
+			MessageManager mm = EngineMessage.get();
+			throw new RuntimeException(
+					mm.getMessage("FunctionLib.repeatedFunction") + fnName);
+		}
+
+		// 用新函数替换旧的
+		DfxFunction old = dfxFnMap.put(fnName, new DfxFunction(dfxPathName, opt));
+		if (old != null) {
+			// 清除缓存
+			DfxManager.getInstance().clearDfx(dfxPathName);
+		}
+	}
+
+	/**
+	 * 添加程序网函数
+	 * @param fnName 函数名
+	 * @param funcInfo 函数体信息
+	 */
+	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
+		dfxFnMap.put(fnName, new DfxFunction(funcInfo));
+	}
+	
+	/**
+	 * 删除程序网函数
+	 * @param fnName 函数名
+	 */
+	public void removeDFXFunction(String fnName) {
+		dfxFnMap.remove(fnName);
+	}
+
+	/**
+	 * 根据函数名取程序网
+	 * @param fnName 函数名
+	 * @return 程序网函数
+	 */
+	public DfxFunction getDFXFunction(String fnName) {
+		return dfxFnMap.get(fnName);
+	}
 }

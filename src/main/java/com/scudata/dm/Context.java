@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.DBSession;
 import com.scudata.common.ISessionFactory;
+import com.scudata.expression.DfxFunction;
 
 /**
  * 计算用到的上下文
@@ -378,5 +380,36 @@ public class Context {
 	 */
 	public Param getIterateParam() {
 		return iterateParam;
+	}
+	
+	/**
+	 * 添加程序网函数
+	 * @param fnName 函数名
+	 * @param dfxPathName 程序网路径名
+	 */
+	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
+		js.addDFXFunction(fnName, dfxPathName, opt);
+	}
+	
+	/**
+	 * 添加程序网函数
+	 * @param fnName 函数名
+	 * @param funcInfo 函数体信息
+	 */
+	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
+		js.addDFXFunction(fnName, funcInfo);
+	}
+	
+	/**
+	 * 根据函数名取程序网
+	 * @param fnName 函数名
+	 * @return 程序网函数
+	 */
+	public DfxFunction getDFXFunction(String fnName) {
+		if (js != null) {
+			return js.getDFXFunction(fnName);
+		} else {
+			return null;
+		}
 	}
 }

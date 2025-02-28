@@ -107,13 +107,13 @@ public class Call extends Function {
 				if (useCache) {
 					pcs = dfxManager.removeDfx((String)obj, ctx);
 				} else {
-					pcs = dfxManager.readDfx((String)obj, ctx);
+					pcs = DfxManager.readDfx((String)obj, ctx);
 				}
 			} else if (obj instanceof FileObject) {
 				if (useCache) {
 					pcs = dfxManager.removeDfx((FileObject)obj, ctx);
 				} else {
-					pcs = dfxManager.readDfx((FileObject)obj, ctx);
+					pcs = DfxManager.readDfx((FileObject)obj, ctx);
 				}
 			} else {
 				MessageManager mm = EngineMessage.get();
@@ -133,13 +133,13 @@ public class Call extends Function {
 				if (useCache) {
 					pcs = dfxManager.removeDfx((String)obj, ctx);
 				} else {
-					pcs = dfxManager.readDfx((String)obj, ctx);
+					pcs = DfxManager.readDfx((String)obj, ctx);
 				}
 			} else if (obj instanceof FileObject) {
 				if (useCache) {
 					pcs = dfxManager.removeDfx((FileObject)obj, ctx);
 				} else {
-					pcs = dfxManager.readDfx((FileObject)obj, ctx);
+					pcs = DfxManager.readDfx((FileObject)obj, ctx);
 				}
 			} else {
 				MessageManager mm = EngineMessage.get();
