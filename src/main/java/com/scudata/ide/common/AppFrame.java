@@ -49,6 +49,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		} catch (Exception ex) {
 			Logger.error(ex);
 		}
+		mixpanel();
 	}
 
 	/**
@@ -389,6 +390,9 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 				UIManager.put(key, fontRes);
 			}
 		}
+	}
+	
+	protected void mixpanel(){
 	}
 
 	/**

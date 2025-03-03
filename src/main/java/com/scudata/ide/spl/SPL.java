@@ -1203,8 +1203,8 @@ public class SPL extends AppFrame {
 				ConfigUtil.calcInitSpl(splPath, ctx);
 			} catch (Throwable t) {
 				// 计算初始化程序{0}失败：
-				GM.showException(GV.appFrame, t, true, null, IdeCommonMessage.get()
-						.getMessage("dfx.calcinitdfx", splPath));
+				GM.showException(GV.appFrame, t, true, null, IdeCommonMessage
+						.get().getMessage("dfx.calcinitdfx", splPath));
 			}
 		}
 
@@ -1709,6 +1709,10 @@ public class SPL extends AppFrame {
 			ConfigOptions.save(false, true);
 		} catch (Throwable e) {
 		}
+	}
+
+	protected void mixpanel() {
+		GM.mixpanel();
 	}
 
 	/**

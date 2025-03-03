@@ -84,6 +84,11 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.text.JTextComponent;
 
+import org.json.JSONObject;
+
+import com.mixpanel.mixpanelapi.ClientDelivery;
+import com.mixpanel.mixpanelapi.MessageBuilder;
+import com.mixpanel.mixpanelapi.MixpanelAPI;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.cellset.datamodel.NormalCell;
@@ -98,6 +103,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
+import com.scudata.common.UUID;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
@@ -1119,6 +1125,23 @@ public class GM {
 			cf.setConfigNode(ConfigFile.NODE_FORMAT);
 			cf.setAttrValue(colName, format);
 			cf.setConfigNode(oldNode);
+		} catch (Throwable t) {
+		}
+	}
+
+	public static void mixpanel() {
+		try {
+			MessageBuilder messageBuilder = new MessageBuilder(
+					"aa81d647e91020b8aaad6dcfc824479a");
+			JSONObject props = new JSONObject();
+			props.put("mp_country_code", Locale.getDefault().getCountry());
+			props.put("Language", Locale.getDefault().getLanguage());
+			JSONObject newLogin = messageBuilder.event(UUID.randomUUID()
+					.toString(), "login", props);
+			ClientDelivery delivery = new ClientDelivery();
+			delivery.addMessage(newLogin);
+			MixpanelAPI mixpanel = new MixpanelAPI();
+			mixpanel.deliver(delivery);
 		} catch (Throwable t) {
 		}
 	}

@@ -476,7 +476,7 @@ public class GMSpl extends GM {
 					Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
 					break;
 				default:
-					Locale.setDefault(Locale.ENGLISH);
+					Locale.setDefault(getDefaultEnLocale());
 					break;
 				}
 				GC.initLocale();
@@ -484,15 +484,19 @@ public class GMSpl extends GM {
 				if (GC.LANGUAGE == GC.ASIAN_CHINESE) {
 				} else if (GC.LANGUAGE != GC.ENGLISH) {
 					ConfigOptions.iLocale = new Byte(GC.ENGLISH);
-					Locale.setDefault(Locale.ENGLISH);
+					Locale.setDefault(getDefaultEnLocale());
 					GC.initLocale();
 				}
 			}
 		} catch (Throwable e) {
-			Locale.setDefault(Locale.ENGLISH);
+			Locale.setDefault(getDefaultEnLocale());
 			e.printStackTrace();
 		}
 		GC.resetLocal();
+	}
+
+	private static Locale getDefaultEnLocale() {
+		return new Locale("en", Locale.getDefault().getCountry());
 	}
 
 	/**
