@@ -1,8 +1,13 @@
 package com.scudata.expression.fn;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmCellSet.FuncInfo;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.UUID;
@@ -44,7 +49,14 @@ public class Call extends Function {
 
 	public Object calculate(Context ctx) {
 		PgmCellSet pcs = getCallPgmCellSet(ctx);
-		if (option != null && option.indexOf('n') != -1) {
+		boolean nopt = false, ropt = false, fopt = false;
+		if (option != null) {
+			if (option.indexOf('n') != -1) nopt = true;
+			if (option.indexOf('r') != -1) ropt = true;
+			if (option.indexOf('f') != -1) fopt = true;
+		}
+
+		if (nopt) {
 			// 产生新线程执行脚本，直接返回
 			String uuid = UUID.randomUUID().toString();
 			JobSpace jobSpace = JobSpaceManager.getSpace(uuid);
@@ -57,7 +69,19 @@ public class Call extends Function {
 		}
 		
 		Object val = pcs.execute();
-		if (option == null || option.indexOf('r') == -1) {
+		
+		if (fopt) {
+			HashMap<String, FuncInfo> map = pcs.getFunctionMap();
+			Set<Map.Entry<String,FuncInfo>> set = map.entrySet();
+			Iterator<Map.Entry<String,FuncInfo>> iterator = set.iterator();
+			
+			while (iterator.hasNext()) {
+				Map.Entry<String,FuncInfo> entry = iterator.next();
+				ctx.addDFXFunction(entry.getKey(), entry.getValue());
+			}
+		}
+		
+		if (ropt) {
 			pcs.reset();
 			DfxManager.getInstance().putDfx(pcs);
 		}

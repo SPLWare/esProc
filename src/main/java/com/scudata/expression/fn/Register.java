@@ -42,6 +42,8 @@ public class Register extends Function {
 
 	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("register" + mm.getMessage("function.invalidParam"));
 			/*Object name = param.getLeafExpression().calculate(ctx);
 			if (!(name instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -49,7 +51,7 @@ public class Register extends Function {
 			}
 			
 			FunctionLib.removeDFXFunction((String)name);
-			return name;*/
+			return name;
 			
 			Object obj = param.getLeafExpression().calculate(ctx);
 			FileObject fo;
@@ -74,7 +76,7 @@ public class Register extends Function {
 				ctx.addDFXFunction(entry.getKey(), entry.getValue());
 			}
 			
-			return Boolean.valueOf(map.size() > 0);
+			return Boolean.valueOf(map.size() > 0);*/
 		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("register" + mm.getMessage("function.invalidParam"));
