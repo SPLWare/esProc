@@ -64,7 +64,7 @@ public abstract class TableVar extends JPanel {
 	 */
 	public TableVar() {
 		super(new BorderLayout());
-		this.setMinimumSize(new Dimension(0, 0));
+		this.setMinimumSize(new Dimension(1, 1));
 		init();
 	}
 
