@@ -754,7 +754,7 @@ public class ConfigUtil {
 			}
 		}
 		if (in == null) {
-			throw new RQException("Get file " + path + " failed!");
+			throw new RQException("Failed to get file: " + path);
 		}
 		return in;
 

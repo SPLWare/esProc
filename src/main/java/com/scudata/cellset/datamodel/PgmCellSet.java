@@ -316,6 +316,7 @@ public class PgmCellSet extends CellSet {
 	 */
 	public class FuncInfo {
 		private String fnName;
+		private String option;
 		private PgmNormalCell cell; // 函数所在单元格
 		private String[] argNames; // 参数名
 
@@ -323,6 +324,13 @@ public class PgmCellSet extends CellSet {
 			this.fnName = fnName;
 			this.cell = cell;
 			this.argNames = argNames;
+		}
+		
+		public FuncInfo(String fnName, PgmNormalCell cell, String[] argNames, String option) {
+			this.fnName = fnName;
+			this.cell = cell;
+			this.argNames = argNames;
+			this.option = option;
 		}
 
 		public String getFnName() {
@@ -343,6 +351,22 @@ public class PgmCellSet extends CellSet {
 		 */
 		public String[] getArgNames() {
 			return argNames;
+		}
+
+		public String getOption() {
+			return option;
+		}
+
+		public void setOption(String option) {
+			this.option = option;
+		}
+		
+		public boolean hasOptParam() {
+			return option != null && option.indexOf('o') != -1;
+		}
+		
+		public Object execute(Object[] args, String opt) {
+			return executeFunc(this, args, opt);
 		}
 	}
 
@@ -2303,64 +2327,7 @@ public class PgmCellSet extends CellSet {
 	 * @return
 	 */
 	public FuncInfo getFuncInfo(String fnName) {
-		if (fnMap == null) {
-			// 遍历网格中定义的函数，生成函数名映射表
-			fnMap = new HashMap<String, FuncInfo>();
-			int rowCount = getRowCount();
-			int colCount = getColCount();
-			Context ctx = getContext();
-
-			for (int r = 1; r <= rowCount; ++r) {
-				for (int c = 1; c <= colCount; ++c) {
-					PgmNormalCell cell = getPgmNormalCell(r, c);
-					Command command = cell.getCommand();
-					if (command == null || command.getType() != Command.FUNC) {
-						continue;
-					}
-
-					String expStr = command.getExpression();
-					if (expStr == null || expStr.length() == 0) {
-						continue;
-					}
-
-					int len = expStr.length();
-					int nameEnd = KeyWord.scanId(expStr, 0);
-					if (nameEnd == len) {
-						FuncInfo funcInfo = new FuncInfo(name, cell, null);
-						fnMap.put(expStr, funcInfo);
-					} else {
-						String name = expStr.substring(0, nameEnd);
-						for (; nameEnd < len
-								&& Character.isWhitespace(expStr
-										.charAt(nameEnd)); ++nameEnd) {
-						}
-
-						if (nameEnd == len) {
-							FuncInfo funcInfo = new FuncInfo(name, cell, null);
-							fnMap.put(name, funcInfo);
-						} else if (expStr.charAt(nameEnd) == '('
-								&& expStr.charAt(len - 1) == ')') {
-							String[] argNames = null;
-							IParam param = ParamParser.parse(
-									expStr.substring(nameEnd + 1, len - 1),
-									this, ctx, false);
-							if (param != null) {
-								argNames = param.toStringArray("func", false);
-							}
-
-							FuncInfo funcInfo = new FuncInfo(name, cell, argNames);
-							fnMap.put(name, funcInfo);
-						} else {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("func"
-									+ mm.getMessage("function.invalidParam"));
-						}
-					}
-				}
-			}
-		}
-
-		return fnMap.get(fnName);
+		return getFunctionMap().get(fnName);
 	}
 
 	/**
@@ -2907,5 +2874,72 @@ public class PgmCellSet extends CellSet {
 
 	public boolean isExecuteOnly() {
 		return curPrivilege == PRIVILEGE_EXEC;
+	}
+
+	public HashMap<String, FuncInfo> getFunctionMap() {
+		if (fnMap == null) {
+			// 遍历网格中定义的函数，生成函数名映射表
+			fnMap = new HashMap<String, FuncInfo>();
+			int rowCount = getRowCount();
+			int colCount = getColCount();
+			Context ctx = getContext();
+
+			for (int r = 1; r <= rowCount; ++r) {
+				for (int c = 1; c <= colCount; ++c) {
+					PgmNormalCell cell = getPgmNormalCell(r, c);
+					Command command = cell.getCommand();
+					if (command == null || command.getType() != Command.FUNC) {
+						continue;
+					}
+
+					String expStr = command.getExpression();
+					if (expStr == null || expStr.length() == 0) {
+						continue;
+					}
+
+					int len = expStr.length();
+					int nameEnd = KeyWord.scanId(expStr, 0);
+					String fnName = expStr.substring(0, nameEnd);
+					String fnOpt = null;
+					int atIdx = fnName.indexOf(KeyWord.OPTION);
+					
+					if (atIdx != -1) {
+						fnOpt = fnName.substring(atIdx + 1);
+						fnName = fnName.substring(0, atIdx);
+					}
+					
+					if (nameEnd == len) {
+						FuncInfo funcInfo = new FuncInfo(fnName, cell, null, fnOpt);
+						fnMap.put(expStr, funcInfo);
+					} else {
+						for (; nameEnd < len
+								&& Character.isWhitespace(expStr.charAt(nameEnd)); ++nameEnd) {
+						}
+
+						if (nameEnd == len) {
+							FuncInfo funcInfo = new FuncInfo(fnName, cell, null, fnOpt);
+							fnMap.put(fnName, funcInfo);
+						} else if (expStr.charAt(nameEnd) == '('
+								&& expStr.charAt(len - 1) == ')') {
+							String[] argNames = null;
+							IParam param = ParamParser.parse(
+									expStr.substring(nameEnd + 1, len - 1),
+									this, ctx, false);
+							if (param != null) {
+								argNames = param.toStringArray("func", false);
+							}
+
+							FuncInfo funcInfo = new FuncInfo(fnName, cell, argNames, fnOpt);
+							fnMap.put(fnName, funcInfo);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("func" + mm.getMessage("function.invalidParam"));
+						}
+					}
+				}
+			}
+		}
+		
+		return fnMap;
 	}
 }

@@ -2766,8 +2766,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return sort(null).id("o");
 			}
 		} else if (opt.indexOf('h') != -1) {
-			return sort(null).id("o");
+			return sort(null).id(opt.replace('h', 'o'));
 		} else if (opt.indexOf('o') != -1) {
+			boolean containNull = opt.indexOf('0') == -1;
 			IArray mems = getMems();
 			int size = mems.size();
 			Sequence result = new Sequence(size);
@@ -2777,13 +2778,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			IArray resultMems = result.getMems();
 			Object prev = mems.get(1);
-			resultMems.add(prev);
+			
+			if (containNull || prev != null) {
+				resultMems.add(prev);
+			}
 
 			for (int i = 2; i <= size; ++i) {
 				Object obj = mems.get(i);
 				if (!Variant.isEquals(prev, obj)) {
 					prev = obj;
-					resultMems.add(obj);
+					
+					if (containNull || obj != null) {
+						resultMems.add(obj);
+					}
 				}
 			}
 
@@ -2796,7 +2803,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (length() > SORT_HASH_LEN) {
 				return CursorUtil.hashId(this, opt);
 			} else {
-				return sort(null).id("o");
+				return sort(null).id("o" + opt);
 			}
 		}
 	}
@@ -5894,30 +5901,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (obj != null) {
 				resultMems.add(obj);
 			}
-		}
-
-		return result;
-	}
-
-	private Sequence selectNotNull(Expression exp, Context ctx) {
-		IArray mems = getMems();
-		int size = mems.size();
-		Sequence result = new Sequence(size);
-		IArray resultMems = result.getMems();
-
-		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current(this);
-		stack.push(current);
-
-		try {
-			for (int i = 1; i <= size; ++i) {
-				current.setCurrent(i);
-				if (exp.calculate(ctx) != null) {
-					resultMems.add(mems.get(i));
-				}
-			}
-		} finally {
-			stack.pop();
 		}
 
 		return result;
@@ -9318,22 +9301,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			//}
 		}
 
-		Sequence seq = this;
-		if (opt.indexOf('0') != -1) {
-			seq = selectNotNull(exp, ctx);
-		}
-
 		if (opt.indexOf('h') != -1) {
 			opt = opt.replace('h', 'o');
-			return sort(exp, null, null, ctx).group(exp, opt, ctx);			
+			return sort(exp, null, null, ctx).group_o(exp, opt, ctx);			
 		} else if (opt.indexOf('o') != -1) {
-			return seq.group_o(exp, opt, ctx);
+			return group_o(exp, opt, ctx);
 		} else if (opt.indexOf('i') != -1) {
-			return seq.group_i(exp, opt, ctx);
+			return group_i(exp, opt, ctx);
 		} else if (opt.indexOf('n') != -1) {
-			return seq.group_n(exp, opt, ctx);
+			return group_n(exp, opt, ctx);
 		} else {
-			return CursorUtil.hashGroup(seq, new Expression[]{exp}, opt, ctx);
+			return CursorUtil.hashGroup(this, new Expression[]{exp}, opt, ctx);
 		}
 	}
 	
@@ -9443,6 +9421,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object curValue;
 		Sequence result = new Sequence(size / 4); // 分组后序列
 		IArray resultMems = result.getMems();
+		boolean reserveNull = opt == null || opt.indexOf('0') == -1;
 
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
@@ -9456,7 +9435,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				if (opt.indexOf('1') == -1) {
 					Sequence group = new Sequence(7);
 					group.add(mems.get(1));
-					resultMems.add(group);
+					
+					if (reserveNull || prevValue != null) {
+						resultMems.add(group);
+					}
 
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
@@ -9469,11 +9451,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							prevValue = curValue;
 							group = new Sequence(7);
 							group.add(mems.get(i));
-							resultMems.add(group);
+							
+							if (reserveNull || prevValue != null) {
+								resultMems.add(group);
+							}
 						}
 					}
 				} else {
-					resultMems.add(mems.get(1));
+					if (reserveNull || prevValue != null) {
+						resultMems.add(mems.get(1));
+					}
+					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						curValue = exp.calculate(ctx);
@@ -9481,7 +9469,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (!Variant.isEquals(prevValue, curValue)) {
 							// 新组
 							prevValue = curValue;
-							resultMems.add(mems.get(i));
+							if (reserveNull || prevValue != null) {
+								resultMems.add(mems.get(i));
+							}
 						}
 					}
 				}
@@ -9489,7 +9479,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				if (opt.indexOf('1') == -1) {
 					Sequence group = new Sequence(7);
 					group.add(ObjectCache.getInteger(1));
-					resultMems.add(group);
+					
+					if (reserveNull || prevValue != null) {
+						resultMems.add(group);
+					}
 
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
@@ -9502,11 +9495,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							prevValue = curValue;
 							group = new Sequence(7);
 							group.add(ObjectCache.getInteger(i));
-							resultMems.add(group);
+							
+							if (reserveNull || prevValue != null) {
+								resultMems.add(group);
+							}
 						}
 					}
 				} else {
-					resultMems.add(ObjectCache.getInteger(1));
+					if (reserveNull || prevValue != null) {
+						resultMems.add(ObjectCache.getInteger(1));
+					}
+					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						curValue = exp.calculate(ctx);
@@ -9514,7 +9513,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (!Variant.isEquals(prevValue, curValue)) {
 							// 新组
 							prevValue = curValue;
-							resultMems.add(ObjectCache.getInteger(i));
+							if (reserveNull || prevValue != null) {
+								resultMems.add(ObjectCache.getInteger(i));
+							}
 						}
 					}
 				}

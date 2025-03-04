@@ -376,12 +376,13 @@ public final class CursorUtil {
 		}
 		
 		int srcLen = src.length();
-		boolean isAll = true, isSort = true, isPos = false, isConj = false;
+		boolean isAll = true, isSort = true, isPos = false, isConj = false, deleteNull = false;
 		if (opt != null) {
 			if (opt.indexOf('1') != -1) isAll = false;
 			if (opt.indexOf('u') != -1) isSort = false;
 			if (opt.indexOf('p') != -1) isPos = true;
 			if (opt.indexOf('s') != -1) isConj = true;
+			if (opt.indexOf('0') != -1) deleteNull = true;
 		}
 
 		int keyCount = exps.length;
@@ -406,8 +407,11 @@ public final class CursorUtil {
 				for (int i = 1; i <= srcLen; ++i) {
 					current.setCurrent(i);
 					Object key = exp.calculate(ctx);
+					if (deleteNull && key == null) {
+						continue;
+					}
+					
 					int hash = hashUtil.hashCode(key);
-
 					if (groups[hash] == null) {
 						result.add(isPos ? new Integer(i):current.getCurrent());
 						groups[hash] = new ListBase1(INIT_GROUPSIZE);
@@ -437,6 +441,10 @@ public final class CursorUtil {
 						keys[k] = exps[k].calculate(ctx);
 					}
 
+					if (deleteNull && keys[0] == null) {
+						continue;
+					}
+					
 					int hash = hashUtil.hashCode(keys, keyCount);
 					if (groups[hash] == null) {
 						if (isAll) {
@@ -629,9 +637,14 @@ public final class CursorUtil {
 		} else {
 			final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 			ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
-
+			boolean removeNull = opt != null && opt.indexOf('0') != -1;
+			
 			for (int i = 1; i <= len; ++i) {
 				Object item = src.getMem(i);
+				if (removeNull && item == null) {
+					continue;
+				}
+				
 				int hash = hashUtil.hashCode(item);
 				if (groups[hash] == null) {
 					groups[hash] = new ListBase1(INIT_GROUPSIZE);

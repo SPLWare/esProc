@@ -240,14 +240,14 @@ public class DialogAbout extends JDialog {
 		String vendorName = mm.getMessage("dialogabout.defvendor");
 		setText(tmp, vendorName, jLCompanyName, jLbName);
 		tmp = mm.getMessage("dialogabout.providerhttp");// 公司网址
-		String vendorURL = mm.getMessage("dialogabout.defvendorurl");
+		String vendorURL = mm.getMessage("dialogabout.defvendorurl1");
 		setText(tmp, vendorURL, jLWebsite, jLbHttp);
 		tmp = mm.getMessage("dialogabout.providertel");// 公司电话
 		String vendorTel = "010-51295366";
 		setText(tmp, vendorTel, jLTel, jLTel2);
 
 		jLbName2.setText(mm.getMessage("dialogabout.defvendor1"));
-		jLbHttp2.setText(mm.getMessage("dialogabout.defvendorurl1"));
+		jLbHttp2.setText(mm.getMessage("dialogabout.defvendorurl"));
 	}
 
 	protected int getTopLabel1Width() {
