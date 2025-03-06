@@ -138,6 +138,8 @@ public class ConfigOptions {
 	/** Whether to automatically pop up the http setting dialog box */
 	public static Boolean bShowHttpConfig = Boolean.TRUE;
 
+	public static Boolean bSNPrompt = Boolean.TRUE;
+
 	/** esProc */
 	/** Row count */
 	public static Integer iRowCount = new Integer(20);
@@ -177,7 +179,7 @@ public class ConfigOptions {
 	public static Boolean bUnderline = Boolean.FALSE;
 	/** Show grid line */
 	public static Boolean bGridline = Boolean.TRUE;
-	
+
 	/** Horizontal alignment */
 	public static Byte iHAlign = new Byte(IStyle.HALIGN_LEFT);
 	/** Vertical alignment */
@@ -266,8 +268,7 @@ public class ConfigOptions {
 	public static Boolean bAutoExcelServer = Boolean.FALSE;
 
 	/**
-	 * 两种加载项同时存在时，需要选择加载项类型，用于生成Excel复制的表达式
-	 * true时表示是XLL类型，否则Office加载项类型
+	 * 两种加载项同时存在时，需要选择加载项类型，用于生成Excel复制的表达式 true时表示是XLL类型，否则Office加载项类型
 	 */
 	public static Boolean bExcelXllType = Boolean.TRUE;
 
@@ -329,7 +330,8 @@ public class ConfigOptions {
 		options.put("iValueBColor", new Integer(iValueBColor.getRGB()));
 		options.put("iNValueFColor", new Integer(iNValueFColor.getRGB()));
 		options.put("iNValueBColor", new Integer(iNValueBColor.getRGB()));
-		options.put("iBreakPointBColor", new Integer(iBreakPointBColor.getRGB()));
+		options.put("iBreakPointBColor",
+				new Integer(iBreakPointBColor.getRGB()));
 		options.put("iRowCount", iRowCount);
 		options.put("iColCount", iColCount);
 		options.put("fRowHeight", fRowHeight);
@@ -365,6 +367,8 @@ public class ConfigOptions {
 		options.put("sQvsConfigFile", sQvsConfigFile);
 		// options.put("bCheckUpdate", bCheckUpdate);
 		options.put("bNoticeExpiration", bNoticeExpiration);
+		options.put("bSNPrompt", bSNPrompt);
+
 	}
 
 	/**
@@ -584,8 +588,10 @@ public class ConfigOptions {
 				bNoticeExpiration = ii;
 			} else if (option.equalsIgnoreCase("bAutoExcelServer")) {
 				bAutoExcelServer = ii;
-			}else if (option.equalsIgnoreCase("bExcelXllType")) {
+			} else if (option.equalsIgnoreCase("bExcelXllType")) {
 				bExcelXllType = ii;
+			} else if (option.equalsIgnoreCase("bSNPrompt")) {
+				bSNPrompt = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {

@@ -141,7 +141,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	 */
 	public Dimension preferredLayoutSize(Container target) {
 		synchronized (target.getTreeLock()) {
-			Dimension dim = new Dimension(0, 0);
+			Dimension dim = new Dimension(1, 1);
 			int nmembers = target.getComponentCount();
 			boolean firstVisibleComponent = true;
 
@@ -170,7 +170,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	 */
 	public Dimension minimumLayoutSize(Container target) {
 		synchronized (target.getTreeLock()) {
-			Dimension dim = new Dimension(0, 0);
+			Dimension dim = new Dimension(1, 1);
 			int nmembers = target.getComponentCount();
 
 			for (int i = 0; i < nmembers; i++) {

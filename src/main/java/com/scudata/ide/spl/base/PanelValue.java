@@ -89,7 +89,7 @@ public class PanelValue extends JPanel {
 	public PanelValue() {
 		GVSpl.panelValue = this;
 		this.setLayout(new BorderLayout());
-		setMinimumSize(new Dimension(0, 0));
+		setMinimumSize(new Dimension(1, 1));
 		valueBar = new PanelValueBar();
 		add(valueBar, BorderLayout.NORTH);
 		tableValue = new JTableValue(this);

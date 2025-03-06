@@ -49,10 +49,10 @@ public class Call extends Function {
 
 	public Object calculate(Context ctx) {
 		PgmCellSet pcs = getCallPgmCellSet(ctx);
-		boolean nopt = false, ropt = false, fopt = false;
+		boolean nopt = false, useCache = true, fopt = false;
 		if (option != null) {
 			if (option.indexOf('n') != -1) nopt = true;
-			if (option.indexOf('r') != -1) ropt = true;
+			if (option.indexOf('r') != -1) useCache = false;
 			if (option.indexOf('f') != -1) fopt = true;
 		}
 
@@ -81,7 +81,7 @@ public class Call extends Function {
 			}
 		}
 		
-		if (ropt) {
+		if (useCache) {
 			pcs.reset();
 			DfxManager.getInstance().putDfx(pcs);
 		}

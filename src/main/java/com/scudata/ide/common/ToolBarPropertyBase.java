@@ -300,7 +300,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	 */
 	private JPanel getEmptyPanel() {
 		JPanel p = new JPanel();
-		Dimension d = new Dimension(0, 0);
+		Dimension d = new Dimension(1, 1);
 		p.setMaximumSize(d);
 		p.setMinimumSize(d);
 		p.setPreferredSize(d);

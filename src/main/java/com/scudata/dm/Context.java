@@ -401,6 +401,14 @@ public class Context {
 	}
 	
 	/**
+	 * 删除程序网函数
+	 * @param fnName 函数名
+	 */
+	public void removeDFXFunction(String fnName) {
+		js.removeDFXFunction(fnName);
+	}
+	
+	/**
 	 * 根据函数名取程序网
 	 * @param fnName 函数名
 	 * @return 程序网函数

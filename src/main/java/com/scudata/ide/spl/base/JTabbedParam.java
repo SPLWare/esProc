@@ -244,7 +244,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	private void initUI() {
-		this.setMinimumSize(new Dimension(0, 0));
+		this.setMinimumSize(new Dimension(1, 1));
 		GridBagConstraints gbc;
 		jPCsVar.add(new JPanel(), GM.getGBC(0, 0, true));
 		jPCsVar.add(jBCsRefresh, GM.getGBC(0, 1));

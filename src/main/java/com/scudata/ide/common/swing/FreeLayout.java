@@ -207,7 +207,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	 * @return
 	 */
 	Dimension getLayoutSize(Container container, boolean doPreferred) {
-		Dimension dim = new Dimension(0, 0);
+		Dimension dim = new Dimension(1, 1);
 		if (width <= 0 || height <= 0) {
 			int count = container.getComponentCount();
 			for (int i = 0; i < count; i++) {

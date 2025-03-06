@@ -1,17 +1,8 @@
 package com.scudata.expression.fn;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import com.scudata.cellset.datamodel.PgmCellSet;
-import com.scudata.cellset.datamodel.PgmCellSet.FuncInfo;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.DfxManager;
-import com.scudata.dm.FileObject;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -42,18 +33,16 @@ public class Register extends Function {
 
 	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("register" + mm.getMessage("function.invalidParam"));
-			/*Object name = param.getLeafExpression().calculate(ctx);
+			Object name = param.getLeafExpression().calculate(ctx);
 			if (!(name instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("register" + mm.getMessage("function.paramTypeError"));
 			}
 			
-			FunctionLib.removeDFXFunction((String)name);
+			ctx.removeDFXFunction((String)name);
 			return name;
 			
-			Object obj = param.getLeafExpression().calculate(ctx);
+			/*Object obj = param.getLeafExpression().calculate(ctx);
 			FileObject fo;
 			
 			if (obj instanceof String) {

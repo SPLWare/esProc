@@ -308,8 +308,8 @@ public class SPL extends AppFrame {
 			splitCenter.setRightComponent(desk);
 
 			lastLeftLocation = 0;
-			jTPLeft.setMinimumSize(new Dimension(0, 0));
-			jTPRight.setMinimumSize(new Dimension(0, 0));
+			jTPLeft.setMinimumSize(new Dimension(1, 1));
+			jTPRight.setMinimumSize(new Dimension(1, 1));
 
 			initFileTree();
 			// jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);
