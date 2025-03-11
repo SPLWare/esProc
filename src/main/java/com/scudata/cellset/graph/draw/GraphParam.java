@@ -42,6 +42,7 @@ public class GraphParam {
 	public int minTicknum2 = 1; /* 最小值轴标度数 */
 	public int graphXInterval = 0;
 	public byte timeScale = 0;
+	public String timeFormat = null;
 	public double scaleMark = 1; /* 值坐标比例标注 */
 	public boolean drawLineDot = true; /* 是否标注直线图的矩形方框 */
 	public boolean isOverlapOrigin = false; /* 原点重合 */

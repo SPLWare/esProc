@@ -197,6 +197,7 @@ public interface IGraphProperty{
   public byte getLineStyle();
   public boolean isShowOverlapText();
   public byte getStatusTimeType();
+  public String getStatusTimeFormat();
   public boolean isDrawShade();
   public boolean isRaisedBorder();
   public boolean getFlag(byte key);
