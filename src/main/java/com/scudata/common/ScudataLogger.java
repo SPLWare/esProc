@@ -214,7 +214,7 @@ public class ScudataLogger {
 			h = logger.new ConsoleHandler();
 		} else {// нд╪Ч
 			String file = tmp;
-			tmp = p.getProperty(name + ".Encoding");
+			tmp = p.getProperty(name + ".encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
 			String maxSize =p.getProperty(name + ".maxSize");
 			boolean isFixedFileName = false;
@@ -223,7 +223,7 @@ public class ScudataLogger {
 			}
 			h = logger.new FileHandler(file, tmp, isFixedFileName,maxSize);
 		}
-		tmp = p.getProperty(name + ".Level");
+		tmp = p.getProperty(name + ".level");
 		if (StringUtils.isValidString(tmp)) {
 			int l = getLevel(tmp);
 			h.setLevel(l);
