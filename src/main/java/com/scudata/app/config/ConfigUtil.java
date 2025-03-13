@@ -374,13 +374,13 @@ public class ConfigUtil {
 			if (StringUtils.isValidString(mainPath)) {
 				File f = new File(mainPath);
 				if (!f.isDirectory() || !f.exists()) {
-					Logger.info("Esproc main path [" + mainPath
+					Logger.info("esProc main path [" + mainPath
 							+ "] not exist.");
 				} else {
-					Logger.debug("Esproc main path: " + mainPath);
+					Logger.debug("esProc main path: " + mainPath);
 				}
 			} else {
-				Logger.debug("Esproc main path: " + mainPath);
+				Logger.debug("esProc main path: " + mainPath);
 			}
 			String tmpPath = config.getTempPath();
 			if (StringUtils.isValidString(tmpPath)) {
