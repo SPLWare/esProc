@@ -78,7 +78,7 @@ public class ScudataLogger {
 
 	public void clearHandlers() {
 		handlers.clear();
-		System.err.println("Clear logger\r\n");
+//		System.err.println("Clear logger\r\n");
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class ScudataLogger {
 
 	void addHandler(Handler h) {
 		handlers.add(h);
-		System.err.println("Using logger:"+h+"\r\n");
+//		System.err.println("Using logger:"+h+"\r\n");
 	}
 
 	/**
