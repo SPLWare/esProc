@@ -560,7 +560,7 @@ public class CellSetUtil {
 	/**
 	 * @param cellSet CellSet
 	 * @param args String[]
-	 * Esproc 为dos命令输入方式，值通常为串数组,需要先计算再put到context。
+	 * esProc 为dos命令输入方式，值通常为串数组,需要先计算再put到context。
 	 */
 	public static void putArgStringValue(CellSet cellSet,String[] args) {
 		if( args==null ) {
@@ -578,7 +578,7 @@ public class CellSetUtil {
 	/**
 	 * 把args的值依cellSet中参数次序依次设置
 	 * @param cellSet CellSet，要设置的网格对象
-	 * @param args Object[]，用户输入的串类型的参数值，方法为Esproc以及dataHub中计算网格前准备，xq
+	 * @param args Object[]，用户输入的串类型的参数值，方法为esProc以及dataHub中计算网格前准备，xq
 	 * DataHub为JDBC调用方式，值都是算好的Object数组。
 	 */
 	public static void putArgValue(CellSet cellSet,Object[] args) {

@@ -226,7 +226,7 @@ public class Esprocx {
 	 */
 	public static synchronized void addFinish() {
 		finishedWorkers++;
-		Logger.debug(ParallelMessage.get().getMessage("Esproc.taskFinish",
+		Logger.debug(ParallelMessage.get().getMessage("esProc.taskFinish",
 				finishedWorkers));
 	}
 
@@ -238,7 +238,7 @@ public class Esprocx {
 		if (!StringUtils.isValidString(mainPath)) {
 			mainPath = new File("").getAbsolutePath();
 			Env.setMainPath(mainPath);
-			Logger.debug("Esprocx is using main path: " + mainPath);
+			Logger.debug("esProcx is using main path: " + mainPath);
 		}
 	}
 
@@ -255,7 +255,7 @@ public class Esprocx {
 	 */
 	public static void main(String[] args) throws Exception {
 		boolean debug = false;
-		String etlUsage = "Esprocx [etlFile] [argN] ...\r\n"
+		String etlUsage = "esProcx [etlFile] [argN] ...\r\n"
 				+ " [etlFile]   相对于寻址路径或者主路径的etl文件名，也可以是绝对路径。\r\n"
 				+ " [argN]      etlFile有参数时，参数按照 参数顺序 指定。\r\n";
 
@@ -263,43 +263,43 @@ public class Esprocx {
 
 		String usage = "用于执行一个" + fileExts
 				+ "文件、一个简易的表达式、简单SQL或一个文本描述的dfx脚本。\r\n\r\n"
-				+ "Esprocx [-r] [-c]\r\n" + " [-r]   打印返回结果到控制台。\r\n"
+				+ "esProcx [-r] [-c]\r\n" + " [-r]   打印返回结果到控制台。\r\n"
 				+ " [-c]   从控制台读入一个列用Tab键分开的多行式网格脚本来执行(Ctrl+C结束录入)。\r\n\r\n"
-				+ "Esprocx [-r] [dfxFile] [arg0] [arg1]...\r\n"
+				+ "esProcx [-r] [dfxFile] [arg0] [arg1]...\r\n"
 				+ " [splxFile]   相对于寻址路径或者主路径的splx文件名，也可以是绝对路径。\r\n"
 				+ " [argN]      如果是splxFile且有参数，按顺序依次对应。\r\n\r\n" + etlUsage
-				+ "Esprocx [-r] [exp]\r\n" + " [exp]   一句dfx脚本命令。\r\n\r\n"
-				+ "示例:\r\n" + "  Esprocx -r -c\r\n"
+				+ "esProcx [-r] [exp]\r\n" + " [exp]   一句dfx脚本命令。\r\n\r\n"
+				+ "示例:\r\n" + "  esProcx -r -c\r\n"
 				+ "    执行一个待录入的文本式网格并打印返回结果。\r\n"
-				+ "  Esprocx -r demo.splx arg1 arg2\r\n"
+				+ "  esProcx -r demo.splx arg1 arg2\r\n"
 				+ "    用参数arg1、arg2执行寻址路径上的demo.splx，打印返回结果。\r\n"
-				+ "  Esprocx SELECT count(*) FROM t.json\r\n"
-				+ "    执行一句简单SQL。\r\n" + "  Esprocx demo.etl 1\r\n"
+				+ "  esProcx SELECT count(*) FROM t.json\r\n"
+				+ "    执行一句简单SQL。\r\n" + "  esProcx demo.etl 1\r\n"
 				+ "    对应参数month为1月，执行寻址路径上的demo.etl。\r\n";
 
-		String etlUsageEn = "Esprocx [etlFile] [argN]...\r\n"
+		String etlUsageEn = "esProcx [etlFile] [argN]...\r\n"
 				+ " [etlFile]   An etl file name relative to a search path or a main path; can be an absolute path. \r\n"
 				+ " [argN]      If etlFile contains parameters, pass values to them according to the order defined. \r\n";
 		String usageEn = "It is used to execute a "
 				+ fileExts
 				+ " file, a simple expression, a simple SQL statement, or a text formatting dfx script. \r\n\r\n"
-				+ "Esprocx [-r] [-c]\r\n"
+				+ "esProcx [-r] [-c]\r\n"
 				+ " [-r]   Print result to the console. \r\n"
 				+ " [-c]   Read from the console a multiline cellset script in which columns are separated by the Tab to execute (Ctrl+C for finishing  input).  \r\n\r\n"
-				+ "Esprocx [-r] [splxFile] [arg0] [arg1]...\r\n"
+				+ "esProcx [-r] [splxFile] [arg0] [arg1]...\r\n"
 				+ " [splxFile]   A splx file name relative to a search path or a main path; can be an absolute path. \r\n"
 				+ " [argN]      If the splxFile contains parameters, pass values to them in order. \r\n\r\n"
-				+ "Esprocx [-r] [exp]\r\n"
+				+ "esProcx [-r] [exp]\r\n"
 				+ " [exp]   A dfx script command. \r\n\r\n"
 				+ etlUsageEn
 				+ "Example:\r\n"
-				+ "  Esprocx -r -c\r\n"
+				+ "  esProcx -r -c\r\n"
 				+ "    Execute a to-be-input text formatting cellset and print the returned result. \r\n"
-				+ "  Esprocx -r demo.splx arg1 arg2\r\n"
+				+ "  esProcx -r demo.splx arg1 arg2\r\n"
 				+ "    Execute demo.splx on a search path with parameters arg1 and arg2, and print the returned result. \r\n"
-				+ "  Esprocx SELECT count(*) FROM t.json\r\n"
+				+ "  esProcx SELECT count(*) FROM t.json\r\n"
 				+ "    Execute a simple SQL statement. \r\n"
-				+ "  Esprocx demo.etl 1\r\n"
+				+ "  esProcx demo.etl 1\r\n"
 				+ "    Execute demo.etl on a search path by inputting January as the paramer value. \r\n";
 		String lang = System.getProperty("user.language");
 		if (lang.equalsIgnoreCase("en")) {
@@ -324,8 +324,8 @@ public class Esprocx {
 				args = st.toStringArray();
 			}
 		}
-//		args = new String[] {"select","esprocx.sh","other.cmd","from","a.txt"};
-//		args = new String[] {"esprocx.sh","other.cmd","from","a.txt"};
+//		args = new String[] {"select","esProcx.sh","other.cmd","from","a.txt"};
+//		args = new String[] {"esProcx.sh","other.cmd","from","a.txt"};
 //		args = new String[] {"field1","field2","from","a.txt"};
 //		args = new String[] {"$select","field1","field2","from","a.txt"};
 		boolean existStar = false;// 处理 Select *
@@ -386,11 +386,11 @@ public class Esprocx {
 						continue;
 					}
 					if (loadArg) {
-						if (arg.equalsIgnoreCase("esprocx.exe")) {
+						if (arg.equalsIgnoreCase("esProcx.exe")) {
 							existStar = true;
 							continue;
 						}
-						if (arg.equalsIgnoreCase("esprocx.sh")) {
+						if (arg.equalsIgnoreCase("esProcx.sh")) {
 							existStar = true;
 							continue;
 						}
@@ -406,8 +406,8 @@ public class Esprocx {
 							fileArgs.append(arg + " ");
 						}
 					} else {
-						if(arg.equalsIgnoreCase("esprocx.sh")) {
-							dfxFile="$select";//Linux下执行 esprocx.sh $select * from txt时
+						if(arg.equalsIgnoreCase("esProcx.sh")) {
+							dfxFile="$select";//Linux下执行 esProcx.sh $select * from txt时
 //							会将$select本身也替换掉了
 							existStar = true;
 						}else {
@@ -485,7 +485,7 @@ public class Esprocx {
 					}
 				} else {
 					Logger.severe(ParallelMessage.get().getMessage(
-							"Esproc.unsupportedfile", dfxFile));// "不支持的文件："+dfxFile);
+							"esProc.unsupportedfile", dfxFile));// "不支持的文件："+dfxFile);
 				}
 			} else {// 表达式
 				Context context = Esprocx.prepareEnv();
@@ -502,7 +502,7 @@ public class Esprocx {
 						cmd = dfxFile + " " + fileArgs;
 					}
 					Logger.debug(ParallelMessage.get().getMessage(
-							"Esproc.executecmd", cmd));
+							"esProc.executecmd", cmd));
 					Object result = AppUtil.executeCmd(cmd, context);
 					if (printResult) {
 						printResult(result);
@@ -517,7 +517,7 @@ public class Esprocx {
 			long lastTime = finishTime - workBegin;
 			if (threadCount > 1 || isEtl) {
 				Logger.debug(ParallelMessage.get().getMessage(
-						"Esproc.taketimes", df.format(lastTime)));
+						"esProc.taketimes", df.format(lastTime)));
 			}
 		} catch (Throwable x) {
 			Logger.error(x.getMessage(), x);
