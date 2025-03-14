@@ -3789,7 +3789,7 @@ public class GM {
 		}
 	}
 
-	private static void browseOld(String url) throws Exception {
+	private static void browseOld(String url) throws Throwable {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (GM.isWindowsOS()) {
 			Runtime.getRuntime().exec(
