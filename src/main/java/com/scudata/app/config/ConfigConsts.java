@@ -106,7 +106,7 @@ public class ConfigConsts {
 	/**
 	 * Esproc Configuration
 	 */
-	public static String ESPROC = "Esproc";
+	public static String ESPROC = "esProc";
 	/** Default charSet */
 	public static String CHAR_SET = "charSet";
 	/** Spl search paths */

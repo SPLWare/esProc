@@ -409,7 +409,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		return sheetNameList;
 	}
 
-	public static final String RELEASE_DATE = "2025-01-17";
+	public static final String RELEASE_DATE = "2025-03-13";
 
 	/**
 	 * 取发布时间

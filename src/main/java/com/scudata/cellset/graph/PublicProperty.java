@@ -86,6 +86,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 
 	/** 时序状态图或甘特图时间刻度类型 */
 	private byte statusTimeType = TIME_HOUR;
+	private String statusTimeFormat = null;
 
 	/** 统计图中的字体 */
 	private GraphFonts fonts = new GraphFonts();
@@ -749,6 +750,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	public byte getStatusTimeType() {
 		return statusTimeType;
 	}
+	public String getStatusTimeFormat() {
+		return statusTimeFormat;
+	}
 
 	/**
 	 * 设置时序状态图或甘特图时间刻度类型
@@ -759,6 +763,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	 */
 	public void setStatusTimeType(byte type) {
 		this.statusTimeType = type;
+	}
+	public void setStatusTimeFormat(String fmt) {
+		this.statusTimeFormat = fmt;
 	}
 
 	/**
@@ -1595,6 +1602,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		statusStateExp = pp.getStatusStateExp();
 		statusBarWidth = pp.getStatusBarWidth();
 		statusTimeType = pp.getStatusTimeType();
+		statusTimeFormat=pp.getStatusTimeFormat();
 		fonts = (GraphFonts)pp.getFonts().deepClone();
 		if (pp.getAlarmLines() != null) {
 			AlarmLine[] aline = new AlarmLine[pp.getAlarmLines().length];
@@ -1668,7 +1676,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	 * 按版本序列化
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(9);
+		out.writeByte(10);
 		out.writeByte(type);
 		out.writeInt(axisColor);
 		out.writeInt(canvasColor);
@@ -1743,7 +1751,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		out.writeInt(legendHorizonGap);
 		out.writeBoolean(isDataCenter);
 		out.writeByte(displayData2);
-
+		out.writeObject(statusTimeFormat);
 	}
 
 	/**
@@ -1840,6 +1848,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		}
 		if(ver>8){
 			displayData2 = in.readByte();
+		}
+		if(ver>9){
+			statusTimeFormat = (String)in.readObject();
 		}
 		
 	}
@@ -1941,6 +1952,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		out.writeInt(legendHorizonGap);
 		out.writeBoolean(isDataCenter);
 		out.writeByte(displayData2);
+		out.writeString(statusTimeFormat);
 		return out.toByteArray();
 	}
 
@@ -2051,6 +2063,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		}
 		if(in.available()>0){
 			displayData2 = in.readByte();
+		}
+		if(in.available()>0){
+			statusTimeFormat = in.readString();
 		}
 	}
 

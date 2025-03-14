@@ -219,7 +219,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				props.getProperty(KEY_CONFIG));
 		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER,
 				props.getProperty(KEY_ONLY_SERVER));
-		dpis[1] = new DriverPropertyInfo(KEY_JOB_VARS,
+		dpis[2] = new DriverPropertyInfo(KEY_JOB_VARS,
 				props.getProperty(KEY_JOB_VARS));
 		return dpis;
 	}

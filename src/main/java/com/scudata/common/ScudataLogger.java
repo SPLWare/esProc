@@ -78,6 +78,7 @@ public class ScudataLogger {
 
 	public void clearHandlers() {
 		handlers.clear();
+//		System.err.println("Clear logger\r\n");
 	}
 
 	/**
@@ -166,6 +167,7 @@ public class ScudataLogger {
 
 	void addHandler(Handler h) {
 		handlers.add(h);
+//		System.err.println("Using logger:"+h+"\r\n");
 	}
 
 	/**
@@ -214,7 +216,7 @@ public class ScudataLogger {
 			h = logger.new ConsoleHandler();
 		} else {// 文件
 			String file = tmp;
-			tmp = p.getProperty(name + ".Encoding");
+			tmp = p.getProperty(name + ".encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
 			String maxSize =p.getProperty(name + ".maxSize");
 			boolean isFixedFileName = false;
@@ -223,7 +225,7 @@ public class ScudataLogger {
 			}
 			h = logger.new FileHandler(file, tmp, isFixedFileName,maxSize);
 		}
-		tmp = p.getProperty(name + ".Level");
+		tmp = p.getProperty(name + ".level");
 		if (StringUtils.isValidString(tmp)) {
 			int l = getLevel(tmp);
 			h.setLevel(l);
@@ -408,7 +410,7 @@ public class ScudataLogger {
 	public static void setLevel(String level) {
 		int l = getLevel(level);
 		gateLevel = l;
-		System.err.println("Log level:" + getLevelName(gateLevel));
+//		System.err.println("Log level:" + getLevelName(gateLevel));
 	}
 
 	/**
@@ -455,6 +457,10 @@ public class ScudataLogger {
 		}
 
 		void close() {
+		}
+		
+		public String toString() {
+			return "Console,"+getLevelName(logLevel);
 		}
 	}
 
@@ -601,7 +607,7 @@ public class ScudataLogger {
 			}
 			if(!bufFiles.contains(filePath)) {
 				if(!Logger.isUseSLF4J()) {//使用框架时，设置的日志配置便用不上了
-					System.err.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+					System.err.println("esProc is using log file:\r\n" + filePath + "\r\n");
 				}
 				
 				bufFiles.add(filePath);
@@ -618,6 +624,10 @@ public class ScudataLogger {
 			}
 			files[0] = f;
 			return files;
+		}
+
+		public String toString() {
+			return fileName+","+getLevelName(logLevel)+","+maxFileSize/(1024*1024)+"M";
 		}
 		
 	}

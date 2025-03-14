@@ -28,7 +28,7 @@ public class DBTypeEx extends DBTypes {
 	public static final String TITLE_TERADATA = "TERADATA";
 	public static final String TITLE_POSTGRES = "POSTGRES";
 	public static final String TITLE_DBONE = "DBONE";
-	public static final String TITLE_ESPROC = "Esproc";
+	public static final String TITLE_ESPROC = "esProc";
 	public static final String TITLE_DATALOGIC = "DataLogic";
 	public static final String TITLE_DAMENG = "DAMENG"; // ¥Ô√Œ
 	public static final String TITLE_UNKNOWN = "Other";

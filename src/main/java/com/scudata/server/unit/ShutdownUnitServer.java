@@ -85,7 +85,7 @@ public class ShutdownUnitServer {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i].toLowerCase();
 				// System.err.println("arg "+i+"="+arg);
-				if (arg.equals("com.raqsoft.parallel.shutdownunitserver")) { // 用bat打开的文件，类名本身会是参数
+				if (arg.equals("com.scudata.server.unit.shutdownunitserver")) { // 用bat打开的文件，类名本身会是参数
 					continue;
 				}
 

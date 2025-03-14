@@ -1076,6 +1076,9 @@ public class ExtGraphProperty {
 	public byte getStatusTimeType() {
 		return prop.getStatusTimeType();
 	}
+	public String getStatusTimeFormat() {
+		return prop.getStatusTimeFormat();
+	}
 
 	/**
 	 *  用户是否设置柱形图或条形图间距
