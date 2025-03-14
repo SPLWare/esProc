@@ -3790,37 +3790,30 @@ public class GM {
 	}
 
 	private static void browseOld(String url) throws Exception {
+		String os = System.getProperty("os.name").toLowerCase();
 		if (GM.isWindowsOS()) {
 			Runtime.getRuntime().exec(
 					"rundll32 url.dll,FileProtocolHandler " + url);
+		} else if (os.contains("mac")) {
+			Runtime.getRuntime().exec(new String[] { "open", url });
 		} else {
-			Runtime.getRuntime().exec("xdg-open " + url);
+			try {
+				Runtime.getRuntime().exec("xdg-open " + url);
+			} catch (Throwable t1) {
+				String[] browsers = { "google-chrome", "firefox",
+						"chromium-browser", "opera", "konqueror", "epiphany",
+						"mozilla", "netscape" };
+				for (String browser : browsers) {
+					try {
+						Runtime.getRuntime()
+								.exec(new String[] { browser, url });
+						return;
+					} catch (Throwable t) {
+					}
+				}
+				throw t1;
+			}
 		}
-		// if (GM.isMacOS()) {
-		// Class fileMgr = Class.forName("com.apple.eio.FileManager");
-		// Method openURL = fileMgr.getDeclaredMethod("openURL",
-		// new Class[] { String.class });
-		// openURL.invoke(null, new Object[] { url });
-		// } else if (GM.isWindowsOS()) {
-		// Runtime.getRuntime().exec(
-		// "rundll32 url.dll,FileProtocolHandler " + url);
-		// } else {
-		// String[] browsers = { "google-chrome", "firefox", "opera",
-		// "konqueror", "epiphany", "mozilla", "netscape" };
-		// String browser = null;
-		// for (int count = 0; count < browsers.length && browser == null;
-		// count++)
-		// if (Runtime.getRuntime()
-		// .exec(new String[] { "which", browsers[count] })
-		// .waitFor() == 0)
-		// browser = browsers[count];
-		// if (browser == null)
-		// throw new NoSuchMethodException("Could not find web browser");
-		// else {
-		// Logger.info("cmd: " + browser + ", " + url);
-		// Runtime.getRuntime().exec(new String[] { browser, url });
-		// }
-		// }
 	}
 
 	/**
