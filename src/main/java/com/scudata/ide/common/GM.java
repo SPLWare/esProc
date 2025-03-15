@@ -29,9 +29,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -3800,6 +3802,15 @@ public class GM {
 			try {
 				Runtime.getRuntime().exec("xdg-open " + url);
 			} catch (Throwable t1) {
+				String defaultBrowser = getDefaultBrowser();
+				if (defaultBrowser != null) {
+					try {
+						Runtime.getRuntime().exec(
+								new String[] { defaultBrowser, url });
+						return;
+					} catch (Throwable e) {
+					}
+				}
 				String[] browsers = { "google-chrome", "firefox",
 						"chromium-browser", "opera", "konqueror", "epiphany",
 						"mozilla", "netscape" };
@@ -3813,6 +3824,36 @@ public class GM {
 				}
 				throw t1;
 			}
+		}
+	}
+
+	private static String getDefaultBrowser() {
+		String mimeappsPath = System.getProperty("user.home")
+				+ "/.config/mimeapps.list";
+		try (BufferedReader reader = new BufferedReader(new FileReader(
+				mimeappsPath))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.startsWith("x-scheme-handler/http=")) {
+					String browser = line.split("=")[1].trim();
+					return mapBrowserToExecutable(browser);
+				}
+			}
+		} catch (IOException e) {
+		}
+		return null;
+	}
+
+	private static String mapBrowserToExecutable(String browser) {
+		switch (browser) {
+		case "firefox.desktop":
+			return "firefox";
+		case "google-chrome.desktop":
+			return "google-chrome";
+		case "chromium-browser.desktop":
+			return "chromium-browser";
+		default:
+			return null;
 		}
 	}
 
