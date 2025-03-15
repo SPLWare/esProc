@@ -398,8 +398,8 @@ public class SplxHttpHandler implements HttpHandler {
 							Object hs = pcs1.nextResult();   
 							if( hs != null ) {
 								String shs = (String)obj2String( hs );
-								if( shs.toLowerCase().startsWith( "content-type" ) ) {
-									//当splx返回一张图片时，用第2个返回值指定content-type:image/xxx
+								if( shs.toLowerCase().indexOf( "content-type" ) >= 0 ) {
+									//当splx返回一张图片时，用第2个返回值指定{content-type:image/xxx}
 									headers = shs;
 								}
 							}
