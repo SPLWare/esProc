@@ -395,9 +395,13 @@ public class SplxHttpHandler implements HttpHandler {
 								Object obj2 = pcs2.nextResult();
 								result = obj2String(obj2);
 							}
-							Object hs = pcs1.nextResult();   //返回的第二个结果表示responseHeaders
+							Object hs = pcs1.nextResult();   
 							if( hs != null ) {
-								headers = (String)obj2String( hs );
+								String shs = (String)obj2String( hs );
+								if( shs.toLowerCase().startsWith( "content-type" ) ) {
+									//当splx返回一张图片时，用第2个返回值指定content-type:image/xxx
+									headers = shs;
+								}
 							}
 						}
 					}
