@@ -3830,8 +3830,9 @@ public class GM {
 	private static String getDefaultBrowser() {
 		String mimeappsPath = System.getProperty("user.home")
 				+ "/.config/mimeapps.list";
-		try (BufferedReader reader = new BufferedReader(new FileReader(
-				mimeappsPath))) {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(mimeappsPath));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				if (line.startsWith("x-scheme-handler/http=")) {
@@ -3839,22 +3840,27 @@ public class GM {
 					return mapBrowserToExecutable(browser);
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (Exception e) {
+				}
+			}
 		}
 		return null;
 	}
 
 	private static String mapBrowserToExecutable(String browser) {
-		switch (browser) {
-		case "firefox.desktop":
+		if ("firefox.desktop".equals(browser)) {
 			return "firefox";
-		case "google-chrome.desktop":
+		} else if ("google-chrome.desktop".equals(browser)) {
 			return "google-chrome";
-		case "chromium-browser.desktop":
+		} else if ("chromium-browser.desktop".equals(browser)) {
 			return "chromium-browser";
-		default:
-			return null;
 		}
+		return null;
 	}
 
 	/**
