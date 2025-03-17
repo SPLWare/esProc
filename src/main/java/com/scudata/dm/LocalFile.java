@@ -532,6 +532,11 @@ public class LocalFile implements IFile {
 
 		File destFile = new File(dest);
 		boolean isDir = destFile.isDirectory();
+		if (!isDir && !destFile.isFile() && dest.length() > 1) {
+			// 文件不存在时无法判断是文件还是文件夹，此时用路径后是否有分隔符判断
+			char c = dest.charAt(dest.length() - 1);
+			isDir = c == '/' || c == '\\';
+		}
 		
 		if (!isDir && partition != null && partition.intValue() >= 0) {
 			// 找出文件名的起始位置
