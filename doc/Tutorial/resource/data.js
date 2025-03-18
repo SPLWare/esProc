@@ -1,7 +1,7 @@
 var tree = new MzTreeView("tree");
 tree.setIconPath("images/");
  tree.nodes["0_1"] = "text:";
- tree.nodes["1_3"] = "text:Documentation;url:topics/1.html";
+ tree.nodes["1_3"] = "text:esProc Documentation;url:topics/1.html";
  tree.nodes["1_4"] = "text:Chapter1 Getting Started;url:topics/2.html";
  tree.nodes["4_5"] = "text:1.1 Installation and Basic Uses;url:topics/3.html";
  tree.nodes["5_6"] = "text:1.1.1 Installation;url:topics/4.html";
