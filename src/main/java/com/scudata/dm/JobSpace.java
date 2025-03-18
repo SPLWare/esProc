@@ -258,10 +258,9 @@ public class JobSpace {
 	 */
 	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
 		// 不能与全局函数重名
-		if (FunctionLib.isFnName(fnName)) {// || dfxFnMap.containsKey(fnName)
+		if (FunctionLib.isFnName(fnName)) {
 			MessageManager mm = EngineMessage.get();
-			throw new RuntimeException(
-					mm.getMessage("FunctionLib.repeatedFunction") + fnName);
+			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
 		}
 
 		// 用新函数替换旧的
@@ -278,6 +277,12 @@ public class JobSpace {
 	 * @param funcInfo 函数体信息
 	 */
 	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
+		// 不能与全局函数重名
+		if (FunctionLib.isFnName(fnName)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
+		}
+		
 		dfxFnMap.put(fnName, new DfxFunction(funcInfo));
 	}
 	

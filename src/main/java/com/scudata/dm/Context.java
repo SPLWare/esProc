@@ -7,7 +7,10 @@ import java.util.Random;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.DBSession;
 import com.scudata.common.ISessionFactory;
+import com.scudata.common.MessageManager;
 import com.scudata.expression.DfxFunction;
+import com.scudata.expression.FunctionLib;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 计算用到的上下文
@@ -388,7 +391,14 @@ public class Context {
 	 * @param dfxPathName 程序网路径名
 	 */
 	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
-		js.addDFXFunction(fnName, dfxPathName, opt);
+		if (opt == null || opt.indexOf('j') == -1) {
+			FunctionLib.addDFXFunction(fnName, dfxPathName, opt);
+		} else if (js != null) {
+			js.addDFXFunction(fnName, dfxPathName, opt);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RuntimeException(mm.getMessage("engine.lessJobSpace"));
+		}
 	}
 	
 	/**
@@ -397,7 +407,15 @@ public class Context {
 	 * @param funcInfo 函数体信息
 	 */
 	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
-		js.addDFXFunction(fnName, funcInfo);
+		String opt = funcInfo.getOption();
+		if (opt == null || opt.indexOf('j') == -1) {
+			FunctionLib.addDFXFunction(fnName, funcInfo);
+		} else if (js != null) {
+			js.addDFXFunction(fnName, funcInfo);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RuntimeException(mm.getMessage("engine.lessJobSpace"));
+		}
 	}
 	
 	/**
@@ -405,7 +423,9 @@ public class Context {
 	 * @param fnName 函数名
 	 */
 	public void removeDFXFunction(String fnName) {
-		js.removeDFXFunction(fnName);
+		if (js != null) {
+			js.removeDFXFunction(fnName);
+		}
 	}
 	
 	/**
@@ -415,9 +435,14 @@ public class Context {
 	 */
 	public DfxFunction getDFXFunction(String fnName) {
 		if (js != null) {
-			return js.getDFXFunction(fnName);
+			DfxFunction fn = js.getDFXFunction(fnName);
+			if (fn == null) {
+				return FunctionLib.getDFXFunction(fnName);
+			} else {
+				return fn;
+			}
 		} else {
-			return null;
+			return FunctionLib.getDFXFunction(fnName);
 		}
 	}
 }
