@@ -150,7 +150,7 @@ public class MemberFilter extends FindFilter {
 	public void initExp() {
 		if (exp == null) {
 			String s = "null(" + column.getColName() + ")";
-			exp = new Expression(s);
+			exp = new Expression(new Context(), s);
 			exp.getHome().setLeft(new Constant(new Sequence(array)));
 		}
 	}
