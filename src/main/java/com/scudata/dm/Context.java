@@ -445,4 +445,18 @@ public class Context {
 			return FunctionLib.getDFXFunction(fnName);
 		}
 	}
+	
+	/**
+	 * 根据函数名取程序网
+	 * @param fnName 函数名
+	 * @param ctx
+	 * @return 程序网函数
+	 */
+	public static DfxFunction getDFXFunction(String fnName, Context ctx) {
+		if (ctx != null) {
+			return ctx.getDFXFunction(fnName);
+		} else {
+			return FunctionLib.getDFXFunction(fnName);
+		}
+	}
 }

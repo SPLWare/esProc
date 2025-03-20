@@ -296,9 +296,9 @@ public final class FunctionLib {
 		addFunction("splserver", "com.scudata.expression.fn.SplServer");
 
 		// 并行
-		addFunction("callx", "com.scudata.expression.fn.parallel.Callx");
-		addFunction("hosts", "com.scudata.expression.fn.parallel.Hosts");
-		addFunction("syncfile", "com.scudata.expression.fn.parallel.SyncFile");
+		//addFunction("callx", "com.scudata.expression.fn.parallel.Callx");
+		//addFunction("hosts", "com.scudata.expression.fn.parallel.Hosts");
+		//addFunction("syncfile", "com.scudata.expression.fn.parallel.SyncFile");
 		// addFunction("zone", "com.scudata.expression.fn.parallel.Zone");
 
 		// 序列函数
@@ -613,7 +613,7 @@ public final class FunctionLib {
 		addMemberFunction("result", "com.scudata.expression.mfn.channel.Result");
 
 		// 仓库
-		addFunction("memory", "com.scudata.expression.fn.parallel.Memory");
+		//addFunction("memory", "com.scudata.expression.fn.parallel.Memory");
 		addMemberFunction("row", "com.scudata.expression.mfn.TableRow");
 		addMemberFunction("attach", "com.scudata.expression.mfn.dw.Attach");
 		addMemberFunction("append", "com.scudata.expression.mfn.dw.Append");
