@@ -293,9 +293,8 @@ public final class FunctionLib {
 		addFunction("blob", "com.scudata.expression.fn.Blob");
 		addFunction("jdbccall", "com.scudata.expression.fn.JDBCCall");
 
-		addFunction("splserver", "com.scudata.expression.fn.SplServer");
-
 		// ²¢ÐÐ
+		//addFunction("splserver", "com.scudata.expression.fn.SplServer");
 		//addFunction("callx", "com.scudata.expression.fn.parallel.Callx");
 		//addFunction("hosts", "com.scudata.expression.fn.parallel.Hosts");
 		//addFunction("syncfile", "com.scudata.expression.fn.parallel.SyncFile");
