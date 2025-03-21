@@ -365,8 +365,8 @@ public class PgmCellSet extends CellSet {
 			return option != null && option.indexOf('o') != -1;
 		}
 		
-		public Object execute(Object[] args, String opt) {
-			return executeFunc(this, args, opt);
+		public Object execute(Object[] args, String opt, Context ctx) {
+			return executeFunc(this, args, opt, ctx);
 		}
 	}
 
@@ -417,6 +417,12 @@ public class PgmCellSet extends CellSet {
 
 	// 创建一个新的网格，新网引用源网的单元格，拥有自己的计算环境
 	public PgmCellSet newCalc() {
+		Context ctx = getContext();
+		return newCalc(ctx);
+	}
+	
+	// 创建一个新的网格，新网引用源网的单元格，拥有自己的计算环境
+	public PgmCellSet newCalc(Context ctx) {
 		Matrix m1 = cellMatrix;
 		int colSize = cellMatrix.getColSize();
 		int rowSize = cellMatrix.getRowSize();
@@ -434,7 +440,6 @@ public class PgmCellSet extends CellSet {
 		pcs.sign = sign;
 		pcs.pswHash = pswHash;
 		pcs.nullPswPrivilege = nullPswPrivilege;
-		Context ctx = getContext();
 		pcs.setContext(ctx.newComputeContext());
 		pcs.name = name;
 		return pcs;
@@ -2338,6 +2343,19 @@ public class PgmCellSet extends CellSet {
 	 * @return Object 函数返回值
 	 */
 	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt) {
+		Context ctx = getContext();
+		return executeFunc(funcInfo, args, opt, ctx);
+	}
+	
+	/**
+	 * 执行指定名字的子函数，可递归调用
+	 * @param funcInfo 函数信息
+	 * @param args Object[] 参数数组
+	 * @param opt String i：不递归调用，不用复制网格
+	 * @param ctx 计算上下文
+	 * @return Object 函数返回值
+	 */
+	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt, Context ctx) {
 		PgmNormalCell cell = funcInfo.getCell();
 		int row = cell.getRow();
 		int col = cell.getCol();
@@ -2345,7 +2363,7 @@ public class PgmCellSet extends CellSet {
 		int endRow = getCodeBlockEndRow(row, col);
 
 		// 共享函数体外的格子
-		PgmCellSet pcs = newCalc();
+		PgmCellSet pcs = newCalc(ctx);
 		String[] argNames = funcInfo.getArgNames();
 		if (argNames != null) {
 			// 把参数设到上下文中
@@ -2356,9 +2374,9 @@ public class PgmCellSet extends CellSet {
 						+ mm.getMessage("function.paramCountNotMatch"));
 			}
 
-			Context ctx = pcs.getContext();
+			Context dfxCtx = pcs.getContext();
 			for (int i = 0; i < argCount; ++i) {
-				ctx.setParamValue(argNames[i], args[i]);
+				dfxCtx.setParamValue(argNames[i], args[i]);
 			}
 		}
 
