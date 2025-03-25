@@ -141,10 +141,10 @@ public class CreateFile extends Function {
 
 		FileObject fo;
 		if (clusterFile != null) {
-			int []partitions;
+			int []partitions = null;
 			if (part >= 0) {
 				partitions = new int[]{part};
-			} else {
+			} else if (partSeq != null) {
 				partitions = partSeq.toIntArray();
 			}
 			
