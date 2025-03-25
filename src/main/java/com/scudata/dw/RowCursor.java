@@ -1959,29 +1959,130 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	protected long skipOver(long n) {
-		if (isFirstSkip && n == MAXSKIPSIZE && filter == null && !isSegment) {
+		if (isClosed) {
+			return 0;
+		} else if (isFirstSkip && n == MAXSKIPSIZE && filter == null && !isSegment) {
 			return table.getActualRecordCount();
 		}
 		
-		Sequence data;
-		long rest = n;
+		boolean isFirstSkip = this.isFirstSkip;
+		this.isFirstSkip = false;
 		long count = 0;
-		while (rest != 0) {
-			if (rest > FETCHCOUNT) {
-				data = get(FETCHCOUNT);
-			} else {
-				data = get((int)rest);
+		
+		//对没有过滤的情况优化
+		if (filters == null 
+				&& !hasModify() 
+				&& isFirstSkip  
+				&& !isSegment 
+				&& gathers == null 
+				&& exps == null
+				&& isPrimaryTable) {
+			
+			//处理cache
+			Sequence cache = this.cache;
+			if (cache != null) {
+				int len = cache.length();
+				if (n <= len) {
+					get((int) n);
+					return n;
+				} else {
+					get(len);
+					count += len;
+				}
 			}
-			if (data == null) {
-				break;
-			} else {
-				count += data.length();
+			
+			//跳段
+			int curBlock = this.curBlock;
+			int endBlock = this.endBlock;
+			BlockLinkReader rowReader = this.rowReader;
+			ObjectReader segmentReader = this.segmentReader;
+			int colCount = this.fields.length;
+			int allCount = table.getAllColNames().length;
+			int keyCount = table.getAllSortedColNamesLength();
+			RowBufferReader bufReader;
+			Object []values = new Object[allCount];
+			
+			try {
+				while (curBlock < endBlock) {
+					curBlock++;
+					int recordCount = segmentReader.readInt32();
+					long pos = segmentReader.readLong40();
+					
+					for (int i = 0; i < keyCount; i++) {
+						segmentReader.skipObject();
+						segmentReader.skipObject();
+					}
+					
+					if (count + recordCount == n) {
+						rowReader.seek(pos);
+						rowReader.readBlockBuffer();//这里要读取一下才能确保下次读取时的位置
+						this.curBlock = curBlock;
+						return n;
+					} else if (count + recordCount > n) {
+						rowReader.seek(pos);
+						bufReader = rowReader.readBlockBuffer();
+						
+						long diff = n - count;
+						int i = 0;
+						for (; i < diff; ++i) {
+							bufReader.skipObject();//跳过伪号
+							for (int f = 0; f < allCount; ++f) {
+								bufReader.skipObject();
+							}
+						}
+						
+						Table tmp = new Table(ds, ICursor.FETCHCOUNT);
+						this.cache = tmp;
+						IArray mems = tmp.getMems();
+						
+						for (; i < recordCount; ++i) {
+							ComTableRecord r = new ComTableRecord(ds);
+							bufReader.readObject();//跳过伪号
+							for (int f = 0; f < allCount; ++f) {
+								if (needRead[f]) {
+									values[f] = bufReader.readObject();
+								} else {
+									bufReader.skipObject();
+								}
+							
+							}
+							
+							for (int f = 0; f < colCount; ++f) {
+								r.setNormalFieldValue(f, values[findex[f]]);
+							}
+							mems.add(r);
+						}
+						this.curBlock = curBlock;
+						return n;
+					}
+					count += recordCount;
+				}
+				this.curBlock = curBlock;
+				return count;
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
 			}
-			rest -= data.length();
+			
+		} else {
+			Sequence data;
+			long rest = n;
+			while (rest != 0) {
+				if (rest > FETCHCOUNT) {
+					data = get(FETCHCOUNT);
+				} else {
+					data = get((int)rest);
+				}
+				
+				if (data == null) {
+					break;
+				} else {
+					count += data.length();
+				}
+				
+				rest -= data.length();
+			}
+			return count;
 		}
-
-		isFirstSkip = false;
-		return count;
 	}
 	
 	public void close() {
@@ -2080,5 +2181,9 @@ public class RowCursor extends IDWCursor {
 		} finally {
 			setEndBlock(endBlock);
 		}
+	}
+	
+	private boolean hasModify() {
+		return modifyRecords != null && mindex < modifyRecords.size();
 	}
 }
