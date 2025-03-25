@@ -193,7 +193,7 @@ public class DataBlockWriterJob  extends Job {
 					if (obj == null) {
 						bufferWriter.writeLittleEndianShort(0);
 					} else {
-						bufferWriter.writeLittleEndianShort(((Long) obj).intValue());
+						bufferWriter.writeLittleEndianShort(((Number) obj).intValue());
 					}
 				}
 				break;
@@ -207,7 +207,7 @@ public class DataBlockWriterJob  extends Job {
 					if (obj == null) {
 						bufferWriter.writeLittleEndianInt(0);
 					} else {
-						bufferWriter.writeLittleEndianInt(((Long) obj).intValue());
+						bufferWriter.writeLittleEndianInt(((Number) obj).intValue());
 					}
 				}
 				break;
@@ -221,7 +221,7 @@ public class DataBlockWriterJob  extends Job {
 					if (obj == null) {
 						bufferWriter.writeLittleEndianLong(0);
 					} else {
-						bufferWriter.writeLittleEndianLong((Long) obj);
+						bufferWriter.writeLittleEndianLong(((Number) obj).longValue());
 					}
 				}
 				break;
