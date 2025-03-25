@@ -793,7 +793,7 @@ public class Expression {
 				return fn;
 			}
 			
-			DfxFunction dfx = ctx.getDFXFunction(fnName);
+			DfxFunction dfx = Context.getDFXFunction(fnName, ctx);
 			if (dfx != null) {
 				String param = scanParameter();
 				return dfx.newFunction(cs, ctx, fnOpt, param);

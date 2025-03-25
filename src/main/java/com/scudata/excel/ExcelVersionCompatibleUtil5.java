@@ -330,7 +330,6 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		}
 	}
 
-	@Override
 	public SharedStrings readSharedStrings(XSSFReader xssfReader) {
 		try {
 			Method m = XSSFReader.class.getMethod("getSharedStringsTable", new Class<?>[0]);

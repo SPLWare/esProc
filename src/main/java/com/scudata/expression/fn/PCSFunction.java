@@ -66,7 +66,7 @@ public class PCSFunction extends Function {
 			args = new Object[] {option};
 		}
 
-		return funcInfo.execute(args, option);
+		return funcInfo.execute(args, option, ctx);
 	}
 
 	/**

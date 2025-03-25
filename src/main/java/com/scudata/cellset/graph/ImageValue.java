@@ -27,6 +27,10 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 		redraw = ir;
 	}
 	
+	public IRedraw getIRedraw() {
+		return redraw;
+	}
+	
 	public boolean canRedraw(){
 		return redraw!=null;
 	}
