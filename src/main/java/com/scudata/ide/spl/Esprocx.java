@@ -380,7 +380,6 @@ public class Esprocx {
 						}
 						fileArgs.append(line);
 					}
-					break;
 				} else if (!arg.startsWith("-")) {
 					if (!StringUtils.isValidString(arg)) {
 						continue;
