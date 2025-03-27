@@ -33,6 +33,7 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
 import com.scudata.ide.common.swing.JTableEx;
+import com.scudata.ide.spl.SheetSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.Variant;
 
@@ -88,11 +89,19 @@ public abstract class JTableJobSpace extends JPanel {
 		tableVar.removeAllRows();
 		if (paramMap != null) {
 			preventChange = true;
+
 			int dispRows = getDispRows();
 			boolean southVisible = false;
 			Iterator<String> it = paramMap.keySet().iterator();
 			while (it.hasNext()) {
 				String jsId = it.next();
+				if (GV.appSheet != null) {
+					String spaceId = ((SheetSpl) GV.appSheet).getSpaceId();
+					if (spaceId == null || !spaceId.equals(jsId)) {
+						continue;
+					}
+				}
+				
 				Param[] paras = paramMap.get(jsId);
 				if (!addJobSpaceRow(jsId, paras, dispRows)) {
 					southVisible = true;
@@ -118,7 +127,8 @@ public abstract class JTableJobSpace extends JPanel {
 	 * 
 	 * @param id
 	 * @param params
-	 * @param dispRows 显示行数
+	 * @param dispRows
+	 *            显示行数
 	 * @return 是否继续增加
 	 */
 	private boolean addJobSpaceRow(String id, Param[] params, int dispRows) {
@@ -136,6 +146,7 @@ public abstract class JTableJobSpace extends JPanel {
 
 	/**
 	 * 取任务空间名
+	 * 
 	 * @param row
 	 * @return
 	 */
@@ -146,6 +157,7 @@ public abstract class JTableJobSpace extends JPanel {
 
 	/**
 	 * 取变量名
+	 * 
 	 * @param row
 	 * @return
 	 */
@@ -156,6 +168,7 @@ public abstract class JTableJobSpace extends JPanel {
 
 	/**
 	 * 取显示行
+	 * 
 	 * @return
 	 */
 	private int getDispRows() {
@@ -223,6 +236,8 @@ public abstract class JTableJobSpace extends JPanel {
 		ds.createDefaultDragGestureRecognizer(tableVar,
 				DnDConstants.ACTION_COPY, dgl);
 		tableVar.setColumnVisible(TITLE_VAR, false);
+
+		tableVar.setColumnVisible(tableVar.getColumnName(COL_SPACE), false);
 	}
 
 	/** 序号列 */

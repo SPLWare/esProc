@@ -110,7 +110,12 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.Env;
+import com.scudata.dm.IResource;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.KeyWord;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.common.dialog.DialogMaxmizable;
@@ -121,6 +126,7 @@ import com.scudata.ide.common.swing.DateChooser;
 import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.JOptionPaneEx;
 import com.scudata.ide.common.swing.JTableEx;
+import com.scudata.ide.spl.GMSpl;
 import com.scudata.util.Variant;
 
 /**
@@ -4207,5 +4213,45 @@ public class GM {
 			return false;
 		}
 		return val instanceof BaseRecord || val instanceof Sequence;
+	}
+
+	/**
+	 * 重置全局环境
+	 */
+	public static void doResetGlobalEnv() {
+		// 清理全局变量
+		ParamList pl = Env.getParamList();
+		if (pl != null) {
+			Param p;
+			Object val;
+			for (int i = 0, count = pl.count(); i < count; i++) {
+				p = pl.get(i);
+				if (p != null) {
+					val = p.getValue();
+					if (val != null && val instanceof IResource) {
+						try {
+							((IResource) val).close();
+						} catch (Exception e) {
+							GMSpl.showException(e);
+						}
+					}
+				}
+			}
+			pl.clear();
+		}
+
+		// 重置全局任务变量
+		ArrayList<JobSpace> spaces = JobSpaceManager.currentSpaces();
+		if (spaces != null) {
+			for (JobSpace space : spaces) {
+				if (space != null) {
+					try {
+						space.close();
+					} catch (Exception e) {
+						GMSpl.showException(e);
+					}
+				}
+			}
+		}
 	}
 }

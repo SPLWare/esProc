@@ -14,7 +14,6 @@ import com.scudata.dm.Env;
 import com.scudata.dm.Machines;
 import com.scudata.dw.BufferReader;
 import com.scudata.dw.ComTable;
-import com.scudata.ide.common.GM;
 import com.scudata.resources.EngineMessage;
 
 public class PartitionManager {

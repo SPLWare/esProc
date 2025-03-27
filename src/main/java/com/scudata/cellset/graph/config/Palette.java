@@ -501,10 +501,10 @@ public class Palette {
 		try {
 			Properties config = new Properties();
 			InputStream is = null;
-			String relativePath = com.scudata.ide.common.GC.PATH_CONFIG
+			String relativePath = com.scudata.common.GC.PATH_CONFIG
 					+ "/color.properties";
 			File f = new File(
-					com.scudata.ide.common.GM.getAbsolutePath(relativePath));
+					com.scudata.common.GM.getAbsolutePath(relativePath));
 			if (f.exists()) {
 				is = new FileInputStream(f);
 			} else {

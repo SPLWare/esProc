@@ -26,8 +26,8 @@ import com.scudata.chart.edit.*;
 import com.scudata.chart.element.EnumAxis;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.*;
-import com.scudata.ide.common.control.BorderStyle;
-import com.scudata.ide.common.control.CellBorder;
+import com.scudata.common.control.BorderStyle;
+import com.scudata.common.control.CellBorder;
 import com.scudata.util.Variant;
 
 /**

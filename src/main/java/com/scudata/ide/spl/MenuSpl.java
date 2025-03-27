@@ -306,7 +306,11 @@ public class MenuSpl extends AppMenu {
 				GC.NO_MASK, true);
 		menu.add(menuTemp);
 		menu.addSeparator();
-		menu.add(newSplMenuItem(GCSpl.iRESET, GCSpl.RESET, 'R', GC.NO_MASK));
+		menu.add(newSplMenuItem(GCSpl.iRESET_CELLSET, GCSpl.RESET_CELLSET, 'R',
+				GC.NO_MASK));
+		menu.add(newSplMenuItem(GCSpl.iRESET_GLOBAL, GCSpl.RESET_GLOBAL, 'G',
+				GC.NO_MASK));
+		menu.addSeparator();
 		menu.add(newSplMenuItem(GCSpl.iEXEC, GCSpl.EXEC, (char) KeyEvent.VK_F9,
 				ActionEvent.CTRL_MASK, true));
 		menuTemp = newSplMenuItem(GCSpl.iEXE_DEBUG, GCSpl.EXE_DEBUG,
@@ -389,7 +393,8 @@ public class MenuSpl extends AppMenu {
 	/**
 	 * 重置暂停/继续执行菜单项的文本和图标
 	 * 
-	 * @param isPause 是否暂停。true暂停，false执行
+	 * @param isPause
+	 *            是否暂停。true暂停，false执行
 	 */
 	public void resetPauseMenu(boolean isPause) {
 		if (isPause) {
@@ -421,8 +426,8 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
 				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
 				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
-				GCSpl.iEDIT_CHART, GCSpl.iSEARCH,
-				GCSpl.iREPLACE, GCSpl.iMOVE_COPY_UP,
+				GCSpl.iEDIT_CHART, GCSpl.iSEARCH, GCSpl.iREPLACE,
+				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
@@ -461,19 +466,18 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
 				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
 				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
-				GCSpl.iEDIT_CHART,GCSpl.iZOOM,
-				GCSpl.iSEARCH,
+				GCSpl.iEDIT_CHART, GCSpl.iZOOM, GCSpl.iSEARCH,
 				GCSpl.iREPLACE,
 				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
 				// 程序
-				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iRESET,
-				GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT,
-				GCSpl.iSTEP_CURSOR, GCSpl.iSTOP, GCSpl.iSHOW_VALUE,
-				GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE, GCSpl.iBREAKPOINTS,
-				GCSpl.iDRAW_CHART,
+				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+				GCSpl.iRESET_CELLSET, GCSpl.iRESET_GLOBAL, GCSpl.iCALC_AREA,
+				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR,
+				GCSpl.iSTOP, GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE,
+				GCSpl.iPAUSE, GCSpl.iBREAKPOINTS, GCSpl.iDRAW_CHART,
 
 				GC.iPROPERTY, GCSpl.iCONST };
 		return menus;

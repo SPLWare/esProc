@@ -2066,24 +2066,44 @@ public class SplEditor {
 	 * @return
 	 */
 	public boolean codeCopy() {
-		if (isNothingSelected()) {
-			return false;
-		}
 		if (isMultiRectSelected()) {
 			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
-		CellRect cr = getSelectedRect();
 		CellSetParser parser = new CellSetParser(control.cellSet);
+		CellRect cr;
+		if (isNothingSelected()) {
+			int rc = parser.getRowCount();
+			int cc = parser.getColCount();
+			NormalCell cell;
+			int minRow = rc, minCol = cc, maxRow = 1, maxCol = 1;
+			for (int row = 1; row <= rc; row++) {
+				for (int col = 1; col <= cc; col++) {
+					cell = parser.getCell(row, col);
+					if (StringUtils.isValidString(cell.getExpString())) {
+						minRow = Math.min(minRow, row);
+						minCol = Math.min(minCol, col);
+						maxRow = Math.max(maxRow, row);
+						maxCol = Math.max(maxCol, col);
+					}
+				}
+			}
+			cr = new CellRect(minRow, minCol, maxRow - minRow + 1, maxCol
+					- minCol + 1);
+		} else {
+			cr = getSelectedRect();
+		}
+
+		boolean isMultiCells = cr.getRowCount() > 1 || cr.getColCount() > 1;
 		StringBuffer buf = new StringBuffer();
 		for (int row = cr.getBeginRow(); row <= cr.getEndRow(); row++) {
 			if (!parser.isRowVisible(row))
 				continue;
 			if (buf.length() > 0)
-				buf.append("\n");
+				buf.append('\n');
 			for (int col = cr.getBeginCol(); col <= cr.getEndCol(); col++) {
 				if (col > cr.getBeginCol())
-					buf.append("\t");
+					buf.append('\t');
 				String text = parser.getDispText(row, col);
 				if (text == null) {
 					buf.append("");
@@ -2094,7 +2114,18 @@ public class SplEditor {
 		}
 		if (buf.length() == 0)
 			return false;
-		GM.clipBoard(Escape.addEscAndQuote(buf.toString()));
+		String expStr = buf.toString();
+		if (isMultiCells) {
+			expStr = "=" + expStr;
+		} else {
+			// 没有=或者>开头的,不是简单SQL，加等号作为表达式
+			// 比如常量不加等号在jdbc中不能执行
+			if (!expStr.startsWith("=") && !expStr.startsWith(">")
+					&& !expStr.startsWith("$")) {
+				expStr = "=" + expStr;
+			}
+		}
+		GM.clipBoard(Escape.addEscAndQuote(expStr));
 		return true;
 	}
 

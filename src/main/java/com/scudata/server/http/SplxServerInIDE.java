@@ -6,7 +6,6 @@ import java.net.InetSocketAddress;
 
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
-import com.scudata.ide.common.AppFrame;
 import com.scudata.parallel.UnitContext;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
@@ -78,7 +77,7 @@ public class SplxServerInIDE implements IServer {
 		String host = ctx.getHost();
 		int port = ctx.getPort();
 		Logger.info(ParallelMessage.get().getMessage("SplxServerInIDE.starting"));
-		Logger.info("Release date:"+AppFrame.RELEASE_DATE);
+//		Logger.info("Release date:"+AppFrame.RELEASE_DATE);
 		
 		InetAddress ia = InetAddress.getByName(host);
 		try{

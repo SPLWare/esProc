@@ -10,7 +10,6 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
-import com.scudata.ide.common.AppFrame;
 import com.scudata.parallel.TempFileMonitor;
 import com.scudata.parallel.UnitContext;
 import com.scudata.resources.ParallelMessage;
@@ -142,7 +141,7 @@ public class OdbcServer implements IServer {
 	 */
 	public void run() {
 		ServerSocket ss = null;
-		Logger.info("Release date:"+AppFrame.RELEASE_DATE);
+//		Logger.info("Release date:"+AppFrame.RELEASE_DATE);
 		Logger.info(ParallelMessage.get().getMessage("OdbcServer.run1"));
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2", getHome()));
 		try {

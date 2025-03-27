@@ -252,8 +252,10 @@ public class GCSpl extends GC {
 	public static final String PROGRAM = "program";
 	/** 网格参数(P) */
 	public static final String PARAM = "program.param";
-	/** 重置执行环境 */
-	public static final String RESET = "program.reset";
+	/** 重置网格环境 */
+	public static final String RESET_CELLSET = "program.resetcellset";
+	/** 重置全局环境 */
+	public static final String RESET_GLOBAL = "program.resetglobal";
 	/** 执行 */
 	public static final String EXEC = "program.exec";
 	/** 调试执行 */
@@ -289,8 +291,10 @@ public class GCSpl extends GC {
 
 	/** 网格参数(P) */
 	public static final short iPARAM = MENU_SPL + 201;
-	/** 重置执行环境 */
-	public static final short iRESET = MENU_SPL + 210;
+	/** 重置网格环境 */
+	public static final short iRESET_CELLSET = MENU_SPL + 210;
+	/** 重置全局环境 */
+	public static final short iRESET_GLOBAL = MENU_SPL + 213;
 	/** 执行 */
 	public static final short iEXEC = MENU_SPL + 221;
 	/** 调试执行 */

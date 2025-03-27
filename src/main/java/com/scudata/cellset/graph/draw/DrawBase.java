@@ -19,8 +19,7 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.CubeColor;
 import com.scudata.chart.Utils;
 import com.scudata.common.*;
-import com.scudata.ide.common.*;
-import com.scudata.ide.common.control.*;
+import com.scudata.common.control.*;
 import com.scudata.util.*;
 /**
  * 所有绘图类的抽象基础类

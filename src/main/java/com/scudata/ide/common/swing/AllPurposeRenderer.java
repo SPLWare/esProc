@@ -1,6 +1,7 @@
 package com.scudata.ide.common.swing;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -14,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.util.Variant;
 
 /**
@@ -93,7 +95,8 @@ public class AllPurposeRenderer implements TableCellRenderer {
 			textField.setBackground(table.getBackground());
 			textField.setForeground(table.getForeground());
 		}
-		textField.setFont(table.getFont());
+		Font font = table.getFont();
+		textField.setFont(font);
 		textField.setOpaque(true);
 		textField.setValue(value);
 		if (GM.isRefVal(value)) {
@@ -131,6 +134,10 @@ public class AllPurposeRenderer implements TableCellRenderer {
 			} else if (value instanceof Integer) {
 				if (!hasIndex || column > 0)
 					textField.setForeground(ConfigOptions.COLOR_INTEGER);
+			}
+			if (!ControlUtilsBase.canDisplayText(table.getFont(), strText)) {
+				font = new Font("Dialog", font.getStyle(), font.getSize());
+				textField.setFont(font);
 			}
 			textField.setDispText(strText);
 		} else {

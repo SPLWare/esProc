@@ -17,8 +17,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.common.ScudataLogger.FileHandler;
 import com.scudata.common.SplServerConfig;
 import com.scudata.dm.Env;
-import com.scudata.ide.common.GM;
-import com.scudata.ide.spl.ServerConsole;
+import com.scudata.common.GM;
 import com.scudata.resources.ParallelMessage;
 
 /**
@@ -328,7 +327,7 @@ public class UnitContext {
 			raqsoftConfig = ConfigUtil.load(is,true);
 			is.close();
 		}else {
-			raqsoftConfig = ServerConsole.loadRaqsoftConfig();
+//			raqsoftConfig = ServerConsole.loadRaqsoftConfig();
 		}
 	}
 

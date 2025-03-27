@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.ArgumentTokenizer;
@@ -33,7 +34,6 @@ import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.mfn.sequence.Export;
-import com.scudata.ide.spl.Esprocx;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
 import com.scudata.thread.Job;
@@ -316,7 +316,7 @@ public class SplxHttpHandler implements HttpHandler {
 							ParamList list = pcs1.getParamList();
 							ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
 							boolean hasPost = false;
-							ctx1 = Esprocx.prepareEnv();
+							ctx1 = AppUtil.prepareEnv(null);
 							if( list != null ) {
 								for( int i = 0; i < list.count(); i++ ) {
 									Param p = (Param) list.get(i);

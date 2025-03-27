@@ -488,10 +488,10 @@ public class Para {
 			InputStream is = null;
 			String name = "/chartcolor.properties";
 //			集算器图元会用到报表统计图，而统计图的配置文件为color.properties,且与集算器格式不同
-			String relativePath = com.scudata.ide.common.GC.PATH_CONFIG
+			String relativePath = com.scudata.common.GC.PATH_CONFIG
 					+ name;
 			File f = new File(
-					com.scudata.ide.common.GM.getAbsolutePath(relativePath));
+					com.scudata.common.GM.getAbsolutePath(relativePath));
 			if (f.exists()) {
 				is = new FileInputStream(f);
 			} else {

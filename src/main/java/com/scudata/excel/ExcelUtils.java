@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.crypt.Decryptor;
@@ -43,7 +44,6 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.ide.common.GM;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -257,7 +257,7 @@ public class ExcelUtils {
 	 */
 	private static boolean isChineseDateFormat(int formatIndex,
 			String formatString) {
-		if (!GM.isChineseLanguage())
+		if (!isChineseLanguage())
 			return false;
 		if (isChineseInternalDateFormat(formatIndex))
 			return true;
@@ -268,6 +268,11 @@ public class ExcelUtils {
 		if (formatString.startsWith("reserved-0x"))
 			return true;
 		return false;
+	}
+	
+	private static boolean isChineseLanguage() {
+		Locale local = Locale.getDefault();
+		return "zh".equalsIgnoreCase(local.getLanguage());
 	}
 
 	/**

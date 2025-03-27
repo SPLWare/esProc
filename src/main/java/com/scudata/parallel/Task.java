@@ -1,6 +1,5 @@
 package com.scudata.parallel;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.ide.spl.Esprocx;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.odbc.OdbcServer;
 import com.scudata.server.unit.JdbcTask;
@@ -293,7 +291,7 @@ public class Task extends Job implements IResource, ITask {
 			}
 		}
 		DatabaseUtil.connectAutoDBs(context, connectedDsNames);
-		Esprocx.loadDataSource(context);
+//		Esprocx.loadDataSource(context);
 		return context;
 	}
 

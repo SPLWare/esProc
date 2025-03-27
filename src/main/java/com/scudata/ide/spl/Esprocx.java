@@ -10,8 +10,11 @@ import java.util.StringTokenizer;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
+import com.scudata.ide.common.ConfigFile;
+import com.scudata.ide.common.DataSource;
 import com.scudata.app.common.Section;
 import com.scudata.app.common.Segment;
+import com.scudata.ide.common.XMLFile;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
@@ -27,15 +30,11 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
-import com.scudata.ide.common.DataSource;
-import com.scudata.ide.common.XMLFile;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.util.CellSetUtil;
 import com.scudata.util.DatabaseUtil;
@@ -50,7 +49,7 @@ import com.scudata.util.Variant;
 public class Esprocx {
 	static RaqsoftConfig config;
 	static Object remoteStore;
-
+	
 	public static void loadDataSource(Context ctx) throws Exception {
 		// 加载系统数据源
 		ConfigFile cf = ConfigFile.getSystemConfigFile();
@@ -75,29 +74,7 @@ public class Esprocx {
 		}
 
 	}
-
-	/**
-	 * 准备计算上下文环境
-	 * @return 上下文环境
-	 */
-	public static Context prepareEnv() {
-		Context ctx;
-		try {
-			ctx = new Context();
-			if (config != null) {
-				DatabaseUtil.connectAutoDBs(ctx, config.getAutoConnectList());
-			}
-			loadDataSource(ctx);
-		} catch (Throwable x) {
-			Logger.debug(x);
-			ctx = new Context();
-		}
-		String uuid = Esprocx.getUUID();
-		JobSpace js = JobSpaceManager.getSpace(uuid);
-		ctx.setJobSpace(js);
-
-		return ctx;
-	}
+	
 
 	/**
 	 * 从GM抄过来该方法，不要调用GM类，避免不必要的awt引用，
@@ -487,7 +464,8 @@ public class Esprocx {
 							"esProc.unsupportedfile", dfxFile));// "不支持的文件："+dfxFile);
 				}
 			} else {// 表达式
-				Context context = Esprocx.prepareEnv();
+				Context context = AppUtil.prepareEnv(config);
+				Esprocx.loadDataSource(context);
 				try {
 					String cmd;
 					if (dfxFile == null) {
@@ -609,7 +587,7 @@ class Worker extends Thread {
 	}
 
 	public void run() {
-		Context context = Esprocx.prepareEnv();
+		Context context = AppUtil.prepareEnv(null);
 		pcs.setContext(context);
 		try {
 			CellSetUtil.putArgStringValue(pcs, argArr);

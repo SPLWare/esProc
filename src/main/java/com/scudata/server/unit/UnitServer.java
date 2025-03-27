@@ -9,7 +9,6 @@ import com.scudata.app.common.Section;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.*;
 import com.scudata.dm.*;
-import com.scudata.ide.common.AppFrame;
 import com.scudata.parallel.*;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
@@ -26,7 +25,7 @@ import java.text.*;
  */
 public class UnitServer implements IServer {
 	public static UnitServer instance;
-	public static String version = AppFrame.RELEASE_DATE;
+//	public static String version = AppFrame.RELEASE_DATE;
 	
 	ServerSocket serverSocket = null;
 	UnitContext unitContext=null;
@@ -367,7 +366,7 @@ public class UnitServer implements IServer {
 	 * 运行分机，启动服务
 	 */
 	public void run(){
-		Logger.info("Release date:"+version);
+//		Logger.info("Release date:"+version);
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run1"));
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2",getHome()));
 

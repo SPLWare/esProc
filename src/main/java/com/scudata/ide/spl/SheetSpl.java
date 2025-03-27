@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.InternalFrameAdapter;
@@ -791,6 +792,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (pc != null)
 				pc.autoClean();
 		}
+		if (!isEnvPrepared) {
+			prepareStart();
+		}
 		calcCellThread = new CalcCellThread(cl);
 		calcCellThread.start();
 		if (lock)
@@ -1039,7 +1043,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
-	 * 重置环境
+	 * 重置网格环境
 	 */
 	public void reset() {
 		if (debugThread != null) {
@@ -1055,6 +1059,36 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GVSpl.tabParam.resetParamList(null, listSpaceParams(),
 				getEnvParamList());
 		GVSpl.panelSplWatch.watch(null);
+	}
+
+	/**
+	 * 重置全局环境
+	 */
+	public void resetGlobal() {
+		JInternalFrame[] sheets = ((SPL) GV.appFrame).getAllSheets();
+		if (sheets != null) {
+			for (JInternalFrame sheet : sheets) {
+				((SheetSpl) sheet).reset();
+			}
+		}
+		resetGlobalEnv();
+
+		GVSpl.tabParam.resetParamList(null, null, null);
+		GVSpl.panelSplWatch.watch(null);
+
+	}
+
+	/**
+	 * 重置全局环境
+	 */
+	protected void resetGlobalEnv() {
+		GM.doResetGlobalEnv();
+	}
+
+	public String getSpaceId() {
+		if (jobSpace == null)
+			return null;
+		return jobSpace.getID();
 	}
 
 	/**
@@ -1144,6 +1178,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 	}
 
+	protected boolean isEnvPrepared = false;
+
 	/**
 	 * 执行的准备工作
 	 * 
@@ -1151,6 +1187,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	protected boolean prepareStart() {
 		try {
+			isEnvPrepared = true;
 			preventRun();
 			reset();
 			if (!isSubSheet())
@@ -3248,8 +3285,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GCSpl.iSAVE_FTP:
 			saveFTP();
 			break;
-		case GCSpl.iRESET:
+		case GCSpl.iRESET_CELLSET:
 			reset();
+			refresh();
+			splControl.repaint();
+			break;
+		case GCSpl.iRESET_GLOBAL:
+			resetGlobal();
 			refresh();
 			splControl.repaint();
 			break;

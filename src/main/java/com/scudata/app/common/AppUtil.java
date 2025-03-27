@@ -29,6 +29,7 @@ import java.util.List;
 import sun.net.util.IPAddressUtil;
 
 import com.esproc.jdbc.JDBCConsts;
+import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
@@ -39,10 +40,13 @@ import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Types;
+import com.scudata.common.UUID;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
@@ -51,6 +55,7 @@ import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CellSetUtil;
+import com.scudata.util.DatabaseUtil;
 import com.scudata.util.Variant;
 
 /**
@@ -301,12 +306,13 @@ public class AppUtil {
 			return false;
 		if (sql.startsWith("#")) // 参数定义
 			return true;
-		final char rowSeparator = '\n';
-		if (sql.indexOf(rowSeparator) > -1)
-			return true;
-		final char colSeparator = '\t';
-		if (sql.indexOf(colSeparator) > -1)
-			return true;
+		try {
+			PgmCellSet cs = CellSetUtil.toPgmCellSet(sql);
+			if (cs.getRowCount() > 1 && cs.getColCount() > 1) {
+				return true;
+			}
+		} catch (Throwable t) {
+		}
 		if (Command.isCommand(sql)) { // 单个表达式也可能是网格表达式
 			return true;
 		}
@@ -1261,4 +1267,32 @@ public class AppUtil {
 				text.substring(index, index + len), searchType);
 		return index == i;
 	}
+
+	/**
+	 * 准备计算上下文环境
+	 * @return 上下文环境
+	 */
+	public static Context prepareEnv(RaqsoftConfig config) {
+		Context ctx;
+		try {
+			ctx = new Context();
+			if (config != null) {
+				DatabaseUtil.connectAutoDBs(ctx, config.getAutoConnectList());
+			}
+//			loadDataSource(ctx);
+		} catch (Throwable x) {
+			Logger.debug(x);
+			ctx = new Context();
+		}
+		String uuid = getUUID();
+		JobSpace js = JobSpaceManager.getSpace(uuid);
+		ctx.setJobSpace(js);
+
+		return ctx;
+	}
+
+	public static synchronized String getUUID() {
+		return UUID.randomUUID().toString();
+	}
+
 }

@@ -2,6 +2,7 @@ package com.scudata.ide.common.swing;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -48,6 +49,7 @@ import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
+import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
@@ -980,10 +982,17 @@ public class JTableEx extends JTable implements MouseListener,
 						setForeground(table.getForeground());
 						setBackground(table.getBackground());
 					}
-					if (centerAlign) {
-						if (c instanceof JLabel) {
-							JLabel text = (JLabel) c;
-							text.setHorizontalAlignment(JTextField.CENTER);
+					if (c instanceof JLabel) {
+						JLabel jLabel = (JLabel) c;
+						if (centerAlign) {
+							jLabel.setHorizontalAlignment(JTextField.CENTER);
+						}
+						Font font = jLabel.getFont();
+						if (!ControlUtilsBase.canDisplayText(font,
+								jLabel.getText())) {
+							font = new Font("Dialog", font.getStyle(),
+									font.getSize());
+							jLabel.setFont(font);
 						}
 					}
 					return c;
