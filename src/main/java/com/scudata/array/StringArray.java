@@ -1299,7 +1299,18 @@ public class StringArray implements IArray {
 		} else if (array instanceof ConstArray) {
 			return memberAdd(array.get(1));
 		} else if (array instanceof ObjectArray) {
-			return ((ObjectArray)array).memberAdd(this);
+			int size = this.size;
+			String []d1 = this.datas;
+			Object []d2 = ((ObjectArray)array).getDatas();
+			Object []resultDatas = new Object[size + 1];
+			
+			for (int i = 1; i <= size; ++i) {
+				resultDatas[i] = Variant.add(d1[i], d2[i]);
+			}
+			
+			ObjectArray result = new ObjectArray(resultDatas, size);
+			result.setTemporary(true);
+			return result;
 		} else if (array instanceof NumberArray) {
 			return memberAdd((NumberArray)array);
 		} else {
