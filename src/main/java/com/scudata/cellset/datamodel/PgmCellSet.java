@@ -21,7 +21,9 @@ import com.scudata.common.MD5;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IQueryable;
@@ -121,6 +123,9 @@ public class PgmCellSet extends CellSet {
 		public void setSeq(int n) {
 			this.seq = n;
 		}
+		
+		public void close() {
+		}
 	}
 	
 	private static class ForkCmdCode extends CmdCode {
@@ -148,10 +153,15 @@ public class PgmCellSet extends CellSet {
 
 	private static class SequenceForCmdCode extends ForCmdCode {
 		private Sequence sequence;
+		private ComputeStack stack;
+		private Current current;
 
-		public SequenceForCmdCode(int r, int c, int endRow, Sequence sequence) {
+		public SequenceForCmdCode(int r, int c, int endRow, Sequence sequence, Context ctx) {
 			super(r, c, endRow);
 			this.sequence = sequence;
+			stack = ctx.getComputeStack();
+			current = new Current(sequence);
+			stack.push(current);
 		}
 
 		public boolean hasNextValue() {
@@ -159,7 +169,13 @@ public class PgmCellSet extends CellSet {
 		}
 
 		public Object nextValue() {
-			return sequence.get(++seq);
+			++seq;
+			current.setCurrent(seq);
+			return sequence.getCurrent(seq);
+		}
+		
+		public void close() {
+			stack.pop();
 		}
 	}
 
@@ -871,6 +887,7 @@ public class PgmCellSet extends CellSet {
 					// 跳出循环
 					cell.setValue(forCmd.endValue());
 					stack.removeFirst();
+					endForCommand(forCmd);
 					setNext(cmd.blockEndRow + 1, 1, true);
 				}
 
@@ -945,8 +962,7 @@ public class PgmCellSet extends CellSet {
 							step);
 				}
 			} else if (value instanceof Sequence) {
-				cmdCode = new SequenceForCmdCode(row, col, endRow,
-						(Sequence) value);
+				cmdCode = new SequenceForCmdCode(row, col, endRow, (Sequence) value, ctx);
 			} else if (value instanceof Boolean) {
 				cell.setValue(value);
 				if (((Boolean) value).booleanValue()) {
@@ -1134,11 +1150,9 @@ public class PgmCellSet extends CellSet {
 		setNext(r, c, false);
 	}
 
-	// 重设序列的循环序号
+	// 结束for循环
 	private void endForCommand(ForCmdCode cmd) {
-		if (cmd instanceof CursorForCmdCode) {
-			((CursorForCmdCode) cmd).close();
-		}
+		cmd.close();
 	}
 
 	// 创建用于执行fork命令的网格
