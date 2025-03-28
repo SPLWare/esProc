@@ -58,6 +58,23 @@ public class DateFactory {
 	
 	public Date toDate(long date) {
 		Calendar gc = getCalendar();
+		if (date <= 99991231 && date >= 101) {
+			// 日期可以写成YYYYMMdd或yyMMdd形式的数，如果是yy形式的则以2000年为基准
+			int n = (int)date;
+			int d = n % 100;
+			int m = n / 100  % 100;
+
+			if (d <= 31 && m <= 12) {
+				int y = n / 10000;
+				if (y < 100) {
+					y += 2000;
+				}
+				
+				gc.set(y, m - 1, d, 0, 0, 0);
+				return new java.sql.Date(gc.getTimeInMillis());
+			}
+		}
+
 		gc.setTimeInMillis(date);
 		gc.set(Calendar.HOUR_OF_DAY, 0);
 		gc.set(Calendar.MINUTE, 0);

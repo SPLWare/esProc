@@ -83,13 +83,17 @@ public class ToDate extends Function {
 				} else if (result1 instanceof Number && result2 instanceof Number) {
 					// date(ym,d)	ym是6位数是解释为年月
 					int ym = ((Number)result1).intValue();
-					if (ym < 9999) {
+					if (ym < 1) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("date" + mm.getMessage("function.invalidParam"));
 					}
 					
 					int day = ((Number)result2).intValue();
 					int year = ym / 100;
+					if (year < 100) {
+						year += 2000;
+					}
+					
 					int month = ym % 100;
 					Calendar calendar = Calendar.getInstance();
 					calendar.set(year, month - 1, day, 0, 0, 0);
