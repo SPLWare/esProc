@@ -3,6 +3,7 @@ package com.scudata.expression.fn;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -22,7 +23,8 @@ public class Cum extends Function {
 	
 	private Object prevVal;
 	private Object []prevGroupVals;
-	
+	private Current prevCurrent;
+
 	public Node optimize(Context ctx) {
 		param.optimize(ctx);
 		return this;
@@ -74,6 +76,7 @@ public class Cum extends Function {
 	}
 
 	public Object calculate(Context ctx) {
+		Current current = ctx.getComputeStack().getTopCurrent();
 		if (exp == null) {
 			prepare(param, ctx);
 			
@@ -87,6 +90,17 @@ public class Cum extends Function {
 			
 			prevVal = exp.calculate(ctx);
 		} else {
+			// for循环中如果用了cum，栈顶序列可能变了
+			if (current != prevCurrent) {
+				prevVal = null;
+				if (prevGroupVals != null) {
+					int gcount = prevGroupVals.length;
+					for (int i = 0; i < gcount; ++i) {
+						prevGroupVals[i] = null;
+					}
+				}
+			}
+			
 			if (gexps == null) {
 				Object val = exp.calculate(ctx);
 				prevVal = Variant.add(prevVal, val);
@@ -116,6 +130,7 @@ public class Cum extends Function {
 			}
 		}
 		
+		prevCurrent = current;
 		return prevVal;
 	}
 }
