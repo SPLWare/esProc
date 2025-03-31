@@ -37,7 +37,10 @@ esProc can easily implement lightweight multi-data source hybrid computations, r
 
 ## Install and start
 
-For open-source users, we have not provided an automatic installation package, but rather a ZIP file. You can find the installation instructions here: https://c.esproc.com/article/1718848717817. Additionally, Eclipse users can find instructions for downloading and running the source code here: https://c.esproc.com/article/1677815008127.  
+For open-source users, we have not provided an automatic installation package, but rather a ZIP file. You can find the installation instructions here: https://c.esproc.com/article/1718848717817. 
+
+Additionally, Eclipse users can find instructions for downloading and running the source code here. Since the source code of com.scudata.ide is under the ide directory, you need to add directories under “Source” folders,For details, you can refer to: https://c.esproc.com/article/1677815008127.  
+
 For other editions, installation packages can be downloaded from https://www.esproc.com/download-esproc/. No further instructions are necessary, as the installation process is straightforward.  
 
 
