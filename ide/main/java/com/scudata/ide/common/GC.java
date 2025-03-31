@@ -4,37 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Locale;
 
+import com.scudata.common.GCBase;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
  * Global Constants
  * 
  */
-public class GC {
-	/**
-	 * Chinese
-	 */
-	public static final byte ASIAN_CHINESE = 0;
-	/**
-	 * Traditional Chinese
-	 */
-	public static final byte ASIAN_CHINESE_TRADITIONAL = 1;
-	/**
-	 * Japanese
-	 */
-	public static final byte ASIAN_JAPANESE = 2;
-	/**
-	 * Korea
-	 */
-	public static final byte ASIAN_KOREA = 3;
-	/**
-	 * English
-	 */
-	public static final byte ENGLISH = 4;
-	/**
-	 * Current language
-	 */
-	public static byte LANGUAGE = ENGLISH;
+public class GC extends GCBase {
 
 	/**
 	 * Initialize Locale
@@ -66,10 +43,6 @@ public class GC {
 		}
 	}
 
-	/**
-	 * Configuration file path
-	 */
-	public final static String PATH_CONFIG = "config";
 	/**
 	 * Logo file path
 	 */

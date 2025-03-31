@@ -6,7 +6,7 @@ import com.scudata.app.config.ConfigUtil;
  * Global Method
  *
  */
-public class GM {
+public class GMBase {
 	/**
 	 * Get the absolute path relative to start.home.
 	 * 

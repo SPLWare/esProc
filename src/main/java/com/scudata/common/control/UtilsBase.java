@@ -11,7 +11,7 @@ import com.scudata.common.StringUtils;
  * The basic tool class of the control
  *
  */
-public class ControlUtilsBase {
+public class UtilsBase {
 	/**
 	 * 记住字符的宽度，加速绘图速度
 	 */

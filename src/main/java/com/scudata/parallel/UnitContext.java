@@ -17,7 +17,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.common.ScudataLogger.FileHandler;
 import com.scudata.common.SplServerConfig;
 import com.scudata.dm.Env;
-import com.scudata.common.GM;
+import com.scudata.common.GMBase;
 import com.scudata.resources.ParallelMessage;
 
 /**
@@ -128,7 +128,7 @@ public class UnitContext {
 		InputStream inputStream = null;
 		// 只能用绝对路径下的，地方多了，都搞不清到底用的哪的
 		if (inputStream == null) {
-			String serverPath = GM.getAbsolutePath(relativePath);
+			String serverPath = GMBase.getAbsolutePath(relativePath);
 
 			File serverFile = new File(serverPath);
 			if (!serverFile.exists()) {

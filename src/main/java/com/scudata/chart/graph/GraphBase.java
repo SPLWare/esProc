@@ -26,8 +26,8 @@ import com.scudata.chart.edit.*;
 import com.scudata.chart.element.EnumAxis;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.*;
-import com.scudata.common.control.BorderStyle;
-import com.scudata.common.control.CellBorder;
+import com.scudata.common.control.BorderStyleBase;
+import com.scudata.common.control.CellBorderBase;
 import com.scudata.util.Variant;
 
 /**
@@ -377,7 +377,7 @@ public class GraphBase extends ObjectElement{
 		
 		if (pp.getBorderStyle() != IStyle.LINE_NONE && pp.getBorderWidth() > 0
 				&& pp.getBorderColor() != AppUtil.TRANSPARENT_COLOR) {
-			BorderStyle bs = new BorderStyle();
+			BorderStyleBase bs = new BorderStyleBase();
 			bs.setTBStyle(pp.getBorderStyle());
 			bs.setBBStyle(pp.getBorderStyle());
 			bs.setLBStyle(pp.getBorderStyle());
@@ -393,8 +393,8 @@ public class GraphBase extends ObjectElement{
 			bs.setLBColor(pp.getBorderColor());
 			bs.setRBColor(pp.getBorderColor());
 
-			CellBorder.setEnv(g, bs, 1, 1, 1, 1, false);
-			CellBorder.drawBorder(0, 0, w - dShadow, h - dShadow);
+			CellBorderBase.setEnv(g, bs, 1, 1, 1, 1, false);
+			CellBorderBase.drawBorder(0, 0, w - dShadow, h - dShadow);
 		}
 
 		if (w > 50 && h > 50) {

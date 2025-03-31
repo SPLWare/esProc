@@ -98,6 +98,7 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
 import com.scudata.common.DBSession;
+import com.scudata.common.GMBase;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
@@ -133,7 +134,7 @@ import com.scudata.util.Variant;
  * Global Method
  *
  */
-public class GM {
+public class GM extends GMBase{
 
 	/**
 	 * Set dock icon for Mac OS
@@ -2253,18 +2254,6 @@ public class GM {
 		}
 		return ii;
 
-	}
-
-	/**
-	 * Get the absolute path relative to start.home.
-	 * 
-	 * @param path
-	 *            Absolute path or relative path
-	 * @return Return the absolute path of path
-	 */
-	public static String getAbsolutePath(String path) {
-		String home = System.getProperty("start.home");
-		return ConfigUtil.getPath(home, path);
 	}
 
 	/**

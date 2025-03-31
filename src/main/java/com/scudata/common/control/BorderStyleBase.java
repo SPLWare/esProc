@@ -7,7 +7,7 @@ import com.scudata.cellset.IStyle;
 /**
  * Border style
  */
-public class BorderStyle {
+public class BorderStyleBase {
 	/**
 	 * Width of the left border
 	 */
@@ -62,7 +62,7 @@ public class BorderStyle {
 	/**
 	 * Constructor
 	 */
-	public BorderStyle() {
+	public BorderStyleBase() {
 	}
 
 	/**

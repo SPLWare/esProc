@@ -13,19 +13,17 @@ import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
 
 import javax.swing.JViewport;
 
-import com.scudata.app.common.StringUtils2;
 import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.IStyle;
 import com.scudata.common.Area;
 import com.scudata.common.CellLocation;
-import com.scudata.common.StringUtils;
+import com.scudata.common.control.UtilsBase;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
@@ -35,7 +33,7 @@ import com.scudata.ide.common.StringSplit;
  * The basic tool class of the control
  *
  */
-public class ControlUtilsBase {
+public class ControlUtilsBase extends UtilsBase{
 	/**
 	 * Adjust the starting row and column in the area object. So that the
 	 * starting row and column are always smaller than the ending row and
@@ -810,34 +808,6 @@ public class ControlUtilsBase {
 	}
 
 	/**
-	 * 记住字符的宽度，加速绘图速度
-	 */
-	private static HashMap<String, Integer> fmWidthBuf = new HashMap<String, Integer>();
-
-	/**
-	 * 获取字符串的显示宽度
-	 * 
-	 * @param fm
-	 *            FontMetrics
-	 * @param text
-	 *            要显示的字符串
-	 * @return 宽度
-	 */
-	public static int stringWidth(FontMetrics fm, String text) {
-		String key = fm.hashCode() + "," + text.hashCode();
-		Integer val = fmWidthBuf.get(key);
-		int width;
-		if (val == null) {
-			width = fm.stringWidth(text);
-			val = new Integer(width);
-			fmWidthBuf.put(key, val);
-		} else {
-			width = val.intValue();
-		}
-		return width;
-	}
-
-	/**
 	 * 绘制文本，处理下划线
 	 * 
 	 * @param g
@@ -1011,122 +981,12 @@ public class ControlUtilsBase {
 	}
 
 	/**
-	 * 绘制文本，处理下划线
-	 * 
-	 * @param g
-	 *            画布
-	 * @param text
-	 *            要绘制的文本
-	 * @param x
-	 *            X坐标
-	 * @param y
-	 *            Y坐标
-	 * @param w
-	 *            宽度
-	 * @param descent
-	 *            Font descent
-	 * @param underLine
-	 *            是否有下划线
-	 */
-	// private static void drawText(Graphics g, String text, int x, int y, int
-	// w,
-	// int descent, boolean underLine) {
-	// if (text == null || text.length() == 0) {
-	// return;
-	// }
-	// while (text.endsWith("\n")) {
-	// text = text.substring(0, text.length() - 1);
-	// }
-	// int stringWidth = drawString(g, text, x, y, w);
-	// if (underLine) {
-	// g.setPaintMode();
-	// g.drawLine(x, y + descent, x + stringWidth, y + descent);
-	// }
-	// }
-
-	/**
-	 * 空列表
-	 */
-	private static ArrayList<String> emptyArrayList = new ArrayList<String>();
-
-	/**
-	 * 缓存文本折行的映射表。KEY是字符串，VALUE是折行后的文本列表
-	 */
-	public static HashMap<String, ArrayList<String>> wrapStringBuffer = new HashMap<String, ArrayList<String>>();
-
-	/**
 	 * 清理文本折行缓存
 	 */
 	public static void clearWrapBuffer() {
 		wrapStringBuffer.clear();
 	}
 
-	/**
-	 * 折行
-	 * 
-	 * @param text
-	 *            要折行的文本
-	 * @param fm
-	 *            FontMetrics
-	 * @param w
-	 *            宽度
-	 * @return
-	 */
-	public static ArrayList<String> wrapString(String text, FontMetrics fm,
-			int w) {
-		return wrapString(text, fm, w, -1);
-	}
-
-	/**
-	 * 折行
-	 * 
-	 * @param text
-	 *            要折行的文本
-	 * @param fm
-	 *            FontMetrics
-	 * @param w
-	 *            宽度
-	 * @param maxRow
-	 *            最大行数(超过此行数的就不要了)
-	 * @return
-	 */
-	public static ArrayList<String> wrapString(String text, FontMetrics fm,
-			int w, int maxRow) {
-		if (!StringUtils.isValidString(text) || w < 1) {
-			return emptyArrayList;
-		}
-		boolean isExp = text != null && text.startsWith("=");
-		String hashKey = text.hashCode() + "" + fm.hashCode() + w + maxRow;
-		ArrayList<String> wrapedString = wrapStringBuffer.get(hashKey);
-		if (wrapedString == null) {
-			if (isExp) {
-				wrapedString = StringUtils2.wrapExpString(text, fm, w, false,
-						maxRow);
-			} else {
-				// String \n do not break lines, only line breaks char is
-				// allowed
-				// text = StringUtils.replace(text, "\\n", "\n");
-				text = StringUtils.replace(text, "\t", "        ");
-
-				if (text.indexOf('\n') < 0 && stringWidth(fm, text) < w) {
-					wrapedString = new ArrayList<String>();
-					wrapedString.add(text);
-					if (maxRow > 0 && wrapedString.size() > maxRow) {
-						wrapStringBuffer.put(hashKey, wrapedString);
-						return wrapedString;
-					}
-				} else {
-					// 在jdk6，New Times Roman字体使用LineBreakMeasurer出现jvm退出异常。
-					// 搞不清楚最早是什么时候使用的LineBreakMeasurer，暂时替换成报表的折行方法。wunan
-					// 2018-05-29
-					wrapedString = StringUtils2.wrapString(text, fm, w, false,
-							maxRow);
-				}
-			}
-			wrapStringBuffer.put(hashKey, wrapedString);
-		}
-		return wrapedString;
-	}
 
 	/**
 	 * 

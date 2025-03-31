@@ -15,7 +15,7 @@ import com.scudata.common.Area;
  * Cell Border
  *
  */
-public class CellBorder {
+public class CellBorderBase {
 	/**
 	 * The direction of the cell border
 	 */
@@ -73,7 +73,7 @@ public class CellBorder {
 	/**
 	 * BorderStyle object
 	 */
-	private static BorderStyle borderStyle;
+	private static BorderStyleBase borderStyle;
 
 	/**
 	 * Cell border constructor
@@ -92,7 +92,7 @@ public class CellBorder {
 	 * @param isEdit
 	 *            Is editing
 	 */
-	public static void setEnv(Graphics graphics, BorderStyle bs, int r, int c,
+	public static void setEnv(Graphics graphics, BorderStyleBase bs, int r, int c,
 			int rc, int cc, boolean isEdit) {
 		g = graphics;
 		borderStyle = bs;

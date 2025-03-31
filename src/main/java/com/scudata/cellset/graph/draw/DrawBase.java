@@ -593,7 +593,7 @@ public abstract class DrawBase implements IGraph {
 		int wrapWidth = textWidth + 2; //折行算法要去掉两个可能是边线的点，我这不用去，多给两点
 		// 折行算法减掉了wrapInchingWidth,这里不用减，得补回来
 
-		ArrayList al = ControlUtilsBase.wrapString(stmp,
+		ArrayList al = UtilsBase.wrapString(stmp,
 				g.getFontMetrics(gp.GFV_LEGEND.font), wrapWidth);
 		for (int i = 0; i < al.size(); i++) {
 			String sectText = (String) al.get(i);
@@ -632,7 +632,7 @@ public abstract class DrawBase implements IGraph {
 		}
 		if (TR.getWidth() > limitWidth) {
 			FontMetrics fm = g.getFontMetrics(gp.GFV_LEGEND.font);
-			ArrayList al = ControlUtilsBase.wrapString(text, fm, limitWidth);
+			ArrayList al = UtilsBase.wrapString(text, fm, limitWidth);
 			TR.setBounds(0, 0, limitWidth, (int) (al.size() * TR.getHeight()));
 		}
 		return TR;
@@ -2582,7 +2582,7 @@ public abstract class DrawBase implements IGraph {
 		}
 		gp.minValue = 0;
 
-		boolean isChinese = GC.LANGUAGE == GC.ASIAN_CHINESE;
+		boolean isChinese = GCBase.LANGUAGE == GCBase.ASIAN_CHINESE;
 		if (isChinese) {
 			if (gp.scaleMark == IGraphProperty.UNIT_AUTO && gp.coorScale != 1) {
 				if (gp.coorScale > 1000) {

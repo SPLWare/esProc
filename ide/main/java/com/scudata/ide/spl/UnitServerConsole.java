@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -131,16 +130,18 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		isServerStarting = starting;
 	}
 
-	private boolean isEE() {
-		try {
-			Class clz = Class.forName("com.scudata.ide.spl.EsprocsEE");
-			Method m = clz.getMethod("isQLoaded", null);
-			return ((Boolean)m.invoke(clz, null)).booleanValue();
-		}catch(Exception x) {
-			return false;
-		}
+	private int indexBase() {
+		if(isEE()) return 0;
+		return 1;
+	}
+	
+	boolean isEE() {
+		return false;
 	}
 
+	UnitServer getUnitServerInstance(String host, int port) throws Exception{
+		return null;
+	}
 	/**
 	 * 初始化界面语言
 	 */
@@ -180,10 +181,6 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		refreshUI();
 		publicConsole = generateConsole();
 		autoStart();
-		if(isEE()) {
-			currentTA.setForeground(Color.CYAN);
-			Logger.info("        <<   Enterprise Edition   >>");
-		}
 		setSize(800, 600);
 		GM.setDialogDefaultButton(this, jBQuit, jBQuit);
 	}
@@ -228,7 +225,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 				if (httpServer.isAutoStart()) {
 					doStart();
 				}
-				tabServer.setSelectedIndex(2);
+				tabServer.setSelectedIndex(2-indexBase());
 			}
 		} catch (Exception e) {
 		}
@@ -237,12 +234,14 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 			while (isServerStarting) {
 				Thread.yield();
 			}
-			unitServer = UnitServer.getInstance(specifyHost, specifyPort);
-			if(nb) {
-				if (unitServer.isAutoStart()) {
-					doStart();
+			if(isEE()) {
+				unitServer = getUnitServerInstance(specifyHost, specifyPort);
+				if(nb) {
+					if (unitServer.isAutoStart()) {
+						doStart();
+					}
+					tabServer.setSelectedIndex(indexBase());
 				}
-				tabServer.setSelectedIndex(0);
 			}
 		} catch (Exception e) {
 		}
@@ -256,13 +255,16 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 				if (odbcServer.isAutoStart()) {
 					doStart();
 				}
-				tabServer.setSelectedIndex(1);
+				tabServer.setSelectedIndex(1-indexBase());
 			}
 		} catch (Exception e) {
 		}
-		tabServer.setEnabledAt(0, nb);
-		tabServer.setEnabledAt(1, ob);
-		tabServer.setEnabledAt(2, hb);
+		if(isEE()) {
+			tabServer.setEnabledAt(indexBase(), nb);
+			
+		}
+		tabServer.setEnabledAt(1-indexBase(), ob);
+		tabServer.setEnabledAt(2-indexBase(), hb);
 		boolean b = nb || ob || hb;
 		jBStart.setEnabled(b);
 	}
@@ -284,12 +286,14 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		HTTPSERVER = ParallelMessage.get().getMessage(
 				"UnitServerConsole.HttpServer");
 
-		tabServer.setTitleAt(0, UNITSERVER);
-		tabServer.setToolTipTextAt(0, UNITSERVER);
-		tabServer.setTitleAt(1, ODBCSERVER);
-		tabServer.setToolTipTextAt(1, ODBCSERVER);
-		tabServer.setTitleAt(2, HTTPSERVER);
-		tabServer.setToolTipTextAt(2, HTTPSERVER);
+		if(isEE()) {
+			tabServer.setTitleAt(indexBase(), UNITSERVER);
+			tabServer.setToolTipTextAt(indexBase(), UNITSERVER);
+		}
+		tabServer.setTitleAt(1-indexBase(), ODBCSERVER);
+		tabServer.setToolTipTextAt(1-indexBase(), ODBCSERVER);
+		tabServer.setTitleAt(2-indexBase(), HTTPSERVER);
+		tabServer.setToolTipTextAt(2-indexBase(), HTTPSERVER);
 		setTitle(UNITSERVER);
 		
 		jBStart.setText(ParallelMessage.get().getMessage(
@@ -407,7 +411,11 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		doStop();
 		return true;
 	}
-
+	
+	private int getSelectedIndex() {
+		int index = tabServer.getSelectedIndex()+indexBase();
+		return index;
+	}
 	/**
 	 * 按钮触发启动服务器
 	 * 
@@ -423,12 +431,12 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 			return false;
 		}
 
-		int index = tabServer.getSelectedIndex();
+		int index = getSelectedIndex();
 		enableStart(false);// 防止重复触发
 		switch (index) {
 		case 0:
 			try {
-				unitServer = UnitServer.getInstance(specifyHost, specifyPort);
+				unitServer = getUnitServerInstance(specifyHost, specifyPort);
 				unitServer.setRaqsoftConfig(rc);
 			} catch (Exception x) {
 				enableStart(true);
@@ -472,7 +480,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 
 		String status = isLive ? "[" + atPort + "] " : "";
 		String title, tabTitle;
-		int index = tabServer.getSelectedIndex();
+		int index = getSelectedIndex();
 		if (isLive) {
 			tabTitle = currentServerName.substring(0, 6) + status;
 			title = currentServerName.substring(0, 6) + currentServer.getHost();
@@ -480,8 +488,8 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 			tabTitle = currentServerName;
 			title = tabTitle;
 		}
-		tabServer.setTitleAt(index, tabTitle);
-		tabServer.setToolTipTextAt(index, title);
+		tabServer.setTitleAt(index-indexBase(), tabTitle);
+		tabServer.setToolTipTextAt(index-indexBase(), title);
 		setTitle(title);
 		refreshUI();
 	}
@@ -501,9 +509,11 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 	}
 
 	private void refreshUI() {
-		tabServer.setForegroundAt(0, getStatusColor(unitServer));
-		tabServer.setForegroundAt(1, getStatusColor(odbcServer));
-		tabServer.setForegroundAt(2, getStatusColor(httpServer));
+		if(isEE()) {
+			tabServer.setForegroundAt(indexBase(), getStatusColor(unitServer));
+		}
+		tabServer.setForegroundAt(1-indexBase(), getStatusColor(odbcServer));
+		tabServer.setForegroundAt(2-indexBase(), getStatusColor(httpServer));
 		
 		boolean isAllStoped = true;
 		if (isServerRunning(unitServer)) {
@@ -776,18 +786,20 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 		panelUnit.setLayout(new BorderLayout());
 		panelOdbc.setLayout(new BorderLayout());
 		panelHttp.setLayout(new BorderLayout());
-		tabServer.addTab(UNITSERVER, panelUnit);
-		tabServer.setToolTipTextAt(0, UNITSERVER);
+		if( isEE() ) {
+			tabServer.addTab(UNITSERVER, panelUnit);
+			tabServer.setToolTipTextAt(indexBase(), UNITSERVER);
+		}
 
 		tabServer.addTab(ODBCSERVER, panelOdbc);
-		tabServer.setToolTipTextAt(1, ODBCSERVER);
+		tabServer.setToolTipTextAt(1-indexBase(), ODBCSERVER);
 
 		tabServer.addTab(HTTPSERVER, panelHttp);
-		tabServer.setToolTipTextAt(2, HTTPSERVER);
+		tabServer.setToolTipTextAt(2-indexBase(), HTTPSERVER);
 
 		tabServer.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				int index = tabServer.getSelectedIndex();
+				int index = getSelectedIndex();
 				if (index == 0) {
 					currentServer = unitServer;
 					currentServerName = UNITSERVER;
@@ -801,7 +813,7 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 					currentServerName = HTTPSERVER;
 					panelHttp.add(publicConsole, BorderLayout.CENTER);
 				}
-				setTitle(tabServer.getToolTipTextAt(index));
+				setTitle(tabServer.getToolTipTextAt(index-indexBase()));
 				resetButtons();
 			}
 		});
@@ -826,18 +838,18 @@ public class UnitServerConsole extends AppFrame implements StartUnitListener {
 
 	private void editConfig() {
 		try {
-			int index = tabServer.getSelectedIndex();
+			int index = getSelectedIndex();
 			if (index == 0) {
 				DialogUnitConfig duc = new DialogUnitConfig(this,
 						tabServer.getTitleAt(0));
 				duc.setVisible(true);
 			} else if (index == 1) {
 				DialogOdbcConfig djc = new DialogOdbcConfig(this,
-						tabServer.getTitleAt(1));
+						tabServer.getTitleAt(1-indexBase()));
 				djc.setVisible(true);
 			} else {
 				DialogInputPort dip = new DialogInputPort(this,
-						tabServer.getTitleAt(2));
+						tabServer.getTitleAt(2-indexBase()));
 				dip.setVisible(true);
 			}
 		} catch (Throwable x) {
