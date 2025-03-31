@@ -20,7 +20,7 @@ To create a custom installation package, compile the source code as a jar file a
 
 Start the program directly through the startup class when source code development mode is used. Here are the commonly used startup classes:
 
-####Start IDE designer
+#### Start IDE designer
 
 Startup class: com.scudata.ide.spl.SPL
 
@@ -28,14 +28,14 @@ In SPL.java window, click [Run] to start the designer interface:
  ![image](https://www.esproc.com/wp-content/themes/scudata-en/github_esproc_img/bin-readme1.png)
 
 
-####Use the command line tool
+#### Use the command line tool
 
 Startup class: com.scudata.ide.spl.Esprocx
 
 Configure [Program arguments] and [VM arguments] under [Debug Configurations]. Find more rules about command lines in [Tutorial - Command Line](https://doc.esproc.com/esproc/tutorial/minglinghang.html).
  ![image](https://www.esproc.com/wp-content/themes/scudata-en/github_esproc_img/bin-readme2.png) 
 
-####Start HTTP/ODBC service
+#### Start HTTP/ODBC service
 
 Startup class: com.scudata.ide.spl.ServerConsole
 
