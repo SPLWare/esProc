@@ -239,41 +239,7 @@
 			<build>
 				<resources>
 					<resource>
-						<directory>src/main/java</directory>
-						<includes>
-							<include>**/*.java</include>
-						</includes>
-						<filtering>false</filtering>
-					</resource>
-					<resource>
 						<directory>src/main/resources</directory>
-						<includes>
-							<include>**/*.txt</include>
-							<include>**/*.xml</include>
-							<include>**/*.properties</include>
-							<include>**/*.gif</include>
-							<include>**/*.png</include>
-							<include>**/*.jpg</include>
-						</includes>
-						<filtering>false</filtering>
-					</resource>
-					<resource>
-						<directory>ide/main/java</directory>
-						<includes>
-							<include>**/*.java</include>
-						</includes>
-						<filtering>false</filtering>
-					</resource>
-					<resource>
-						<directory>ide/main/resources</directory>
-						<includes>
-							<include>**/*.txt</include>
-							<include>**/*.xml</include>
-							<include>**/*.properties</include>
-							<include>**/*.gif</include>
-							<include>**/*.png</include>
-							<include>**/*.jpg</include>
-						</includes>
 						<filtering>false</filtering>
 					</resource>
 					<resource>
@@ -290,6 +256,41 @@
 					</resource>
 				</resources>
 				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>3.3.0</version>
+						<executions>
+							<!-- 添加源码目录 -->
+							<execution>
+								<id>add-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>ide/main/java</source>
+									</sources>
+								</configuration>
+							</execution>
+							<!-- 添加资源目录 -->
+							<execution>
+								<id>add-resource</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-resource</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>ide/main/resources</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
