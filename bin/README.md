@@ -44,8 +44,12 @@ Configure [VM arguments] under [Debug Configurations]:
 Click [Debug] to pop up the HTTP/ODBC service interface.
 
 Configure options in [Program arguments] - [Program arguments] to start the non-GUI service:
+
 -o, for starting non-GUI ODBC service;
+
 -h, for starting non-GUI HTTP service;
+
 -a, for starting non-GUI ODBC and HTTP services;
+
 -x, for closing non-GUI ODBC and HTTP services.
 
