@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URL;
@@ -16,6 +17,9 @@ import java.util.Locale;
 
 import javax.swing.UIManager;
 
+import org.w3c.dom.Document;
+
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
@@ -35,14 +39,14 @@ import com.scudata.server.unit.ShutdownUnitServer;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * 该类用于启动或停止各种服务，选项[a,x]只能有一项，其他可以组合，带选项的都是
- * 启动非图形控制台 一个选项也没有时则是启动服务控制台程序
+ * 该类用于启动或停止各种服务，选项[a,x]只能有一项，其他可以组合，带选项的都是
+ * 启动非图形控制台 一个选项也没有时则是启动服务控制台程序
  * UnitServerConsole //java ServerConsole -a 
- * -p[ip:port] 启动节点主进程 ，省略ip:port时，自动顺序寻找一个没被占用的配置；
+ * -p[ip:port] 启动节点主进程 ，省略ip:port时，自动顺序寻找一个没被占用的配置；
  * -o启动odbc 
  * -h 启动http 
- * -x[ip:port] 停止指定服务器，省略ip:port，停止本地所有服务
- * -a 启动所有服务
+ * -x[ip:port] 停止指定服务器，省略ip:port，停止本地所有服务
+ * -a 启动所有服务
  */
 public class ServerConsole {
 	private static ArrayList<Object> runningServers = new ArrayList<Object>();
@@ -53,7 +57,7 @@ public class ServerConsole {
 	/**
 	 * 节点机文件默认为config目录下；先找类路径，然后找start.home下的绝对路径
 	 * 
-	 * @param configFile 配置文件名
+	 * @param configFile 配置文件名
 	 * @throws Exception
 	 * @return InputStream 对应的输入流
 	 */
@@ -63,7 +67,7 @@ public class ServerConsole {
 
 	/**
 	 * 返回列表中的服务器是否有正在运行的服务器
-	 * @param servers 服务器列表
+	 * @param servers 服务器列表
 	 * @return 只要存在运行的服务器就返回true，否则返回false
 	 */
 	public static boolean isRunning(List<IServer> servers) {
@@ -149,7 +153,7 @@ public class ServerConsole {
 	}
 	
 	/**
-	 * 集成用的判断服务器是否已经运行
+	 * 集成用的判断服务器是否已经运行
 	 * @return 运行中返回true，否则返回false
 	 */
 	public static boolean isUnitServerRunning(){
@@ -160,7 +164,7 @@ public class ServerConsole {
 	}
 	
 	/**
-	 * 集成用，关停服务器
+	 * 集成用，关停服务器
 	 * @throws Exception
 	 */
 	public static void stopUnitServer() throws Exception{
@@ -181,6 +185,31 @@ public class ServerConsole {
 		}
 	}
 
+	protected static String unitServerName=null;
+	protected static String unitServerConsoleName="com.scudata.ide.spl.UnitServerConsole";
+	
+	static UnitServer getUnitServerInstance(String host, int port, String cfgPath) throws Exception{
+		if(unitServerName==null) {
+			throw new Exception("Current version does not support Node Server");
+		}
+		Object[] args;
+		Class[] argTypes;
+		if(cfgPath==null) {
+			args = new Object[] { host,port };
+			argTypes=new Class[] { String.class,int.class };
+		}else {
+			args = new Object[] { host,port,cfgPath };
+			argTypes=new Class[] { String.class,int.class,String.class };
+		}
+		return (UnitServer)AppUtil.invokeStaticMethod(unitServerName,"getInstance",
+				args,argTypes);
+	}
+	static UnitServerConsole getUnitServerConsoleInstance(String host, int port) throws Exception{
+		Class cls = Class.forName(unitServerConsoleName);
+		Constructor con = cls.getConstructor(new Class[] { String.class,int.class });
+		Object usc = con.newInstance(new Object[] { null,0 });
+		return (UnitServerConsole)usc;
+	}
 	/**
 	 * 服务器控制台入口函数
 	 * @param args 执行参数
@@ -190,7 +219,6 @@ public class ServerConsole {
 				+ "当指定了某种选项用于启动相应服务时，都是启动非图形环境下的该类服务。\r\n"
 				+ "也可以不带任何选项，表示启动服务控制台程序[图形窗口控制台]。\r\n"
 				+ "如下所有选项除了 -a , -x 不能同时出现，其他选项都可以组合。\r\n\r\n"
-				+ "-p[ip:port]	启动分机 ，当省略ip:port时，自动顺序寻找一个没被占用的分机配置。\r\n"
 				+ "-c port cfg	使用配置cfg启动或停止分机 ，当省略cfg时，则停止分机。\r\n"
 				+ "-o	启动 ODBC 服务。\r\n"
 				+ "-h	启动 HTTP 服务。\r\n"
@@ -198,7 +226,6 @@ public class ServerConsole {
 				+ "-a	启动所有服务。\r\n"
 				+ "-?	或者错误选项时，打印当前帮助信息。\r\n\r\n"
 				+ " 示例：ServerConsole.sh -a  启动全部服务,相当于 ServerConsole.sh -p -o -h\r\n\r\n"
-				+ " 示例：ServerConsole.sh -p 127.0.0.1:8281  启动指定ip分机\r\n\r\n"
 				+ " 示例：ServerConsole.sh -o  仅启动odbc服务\r\n\r\n"
 		;
 		
@@ -206,7 +233,6 @@ public class ServerConsole {
 				+ "When an option is specified to start the corresponding service, it starts the service in a non-GUI environment.\r\n"
 				+ "When no option is specified, start the service console [graphics console].\r\n"
 				+ "In the following options, any options can work together except for -a and -x.\r\n\r\n"
-				+ "-p[ip:port]	Start a node; wehn ip:port are absent, automatically find an idle node.\r\n"
 				+ "-c port cfg	Use configuration cfg to start or stop a node; when cfg is absent, just stop the node.\r\n"
 				+ "-o	Start ODBC service.\r\n"
 				+ "-h	Start HTTP service.\r\n"
@@ -214,7 +240,6 @@ public class ServerConsole {
 				+ "-a	Start all services.\r\n"
 				+ "-?	Or print the current help information when the error option is present. \r\n\r\n"
 				+ " Example：ServerConsole.sh -a  Start all services, which is equivalent to ServerConsole.sh -p -o -h\r\n\r\n"
-				+ " Example：ServerConsole.sh -p 127.0.0.1:8281  Start a node with specified ip.\r\n\r\n"
 				+ " Example：ServerConsole.sh -o  Start odbc service only.\r\n\r\n";
 		String lang = Locale.getDefault().toString();
 		if(lang.equalsIgnoreCase("en")){
@@ -230,8 +255,8 @@ public class ServerConsole {
 		if (args.length == 1) { //
 			arg = args[0].trim();
 			if (arg.trim().indexOf(" ") > 0) {
-				if (arg.charAt(1) != ':') {// 绝对路径的文件名总是 [盘符]:开头
-					// 如果参数仅仅为一个文件名时，不要做参数转换，当文件名包含空格时，就错了 xq 2017年5月23日
+				if (arg.charAt(1) != ':') {// 绝对路径的文件名总是 [盘符]:开头
+					// 如果参数仅仅为一个文件名时，不要做参数转换，当文件名包含空格时，就错了 xq 2017年5月23日
 					Section st = new Section(arg, ' ');
 					args = st.toStringArray();
 				}
@@ -345,7 +370,7 @@ public class ServerConsole {
 					}
 					break;
 				}
-				//不是上面任何一种选项时
+				//不是上面任何一种选项时
 				printHelp = true;
 			}
 		}
@@ -365,7 +390,7 @@ public class ServerConsole {
 		if (isS) {
 			try {
 				RaqsoftConfig rc = loadRaqsoftConfig();
-				UnitServer server = UnitServer.getInstance(host, port);
+				UnitServer server = getUnitServerInstance(host, port, null);
 				runningServers.add(server);
 				server.setRaqsoftConfig(rc);
 				server.run();
@@ -377,7 +402,7 @@ public class ServerConsole {
 
 		if (isC) {
 			try {
-				UnitServer server = UnitServer.getInstance(host, port, cfgPath);
+				UnitServer server = getUnitServerInstance(host, port, cfgPath);
 				runningServers.add(server);
 				server.run();
 			} catch (Exception x) {
@@ -437,9 +462,13 @@ public class ServerConsole {
 		/***************************** 启动图形控制台 ******************************/
 		if (!isP && !isO && !isH) {
 			setDefaultLNF();
-			UnitServerConsole usc = new UnitServerConsole(null, 0);
-			runningServers.add(usc);
-			usc.setVisible(true);
+			try {
+				UnitServerConsole usc = getUnitServerConsoleInstance(null, 0);
+				runningServers.add(usc);
+				usc.setVisible(true);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 
@@ -450,7 +479,7 @@ public class ServerConsole {
 		// 启动分机
 		if (isP) {
 			try {
-				UnitServer server = UnitServer.getInstance(host, port);
+				UnitServer server = getUnitServerInstance(host, port,null);
 				runningServers.add(server);
 				server.setRaqsoftConfig(rc);
 				tp = new Thread(server);
